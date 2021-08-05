@@ -4,6 +4,7 @@
   <ion-slides pager="ios" class="slide-full" >
     <ion-slide *ngFor="let slide of slides">
     <ion-card mode="ios">
+      <img [src]="slide.img" class="slide-image" alt="">
       <ion-card-header>
         <ion-card-subtitle>{{slide.titulo}}</ion-card-subtitle>
       

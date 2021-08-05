@@ -6,21 +6,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./about.page.scss'],
 })
 export class AboutPage implements OnInit {
-  slides: { titulo: string; desc: string }[] = [
-    { titulo: 'Unete a un equipo',
-      desc: 'Solo o acompañado?'
+  slides: { img: string; titulo: string; desc: string }[] = [
+    {
+      img: '/assets/slides/football-field.svg',
+      titulo: '¿Te gustaria disfrutar de un buen partido?',
+      desc: 'Ven y disfruta de nuestras canchas de futbol 5'
     },
     {
-titulo: 'Escucha Música',
-      desc: 'Toda tu música favorita está aquí'
+      img: '/assets/slides/lineup.svg',
+      titulo: '¿No tienes un equipo?',
+      desc: 'No te preocupes!. Podras unirte a alguno de nuestros clubes con solo enviar una solicitud'
+    },
+    {  img: '/assets/slides/strategy.svg',
+      titulo: '¿Te gustaria crear un club?',
+      desc: 'Podras dirigir tu propio club y invitar a tu equipo'
     },
     {
-      titulo: 'Nunca olvides nada',
-      desc: 'El mejor calendario del mundo a tu disposición'
+      img: '/assets/slides/cup.svg',
+      titulo: '¿Te gustan los retos?',
+      desc: 'No te preocupes si no tienes contra quien jugar, podras enviar solicitudes de retos a nuestros clubes disponibles'
     },
     {
-      titulo: 'Tu ubicación',
-      desc: 'Siempre sabremos donde estás!'
+      img: '/assets/slides/scoreboard.svg',
+      titulo: 'Resultados del partido',
+      desc: 'Podras en tiempo real actualizar los resultados de tu equipo'
     }
   ];
 
