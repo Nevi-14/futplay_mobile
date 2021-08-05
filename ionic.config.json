@@ -1,0 +1,7 @@
+{
+  "name": "FUTPLAY",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
