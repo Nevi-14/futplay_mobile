@@ -1,25 +1,135 @@
 <ion-content>
+
   
   <ion-grid >
     <ion-row style="display: flex;" class="ion-justify-content-center" >
       <ion-col size="12" size-md="10" >
+        <h4> Perfil Administrador Club</h4>
+        
+<ion-card mode="ios">
+  <ion-card-header>
+    <ion-card-subtitle>Nombre Club</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content style="display: flex; font-size: 18px;">
+    <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" style=" border-radius: 50%;" height="100" width="100px">
+    <ul style="list-style: none;">
+      <li><a href="#" style="text-decoration: none;">Jugadores <ion-icon name="download-outline"></ion-icon></a>
+        <a href="#" style="text-decoration: none;"><ion-icon name="share-social-outline"></ion-icon></a></li>
+
+      <li>
+        <ul style="list-style: none;">
+          <li>
+            <a href="#">       <img style="margin:4px" src="/assets/home/angel.svg" alt="" height="20">
+              <ion-icon name="star-sharp"></ion-icon>
+              <ion-icon name="star-sharp"></ion-icon>
+              <ion-icon name="star-sharp"></ion-icon>
+              <a href="#" style="margin: 2px;"><ion-icon name="chatbox-sharp"></ion-icon></a>
+   
+              <a href="#" style="margin: 2px;"><ion-icon name="save-sharp"></ion-icon></a>
+            
+            </a>
+          </li>
+          <li>
+            <a href="#">       <img style="margin:4px" src="/assets/home/happy.svg" alt="" height="20"> 
+ 
+              <ion-icon name="star-sharp"></ion-icon>
+              <ion-icon name="star-sharp"></ion-icon>
+              <ion-icon name="star-outline"></ion-icon>
+   
+            <a href="#" style="margin: 2px;"><ion-icon name="chatbox-sharp"></ion-icon></a>
+   
+            <a href="#" style="margin: 2px;"><ion-icon name="save-sharp"></ion-icon></a>
+  
+            </a>
+          </li>
+          <li>
+            <a href="#">       <img style="margin:4px" src="/assets/home/sad.svg" alt="" height="20"> 
+              <ion-icon name="star-sharp"></ion-icon>
+              <ion-icon name="star-outline"></ion-icon>
+              <ion-icon name="star-outline"></ion-icon>
+              <a href="#" style="margin: 2px;"><ion-icon name="chatbox-sharp"></ion-icon></a>
+   
+              <a href="#" style="margin: 2px;"><ion-icon name="save-sharp"></ion-icon></a>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </ion-card-content>
+
+  <ion-card-content >
+    <h3 class="ion-text-center">Lista de Jugadores</h3>
+<ion-list>
+  <ion-item>
+    <ion-icon name="football" slot="start" color="dark"></ion-icon>
+    <a href="#" style="text-decoration: none;">Nelson Morera <a href="#"><ion-icon name="trash-sharp"></ion-icon></a></a>
+    
+  </ion-item>
+  <ion-item>
+    <ion-icon name="football" slot="start" color="dark"></ion-icon>
+    <a href="#" style="text-decoration: none;">Luis Enrique <a href="#"><ion-icon name="trash-sharp"></ion-icon></a></a>
+    
+  </ion-item>
+  <ion-item>
+    <ion-icon name="football" slot="start" color="dark"></ion-icon>
+    <a href="#" style="text-decoration: none;">Martino Patiño <a href="#"><ion-icon name="trash-sharp"></ion-icon></a></a>
+    
+  </ion-item>
+</ion-list>
+  </ion-card-content>
+
+  
+</ion-card>
+<h4>Perfil Regular</h4>
+
 <ion-card mode="ios">
   <ion-card-header>
     <ion-card-subtitle>Nombre Apellido</ion-card-subtitle>
   </ion-card-header>
+  
 
   <ion-card-content style="display: flex; font-size: 18px;">
     <img src="https://images.unsplash.com/photo-1511886929837-354d827aae26?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" style=" border-radius: 50%;" height="100" width="100px">
     <ul style="list-style: none;">
-      <li><a href="#" style="text-decoration: none;">Apodo</a></li>
-      <li><a href="#" style="text-decoration: none;">Region</a></li>
-      <li><a href="#" style="text-decoration: none;">Posicion</a></li>
-      <li><a href="#" style="text-decoration: none;">Edad</a></li>
+      <li><a href="#" style="text-decoration: none;">Apodo : DevCoding</a></li>
+      <li><a href="#" style="text-decoration: none;">Region : Heredia, Santo Domingo</a></li>
+      <li><a href="#" style="text-decoration: none;">Posicion : Delantero</a></li>
+      <li><a href="#" style="text-decoration: none;">Edad : 24</a></li>
+      <li><a href="#" style="text-decoration: none;">
+        Calificación :
+        <ion-icon name="star" *ngFor=" let items of [1,1,1,1,1]"></ion-icon>
+      
+      </a></li>
     </ul>
   </ion-card-content>
+  <ion-card-content >
+    <h3 class="ion-text-center">Historial Partidos</h3>
+<ion-list>
+  <ion-item>
+    <ion-icon name="football" slot="start" color="dark"></ion-icon>
+    <a href="#" style="text-decoration: none;">CR VS PANAMA - RESULTADO 2 - 0</a>
+    
+  </ion-item>
+  <ion-item>
+    <ion-icon name="football" slot="start" color="dark"></ion-icon>
+    <a href="#" style="text-decoration: none;">CR VS ALEMANIA - RESULTADO 1 - 1</a>
+    
+  </ion-item>
+  <ion-item>
+    <ion-icon name="football" slot="start" color="dark"></ion-icon>
+    <a href="#" style="text-decoration: none;">CR VS ARGENTINA  - RESULTADO 1 - 0</a>
+    
+  </ion-item>
+</ion-list>
+  </ion-card-content>
 </ion-card>
+
+
+
       </ion-col>
      
     </ion-row>
   </ion-grid>
 </ion-content>
+
