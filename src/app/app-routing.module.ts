@@ -36,7 +36,22 @@ const routes: Routes = [
     path: 'reservations',
     loadChildren: () => import('./pages/reservations/reservations.module').then( m => m.ReservationsPageModule)
   },
- 
+  {
+    path: 'transferencias',
+    loadChildren: () => import('./transferencias/transferencias.module').then( m => m.TransferenciasPageModule)
+  },
+  {
+    path: 'create-club',
+    loadChildren: () => import('./create-club/create-club.module').then( m => m.CreateClubPageModule)
+  },
+  {
+    path: 'join-club',
+    loadChildren: () => import('./join-club/join-club.module').then( m => m.JoinClubPageModule)
+  },
+  {
+    path: 'club-info',
+    loadChildren: () => import('./club-info/club-info.module').then( m => m.ClubInfoPageModule)
+  },
 ];
 
 @NgModule({
@@ -46,3 +61,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

@@ -1,0 +1,23 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title class="ion-text-left">Lista de Transferencias</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()" fill="solid" shape="round"  color="primary" slot="end" >
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <!-- Default Searchbar -->
+<ion-searchbar mode="ios" placeholder="Buscar jugador" inputmode="text" (ionChange)="onSearchChange($event)" debounce="250" ></ion-searchbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="none">
+    <ion-item *ngFor="let player of [1,1,1]; let i = index">
+      <ion-checkbox slot="start" ></ion-checkbox>
+        <ion-label>Jugador {{i+1}}</ion-label>
+        <ion-checkbox slot="end" ></ion-checkbox>
+    </ion-item>
+
+</ion-list>
+</ion-content>

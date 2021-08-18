@@ -1,0 +1,96 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/clubs" text="regresar" mode="ios"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Perfil Club</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+
+  <ion-grid>
+      <ion-row style="display: grid;">
+          <ion-col size="12" size-md="12" size-lg="6" style="margin: 0 auto;">
+
+              <ion-card style="box-shadow: none;">
+
+                  <ion-card-content>
+                      <ion-row>
+                          <ion-col size="4" size-md="6" size-lg="4" style="display: grid; place-content: center;" >
+
+                    <ion-buttons  style="margin: 0 auto; border: 1px solid black; border-radius: 50%; display: grid; place-content: center; height: 80px; width: 80px;">
+                      <ion-button (click)="onClick()">
+                        <ion-icon  name="add"  size="large"></ion-icon>
+                       
+                      </ion-button>
+                    </ion-buttons>
+                          </ion-col>
+                          <ion-col size="8" size-md="6" size-lg="8">
+                              <ion-list lines="none">
+                                  <ion-item>
+                                      <ion-label>Nombre del club</ion-label>
+                                  </ion-item>
+                                  <ion-item>
+                                    <ion-label >Abreviación (ABC)</ion-label>                         
+                                  </ion-item>
+                                  <ion-item>
+                                    <ion-label >Región (Distrito, P)</ion-label>
+                                  </ion-item>
+                                  <ion-item>
+                                      <ion-label>(Ganes, Perdidos, Empates)</ion-label>
+                                  </ion-item>
+                                  <ion-item>
+                                    <ion-label class="ion-text-center">
+                                      <ion-icon name="star"></ion-icon>
+                                      <ion-icon name="star"></ion-icon>
+                                      <ion-icon name="star"></ion-icon>
+                                    </ion-label>
+                                </ion-item>
+                              </ion-list>
+                          </ion-col>
+                      </ion-row>
+                  </ion-card-content>
+
+                  <ion-card-content>
+                      <ion-row>
+                          <ion-col size="12">
+                       <ion-list lines="none">
+                           <ion-item>
+                            <ion-label color="dark">Jugadores {{currentYear}}</ion-label>
+                            <ion-buttons slot="end">
+                                <ion-button (click)="listaTransferencia()" >
+                                    <ion-icon name="download-outline" style="font-size:30px;"></ion-icon>
+                                   </ion-button>
+                                   <ion-button (click)="compartir()" >
+                                    <ion-icon name="share-social-outline" style="font-size:30px;"></ion-icon>
+                                   </ion-button>
+                            </ion-buttons>
+                           </ion-item>
+                       </ion-list>
+                        
+                          </ion-col>
+                          <ion-col>
+                              <ion-list lines="none">
+                                  <ion-item *ngFor="let item of [1,1,1]; let i = index">
+                                      <ion-label>Jugador {{i+1}}</ion-label>
+                                      <ion-buttons slot="end">
+                                          <ion-button (click)="onClick()">
+                                              <ion-icon  name="eye"></ion-icon>
+                                          </ion-button>
+                                      </ion-buttons>
+                                  </ion-item>
+                   
+                              </ion-list>
+                          </ion-col>
+                      </ion-row>
+                  </ion-card-content>
+              </ion-card>
+
+          </ion-col>
+          <ion-col size="6"></ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>
