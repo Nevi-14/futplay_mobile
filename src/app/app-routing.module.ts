@@ -38,19 +38,47 @@ const routes: Routes = [
   },
   {
     path: 'transferencias',
-    loadChildren: () => import('./transferencias/transferencias.module').then( m => m.TransferenciasPageModule)
+    loadChildren: () => import('./pages/transferencias/transferencias.module').then( m => m.TransferenciasPageModule)
   },
   {
     path: 'create-club',
-    loadChildren: () => import('./create-club/create-club.module').then( m => m.CreateClubPageModule)
+    loadChildren: () => import('./pages/create-club/create-club.module').then( m => m.CreateClubPageModule)
   },
   {
     path: 'join-club',
-    loadChildren: () => import('./join-club/join-club.module').then( m => m.JoinClubPageModule)
+    loadChildren: () => import('./pages/join-club/join-club.module').then( m => m.JoinClubPageModule)
   },
   {
     path: 'club-info',
-    loadChildren: () => import('./club-info/club-info.module').then( m => m.ClubInfoPageModule)
+    loadChildren: () => import('./pages/club-info/club-info.module').then( m => m.ClubInfoPageModule)
+  },
+  {
+    path: 'rivales',
+    loadChildren: () => import('./pages/rivales/rivales.module').then( m => m.RivalesPageModule)
+  },
+  {
+    path: 'clasificacion',
+    loadChildren: () => import('./pages/clasificacion/clasificacion.module').then( m => m.ClasificacionPageModule)
+  },
+  {
+    path: 'calendar',
+    loadChildren: () => import('./pages/calendar/calendar.module').then( m => m.CalendarPageModule)
+  },
+  {
+    path: 'booking',
+    loadChildren: () => import('./pages/booking/booking.module').then( m => m.BookingPageModule)
+  },
+  {
+    path: 'checkout',
+    loadChildren: () => import('./pages/checkout/checkout.module').then( m => m.CheckoutPageModule)
+  },
+  {
+    path: 'location',
+    loadChildren: () => import('./pages/location/location.module').then( m => m.LocationPageModule)
+  },
+  {
+    path: 'message',
+    loadChildren: () => import('./pages/message/message.module').then( m => m.MessagePageModule)
   },
 ];
 

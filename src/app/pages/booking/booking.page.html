@@ -1,0 +1,60 @@
+<ion-header class="ion-no-border" >
+  <ion-toolbar >
+    <ion-title class="ion-text-left">RESERVACIÓN CANCHAS</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()" fill="solid" shape="round"  color="primary" slot="end" class="circle-btn">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+  <ion-grid >
+      <ion-row>
+          <ion-col size="12">
+              <ion-list lines="none">
+                  <ion-item>
+                    <ion-label>Cancha</ion-label>
+                    <ion-select placeholder="Seleccionar">
+                      <ion-select-option value="f">Cancha 1</ion-select-option>
+                      <ion-select-option value="m">Cancha 2</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                  <ion-item>
+                      <ion-label>Rivales</ion-label>
+                      <ion-select placeholder="Seleccionar">
+                        <ion-select-option value="f">Equipo 1</ion-select-option>
+                        <ion-select-option value="m">Equipo 2</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label>Fecha</ion-label>
+                      <ion-datetime  display-timezone="utc"></ion-datetime>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label>Hora Inicio</ion-label>
+                    
+                      <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="{{currentTime}}"></ion-datetime>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label>Hora fin</ion-label>
+                      <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="{{currentTime}}"></ion-datetime>
+                    </ion-item>
+                    <ion-item>
+                  <ion-buttons style="margin: 0 auto;">
+                    <ion-button (click)="cerrarModal()" routerLink="/checkout" fill="solid" shape="round">
+                            Guardar
+                    </ion-button>
+                  </ion-buttons>
+                    </ion-item>
+                </ion-list>
+
+          </ion-col>
+
+
+         
+      </ion-row>
+  </ion-grid>
+</ion-content>

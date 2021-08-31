@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { TransferenciasPage } from '../../transferencias/transferencias.page';
+import { TransferenciasPage } from '../transferencias/transferencias.page';
 
 
 @Component({

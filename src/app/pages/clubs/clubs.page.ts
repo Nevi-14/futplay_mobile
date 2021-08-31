@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { CreateClubPage } from '../../create-club/create-club.page';
-import { JoinClubPage } from '../../join-club/join-club.page';
+import { CreateClubPage } from '../create-club/create-club.page';
+import { JoinClubPage } from '../join-club/join-club.page';
 
 @Component({
   selector: 'app-clubs',

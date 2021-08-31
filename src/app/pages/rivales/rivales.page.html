@@ -1,24 +1,16 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-title class="ion-text-left">Crear Club</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="cerrarModal()" fill="solid" shape="round"  color="primary" slot="end" >
-        <ion-icon slot="icon-only" name="close"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-  <!-- Default Searchbar -->
-</ion-header>
-<ion-content class="ion-padding">
-  <ion-grid >
+
+    <ion-grid fixed>
       <ion-row>
           <ion-col size="12">
               <ion-list lines="none">
-         
+                  <ion-list-header>
+                    <ion-label>
+                     Buscar Club
+                    </ion-label>
+                  </ion-list-header>
                 
                   <ion-item>
-                    <ion-label>Nombre Club</ion-label>
-              <ion-input slot="end" type="text" class="ion-text-end" placeholder="Nombre club"></ion-input>
+                      <ion-searchbar mode="ios" placeholder="Codigo Club" inputmode="text" (ionChange)="onSearchChange($event)" debounce="250" ></ion-searchbar>
                   </ion-item>
                   <ion-item>
                     <ion-label>Provincia</ion-label>
@@ -41,21 +33,30 @@
                         <ion-select-option value="m">Data 2</ion-select-option>
                       </ion-select>
                     </ion-item>
-      
-                    <ion-item>
-                      <ion-label>Direccion</ion-label>
-                      <ion-textarea slot="end"  type="text" class="ion-text-end" placeholder="Direccion"></ion-textarea>
-                    </ion-item>
-                    <ion-item>
-                  <ion-buttons style="margin: 0 auto;">
-                    <ion-button (click)="onClick()" fill="solid" shape="round">
-                    Guardar Club
-                    </ion-button>
-                  </ion-buttons>
-                    </ion-item>
+                
                 </ion-list>
 
           </ion-col>
+          <ion-col size="12">
+                <ion-list>
+  <ion-item *ngFor="let item of [1,1,1]; let i = index;">
+    <ion-router-link href="/club-info">Equipo {{1+i}}</ion-router-link>
+    <ion-buttons  slot="end">
+      <ion-button (click)="onClick()" style="height: 40px;">
+      <ion-img [src]="face" style="height: 40px;"></ion-img>
+      </ion-button>
+      <ion-button (click)="onClick()" style="height: 40px;">
+        <ion-img [src]="star" style="height:40px;"></ion-img>
+        </ion-button>
+        <ion-button (click)="onClick()" style="height:40px;">
+          <ion-img [src]="message" style="height: 40px;"></ion-img>
+          </ion-button>
+          <ion-button (click)="onClick()" style="height:40px;">
+            <ion-img [src]="save" style="height: 40px;"></ion-img>
+            </ion-button>
+    </ion-buttons>
+  </ion-item>
+</ion-list>
+          </ion-col>
       </ion-row>
   </ion-grid>
-</ion-content>

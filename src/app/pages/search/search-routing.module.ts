@@ -6,8 +6,22 @@ import { SearchPage } from './search.page';
 const routes: Routes = [
   {
     path: '',
-    component: SearchPage
-  }
+    redirectTo: 'home/search/rivales',
+    pathMatch: 'full',
+  }, {
+    path: '',
+    component: SearchPage,
+    children:[
+      {
+        path:'rivales',
+        loadChildren: () => import('../rivales/rivales.module').then( m => m.RivalesPageModule)
+      },
+      {
+        path:'clasificacion',
+        loadChildren: () => import('../clasificacion/clasificacion.module').then( m => m.ClasificacionPageModule)
+      }
+    ]
+  },
 ];
 
 @NgModule({
