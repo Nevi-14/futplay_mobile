@@ -4,7 +4,6 @@ import {HttpClient} from '@angular/common/http';
 @Injectable({providedIn: 'root'})export class CalendarService {
     monthlyTotalDays = Array();
     spaceTable = Array();
-    calendar = Array(31);
     year = new Date().getFullYear();
     month = new Date().getMonth() + 1;
     days = [];
@@ -16,10 +15,10 @@ import {HttpClient} from '@angular/common/http';
     mon = this.month - 1; // months in JS are 0..11, not 1..12
     d = new Date(this.year, this.mon);
     daysOfTheWeek = Array();
-    constructor(private http : HttpClient) {}
+    constructor(private http: HttpClient) {}
 
 
-    getDays() {
+    public getDays() {
         this.http.get<any[]>('/assets/json/days.json').subscribe(resp => {
             if (resp) {
                 this.days = resp;
@@ -29,7 +28,7 @@ import {HttpClient} from '@angular/common/http';
             }
         });
     }
-    getMonths() {
+    public getMonths() {
         this.http.get<any[]>('/assets/json/months.json').subscribe(resp => {
             if (resp) {
                 this.months = resp;
@@ -41,21 +40,23 @@ import {HttpClient} from '@angular/common/http';
     }
 
 
-    nextMonth() {
+  public nextMonth() {
+  
   if (this.month == 12) {
             this.year ++;
             this.month = 0;
             this.createCalendar(this.year, 1);
         } else {
+            console.log('next')
             this.month ++;
             this.createCalendar(this.year, this.month);
         }
-        console.log('next', this.month, this.year);
     }
-    lastMonth() {
+    public lastMonth() {
       if (this.month == 1) {
             this.year --;
             this.month = 12;
+    
             this.createCalendar(this.year, 12);
         } else {
             this.month --;
@@ -63,13 +64,15 @@ import {HttpClient} from '@angular/common/http';
         }
 
     }
-    createCalendar(year, month) {
+  public createCalendar(year, month) {
 
         this.months.forEach(item => {
             if (item.id === month) {
                 this.monthName = item.name;
             }
         });
+        this.mon = this.month - 1; // months in JS are 0..11, not 1..12
+        this.d = new Date(this.year, this.mon);
         // spaces for the first row
         // from Monday till the first day of the month
         // * * * 1  2  3  4
@@ -79,7 +82,7 @@ import {HttpClient} from '@angular/common/http';
             this.countBefore = i + 1;
 
         }
-        // alert(  this.countBefore)
+
         this.daysOfTheWeek = Array(this.countBefore);
         // <td> with actual dates
         while (this.d.getMonth() === this.mon) {
@@ -89,15 +92,16 @@ import {HttpClient} from '@angular/common/http';
         // add spaces after last days of month for the last row
         // 29 30 31 * * * *
         this.countAfter = 0;
-        if (this.getDay(this.d) != 0) {
+        console.log('day',this.getDay(this.d))
+        if (this.getDay(this.d) !== 0) {
             for (let i = this.getDay(this.d); i < 7; i++) {
-                console.log('i', i, 'i++', i++, 'function', this.getDay(this.d));
                 this.countAfter += i + 1;
             }
             this.spaceTable = Array(this.countAfter);
+          
         }
     }
-    getDay(date) { // get day number from 0 (monday) to 6 (sunday)
+    public getDay(date) { // get day number from 0 (monday) to 6 (sunday)
         let day = date.getDay();
         if (day === 0) {
             day = 7;

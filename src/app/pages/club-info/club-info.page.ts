@@ -4,6 +4,7 @@ import { TransferenciasPage } from '../transferencias/transferencias.page';
 import { ClubProfileInfoPage } from '../club-profile-info/club-profile-info.page';
 import { MyClubsPageModule } from '../my-clubs/my-clubs.module';
 import { MyClubsPage } from '../my-clubs/my-clubs.page';
+import { Club } from '../../models/club';
 
 @Component({
   selector: 'app-club-info',
@@ -11,7 +12,7 @@ import { MyClubsPage } from '../my-clubs/my-clubs.page';
   styleUrls: ['./club-info.page.scss'],
 })
 export class ClubInfoPage implements OnInit {
-@Input() club: any;
+@Input() club: Club;
   constructor(private modalCtrl: ModalController,private popoverCtrl: PopoverController) { }
 
   ngOnInit() {

@@ -7,7 +7,9 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./my-reservations.page.scss'],
 })
 export class MyReservationsPage implements OnInit {
-
+  img1 = '../assets/icons/ball.svg';
+  img2 = '../assets/icons/time.svg';
+  img3 = '../assets/icons/eye.svg';
   constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {

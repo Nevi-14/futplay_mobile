@@ -2,7 +2,7 @@
   <ion-toolbar>
     
  <img class="animate__animated animate__bounce" src="/assets/home/logo.svg" alt="" height="30" style="position: fixed; top: 15px; right: 15px;">
-    <ion-title class="ion-text-center">FUTPLAY</ion-title>
+    <ion-title class="ion-text-center">FUTPLAY <ion-badge color="primary">{{cancha}}</ion-badge></ion-title>
 
   </ion-toolbar>
   <ion-toolbar>
@@ -17,24 +17,24 @@
 
 
 
-<ion-content class="ion-padding" >
+<ion-content  >
 
 
   <ion-grid>
     <ion-row >
 
       <ion-col size="12">
-        <ion-title class="ion-text-center" style="text-transform: Capitalize;">Reservación cancha 1</ion-title>
-        <ion-title class="ion-text-center" style="text-transform: capitalize;">{{monthName}} - {{year}}</ion-title>
+<ion-toolbar>
+  <ion-title class="ion-text-center" style="text-transform: capitalize;">{{cal.monthName}} <ion-badge color="primary">{{cal.year}}</ion-badge></ion-title>
+</ion-toolbar>
         <ion-toolbar>
-          
-          <ion-buttons slot="start">
-            <ion-button (click)="lastMonth()" slot="start">
+  <ion-buttons >
+            <ion-button (click)="cal.lastMonth()" slot="start">
               <ion-icon name="caret-back-circle-outline" style="font-size: 30px;"></ion-icon>
             </ion-button>
           </ion-buttons>
           <ion-buttons slot="end">
-            <ion-button (click)="nextMonth()">
+            <ion-button (click)="cal.nextMonth()">
               <ion-icon style="font-size: 30px;" name="caret-forward-circle-outline"></ion-icon>
             </ion-button>
           </ion-buttons>
@@ -42,18 +42,18 @@
   
       </ion-col>
       <ion-col size="12" class="wrapper wrapper-head">
-        <div *ngFor="let day of daysWeekName" style="display: flex; justify-content: center;">{{day.abreviation}}</div>
+        <div *ngFor="let day of cal.days" style="display: flex; justify-content: center;">{{day.abreviation}}</div>
         
       </ion-col>
       <ion-col size="12" class="wrapper">
-        <div *ngFor="let days of daysWeekName; let i = index;" >
+        <div *ngFor="let days of cal.daysWeekName; let i = index;" >
       
         </div>
         
-        <div *ngFor="let days of daysOfTheWeek; let i = index;" >
+        <div *ngFor="let days of cal.daysOfTheWeek; let i = index;" >
       
         </div>
-        <div *ngFor="let days of monthlyTotalDays; let i = index;" style="background-color: #D3D3D3; margin:1px; display: flex; justify-content: center;" (click)="booking()">
+        <div *ngFor="let days of cal.monthlyTotalDays; let i = index;" style="background-color: #D3D3D3; margin:1px; display: flex; justify-content: center;" (click)="booking()">
           <ion-buttons>
             <ion-button >
                {{i+1}}
@@ -61,7 +61,7 @@
           </ion-buttons>
         </div>
 
-        <div *ngFor="let days of spaceTable; let i = index;" >
+        <div *ngFor="let days of cal.spaceTable; let i = index;" >
       
         </div>
       </ion-col>
