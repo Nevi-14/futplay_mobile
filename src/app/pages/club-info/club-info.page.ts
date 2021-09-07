@@ -13,6 +13,7 @@ import { Club } from '../../models/club';
 })
 export class ClubInfoPage implements OnInit {
 @Input() club: Club;
+
   constructor(private modalCtrl: ModalController,private popoverCtrl: PopoverController) { }
 
   ngOnInit() {
