@@ -3,9 +3,9 @@ export class Usuario {
     constructor(
         public usuarioID: number,
         public roleID: number,
-        public provinciaID: string,
-        public cantonID: string,
-        public distritoID: string,
+        public provinciaID: number,
+        public cantonID: number,
+        public distritoID: number,
         public foto: string,
         public nombre: string,
         public apellido1: string,
@@ -15,6 +15,6 @@ export class Usuario {
         public direccion: string,
         public correo: string,
         public contrasena: string,
-        public inentos: number
+        public intentos: number
     ){}
 }

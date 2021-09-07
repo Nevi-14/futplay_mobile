@@ -1,18 +1,30 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
- <img class="animate__animated animate__bounce" src="/assets/home/logo.svg" alt="" height="30" style="position: fixed; top: 15px; right: 15px;">
-    <ion-title class="ion-text-center">FUTPLAY</ion-title>
+
+ <ion-buttons slot="end">
+   <ion-button (click)="presentModal()">
+    <img class="animate__animated animate__bounce" src="/assets/home/logo.svg" alt="" height="30">
+   </ion-button>
+ </ion-buttons>
+ <ion-title class="ion-text-center" >FUTPLAY <ion-badge color="primary" style="text-transform: uppercase;">{{titulo}}</ion-badge></ion-title>
 
   </ion-toolbar>
-  <ion-toolbar>
-    <ion-buttons slot="start">
+
+  <ion-toolbar style="margin-top: 20px;" *ngIf="searchbar">
+    <ion-searchbar mode="ios" placeholder="Codigo Club" inputmode="text" (ionChange)="onSearchChange($event)" debounce="250" ></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar >
+    <ion-buttons slot="start" *ngIf="menu1"> 
       <ion-menu-button menu="first"></ion-menu-button>
     </ion-buttons>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" *ngIf="menu2">
       <ion-button (click)="presentPopover($event)" >
         <ion-icon slot="icon-only" name="settings"></ion-icon>
       </ion-button>
     </ion-buttons>
+
+
   </ion-toolbar>
+
 
 </ion-header>

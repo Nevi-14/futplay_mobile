@@ -10,52 +10,51 @@
   <!-- Default Searchbar -->
 </ion-header>
 <ion-content class="ion-padding">
+<form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)">
   <ion-grid >
-      <ion-row>
-          <ion-col size="12">
-              <ion-list lines="none">
-         
-                
-                  <ion-item>
-                    <ion-label>Nombre Club</ion-label>
-              <ion-input slot="end" type="text" class="ion-text-end" placeholder="Nombre club"></ion-input>
-                  </ion-item>
-                  <ion-item>
-                    <ion-label>Abreviacion</ion-label>
-              <ion-input slot="end" type="text" class="ion-text-end" placeholder="Abreviacion"></ion-input>
-                  </ion-item>
-                  <ion-item>
-                    <ion-label>Provincia</ion-label>
-                    <ion-select placeholder="Seleccionar">
-                      <ion-select-option value="f">Data 1</ion-select-option>
-                      <ion-select-option value="m">Data 2</ion-select-option>
+    <ion-row>
+        <ion-col size="12">
+            <ion-list lines="none">
+       
+              
+                <ion-item>
+                  <ion-label>Nombre Club</ion-label>
+            <ion-input slot="end" type="text" class="ion-text-end" placeholder="Nombre club" name="nombre" [(ngModel)]="club.nombre" ></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Abreviacion</ion-label>
+            <ion-input slot="end" type="text" class="ion-text-end" placeholder="Abreviacion" name="abreviacion" [(ngModel)]="club.abreviacion" ></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Provincia</ion-label>
+                  <ion-select placeholder="Seleccionar" name="provinciaID" [(ngModel)]="club.provinciaID">
+                    <ion-select-option *ngFor="let provincia of data.provincias" value="{{provincia.provinciaID}}" >{{provincia.nombre}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Canton</ion-label>
+                    <ion-select placeholder="Seleccionar" name="cantonID" [(ngModel)]="club.cantonID">
+                      <ion-select-option *ngFor="let canton of data.cantones" value="{{canton.cantonID}}"  >{{canton.nombre}}</ion-select-option>
                     </ion-select>
                   </ion-item>
                   <ion-item>
-                      <ion-label>Canton</ion-label>
-                      <ion-select placeholder="Seleccionar">
-                        <ion-select-option value="f">Data 1</ion-select-option>
-                        <ion-select-option value="m">Data 2</ion-select-option>
-                      </ion-select>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label>Distrito</ion-label>
-                      <ion-select placeholder="Seleccionar">
-                        <ion-select-option value="f">Data 1</ion-select-option>
-                        <ion-select-option value="m">Data 2</ion-select-option>
-                      </ion-select>
-                    </ion-item>
-      
-                    <ion-item>
-                  <ion-buttons style="margin: 0 auto;">
-                    <ion-button (click)="onClick()" fill="solid" shape="round">
-                    Guardar Club
-                    </ion-button>
-                  </ion-buttons>
-                    </ion-item>
-                </ion-list>
+                    <ion-label>Distrito</ion-label>
+                    <ion-select placeholder="Seleccionar" name="distritoID" [(ngModel)]="club.distritoID">
+                      <ion-select-option *ngFor="let distrito of data.distritos" value="{{distrito.distritoID}}" >{{distrito.nombre}}</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+    
+                  <ion-item>
+                <ion-buttons style="margin: 0 auto;">
+                  <ion-button  type="submit" fill="solid" shape="round">
+                  Guardar Club
+                  </ion-button>
+                </ion-buttons>
+                  </ion-item>
+              </ion-list>
 
-          </ion-col>
-      </ion-row>
-  </ion-grid>
+        </ion-col>
+    </ion-row>
+</ion-grid>
+</form>
 </ion-content>

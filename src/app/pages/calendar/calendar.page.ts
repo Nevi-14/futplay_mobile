@@ -153,8 +153,13 @@ console.log(this.year,this.month);
   createCalendar( year,  month) {
 
     this.monthsArray.forEach(item=>{
+      console.log(item , month)
    if(item.id === month){
+     console.log('true')
     this.monthName = item.name;
+    console.log(this.monthName)
+   }else{
+    console.log('false')
    }
     });
     let mon = month - 1; // months in JS are 0..11, not 1..12

@@ -1,0 +1,596 @@
+[
+    {
+        "distritoID":  1,
+        "cantonID": 1,
+        "nombre": "Carmen"
+    },
+    {
+        "distritoID":  2,
+        "cantonID": 1,
+        "nombre": "Merced"
+    },
+    {
+        "distritoID":  3,
+        "cantonID": 1,
+        "nombre": "Hospital"
+    },
+    {
+        "distritoID":  4,
+        "cantonID": 1,
+        "nombre": "Catedral"
+    },
+    {
+        "distritoID":  5,
+        "cantonID": 1,
+        "nombre": "Zapote"
+    },
+    {
+        "distritoID":  6,
+        "cantonID": 1,
+        "nombre": "San Francisco De Dos Rios"
+    },
+    {
+        "distritoID":  7,
+        "cantonID": 1,
+        "nombre": "Uruca"
+    },
+    {
+        "distritoID":  8,
+        "cantonID": 1,
+        "nombre": "Mata Redonda"
+    },
+    {
+        "distritoID":  9,
+        "cantonID": 1,
+        "nombre": "Pavas"
+    },
+    {
+        "distritoID":  10,
+        "cantonID": 1,
+        "nombre": "Hatillo"
+    },
+    {
+        "distritoID":  11,
+        "cantonID": 1,
+        "nombre": "San Sebastián"
+    },
+    {
+        "distritoID":  12,
+        "cantonID": 2,
+        "nombre": "Escazú"
+    },
+    {
+        "distritoID":  13,
+        "cantonID": 2,
+        "nombre": "San Antonio"
+    },
+    {
+        "distritoID":  14,
+        "cantonID": 2,
+        "nombre": "San Rafael"
+    },
+    {
+        "distritoID":  15,
+        "cantonID": 3,
+        "nombre": "Desamparados"
+    },
+    {
+        "distritoID":  16,
+        "cantonID": 3,
+        "nombre": "San Miguel"
+    },
+    {
+        "distritoID":  17,
+        "cantonID": 3,
+        "nombre": "San Juan De Dios"
+    },
+    {
+        "distritoID":  18,
+        "cantonID": 3,
+        "nombre": "San Rafael Arriba"
+    },
+    {
+        "distritoID":  19,
+        "cantonID": 3,
+        "nombre": "San Rafael Abajo"
+    },
+    {
+        "distritoID":  20,
+        "cantonID": 3,
+        "nombre": "San Antonio"
+    },
+    {
+        "distritoID":  21,
+        "cantonID": 3,
+        "nombre": "Frailes"
+    },
+    {
+        "distritoID":  22,
+        "cantonID": 3,
+        "nombre": "Patarra"
+    },
+    {
+        "distritoID":  23,
+        "cantonID": 3,
+        "nombre": "San Cristobal"
+    },
+    {
+        "distritoID":  24,
+        "cantonID": 3,
+        "nombre": "Rosario"
+    },
+    {
+        "distritoID":  25,
+        "cantonID": 3,
+        "nombre": "Damas"
+    },
+    {
+        "distritoID":  26,
+        "cantonID": 3,
+        "nombre": "Gravilias"
+    },
+    {
+        "distritoID":  27,
+        "cantonID": 3,
+        "nombre": "Los Guido"
+    },
+    {
+        "distritoID":  28,
+        "cantonID": 4,
+        "nombre": "Santiago"
+    },
+    {
+        "distritoID":  29,
+        "cantonID": 4,
+        "nombre": "Mercedes Sur"
+    },
+    {
+        "distritoID":  30,
+        "cantonID": 4,
+        "nombre": "Barbacoas"
+    },
+    {
+        "distritoID":  31,
+        "cantonID": 4,
+        "nombre": "Grifo Alto"
+    },
+    {
+        "distritoID":  32,
+        "cantonID": 4,
+        "nombre": "San Rafael"
+    },
+    {
+        "distritoID":  33,
+        "cantonID": 4,
+        "nombre": "Candelarita"
+    },
+    {
+        "distritoID":  34,
+        "cantonID": 4,
+        "nombre": "Desamparaditos"
+    },
+    {
+        "distritoID":  35,
+        "cantonID": 4,
+        "nombre": "San Antonio"
+    },
+    {
+        "distritoID":  36,
+        "cantonID": 4,
+        "nombre": "Chires"
+    },
+    {
+        "distritoID":  37,
+        "cantonID": 5,
+        "nombre": "San Marcos"
+    },
+    {
+        "distritoID":  38,
+        "cantonID": 5,
+        "nombre": "San Lorenzo"
+    },
+    {
+        "distritoID":  39,
+        "cantonID": 5,
+        "nombre": "San Carlos"
+    },
+    {
+        "distritoID":  40,
+        "cantonID": 6,
+        "nombre": "Aserrí"
+    },
+    {
+        "distritoID":  41,
+        "cantonID": 6,
+        "nombre": "Tarbaca"
+    },
+    {
+        "distritoID":  42,
+        "cantonID": 6,
+        "nombre": "Vuelta De Jorco"
+    },
+    {
+        "distritoID":  43,
+        "cantonID": 6,
+        "nombre": "San Gabriel"
+    },
+    {
+        "distritoID":  44,
+        "cantonID": 6,
+        "nombre": "Legua"
+    },
+    {
+        "distritoID":  45,
+        "cantonID": 6,
+        "nombre": "Monterrey"
+    },
+    {
+        "distritoID":  46,
+        "cantonID": 6,
+        "nombre": "Salitrillos"
+    },
+    {
+        "distritoID":  47,
+        "cantonID": 7,
+        "nombre": "Colón"
+    },
+    {
+        "distritoID":  48,
+        "cantonID": 7,
+        "nombre": "Guayabo"
+    },
+    {
+        "distritoID":  49,
+        "cantonID": 7,
+        "nombre": "Tabarcia"
+    },
+    {
+        "distritoID":  50,
+        "cantonID": 7,
+        "nombre": "Piedras Negras"
+    },
+    {
+        "distritoID":  51,
+        "cantonID": 7,
+        "nombre": "Picagres"
+    },
+    {
+        "distritoID":  52,
+        "cantonID": 7,
+        "nombre": "Jaris"
+    },
+    {
+        "distritoID":  53,
+        "cantonID": 8,
+        "nombre": "Guadalupe"
+    },
+    {
+        "distritoID":  54,
+        "cantonID": 8,
+        "nombre": "San Francisco"
+    },
+    {
+        "distritoID":  55,
+        "cantonID": 8,
+        "nombre": "Calle Blancos"
+    },
+    {
+        "distritoID":  56,
+        "cantonID": 8,
+        "nombre": "Mata De Platano"
+    },
+    {
+        "distritoID":  57,
+        "cantonID": 8,
+        "nombre": "Ipís"
+    },
+    {
+        "distritoID":  58,
+        "cantonID": 8,
+        "nombre": "Rancho Redondo"
+    },
+    {
+        "distritoID":  59,
+        "cantonID": 8,
+        "nombre": "Purral"
+    },
+    {
+        "distritoID":  60,
+        "cantonID": 9,
+        "nombre": "Santa Ana"
+    },  {
+        "distritoID":  61,
+        "cantonID": 9,
+        "nombre": "Salitral"
+    },  {
+        "distritoID":  62,
+        "cantonID": 9,
+        "nombre": "Pozos"
+    },  {
+        "distritoID":  63,
+        "cantonID": 9,
+        "nombre": "Uruca"
+    },  {
+        "distritoID":  64,
+        "cantonID": 9,
+        "nombre": "Piedades"
+    },  {
+        "distritoID":  65,
+        "cantonID": 9,
+        "nombre": "Brasil"
+    },
+    {
+        "distritoID":  66,
+        "cantonID": 10,
+        "nombre": "Alajuelita"
+    },
+    {
+        "distritoID":  67,
+        "cantonID": 10,
+        "nombre": "San Josecito"
+    },
+    {
+        "distritoID":  68,
+        "cantonID": 10,
+        "nombre": "San Antonio"
+    },
+    {
+        "distritoID":  69,
+        "cantonID": 10,
+        "nombre": "Concepción"
+    },
+    {
+        "distritoID":  70,
+        "cantonID": 10,
+        "nombre": "San Felipe"
+    }, {
+        "distritoID":  71,
+        "cantonID": 11,
+        "nombre": "San Isidro"
+    },
+    {
+        "distritoID":  72,
+        "cantonID": 11,
+        "nombre": "San Rafael"
+    },
+    {
+        "distritoID":  73,
+        "cantonID": 11,
+        "nombre": "Dulce Nombre De Jesus"
+    },
+    {
+        "distritoID":  74,
+        "cantonID": 11,
+        "nombre": "Patalillo"
+    },
+    {
+        "distritoID":  75,
+        "cantonID": 11,
+        "nombre": "Cascajal"
+    }, {
+        "distritoID":  76,
+        "cantonID": 12,
+        "nombre": "San Ignacio"
+    },
+    {
+        "distritoID":  77,
+        "cantonID": 12,
+        "nombre": "Guaitil"
+    },
+    {
+        "distritoID":  78,
+        "cantonID": 12,
+        "nombre": "Palmichal"
+    },
+    {
+        "distritoID":  79,
+        "cantonID": 12,
+        "nombre": "Cangrejal"
+    },
+    {
+        "distritoID":  80,
+        "cantonID": 12,
+        "nombre": "Sabanillas"
+    },
+    {
+        "distritoID":  81,
+        "cantonID": 13,
+        "nombre": "San Juan"
+    },{
+        "distritoID":  82,
+        "cantonID": 13,
+        "nombre": "Cinco Esquinas"
+    },{
+        "distritoID":  83,
+        "cantonID": 13,
+        "nombre": "Anselmo Llorente"
+    },{
+        "distritoID":  84,
+        "cantonID": 13,
+        "nombre": "Leon Xiii"
+    },{
+        "distritoID":  85,
+        "cantonID": 13,
+        "nombre": "Colima"
+    },
+    {
+        "distritoID":  86,
+        "cantonID": 14,
+        "nombre": "San Vicente"
+    },
+    {
+        "distritoID":  87,
+        "cantonID": 14,
+        "nombre": "San Jeronimo"
+    },
+    {
+        "distritoID":  88,
+        "cantonID": 14,
+        "nombre": "La Trinidad"
+    },
+    {
+        "distritoID":  89,
+        "cantonID": 15,
+        "nombre": "San Pedro"
+    },
+    {
+        "distritoID":  90,
+        "cantonID": 15,
+        "nombre": "Sabanilla"
+    },
+    {
+        "distritoID":  91,
+        "cantonID": 15,
+        "nombre": "Mercedes"
+    },
+    {
+        "distritoID":  92,
+        "cantonID": 15,
+        "nombre": "San Rafael"
+    },
+    {
+        "distritoID":  93,
+        "cantonID": 16,
+        "nombre": "San Pablo"
+    },
+    {
+        "distritoID":  94,
+        "cantonID": 16,
+        "nombre": "San Pedro"
+    },
+    {
+        "distritoID":  95,
+        "cantonID": 16,
+        "nombre": "San Juan De Mata"
+    },
+    {
+        "distritoID":  96,
+        "cantonID": 16,
+        "nombre": "San Luis"
+    },
+    {
+        "distritoID":  97,
+        "cantonID": 16,
+        "nombre": "Carara"
+    },
+    {
+        "distritoID":  98,
+        "cantonID": 17,
+        "nombre": "Santa María"
+    },
+    {
+        "distritoID":  99,
+        "cantonID": 17,
+        "nombre": "Jardin"
+    },
+    {
+        "distritoID":  100,
+        "cantonID": 17,
+        "nombre": "Copey"
+    },
+    {
+        "distritoID":  101,
+        "cantonID": 18,
+        "nombre": "Curridabat"
+    },
+    {
+        "distritoID":  102,
+        "cantonID": 18,
+        "nombre": "Granadilla"
+    },
+    {
+        "distritoID":  103,
+        "cantonID": 18,
+        "nombre": "Sanchez"
+    },
+    {
+        "distritoID":  104,
+        "cantonID": 18,
+        "nombre": "Tirrases"
+    },
+    {
+        "distritoID":  105,
+        "cantonID": 19,
+        "nombre": "San Isidro De El General"
+    },
+    {
+        "distritoID":  106,
+        "cantonID": 19,
+        "nombre": "El General"
+    },
+    {
+        "distritoID":  107,
+        "cantonID": 19,
+        "nombre": "Daniel Flores"
+    },
+    {
+        "distritoID":  108,
+        "cantonID": 19,
+        "nombre": "Rivas"
+    },
+    {
+        "distritoID":  109,
+        "cantonID": 19,
+        "nombre": "San Pedro"
+    },
+    {
+        "distritoID":  110,
+        "cantonID": 19,
+        "nombre": "Platanares"
+    },
+    {
+        "distritoID":  111,
+        "cantonID": 19,
+        "nombre": "Pejibaye"
+    },
+    {
+        "distritoID":  112,
+        "cantonID": 19,
+        "nombre": "Cajon"
+    },
+    {
+        "distritoID":  113,
+        "cantonID": 19,
+        "nombre": "Baru"
+    },
+    {
+        "distritoID":  114,
+        "cantonID": 19,
+        "nombre": "Rio Nuevo"
+    },
+    {
+        "distritoID":  115,
+        "cantonID": 19,
+        "nombre": "Páramo"
+    },
+    {
+        "distritoID":  116,
+        "cantonID": 20,
+        "nombre": "San Pablo"
+    },
+    {
+        "distritoID":  117,
+        "cantonID": 20,
+        "nombre": "San Andres"
+    },
+    {
+        "distritoID":  118,
+        "cantonID": 20,
+        "nombre": "Llano Bonito"
+    },
+    {
+        "distritoID":  119,
+        "cantonID": 20,
+        "nombre": "San Isidro"
+    },
+    {
+        "distritoID":  121,
+        "cantonID": 20,
+        "nombre": "Santa Cruz"
+    },
+    {
+        "distritoID":  122,
+        "cantonID": 20,
+        "nombre": "San Antonio"
+    }
+]

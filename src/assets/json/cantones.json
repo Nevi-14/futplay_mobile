@@ -1,0 +1,335 @@
+[
+    {
+        "cantonID": 1,
+        "provinciaID": 1,
+        "nombre": "Central"
+    },
+    {
+        "cantonID": 2,
+        "provinciaID": 1,
+        "nombre": "Escazú"
+    },
+    {
+        "cantonID": 3,
+        "provinciaID": 1,
+        "nombre": "Desamparados"
+    },
+    {
+        "cantonID": 4,
+        "provinciaID": 1,
+        "nombre": "Puriscal"
+    }, {
+        "cantonID": 5,
+        "provinciaID": 1,
+        "nombre": "Tarrazú"
+    }, {
+        "cantonID": 6,
+        "provinciaID": 1,
+        "nombre": "Aserrí"
+    }, {
+        "cantonID": 7,
+        "provinciaID": 1,
+        "nombre": "Mora"
+    }, {
+        "cantonID": 8,
+        "provinciaID": 1,
+        "nombre": "Goicoechea"
+    }, {
+        "cantonID": 9,
+        "provinciaID": 1,
+        "nombre": "Santa Ana"
+    }, {
+        "cantonID": 10,
+        "provinciaID": 1,
+        "nombre": "Alajuelita"
+    }, {
+        "cantonID": 11,
+        "provinciaID": 1,
+        "nombre": "Vázquez De Coronado"
+    }, {
+        "cantonID": 12,
+        "provinciaID": 1,
+        "nombre": "Acosta"
+    }, {
+        "cantonID": 13,
+        "provinciaID": 1,
+        "nombre": "Tibás"
+    }, {
+        "cantonID": 14,
+        "provinciaID": 1,
+        "nombre": "Moravia"
+    }, {
+        "cantonID": 15,
+        "provinciaID": 1,
+        "nombre": "Montes De Oca"
+    }, {
+        "cantonID": 16,
+        "provinciaID": 1,
+        "nombre": "Turrubares"
+    }, {
+        "cantonID": 17,
+        "provinciaID": 1,
+        "nombre": "Dota"
+    }, {
+        "cantonID": 18,
+        "provinciaID": 1,
+        "nombre": "Curridabat"
+    }, {
+        "cantonID": 19,
+        "provinciaID": 1,
+        "nombre": "Pérez Zeledón"
+    }, {
+        "cantonID": 20,
+        "provinciaID": 1,
+        "nombre": "León Cortés Castro"
+    }, {
+        "cantonID": 21,
+        "provinciaID": 2,
+        "nombre": "Central"
+    }, {
+        "cantonID": 22,
+        "provinciaID": 2,
+        "nombre": "San Ramón"
+    }, {
+        "cantonID": 23,
+        "provinciaID": 2,
+        "nombre": "Grecia"
+    }, {
+        "cantonID": 24,
+        "provinciaID": 2,
+        "nombre": "San Mateo"
+    }, {
+        "cantonID": 25,
+        "provinciaID": 2,
+        "nombre": "Atenas"
+    }, {
+        "cantonID": 26,
+        "provinciaID": 2,
+        "nombre": "Naranjo"
+    }, {
+        "cantonID": 27,
+        "provinciaID": 2,
+        "nombre": "Palmares"
+    }, {
+        "cantonID": 28,
+        "provinciaID": 2,
+        "nombre": "Poás"
+    }, {
+        "cantonID": 29,
+        "provinciaID": 2,
+        "nombre": "Orotina"
+    }, {
+        "cantonID": 30,
+        "provinciaID": 2,
+        "nombre": "San Carlos"
+    }, {
+        "cantonID": 31,
+        "provinciaID": 2,
+        "nombre": "Zarcero"
+    }, {
+        "cantonID": 32,
+        "provinciaID": 2,
+        "nombre": "Sarchí"
+    }, {
+        "cantonID": 33,
+        "provinciaID": 2,
+        "nombre": "Upala"
+    }, {
+        "cantonID": 34,
+        "provinciaID": 2,
+        "nombre": "Los Chiles"
+    }, {
+        "cantonID": 35,
+        "provinciaID": 2,
+        "nombre": "Guatuso"
+    }, {
+        "cantonID": 36,
+        "provinciaID": 2,
+        "nombre": "Río Cuarto"
+    }, {
+        "cantonID": 37,
+        "provinciaID": 3,
+        "nombre": "Central"
+    }, {
+        "cantonID": 38,
+        "provinciaID": 3,
+        "nombre": "Paraíso"
+    }, {
+        "cantonID": 39,
+        "provinciaID": 3,
+        "nombre": "La Unión"
+    }, {
+        "cantonID": 40,
+        "provinciaID": 3,
+        "nombre": "Jiménez"
+    }, {
+        "cantonID": 41,
+        "provinciaID": 3,
+        "nombre": "Turrialba"
+    }, {
+        "cantonID": 42,
+        "provinciaID": 3,
+        "nombre": "Alvarado"
+    }, {
+        "cantonID": 43,
+        "provinciaID": 3,
+        "nombre": "Oreamuno"
+    }, {
+        "cantonID": 44,
+        "provinciaID": 3,
+        "nombre": "El Guarco"
+    }, {
+        "cantonID": 45,
+        "provinciaID": 4,
+        "nombre": "Central"
+    }, {
+        "cantonID": 46,
+        "provinciaID": 4,
+        "nombre": "Barva"
+    }, {
+        "cantonID": 47,
+        "provinciaID": 4,
+        "nombre": "Santo Domingo"
+    }, {
+        "cantonID": 48,
+        "provinciaID": 4,
+        "nombre": "Santa Barbara"
+    }, {
+        "cantonID": 49,
+        "provinciaID": 4,
+        "nombre": "San Rafael"
+    }, {
+        "cantonID": 50,
+        "provinciaID": 4,
+        "nombre": "San Isidro"
+    }, {
+        "cantonID": 51,
+        "provinciaID": 4,
+        "nombre": "Belén"
+    }, {
+        "cantonID": 52,
+        "provinciaID": 4,
+        "nombre": "Flores"
+    }, {
+        "cantonID": 53,
+        "provinciaID": 4,
+        "nombre": "San Pablo"
+    }, {
+        "cantonID": 54,
+        "provinciaID": 4,
+        "nombre": "Sarapiquí"
+    }, {
+        "cantonID": 55,
+        "provinciaID": 5,
+        "nombre": "Liberia"
+    }, {
+        "cantonID": 56,
+        "provinciaID": 5,
+        "nombre": "Nicoya"
+    }, {
+        "cantonID": 57,
+        "provinciaID": 5,
+        "nombre": "Santa Cruz"
+    }, {
+        "cantonID": 58,
+        "provinciaID": 5,
+        "nombre": "Bagaces"
+    }, {
+        "cantonID": 59,
+        "provinciaID": 5,
+        "nombre": "Carrillo"
+    }, {
+        "cantonID": 60,
+        "provinciaID": 5,
+        "nombre": "Cañas"
+    }, {
+        "cantonID": 61,
+        "provinciaID": 5,
+        "nombre": "Abangares"
+    }, {
+        "cantonID": 62,
+        "provinciaID": 5,
+        "nombre": "Tilarán"
+    }, {
+        "cantonID": 63,
+        "provinciaID": 5,
+        "nombre": "Nandayure"
+    }, {
+        "cantonID": 64,
+        "provinciaID": 5,
+        "nombre": "La Cruz"
+    }, {
+        "cantonID": 65,
+        "provinciaID": 5,
+        "nombre": "Hojancha"
+    }, {
+        "cantonID": 66,
+        "provinciaID": 6,
+        "nombre": "Central"
+    }, {
+        "cantonID": 67,
+        "provinciaID": 6,
+        "nombre": "Esparza"
+    }, {
+        "cantonID": 68,
+        "provinciaID": 6,
+        "nombre": "Buenos Aires"
+    }, {
+        "cantonID": 69,
+        "provinciaID": 6,
+        "nombre": "Montes De Oro"
+    }, {
+        "cantonID": 70,
+        "provinciaID": 6,
+        "nombre": "Osa"
+    }, {
+        "cantonID": 71,
+        "provinciaID": 6,
+        "nombre": "Quepos"
+    }, {
+        "cantonID": 72,
+        "provinciaID": 6,
+        "nombre": "Golfito"
+    }, {
+        "cantonID": 73,
+        "provinciaID": 6,
+        "nombre": "Coto Brus"
+    }, {
+        "cantonID": 74,
+        "provinciaID": 6,
+        "nombre": "Parrita"
+    }, {
+        "cantonID": 75,
+        "provinciaID": 6,
+        "nombre": "Corredores"
+    }, {
+        "cantonID": 76,
+        "provinciaID": 6,
+        "nombre": "Garabito"
+    }, {
+        "cantonID": 77,
+        "provinciaID": 7,
+        "nombre": "Central"
+    }, {
+        "cantonID": 78,
+        "provinciaID": 7,
+        "nombre": "Pococí"
+    }, {
+        "cantonID": 79,
+        "provinciaID": 7,
+        "nombre": "Siquirres"
+    }, {
+        "cantonID": 80,
+        "provinciaID": 7,
+        "nombre": "Talamanca"
+    }, {
+        "cantonID": 81,
+        "provinciaID": 7,
+        "nombre": "Matina"
+    }, {
+        "cantonID": 82,
+        "provinciaID": 7,
+        "nombre": "Guácimo"
+    }
+
+]

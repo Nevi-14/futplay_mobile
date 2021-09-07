@@ -1,0 +1,85 @@
+[{
+    "clubID": 1,
+    "usuarioID": 1,
+    "provinciaID": 1,
+    "cantonID": 1,
+    "distritoID": 1,
+    "foto": "../assets/flags/brazil.svg",
+    "nombre": "Brazil",
+    "abreviacion": "BZ",
+    "direccion": "Brazil"
+ },
+ {
+    "clubID": 1,
+    "usuarioID": 1,
+    "provinciaID": 1,
+    "cantonID": 1,
+    "distritoID": 1,
+    "foto": "../assets/flags/china.svg",
+    "nombre": "China",
+    "abreviacion": "CH",
+    "direccion": "China"
+ },{
+    "clubID": 1,
+    "usuarioID": 1,
+    "provinciaID": 1,
+    "cantonID": 1,
+    "distritoID": 1,
+    "foto": "../assets/flags/france.svg",
+    "nombre": "France",
+    "abreviacion": "FR",
+    "direccion": "France"
+ },
+ {
+    "clubID": 1,
+    "usuarioID": 1,
+    "provinciaID": 1,
+    "cantonID": 1,
+    "distritoID": 1,
+    "foto": "../assets/flags/germany.svg",
+    "nombre": "Germany",
+    "abreviacion": "GE",
+    "direccion": "Germany"
+ },{
+    "clubID": 1,
+    "usuarioID": 1,
+    "provinciaID": 1,
+    "cantonID": 1,
+    "distritoID": 1,
+    "foto": "../assets/flags/italy.svg",
+    "nombre": "Italy",
+    "abreviacion": "IT",
+    "direccion": "Italy"
+ },
+ {
+    "clubID": 1,
+    "usuarioID": 1,
+    "provinciaID": 1,
+    "cantonID": 1,
+    "distritoID": 1,
+    "foto": "../assets/flags/russia.svg",
+    "nombre": "Russia",
+    "abreviacion": "RU",
+    "direccion": "Russia"
+ },{
+    "clubID": 1,
+    "usuarioID": 1,
+    "provinciaID": 1,
+    "cantonID": 1,
+    "distritoID": 1,
+    "foto": "../assets/flags/united-kingdom.svg",
+    "nombre": "United Kingdom",
+    "abreviacion": "UK",
+    "direccion": "United Kingdom"
+ },
+ {
+    "clubID": 1,
+    "usuarioID": 1,
+    "provinciaID": 1,
+    "cantonID": 1,
+    "distritoID": 1,
+    "foto": "../assets/flags/united-states.svg",
+    "nombre": "United States",
+    "abreviacion": "US",
+    "direccion": "United States"
+ }]

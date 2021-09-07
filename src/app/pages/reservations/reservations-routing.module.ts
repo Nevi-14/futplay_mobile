@@ -4,11 +4,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { ReservationsPage } from './reservations.page';
 
 const routes: Routes = [
-  {
+{
     path: '',
-    component: ReservationsPage
+    component: ReservationsPage,
   }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

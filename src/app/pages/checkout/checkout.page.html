@@ -1,13 +1,19 @@
 <ion-header class="ion-no-border" >
   <ion-toolbar >
+    <img class="animate__animated animate__bounce" src="/assets/home/logo.svg" alt="" height="30" style="position: fixed; top: 15px; right: 15px;">
     <ion-title class="ion-text-left">Fase Final</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="cerrarModal()" fill="solid" shape="round"  color="primary" slot="end" class="circle-btn">
-        <ion-icon slot="icon-only" name="close"></ion-icon>
+
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="solid" shape="round" color="dark" routerLink="/calendar" >
+        <ion-icon name="arrow-undo-outline"></ion-icon>
+        
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content class="ion-padding">
   <ion-grid >
@@ -16,7 +22,7 @@
       <ion-col size="12" style="margin-bottom: 10px;"> Monto Total a cancelar por Equipo 10000</ion-col>
       <ion-col size="12" style="margin-bottom: 10px;"> Reservación(20%)  2000</ion-col>
       <ion-col size="12" style="margin-bottom: 10px;">       <ion-buttons style="margin: 0 auto;">
-        <ion-button (click)="onClick()" routerLink="/checkout" fill="solid" shape="round">
+        <ion-button (click)="onClick()" routerLink="/checkout" fill="solid" shape="round" style="margin: 0 auto; margin-top: 10px; margin-bottom: 10px;">
                 Guardar
         </ion-button>
       </ion-buttons></ion-col>

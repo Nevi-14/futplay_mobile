@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { DataService } from '../../services/data.service';
+import { ClubService } from '../../services/club.service';
+import { Club } from 'src/app/models/club';
 
 @Component({
   selector: 'app-create-club',
@@ -8,12 +12,31 @@ import { ModalController } from '@ionic/angular';
 })
 export class CreateClubPage implements OnInit {
 
-  constructor(private modalCtrl: ModalController) { }
+  constructor(private modalCtrl: ModalController, private data: DataService, private clubService: ClubService) { }
 
+club = {
+   clubID: 1,
+   usuarioID: 1,
+   provinciaID: 1,
+   cantonID: 1,
+   distritoID: 1,
+   foto: '../assets/profile/nopicture.svg',
+   nombre: '',
+   abreviacion: '',
+   direccion: ''
+}
   ngOnInit() {
+   console.log(this.club.distritoID)
+  }
+  onSubmit(formulario: NgForm){
+    this.clubService.club.push(new Club(this.club.cantonID,this.club.usuarioID,this.club.provinciaID,this.club.cantonID,this.club.distritoID,this.club.foto,this.club.nombre,this.club.abreviacion,this.club.direccion));
+    console.log(this.club, this.clubService.club.length);
+    this.modalCtrl.dismiss();
   }
   cerrarModal(){
     this.modalCtrl.dismiss();
   }
+
+
 
 }

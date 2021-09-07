@@ -1,57 +1,60 @@
+<app-header titulo="reservacion"></app-header>
+
 <ion-content>
-  <ion-grid fixed>
-      <ion-row>
-          <ion-col size="12">
-              <ion-list lines="none">
-                  <ion-list-header>
-                    <ion-label>
-                     Reservacion de canchas
-                    </ion-label>
-                  </ion-list-header>
-                  <ion-item>
-                    <ion-label>Provincia</ion-label>
+
+  <ion-grid >
+    <ion-row>
+
+        <ion-col size="12">
+            <ion-list lines="none">
+              <ion-item>
+                <ion-label>Seleccionar Ubicación</ion-label>
+              </ion-item>
+
+                <ion-item>
+                  <ion-label>Provincia</ion-label>
+                  <ion-select placeholder="Seleccionar">
+                    <ion-select-option *ngFor="let provincia of data.provincias" value="{{provincia.provinciaID}}">{{provincia.nombre}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Canton</ion-label>
                     <ion-select placeholder="Seleccionar">
-                      <ion-select-option value="f">Data 1</ion-select-option>
-                      <ion-select-option value="m">Data 2</ion-select-option>
+                      <ion-select-option *ngFor="let canton of data.cantones" value="{{canton.cantonID}}">{{canton.nombre}}</ion-select-option>
                     </ion-select>
                   </ion-item>
                   <ion-item>
-                      <ion-label>Canton</ion-label>
-                      <ion-select placeholder="Seleccionar">
-                        <ion-select-option value="f">Data 1</ion-select-option>
-                        <ion-select-option value="m">Data 2</ion-select-option>
-                      </ion-select>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label>Distrito</ion-label>
-                      <ion-select placeholder="Seleccionar">
-                        <ion-select-option value="f">Data 1</ion-select-option>
-                        <ion-select-option value="m">Data 2</ion-select-option>
-                      </ion-select>
-                    </ion-item>
-                
-                </ion-list>
+                    <ion-label>Distrito</ion-label>
+                    <ion-select placeholder="Seleccionar">
+                      <ion-select-option *ngFor="let distrito of data.distritos" value="{{distrito.distritoID}}">{{distrito.nombre}}</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+              
+              </ion-list>
 
-          </ion-col>
-          <ion-col size="12">
-                <ion-list>
-  <ion-item *ngFor="let item of [1,1,1]; let i = index;">
-   <ion-label>Cancha {{1+i}}</ion-label>
+        </ion-col>
+        <ion-col size="12">
+              <ion-list>
+                <ion-item>
+                  <ion-label>Canchas Disponibles</ion-label>
+                </ion-item>
+<ion-item *ngFor="let item of [1,1,1,1]; let i = index;">
+ <ion-label>Cancha {{1+i}}</ion-label>
 
-    <ion-buttons  slot="end">
-      <ion-button routerLink="/calendar" style="height: 40px;">
-      <ion-img [src]="calendar" style="height: 40px;"></ion-img>
+  <ion-buttons  slot="end">
+    <ion-button routerLink="/calendar" style="height: 40px;">
+    <ion-img [src]="calendar" style="height: 40px;"></ion-img>
+    </ion-button>
+    <ion-button routerLink="/message"  style="height: 40px;">
+      <ion-img [src]="message" style="height:40px;"></ion-img>
       </ion-button>
-      <ion-button routerLink="/message"  style="height: 40px;">
-        <ion-img [src]="message" style="height:40px;"></ion-img>
+      <ion-button routerLink="/location"  style="height:40px;">
+        <ion-img [src]="location" style="height: 40px;"></ion-img>
         </ion-button>
-        <ion-button routerLink="/location"  style="height:40px;">
-          <ion-img [src]="location" style="height: 40px;"></ion-img>
-          </ion-button>
-    </ion-buttons>
-  </ion-item>
+  </ion-buttons>
+</ion-item>
 </ion-list>
-          </ion-col>
-      </ion-row>
-  </ion-grid>
+        </ion-col>
+    </ion-row>
+</ion-grid>
 </ion-content>

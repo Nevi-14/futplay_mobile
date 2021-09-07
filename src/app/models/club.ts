@@ -3,9 +3,9 @@ export class Club {
     constructor(
         public clubID: number,
         public usuarioID: number,
-        public provinciaID: string,
-        public cantonID: string,
-        public distritoID: string,
+        public provinciaID: number,
+        public cantonID: number,
+        public distritoID: number,
         public foto: string,
         public nombre: string,
         public abreviacion: string,

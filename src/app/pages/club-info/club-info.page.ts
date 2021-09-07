@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, Input, OnInit } from '@angular/core';
+import { ModalController, PopoverController } from '@ionic/angular';
 import { TransferenciasPage } from '../transferencias/transferencias.page';
+import { ClubProfileInfoPage } from '../club-profile-info/club-profile-info.page';
+import { MyClubsPageModule } from '../my-clubs/my-clubs.module';
+import { MyClubsPage } from '../my-clubs/my-clubs.page';
 
 @Component({
   selector: 'app-club-info',
@@ -8,10 +11,11 @@ import { TransferenciasPage } from '../transferencias/transferencias.page';
   styleUrls: ['./club-info.page.scss'],
 })
 export class ClubInfoPage implements OnInit {
-
-  constructor(private modalCtrl: ModalController) { }
+@Input() club: any;
+  constructor(private modalCtrl: ModalController,private popoverCtrl: PopoverController) { }
 
   ngOnInit() {
+    console.log(this.club)
   }
 
   async listaTransferencia() {
@@ -20,6 +24,36 @@ export class ClubInfoPage implements OnInit {
       cssClass: 'my-custom-class'
     });
     return await modal.present();
+  }
+  async clubinfo(ev: any) {
+    const popover = await this.popoverCtrl.create({
+      component: ClubProfileInfoPage,
+      cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true,
+      backdropDismiss: true
+    });
+    await popover.present();
+
+    const { data } = await popover.onWillDismiss();
+    console.log(data);
+  }
+  async myclubs(ev: any) {
+    const popover = await this.popoverCtrl.create({
+      component: MyClubsPage,
+      cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true,
+      backdropDismiss: true
+    });
+    await popover.present();
+
+    const { data } = await popover.onWillDismiss();
+    console.log(data);
+  }
+
+  cerrarModal(){
+    this.modalCtrl.dismiss();
   }
 
 }
