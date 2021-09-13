@@ -1,0 +1,110 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+
+ <ion-title class="ion-text-center" >FUTPLAY <ion-badge color="primary" style="text-transform: uppercase;">Datos Personales</ion-badge></ion-title>
+ <ion-buttons slot="end">
+  <ion-button (click)="cerrarModal()" fill="solid" color="primary" slot="end" shape="round">
+    <ion-icon slot="icon-only" name="close"></ion-icon>
+  </ion-button>
+</ion-buttons>
+
+</ion-toolbar>
+<ion-toolbar class="ion-text-center">
+<ion-label >Eliminar Cuenta </ion-label>
+  <ion-buttons  slot="end">
+    <ion-button  (click)="deleteUser(user.usuarioID)">
+      <ion-icon name="trash" color="danger"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+</ion-header>
+
+<ion-content >
+
+
+
+
+  <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)">
+    <ion-grid >
+      <ion-row style="display: flex;" class="ion-justify-content-center" >
+        <ion-col size="12" size-md="10" >
+<ion-row>
+
+  <ion-col size="12">
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input type="text" placeholder="Ingresar nombre" name="nombre" [(ngModel)]="user.nombre" autocomplete="off"></ion-input>
+    </ion-item>
+  </ion-col>
+  <ion-col size="6">
+    <ion-item>
+      <ion-label position="floating">1er Apellido</ion-label>
+      <ion-input type="text" placeholder="Ingresar apellido"  name="apellido1" [(ngModel)]="user.apellido1"></ion-input>
+    </ion-item>
+  </ion-col>
+  <ion-col size="6">
+    <ion-item>
+      <ion-label position="floating">2º Apellido</ion-label>
+      <ion-input type="text" placeholder="Ingresar apellido"  name="apellido2" [(ngModel)]="user.apellido2"></ion-input>
+    </ion-item>
+  </ion-col>
+  <ion-col size="6">
+    <ion-item>
+      <ion-label position="floating">Correo</ion-label>
+      <ion-input type="email" placeholder="Ingresar correo"  name="correo" [(ngModel)]="user.correo"></ion-input>
+    </ion-item>
+  </ion-col>
+  <ion-col size="6">
+    <ion-item>
+      <ion-label position="floating">Telefono</ion-label>
+      <ion-input type="tel" placeholder="Ingresar telefono"  name="telefono" [(ngModel)]="user.telefono"></ion-input>
+    </ion-item>
+  </ion-col>
+  <ion-col size="12">
+    <ion-list lines="none">
+      <ion-item>
+        <ion-label>Fecha de Nacimiento</ion-label>
+        <ion-datetime placeholder="Seleccionar" name="fechaNac" [(ngModel)]="user.fechaNac"  display-format="DD-MM-YYYY"></ion-datetime>
+      </ion-item>
+
+
+        <ion-item>
+          <ion-label>Provincia</ion-label>
+          <ion-select placeholder="Seleccionar" name="provinciaID" [(ngModel)]="user.provinciaID">
+            <ion-select-option *ngFor="let provincia of data.provincias" [value]="provincia.provinciaID" > {{provincia.nombre}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Canton</ion-label>
+            <ion-select placeholder="Seleccionar" name="cantonID"  [(ngModel)]="user.cantonID">
+              <ion-select-option *ngFor="let canton of data.cantones" [value]="canton.cantonID">{{canton.nombre}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>Distrito</ion-label>
+            <ion-select placeholder="Seleccionar" name="distritoID" [(ngModel)]="user.distritoID">
+              <ion-select-option *ngFor="let distrito of data.distritos"   [value]="distrito.distritoID">{{distrito.nombre}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label >Dirección</ion-label>
+            <ion-textarea placeholder="Dirección" name="direccion" [(ngModel)]="user.direccion"></ion-textarea>
+          </ion-item>
+      <ion-item style="display: flex; justify-content: center;">
+        <ion-button style="margin: 0 auto;"   shape="round" type="submit" class="ion-margin-vertical">Actualizar</ion-button>
+      </ion-item>
+      </ion-list>
+
+</ion-col>
+
+  
+</ion-row>
+       </ion-col>
+      </ion-row>
+    </ion-grid>
+</form>
+  
+  </ion-content>
+
+

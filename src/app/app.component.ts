@@ -25,7 +25,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.data.getCantones();
     this.data.getDistritos();
     this.user.addUsers();
-
+    console.log(this.user.user);
   }
 
   ngAfterViewInit(){

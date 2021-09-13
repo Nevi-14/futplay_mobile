@@ -7,9 +7,9 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./booking.page.scss'],
 })
 export class BookingPage implements OnInit {
-
+  currentTime = new Date().toLocaleTimeString();
   constructor(private modalCtrl: ModalController) { }
-currentTime = new Date().toLocaleTimeString();
+
   ngOnInit() {
   }
 

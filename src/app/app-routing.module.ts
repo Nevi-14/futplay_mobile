@@ -96,6 +96,30 @@ const routes: Routes = [
     path: 'new-reservation',
     loadChildren: () => import('./pages/new-reservation/new-reservation.module').then( m => m.NewReservationPageModule)
   },
+  {
+    path: 'sent',
+    loadChildren: () => import('./pages/sent/sent.module').then( m => m.SentPageModule)
+  },
+  {
+    path: 'confirmed',
+    loadChildren: () => import('./pages/confirmed/confirmed.module').then( m => m.ConfirmedPageModule)
+  },
+  {
+    path: 'received',
+    loadChildren: () => import('./pages/received/received.module').then( m => m.ReceivedPageModule)
+  },
+  {
+    path: 'profile-info',
+    loadChildren: () => import('./pages/profile-info/profile-info.module').then( m => m.ProfileInfoPageModule)
+  },
+  {
+    path: 'password',
+    loadChildren: () => import('./pages/password/password.module').then( m => m.PasswordPageModule)
+  },
+  {
+    path: 'payment-method',
+    loadChildren: () => import('./pages/payment-method/payment-method.module').then( m => m.PaymentMethodPageModule)
+  },
 ];
 
 @NgModule({

@@ -13,12 +13,7 @@ export class ProfilePage implements OnInit {
   constructor(private popoverCtrl: PopoverController,private userService: UserService) { }
 
   ngOnInit() {
-  //  alert('hello');
-  console.log(this.userService.user.length)
-  for(let i = 0; i < this.userService.user.length; i++){
-    console.log(this.userService.user[i].nombre);
-  }
-    //console.log(this.userService.user);
+
   }
   async presentPopover(ev: any) {
     const popover = await this.popoverCtrl.create({
