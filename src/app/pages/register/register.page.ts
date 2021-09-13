@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { Provincia } from '../../models/provincia';
 import { Observable } from 'rxjs';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -31,7 +32,7 @@ export class RegisterPage implements OnInit {
     contrasena: '',
     intentos: 0
   };
-  constructor(private userService: UserService, private route: Router, private data: DataService) { }
+  constructor(private userService: UserService, private route: Router, private data: DataService, private toastCtrl: ToastController) { }
 
   ngOnInit() {
     console.log(this.data.provincias);
@@ -39,12 +40,32 @@ export class RegisterPage implements OnInit {
     console.log(this.data.distritos);
   }
 
-  onSubmit(formulario: NgForm){
-    this.userService.loggedUser(this.user);
-  this.userService.user.push(
-    new Usuario(this.user.usuarioID,this.user.roleID,this.user.provinciaID,this.user.cantonID,this.user.distritoID,this.user.foto,this.user.nombre,this.user.apellido1,this.user.apellido2,this.user.fechaNac,this.user.telefono,this.user.direccion,this.user.correo,this.user.contrasena,this.user.intentos)
-    
-    );
-    this.route.navigate(['/', 'home']);
+
+  async  test(){
+    const toast = await this.toastCtrl.create({
+      message:'El usuario ya existe',
+      duration: 1000,
+      position: 'bottom'
+      });
+         toast.present();
   }
+   onSubmit(formulario: NgForm){
+    const i = this.userService.user.findIndex( d => d.correo === this.user.correo );
+    console.log(i);
+    if ( i >= 0 ){
+      this.test();
+    } else {
+      this.userService.loggedUser(this.user);
+      this.userService.user.push(
+        new Usuario(this.user.usuarioID,this.user.roleID,this.user.provinciaID,this.user.cantonID,this.user.distritoID,this.user.foto,this.user.nombre,this.user.apellido1,this.user.apellido2,this.user.fechaNac,this.user.telefono,this.user.direccion,this.user.correo,this.user.contrasena,this.user.intentos)
+        
+        );
+        this.route.navigate(['/', 'home']);
+  
+    }
+
+}
+
+
+
 }
