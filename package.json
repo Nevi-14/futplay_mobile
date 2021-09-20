@@ -27,8 +27,11 @@
     "@capacitor/status-bar": "1.0.2",
     "@fullcalendar/angular": "^5.9.0",
     "@fullcalendar/daygrid": "^5.9.0",
+    "@ionic-native/file-chooser": "^5.36.0",
+    "@ionic-native/file-path": "^5.36.0",
     "@ionic/angular": "^5.5.2",
     "@types/google-maps": "^3.2.3",
+    "cordova-plugin-filechooser": "^1.2.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"

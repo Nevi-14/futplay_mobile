@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { DataService } from './services/data.service';
-import { UserService } from './services/users/user.service';
+import { UserService } from './services/user.service';
 import { ClubService } from './services/club.service';
 import { CalendarService } from './services/calendar.service';
 
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.data.getProvincias();
     this.data.getCantones();
     this.data.getDistritos();
-    this.user.addUsers();
+    this.user.getUsers();
     console.log(this.user.user);
   }
 

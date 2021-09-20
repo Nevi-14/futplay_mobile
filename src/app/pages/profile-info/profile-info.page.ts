@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { DataService } from '../../services/data.service';
-import { UserService } from '../../services/users/user.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-profile-info',
@@ -37,18 +37,20 @@ export class ProfileInfoPage implements OnInit {
 cerrarModal(){
   this.modalCtrl.dismiss();
 }
+async message( text: string){
+  this.modalCtrl.dismiss();
+  const alert = await this.alertCtrl.create({
+    header: 'Futplay',
+    message: text,
+  });
+  alert.present();
+}
+
 
 async onSubmit(formulario: NgForm){
   this.userService.loggedUser(this.user);
 this.userService.editUser(this.user.usuarioID, this.user);
-console.log(this.user);
-this.modalCtrl.dismiss();
-const toast = await this.toastCtrl.create({
-message:'Datos actualizados',
-duration: 1000,
-position: 'bottom'
-});
-toast.present();
+this.message('Datos actualizados');
 
 
 }

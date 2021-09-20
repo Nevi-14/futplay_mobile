@@ -1,0 +1,57 @@
+[{
+    "usuarioID": 1,
+    "roleID": 1 ,
+    "provinciaID": 1 ,
+    "cantonID": 1 ,
+    "distritoID" : 1,
+    "foto": "" ,
+    "nombre": "Admin",
+    "apellido1": "Application",
+    "apellido2": "User",
+    "fechaNac": "1996-08-14",
+    "telefono": "",
+    "direccion": "",
+    "correo": "admin@gmail.com",
+    "contrasena": "admin",
+    "intentos": 0 
+
+
+},
+{
+    "usuarioID": 1,
+    "roleID": 1 ,
+    "provinciaID": 1 ,
+    "cantonID": 1 ,
+    "distritoID" : 1,
+    "foto": "" ,
+    "nombre": "Club",
+    "apellido1": "Admin",
+    "apellido2": "User",
+    "fechaNac": "1996-08-14",
+    "telefono": "",
+    "direccion": "",
+    "correo": "clubadmin@gmail.com",
+    "contrasena": "clubadmin",
+    "intentos": 0 
+
+
+},
+{
+    "usuarioID": 1,
+    "roleID": 1 ,
+    "provinciaID": 1 ,
+    "cantonID": 1 ,
+    "distritoID" : 1,
+    "foto": "" ,
+    "nombre": "Regular",
+    "apellido1": "Application",
+    "apellido2": "User",
+    "fechaNac": "1996-08-14",
+    "telefono": "",
+    "direccion": "",
+    "correo": "regular@gmail.com",
+    "contrasena": "regular",
+    "intentos": 0 
+
+
+}]

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { FutplayService } from './futplay/futplay.service';
 
-import { FutplayService } from './futplay.service';
 
 describe('FutplayService', () => {
   let service: FutplayService;

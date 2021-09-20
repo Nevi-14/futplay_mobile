@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Usuario } from '../../models/usuario';
+import { Usuario } from '../models/usuario';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ currentUser = {
   intentos: 0
 };
 age = 0;
-  constructor() {
+  constructor(private http: HttpClient) {
   }
   loggedUser(user){
 this.currentUser = user;
@@ -33,13 +34,18 @@ const birthday = new Date(user.fechaNac);
 this.age = today.getFullYear() - birthday.getFullYear();
   }
 
+  getUsers(){
+    this.http.get<Usuario[]>('/assets/json/users.json').subscribe(resp=>{
+    if(resp){
+     this.user = resp;
+    }else{
+      console.log('Error clubes roles');
+    }
+   });
+ }
 
-  addUsers(){
-  //  alert(new Date('2021-08-14'))
-   this.user.push( new Usuario(1,1,1,1,1,'../assets/profile/nopicture.svg','Super','Admin','User',new Date('1996-08-14'),'','Heredia, Santo Domingo','superadmin@gmail.com','superadmin',0));
-   this.user.push( new Usuario(2,2,1,1,1,'../assets/profile/nopicture.svg','Application','Admin','User',new Date('2000-03-21'),'','Heredia, Santo Domingo','admin@gmail.com','admin',0));
-   this.user.push( new Usuario(3,3,1,1,1,'../assets/profile/nopicture.svg','Application','Regular','User',new Date('1987-09-12'),'','Heredia, Santo Domingo','regular@gmail.com','regular',0));
-  }
+
+
 
   editUser(id: number, user){
 
@@ -55,6 +61,18 @@ this.age = today.getFullYear() - birthday.getFullYear();
         this.user[i].distritoID = user.distritoID;
         this.user[i].cantonID = user.cantonID;
         this.user[i].direccion = user.direccion;
+      } 
+
+    }
+
+  }
+  
+  editUserPassword(id: number, credentials){
+    for( let i = 0; i < this.user.length ; i++){  
+      if(this.user[i].usuarioID ===id ){
+        this.user[i].contrasena = credentials.new;
+        console.log(credentials.password)
+        console.log(this.user[i].contrasena);
       } 
 
     }

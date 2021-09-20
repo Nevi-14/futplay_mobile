@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
-import { UserService } from '../../services/users/user.service';
+import { AlertController } from '@ionic/angular';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -27,18 +27,20 @@ export class LoginPage implements OnInit {
     contrasena: '',
     intentos: 0
   };
-  constructor(private userService: UserService, private route: Router, private toastCtrl: ToastController ) { }
+  showPass = false;
+
+  constructor(private userService: UserService, private route: Router, private alertCtrl: AlertController ) { }
 
   ngOnInit() {
   }
-  async  test(){
-    const toast = await this.toastCtrl.create({
-      message:'Usuario o contraseña incorrectos',
-      duration: 1000,
-      position: 'bottom'
-      });
-         toast.present();
+  async message( text: string){
+    const alert = await this.alertCtrl.create({
+      header: 'Futplay',
+      message: text,
+    });
+    alert.present();
   }
+
    onSubmit(formulario: NgForm){
     const i = this.userService.user.findIndex( d => d.correo === this.user.correo );
     console.log(i);
@@ -47,10 +49,10 @@ export class LoginPage implements OnInit {
         this.userService.loggedUser(this.userService.user[i]);
         this.route.navigate(['/', 'home']);
       } else {
-        this.test();
+       this.message('Usuario o contraseña incorrectos');
       }
     } else {
-      this.test();
+      this.message('Usuario o contraseña incorrectos');
     }
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { SettingInfoComponent } from '../../components/setting-info/setting-info.component';
-import { UserService } from '../../services/users/user.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +13,10 @@ export class ProfilePage implements OnInit {
   constructor(private popoverCtrl: PopoverController,private userService: UserService) { }
 
   ngOnInit() {
+
+  }
+
+  uploadPicture(){
 
   }
   async presentPopover(ev: any) {
