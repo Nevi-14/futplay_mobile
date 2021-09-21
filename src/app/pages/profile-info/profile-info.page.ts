@@ -4,6 +4,10 @@ import { Router } from '@angular/router';
 import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { DataService } from '../../services/data.service';
 import { UserService } from '../../services/user.service';
+import { PosicionesService } from '../../services/posiciones.service';
+import { CantonesService } from 'src/app/services/cantones.service';
+import { ProvinciasService } from 'src/app/services/provincias.service';
+import { DistritosService } from 'src/app/services/distritos.service';
 
 @Component({
   selector: 'app-profile-info',
@@ -19,6 +23,7 @@ export class ProfileInfoPage implements OnInit {
     distritoID:this.userService.currentUser.distritoID,
     foto:this.userService.currentUser.foto,
     nombre: this.userService.currentUser.nombre,
+    apodo: this.userService.currentUser.apodo,
     apellido1:this.userService.currentUser.apellido1,
     apellido2:this.userService.currentUser.apellido2,
     fechaNac: new Date(this.userService.currentUser.fechaNac).toISOString(),
@@ -29,7 +34,7 @@ export class ProfileInfoPage implements OnInit {
     intentos: this.userService.currentUser.intentos
   };
 
-  constructor(private data: DataService, private modalCtrl: ModalController, private userService: UserService, private toastCtrl: ToastController, private alertCtrl: AlertController, private route: Router) { }
+  constructor(private data: DataService, private modalCtrl: ModalController, private userService: UserService, private toastCtrl: ToastController, private alertCtrl: AlertController, private route: Router, private posiciones: PosicionesService, private cantones: CantonesService, private provincias: ProvinciasService,private distritos: DistritosService) { }
 
   ngOnInit() {
  console.log(this.user);

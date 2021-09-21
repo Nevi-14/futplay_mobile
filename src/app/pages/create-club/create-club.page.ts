@@ -4,6 +4,9 @@ import { ModalController } from '@ionic/angular';
 import { DataService } from '../../services/data.service';
 import { ClubService } from '../../services/club.service';
 import { Club } from 'src/app/models/club';
+import { ProvinciasService } from '../../services/provincias.service';
+import { CantonesService } from 'src/app/services/cantones.service';
+import { DistritosService } from 'src/app/services/distritos.service';
 
 @Component({
   selector: 'app-create-club',
@@ -12,7 +15,7 @@ import { Club } from 'src/app/models/club';
 })
 export class CreateClubPage implements OnInit {
 
-  constructor(private modalCtrl: ModalController, private data: DataService, private clubService: ClubService) { }
+  constructor(private modalCtrl: ModalController, private data: DataService, private clubService: ClubService, private provincias: ProvinciasService, private cantones: CantonesService, private distritos: DistritosService) { }
 
 club = {
    clubID: 1,

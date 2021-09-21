@@ -8,6 +8,7 @@ export class Usuario {
         public distritoID: number,
         public foto: string,
         public nombre: string,
+        public apodo: string,
         public apellido1: string,
         public apellido2: string,
         public fechaNac: Date,

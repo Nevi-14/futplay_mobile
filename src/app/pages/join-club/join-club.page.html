@@ -1,6 +1,6 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title class="ion-text-left">Unirse a un Club</ion-title>
+    <ion-title class="ion-text-center" >FUTPLAY <ion-badge color="primary" style="text-transform: uppercase;">Clubes</ion-badge></ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="cerrarModal()" fill="solid" shape="round"  color="primary" slot="end" >
         <ion-icon slot="icon-only" name="close"></ion-icon>
@@ -13,16 +13,24 @@
 
 <ion-content class="ion-padding">
 
-  <ion-list>
-    <ion-item *ngFor="let item of [1,1,1]; let i = index;">
-      <ion-router-link href="/club-info">Equipo {{1+i}}</ion-router-link>
-
-      <ion-buttons slot="end">
-        <ion-button (click)="onClick()">
-          <ion-icon slot="start" name="save"></ion-icon>
+  <ion-list lines="none">
+    <ion-item *ngFor="let club of club.club  | filtro : textoBuscar:'nombre'; let i = index;">
+      <ion-avatar slot="start">
+        <img src="{{club.foto}}">
+      </ion-avatar>
+    
+      <ion-buttons>
+        <ion-button (click)="send(club)">
+          {{club.nombre}}
         </ion-button>
       </ion-buttons>
+    
+      <ion-buttons  slot="end">
+            <ion-button (click)="add(club.clubID)" style="height:30px;">
+              <ion-img [src]="save" style="height: 30px;"></ion-img>
+              </ion-button>
+      </ion-buttons>
     </ion-item>
-  </ion-list>
+    </ion-list>
 
 </ion-content>

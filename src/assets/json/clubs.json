@@ -10,7 +10,7 @@
     "direccion": "Brazil"
  },
  {
-    "clubID": 1,
+    "clubID": 2,
     "usuarioID": 1,
     "provinciaID": 1,
     "cantonID": 1,
@@ -20,7 +20,7 @@
     "abreviacion": "CH",
     "direccion": "China"
  },{
-    "clubID": 1,
+    "clubID": 3,
     "usuarioID": 1,
     "provinciaID": 1,
     "cantonID": 1,
@@ -31,7 +31,7 @@
     "direccion": "France"
  },
  {
-    "clubID": 1,
+    "clubID": 4,
     "usuarioID": 1,
     "provinciaID": 1,
     "cantonID": 1,
@@ -41,7 +41,7 @@
     "abreviacion": "GE",
     "direccion": "Germany"
  },{
-    "clubID": 1,
+    "clubID": 5,
     "usuarioID": 1,
     "provinciaID": 1,
     "cantonID": 1,
@@ -52,7 +52,7 @@
     "direccion": "Italy"
  },
  {
-    "clubID": 1,
+    "clubID": 6,
     "usuarioID": 1,
     "provinciaID": 1,
     "cantonID": 1,
@@ -62,7 +62,7 @@
     "abreviacion": "RU",
     "direccion": "Russia"
  },{
-    "clubID": 1,
+    "clubID": 7,
     "usuarioID": 1,
     "provinciaID": 1,
     "cantonID": 1,
@@ -73,7 +73,7 @@
     "direccion": "United Kingdom"
  },
  {
-    "clubID": 1,
+    "clubID": 8,
     "usuarioID": 1,
     "provinciaID": 1,
     "cantonID": 1,

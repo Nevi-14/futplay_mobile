@@ -18,7 +18,7 @@
 
 },
 {
-    "usuarioID": 1,
+    "usuarioID": 2,
     "roleID": 1 ,
     "provinciaID": 1 ,
     "cantonID": 1 ,
@@ -37,7 +37,7 @@
 
 },
 {
-    "usuarioID": 1,
+    "usuarioID": 3,
     "roleID": 1 ,
     "provinciaID": 1 ,
     "cantonID": 1 ,

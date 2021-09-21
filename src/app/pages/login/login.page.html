@@ -8,16 +8,17 @@
   <ion-row>
     <ion-col size="12" >
       <ion-item>
-        <ion-label position="floating">Usuario</ion-label>
+        <ion-label position="stacked">Usuario</ion-label>
         <ion-input type="text" placeholder="Ingresar correo o numero de telefono" name="correo" [(ngModel)]="user.correo"></ion-input>
       </ion-item>
     </ion-col>
 
     <ion-col size="12">
+      
       <ion-item>
-        <ion-label position="floating">Password</ion-label>
+        <ion-label position="stacked">Contraseña</ion-label>
           <ion-input  name="contrasena" autocomplete="off" [(ngModel)]="user.contrasena" type="{{showPass ? 'text' : 'password'}}"></ion-input>
-          <ion-icon item-end slot="end" name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>
+          <ion-icon  item-right name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>
      </ion-item>
 
     </ion-col>

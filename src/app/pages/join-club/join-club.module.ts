@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { JoinClubPageRoutingModule } from './join-club-routing.module';
 
 import { JoinClubPage } from './join-club.page';
+import { FiltroPipe } from 'src/app/pipes/filtro.pipe';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { JoinClubPage } from './join-club.page';
     IonicModule,
     JoinClubPageRoutingModule
   ],
-  declarations: [JoinClubPage]
+  declarations: [JoinClubPage,FiltroPipe]
 })
 export class JoinClubPageModule {}

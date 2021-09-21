@@ -19,6 +19,7 @@ export class RegisterPage implements OnInit {
         distritoID: 1,
         foto: '../assets/profile/nopicture.svg',
         nombre: '',
+        apodo:'',
         apellido1: '',
         apellido2: '',
         fechaNac: new Date(),
@@ -64,7 +65,7 @@ export class RegisterPage implements OnInit {
             this.test();
         } else {
             this.userService.loggedUser(this.user);
-            this.userService.user.push(new Usuario(this.user.usuarioID, this.user.roleID, this.user.provinciaID, this.user.cantonID, this.user.distritoID, this.user.foto, this.user.nombre, this.user.apellido1, this.user.apellido2, this.user.fechaNac, this.user.telefono, this.user.direccion, this.user.correo, this.user.contrasena, this.user.intentos));
+            this.userService.user.push(new Usuario(this.user.usuarioID, this.user.roleID, this.user.provinciaID, this.user.cantonID, this.user.distritoID, this.user.foto, this.user.nombre,this.user.apodo, this.user.apellido1, this.user.apellido2, this.user.fechaNac, this.user.telefono, this.user.direccion, this.user.correo, this.user.contrasena, this.user.intentos));
             this.route.navigate(['/', 'home']);
 
         }

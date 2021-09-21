@@ -39,7 +39,7 @@
                 <ion-label >Abreviación ({{club.abreviacion}})</ion-label>                         
               </ion-item>
               <ion-item>
-                <ion-label >Región (Distrito, P)</ion-label>
+                <ion-label >Región ({{club.distritoID | distritos}}, {{club.provinciaID | provincias}})</ion-label>
               </ion-item>
               <ion-item>
                   <ion-label>(Ganes, Perdidos, Empates)</ion-label>
@@ -72,11 +72,11 @@
  </ion-list>
   
     </ion-col>
-    <ion-col>
+    <ion-col size="12">
         <ion-list lines="none">
-            <ion-item *ngFor="let item of [1,1,1]; let i = index">
-                <ion-label>Jugador {{i+1}}</ion-label>
-                <ion-buttons slot="end">
+            <ion-item *ngFor="let jugador of jugadores.jugadores; let i = index">
+                <ion-label *ngIf="club.clubID === jugador.clubID">{{jugador.usuarioID | usuarios}}</ion-label>
+                <ion-buttons *ngIf="club.clubID === jugador.clubID" slot="end">
                     <ion-button (click)="onClick()">
                         <ion-icon  name="eye"></ion-icon>
                     </ion-button>
@@ -85,6 +85,25 @@
 
         </ion-list>
     </ion-col>
+    <ion-col size="12">
+      <ion-list lines="none">
+        <ion-item>
+          <ion-label color="dark">Solicitudes {{currentYear}}</ion-label>
+        </ion-item>
+          <ion-item *ngFor="let solicitud of solicitudes.solicitudes; let i = index">
+              <ion-label *ngIf="club.clubID === solicitud.clubID">{{solicitud.usuarioID | usuarios}}</ion-label>
+              <ion-buttons *ngIf="club.clubID === solicitud.clubID" slot="end">
+                <ion-button (click)="add(solicitud)">
+                  <ion-icon  name="add"></ion-icon>
+              </ion-button>
+                <ion-button (click)="delete(solicitud.solicitudID)">
+                  <ion-icon  name="trash"></ion-icon>
+              </ion-button>
+              </ion-buttons>
+          </ion-item>
+
+      </ion-list>
+  </ion-col>
 </ion-row>
   </ion-grid>
 </ion-content>

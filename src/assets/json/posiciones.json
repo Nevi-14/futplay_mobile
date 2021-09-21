@@ -1,14 +1,18 @@
 [{
    "posicionID": 1,
-   "nombre": "P" 
+   "abreviacion": "P",
+   "nombre": "Portero"
 },{
     "posicionID": 2,
-    "nombre": "D" 
+    "abreviacion": "D",
+    "nombre": "Defensa"
  },{
     "posicionID": 3,
-    "nombre": "M" 
+    "abreviacion": "M",
+    "nombre": "Mediocampista"
  },{
     "posicionID": 4,
-    "nombre": "D" 
+    "abreviacion": "D",
+    "nombre":"Delantero" 
  }
 ]

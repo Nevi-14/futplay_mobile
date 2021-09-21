@@ -1,0 +1,14 @@
+[{
+    "jugadorID":1,
+    "usuarioID":1,
+    "clubID":1,
+    "posicionID":1,
+    "apodo":"Nelson"
+},
+{
+    "jugadorID":2,
+    "usuarioID":2,
+    "clubID":2,
+    "posicionID":2,
+    "apodo":"Jeu"
+}]

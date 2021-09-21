@@ -28,19 +28,19 @@
                 <ion-item>
                   <ion-label>Provincia</ion-label>
                   <ion-select placeholder="Seleccionar" name="provinciaID" [(ngModel)]="club.provinciaID">
-                    <ion-select-option *ngFor="let provincia of data.provincias" value="{{provincia.provinciaID}}" >{{provincia.nombre}}</ion-select-option>
+                    <ion-select-option *ngFor="let provincia of provincias.provincias" value="{{provincia.provinciaID}}" >{{provincia.nombre}}</ion-select-option>
                   </ion-select>
                 </ion-item>
                 <ion-item>
                     <ion-label>Canton</ion-label>
                     <ion-select placeholder="Seleccionar" name="cantonID" [(ngModel)]="club.cantonID">
-                      <ion-select-option *ngFor="let canton of data.cantones" value="{{canton.cantonID}}"  >{{canton.nombre}}</ion-select-option>
+                      <ion-select-option *ngFor="let canton of cantones.cantones" value="{{canton.cantonID}}"  >{{canton.nombre}}</ion-select-option>
                     </ion-select>
                   </ion-item>
                   <ion-item>
                     <ion-label>Distrito</ion-label>
                     <ion-select placeholder="Seleccionar" name="distritoID" [(ngModel)]="club.distritoID">
-                      <ion-select-option *ngFor="let distrito of data.distritos" value="{{distrito.distritoID}}" >{{distrito.nombre}}</ion-select-option>
+                      <ion-select-option *ngFor="let distrito of distritos.distritos" value="{{distrito.distritoID}}" >{{distrito.nombre}}</ion-select-option>
                     </ion-select>
                   </ion-item>
     

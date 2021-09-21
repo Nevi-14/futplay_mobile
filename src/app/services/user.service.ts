@@ -15,6 +15,7 @@ currentUser = {
   distritoID:null,
   foto:'',
   nombre:'',
+  apodo:'',
   apellido1:'',
   apellido2:'',
   fechaNac: null ,
@@ -52,6 +53,7 @@ this.age = today.getFullYear() - birthday.getFullYear();
     for( let i = 0; i < this.user.length ; i++){  
       if(this.user[i].usuarioID ===id ){
         this.user[i].nombre = user.nombre;
+        this.user[i].apodo = user.apodo;
         this.user[i].apellido1 = user.apellido1;
         this.user[i].apellido2 = user.apellido2;
         this.user[i].correo = user.correo;
@@ -78,7 +80,6 @@ this.age = today.getFullYear() - birthday.getFullYear();
     }
 
   }
-
   deleteUser(id:number){
     for( let i = 0; i < this.user.length ; i++){  
       if(this.user[i].usuarioID ===id ){
