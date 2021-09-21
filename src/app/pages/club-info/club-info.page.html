@@ -1,7 +1,6 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
 
-  
     <ion-title>{{club.nombre}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="cerrarModal()" fill="solid" shape="round"  color="primary" slot="end" >
@@ -60,7 +59,7 @@
  <ion-list lines="none">
      <ion-item>
       <ion-label color="dark">Jugadores {{currentYear}}</ion-label>
-      <ion-buttons slot="end">
+      <ion-buttons slot="end" *ngIf="usuario.currentUser.usuarioID === club.usuarioID">
           <ion-button (click)="listaTransferencia()" >
               <ion-icon name="download-outline" style="font-size:30px;"></ion-icon>
              </ion-button>
@@ -85,7 +84,7 @@
 
         </ion-list>
     </ion-col>
-    <ion-col size="12">
+    <ion-col size="12" *ngIf="usuario.currentUser.usuarioID === club.usuarioID">
       <ion-list lines="none">
         <ion-item>
           <ion-label color="dark">Solicitudes {{currentYear}}</ion-label>

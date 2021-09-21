@@ -18,7 +18,7 @@
       <ion-item>
         <ion-label position="stacked">Contraseña</ion-label>
           <ion-input  name="contrasena" autocomplete="off" [(ngModel)]="user.contrasena" type="{{showPass ? 'text' : 'password'}}"></ion-input>
-          <ion-icon  item-right name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>
+          <ion-icon slot="end"  item-right name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>
      </ion-item>
 
     </ion-col>

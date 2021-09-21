@@ -7,6 +7,7 @@ import { Club } from 'src/app/models/club';
 import { ProvinciasService } from '../../services/provincias.service';
 import { CantonesService } from 'src/app/services/cantones.service';
 import { DistritosService } from 'src/app/services/distritos.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-create-club',
@@ -15,11 +16,11 @@ import { DistritosService } from 'src/app/services/distritos.service';
 })
 export class CreateClubPage implements OnInit {
 
-  constructor(private modalCtrl: ModalController, private data: DataService, private clubService: ClubService, private provincias: ProvinciasService, private cantones: CantonesService, private distritos: DistritosService) { }
+  constructor(private modalCtrl: ModalController, private data: DataService, private clubService: ClubService, private provincias: ProvinciasService, private cantones: CantonesService, private distritos: DistritosService, private usuario: UserService) { }
 
 club = {
    clubID: 1,
-   usuarioID: 1,
+   usuarioID: this.usuario.currentUser.usuarioID,
    provinciaID: 1,
    cantonID: 1,
    distritoID: 1,
