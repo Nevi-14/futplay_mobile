@@ -10,23 +10,12 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  user = {
-    usuarioID: null,
-    roleID: null,
-    provinciaID: null,
-    cantonID: null,
-    distritoID:null,
-    foto:'',
-    nombre:'',
-    apellido1:'',
-    apellido2:'',
-    fechaNac: new Date(),
-    telefono:'',
-    direccion:'',
-    correo:'',
+  userLogin = {
+    usuario: '',
     contrasena: '',
     intentos: 0
   };
+
   showPass = false;
 
   constructor(private userService: UserService, private route: Router, private alertCtrl: AlertController ) { }
@@ -41,11 +30,18 @@ export class LoginPage implements OnInit {
     alert.present();
   }
 
+
    onSubmit(formulario: NgForm){
-    const i = this.userService.user.findIndex( d => d.correo === this.user.correo );
-    console.log(i);
+    let  i = 0;
+if(this.userService.validateEmail(this.userLogin.usuario)=== false){
+    i = this.userService.user.findIndex( d => d.telefono === this.userLogin.usuario );
+}else{
+    i = this.userService.user.findIndex( d => d.correo === this.userLogin.usuario );
+
+}
+
     if ( i >= 0 ){
-      if ( this.userService.user[i].contrasena === this.user.contrasena ){
+      if ( this.userService.user[i].contrasena === this.userLogin.contrasena ){
         this.userService.loggedUser(this.userService.user[i]);
         this.route.navigate(['/', 'home']);
       } else {

@@ -38,7 +38,8 @@ export class RegisterPage implements OnInit {
     }
 
 
-    async test() {
+    async alert(email) {
+      if(email){
         const alert = await this.alertCtrl.create({
             header: 'Lo sentimos!',
             message: 'Usuario duplicado. ¿Desea recuperar contraseña?',
@@ -57,18 +58,32 @@ export class RegisterPage implements OnInit {
             ]
         });
         await alert.present();
+      }else{
+
+        const alert = await this.alertCtrl.create({
+            header: 'Lo sentimos!',
+            message: 'Ingresa un correo valido!'
+        });
+        await alert.present();
+      }
     }
     onSubmit(formulario : NgForm) {
-        const i = this.userService.user.findIndex(d => d.correo === this.user.correo);
-        console.log(i);
-        if (i >= 0) {
-            this.test();
-        } else {
-            this.userService.loggedUser(this.user);
-            this.userService.user.push(new Usuario(this.user.usuarioID, this.user.roleID, this.user.provinciaID, this.user.cantonID, this.user.distritoID, this.user.foto, this.user.nombre,this.user.apodo, this.user.apellido1, this.user.apellido2, this.user.fechaNac, this.user.telefono, this.user.direccion, this.user.correo, this.user.contrasena, this.user.intentos));
-            this.route.navigate(['/', 'home']);
+        if(this.userService.validateEmail(this.user.correo)=== false){
+             this.alert(false);
+        }else{
+            const i = this.userService.user.findIndex(d => d.correo === this.user.correo);
+            console.log(i);
+            if (i >= 0) {
+                this.alert(true);
+            } else {
+                this.userService.loggedUser(this.user);
+                this.userService.user.push(new Usuario(this.user.usuarioID, this.user.roleID, this.user.provinciaID, this.user.cantonID, this.user.distritoID, this.user.foto, this.user.nombre,this.user.apodo, this.user.apellido1, this.user.apellido2, this.user.fechaNac, this.user.telefono, this.user.direccion, this.user.correo, this.user.contrasena, this.user.intentos));
+                this.route.navigate(['/', 'home']);
+    
+            }
 
         }
+   
 
     }
 

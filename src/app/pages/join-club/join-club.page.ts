@@ -13,7 +13,7 @@ import { UserService } from '../../services/user.service';
 })
 export class JoinClubPage implements OnInit {
   textoBuscar = '';
-  save= 'assets/search/save.svg';
+  save= 'assets/search/add-user.svg';
   constructor( private modalCtrl: ModalController, private club: ClubService, private solicitudes: SolicitudesService, private user: UserService, private alertCtrl: AlertController) {  }
 
 

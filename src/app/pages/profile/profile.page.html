@@ -4,14 +4,15 @@
 
 <ion-content>
 
+ 
 
     <ion-grid>
         <ion-row>
             <ion-col size="4" size-md="6" size-lg="4" style="display: grid; place-content: center;" >
 
-                <ion-buttons  style="position:relative;margin: 0 auto; border-radius: 50%; display: flex; justify-content: center; height: 80px; width: 80px;">
-                  <ion-img src="{{userService.currentUser.foto}}" ></ion-img>
-                  <ion-button (click)="uploadPicture()" style="position: fixed;border-radius: 50%; background-color: rgba(255, 255, 255, 0.5);"  shape="round">
+                <ion-buttons  style="position:relative;margin: 0 auto; display: flex; justify-content: center;">
+                  <ion-img src="{{userService.currentUser.foto}}"  ></ion-img>
+                  <ion-button (click)="pictureUpload()" style="position: fixed; background-color: rgba(255, 255, 255, 0.5);"  shape="round">
                    
                     <ion-icon  name="add"></ion-icon>
                    
@@ -23,21 +24,22 @@
 
 
             <ion-col size="8" size-md="6" size-lg="8" >
+
                 <ion-list lines="none" >
                     <ion-item>
-                        <ion-label>{{userService.currentUser.nombre}} {{userService.currentUser.apellido1}}</ion-label>
+                        <ion-label>Usuario : {{userService.currentUser.nombre}} {{userService.currentUser.apellido1}}</ion-label>
+                    </ion-item>
+                    <ion-item *ngIf="userService.currentUser.apodo">
+                        <ion-label>Apodo : {{userService.currentUser.apodo}}</ion-label>
                     </ion-item>
                     <ion-item>
-                        <ion-label>Apodo: {{userService.currentUser.apodo}}</ion-label>
+                        <ion-label >Región : {{userService.currentUser.provinciaID | provincias}}  </ion-label>
                     </ion-item>
                     <ion-item>
-                        <ion-label >Región ({{userService.currentUser.distritoID | distritos}}, {{userService.currentUser.provinciaID | provincias}})</ion-label>
+                        <ion-label>Posición: (P,D,M,D)</ion-label>
                     </ion-item>
                     <ion-item>
-                        <ion-label>Posición (P,D,M,D)</ion-label>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label>Edad: {{userService.age}}</ion-label>
+                        <ion-label>Edad : {{userService.age}} años</ion-label>
                     </ion-item>
                 </ion-list>
             </ion-col>

@@ -119,7 +119,11 @@ const routes: Routes = [
   {
     path: 'payment-method',
     loadChildren: () => import('./pages/payment-method/payment-method.module').then( m => m.PaymentMethodPageModule)
+  },  {
+    path: 'picture-upload',
+    loadChildren: () => import('./pages/picture-upload/picture-upload.module').then( m => m.PictureUploadPageModule)
   },
+
 ];
 
 @NgModule({

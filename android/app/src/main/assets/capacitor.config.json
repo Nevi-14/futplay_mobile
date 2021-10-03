@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "FUTPLAY",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

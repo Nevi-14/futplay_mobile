@@ -1,46 +1,53 @@
 
 
-<ion-content>
-  <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)">
-    <ion-grid >
-      <ion-row style="display: flex;" class="ion-justify-content-center" >
-        <ion-col size="12" size-md="10" >
-  <ion-row>
-    <ion-col size="12" >
-      <ion-item>
-        <ion-label position="stacked">Usuario</ion-label>
-        <ion-input type="text" placeholder="Ingresar correo o numero de telefono" name="correo" [(ngModel)]="user.correo"></ion-input>
-      </ion-item>
-    </ion-col>
+<ion-content >
 
-    <ion-col size="12">
+  <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)"  style="height:100%;">
+    <ion-list style="height:100%;display: grid;place-content: center;">
+      <ion-grid >
+        <ion-row >
+          
+        <ion-col size="12">
+
+          <ion-list-header lines="none">
+              <ion-label style="font-size: 14px; font-weight: bold; letter-spacing: 0.5px;text-transform: uppercase;">
+                Inicio de session
+              </ion-label>
+          </ion-list-header>
+      </ion-col>
+          <ion-col size="12" size-md="8" >
+            <ion-item>
+              <ion-label position="floating">Usuario</ion-label>
+              <ion-input type="text" placeholder="Correo o numero de telefono" name="correo" [(ngModel)]="userLogin.usuario"></ion-input>
+            </ion-item>
+          </ion-col>
       
-      <ion-item>
-        <ion-label position="stacked">Contraseña</ion-label>
-          <ion-input  name="contrasena" autocomplete="off" [(ngModel)]="user.contrasena" type="{{showPass ? 'text' : 'password'}}"></ion-input>
-          <ion-icon slot="end"  item-right name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>
-     </ion-item>
-
-    </ion-col>
-    <ion-col size="12">
-      <div align="center ">
-    
-        <ion-button fill="solid"  shape="round" class="ion-margin-vertical" type="submit">Iniciar Session</ion-button>   
-    </div>
-   <ul style="display: flex;list-style: none;">
-     <li style="margin-right:5px;">
-      <a routerLink="/inicio/register" fill="solid" shape="round" color="primary"style="text-decoration: none;">Registro</a>
-
-     </li>
-     <li style="margin-left: 5px;">   <a routerLink="/password-reset">Recuperar contraseña</a></li>
-   </ul>
-     
-    </ion-col>
-  </ion-row>
-</ion-col>
-   
-      </ion-row>
-    </ion-grid>
+          <ion-col size="12" size-md="8" >
+            
+            <ion-item>
+              <ion-label position="floating">Contraseña</ion-label>
+                <ion-input  name="contrasena" autocomplete="off" [(ngModel)]="userLogin.contrasena" type="{{showPass ? 'text' : 'password'}}" placeholder="contraseña"></ion-input>
+                <ion-icon slot="end"  item-right name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>
+           </ion-item>
+      
+          </ion-col>
+          <ion-col size="12" size-md="8" >
+            <div align="center ">
+          
+              <ion-button fill="solid"  shape="round" class="ion-margin-vertical" type="submit">Iniciar Session</ion-button>   
+          </div>
+         <ul style="display: flex;list-style: none;">
+           <li style="margin-right:5px;">
+            <a routerLink="/inicio/register" fill="solid" shape="round" color="primary"style="text-decoration: none;">Registro</a>
+      
+           </li>
+           <li style="margin-left: 5px;">   <a routerLink="/password-reset">Recuperar contraseña</a></li>
+         </ul>
+           
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
 </form>
   
   </ion-content>
