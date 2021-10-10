@@ -2,25 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CreateClubPage } from '../create-club/create-club.page';
 import { JoinClubPage } from '../join-club/join-club.page';
-import { UserService } from '../../services/user.service';
-import { JugadoresService } from '../../services/jugadores.service';
-import { Club } from '../../models/club';
-import { ClubService } from 'src/app/services/club.service';
 
 @Component({
-  selector: 'app-clubs',
-  templateUrl: './clubs.page.html',
-  styleUrls: ['./clubs.page.scss'],
+  selector: 'app-first-login-club',
+  templateUrl: './first-login-club.page.html',
+  styleUrls: ['./first-login-club.page.scss'],
 })
+export class FirstLoginClubPage implements OnInit {
 
-export class ClubsPage implements OnInit {
-  club: Club;
+
   add ='../assets/home/addclub.svg';
  find ='../assets/home/findclub.svg';
-  constructor( private modalCtrl: ModalController, private user: UserService, private players: JugadoresService, private clubs: ClubService) { }
+  constructor( private modalCtrl: ModalController) { }
 
   ngOnInit() {
-    this.clubs.checkIfHasClub();
   }
   async newClub() {
     const modal = await this.modalCtrl.create({

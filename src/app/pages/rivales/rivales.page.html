@@ -7,22 +7,14 @@
 
             
                 <ion-item>
-                  <ion-label>Provincia</ion-label>
-                  <ion-select placeholder="Seleccionar">
-                    <ion-select-option *ngFor="let provincia of data.provincias" value="{{provincia.provinciaID}}">{{provincia.nombre}}</ion-select-option>
-                  </ion-select>
-                </ion-item>
-                <ion-item>
-                    <ion-label>Canton</ion-label>
-                    <ion-select placeholder="Seleccionar">
-                      <ion-select-option *ngFor="let canton of data.cantones" value="{{canton.cantonID}}">{{canton.nombre}}</ion-select-option>
-                    </ion-select>
-                  </ion-item>
-                  <ion-item>
-                    <ion-label>Distrito</ion-label>
-                    <ion-select placeholder="Seleccionar">
-                      <ion-select-option *ngFor="let distrito of data.distritos" value="{{distrito.distritoID}}">{{distrito.nombre}}</ion-select-option>
-                    </ion-select>
+                  <ion-buttons  slot="end">
+  
+                        <ion-button (click)="filterModal()" style="height: 25px;">
+                          <img src="{{filter}}" alt="" style="height: 25px;">
+                         
+                          </ion-button>
+                  </ion-buttons>
+
                   </ion-item>
               
               </ion-list>
@@ -46,7 +38,7 @@
     
       <ion-buttons>
         <ion-button (click)="send(club)">
-          {{club.abreviacion}}
+          {{club.nombre}}
         </ion-button>
       </ion-buttons>  
       <ion-img [src]="star" style="height:40px;"></ion-img>
@@ -61,11 +53,11 @@
 
 
   <ion-buttons  slot="end">
-    <ion-button (click)="onClick()" style="height: 25px;">
+    <ion-button (click)="onClick()" style="height: 25px; display:none;">
     <ion-img [src]="face"style="height: 25px;"></ion-img>
     </ion-button>
 
-      <ion-button (click)="onClick()" style="height: 25px;">
+      <ion-button (click)="onClick()" style="height: 25px;display:none;">
         <ion-img [src]="message" style="height: 25px;"></ion-img>
         </ion-button>
         <ion-button (click)="onClick()" style="height: 25px;">

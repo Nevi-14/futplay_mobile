@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { MyReservationsPage } from 'src/app/pages/my-reservations/my-reservations.page';
 import { SettingInfoComponent } from '../setting-info/setting-info.component';
+import { MyClubsPage } from '../../pages/my-clubs/my-clubs.page';
 
 @Component({
   selector: 'app-header',
@@ -19,11 +20,10 @@ export class HeaderComponent implements OnInit {
   invalidURL = ['/home/clubs','/test '];
   valid = false;
 
-  constructor(private popoverCtrl: PopoverController, private router: Router, private modalCtrl: ModalController) { }
+  constructor(private popoverCtrl: PopoverController, private route: Router, private modalCtrl: ModalController) { }
 
 
   ngOnInit() {
-    this.url = this.router.url;
   }
   async presentPopover(ev: any) {
     const popover = await this.popoverCtrl.create({
@@ -38,6 +38,20 @@ export class HeaderComponent implements OnInit {
     const { data } = await popover.onWillDismiss();
     console.log(data);
   }
+ async clubsMenu(ev: any){
+  const popover = await this.popoverCtrl.create({
+    component: MyClubsPage,
+    cssClass: 'my-custom-class',
+    event: ev,
+    translucent: true,
+    backdropDismiss: true
+  });
+  await popover.present();
+
+  const { data } = await popover.onWillDismiss();
+  console.log(data);
+ }
+
   async presentModal() {
   
     const modal = await this.modalCtrl.create({
@@ -46,4 +60,6 @@ export class HeaderComponent implements OnInit {
     });
     return await modal.present();
   }
-}
+  logOut(){
+    this.route.navigate([ '/inicio/login']);
+  }}

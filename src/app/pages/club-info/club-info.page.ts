@@ -15,12 +15,12 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./club-info.page.scss'],
 })
 export class ClubInfoPage implements OnInit {
-@Input() club: Club;
+@Input() clubItem: Club;
 
   constructor(private modalCtrl: ModalController,private popoverCtrl: PopoverController, private jugadores: JugadoresService, private solicitudes: SolicitudesService, private usuario: UserService) { }
 
   ngOnInit() {
-    console.log(this.club);
+   
   }
 
   add(solicitud){

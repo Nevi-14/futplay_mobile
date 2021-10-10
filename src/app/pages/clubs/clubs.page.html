@@ -1,56 +1,70 @@
-<app-header titulo="Clubes"></app-header>
-<ion-content class="ion-padding">
-  <ion-grid  style="height:100%;display: flex; justify-content: center; align-items: center;" >
+<div *ngIf="clubs.new; else elseBlock">
 
-    <ion-row>
-      <ion-col size="12">
-        <ion-list lines="none">
-          <ion-item>
-            <ion-card  style="height: 140px;">
-              <ion-card-content>
-                <ion-list lines="none">
-                  <ion-item>
-                    <ion-card-content>
-                      <ion-label>CREAR UN CLUB</ion-label>
-                    </ion-card-content>
-                <ion-buttons slot="end">
-                  <ion-button (click)="newClub()" style="height: 80px;">
-                    <ion-avatar>
-                      <img [src]="add">
-                    </ion-avatar>
-                  </ion-button>
-                </ion-buttons>
-                  </ion-item>
-                </ion-list>
-              </ion-card-content>
-            </ion-card>
+  <app-header titulo="Clubes" menu1="true" menu2="true"></app-header>
+ <app-club-info [club]="clubs.switchClub"></app-club-info>
+
+
+</div>
+<ng-template #elseBlock>
+
+
+  <app-header titulo="Clubes"></app-header>
+
+
+  <ion-content class="ion-padding">
+    <ion-grid  style="height:100%;display: flex; justify-content: center; align-items: center;" >
   
-          </ion-item>
-          <ion-item>
-            <ion-card  style="height: 140px;">
-              <ion-card-content>
-                <ion-list lines="none">
-                  <ion-item>
-                    <ion-card-content>
-                      <ion-label>UNIRSE A UN CLUB</ion-label>
-                    </ion-card-content>
-                    <ion-buttons slot="start">
-                      <ion-button (click)="findClub()" style="height: 80px;">
-                        <ion-avatar>
-                          <img [src]="find">
-                        </ion-avatar>
-                      </ion-button>
-                    </ion-buttons>
-                  </ion-item>
-                </ion-list>
-              </ion-card-content>
-            </ion-card>
+      <ion-row>
+        <ion-col size="12">
+          <ion-list lines="none">
+            <ion-item>
+              <ion-card  style="height: 140px;">
+                <ion-card-content>
+                  <ion-list lines="none">
+                    <ion-item>
+                      <ion-card-content>
+                        <ion-label>CREAR UN CLUB</ion-label>
+                      </ion-card-content>
+                  <ion-buttons slot="end">
+                    <ion-button (click)="newClub()" style="height: 80px;">
+                      <ion-avatar>
+                        <img [src]="add">
+                      </ion-avatar>
+                    </ion-button>
+                  </ion-buttons>
+                    </ion-item>
+                  </ion-list>
+                </ion-card-content>
+              </ion-card>
+    
+            </ion-item>
+            <ion-item>
+              <ion-card  style="height: 140px;">
+                <ion-card-content>
+                  <ion-list lines="none">
+                    <ion-item>
+                      <ion-card-content>
+                        <ion-label>UNIRSE A UN CLUB</ion-label>
+                      </ion-card-content>
+                      <ion-buttons slot="start">
+                        <ion-button (click)="findClub()" style="height: 80px;">
+                          <ion-avatar>
+                            <img [src]="find">
+                          </ion-avatar>
+                        </ion-button>
+                      </ion-buttons>
+                    </ion-item>
+                  </ion-list>
+                </ion-card-content>
+              </ion-card>
+    
+            </ion-item>
+          </ion-list>
   
-          </ion-item>
-        </ion-list>
+        </ion-col>
+      </ion-row>
+  
+  </ion-grid>
+  </ion-content>
 
-      </ion-col>
-    </ion-row>
-
-</ion-grid>
-</ion-content>
+</ng-template>

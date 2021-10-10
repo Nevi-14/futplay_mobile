@@ -119,10 +119,20 @@ const routes: Routes = [
   {
     path: 'payment-method',
     loadChildren: () => import('./pages/payment-method/payment-method.module').then( m => m.PaymentMethodPageModule)
-  },  {
+  },
+  {
     path: 'picture-upload',
     loadChildren: () => import('./pages/picture-upload/picture-upload.module').then( m => m.PictureUploadPageModule)
   },
+  {
+    path: 'filter',
+    loadChildren: () => import('./pages/filter/filter.module').then( m => m.FilterPageModule)
+  },  {
+    path: 'first-login-club',
+    loadChildren: () => import('./pages/first-login-club/first-login-club.module').then( m => m.FirstLoginClubPageModule)
+  },
+
+
 
 ];
 

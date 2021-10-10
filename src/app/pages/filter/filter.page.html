@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center" >FUTPLAY <ion-badge color="primary" style="text-transform: uppercase;">Filtrar</ion-badge></ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()" fill="solid" shape="round"  color="primary" slot="end" >
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-item>
+  <ion-label>Provincia</ion-label>
+  <ion-select placeholder="Seleccionar">
+    <ion-select-option *ngFor="let provincia of data.provincias" value="{{provincia.provinciaID}}">{{provincia.nombre}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item>
+    <ion-label>Canton</ion-label>
+    <ion-select placeholder="Seleccionar">
+      <ion-select-option *ngFor="let canton of data.cantones" value="{{canton.cantonID}}">{{canton.nombre}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Distrito</ion-label>
+    <ion-select placeholder="Seleccionar">
+      <ion-select-option *ngFor="let distrito of data.distritos" value="{{distrito.distritoID}}">{{distrito.nombre}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-content>
