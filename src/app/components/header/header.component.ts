@@ -4,6 +4,7 @@ import { ModalController, PopoverController } from '@ionic/angular';
 import { MyReservationsPage } from 'src/app/pages/my-reservations/my-reservations.page';
 import { SettingInfoComponent } from '../setting-info/setting-info.component';
 import { MyClubsPage } from '../../pages/my-clubs/my-clubs.page';
+import { JoinClubPage } from '../../pages/join-club/join-club.page';
 
 @Component({
   selector: 'app-header',
@@ -14,8 +15,10 @@ export class HeaderComponent implements OnInit {
   @Input() titulo = '';
   @Input() menu1 = false;
   @Input() menu2 = false;
+  @Input() findClubMenu = false;
   @Input() searchbar = false;
   @Input() menu4 = false;
+  @Input() sideMenu = false;
   url: string;
   invalidURL = ['/home/clubs','/test '];
   valid = false;
@@ -25,6 +28,14 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
   }
+  async findClub() {
+    const modal = await this.modalCtrl.create({
+      component:JoinClubPage,
+      cssClass: 'my-custom-class'
+    });
+    return await modal.present();
+  }
+
   async presentPopover(ev: any) {
     const popover = await this.popoverCtrl.create({
       component: SettingInfoComponent,

@@ -1,11 +1,13 @@
-<div *ngIf="clubs.new; else elseBlock">
 
-  <app-header titulo="Clubes" menu1="true" menu2="true"></app-header>
- <app-club-info [club]="clubs.switchClub"></app-club-info>
+<ng-template [ngIf]="clubs.new">
+  <app-header titulo="Clubes" menu1="true" findClubMenu="true"></app-header>
+<ion-content>
+  <app-club-info [club]="clubs.switchClub"></app-club-info>
+</ion-content>
 
+</ng-template>
 
-</div>
-<ng-template #elseBlock>
+<ng-template [ngIf]="!clubs.new">
 
 
   <app-header titulo="Clubes"></app-header>

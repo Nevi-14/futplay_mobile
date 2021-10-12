@@ -127,9 +127,6 @@ const routes: Routes = [
   {
     path: 'filter',
     loadChildren: () => import('./pages/filter/filter.module').then( m => m.FilterPageModule)
-  },  {
-    path: 'first-login-club',
-    loadChildren: () => import('./pages/first-login-club/first-login-club.module').then( m => m.FirstLoginClubPageModule)
   },
 
 

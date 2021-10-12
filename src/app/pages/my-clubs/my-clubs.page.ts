@@ -3,6 +3,7 @@ import { ModalController, PopoverController } from '@ionic/angular';
 import { ClubService } from '../../services/club.service';
 import { CreateClubPage } from '../create-club/create-club.page';
 import { UserService } from '../../services/user.service';
+import { JugadoresService } from '../../services/jugadores.service';
 
 @Component({
   selector: 'app-my-clubs',
@@ -11,12 +12,12 @@ import { UserService } from '../../services/user.service';
 })
 export class MyClubsPage implements OnInit {
 
-  constructor(private clubs: ClubService, private modalCtrl: ModalController, private popOverCtrl: PopoverController, private user: UserService) { }
+  constructor(private clubs: ClubService, private modalCtrl: ModalController, private popOverCtrl: PopoverController, private user: UserService, private jugadores: JugadoresService) { }
 
   ngOnInit() {
 
-
-  
+    console.log(this.clubs.userclubs ,'owner');
+    console.log(this.clubs.playerClubs , 'player');
   }
   
   

@@ -11,23 +11,34 @@
 <ion-content class="ion-padding">
 
   <ion-list lines="none">
-    <ng-template ngFor let-club [ngForOf]="clubs.club" let-i="index" >
-      <ng-template [ngIf]="user.currentUser.usuarioID=== clubs.club[i].usuarioID">
-        
-        
-        <ion-item>
-         <ion-avatar slot="start">
-           <img src="{{club.foto}}">
-         </ion-avatar>
-       
-         <ion-buttons>
-           <ion-button (click)="clubs.swapClub(club.clubID)">
-             {{club.nombre}}
-           </ion-button>
-         </ion-buttons>
-        </ion-item>
-           </ng-template>
+
+    <ng-template ngFor let-club [ngForOf]="clubs.userclubs" let-i="index" >
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="{{club.foto}}">
+        </ion-avatar>
+      
+        <ion-buttons>
+          <ion-button (click)="clubs.swapClub(club.clubID)">
+            {{club.nombre}}
+          </ion-button>
+        </ion-buttons>
+       </ion-item>
     </ng-template>
+
+    <ng-template ngFor let-userPlayerClub [ngForOf]="clubs.playerClubs" let-i="index" >
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="{{userPlayerClub.foto}}">
+        </ion-avatar>
+      
+        <ion-buttons>
+          <ion-button (click)="clubs.swapClub(userPlayerClub.clubID)">
+            {{userPlayerClub.nombre}}
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+</ng-template>
 
 
 

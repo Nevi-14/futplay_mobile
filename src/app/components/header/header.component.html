@@ -6,21 +6,28 @@
    <ion-button (click)="presentModal()">
     <img class="animate__animated animate__bounce" src="/assets/home/logo.svg" alt="" height="30">
    </ion-button>
-   <ion-button (click)="logOut()" color="danger" fill="solid" shape="round">
-    <ion-icon name="power-outline"></ion-icon>
-     </ion-button>
  </ion-buttons>
  <ion-title class="ion-text-center" >FUTPLAY <ion-badge color="primary" style="text-transform: uppercase;">{{titulo}}</ion-badge></ion-title>
 
   </ion-toolbar>
+  
 
   <ion-toolbar style="margin-top: 20px;" *ngIf="searchbar">
     <ion-searchbar mode="ios" placeholder="Codigo Club" inputmode="text" (ionChange)="onSearchChange($event)" debounce="250" ></ion-searchbar>
   </ion-toolbar>
   <ion-toolbar >
+    <ion-buttons slot="start" *ngIf="sideMenu"> 
+      <ion-menu-button menu="first"></ion-menu-button>
+    </ion-buttons>
+
     <ion-buttons slot="start" *ngIf="menu1" (click)="clubsMenu()"> 
       <ion-icon slot="icon-only" name="menu"></ion-icon>
 
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="findClubMenu">
+      <ion-button (click)="findClub()" >
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-buttons slot="end" *ngIf="menu2">
       <ion-button (click)="presentPopover($event)" >

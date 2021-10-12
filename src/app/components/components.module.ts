@@ -18,8 +18,8 @@ import { DistritosPipe } from '../pipes/distritos.pipe';
     ClubInfoPage,
      UsuariosPipe,
      ProvinciasPipe,
-    CantonesPipe, 
-    DistritosPipe
+    CantonesPipe,
+    DistritosPipe,
   ],
   imports: [
     CommonModule,

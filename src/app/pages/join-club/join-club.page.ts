@@ -14,11 +14,13 @@ import { UserService } from '../../services/user.service';
 export class JoinClubPage implements OnInit {
   textoBuscar = '';
   save= 'assets/search/add-user.svg';
-  constructor( private modalCtrl: ModalController, private club: ClubService, private solicitudes: SolicitudesService, private user: UserService, private alertCtrl: AlertController) {  }
+  constructor( private modalCtrl: ModalController, private clubs: ClubService, private solicitudes: SolicitudesService, private user: UserService, private alertCtrl: AlertController) {  }
 
 
 
   ngOnInit() {
+    console.log(this.user.currentUser.usuarioID)
+   
   }
   cerrarModal(){
     this.modalCtrl.dismiss();
@@ -40,13 +42,12 @@ export class JoinClubPage implements OnInit {
     console.log(this.solicitudes.solicitudes);
     this.message('Solicitud enviada');
       }
-      
   async send(club){
     const modal = await this.modalCtrl.create({
      component: ClubInfoPage,
      cssClass: 'my-custom-class',
      componentProps:{
-       club:club
+      clubItem:club
      }
    });
    return await modal.present();

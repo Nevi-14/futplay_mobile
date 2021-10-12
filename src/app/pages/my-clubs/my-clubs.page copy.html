@@ -1,0 +1,57 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Mis Clubes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="newClub()" color="primary" shape="round" fill="solid">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+
+  <ion-list lines="none">
+    <ng-template ngFor let-club [ngForOf]="clubs.club" let-i="index" >
+      <ng-template [ngIf]="user.currentUser.usuarioID === club.usuarioID">
+        
+        <ion-item>
+         <ion-avatar slot="start">
+           <img src="{{club.foto}}">
+         </ion-avatar>
+       
+         <ion-buttons>
+           <ion-button (click)="clubs.swapClub(club.clubID)">
+             {{club.nombre}}
+           </ion-button>
+         </ion-buttons>
+        </ion-item>
+           </ng-template>
+
+
+    </ng-template>
+
+
+    <ng-template ngFor let-jugador [ngForOf]="jugadores.jugadores" let-i="index" >
+
+      <ng-template [ngIf]="club.clubID === jugador.clubID">
+        
+        <ion-item>
+         <ion-avatar slot="start">
+           <img src="{{club.foto}}">
+         </ion-avatar>
+       
+         <ion-buttons>
+           <ion-button (click)="clubs.swapClub(club.clubID)">
+             {{club.nombre}}
+           </ion-button>
+         </ion-buttons>
+        </ion-item>
+           </ng-template>
+
+
+    </ng-template>
+    
+
+    </ion-list>
+
+</ion-content>

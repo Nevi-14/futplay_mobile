@@ -1,8 +1,4 @@
 
-
-<ion-content style="background-color: aqua; height: 100vh;">
-
-
   <ion-grid>
     <ion-row>
       <ion-col size="4" size-md="6" size-lg="4" style="display: grid; place-content: center;" >
@@ -45,10 +41,11 @@
   </ion-row>
 
   <ion-row>
+
     <ion-col size="12">
  <ion-list lines="none">
      <ion-item>
-      <ion-label color="dark">Jugadores {{currentYear}}</ion-label>
+      <ion-label color="dark">Lista de Jugadores</ion-label>
       <ion-buttons slot="end" *ngIf="usuario.currentUser.usuarioID === club.usuarioID">
           <ion-button (click)="listaTransferencia()" >
               <ion-icon name="download-outline" style="font-size:30px;"></ion-icon>
@@ -62,22 +59,23 @@
   
     </ion-col>
     <ion-col size="12">
-        <ion-list lines="none">
-            <ion-item *ngFor="let jugador of jugadores.jugadores; let i = index">
-                <ion-label *ngIf="club.clubID === jugador.clubID">{{jugador.usuarioID | usuarios}}</ion-label>
-                <ion-buttons *ngIf="club.clubID === jugador.clubID" slot="end">
-                    <ion-button (click)="onClick()">
-                        <ion-icon  name="eye"></ion-icon>
-                    </ion-button>
-                </ion-buttons>
-            </ion-item>
+      <ion-list lines="none">
+        <ion-item *ngFor="let jugador of jugadores.jugadores; let i = index">
+            <ion-label *ngIf="club.clubID === jugador.clubID">{{jugador.usuarioID | usuarios}}</ion-label>
+            <ion-buttons *ngIf="club.clubID === jugador.clubID" slot="end">
+                <ion-button (click)="onClick()">
+                    <ion-icon  name="eye"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-item>
 
-        </ion-list>
+    </ion-list>
     </ion-col>
-    <ion-col size="12" *ngIf="usuario.currentUser.usuarioID === club.usuarioID">
+
+    <ion-col size="12"  *ngIf="usuario.currentUser.usuarioID === club.usuarioID">
       <ion-list lines="none">
         <ion-item>
-          <ion-label color="dark">Solicitudes {{currentYear}}</ion-label>
+          <ion-label color="dark">Solicitudes</ion-label>
         </ion-item>
           <ion-item *ngFor="let solicitud of solicitudes.solicitudes; let i = index">
               <ion-label *ngIf="club.clubID === solicitud.clubID">{{solicitud.usuarioID | usuarios}}</ion-label>
@@ -95,4 +93,3 @@
   </ion-col>
 </ion-row>
   </ion-grid>
-</ion-content>

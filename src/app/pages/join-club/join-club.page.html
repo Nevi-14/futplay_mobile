@@ -14,18 +14,18 @@
 <ion-content class="ion-padding">
 
   <ion-list lines="none">
-    <ion-item *ngFor="let club of club.club  | filtro : textoBuscar:'nombre'; let i = index;">
+    <ion-item *ngFor="let club of clubs.club  | filtro : textoBuscar:'nombre'; let i = index;">
       <ion-avatar slot="start">
         <img src="{{club.foto}}">
       </ion-avatar>
     
       <ion-buttons>
-        <ion-button (click)="send(club)">
+        <ion-button  (click)="send(club)">
           {{club.nombre}}
         </ion-button>
       </ion-buttons>
     
-      <ion-buttons  slot="end">
+      <ion-buttons  slot="end" *ngIf="this.user.currentUser.usuarioID !== club.usuarioID">
             <ion-button (click)="add(club.clubID)" style="height:30px;">
               <ion-img [src]="save" style="height: 30px;"></ion-img>
               </ion-button>

@@ -6,6 +6,8 @@ import { UserService } from '../../services/user.service';
 import { JugadoresService } from '../../services/jugadores.service';
 import { Club } from '../../models/club';
 import { ClubService } from 'src/app/services/club.service';
+import { SolicitudesService } from '../../services/solicitudes.service';
+import { TransferenciasPage } from '../transferencias/transferencias.page';
 
 @Component({
   selector: 'app-clubs',
@@ -17,7 +19,7 @@ export class ClubsPage implements OnInit {
   club: Club;
   add ='../assets/home/addclub.svg';
  find ='../assets/home/findclub.svg';
-  constructor( private modalCtrl: ModalController, private user: UserService, private players: JugadoresService, private clubs: ClubService) { }
+  constructor( private modalCtrl: ModalController, private user: UserService, private players: JugadoresService, private clubs: ClubService, private solicitudes: SolicitudesService) { }
 
   ngOnInit() {
     this.clubs.checkIfHasClub();
@@ -36,5 +38,7 @@ export class ClubsPage implements OnInit {
     });
     return await modal.present();
   }
+
+
 
 }

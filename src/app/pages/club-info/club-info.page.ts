@@ -20,11 +20,10 @@ export class ClubInfoPage implements OnInit {
   constructor(private modalCtrl: ModalController,private popoverCtrl: PopoverController, private jugadores: JugadoresService, private solicitudes: SolicitudesService, private usuario: UserService) { }
 
   ngOnInit() {
-   
+
   }
 
   add(solicitud){
-
 this.jugadores.add(solicitud.usuarioID,solicitud.clubID,1,'');
 this.solicitudes.delete(solicitud.solicitudID);
   }
