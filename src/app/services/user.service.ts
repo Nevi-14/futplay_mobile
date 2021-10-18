@@ -1,32 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../models/usuario';
 import { HttpClient } from '@angular/common/http';
+import { ModalController } from '@ionic/angular';
+import { ProfilePage } from '../pages/profile/profile.page';
+import { JugadorPosiciones } from '../models/jugadorPosiciones';
+import { JugadoresPosicionesService } from './jugador-posiciones.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 user: Usuario[] = [];
-currentUser = {
-  usuarioID: null,
-  roleID: null,
-  provinciaID:null,
-  cantonID:null,
-  distritoID:null,
-  foto:'',
-  nombre:'',
-  apodo:'',
-  apellido1:'',
-  apellido2:'',
-  fechaNac: null ,
-  telefono:'',
-  direccion:'',
-  correo:'',
-  contrasena: '',
-  intentos: 0
-};
+currentUser : Usuario;
+userProfile : Usuario;
+userPosition: JugadorPosiciones;
+switchUser: Usuario;
 age = 0;
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private modalCtrl: ModalController, private jugadorPosicion: JugadoresPosicionesService) {
   }
   loggedUser(user){
 this.currentUser = user;
@@ -45,15 +35,35 @@ this.age = today.getFullYear() - birthday.getFullYear();
    });
  }
 
+  swapUser(userID: number) {
+  for (let i = 0; i < this.user.length; i++) {
+    if (this.user[i].usuarioID === userID) {
+      this.userProfile = this.user[i];
+     this.jugadorPosicion.jugadorCurrentP(this.user[i].usuarioID)
+    }
 
+  }
+  console.log('perfil swap', this.userProfile)
+}
+async show(userID){
 
+  const modal = await this.modalCtrl.create({
+    component: ProfilePage,
+    cssClass: 'my-custom-class'
+  });
+  modal.onDidDismiss().then((data) => {
+    
+   this.userProfile = this.currentUser;
+});
+this.swapUser(userID);
+  return await modal.present();
+}
 
   editUser(id: number, user){
 
     for( let i = 0; i < this.user.length ; i++){  
       if(this.user[i].usuarioID ===id ){
         this.user[i].nombre = user.nombre;
-        this.user[i].apodo = user.apodo;
         this.user[i].apellido1 = user.apellido1;
         this.user[i].apellido2 = user.apellido2;
         this.user[i].correo = user.correo;

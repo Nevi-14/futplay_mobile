@@ -12,6 +12,7 @@ import { AngularFileUploaderModule } from 'angular-file-uploader';
 import { ProvinciasPipe } from '../../pipes/provincias.pipe';
 import { CantonesPipe } from 'src/app/pipes/cantones.pipe';
 import { DistritosPipe } from 'src/app/pipes/distritos.pipe';
+import { PosicionesPipe } from '../../pipes/posiciones.pipe';
 
 
 @NgModule({
@@ -23,6 +24,6 @@ import { DistritosPipe } from 'src/app/pipes/distritos.pipe';
     ComponentsModule,
     AngularFileUploaderModule
   ],
-  declarations: [ProfilePage, ProvinciasPipe, CantonesPipe, DistritosPipe]
+  declarations: [ProfilePage, ProvinciasPipe, CantonesPipe, DistritosPipe, PosicionesPipe]
 })
 export class ProfilePageModule {}

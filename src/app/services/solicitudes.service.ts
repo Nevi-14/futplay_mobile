@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Solicitud } from '../models/solicitudes';
 import { HttpClient } from '@angular/common/http';
 import { JugadoresService } from './jugadores.service';
+import { JugadoresClubesService } from './jugador-clubes.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,11 @@ import { JugadoresService } from './jugadores.service';
 export class SolicitudesService {
 
   solicitudes:  Solicitud[]=[];
-  constructor( private http: HttpClient, private jugadores: JugadoresService) { }
+  constructor( private http: HttpClient, private jugadoresClubes: JugadoresClubesService) { }
 
 
   addClubPlayer(solicitud){
-    this.jugadores.add(solicitud.usuarioID,solicitud.clubID,1,'');
+    this.jugadoresClubes.add(solicitud.usuarioID,solicitud.clubID,new Date, false);
     this.delete(solicitud.solicitudID);
       }
 

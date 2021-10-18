@@ -7,6 +7,7 @@ import { SolicitudesService } from './solicitudes.service';
 import { Solicitud } from '../models/solicitudes';
 import { Jugador } from '../models/jugadores';
 import { JugadoresService } from './jugadores.service';
+import { JugadoresClubesService } from './jugador-clubes.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class ClubService {
   userclubs: Club[] = [];
   playerClubs: Club[] = [];
   switchClub: Club;
-  constructor(private http: HttpClient, private popOverCtrl: PopoverController, private user: UserService, private solicitudes: SolicitudesService, private jugadores: JugadoresService) { }
+  constructor(private http: HttpClient, private popOverCtrl: PopoverController, private user: UserService, private solicitudes: SolicitudesService, private jugadores: JugadoresService, private jugadoresClubes: JugadoresClubesService) { }
 
   getClubs() {
     this.http.get<Club[]>('/assets/json/clubs.json').subscribe(resp => {
@@ -48,20 +49,20 @@ export class ClubService {
 
 
   checkIfHasClub() {
-this.userclubs = [];
-this.playerClubs = [];
+    this.userclubs = [];
+    this.playerClubs = [];
     this.new = false;
     // VALIDACION DE  PROPIETARIO DE CLUB
-    
+
     const userClub = this.club.findIndex(d => d.usuarioID === this.user.currentUser.usuarioID);
-    
-    const playerClub = this.jugadores.jugadores.findIndex(d => d.usuarioID === this.user.currentUser.usuarioID);
+
+    const playerClub = this.jugadoresClubes.jugadoresClubes.findIndex(d => d.jugadorID === this.user.currentUser.usuarioID);
 
 
     if (playerClub >= 0) {
       for (let i = 0; i < this.club.length; i++) {
-        for (let j = 0; j < this.jugadores.jugadores.length; j++) {
-          if (this.jugadores.jugadores[j].clubID === this.club[i].clubID) {
+        for (let j = 0; j < this.jugadoresClubes.jugadoresClubes.length; j++) {
+          if (this.jugadoresClubes.jugadoresClubes[j].clubID === this.club[i].clubID) {
             this.playerClubs.push(this.club[i]);
             this.switchClub = this.playerClubs[0];
           }
@@ -69,7 +70,7 @@ this.playerClubs = [];
       }
       this.new = true;
     }
-    
+
     if (userClub >= 0) {
       for (let i = 0; i < this.club.length; i++) {
         if (this.user.currentUser.usuarioID === this.club[i].usuarioID) {
@@ -78,7 +79,7 @@ this.playerClubs = [];
         }
       }
       this.new = true;
-    } 
+    }
 
   }
 

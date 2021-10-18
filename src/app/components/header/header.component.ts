@@ -5,6 +5,7 @@ import { MyReservationsPage } from 'src/app/pages/my-reservations/my-reservation
 import { SettingInfoComponent } from '../setting-info/setting-info.component';
 import { MyClubsPage } from '../../pages/my-clubs/my-clubs.page';
 import { JoinClubPage } from '../../pages/join-club/join-club.page';
+import { CreateClubPage } from '../../pages/create-club/create-club.page';
 
 @Component({
   selector: 'app-header',
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit {
   @Input() searchbar = false;
   @Input() menu4 = false;
   @Input() sideMenu = false;
+  @Input() newClubmenu = false;
   url: string;
   invalidURL = ['/home/clubs','/test '];
   valid = false;
@@ -73,4 +75,15 @@ export class HeaderComponent implements OnInit {
   }
   logOut(){
     this.route.navigate([ '/inicio/login']);
-  }}
+  }
+
+  async newClub() {
+    const modal = await this.modalCtrl.create({
+      component:CreateClubPage,
+      cssClass: 'my-custom-class'
+    });
+
+    return await modal.present();
+  }
+}
+

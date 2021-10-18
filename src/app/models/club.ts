@@ -9,6 +9,7 @@ export class Club {
         public foto: string,
         public nombre: string,
         public abreviacion: string,
-        public direccion: string
+        public direccion: string,
+        public fecha: Date,
     ){}
 }

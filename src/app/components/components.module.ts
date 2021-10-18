@@ -8,6 +8,7 @@ import { UsuariosPipe } from '../pipes/usuarios.pipe';
 import { ProvinciasPipe } from '../pipes/provincias.pipe';
 import { CantonesPipe } from '../pipes/cantones.pipe';
 import { DistritosPipe } from '../pipes/distritos.pipe';
+import { ProfileComponentComponent } from './profile-component/profile-component.component';
 
 
 
@@ -15,6 +16,7 @@ import { DistritosPipe } from '../pipes/distritos.pipe';
   declarations: [
     HeaderComponent,
     ClubInfoComponent,
+    ProfileComponentComponent,
     ClubInfoPage,
      UsuariosPipe,
      ProvinciasPipe,
@@ -27,7 +29,8 @@ import { DistritosPipe } from '../pipes/distritos.pipe';
   ],
   exports:[
   HeaderComponent,
-  ClubInfoComponent
+  ClubInfoComponent,
+  ProfileComponentComponent
   ]
 })
 export class ComponentsModule { }

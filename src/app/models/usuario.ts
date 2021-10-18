@@ -16,6 +16,7 @@ export class Usuario {
         public direccion: string,
         public correo: string,
         public contrasena: string,
-        public intentos: number
+        public intentos: number,
+        public fecha: Date,
     ){}
 }

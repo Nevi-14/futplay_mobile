@@ -33,7 +33,7 @@ club = {
    console.log(this.club.distritoID)
   }
   onSubmit(formulario: NgForm){
-    this.clubService.club.push(new Club(this.club.cantonID,this.club.usuarioID,this.club.provinciaID,this.club.cantonID,this.club.distritoID,this.club.foto,this.club.nombre,this.club.abreviacion,this.club.direccion));
+    this.clubService.club.push(new Club(this.club.cantonID,this.club.usuarioID,this.club.provinciaID,this.club.cantonID,this.club.distritoID,this.club.foto,this.club.nombre,this.club.abreviacion,this.club.direccion, new Date()));
     console.log(this.club, this.clubService.club.length);
     this.clubService.checkIfHasClub();
     this.modalCtrl.dismiss();

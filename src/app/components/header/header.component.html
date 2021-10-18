@@ -24,8 +24,12 @@
       <ion-icon slot="icon-only" name="menu"></ion-icon>
 
     </ion-buttons>
-    <ion-buttons slot="end" *ngIf="findClubMenu">
-      <ion-button (click)="findClub()" >
+   
+    <ion-buttons slot="end" >
+      <ion-button *ngIf="newClubmenu" (click)="newClub()" color="primary" shape="round" fill="solid">
+        <ion-icon name="add"></ion-icon>
+      </ion-button> 
+      <ion-button (click)="findClub()" *ngIf="findClubMenu">
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
     </ion-buttons>

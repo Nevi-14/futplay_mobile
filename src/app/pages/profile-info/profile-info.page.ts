@@ -8,6 +8,8 @@ import { PosicionesService } from '../../services/posiciones.service';
 import { CantonesService } from 'src/app/services/cantones.service';
 import { ProvinciasService } from 'src/app/services/provincias.service';
 import { DistritosService } from 'src/app/services/distritos.service';
+import { JugadoresClubesService } from 'src/app/services/jugador-clubes.service';
+import { JugadoresPosicionesService } from 'src/app/services/jugador-posiciones.service';
 
 @Component({
   selector: 'app-profile-info',
@@ -23,7 +25,6 @@ export class ProfileInfoPage implements OnInit {
     distritoID:this.userService.currentUser.distritoID,
     foto:this.userService.currentUser.foto,
     nombre: this.userService.currentUser.nombre,
-    apodo: this.userService.currentUser.apodo,
     apellido1:this.userService.currentUser.apellido1,
     apellido2:this.userService.currentUser.apellido2,
     fechaNac: new Date(this.userService.currentUser.fechaNac).toISOString(),
@@ -34,10 +35,15 @@ export class ProfileInfoPage implements OnInit {
     intentos: this.userService.currentUser.intentos
   };
 
-  constructor(private data: DataService, private modalCtrl: ModalController, private userService: UserService, private toastCtrl: ToastController, private alertCtrl: AlertController, private route: Router, private posiciones: PosicionesService, private cantones: CantonesService, private provincias: ProvinciasService,private distritos: DistritosService) { }
+  jugadorPosicion = {
+    posicionID: this.jugadoresPosiciones.jugadorCurrentPosicion.posicionID,
+    apodo:this.jugadoresPosiciones.jugadorCurrentPosicion.apodo,
+  }
+  constructor(private data: DataService, private modalCtrl: ModalController, private userService: UserService, private toastCtrl: ToastController, private alertCtrl: AlertController, private route: Router, private posiciones: PosicionesService, private cantones: CantonesService, private provincias: ProvinciasService,private distritos: DistritosService, private jugadoresPosiciones: JugadoresPosicionesService) { }
 
   ngOnInit() {
- console.log(this.user);
+ console.log(this.jugadoresPosiciones.jugadorCurrentPosicion);
+
   }
 cerrarModal(){
   this.modalCtrl.dismiss();
@@ -55,6 +61,7 @@ async message( text: string){
 async onSubmit(formulario: NgForm){
   this.userService.loggedUser(this.user);
 this.userService.editUser(this.user.usuarioID, this.user);
+this.jugadoresPosiciones.editJugadorPosiciones(this.user.usuarioID, this.jugadorPosicion);
 this.message('Datos actualizados');
 
 

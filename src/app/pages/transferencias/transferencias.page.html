@@ -13,11 +13,31 @@
 
 <ion-content>
   <ion-list lines="none">
-    <ion-item *ngFor="let player of [1,1,1]; let i = index">
-      <ion-checkbox slot="start" ></ion-checkbox>
-        <ion-label>Jugador {{i+1}}</ion-label>
-        <ion-checkbox slot="end" ></ion-checkbox>
-    </ion-item>
+<ion-grid >
+  <ion-row>
+    <ion-col size="12" >
+      <ion-list lines="none">
+        <ion-item>
+          <ion-label color="dark">Solicitudes</ion-label>
+        </ion-item>
+          <ion-item *ngFor="let solicitud of solicitudes.solicitudes; let i = index">
+              <ion-label *ngIf="clubID === solicitud.clubID">{{solicitud.usuarioID | usuarios}}</ion-label>
+              <ion-buttons *ngIf="clubID === solicitud.clubID" slot="end">
+                <ion-button (click)="usuario.show(solicitud.usuarioID)">
+                  <ion-icon  name="eye"></ion-icon>
+              </ion-button>
+                <ion-button (click)="add(solicitud)">
+                  <ion-icon  name="add"></ion-icon>
+              </ion-button>
+                <ion-button (click)="delete(solicitud.solicitudID)">
+                  <ion-icon  name="trash"></ion-icon>
+              </ion-button>
+              </ion-buttons>
+          </ion-item>
 
+      </ion-list>
+  </ion-col>
+  </ion-row>
+</ion-grid>
 </ion-list>
 </ion-content>

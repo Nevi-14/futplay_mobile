@@ -5,6 +5,9 @@ import { SolicitudesService } from '../../services/solicitudes.service';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { JugadoresService } from '../../services/jugadores.service';
 import { TransferenciasPage } from '../../pages/transferencias/transferencias.page';
+import { JugadoresClubesService } from '../../services/jugador-clubes.service';
+import { JugadorClubes } from 'src/app/models/jugadorClubes';
+import { ProfilePage } from '../../pages/profile/profile.page';
 
 @Component({
   selector: 'app-club-info',
@@ -14,32 +17,24 @@ import { TransferenciasPage } from '../../pages/transferencias/transferencias.pa
 export class ClubInfoComponent implements OnInit {
   @Input() club: Club;
   currentYear = new Date().toLocaleString();
-  constructor(private modalCtrl: ModalController,private popoverCtrl: PopoverController, private jugadores: JugadoresService, private solicitudes: SolicitudesService, private usuario: UserService) { }
+  constructor(private modalCtrl: ModalController,private popoverCtrl: PopoverController, private jugadores: JugadoresService, private solicitudes: SolicitudesService, private usuario: UserService, private jugadoresClubes: JugadoresClubesService) { }
 
   ngOnInit() {
- 
-    if(this.usuario.currentUser.usuarioID === this.club.usuarioID){
-      console.log(this.club)
-    }
+
   }
 
+ 
 
-  add(solicitud){
-
-    this.jugadores.add(solicitud.usuarioID,solicitud.clubID,1,'');
-    this.solicitudes.delete(solicitud.solicitudID);
-      }
-      delete(solicitudId: number){
-        console.log(solicitudId);
-        this.solicitudes.delete(solicitudId);
-        console.log(this.solicitudes.solicitudes);
-      }
-      async listaTransferencia() {
+      async listaTransferencia(clubID) {
         const modal = await this.modalCtrl.create({
           component: TransferenciasPage,
-          cssClass: 'my-custom-class'
+          cssClass: 'my-custom-class',
+          componentProps:{
+            clubID:clubID
+           }
         });
         return await modal.present();
       }
 
+      
 }

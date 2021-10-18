@@ -7,6 +7,8 @@ import {DataService} from '../../services/data.service';
 import {Provincia} from '../../models/provincia';
 import {Observable} from 'rxjs';
 import {AlertController} from '@ionic/angular';
+import { JugadoresPosicionesService } from 'src/app/services/jugador-posiciones.service';
+import { JugadorPosiciones } from 'src/app/models/jugadorPosiciones';
 
 @Component({selector: 'app-register', templateUrl: './register.page.html', styleUrls: ['./register.page.scss']})
 export class RegisterPage implements OnInit {
@@ -29,7 +31,7 @@ export class RegisterPage implements OnInit {
         contrasena: '',
         intentos: 0
     };
-    constructor(private userService : UserService, private route : Router, private data : DataService, private alertCtrl : AlertController) {}
+    constructor(private userService : UserService, private route : Router, private data : DataService, private alertCtrl : AlertController, private jugadorPosicion: JugadoresPosicionesService) {}
 
     ngOnInit() {
         console.log(this.data.provincias);
@@ -77,9 +79,13 @@ export class RegisterPage implements OnInit {
                 this.alert(true);
             } else {
                 this.userService.loggedUser(this.user);
-                this.userService.user.push(new Usuario(this.user.usuarioID, this.user.roleID, this.user.provinciaID, this.user.cantonID, this.user.distritoID, this.user.foto, this.user.nombre,this.user.apodo, this.user.apellido1, this.user.apellido2, this.user.fechaNac, this.user.telefono, this.user.direccion, this.user.correo, this.user.contrasena, this.user.intentos));
+                this.userService.user.push(new Usuario(this.user.usuarioID, this.user.roleID, this.user.provinciaID, this.user.cantonID, this.user.distritoID, this.user.foto, this.user.nombre,this.user.apodo, this.user.apellido1, this.user.apellido2, this.user.fechaNac, this.user.telefono, this.user.direccion, this.user.correo, this.user.contrasena, this.user.intentos, new Date()));
                 this.route.navigate(['/', 'home']);
-    
+                this.jugadorPosicion.jugadoresPosiciones.push(new JugadorPosiciones(this.jugadorPosicion.jugadoresPosiciones.length+1,this.user.usuarioID, null,''));
+              
+                this.userService.swapUser(this.user.usuarioID)
+        
+                console.log(this.jugadorPosicion.jugadoresPosiciones)
             }
 
         }

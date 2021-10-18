@@ -21,10 +21,10 @@
                   <ion-label>Nombre del club : {{club.nombre}}</ion-label>
               </ion-item>
               <ion-item>
-                <ion-label >Abreviación ({{club.abreviacion}})</ion-label>                         
+                <ion-label >Abreviación : {{club.abreviacion}}</ion-label>                         
               </ion-item>
               <ion-item>
-                <ion-label >Región ({{club.distritoID | distritos}}, {{club.provinciaID | provincias}})</ion-label>
+                <ion-label >Región : {{club.provinciaID | provincias}}</ion-label>
               </ion-item>
               <ion-item>
                   <ion-label>(Ganes, Perdidos, Empates)</ion-label>
@@ -46,10 +46,11 @@
  <ion-list lines="none">
      <ion-item>
       <ion-label color="dark">Lista de Jugadores</ion-label>
-      <ion-buttons slot="end" *ngIf="usuario.currentUser.usuarioID === club.usuarioID">
-          <ion-button (click)="listaTransferencia()" >
+            <ion-buttons slot="end" *ngIf="usuario.currentUser.usuarioID === club.usuarioID || usuario.currentUser.usuarioID  === true">
+          <ion-button (click)="listaTransferencia(club.clubID)" >
               <ion-icon name="download-outline" style="font-size:30px;"></ion-icon>
              </ion-button>
+    
              <ion-button (click)="compartir()" >
               <ion-icon name="share-social-outline" style="font-size:30px;"></ion-icon>
              </ion-button>
@@ -60,10 +61,10 @@
     </ion-col>
     <ion-col size="12">
       <ion-list lines="none">
-        <ion-item *ngFor="let jugador of jugadores.jugadores; let i = index">
-            <ion-label *ngIf="club.clubID === jugador.clubID">{{jugador.usuarioID | usuarios}}</ion-label>
+        <ion-item *ngFor="let jugador of jugadoresClubes.jugadoresClubes; let i = index">
+            <ion-label *ngIf="club.clubID === jugador.clubID">{{jugador.jugadorID | usuarios}}</ion-label>
             <ion-buttons *ngIf="club.clubID === jugador.clubID" slot="end">
-                <ion-button (click)="onClick()">
+                <ion-button (click)="usuario.show(jugador.jugadorID)">
                     <ion-icon  name="eye"></ion-icon>
                 </ion-button>
             </ion-buttons>
@@ -72,24 +73,5 @@
     </ion-list>
     </ion-col>
 
-    <ion-col size="12"  *ngIf="usuario.currentUser.usuarioID === club.usuarioID">
-      <ion-list lines="none">
-        <ion-item>
-          <ion-label color="dark">Solicitudes</ion-label>
-        </ion-item>
-          <ion-item *ngFor="let solicitud of solicitudes.solicitudes; let i = index">
-              <ion-label *ngIf="club.clubID === solicitud.clubID">{{solicitud.usuarioID | usuarios}}</ion-label>
-              <ion-buttons *ngIf="club.clubID === solicitud.clubID" slot="end">
-                <ion-button (click)="add(solicitud)">
-                  <ion-icon  name="add"></ion-icon>
-              </ion-button>
-                <ion-button (click)="delete(solicitud.solicitudID)">
-                  <ion-icon  name="trash"></ion-icon>
-              </ion-button>
-              </ion-buttons>
-          </ion-item>
-
-      </ion-list>
-  </ion-col>
 </ion-row>
   </ion-grid>
