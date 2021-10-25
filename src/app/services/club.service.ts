@@ -32,16 +32,39 @@ export class ClubService {
     });
   }
   swapClub(clubId: number) {
+   
+
+  
     for (let i = 0; i < this.club.length; i++) {
       if (this.club[i].clubID === clubId) {
         this.switchClub = this.club[i];
+        this.clubCount(clubId);
         this.popOverCtrl.dismiss();
       }
 
     }
 
+  
+
 
   }
+
+  editClub(id: number, club){
+
+    for( let i = 0; i < this.club.length ; i++){  
+      if(this.club[i].clubID ===id ){
+        this.club[i].nombre = club.nombre;
+        this.club[i].foto = club.foto;
+        this.club[i].abreviacion = club.abreviacion;
+        this.club[i].provinciaID = club.provinciaID;
+        this.club[i].cantonID = club.cantonID;
+        this.club[i].distritoID = club.distritoID;
+      } 
+
+    }
+
+  }
+
   sendClubRequest(clubID: number) {
     this.solicitudes.solicitudes.push(new Solicitud(this.solicitudes.solicitudes.length + 1, clubID, this.user.currentUser.usuarioID, false));
     console.log(this.solicitudes.solicitudes);
@@ -65,9 +88,13 @@ export class ClubService {
           if (this.jugadoresClubes.jugadoresClubes[j].clubID === this.club[i].clubID) {
             this.playerClubs.push(this.club[i]);
             this.switchClub = this.playerClubs[0];
+
+           
           }
         }
+      
       }
+     
       this.new = true;
     }
 
@@ -76,11 +103,28 @@ export class ClubService {
         if (this.user.currentUser.usuarioID === this.club[i].usuarioID) {
           this.userclubs.push(this.club[i]);
           this.switchClub = this.userclubs[0];
+
         }
+       
       }
+      this.clubCount(this.club[0].clubID);
       this.new = true;
+    
     }
 
   }
 
+
+  clubCount(clubId){
+    this.solicitudes.conteoClub = 0;
+    for( let i = 0; i < this.solicitudes.solicitudes.length; i++){
+      if(this.solicitudes.solicitudes[i].clubID === clubId){
+      
+       this.solicitudes.conteoClub++;
+   
+      }
+      
+  }
+  console.log(   this.solicitudes.conteoClub,'weg')
+  }
 }

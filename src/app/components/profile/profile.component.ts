@@ -3,6 +3,8 @@ import { UserService } from '../../services/user.service';
 import { ModalController } from '@ionic/angular';
 import { CreateClubPage } from '../../pages/create-club/create-club.page';
 import { JugadoresPosicionesService } from 'src/app/services/jugador-posiciones.service';
+import { PictureUploadPage } from '../../pages/picture-upload/picture-upload.page';
+import { SettingInfoComponent } from '../setting-info/setting-info.component';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +17,16 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     console.log('swap result', this.userService.userProfile);
+  }
+
+
+
+  async pictureUpload() {
+    const modal = await this.modalCtrl.create({
+      component: PictureUploadPage,
+      cssClass: 'my-custom-class'
+    });
+    return await modal.present();
   }
 
 

@@ -26,8 +26,17 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 
+
 .btn-circle{
-    border-radius: 50%;
+    --border-radius: 50%!important;
     height: 30px;
     width: 30px;
+    }
+    .center-column{
+        margin: 0 auto;
+    }
+    .center-container{
+        display: flex;
+  justify-content: center;
+  align-items: center;
     }

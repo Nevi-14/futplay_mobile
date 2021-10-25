@@ -23,6 +23,7 @@ export class ClubsPage implements OnInit {
 
   ngOnInit() {
     this.clubs.checkIfHasClub();
+
   }
   async newClub() {
     const modal = await this.modalCtrl.create({

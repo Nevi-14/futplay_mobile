@@ -19,7 +19,15 @@ export class MyClubsPage implements OnInit {
     console.log(this.clubs.userclubs ,'owner');
     console.log(this.clubs.playerClubs , 'player');
   }
-  
+  async newClub() {
+    const modal = await this.modalCtrl.create({
+      component:CreateClubPage,
+      cssClass: 'my-custom-class'
+    });
+    this.popOverCtrl.dismiss();
+
+    return await modal.present();
+  }
   
 
 }

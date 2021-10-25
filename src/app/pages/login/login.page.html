@@ -5,9 +5,9 @@
   <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)"  style="height:100%;">
     <ion-list style="height:100%;display: grid;place-content: center;">
       <ion-grid fixed>
-        <ion-row >
+        <ion-row class="center-container">
           
-        <ion-col size="12">
+        <ion-col size="12" size-md="8" >
 
           <ion-list-header lines="none">
               <ion-label style="font-size: 14px; font-weight: bold; letter-spacing: 0.5px;text-transform: uppercase;">
@@ -31,7 +31,7 @@
            </ion-item>
       
           </ion-col>
-          <ion-col size="12" size-md="8" >
+          <ion-col size="12" size-md="8"  >
             <div align="center ">
           
               <ion-button fill="solid"  shape="round" class="ion-margin-vertical" type="submit">Iniciar Session</ion-button>   

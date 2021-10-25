@@ -6,6 +6,8 @@ import { SettingInfoComponent } from '../setting-info/setting-info.component';
 import { MyClubsPage } from '../../pages/my-clubs/my-clubs.page';
 import { JoinClubPage } from '../../pages/join-club/join-club.page';
 import { CreateClubPage } from '../../pages/create-club/create-club.page';
+import { ClubConfigPage } from '../../pages/club-config/club-config.page';
+import { ClubService } from '../../services/club.service';
 
 @Component({
   selector: 'app-header',
@@ -19,13 +21,14 @@ export class HeaderComponent implements OnInit {
   @Input() findClubMenu = false;
   @Input() searchbar = false;
   @Input() menu4 = false;
+  @Input() menu3 = false;
   @Input() sideMenu = false;
   @Input() newClubmenu = false;
   url: string;
   invalidURL = ['/home/clubs','/test '];
   valid = false;
 
-  constructor(private popoverCtrl: PopoverController, private route: Router, private modalCtrl: ModalController) { }
+  constructor(private popoverCtrl: PopoverController, private route: Router, private modalCtrl: ModalController, private clubs: ClubService) { }
 
 
   ngOnInit() {
@@ -37,7 +40,16 @@ export class HeaderComponent implements OnInit {
     });
     return await modal.present();
   }
-
+  async  presentPopoverClub(){
+    const modal = await this.modalCtrl.create({
+      component:ClubConfigPage,
+      cssClass: 'my-custom-class',
+      componentProps:{
+        club:this.clubs.switchClub
+       }
+    });
+    return await modal.present();
+  }
   async presentPopover(ev: any) {
     const popover = await this.popoverCtrl.create({
       component: SettingInfoComponent,
@@ -77,13 +89,6 @@ export class HeaderComponent implements OnInit {
     this.route.navigate([ '/inicio/login']);
   }
 
-  async newClub() {
-    const modal = await this.modalCtrl.create({
-      component:CreateClubPage,
-      cssClass: 'my-custom-class'
-    });
 
-    return await modal.present();
-  }
 }
 

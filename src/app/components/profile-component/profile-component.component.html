@@ -6,6 +6,7 @@
 
               <ion-buttons  style="position:relative;margin: 0 auto; display: flex; justify-content: center;">
                 <ion-img src="{{userService.userProfile.foto}}"  ></ion-img>
+              
                 <ion-button (click)="pictureUpload()" style="position: fixed; background-color: rgba(255, 255, 255, 0.5);"  shape="round">
                  
                   <ion-icon  name="add"></ion-icon>
@@ -21,6 +22,7 @@
 
               <ion-list lines="none" >
                   <ion-item>
+
                       <ion-label>Usuario : {{userService.userProfile.nombre}} {{userService.userProfile.apellido1}}</ion-label>
                   </ion-item>
                   <ion-item *ngIf="jugadorPosiciones.jugadorCurrentPosicion.apodo">

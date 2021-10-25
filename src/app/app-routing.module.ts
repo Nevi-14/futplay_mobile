@@ -127,7 +127,15 @@ const routes: Routes = [
   {
     path: 'filter',
     loadChildren: () => import('./pages/filter/filter.module').then( m => m.FilterPageModule)
+  },  {
+    path: 'club-config',
+    loadChildren: () => import('./pages/club-config/club-config.module').then( m => m.ClubConfigPageModule)
   },
+  {
+    path: 'club-picture-upload',
+    loadChildren: () => import('./pages/club-picture-upload/club-picture-upload.module').then( m => m.ClubPictureUploadPageModule)
+  },
+
 
 
 

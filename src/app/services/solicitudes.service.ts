@@ -3,6 +3,7 @@ import { Solicitud } from '../models/solicitudes';
 import { HttpClient } from '@angular/common/http';
 import { JugadoresService } from './jugadores.service';
 import { JugadoresClubesService } from './jugador-clubes.service';
+import { ClubService } from './club.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,9 @@ import { JugadoresClubesService } from './jugador-clubes.service';
 export class SolicitudesService {
 
   solicitudes:  Solicitud[]=[];
+  conteoClub = 0;
   constructor( private http: HttpClient, private jugadoresClubes: JugadoresClubesService) { }
+
 
 
   addClubPlayer(solicitud){

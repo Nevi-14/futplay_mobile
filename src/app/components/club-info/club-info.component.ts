@@ -8,6 +8,9 @@ import { TransferenciasPage } from '../../pages/transferencias/transferencias.pa
 import { JugadoresClubesService } from '../../services/jugador-clubes.service';
 import { JugadorClubes } from 'src/app/models/jugadorClubes';
 import { ProfilePage } from '../../pages/profile/profile.page';
+import { ClubService } from 'src/app/services/club.service';
+import { ClubPictureUploadPage } from '../../pages/club-picture-upload/club-picture-upload.page';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-club-info',
@@ -17,13 +20,19 @@ import { ProfilePage } from '../../pages/profile/profile.page';
 export class ClubInfoComponent implements OnInit {
   @Input() club: Club;
   currentYear = new Date().toLocaleString();
-  constructor(private modalCtrl: ModalController,private popoverCtrl: PopoverController, private jugadores: JugadoresService, private solicitudes: SolicitudesService, private usuario: UserService, private jugadoresClubes: JugadoresClubesService) { }
+  constructor(private modalCtrl: ModalController,private popoverCtrl: PopoverController, private jugadores: JugadoresService, private solicitudes: SolicitudesService, private usuario: UserService, private jugadoresClubes: JugadoresClubesService, private clubs: ClubService,private camera: Camera) { }
 
   ngOnInit() {
-
+    
   }
 
- 
+  async pictureUpload() {
+    const modal = await this.modalCtrl.create({
+      component: ClubPictureUploadPage,
+      cssClass: 'my-custom-class'
+    });
+    return await modal.present();
+  }
 
       async listaTransferencia(clubID) {
         const modal = await this.modalCtrl.create({

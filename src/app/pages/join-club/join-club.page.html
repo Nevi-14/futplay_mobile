@@ -25,9 +25,9 @@
         </ion-button>
       </ion-buttons>
     
-      <ion-buttons  slot="end" *ngIf="this.user.currentUser.usuarioID !== club.usuarioID">
-            <ion-button (click)="add(club.clubID)" style="height:30px;">
-              <ion-img [src]="save" style="height: 30px;"></ion-img>
+      <ion-buttons slot="end" *ngIf="this.user.currentUser.usuarioID !== club.usuarioID">
+            <ion-button (click)="add(club.clubID)" fill="solid" color="primary" >
+              <ion-icon name="paper-plane-outline"></ion-icon>
               </ion-button>
       </ion-buttons>
     </ion-item>
