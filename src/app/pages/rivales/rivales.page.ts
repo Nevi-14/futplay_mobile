@@ -15,7 +15,7 @@ export class RivalesPage implements OnInit {
   star= 'assets/search/star.svg';
   message= 'assets/search/message.svg';
   save= 'assets/search/add-user.svg';
-  filter= 'assets/search/filter.png';
+  filter= 'assets/icons/filter.svg';
   constructor(private data: DataService, private club: ClubService, private route: Router,private modalCtrl: ModalController) { }
 
   ngOnInit() {
