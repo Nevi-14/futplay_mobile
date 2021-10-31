@@ -45,14 +45,17 @@
 
   <ion-row>
     <ion-col size="12" style="margin-top:40px;">
-      <ion-item >
-        <ion-label slot="start">Solicitudes    <ion-badge color="primary" slot="start">{{solicitudes.conteoClub}}</ion-badge></ion-label>
+      <ion-item *ngIf="usuario.currentUser.usuarioID === club.usuarioID || usuario.currentUser.usuarioID  === true" (click)="listaTransferencia(club.clubID)">
 
-    
-          <ion-fab-button class="no-shadow"  *ngIf="usuario.currentUser.usuarioID === club.usuarioID || usuario.currentUser.usuarioID  === true" (click)="listaTransferencia(club.clubID)"   color="light" style="height: 30px; width: 30px;" slot="start">
-            <ion-icon name="download-outline"></ion-icon>
-          </ion-fab-button>
-       
+        <ion-chip>
+          <ion-icon name="download-outline"></ion-icon>
+          <ion-label>Transferencias</ion-label>
+          <ion-badge color="primary" style="margin-left:10px">{{solicitudes.conteoClub}}</ion-badge>
+        </ion-chip>
+
+
+        
+
      
 
  

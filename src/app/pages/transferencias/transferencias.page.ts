@@ -16,6 +16,7 @@ export class TransferenciasPage implements OnInit {
   constructor( private modalCtrl: ModalController, private solicitudes: SolicitudesService, private jugadoresClubes: JugadoresClubesService, private usuario: UserService, private clubs: ClubService) { }
 
   ngOnInit() {
+    console.log(this.jugadoresClubes.jugadoresClubes)
   }
 
   cerrarModal(){

@@ -40,3 +40,16 @@
   justify-content: center;
   align-items: center;
     }
+
+    .card-container{
+        min-height: 250px;
+    }
+    .scroll-md {
+        max-height:200px;
+        position: relative;
+        overflow: hidden;
+        overflow-y: auto;
+        ::-webkit-scrollbar {
+          display: none;
+        }
+      }
