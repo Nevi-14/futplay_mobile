@@ -11,6 +11,7 @@ import { ProfilePage } from '../../pages/profile/profile.page';
 import { ClubService } from 'src/app/services/club.service';
 import { ClubPictureUploadPage } from '../../pages/club-picture-upload/club-picture-upload.page';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { SocialMediaPage } from '../../pages/social-media/social-media.page';
 
 @Component({
   selector: 'app-club-info',
@@ -45,5 +46,12 @@ export class ClubInfoComponent implements OnInit {
         return await modal.present();
       }
 
+      async socialMedia() {
+        const modal = await this.modalCtrl.create({
+          component: SocialMediaPage,
+          cssClass: 'social-media'
+        });
+        return await modal.present();
+      }
       
 }

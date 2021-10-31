@@ -135,6 +135,10 @@ const routes: Routes = [
     path: 'club-picture-upload',
     loadChildren: () => import('./pages/club-picture-upload/club-picture-upload.module').then( m => m.ClubPictureUploadPageModule)
   },
+  {
+    path: 'social-media',
+    loadChildren: () => import('./pages/social-media/social-media.module').then( m => m.SocialMediaPageModule)
+  },
 
 
 

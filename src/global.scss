@@ -53,3 +53,28 @@
           display: none;
         }
       }
+
+
+      .social-media   {
+      
+        .modal-wrapper {
+          --position:absolute;
+          --bottom:0!important;
+          --width: 100% !important;
+          --height: 65px;
+          position: absolute;
+          bottom: 0;
+        }
+      }
+
+      .modal-menu   {
+      
+        .modal-wrapper {
+          --position:absolute;
+          --left:0!important;
+          --width: 75% !important;
+          --height: 100%;
+          position: absolute;
+          left: 0;
+        }
+      }

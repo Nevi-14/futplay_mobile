@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Club } from '../models/club';
 import { HttpClient } from '@angular/common/http';
-import { PopoverController } from '@ionic/angular';
+import { ModalController, PopoverController } from '@ionic/angular';
 import { UserService } from './user.service';
 import { SolicitudesService } from './solicitudes.service';
 import { Solicitud } from '../models/solicitudes';
@@ -20,7 +20,7 @@ export class ClubService {
   userclubs: Club[] = [];
   playerClubs: Club[] = [];
   switchClub: Club;
-  constructor(private http: HttpClient, private popOverCtrl: PopoverController, private user: UserService, private solicitudes: SolicitudesService, private jugadores: JugadoresService, private jugadoresClubes: JugadoresClubesService) { }
+  constructor(private http: HttpClient, private popOverCtrl: PopoverController, private user: UserService, private solicitudes: SolicitudesService, private jugadores: JugadoresService, private jugadoresClubes: JugadoresClubesService, private modalCtrl: ModalController) { }
 
   getClubs() {
     this.http.get<Club[]>('/assets/json/clubs.json').subscribe(resp => {
@@ -39,7 +39,7 @@ export class ClubService {
       if (this.club[i].clubID === clubId) {
         this.switchClub = this.club[i];
         this.clubCount(clubId);
-        this.popOverCtrl.dismiss();
+        this.modalCtrl.dismiss();
       }
 
     }

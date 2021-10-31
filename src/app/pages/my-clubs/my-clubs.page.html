@@ -1,17 +1,20 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>Mis Clubes</ion-title>
+    <ion-title><ion-badge color="dark" mode="ios">Mis Clubes</ion-badge></ion-title>
     <ion-buttons slot="end">
-      <ion-button  (click)="newClub()" color="primary" class="btn-circle" fill="solid">
+      <ion-button  (click)="newClub()" color="primary"  shape="round" fill="solid">
         <ion-icon name="add"></ion-icon>
       </ion-button> 
     </ion-buttons>
 
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding">
+<ion-content class="ion-no-padding">
 
   <ion-list lines="none">
+    <ion-item>
+      <ion-searchbar mode="ios" placeholder="Buscar Club" inputmode="text" (ionChange)="onSearchChange($event)" debounce="250" ></ion-searchbar>
+    </ion-item>
 
     <ng-template ngFor let-club [ngForOf]="clubs.userclubs" let-i="index" >
       <ion-item>

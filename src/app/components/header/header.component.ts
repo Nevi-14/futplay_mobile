@@ -64,17 +64,15 @@ export class HeaderComponent implements OnInit {
     console.log(data);
   }
  async clubsMenu(ev: any){
-  const popover = await this.popoverCtrl.create({
+  
+  const modal = await this.modalCtrl.create({
     component: MyClubsPage,
-    cssClass: 'my-custom-class',
-    event: ev,
-    translucent: true,
-    backdropDismiss: true
+    cssClass: 'modal-menu'
   });
-  await popover.present();
+  await modal.present();
 
-  const { data } = await popover.onWillDismiss();
-  console.log(data);
+
+ 
  }
 
   async presentModal() {
