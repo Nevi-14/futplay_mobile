@@ -12,45 +12,19 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./join-club.page.scss'],
 })
 export class JoinClubPage implements OnInit {
-  textoBuscar = '';
-  save= 'assets/search/add-user.svg';
-  constructor( private modalCtrl: ModalController, private clubs: ClubService, private solicitudes: SolicitudesService, private user: UserService, private alertCtrl: AlertController) {  }
+  
+ 
+  constructor( private modalCtrl: ModalController) {  }
 
 
 
   ngOnInit() {
-    console.log(this.user.currentUser.usuarioID)
+ 
    
   }
   cerrarModal(){
     this.modalCtrl.dismiss();
   }
-  onSearchChange(event){
-    console.log(event.detail.value);
-    this.textoBuscar = event.detail.value;
-  }
-  async message( text: string){
-    const alert = await this.alertCtrl.create({
-      header: 'Futplay',
-      message: text,
-    });
-    alert.present();
-  }
-
-  add(clubID: number){
-    this.solicitudes.solicitudes.push(new Solicitud(this.solicitudes.solicitudes.length+1,clubID,this.user.currentUser.usuarioID,false));
-    console.log(this.solicitudes.solicitudes);
-    this.message('Solicitud enviada');
-      }
-  async send(club){
-    const modal = await this.modalCtrl.create({
-     component: ClubInfoPage,
-     cssClass: 'my-custom-class',
-     componentProps:{
-      clubItem:club
-     }
-   });
-   return await modal.present();
- }
+  
 
 }

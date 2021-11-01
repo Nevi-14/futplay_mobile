@@ -4,6 +4,7 @@ export class Solicitud{
         public solicitudID: number,
         public clubID: number,
         public usuarioID: number,
-        public confirmacion: boolean
+        public confirmacionUsuario: boolean,
+        public confirmacionClub: boolean
     ){}
 }

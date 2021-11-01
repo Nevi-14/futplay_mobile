@@ -8,13 +8,15 @@ import { JoinClubPageRoutingModule } from './join-club-routing.module';
 
 import { JoinClubPage } from './join-club.page';
 import { FiltroPipe } from 'src/app/pipes/filtro.pipe';
+import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    JoinClubPageRoutingModule
+    JoinClubPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [JoinClubPage,FiltroPipe]
 })

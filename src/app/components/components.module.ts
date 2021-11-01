@@ -9,6 +9,8 @@ import { ProvinciasPipe } from '../pipes/provincias.pipe';
 import { CantonesPipe } from '../pipes/cantones.pipe';
 import { DistritosPipe } from '../pipes/distritos.pipe';
 import { ProfileComponentComponent } from './profile-component/profile-component.component';
+import { JoinClubComponentComponent } from './join-club-component/join-club-component.component';
+import { FiltroPipe } from '../pipes/filtro.pipe';
 
 
 
@@ -17,11 +19,13 @@ import { ProfileComponentComponent } from './profile-component/profile-component
     HeaderComponent,
     ClubInfoComponent,
     ProfileComponentComponent,
+    JoinClubComponentComponent,
     ClubInfoPage,
      UsuariosPipe,
      ProvinciasPipe,
     CantonesPipe,
     DistritosPipe,
+    FiltroPipe
   ],
   imports: [
     CommonModule,
@@ -30,7 +34,8 @@ import { ProfileComponentComponent } from './profile-component/profile-component
   exports:[
   HeaderComponent,
   ClubInfoComponent,
-  ProfileComponentComponent
+  ProfileComponentComponent,
+  JoinClubComponentComponent
   ]
 })
 export class ComponentsModule { }

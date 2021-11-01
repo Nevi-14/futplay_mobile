@@ -8,13 +8,15 @@ import { RivalesPageRoutingModule } from './rivales-routing.module';
 
 import { RivalesPage } from './rivales.page';
 import { FiltroPipe } from '../../pipes/filtro.pipe';
+import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RivalesPageRoutingModule
+    RivalesPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [RivalesPage,FiltroPipe]
 })

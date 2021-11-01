@@ -1,0 +1,44 @@
+<ion-list lines="none">
+  <ion-item>
+    <ion-searchbar mode="ios" placeholder="Nombre del club" inputmode="text" (ionChange)="onSearchChange($event)" debounce="250" ></ion-searchbar>
+  </ion-item>
+  
+
+        <ion-item *ngFor="let club of clubs.club  | filtro : textoBuscar:'nombre'; let i = index;">
+          <ion-chip >
+            <ion-avatar >
+              <img src="{{club.foto}}">
+              
+            </ion-avatar>
+            <ion-label> {{club.nombre}}</ion-label>
+      
+          
+          </ion-chip>
+
+    
+          <span style="display: flex;">
+            <ion-icon style="size: 12px;" name="star"></ion-icon>
+            <ion-icon style="size: 12px;"  name="star-outline"></ion-icon>
+            <ion-icon style="size: 12px;" name="star-outline"></ion-icon>
+          </span>
+  
+        
+          <ion-buttons slot="end">
+          
+            <ion-button color="success" >
+              <ion-icon name="logo-whatsapp"></ion-icon>
+              </ion-button>
+
+            <ion-button (click)="send(club)"  color="dark" >
+              <ion-icon name="eye"></ion-icon>
+              </ion-button>
+                <ion-button (click)="add(club.clubID)"  color="primary" slot="end" *ngIf="this.user.currentUser.usuarioID !== club.usuarioID">
+                  <ion-icon name="paper-plane-outline"></ion-icon>
+                  </ion-button>
+          </ion-buttons>
+        </ion-item>
+
+  
+  
+  
+</ion-list>

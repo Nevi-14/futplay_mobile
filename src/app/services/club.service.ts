@@ -66,7 +66,7 @@ export class ClubService {
   }
 
   sendClubRequest(clubID: number) {
-    this.solicitudes.solicitudes.push(new Solicitud(this.solicitudes.solicitudes.length + 1, clubID, this.user.currentUser.usuarioID, false));
+    this.solicitudes.solicitudes.push(new Solicitud(this.solicitudes.solicitudes.length + 1, clubID, this.user.currentUser.usuarioID, true,false));
     console.log(this.solicitudes.solicitudes);
   }
 

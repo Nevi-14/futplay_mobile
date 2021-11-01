@@ -7,30 +7,8 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <!-- Default Searchbar -->
-<ion-searchbar mode="ios" placeholder="Nombre del club" inputmode="text" (ionChange)="onSearchChange($event)" debounce="250" ></ion-searchbar>
+
 </ion-header>
-
-<ion-content class="ion-padding">
-
-  <ion-list lines="none">
-    <ion-item *ngFor="let club of clubs.club  | filtro : textoBuscar:'nombre'; let i = index;">
-      <ion-avatar slot="start">
-        <img src="{{club.foto}}">
-      </ion-avatar>
-    
-      <ion-buttons>
-        <ion-button  (click)="send(club)">
-          {{club.nombre}}
-        </ion-button>
-      </ion-buttons>
-    
-      <ion-buttons slot="end" *ngIf="this.user.currentUser.usuarioID !== club.usuarioID">
-            <ion-button (click)="add(club.clubID)" fill="solid" color="primary" >
-              <ion-icon name="paper-plane-outline"></ion-icon>
-              </ion-button>
-      </ion-buttons>
-    </ion-item>
-    </ion-list>
-
+<ion-content>
+  <app-join-club-component></app-join-club-component>
 </ion-content>

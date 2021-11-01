@@ -8,23 +8,24 @@ import { Club } from '../../models/club';
 import { JugadoresService } from '../../services/jugadores.service';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
 import { UserService } from 'src/app/services/user.service';
+import { ClubService } from 'src/app/services/club.service';
 
 @Component({
-  selector: 'app-club-info',
+  selector: 'app-club-info-page',
   templateUrl: './club-info.page.html',
   styleUrls: ['./club-info.page.scss'],
 })
 export class ClubInfoPage implements OnInit {
 @Input() clubItem: Club;
 
-  constructor(private modalCtrl: ModalController,private popoverCtrl: PopoverController, private jugadores: JugadoresService, private solicitudes: SolicitudesService, private usuario: UserService) { }
+  constructor(private modalCtrl: ModalController,private popoverCtrl: PopoverController, private jugadores: JugadoresService, private solicitudes: SolicitudesService, private usuario: UserService, private clubs: ClubService) { }
 
   ngOnInit() {
 
   }
 
   add(solicitud){
-this.jugadores.add(solicitud.usuarioID,solicitud.clubID,1,'');
+this.jugadores.add(solicitud.usuarioID,solicitud.clubID,1,'../assets/profile/nopicture.svg');
 this.solicitudes.delete(solicitud.solicitudID);
   }
   delete(solicitudId: number){

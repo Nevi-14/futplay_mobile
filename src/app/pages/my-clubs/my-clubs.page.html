@@ -18,13 +18,17 @@
 
     <ng-template ngFor let-club [ngForOf]="clubs.userclubs" let-i="index" >
       <ion-item>
-        <ion-avatar slot="start">
-          <img src="{{club.foto}}">
-        </ion-avatar>
+        <ion-chip>
+          <ion-avatar>
+              <img src="{{club.foto}}">
+          </ion-avatar>
+          <ion-label>{{club.nombre}}</ion-label>
+        </ion-chip>
+
       
-        <ion-buttons>
-          <ion-button (click)="clubs.swapClub(club.clubID)">
-            {{club.nombre}}
+        <ion-buttons slot="end">
+          <ion-button (click)="clubs.swapClub(club.clubID)" color="primary">
+            <ion-icon name="swap-horizontal-outline"></ion-icon>
           </ion-button>
         </ion-buttons>
        </ion-item>
