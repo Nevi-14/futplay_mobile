@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ClubService } from '../../services/club.service';
 
 @Component({
   selector: 'app-confirmed',
@@ -10,10 +9,9 @@ import { ClubService } from '../../services/club.service';
 export class ConfirmedPage implements OnInit {
 
 
-  constructor( private modalCtrl: ModalController, private clubs: ClubService) { }
+  constructor( private modalCtrl: ModalController) { }
 
   ngOnInit() {
-    this.clubs.checkIfHasClub();
   }
   cerrarModal(){
     this.modalCtrl.dismiss();

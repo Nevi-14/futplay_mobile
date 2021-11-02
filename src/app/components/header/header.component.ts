@@ -4,10 +4,10 @@ import { ModalController, PopoverController } from '@ionic/angular';
 import { MyReservationsPage } from 'src/app/pages/my-reservations/my-reservations.page';
 import { SettingInfoComponent } from '../setting-info/setting-info.component';
 import { MyClubsPage } from '../../pages/my-clubs/my-clubs.page';
-import { JoinClubPage } from '../../pages/join-club/join-club.page';
 import { CreateClubPage } from '../../pages/create-club/create-club.page';
 import { ClubConfigPage } from '../../pages/club-config/club-config.page';
 import { ClubService } from '../../services/club.service';
+import { JoinClubComponentComponent } from '../join-club-component/join-club-component.component';
 
 @Component({
   selector: 'app-header',
@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
   }
   async findClub() {
     const modal = await this.modalCtrl.create({
-      component:JoinClubPage,
+      component:JoinClubComponentComponent,
       cssClass: 'my-custom-class'
     });
     return await modal.present();

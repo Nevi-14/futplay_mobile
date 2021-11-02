@@ -4,7 +4,7 @@ import { Solicitud } from 'src/app/models/solicitudes';
 import { ClubService } from 'src/app/services/club.service';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
 import { UserService } from 'src/app/services/user.service';
-import { ClubInfoPage } from '../../pages/club-info/club-info.page';
+import { ClubInfoComponent } from '../club-info/club-info.component';
 
 @Component({
   selector: 'app-join-club-component',
@@ -29,7 +29,11 @@ export class JoinClubComponentComponent implements OnInit {
     });
     alert.present();
   }
-
+  delete(solicitudId: number){
+    console.log(solicitudId);
+    this.solicitudes.delete(solicitudId);
+    console.log(this.solicitudes.solicitudes);
+  }
   add(clubID: number){
     this.solicitudes.solicitudes.push(new Solicitud(this.solicitudes.solicitudes.length+1,clubID,this.user.currentUser.usuarioID,true,false));
     console.log(this.solicitudes.solicitudes);
@@ -37,13 +41,17 @@ export class JoinClubComponentComponent implements OnInit {
       }
   async send(club){
     const modal = await this.modalCtrl.create({
-     component: ClubInfoPage,
+     component: ClubInfoComponent,
      cssClass: 'my-custom-class',
      componentProps:{
-      clubItem:club
+      club:club
      }
    });
    return await modal.present();
  }
+
+ cerrarModal(){
+  this.modalCtrl.dismiss();
+}
 
 }

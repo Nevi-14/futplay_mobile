@@ -45,14 +45,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/create-club/create-club.module').then( m => m.CreateClubPageModule)
   },
   {
-    path: 'join-club',
-    loadChildren: () => import('./pages/join-club/join-club.module').then( m => m.JoinClubPageModule)
-  },
-  {
-    path: 'club-info',
-    loadChildren: () => import('./pages/club-info/club-info.module').then( m => m.ClubInfoPageModule)
-  },
-  {
     path: 'rivales',
     loadChildren: () => import('./pages/rivales/rivales.module').then( m => m.RivalesPageModule)
   },
@@ -127,7 +119,8 @@ const routes: Routes = [
   {
     path: 'filter',
     loadChildren: () => import('./pages/filter/filter.module').then( m => m.FilterPageModule)
-  },  {
+  },
+  {
     path: 'club-config',
     loadChildren: () => import('./pages/club-config/club-config.module').then( m => m.ClubConfigPageModule)
   },

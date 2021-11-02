@@ -80,37 +80,45 @@
           </ion-col>
     <ion-col size="12">
 
-      
-      <ion-item *ngIf="jugadoresClubes?.jugadoresClubes?.length === 0">
-        <ion-label>No hay jugadores registrados</ion-label>
-      </ion-item>
+
       <ion-item *ngFor="let jugador of jugadoresClubes.jugadoresClubes; let i = index">
+        <ng-template [ngIf]="club.clubID !== jugador.clubID">
 
-        <ion-chip>
-          <ion-avatar>
-            <img src="../assets/profile/nopicture.svg">
-          </ion-avatar>
-          <ion-label *ngIf="club.clubID === jugador.clubID">{{jugador.jugadorID | usuarios}}</ion-label>
+      
+          <ion-item >
+            <ion-label>No hay jugadores registrados</ion-label>
+          </ion-item>
+        </ng-template>
+        <ng-template [ngIf]="club.clubID === jugador.clubID">
 
-        </ion-chip>
-
-        <ion-buttons  *ngIf="club.clubID === jugador.clubID" slot="end">
-          <ion-button (click)="usuario.show(jugador.jugadorID)">
-            <ion-icon name="sparkles-outline"></ion-icon>
-        </ion-button>
-
-
-        
+          <ion-chip>
+            <ion-avatar>
+              <img src="../assets/profile/nopicture.svg">
+            </ion-avatar>
+            <ion-label >{{jugador.jugadorID | usuarios}}</ion-label>
+  
+          </ion-chip>
+  
+          <ion-buttons  *ngIf="club.clubID === jugador.clubID" slot="end">
             <ion-button (click)="usuario.show(jugador.jugadorID)">
-              <ion-icon name="person-circle-outline"></ion-icon>
-            </ion-button>
-
-            <ion-button (click)="usuario.show(jugador.jugadorID)" color="danger">
-              <ion-icon name="trash"></ion-icon>
+              <ion-icon name="sparkles-outline"></ion-icon>
           </ion-button>
   
-            
-        </ion-buttons>
+  
+          
+              <ion-button (click)="usuario.show(jugador.jugadorID)">
+                <ion-icon name="person-circle-outline"></ion-icon>
+              </ion-button>
+  
+              <ion-button (click)="usuario.show(jugador.jugadorID)" color="danger">
+                <ion-icon name="trash"></ion-icon>
+            </ion-button>
+    
+              
+          </ion-buttons>
+          
+        </ng-template>
+        
       
     </ion-item>
     </ion-col>

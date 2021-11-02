@@ -3,8 +3,8 @@ import { DataService } from '../../services/data.service';
 import { ClubService } from '../../services/club.service';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { ClubInfoPage } from '../club-info/club-info.page';
 import { FilterPage } from '../filter/filter.page';
+import { ClubInfoComponent } from '../../components/club-info/club-info.component';
 
 @Component({
   selector: 'app-rivales',
@@ -25,10 +25,10 @@ export class RivalesPage implements OnInit {
  
   async send(club){
      const modal = await this.modalCtrl.create({
-      component: ClubInfoPage,
+      component: ClubInfoComponent,
       cssClass: 'my-custom-class',
       componentProps:{
-        clubItem: club
+        club: club
       }
     });
     return await modal.present();

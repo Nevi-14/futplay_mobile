@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CreateClubPage } from '../create-club/create-club.page';
-import { JoinClubPage } from '../join-club/join-club.page';
 import { UserService } from '../../services/user.service';
 import { JugadoresService } from '../../services/jugadores.service';
 import { Club } from '../../models/club';
 import { ClubService } from 'src/app/services/club.service';
 import { SolicitudesService } from '../../services/solicitudes.service';
 import { TransferenciasPage } from '../transferencias/transferencias.page';
+import { JoinClubComponentComponent } from 'src/app/components/join-club-component/join-club-component.component';
 
 @Component({
   selector: 'app-clubs',
@@ -34,7 +34,7 @@ export class ClubsPage implements OnInit {
   }
   async findClub() {
     const modal = await this.modalCtrl.create({
-      component:JoinClubPage,
+      component:JoinClubComponentComponent,
       cssClass: 'my-custom-class'
     });
     return await modal.present();
