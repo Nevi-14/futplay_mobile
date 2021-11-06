@@ -29,6 +29,7 @@ export class RegisterPage implements OnInit {
         direccion: '',
         correo: '',
         contrasena: '',
+        confirmarContrasena: '',
         intentos: 0
     };
     constructor(private userService : UserService, private route : Router, private data : DataService, private alertCtrl : AlertController, private jugadorPosicion: JugadoresPosicionesService) {}
@@ -69,7 +70,7 @@ export class RegisterPage implements OnInit {
         await alert.present();
       }
     }
-    onSubmit(formulario : NgForm) {
+    async onSubmit(formulario : NgForm) {
         if(this.userService.validateEmail(this.user.correo)=== false){
              this.alert(false);
         }else{
@@ -78,14 +79,24 @@ export class RegisterPage implements OnInit {
             if (i >= 0) {
                 this.alert(true);
             } else {
-                this.userService.loggedUser(this.user);
-                this.userService.user.push(new Usuario(this.user.usuarioID, this.user.roleID, this.user.provinciaID, this.user.cantonID, this.user.distritoID, this.user.foto, this.user.nombre,this.user.apodo, this.user.apellido1, this.user.apellido2, this.user.fechaNac, this.user.telefono, this.user.direccion, this.user.correo, this.user.contrasena, this.user.intentos, new Date()));
-                this.route.navigate(['/', 'home']);
-                this.jugadorPosicion.jugadoresPosiciones.push(new JugadorPosiciones(this.jugadorPosicion.jugadoresPosiciones.length+1,this.user.usuarioID, null,''));
-              
-                this.userService.swapUser(this.user.usuarioID)
-        
-                console.log(this.jugadorPosicion.jugadoresPosiciones)
+              //  alert([this.user.confirmarContrasena, this.user.contrasena])
+                if(this.user.confirmarContrasena === this.user.contrasena){
+                    this.userService.loggedUser(this.user);
+                    this.userService.user.push(new Usuario(this.user.usuarioID, this.user.roleID, this.user.provinciaID, this.user.cantonID, this.user.distritoID, this.user.foto, this.user.nombre,this.user.apodo, this.user.apellido1, this.user.apellido2, this.user.fechaNac, this.user.telefono, this.user.direccion, this.user.correo, this.user.contrasena, this.user.intentos, new Date()));
+                    this.route.navigate(['/', 'home']);
+                    this.jugadorPosicion.jugadoresPosiciones.push(new JugadorPosiciones(this.jugadorPosicion.jugadoresPosiciones.length+1,this.user.usuarioID, null,''));
+                  
+                    this.userService.swapUser(this.user.usuarioID)
+            
+                    console.log(this.jugadorPosicion.jugadoresPosiciones)
+                }else{
+                    const alert = await this.alertCtrl.create({
+                        header: 'Lo sentimos!',
+                        message: 'Las contrasenas no son identicasa'
+                    });
+                    await alert.present();
+                }
+               
             }
 
         }
