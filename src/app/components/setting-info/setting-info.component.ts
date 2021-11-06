@@ -3,6 +3,7 @@ import { ModalController, PopoverController } from '@ionic/angular';
 import { ProfileInfoPage } from '../../pages/profile-info/profile-info.page';
 import { PasswordPage } from '../../pages/password/password.page';
 import { PaymentMethodPage } from '../../pages/payment-method/payment-method.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-setting-info',
@@ -11,7 +12,7 @@ import { PaymentMethodPage } from '../../pages/payment-method/payment-method.pag
 })
 export class SettingInfoComponent implements OnInit {
 
-  constructor(private  modalCtrl: ModalController, private popOverCtrl: PopoverController) { }
+  constructor(private  modalCtrl: ModalController, private popOverCtrl: PopoverController, private route: Router) { }
 
   ngOnInit() {}
   async profileInfo() {
@@ -38,4 +39,10 @@ export class SettingInfoComponent implements OnInit {
     await this.popOverCtrl.dismiss();
     return await modal.present();
   }
+
+  logOut(){
+     this.popOverCtrl.dismiss();
+    this.route.navigate([ '/inicio/login']);
+  }
+
 }

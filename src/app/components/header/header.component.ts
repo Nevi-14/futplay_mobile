@@ -83,9 +83,6 @@ export class HeaderComponent implements OnInit {
     });
     return await modal.present();
   }
-  logOut(){
-    this.route.navigate([ '/inicio/login']);
-  }
 
 
 }

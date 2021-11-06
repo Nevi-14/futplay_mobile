@@ -72,10 +72,7 @@ const routes: Routes = [
     path: 'message',
     loadChildren: () => import('./pages/message/message.module').then( m => m.MessagePageModule)
   },
-  {
-    path: 'club-profile-info',
-    loadChildren: () => import('./pages/club-profile-info/club-profile-info.module').then( m => m.ClubProfileInfoPageModule)
-  },
+  
   {
     path: 'my-clubs',
     loadChildren: () => import('./pages/my-clubs/my-clubs.module').then( m => m.MyClubsPageModule)

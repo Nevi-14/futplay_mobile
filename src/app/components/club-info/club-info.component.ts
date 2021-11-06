@@ -53,5 +53,7 @@ export class ClubInfoComponent implements OnInit {
         });
         return await modal.present();
       }
+
+      
       
 }

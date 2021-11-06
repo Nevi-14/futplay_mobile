@@ -26,6 +26,25 @@
   <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)">
     <ion-grid >
       <ion-row style="display: flex;" class="ion-justify-content-center" >
+
+        <ion-col size="10" >
+
+          <ion-buttons  style="position:relative;margin: 0 auto; display: flex; justify-content: center;align-items: center;">
+            <ion-img src="{{user.foto}}"  style="height: 140px; width: 140px;"  ></ion-img>
+          
+            <ion-button  shape="round">
+             
+              <ion-icon name="camera-outline" ></ion-icon>
+             
+            </ion-button>
+            <ion-button   shape="round">
+             
+              <ion-icon name="image-outline" ></ion-icon>
+             
+            </ion-button>
+          
+          </ion-buttons>
+                </ion-col>
         <ion-col size="12" size-md="10" >
 <ion-row>
 

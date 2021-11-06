@@ -19,12 +19,6 @@ export class ProfileComponentComponent implements OnInit {
     console.log('swap result', this.userService.userProfile);
     console.log('swap position', this.userService.userPosition);
   }
-  async pictureUpload() {
-    const modal = await this.modalCtrl.create({
-      component: PictureUploadPage,
-      cssClass: 'my-custom-class'
-    });
-    return await modal.present();
-  }
+
 
 }

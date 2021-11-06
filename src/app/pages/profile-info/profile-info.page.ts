@@ -10,13 +10,17 @@ import { ProvinciasService } from 'src/app/services/provincias.service';
 import { DistritosService } from 'src/app/services/distritos.service';
 import { JugadoresClubesService } from 'src/app/services/jugador-clubes.service';
 import { JugadoresPosicionesService } from 'src/app/services/jugador-posiciones.service';
-
+import { PictureUploadPage } from '../picture-upload/picture-upload.page';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+declare const window: any;
 @Component({
   selector: 'app-profile-info',
   templateUrl: './profile-info.page.html',
   styleUrls: ['./profile-info.page.scss'],
 })
 export class ProfileInfoPage implements OnInit {
+  tempImages: String[]=[];
+image = '';
   user = {
     usuarioID: this.userService.currentUser.usuarioID,
     roleID: this.userService.currentUser.roleID,
@@ -39,7 +43,7 @@ export class ProfileInfoPage implements OnInit {
     posicionID: this.jugadoresPosiciones.jugadorCurrentPosicion.posicionID,
     apodo:this.jugadoresPosiciones.jugadorCurrentPosicion.apodo,
   }
-  constructor(private data: DataService, private modalCtrl: ModalController, private userService: UserService, private toastCtrl: ToastController, private alertCtrl: AlertController, private route: Router, private posiciones: PosicionesService, private cantones: CantonesService, private provincias: ProvinciasService,private distritos: DistritosService, private jugadoresPosiciones: JugadoresPosicionesService) { }
+  constructor(private data: DataService, private modalCtrl: ModalController, private userService: UserService, private toastCtrl: ToastController, private alertCtrl: AlertController, private route: Router, private posiciones: PosicionesService, private cantones: CantonesService, private provincias: ProvinciasService,private distritos: DistritosService, private jugadoresPosiciones: JugadoresPosicionesService,private camera: Camera) { }
 
   ngOnInit() {
  console.log(this.jugadoresPosiciones.jugadorCurrentPosicion);
@@ -89,5 +93,57 @@ buttons:[{
 });
 await alert.present();
 
+}
+
+async pictureUpload() {
+  const modal = await this.modalCtrl.create({
+    component: PictureUploadPage,
+    cssClass: 'my-custom-class'
+  });
+  return await modal.present();
+}
+
+
+uploadCamera(){
+  const options: CameraOptions = {
+    quality: 100,
+    destinationType: this.camera.DestinationType.FILE_URI,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE,
+    correctOrientation: true,
+    sourceType: this.camera.PictureSourceType.CAMERA
+  };
+  this.camera.getPicture(options).then((imageData) => {
+    // imageData is either a base64 encoded string or a file URI
+    // If it's base64 (DATA_URL):
+    const img = window.Ionic.WebView.convertFileSrc(imageData);
+    this.tempImages.push(img);
+    this.userService.currentUser.foto = img;
+    this.image = img;
+    console.log(this.tempImages);
+   }, (err) => {
+    // Handle error
+   });
+}
+uploadPictures(){
+  const options: CameraOptions = {
+    quality: 100,
+    destinationType: this.camera.DestinationType.FILE_URI,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE,
+    correctOrientation: true,
+    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+  };
+  this.camera.getPicture(options).then((imageData) => {
+    // imageData is either a base64 encoded string or a file URI
+    // If it's base64 (DATA_URL):
+    const img = window.Ionic.WebView.convertFileSrc(imageData);
+    this.tempImages.push(img);
+    this.userService.currentUser.foto = img;
+    this.image = img;
+    console.log(this.tempImages);
+   }, (err) => {
+    // Handle error
+   });
 }
 }
