@@ -119,7 +119,8 @@ uploadCamera(){
     const img = window.Ionic.WebView.convertFileSrc(imageData);
     this.tempImages.push(img);
     this.userService.currentUser.foto = img;
-    this.image = img;
+    this.user.foto = img;
+    this.userService.currentUser.foto = img;
     console.log(this.tempImages);
    }, (err) => {
     // Handle error
@@ -140,7 +141,8 @@ uploadPictures(){
     const img = window.Ionic.WebView.convertFileSrc(imageData);
     this.tempImages.push(img);
     this.userService.currentUser.foto = img;
-    this.image = img;
+    this.user.foto = img;
+    
     console.log(this.tempImages);
    }, (err) => {
     // Handle error
