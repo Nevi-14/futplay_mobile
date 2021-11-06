@@ -34,15 +34,15 @@ export class LoginPage implements OnInit {
 
    onSubmit(formulario: NgForm){
     let  i = 0;
-if(this.userService.validateEmail(this.userLogin.usuario)=== false){
-    i = this.userService.user.findIndex( d => d.telefono.replace(/\s/g, '') === this.userLogin.usuario );
+if(this.userService.validateEmail(this.removeSpaces(this.userLogin.usuario))=== false){
+    i = this.userService.user.findIndex( d => d.telefono === this.removeSpaces(this.userLogin.usuario ));
 }else{
-    i = this.userService.user.findIndex( d => d.correo.replace(/\s/g, '') === this.userLogin.usuario );
+    i = this.userService.user.findIndex( d => d.correo === this.removeSpaces(this.userLogin.usuario ) );
 
 }
 
     if ( i >= 0 ){
-      if ( this.userService.user[i].contrasena.replace(/\s/g, '') === this.userLogin.contrasena ){
+      if ( this.userService.user[i].contrasena === this.userLogin.contrasena ){
         this.userService.loggedUser(this.userService.user[i]);
         this.userService.swapUser(this.userService.user[i].usuarioID)
         console.log(this.userService.userProfile)
@@ -55,5 +55,7 @@ if(this.userService.validateEmail(this.userLogin.usuario)=== false){
     }
 
 }
-
+removeSpaces(element:string) {
+  return element.split(' ').join('');
+ }
 }
