@@ -118,10 +118,7 @@ const routes: Routes = [
     path: 'club-config',
     loadChildren: () => import('./pages/club-config/club-config.module').then( m => m.ClubConfigPageModule)
   },
-  {
-    path: 'club-picture-upload',
-    loadChildren: () => import('./pages/club-picture-upload/club-picture-upload.module').then( m => m.ClubPictureUploadPageModule)
-  },
+
   {
     path: 'social-media',
     loadChildren: () => import('./pages/social-media/social-media.module').then( m => m.SocialMediaPageModule)

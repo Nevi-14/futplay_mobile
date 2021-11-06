@@ -2,19 +2,9 @@
   
   <ion-grid>
     <ion-row>
-      <ion-col size="4" size-md="6" size-lg="4" style="display: grid; place-content: center;" >
+      <ion-col size="4" size-md="6" size-lg="4" >
+        <img [src]="club.foto" alt="" style="margin: 0 auto; border-radius: 50%; display: flex;  height: 140px; width: 140px;">
 
-<ion-buttons  style="position:relative;margin: 0 auto; border-radius: 50%; display: flex; justify-content: center; height: 80px; width: 80px;">
-  <img [src]="club.foto" alt="">
-
-  <ion-button (click)="onClick()" style="position: fixed;border-radius: 50%; background-color: rgba(255, 255, 255, 0.5);"  shape="round">
-   
-    <ion-icon  name="add"></ion-icon>
-   
-  </ion-button>
-
-
-</ion-buttons>
       </ion-col>
       <ion-col size="8" size-md="6" size-lg="8">
           <ion-list lines="none">

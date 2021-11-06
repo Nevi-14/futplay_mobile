@@ -9,7 +9,6 @@ import { JugadoresClubesService } from '../../services/jugador-clubes.service';
 import { JugadorClubes } from 'src/app/models/jugadorClubes';
 import { ProfilePage } from '../../pages/profile/profile.page';
 import { ClubService } from 'src/app/services/club.service';
-import { ClubPictureUploadPage } from '../../pages/club-picture-upload/club-picture-upload.page';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { SocialMediaPage } from '../../pages/social-media/social-media.page';
 
@@ -27,14 +26,7 @@ export class ClubInfoComponent implements OnInit {
     
   }
 
-  async pictureUpload() {
-    const modal = await this.modalCtrl.create({
-      component: ClubPictureUploadPage,
-      cssClass: 'my-custom-class'
-    });
-    return await modal.present();
-  }
-
+  
       async listaTransferencia(clubID) {
         const modal = await this.modalCtrl.create({
           component: TransferenciasPage,
