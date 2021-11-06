@@ -67,6 +67,7 @@ this.swapUser(userID);
         this.user[i].apellido1 = user.apellido1;
         this.user[i].apellido2 = user.apellido2;
         this.user[i].correo = user.correo;
+        this.user[i].foto = user.foto;
         this.user[i].telefono = user.telefono;
         this.user[i].fechaNac = new Date(user.fechaNac);
         this.user[i].provinciaID = user.provinciaID;

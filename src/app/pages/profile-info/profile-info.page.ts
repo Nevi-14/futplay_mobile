@@ -10,7 +10,6 @@ import { ProvinciasService } from 'src/app/services/provincias.service';
 import { DistritosService } from 'src/app/services/distritos.service';
 import { JugadoresClubesService } from 'src/app/services/jugador-clubes.service';
 import { JugadoresPosicionesService } from 'src/app/services/jugador-posiciones.service';
-import { PictureUploadPage } from '../picture-upload/picture-upload.page';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 declare const window: any;
 @Component({
@@ -95,13 +94,6 @@ await alert.present();
 
 }
 
-async pictureUpload() {
-  const modal = await this.modalCtrl.create({
-    component: PictureUploadPage,
-    cssClass: 'my-custom-class'
-  });
-  return await modal.present();
-}
 
 
 uploadCamera(){
@@ -118,7 +110,6 @@ uploadCamera(){
     // If it's base64 (DATA_URL):
     const img = window.Ionic.WebView.convertFileSrc(imageData);
     this.tempImages.push(img);
-    this.userService.currentUser.foto = img;
     this.user.foto = img;
     this.userService.currentUser.foto = img;
     console.log(this.tempImages);

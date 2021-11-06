@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { Usuario } from '../../models/usuario';
 import { JugadoresPosicionesService } from '../../services/jugador-posiciones.service';
-import { PictureUploadPage } from '../../pages/picture-upload/picture-upload.page';
 import { ModalController } from '@ionic/angular';
 
 @Component({
