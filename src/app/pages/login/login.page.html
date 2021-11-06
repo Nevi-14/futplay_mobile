@@ -3,17 +3,17 @@
 <ion-content >
  
   <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)"  >
-    <ion-list >
+    <ion-list lines="none">
       <ion-grid >
         <ion-row class="center-container">
 
           <ion-col size="12" size-md="8"  style="display: grid; place-content: center;">
-            <img src="../assets/inicio/logo.png" height="100" alt="" style="margin: 0 auto;border-radius: 50%;">
-            <ion-label class="ion-text-center" style="font-weight: bold;">
-              Inicio de Sessión <i class="fas fa-users"></i>
-            </ion-label>
-            
+            <img src="../assets/inicio/logo.png" height="150" alt="" style="margin: 0 auto;border-radius: 50%;">
+
+  
+
         </ion-col>
+
           <ion-col size="12" size-md="8" >
             <ion-item>
               <ion-label position="floating">Usuario</ion-label>
@@ -30,11 +30,21 @@
            </ion-item>
       
           </ion-col>
+          <ion-col size="12" size-md="8" >
+            <ion-item style="display: grid; place-content: center;">
+              <ion-label  style="font-weight: bold;" >
+                Iniciar Sessión 
+              </ion-label>
+              <ion-buttons >
+            
+                <ion-button fill="solid"  shape="round"  style="margin-left:10px; height: 30px; width: 30px;" type="submit">
+                  <ion-icon name="arrow-forward-outline"></ion-icon>
+              </ion-button> 
+              </ion-buttons>
+            </ion-item>
+                    </ion-col>
           <ion-col size="12" size-md="8"  >
-            <div align="center ">
-          
-              <ion-button fill="solid"  shape="round" class="ion-margin-vertical" type="submit">Iniciar Session</ion-button>   
-          </div>
+
          <ul style="display: flex;list-style: none;">
            <li style="margin-right:5px;">
             <a routerLink="/inicio/register" fill="solid" shape="round" color="primary"style="text-decoration: none;">Registro</a>
