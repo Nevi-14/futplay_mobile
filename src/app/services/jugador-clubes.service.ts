@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { JugadorClubes } from '../models/jugadorClubes';
 import { AlertController, ModalController } from '@ionic/angular';
 import { ProfilePage } from '../pages/profile/profile.page';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { ProfilePage } from '../pages/profile/profile.page';
 export class JugadoresClubesService {
 
   jugadoresClubes:  JugadorClubes[]=[];
-  constructor( private http: HttpClient, private modalCtrl: ModalController, private alertCtrl: AlertController) { }
+  constructor( private http: HttpClient, private modalCtrl: ModalController, private alertCtrl: AlertController, private route: Router) { }
 
   getJugadores(){
     this.http.get<JugadorClubes[]>('/assets/json/jugadores.json').subscribe(resp=>{
@@ -26,24 +27,6 @@ export class JugadoresClubesService {
  add(usuarioID: number, clubID: number, fecha: Date, admin: boolean){
   this.jugadoresClubes.push(new JugadorClubes(this.jugadoresClubes.length+1, usuarioID,clubID,fecha,false));
  }
-makeAdmin(jugadorID){
-
- let  i = this.jugadoresClubes.findIndex( jugadores => jugadores.jugadorID === jugadorID);
-
- if(i >= 0 ){
-
-   if(!this.jugadoresClubes[i].admin){
-    this.jugadoresClubes[i].admin = true;
-    this.presentAlert('El usuario se establecio como jugador administrador')
-
-   }else{
-    this.jugadoresClubes[i].admin = false;
-    this.presentAlert('El usuario se establecio como jugador regular')
-   }
-
-   console.log(this.jugadoresClubes[i], 'admin request')
- }
-}
 
 deletePlayer(jugadorID){
  let  i = this.jugadoresClubes.findIndex( jugadores => jugadores.jugadorID === jugadorID);

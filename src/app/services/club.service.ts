@@ -15,7 +15,7 @@ import { JugadoresClubesService } from './jugador-clubes.service';
 export class ClubService {
   new = false
   clubPlayer = false;
-  clubOwner = false;
+  clubAdmin = false;
   club: Club[] = [];
   userclubs: Club[] = [];
   playerClubs: Club[] = [];
@@ -34,7 +34,6 @@ export class ClubService {
   swapClub(clubId: number) {
    
 
-  
     for (let i = 0; i < this.club.length; i++) {
       if (this.club[i].clubID === clubId) {
         this.switchClub = this.club[i];
@@ -43,7 +42,7 @@ export class ClubService {
       }
 
     }
-
+    this.clubOwner(clubId);
   
 
 
@@ -85,33 +84,61 @@ export class ClubService {
     if (playerClub >= 0) {
       for (let i = 0; i < this.club.length; i++) {
         for (let j = 0; j < this.jugadoresClubes.jugadoresClubes.length; j++) {
-          if (this.jugadoresClubes.jugadoresClubes[j].clubID === this.club[i].clubID) {
+          if (this.jugadoresClubes.jugadoresClubes[j].clubID === this.club[i].clubID   || this.jugadoresClubes.jugadoresClubes[playerClub].admin === true ) {
             this.playerClubs.push(this.club[i]);
             this.switchClub = this.playerClubs[0];
+           
 
            
           }
         }
       
       }
-     
+      this.clubOwner(this.playerClubs[0].clubID);
       this.new = true;
     }
 
     if (userClub >= 0) {
+
       for (let i = 0; i < this.club.length; i++) {
-        if (this.user.currentUser.usuarioID === this.club[i].usuarioID) {
+        if (this.user.currentUser.usuarioID === this.club[i].usuarioID || this.jugadoresClubes.jugadoresClubes[playerClub].admin === true ) {
           this.userclubs.push(this.club[i]);
           this.switchClub = this.userclubs[0];
+          
 
         }
        
       }
+      this.clubOwner(this.userclubs[0].clubID);
       this.clubCount(this.club[0].clubID);
       this.new = true;
     
     }
+  
 
+  }
+
+  clubOwner(clubId){
+    const playerClub = this.jugadoresClubes.jugadoresClubes.findIndex(d => d.jugadorID === this.user.currentUser.usuarioID);
+
+
+    for (let i = 0; i < this.club.length; i++) {
+
+      if(this.club[i].clubID === clubId){
+        if (this.user.currentUser.usuarioID === this.club[i].usuarioID || this.jugadoresClubes.jugadoresClubes[playerClub].admin === true ) {
+
+          this.clubAdmin = true;
+  
+        }else{
+          this.clubAdmin = false;
+  
+        }
+      }
+   
+    
+     
+    }
+    console.log('club admin' ,  this.clubAdmin )
   }
 
 
@@ -127,4 +154,30 @@ export class ClubService {
   }
   console.log(   this.solicitudes.conteoClub,'weg')
   }
+
+
+
+  makeAdmin(jugadorID){
+
+    let  i = this.jugadoresClubes.jugadoresClubes.findIndex( jugadores => jugadores.jugadorID === jugadorID);
+   
+    if(i >= 0 ){
+   
+      if(!this.jugadoresClubes.jugadoresClubes[i].admin){
+       this.jugadoresClubes.jugadoresClubes[i].admin = true;
+       this.jugadoresClubes.presentAlert('El usuario se establecio como jugador administrador')
+   
+      }else{
+       this.jugadoresClubes.jugadoresClubes[i].admin = false;
+       this.jugadoresClubes.presentAlert('El usuario se establecio como jugador regular')
+      }
+   
+      console.log(this.jugadoresClubes.jugadoresClubes[i], 'admin request')
+      this.clubOwner(this.jugadoresClubes.jugadoresClubes[i].clubID)
+   
+    }
+   }
+   
+
+
 }

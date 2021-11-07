@@ -36,13 +36,17 @@
 
     <ng-template ngFor let-userPlayerClub [ngForOf]="clubs.playerClubs" let-i="index" >
       <ion-item>
-        <ion-avatar slot="start">
-          <img src="{{userPlayerClub.foto}}">
-        </ion-avatar>
-      
-        <ion-buttons>
-          <ion-button (click)="clubs.swapClub(userPlayerClub.clubID)">
-            {{userPlayerClub.nombre}}
+
+        <ion-chip>
+          <ion-avatar>
+              <img src="{{userPlayerClub.foto}}">
+          </ion-avatar>
+          <ion-label>{{userPlayerClub.nombre}}</ion-label>
+        </ion-chip>
+
+        <ion-buttons slot="end">
+          <ion-button (click)="clubs.swapClub(userPlayerClub.clubID)" color="primary">
+            <ion-icon name="swap-horizontal-outline"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-item>

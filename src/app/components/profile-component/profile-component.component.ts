@@ -15,8 +15,7 @@ export class ProfileComponentComponent implements OnInit {
   constructor(private userService: UserService, private jugadorPosiciones: JugadoresPosicionesService, private modalCtrl: ModalController) { }
 
   ngOnInit() {
-    console.log('swap result', this.userService.userProfile);
-    console.log('swap position', this.userService.userPosition);
+ 
   }
 
 
