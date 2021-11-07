@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JugadorClubes } from '../models/jugadorClubes';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { ProfilePage } from '../pages/profile/profile.page';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { ProfilePage } from '../pages/profile/profile.page';
 export class JugadoresClubesService {
 
   jugadoresClubes:  JugadorClubes[]=[];
-  constructor( private http: HttpClient, private modalCtrl: ModalController) { }
+  constructor( private http: HttpClient, private modalCtrl: ModalController, private alertCtrl: AlertController) { }
 
   getJugadores(){
     this.http.get<JugadorClubes[]>('/assets/json/jugadores.json').subscribe(resp=>{
@@ -34,10 +34,11 @@ makeAdmin(jugadorID){
 alert(this.jugadoresClubes[i].admin )
    if(!this.jugadoresClubes[i].admin){
     this.jugadoresClubes[i].admin = true;
-    alert('El usuario se establecio como administrador')
+    this.presentAlert('El usuario se establecio como jugador administrador')
+
    }else{
     this.jugadoresClubes[i].admin = false;
-    alert('El usuario se establecio como usuario regular')
+    this.presentAlert('El usuario se establecio como jugador regular')
    }
 
    console.log(this.jugadoresClubes[i], 'admin request')
@@ -65,6 +66,19 @@ deletePlayer(jugadorID){
   return await modal.present();
 }
 
+async presentAlert(message) {
+  const alert = await this.alertCtrl.create({
+    cssClass: 'my-custom-class',
+    header: 'FUTPLAY',
+    message: message,
+    buttons: ['OK']
+  });
+
+  await alert.present();
+
+  const { role } = await alert.onDidDismiss();
+  console.log('onDidDismiss resolved with role', role);
+}
 
 
 }
