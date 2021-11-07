@@ -24,15 +24,22 @@ export class JugadoresClubesService {
  }
 
  add(usuarioID: number, clubID: number, fecha: Date, admin: boolean){
-  this.jugadoresClubes.push(new JugadorClubes(this.jugadoresClubes.length+1, usuarioID,clubID,fecha,true));
+  this.jugadoresClubes.push(new JugadorClubes(this.jugadoresClubes.length+1, usuarioID,clubID,fecha,false));
  }
 makeAdmin(jugadorID){
 
  let  i = this.jugadoresClubes.findIndex( jugadores => jugadores.jugadorID === jugadorID);
 
  if(i >= 0 ){
-   this.jugadoresClubes[i].admin === true;
-   alert('El usuario se establecio como administrador')
+alert(this.jugadoresClubes[i].admin )
+   if(!this.jugadoresClubes[i].admin){
+    this.jugadoresClubes[i].admin = true;
+    alert('El usuario se establecio como administrador')
+   }else{
+    this.jugadoresClubes[i].admin = false;
+    alert('El usuario se establecio como usuario regular')
+   }
+
    console.log(this.jugadoresClubes[i], 'admin request')
  }
 }

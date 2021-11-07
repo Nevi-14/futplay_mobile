@@ -63,23 +63,12 @@
             <ion-item>
               <ion-label>Lista de Jugadores</ion-label>
             </ion-item>
-            <ion-item>
-              <ion-searchbar mode="ios" placeholder="Buscar jugador" inputmode="text" (ionChange)="onSearchChange($event)" debounce="250" ></ion-searchbar>
-            </ion-item>
+
           </ion-col>
     <ion-col size="12">
-
-
-      <ion-item *ngFor="let jugador of jugadoresClubes.jugadoresClubes; let i = index">
-        <ng-template [ngIf]="club.clubID !== jugador.clubID">
-
-      
-          <ion-item >
-            <ion-label>No hay jugadores registrados</ion-label>
-          </ion-item>
-        </ng-template>
-        <ng-template [ngIf]="club.clubID === jugador.clubID">
-
+      <ng-template ngFor let-jugador [ngForOf]="jugadoresClubes.jugadoresClubes" let-i="index"  >
+        <ng-template [ngIf]="club.clubID === jugador.clubID ">
+        <ion-item *ngIf="jugadoresClubes?.jugadoresClubes?.length > 0 ;else elseBlock">
           <ion-chip>
             <ion-avatar>
               <img [src]="jugador.jugadorID  | usuarios : 'foto'">
@@ -87,7 +76,7 @@
 
             <ion-label>{{jugador.jugadorID  | usuarios : 'nombre'}} {{jugador.jugadorID  | usuarios : 'apellido1'}}</ion-label>
           </ion-chip>
-          <ion-buttons  *ngIf="club.clubID === jugador.clubID" slot="end">
+          <ion-buttons  *ngIf="usuario.currentUser.usuarioID === club.usuarioID || jugador.admin === true" slot="end">
             <ion-button (click)="jugadoresClubes.makeAdmin(jugador.jugadorID)">
               <ion-icon name="sparkles-outline"></ion-icon>
           </ion-button>
@@ -105,10 +94,16 @@
               
           </ion-buttons>
           
-        </ng-template>
+
+
         
+      </ion-item>
+            
+
+ <ng-template #elseBlock>Content to render when value is null.</ng-template>
+      </ng-template>
+    </ng-template>
       
-    </ion-item>
     </ion-col>
 
 </ion-row>

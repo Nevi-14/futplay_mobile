@@ -29,31 +29,40 @@
         <ion-item *ngIf="solicitudes?.solicitudes?.length  === 0" >
           <ion-label>No hay solicitudes disponibles</ion-label>
         </ion-item>
-              <ion-item *ngFor="let solicitud of solicitudes.solicitudes; let i = index">
 
-                <ion-chip>
-                  <ion-avatar>
-                    <img [src]="solicitud.usuarioID  | usuarios : 'foto'">
-                  </ion-avatar>
+        <ng-template ngFor let-solicitud [ngForOf]="solicitudes.solicitudes" let-i="index">
+
+          <ng-template [ngIf]="clubID === solicitud.clubID">
+            <ion-item >
+
+              <ion-chip >
+                <ion-avatar>
+                  <img [src]="solicitud.usuarioID  | usuarios : 'foto'">
+                </ion-avatar>
+    
+                <ion-label>{{solicitud.usuarioID  | usuarios : 'nombre'}} {{solicitud.usuarioID  | usuarios : 'apellido1'}}</ion-label>
+              </ion-chip>
       
-                  <ion-label>{{solicitud.usuarioID  | usuarios : 'nombre'}} {{solicitud.usuarioID  | usuarios : 'apellido1'}}</ion-label>
-                </ion-chip>
-        
-                <ion-buttons *ngIf="clubID === solicitud.clubID" slot="end">
-                  <ion-button color="dark" (click)="usuario.show(solicitud.usuarioID)">
-                    <ion-icon  name="eye"></ion-icon>
-                </ion-button>
-                  <ion-button color="primary" (click)="add(solicitud)">
-                    <ion-icon name="checkmark-circle-outline"></ion-icon>
-                </ion-button>
-                  <ion-button color="danger" (click)="delete(solicitud.solicitudID)">
-                    <ion-icon  name="trash"></ion-icon>
-                </ion-button>
-                </ion-buttons>
+              <ion-buttons  slot="end">
+                <ion-button color="dark" (click)="usuario.show(solicitud.usuarioID)">
+                  <ion-icon  name="eye"></ion-icon>
+              </ion-button>
+                <ion-button color="primary" (click)="add(solicitud)">
+                  <ion-icon name="checkmark-circle-outline"></ion-icon>
+              </ion-button>
+                <ion-button color="danger" (click)="delete(solicitud.solicitudID)">
+                  <ion-icon  name="trash"></ion-icon>
+              </ion-button>
+              </ion-buttons>
+  
+     
+      
+          </ion-item>
+          </ng-template>
 
-       
-        
-            </ion-item>
+     
+        </ng-template>
+              
 
 
 
