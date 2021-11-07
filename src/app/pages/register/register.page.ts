@@ -89,6 +89,27 @@ export class RegisterPage implements OnInit {
                     this.userService.swapUser(this.user.usuarioID)
             
                     console.log(this.jugadorPosicion.jugadoresPosiciones)
+
+                    const resetUser =  {
+                        usuarioID: null,
+                        roleID: null,
+                        provinciaID: null,
+                        cantonID: null,
+                        distritoID: 1,
+                        foto: '',
+                        nombre: '',
+                        apodo:'',
+                        apellido1: '',
+                        apellido2: '',
+                        fechaNac: null,
+                        telefono: '',
+                        direccion: '',
+                        correo: '',
+                        contrasena: '',
+                        confirmarContrasena: '',
+                        intentos: 0
+                    };
+                    this.user = resetUser;
                 }else{
                     const alert = await this.alertCtrl.create({
                         header: 'Lo sentimos!',

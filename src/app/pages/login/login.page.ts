@@ -53,6 +53,13 @@ if(this.userService.validateEmail(this.removeSpaces(this.userLogin.usuario))=== 
     } else {
       this.message('Usuario o contraseña incorrectos');
     }
+    const user = {
+      usuario: '',
+      contrasena: '',
+      intentos: 0
+    };
+  
+    this.userLogin = user;
 
 }
 removeSpaces(element:string) {
