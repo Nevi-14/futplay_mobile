@@ -4,6 +4,9 @@ import { ProfileInfoPage } from '../../pages/profile-info/profile-info.page';
 import { PasswordPage } from '../../pages/password/password.page';
 import { PaymentMethodPage } from '../../pages/payment-method/payment-method.page';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import { Usuario } from 'src/app/models/usuario';
+import { JugadoresPosicionesService } from '../../services/jugador-posiciones.service';
 
 @Component({
   selector: 'app-setting-info',
@@ -11,8 +14,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./setting-info.component.scss'],
 })
 export class SettingInfoComponent implements OnInit {
+  usuario = {
+    usuarioID: null,
+    roleID: null,
+    provinciaID: null,
+    cantonID: null,
+    distritoID: null,
+    foto: '',
+    nombre:'',
+    apodo:'',
+    apellido1: '',
+    apellido2: '',
+    fecha: null,
+    fechaNac: null,
+    telefono: '',
+    direccion: '',
+    correo: '',
+    contrasena: '',
+    confirmarContrasena: '',
+    intentos: null,
+    
+};
 
-  constructor(private  modalCtrl: ModalController, private popOverCtrl: PopoverController, private route: Router) { }
+jugadorCurrentPosicion = {
+  jugadorID: null,
+  usuarioID:null,
+  posicionID:null,
+  apodo:'',
+}
+  constructor(private  modalCtrl: ModalController, private popOverCtrl: PopoverController, private route: Router, private userService: UserService, private jugadoresPosiciones: JugadoresPosicionesService) { }
 
   ngOnInit() {}
   async profileInfo() {
@@ -42,6 +72,11 @@ export class SettingInfoComponent implements OnInit {
 
   logOut(){
      this.popOverCtrl.dismiss();
+     this.userService.currentUser = this.usuario;
+     this.userService.userProfile = this.usuario;
+     this.jugadoresPosiciones.jugadorCurrentPosicion = this.jugadorCurrentPosicion;
+
+console.log(this.userService.currentUser,this.userService.userProfile)
     this.route.navigate([ '/inicio/login']);
   }
 

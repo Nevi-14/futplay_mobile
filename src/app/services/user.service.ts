@@ -18,6 +18,10 @@ switchUser: Usuario;
 age = 0;
   constructor(private http: HttpClient, private modalCtrl: ModalController, private jugadorPosicion: JugadoresPosicionesService) {
   }
+
+
+
+
   loggedUser(user){
 this.currentUser = user;
 const today = new Date();
