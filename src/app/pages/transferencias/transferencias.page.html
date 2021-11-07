@@ -33,10 +33,10 @@
 
                 <ion-chip>
                   <ion-avatar>
-                    <img src="../assets/profile/nopicture.svg">
+                    <img [src]="solicitud.usuarioID  | usuarios : 'foto'">
                   </ion-avatar>
-                  <ion-label *ngIf="clubID === solicitud.clubID">{{solicitud.usuarioID | usuarios}}</ion-label>
-        
+      
+                  <ion-label>{{solicitud.usuarioID  | usuarios : 'nombre'}} {{solicitud.usuarioID  | usuarios : 'apellido1'}}</ion-label>
                 </ion-chip>
         
                 <ion-buttons *ngIf="clubID === solicitud.clubID" slot="end">
@@ -73,14 +73,14 @@
           <ion-label>No hay jugadores registrados</ion-label>
         </ion-item>
         <ion-item *ngFor="let jugador of jugadoresClubes.jugadoresClubes; let i = index">
-
           <ion-chip>
             <ion-avatar>
-              <img src="../assets/profile/nopicture.svg">
+              <img [src]="jugador.usuarioID  | usuarios : 'foto'">
             </ion-avatar>
-            <ion-label>{{jugador.jugadorID | usuarios}}</ion-label>
-  
+
+            <ion-label>{{jugador.usuarioID  | usuarios : 'nombre'}} {{jugador.usuarioID  | usuarios : 'apellido1'}}</ion-label>
           </ion-chip>
+  
 
           <ion-buttons slot="end">
               <ion-button (click)="usuario.show(jugador.jugadorID)">

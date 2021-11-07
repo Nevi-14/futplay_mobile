@@ -82,12 +82,11 @@
 
           <ion-chip>
             <ion-avatar>
-              <img src="../assets/profile/nopicture.svg">
+              <img [src]="jugador.jugadorID  | usuarios : 'foto'">
             </ion-avatar>
-            <ion-label >{{jugador.jugadorID | usuarios}}</ion-label>
-  
+
+            <ion-label>{{jugador.jugadorID  | usuarios : 'nombre'}} {{jugador.jugadorID  | usuarios : 'apellido1'}}</ion-label>
           </ion-chip>
-  
           <ion-buttons  *ngIf="club.clubID === jugador.clubID" slot="end">
             <ion-button (click)="jugadoresClubes.makeAdmin(jugador.jugadorID)">
               <ion-icon name="sparkles-outline"></ion-icon>
