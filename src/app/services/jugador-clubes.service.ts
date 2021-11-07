@@ -31,7 +31,7 @@ makeAdmin(jugadorID){
  let  i = this.jugadoresClubes.findIndex( jugadores => jugadores.jugadorID === jugadorID);
 
  if(i >= 0 ){
-alert(this.jugadoresClubes[i].admin )
+
    if(!this.jugadoresClubes[i].admin){
     this.jugadoresClubes[i].admin = true;
     this.presentAlert('El usuario se establecio como jugador administrador')
