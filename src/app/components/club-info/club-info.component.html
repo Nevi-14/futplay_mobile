@@ -78,7 +78,9 @@
           </ion-chip>
           <ion-buttons  *ngIf="usuario.currentUser.usuarioID === club.usuarioID || jugador.admin === true" slot="end">
             <ion-button (click)="jugadoresClubes.makeAdmin(jugador.jugadorID)">
-              <ion-icon name="sparkles-outline"></ion-icon>
+              <ion-icon *ngIf="jugador.admin" color="warning" name="sparkles-outline"></ion-icon>
+
+              <ion-icon *ngIf="!jugador.admin" name="sparkles-outline"></ion-icon>
           </ion-button>
   
   

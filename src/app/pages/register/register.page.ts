@@ -113,7 +113,7 @@ export class RegisterPage implements OnInit {
                 }else{
                     const alert = await this.alertCtrl.create({
                         header: 'Lo sentimos!',
-                        message: 'Las contrasenas no son identicasa'
+                        message: 'Las contrasenas no coinciden'
                     });
                     await alert.present();
                 }
