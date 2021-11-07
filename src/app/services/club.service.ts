@@ -84,7 +84,7 @@ export class ClubService {
     if (playerClub >= 0) {
       for (let i = 0; i < this.club.length; i++) {
         for (let j = 0; j < this.jugadoresClubes.jugadoresClubes.length; j++) {
-          if (this.jugadoresClubes.jugadoresClubes[j].clubID === this.club[i].clubID   || this.jugadoresClubes.jugadoresClubes[playerClub].admin === true ) {
+          if (this.jugadoresClubes.jugadoresClubes[j].clubID === this.club[i].clubID   ) {
             this.playerClubs.push(this.club[i]);
             this.switchClub = this.playerClubs[0];
            
@@ -101,7 +101,7 @@ export class ClubService {
     if (userClub >= 0) {
 
       for (let i = 0; i < this.club.length; i++) {
-        if (this.user.currentUser.usuarioID === this.club[i].usuarioID || this.jugadoresClubes.jugadoresClubes[playerClub].admin === true ) {
+        if (this.user.currentUser.usuarioID === this.club[i].usuarioID ) {
           this.userclubs.push(this.club[i]);
           this.switchClub = this.userclubs[0];
           

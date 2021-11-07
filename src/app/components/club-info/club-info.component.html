@@ -34,8 +34,8 @@
 
   <ion-row>
     <ion-col size="12" style="margin-top:40px;">
-      <ion-item *ngIf="usuario.currentUser.usuarioID === club.usuarioID || usuario.currentUser.usuarioID  === true" >
-
+      <ion-item *ngIf="usuario.currentUser.usuarioID === club.usuarioID || clubs.clubAdmin === true" >
+        
         <ion-chip (click)="listaTransferencia(club.clubID)">
           <ion-icon name="download-outline"></ion-icon>
           <ion-label>Transferencias</ion-label>
@@ -51,7 +51,7 @@
 
       </ion-item>
       
-      <ion-fab style="position: absolute; top: 15px; right: 100px;">
+      <ion-fab style="position: absolute; top: 15px; right: 100px;" >
         <ion-fab-button (click)="socialMedia()" class="no-shadow" color="light"  style="height: 30px; width: 30px;" >
           <ion-icon name="share-social-outline"></ion-icon>
         </ion-fab-button>
