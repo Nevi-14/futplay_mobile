@@ -75,10 +75,10 @@
         <ion-item *ngFor="let jugador of jugadoresClubes.jugadoresClubes; let i = index">
           <ion-chip>
             <ion-avatar>
-              <img [src]="jugador.usuarioID  | usuarios : 'foto'">
+              <img [src]="jugador.jugadorID  | usuarios : 'foto'">
             </ion-avatar>
 
-            <ion-label>{{jugador.usuarioID  | usuarios : 'nombre'}} {{jugador.usuarioID  | usuarios : 'apellido1'}}</ion-label>
+            <ion-label>{{jugador.jugadorID  | usuarios : 'nombre'}} {{jugador.jugadorID  | usuarios : 'apellido1'}}</ion-label>
           </ion-chip>
   
 

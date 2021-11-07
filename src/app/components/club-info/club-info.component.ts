@@ -19,6 +19,7 @@ import { SocialMediaPage } from '../../pages/social-media/social-media.page';
 })
 export class ClubInfoComponent implements OnInit {
   @Input() club: Club;
+  @Input() menu: false;
   currentYear = new Date().toLocaleString();
   constructor(private modalCtrl: ModalController,private popoverCtrl: PopoverController, private jugadores: JugadoresService, private solicitudes: SolicitudesService, private usuario: UserService, private jugadoresClubes: JugadoresClubesService, private clubs: ClubService,private camera: Camera) { }
 

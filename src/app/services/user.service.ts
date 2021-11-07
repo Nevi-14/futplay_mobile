@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { ProfilePage } from '../pages/profile/profile.page';
 import { JugadorPosiciones } from '../models/jugadorPosiciones';
 import { JugadoresPosicionesService } from './jugador-posiciones.service';
+import { ProfileComponentComponent } from '../components/profile-component/profile-component.component';
 
 @Injectable({
   providedIn: 'root'
@@ -52,7 +53,7 @@ this.age = today.getFullYear() - birthday.getFullYear();
 async show(userID){
 
   const modal = await this.modalCtrl.create({
-    component: ProfilePage,
+    component: ProfileComponentComponent,
     cssClass: 'my-custom-class'
   });
   modal.onDidDismiss().then((data) => {
