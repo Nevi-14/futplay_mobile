@@ -11,11 +11,35 @@
 </ion-header>
 <ion-content class="ion-padding">
 <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)">
+<ion-list lines="none">
   <ion-grid >
     <ion-row>
+      <ion-col size="12" style="display: flex;justify-content: center;align-items: center;">
+        <img [src]="club.foto" alt="" style="height: 140px;width: 140px;border-radius: 50%;">
+      </ion-col>
+      <ion-col size="12" >
+
+    <ion-item>
+ 
+      <ion-buttons  style="margin: 0 auto;">
+        
+      
+        <ion-button   (click)="uploadCamera()" fill="solid" shape="round" color="primary" >
+         
+          <ion-icon  name="camera" ></ion-icon>
+
+         
+        </ion-button>
+        <ion-button (click)="uploadPictures()" fill="solid" shape="round"   color="primary">
+         
+          <ion-icon name="image"></ion-icon>
+        </ion-button>
+      
+      </ion-buttons>
+    </ion-item>
+              </ion-col>
         <ion-col size="12">
-            <ion-list lines="none">
-       
+          
               
                 <ion-item>
                   <ion-label>Nombre Club</ion-label>
@@ -27,23 +51,23 @@
                 </ion-item>
                 <ion-item>
                   <ion-label>Provincia</ion-label>
+         
                   <ion-select placeholder="Seleccionar" name="provinciaID" [(ngModel)]="club.provinciaID">
-                    <ion-select-option *ngFor="let provincia of provincias.provincias" value="{{provincia.provinciaID}}" >{{provincia.nombre}}</ion-select-option>
+                    <ion-select-option *ngFor="let provincia of provincias.provincias" [value]="provincia.provinciaID" > {{provincia.nombre}}</ion-select-option>
                   </ion-select>
                 </ion-item>
                 <ion-item>
                     <ion-label>Canton</ion-label>
-                    <ion-select placeholder="Seleccionar" name="cantonID" [(ngModel)]="club.cantonID">
-                      <ion-select-option *ngFor="let canton of cantones.cantones" value="{{canton.cantonID}}"  >{{canton.nombre}}</ion-select-option>
+                    <ion-select placeholder="Seleccionar" name="cantonID"  [(ngModel)]="club.cantonID">
+                      <ion-select-option *ngFor="let canton of cantones.cantones" [value]="canton.cantonID">{{canton.nombre}}</ion-select-option>
                     </ion-select>
                   </ion-item>
                   <ion-item>
                     <ion-label>Distrito</ion-label>
                     <ion-select placeholder="Seleccionar" name="distritoID" [(ngModel)]="club.distritoID">
-                      <ion-select-option *ngFor="let distrito of distritos.distritos" value="{{distrito.distritoID}}" >{{distrito.nombre}}</ion-select-option>
+                      <ion-select-option *ngFor="let distrito of distritos.distritos"   [value]="distrito.distritoID">{{distrito.nombre}}</ion-select-option>
                     </ion-select>
                   </ion-item>
-    
                   <ion-item>
                 <ion-buttons style="margin: 0 auto;">
                   <ion-button  type="submit" fill="solid" shape="round">
@@ -51,10 +75,11 @@
                   </ion-button>
                 </ion-buttons>
                   </ion-item>
-              </ion-list>
+             
 
         </ion-col>
     </ion-row>
 </ion-grid>
+</ion-list>
 </form>
 </ion-content>

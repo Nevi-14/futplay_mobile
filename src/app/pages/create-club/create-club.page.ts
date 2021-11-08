@@ -8,23 +8,26 @@ import { ProvinciasService } from '../../services/provincias.service';
 import { CantonesService } from 'src/app/services/cantones.service';
 import { DistritosService } from 'src/app/services/distritos.service';
 import { UserService } from 'src/app/services/user.service';
-
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+declare const window: any;  
 @Component({
   selector: 'app-create-club',
   templateUrl: './create-club.page.html',
   styleUrls: ['./create-club.page.scss'],
 })
 export class CreateClubPage implements OnInit {
+  tempImages: String[]=[];
+  image = '';
 
-  constructor(private modalCtrl: ModalController, private data: DataService, private clubService: ClubService, private provincias: ProvinciasService, private cantones: CantonesService, private distritos: DistritosService, private usuario: UserService) { }
+  constructor(private modalCtrl: ModalController, private data: DataService, private clubService: ClubService, private provincias: ProvinciasService, private cantones: CantonesService, private distritos: DistritosService, private usuario: UserService,private camera: Camera, private clubs: ClubService) { }
 
 club = {
-   clubID: 1,
+   clubID: this.clubs.club.length + 1,
    usuarioID: this.usuario.currentUser.usuarioID,
-   provinciaID: 1,
-   cantonID: 1,
-   distritoID: 1,
-   foto: '../assets/profile/nopicture.svg',
+   provinciaID: null,
+   cantonID: null,
+   distritoID: null,
+   foto: '../assets/clubs/soccer.png',
    nombre: '',
    abreviacion: '',
    direccion: ''
@@ -42,6 +45,48 @@ club = {
     this.modalCtrl.dismiss();
   }
 
-
+  uploadCamera(){
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      sourceType: this.camera.PictureSourceType.CAMERA
+    };
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+      const img = window.Ionic.WebView.convertFileSrc(imageData);
+      this.tempImages.push(img);
+      this.club.foto = img;
+  
+      console.log(this.tempImages);
+     }, (err) => {
+      // Handle error
+     });
+  }
+  uploadPictures(){
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    };
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+      const img = window.Ionic.WebView.convertFileSrc(imageData);
+      this.tempImages.push(img);
+      this.club.foto = img;
+      
+      console.log(this.tempImages);
+     }, (err) => {
+      // Handle error
+     });
+  }
+  
 
 }
