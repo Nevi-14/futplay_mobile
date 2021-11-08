@@ -125,7 +125,7 @@ export class ClubService {
     for (let i = 0; i < this.club.length; i++) {
 
       if(this.club[i].clubID === clubId){
-        if (this.user.currentUser.usuarioID === this.club[i].usuarioID || this.jugadoresClubes.jugadoresClubes[playerClub].admin === true ) {
+        if ( playerClub >= 0  ? this.user.currentUser.usuarioID === this.club[i].usuarioID || this.jugadoresClubes.jugadoresClubes[playerClub].admin === true : this.user.currentUser.usuarioID === this.club[i].usuarioID ) {
 
           this.clubAdmin = true;
   
