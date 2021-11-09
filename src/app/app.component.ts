@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from './services/data.service';
 import { UserService } from './services/user.service';
 import { ClubService } from './services/club.service';
@@ -16,7 +16,7 @@ import { DistritosService } from './services/distritos.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
   currentYear: number=new Date().getFullYear();
   year =  new Date().getFullYear();
   month = new Date().getMonth()+1;
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.club.getClubs();
     this.club.getClubs();
     this.roles.getRoles();
-this.posicion.getPosiciones();
+    this.posicion.getPosiciones();
     this.provincia.getProvincias();
     this.cantones.getCantones();
     this.distritos.getDistritos();
@@ -36,10 +36,6 @@ this.posicion.getPosiciones();
     this.jugadores.getJugadores();
     this.solicitudes.getSolicitudes();
     console.log(this.user.user);
-  }
-
-  ngAfterViewInit(){
- 
   }
 
 }
