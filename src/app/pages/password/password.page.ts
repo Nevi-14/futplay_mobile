@@ -15,7 +15,7 @@ export class PasswordPage implements OnInit {
     confirm: ''
 
   };
-  constructor(private modalCtrl: ModalController, private userService: UserService, private alertCtrl: AlertController) { }
+  constructor(public modalCtrl: ModalController, public userService: UserService, public alertCtrl: AlertController) { }
 
   ngOnInit() {
   }

@@ -42,7 +42,7 @@ image = '';
     posicionID: this.jugadoresPosiciones.jugadorCurrentPosicion.posicionID,
     apodo:this.jugadoresPosiciones.jugadorCurrentPosicion.apodo,
   }
-  constructor(private data: DataService, private modalCtrl: ModalController, private userService: UserService, private toastCtrl: ToastController, private alertCtrl: AlertController, private route: Router, private posiciones: PosicionesService, private cantones: CantonesService, private provincias: ProvinciasService,private distritos: DistritosService, private jugadoresPosiciones: JugadoresPosicionesService,private camera: Camera) { }
+  constructor(public data: DataService, public modalCtrl: ModalController, public userService: UserService, public toastCtrl: ToastController, public alertCtrl: AlertController, public route: Router, public posiciones: PosicionesService, public cantones: CantonesService, public provincias: ProvinciasService,public distritos: DistritosService, public jugadoresPosiciones: JugadoresPosicionesService,public camera: Camera) { }
 
   ngOnInit() {
  console.log(this.jugadoresPosiciones.jugadorCurrentPosicion);

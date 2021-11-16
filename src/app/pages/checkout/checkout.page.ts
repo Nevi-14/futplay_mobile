@@ -8,7 +8,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class CheckoutPage implements OnInit {
 
-  constructor( private modalCtrl: ModalController) { }
+  constructor( public modalCtrl: ModalController) { }
 
   ngOnInit() {
   }

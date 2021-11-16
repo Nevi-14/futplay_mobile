@@ -19,7 +19,7 @@ export class CreateClubPage implements OnInit {
   tempImages: String[]=[];
   image = '';
 
-  constructor(private modalCtrl: ModalController, private data: DataService, private clubService: ClubService, private provincias: ProvinciasService, private cantones: CantonesService, private distritos: DistritosService, private usuario: UserService,private camera: Camera, private clubs: ClubService) { }
+  constructor(public modalCtrl: ModalController, public data: DataService, public clubService: ClubService, public provincias: ProvinciasService, public cantones: CantonesService, public distritos: DistritosService, public usuario: UserService,public camera: Camera, public clubs: ClubService) { }
 
 club = {
    clubID: this.clubs.club.length + 1,

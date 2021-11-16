@@ -7,7 +7,7 @@ import { RolesService } from '../services/roles.service';
 })
 export class RolesPipe implements PipeTransform {
 
-  constructor(private roles: RolesService) { }
+  constructor(public roles: RolesService) { }
 
   transform(value: any): any {
     let roles: Role[] = [];

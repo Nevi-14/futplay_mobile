@@ -19,7 +19,7 @@ export class LoginPage implements OnInit {
 
   showPass = false;
 
-  constructor(private userService: UserService, private route: Router, private alertCtrl: AlertController , private jugadorPosicion: JugadoresPosicionesService ) { }
+  constructor(public userService: UserService, public route: Router, public alertCtrl: AlertController , public jugadorPosicion: JugadoresPosicionesService ) { }
 
   ngOnInit() {
   }

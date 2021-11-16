@@ -6,7 +6,7 @@ import { ProvinciasService } from '../services/provincias.service';
   name: 'provincias'
 })
 export class ProvinciasPipe implements PipeTransform {
-  constructor(private provincias: ProvinciasService) { }
+  constructor(public provincias: ProvinciasService) { }
 
   transform(value: any): any {
     let provincias: Provincia[] = [];

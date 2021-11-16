@@ -12,7 +12,7 @@ import { ModalController } from '@ionic/angular';
 export class ProfileComponentComponent implements OnInit {
 
 
-  constructor(private userService: UserService, private jugadorPosiciones: JugadoresPosicionesService, private modalCtrl: ModalController) { }
+  constructor(public userService: UserService, public jugadorPosiciones: JugadoresPosicionesService, public modalCtrl: ModalController) { }
 
   ngOnInit() {
  

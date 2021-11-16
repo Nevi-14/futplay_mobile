@@ -32,7 +32,7 @@ export class RegisterPage implements OnInit {
         confirmarContrasena: '',
         intentos: 0
     };
-    constructor(private userService : UserService, private route : Router, private data : DataService, private alertCtrl : AlertController, private jugadorPosicion: JugadoresPosicionesService) {}
+    constructor(public userService : UserService, public route : Router, public data : DataService, public alertCtrl : AlertController, public jugadorPosicion: JugadoresPosicionesService) {}
 
     ngOnInit() {
         console.log(this.data.provincias);

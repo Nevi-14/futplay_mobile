@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { MyClubsPageRoutingModule } from './my-clubs-routing.module';
 
 import { MyClubsPage } from './my-clubs.page';
-import { FiltroPipe } from '../../pipes/filtro.pipe';
 import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
@@ -18,6 +17,6 @@ import { ComponentsModule } from '../../components/components.module';
     MyClubsPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [MyClubsPage,FiltroPipe]
+  declarations: [MyClubsPage]
 })
 export class MyClubsPageModule {}

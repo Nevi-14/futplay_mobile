@@ -6,7 +6,7 @@ import { CantonesService } from '../services/cantones.service';
   name: 'cantones'
 })
 export class CantonesPipe implements PipeTransform {
-  constructor(private cantones: CantonesService) { }
+  constructor(public cantones: CantonesService) { }
 
   transform(value: any): any {
     let cantones: Canton[] = [];

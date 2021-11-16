@@ -6,7 +6,7 @@ import { UserService } from '../services/user.service';
   name: 'usuarios'
 })
 export class UsuariosPipe implements PipeTransform {
-  constructor(private user: UserService) { }
+  constructor(public user: UserService) { }
 
   transform(texto: string = '',
   columna: string): any {

@@ -8,7 +8,7 @@ import { ClubService } from '../../services/club.service';
 })
 export class HomePage implements OnInit {
 
-  constructor(private clubs: ClubService) { }
+  constructor(public clubs: ClubService) { }
 
   ngOnInit( ) {
 

@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { TransferenciasPageRoutingModule } from './transferencias-routing.module';
 
 import { TransferenciasPage } from './transferencias.page';
-import { UsuariosPipe } from '../../pipes/usuarios.pipe';
+
 
 @NgModule({
   imports: [
@@ -16,6 +16,6 @@ import { UsuariosPipe } from '../../pipes/usuarios.pipe';
     IonicModule,
     TransferenciasPageRoutingModule
   ],
-  declarations: [TransferenciasPage, UsuariosPipe]
+  declarations: [TransferenciasPage]
 })
 export class TransferenciasPageModule {}

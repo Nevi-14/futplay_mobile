@@ -17,9 +17,9 @@ import { JoinClubComponentComponent } from 'src/app/components/join-club-compone
 
 export class ClubsPage implements OnInit {
   club: Club;
-  add ='../assets/home/addclub.svg';
- find ='../assets/home/findclub.svg';
-  constructor( private modalCtrl: ModalController, private user: UserService, private players: JugadoresService, private clubs: ClubService, private solicitudes: SolicitudesService) { }
+  add ='../assets/soccer/team.svg';
+ find ='../assets/soccer/player.svg';
+  constructor( public modalCtrl: ModalController, public user: UserService, public players: JugadoresService, public clubs: ClubService, public solicitudes: SolicitudesService) { }
 
   ngOnInit() {
     this.clubs.checkIfHasClub();

@@ -10,7 +10,7 @@ export class NewReservationPage implements OnInit {
   calendar = '../assets/reservations/calendar.svg';
   message = '../assets/reservations/message.svg';
   location = '../assets/reservations/location.svg';
-  constructor(private data: DataService) { }
+  constructor(public data: DataService) { }
 
   ngOnInit() {
   }

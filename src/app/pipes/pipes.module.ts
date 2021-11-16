@@ -22,8 +22,19 @@ import { PosicionesPipe } from './posiciones.pipe';
     RolesPipe,
     PosicionesPipe
   ],
+  exports:[
+    FiltroPipe,
+    JugadoresPipe,
+    UsuariosPipe,
+    DistritosPipe,
+    CantonesPipe,
+    ProvinciasPipe,
+    RolesPipe,
+    PosicionesPipe
+  ],
   imports: [
     CommonModule
-  ]
+  ],
+
 })
 export class PipesModule { }

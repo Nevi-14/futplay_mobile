@@ -7,7 +7,7 @@ import { DistritosService } from '../services/distritos.service';
 })
 export class DistritosPipe implements PipeTransform {
 
-  constructor(private distrito: DistritosService) { }
+  constructor(public distrito: DistritosService) { }
 
   transform(value: any): any {
     let distritos: Distrito[] = [];

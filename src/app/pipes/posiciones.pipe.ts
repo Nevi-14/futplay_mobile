@@ -7,7 +7,7 @@ import { PosicionesService } from '../services/posiciones.service';
   name: 'posiciones'
 })
 export class PosicionesPipe implements PipeTransform {
-  constructor(private posiciones: PosicionesService) { }
+  constructor(public posiciones: PosicionesService) { }
 
   transform(value: any): any {
     let posiciones: Posicion[] = [];

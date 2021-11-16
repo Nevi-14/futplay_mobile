@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { ProfileInfoPageRoutingModule } from './profile-info-routing.module';
 
 import { ProfileInfoPage } from './profile-info.page';
-import { PosicionesPipe } from '../../pipes/posiciones.pipe';
 
 @NgModule({
   imports: [
@@ -16,6 +15,6 @@ import { PosicionesPipe } from '../../pipes/posiciones.pipe';
     IonicModule,
     ProfileInfoPageRoutingModule
   ],
-  declarations: [ProfileInfoPage, PosicionesPipe]
+  declarations: [ProfileInfoPage]
 })
 export class ProfileInfoPageModule {}
