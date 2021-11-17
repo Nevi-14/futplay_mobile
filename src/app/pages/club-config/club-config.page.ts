@@ -28,7 +28,7 @@ export class ClubConfigPage implements OnInit {
  }
  tempImages: String[]=[];
  image = '';
-  constructor(private modalCtrl: ModalController, private provincias: ProvinciasService, private cantones: CantonesService, private distritos: DistritosService, private clubs: ClubService,private camera: Camera) { }
+  constructor(public modalCtrl: ModalController, public provincias: ProvinciasService, public cantones: CantonesService, public distritos: DistritosService, public clubs: ClubService,public camera: Camera) { }
 
   ngOnInit() {
     console.log(this.club.provinciaID);

@@ -61,7 +61,7 @@
           --position:absolute;
           --bottom:0!important;
           --width: 100% !important;
-          --height: 65px;
+          --height: 80px;
           position: absolute;
           bottom: 0;
         }
@@ -93,4 +93,15 @@
       --background: transparent;
       color: #FFF;
     }
+}
+
+
+.scroll {
+  max-height:400px;
+  position: relative;
+  overflow: hidden;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }

@@ -10,7 +10,7 @@ export class MessagePage implements OnInit {
 
   message: string;
 
-  constructor(private router: Router) { }
+  constructor(public router: Router) { }
   ngOnInit() {
     this.message = '';
   }

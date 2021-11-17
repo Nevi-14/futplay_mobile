@@ -20,7 +20,7 @@ export class ProfilePage implements OnInit {
     }
 };
 
-  constructor(private popoverCtrl: PopoverController,private userService: UserService, private modalCtrl: ModalController, private jugadorPosiciones: JugadoresPosicionesService) { }
+  constructor(public popoverCtrl: PopoverController,public userService: UserService, public modalCtrl: ModalController, public jugadorPosiciones: JugadoresPosicionesService) { }
 
   ngOnInit() {
   }

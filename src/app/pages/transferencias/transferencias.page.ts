@@ -13,7 +13,7 @@ import { ClubService } from '../../services/club.service';
 })
 export class TransferenciasPage implements OnInit {
   @Input() clubID: number;
-  constructor( private modalCtrl: ModalController, private solicitudes: SolicitudesService, private jugadoresClubes: JugadoresClubesService, private usuario: UserService, private clubs: ClubService) { }
+  constructor( public modalCtrl: ModalController, public solicitudes: SolicitudesService, public jugadoresClubes: JugadoresClubesService, public usuario: UserService, public clubs: ClubService) { }
 
   ngOnInit() {
     console.log(this.jugadoresClubes.jugadoresClubes)

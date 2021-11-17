@@ -12,7 +12,7 @@ import { JugadoresService } from '../../services/jugadores.service';
 })
 export class MyClubsPage implements OnInit {
 
-  constructor(private clubs: ClubService, private modalCtrl: ModalController, private popOverCtrl: PopoverController, private user: UserService, private jugadores: JugadoresService) { }
+  constructor(public clubs: ClubService, public modalCtrl: ModalController, public popOverCtrl: PopoverController, public user: UserService, public jugadores: JugadoresService) { }
 
   ngOnInit() {
 

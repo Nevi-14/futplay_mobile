@@ -122,7 +122,15 @@ const routes: Routes = [
   {
     path: 'social-media',
     loadChildren: () => import('./pages/social-media/social-media.module').then( m => m.SocialMediaPageModule)
+  },  {
+    path: 'equipo-solicitud',
+    loadChildren: () => import('./pages/equipo-solicitud/equipo-solicitud.module').then( m => m.EquipoSolicitudPageModule)
   },
+  {
+    path: 'reto-detalle',
+    loadChildren: () => import('./pages/reto-detalle/reto-detalle.module').then( m => m.RetoDetallePageModule)
+  },
+
 
 
 

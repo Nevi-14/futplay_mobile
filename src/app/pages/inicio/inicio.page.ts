@@ -8,7 +8,7 @@ import { DataService } from '../../services/data.service';
 })
 export class InicioPage implements OnInit {
 
-  constructor(private data: DataService) { }
+  constructor(public data: DataService) { }
 
   ngOnInit() {
 

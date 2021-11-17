@@ -42,7 +42,7 @@ jugadorCurrentPosicion = {
   posicionID:null,
   apodo:'',
 }
-  constructor(private  modalCtrl: ModalController, private popOverCtrl: PopoverController, private route: Router, private userService: UserService, private jugadoresPosiciones: JugadoresPosicionesService) { }
+  constructor(public  modalCtrl: ModalController, public popOverCtrl: PopoverController, public route: Router, public userService: UserService, public jugadoresPosiciones: JugadoresPosicionesService) { }
 
   ngOnInit() {}
   async profileInfo() {

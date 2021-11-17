@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     this.club.getClubs();
     this.club.getClubs();
     this.roles.getRoles();
-    this.posicion.getPosiciones();
+this.posicion.getPosiciones();
     this.provincia.getProvincias();
     this.cantones.getCantones();
     this.distritos.getDistritos();
@@ -37,5 +37,6 @@ export class AppComponent implements OnInit {
     this.solicitudes.getSolicitudes();
     console.log(this.user.user);
   }
+
 
 }

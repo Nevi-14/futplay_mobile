@@ -11,7 +11,7 @@ import { CalendarService } from '../../services/calendar.service';
 })
 export class CalendarPage implements OnInit {
 @Input() cancha: string;
-  constructor(private modalCtrl: ModalController, private cal: CalendarService) { }
+  constructor(public modalCtrl: ModalController, public cal: CalendarService) { }
 
   async booking() {
     const modal = await this.modalCtrl.create({

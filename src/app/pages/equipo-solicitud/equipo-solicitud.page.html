@@ -1,0 +1,21 @@
+
+<ion-content>
+  <ion-list lines="none">
+
+
+    <ng-template ngFor let-club [ngForOf]="clubes.club" let-i="index">
+      <ion-item *ngIf="club.usuarioID === usuarioID">
+        <ion-label>{{club.nombre}}</ion-label>
+        <ion-buttons slot="end">
+          <ion-button (click)="equipo(club)">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ng-template>
+
+
+    
+  </ion-list>
+
+</ion-content>

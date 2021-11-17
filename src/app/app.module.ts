@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Router, RouteReuseStrategy } from '@angular/router';
 import { Camera } from '@ionic-native/camera/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -13,7 +13,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FullCalendarModule,HttpClientModule,FontAwesomeModule],
-  providers: [Camera,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [Camera,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },SocialSharing],
   bootstrap: [AppComponent],
 })
 export class AppModule {

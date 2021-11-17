@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
   invalidURL = ['/home/clubs','/test '];
   valid = false;
 
-  constructor(private popoverCtrl: PopoverController, private route: Router, private modalCtrl: ModalController, private clubs: ClubService) { }
+  constructor(public popoverCtrl: PopoverController, public route: Router, public modalCtrl: ModalController, public clubs: ClubService) { }
 
 
   ngOnInit() {

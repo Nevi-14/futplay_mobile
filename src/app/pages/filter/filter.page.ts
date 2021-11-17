@@ -9,7 +9,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class FilterPage implements OnInit {
 
-  constructor(private data: DataService, private modalCtrl: ModalController) { }
+  constructor(public data: DataService, public modalCtrl: ModalController) { }
 
   ngOnInit() {
   }

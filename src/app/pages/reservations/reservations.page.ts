@@ -9,13 +9,13 @@ import { FilterPage } from '../filter/filter.page';
   styleUrls: ['./reservations.page.scss'],
 })
 export class ReservationsPage implements OnInit {
-  calendar = '../assets/reservations/calendar.svg';
-  message = '../assets/reservations/message.svg';
-  location = '../assets/reservations/location.svg';
+  calendar = '../assets/soccer/008-calendar.svg';
+  message = '../assets/socialmedia/text.svg';
+  location = '../assets/home/map.svg';
   star= 'assets/search/star.svg';
   save= 'assets/search/add-user.svg';
   filter= 'assets/icons/filter.svg';
-  constructor( private data: DataService, private modalCtrl: ModalController) { }
+  constructor( public data: DataService, public modalCtrl: ModalController) { }
 
   ngOnInit() {
   }
