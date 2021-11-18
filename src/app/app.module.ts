@@ -1,4 +1,4 @@
-import {  NgModule } from '@angular/core';
+import {  NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Router, RouteReuseStrategy } from '@angular/router';
 import { Camera } from '@ionic-native/camera/ngx';
@@ -16,7 +16,8 @@ import { ComponentsModule } from './components/components.module';
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FullCalendarModule,HttpClientModule,FontAwesomeModule, CommonModule, ComponentsModule],
   providers: [Camera,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },SocialSharing],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {
 constructor(private router: Router){}

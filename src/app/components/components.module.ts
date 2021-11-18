@@ -7,6 +7,7 @@ import { ClubInfoComponent } from './club-info/club-info.component';
 import { ProfileComponent } from './profile-component/profile-component';
 import { JoinClubComponent } from './join-club-component/join-club-component';
 import { PipesModule } from '../pipes/pipes.module';
+import { SettingInfoComponent } from '../../../../FUTPLAY - copia (2)/src/app/components/setting-info/setting-info.component';
 
 
 @NgModule({
@@ -15,20 +16,20 @@ import { PipesModule } from '../pipes/pipes.module';
     ClubInfoComponent,
     ProfileComponent,
     JoinClubComponent,
+    SettingInfoComponent
   ],
   imports: [
     CommonModule,
     IonicModule,
-    PipesModule,
-    IonicModule.forRoot()
+    PipesModule
   ],
   exports:[
   HeaderComponent,
   ClubInfoComponent,
   ProfileComponent,
-  JoinClubComponent
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  JoinClubComponent,
+  SettingInfoComponent
+  ]
   
 })
 export class ComponentsModule { }
