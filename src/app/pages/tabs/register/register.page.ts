@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {UserService} from '../../services/user.service';
+import {UserService} from '../../../services/user.service';
 import {Usuario} from 'src/app/models/usuario';
 import {Router} from '@angular/router';
-import {DataService} from '../../services/data.service';
-import {Provincia} from '../../models/provincia';
+import {DataService} from '../../../services/data.service';
+import {Provincia} from '../../../models/provincia';
 import {Observable} from 'rxjs';
 import {AlertController} from '@ionic/angular';
 import { JugadoresPosicionesService } from 'src/app/services/jugador-posiciones.service';

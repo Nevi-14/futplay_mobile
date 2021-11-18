@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { TransferenciasPage } from './transferencias.page';
-import { UsuariosPipe } from '../../pipes/usuarios.pipe';
 
 const routes: Routes = [
   {
@@ -13,6 +12,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule,UsuariosPipe],
+  exports: [RouterModule],
 })
 export class TransferenciasPageRoutingModule {}

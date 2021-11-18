@@ -7,7 +7,7 @@ import { Club } from '../../models/club';
 import { ClubService } from 'src/app/services/club.service';
 import { SolicitudesService } from '../../services/solicitudes.service';
 import { TransferenciasPage } from '../transferencias/transferencias.page';
-import { JoinClubComponentComponent } from 'src/app/components/join-club-component/join-club-component.component';
+import { JoinClubComponent } from 'src/app/components/join-club-component/join-club-component';
 
 @Component({
   selector: 'app-clubs',
@@ -17,8 +17,8 @@ import { JoinClubComponentComponent } from 'src/app/components/join-club-compone
 
 export class ClubsPage implements OnInit {
   club: Club;
-  add ='../assets/soccer/team.svg';
- find ='../assets/soccer/player.svg';
+  add ='../assets/icons/create.svg';
+ find ='../assets/icons/join.svg';
   constructor( public modalCtrl: ModalController, public user: UserService, public players: JugadoresService, public clubs: ClubService, public solicitudes: SolicitudesService) { }
 
   ngOnInit() {
@@ -34,7 +34,7 @@ export class ClubsPage implements OnInit {
   }
   async findClub() {
     const modal = await this.modalCtrl.create({
-      component:JoinClubComponentComponent,
+      component:JoinClubComponent,
       cssClass: 'my-custom-class'
     });
     return await modal.present();

@@ -9,9 +9,9 @@ import { FilterPage } from '../filter/filter.page';
   styleUrls: ['./reservations.page.scss'],
 })
 export class ReservationsPage implements OnInit {
-  calendar = '../assets/soccer/008-calendar.svg';
-  message = '../assets/socialmedia/text.svg';
-  location = '../assets/home/map.svg';
+  calendar = '../assets/icons/calendar.svg';
+  message = '../assets/icons/message.svg';
+  location = '../assets/icons/map.svg';
   star= 'assets/search/star.svg';
   save= 'assets/search/add-user.svg';
   filter= 'assets/icons/filter.svg';

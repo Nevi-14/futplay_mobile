@@ -94,7 +94,16 @@
       color: #FFF;
     }
 }
+.custom-menu{
 
+  --background: rgba(37,13,76,255);
+
+
+  ion-tab-button {
+    --background: transparent;
+    color: #FFF;
+  }
+}
 
 .scroll {
   max-height:400px;
@@ -104,4 +113,15 @@
   ::-webkit-scrollbar {
     display: none;
   }
+}
+
+
+.center-row{
+  display: flex;
+align-items: center;
+justify-content: center;
+}
+
+ion-tab-bar {
+	--ion-color-primary: rgb(59, 48, 48);
 }

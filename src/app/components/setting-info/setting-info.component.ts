@@ -5,7 +5,6 @@ import { PasswordPage } from '../../pages/password/password.page';
 import { PaymentMethodPage } from '../../pages/payment-method/payment-method.page';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { Usuario } from 'src/app/models/usuario';
 import { JugadoresPosicionesService } from '../../services/jugador-posiciones.service';
 
 @Component({

@@ -7,7 +7,9 @@
     "foto": "../assets/flags/brazil.svg",
     "nombre": "Brazil",
     "abreviacion": "BZ",
-    "direccion": "Brazil"
+    "direccion": "Brazil",
+    "dureza":"../assets/icons/halo.svg",
+    "estrellas":5
  },
  {
     "clubID": 2,
@@ -18,7 +20,10 @@
     "foto": "../assets/flags/china.svg",
     "nombre": "China",
     "abreviacion": "CH",
-    "direccion": "China"
+    "direccion": "China",
+    "dureza":"../assets/icons/smiling-face.svg",
+    "estrellas":3
+    
  },{
     "clubID": 3,
     "usuarioID": 1,
@@ -28,7 +33,9 @@
     "foto": "../assets/flags/france.svg",
     "nombre": "France",
     "abreviacion": "FR",
-    "direccion": "France"
+    "direccion": "France",
+    "dureza":"../assets/icons/meh.svg",
+    "estrellas":3
  },
  {
     "clubID": 4,
@@ -39,7 +46,9 @@
     "foto": "../assets/flags/germany.svg",
     "nombre": "Germany",
     "abreviacion": "GE",
-    "direccion": "Germany"
+    "direccion": "Germany",
+    "dureza":"../assets/icons/sad.svg",
+    "estrellas":1
  },{
     "clubID": 5,
     "usuarioID": 1,
@@ -49,7 +58,9 @@
     "foto": "../assets/flags/italy.svg",
     "nombre": "Italy",
     "abreviacion": "IT",
-    "direccion": "Italy"
+    "direccion": "Italy",
+    "dureza":"../assets/icons/frown.svg",
+    "estrellas":2
  },
  {
     "clubID": 6,
@@ -60,7 +71,9 @@
     "foto": "../assets/flags/russia.svg",
     "nombre": "Russia",
     "abreviacion": "RU",
-    "direccion": "Russia"
+    "direccion": "Russia",
+    "dureza":"../assets/icons/smiling-face.svg",
+    "estrellas":3
  },{
     "clubID": 7,
     "usuarioID": 1,
@@ -70,7 +83,9 @@
     "foto": "../assets/flags/united-kingdom.svg",
     "nombre": "United Kingdom",
     "abreviacion": "UK",
-    "direccion": "United Kingdom"
+    "direccion": "United Kingdom",
+    "dureza":"../assets/icons/sad.svg",
+    "estrellas":1
  },
  {
     "clubID": 8,
@@ -81,5 +96,7 @@
     "foto": "../assets/flags/united-states.svg",
     "nombre": "United States",
     "abreviacion": "US",
-    "direccion": "United States"
+    "direccion": "United States",
+    "dureza":"../assets/icons/halo.svg",
+    "estrellas":5
  }]

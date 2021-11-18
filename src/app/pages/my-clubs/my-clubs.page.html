@@ -13,7 +13,7 @@
 
   <ion-list lines="none">
     <ion-item>
-      <ion-searchbar mode="ios" placeholder="Buscar Club" inputmode="text" (ionChange)="onSearchChange($event)" debounce="250" ></ion-searchbar>
+      <ion-searchbar mode="ios" placeholder="Buscar Club" inputmode="text" debounce="250" ></ion-searchbar>
     </ion-item>
 
     <ng-template ngFor let-club [ngForOf]="clubs.userclubs" let-i="index" >

@@ -9,16 +9,15 @@ import { SolicitudesService } from 'src/app/services/solicitudes.service';
 import { UserService } from 'src/app/services/user.service';
 import { ClubInfoComponent } from '../club-info/club-info.component';
 import { RetosService } from '../../services/retos.service';
-import { MyClubsPage } from '../../pages/my-clubs/my-clubs.page';
+
 import { EquipoSolicitudPage } from '../../pages/equipo-solicitud/equipo-solicitud.page';
-import { Usuario } from '../../models/usuario';
 
 @Component({
   selector: 'app-join-club-component',
-  templateUrl: './join-club-component.component.html',
-  styleUrls: ['./join-club-component.component.scss'],
+  templateUrl: './join-club-component.html',
+  styleUrls: ['./join-club-component.scss'],
 })
-export class JoinClubComponentComponent implements OnInit {
+export class JoinClubComponent implements OnInit {
   textoBuscar = '';
   constructor( public modalCtrl: ModalController, public clubs: ClubService, public solicitudes: SolicitudesService, public user: UserService, public alertCtrl: AlertController, public provincias: ProvinciasService,public cantones: CantonesService, public distritos: DistritosService, public retos:RetosService, public currentUser: UserService, public popOverCtrl:PopoverController) {  }
 

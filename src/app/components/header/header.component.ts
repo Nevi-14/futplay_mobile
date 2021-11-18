@@ -7,7 +7,8 @@ import { MyClubsPage } from '../../pages/my-clubs/my-clubs.page';
 import { CreateClubPage } from '../../pages/create-club/create-club.page';
 import { ClubConfigPage } from '../../pages/club-config/club-config.page';
 import { ClubService } from '../../services/club.service';
-import { JoinClubComponentComponent } from '../join-club-component/join-club-component.component';
+import { JoinClubComponent } from '../join-club-component/join-club-component';
+
 
 @Component({
   selector: 'app-header',
@@ -16,17 +17,17 @@ import { JoinClubComponentComponent } from '../join-club-component/join-club-com
 })
 export class HeaderComponent implements OnInit {
   @Input() titulo = '';
-  @Input() menu1 = false;
-  @Input() menu2 = false;
-  @Input() findClubMenu = false;
-  @Input() searchbar = false;
-  @Input() menu4 = false;
-  @Input() menu3 = false;
-  @Input() sideMenu = false;
-  @Input() newClubmenu = false;
+  @Input() menu1 : boolean;
+  @Input() menu2 : boolean;
+  @Input() findClubMenu : boolean;
+  @Input() searchbar : boolean;
+  @Input() menu4 : boolean;
+  @Input() menu3: boolean;
+  @Input() sideMenu : boolean;
+  @Input() newClubmenu : boolean;
   url: string;
   invalidURL = ['/home/clubs','/test '];
-  valid = false;
+  valid : boolean;
 
   constructor(public popoverCtrl: PopoverController, public route: Router, public modalCtrl: ModalController, public clubs: ClubService) { }
 
@@ -35,7 +36,7 @@ export class HeaderComponent implements OnInit {
   }
   async findClub() {
     const modal = await this.modalCtrl.create({
-      component:JoinClubComponentComponent,
+      component:JoinClubComponent,
       cssClass: 'my-custom-class'
     });
     return await modal.present();
@@ -63,7 +64,7 @@ export class HeaderComponent implements OnInit {
     const { data } = await popover.onWillDismiss();
     console.log(data);
   }
- async clubsMenu(ev: any){
+ async clubsMenu(){
   
   const modal = await this.modalCtrl.create({
     component: MyClubsPage,

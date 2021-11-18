@@ -1,6 +1,6 @@
 
 <ng-template [ngIf]="clubs.new">
-  <app-header titulo="Clubes" menu1="true" findClubMenu="true"  menu3="true"></app-header>
+  <app-header [titulo]="Clubes" [menu1]="true" [findClubMenu]="true"  [menu3]="true"></app-header>
 <ion-content>
   <app-club-info [club]="clubs.switchClub"></app-club-info>
 </ion-content>
@@ -10,7 +10,7 @@
 <ng-template [ngIf]="!clubs.new">
 
 
-  <app-header titulo="Clubes"></app-header>
+  <app-header [titulo]="Clubes"></app-header>
 
 
   <ion-content class="ion-padding">
