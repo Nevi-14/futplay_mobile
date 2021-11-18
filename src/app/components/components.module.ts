@@ -7,7 +7,8 @@ import { ClubInfoComponent } from './club-info/club-info.component';
 import { ProfileComponent } from './profile-component/profile-component';
 import { JoinClubComponent } from './join-club-component/join-club-component';
 import { PipesModule } from '../pipes/pipes.module';
-import { SettingInfoComponent } from '../../../../FUTPLAY - copia (2)/src/app/components/setting-info/setting-info.component';
+import { SettingInfoComponent } from './setting-info/setting-info.component';
+
 
 
 @NgModule({
