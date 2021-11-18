@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -15,6 +15,7 @@ import { AboutPage } from './about.page';
     IonicModule,
     AboutPageRoutingModule
   ],
-  declarations: [AboutPage]
+  declarations: [AboutPage],
+  
 })
 export class AboutPageModule {}

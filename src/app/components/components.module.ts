@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header/header.component';
+
 import { IonicModule } from '@ionic/angular';
+import { HeaderComponent } from './header/header.component';
 import { ClubInfoComponent } from './club-info/club-info.component';
-import { PipesModule } from '../pipes/pipes.module';
-import { JoinClubComponent } from './join-club-component/join-club-component';
 import { ProfileComponent } from './profile-component/profile-component';
+import { JoinClubComponent } from './join-club-component/join-club-component';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 @NgModule({
@@ -20,13 +21,14 @@ import { ProfileComponent } from './profile-component/profile-component';
     IonicModule,
     PipesModule,
     IonicModule.forRoot()
-
   ],
   exports:[
   HeaderComponent,
   ClubInfoComponent,
   ProfileComponent,
   JoinClubComponent
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  
 })
 export class ComponentsModule { }
