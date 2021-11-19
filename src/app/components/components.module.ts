@@ -1,31 +1,36 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header/header.component';
+
 import { IonicModule } from '@ionic/angular';
+import { HeaderComponent } from './header/header.component';
 import { ClubInfoComponent } from './club-info/club-info.component';
-import { ProfileComponentComponent } from './profile-component/profile-component.component';
-import { JoinClubComponentComponent } from './join-club-component/join-club-component.component';
+import { ProfileComponent } from './profile-component/profile-component';
+import { JoinClubComponent } from './join-club-component/join-club-component';
 import { PipesModule } from '../pipes/pipes.module';
+import { SettingInfoComponent } from './setting-info/setting-info.component';
+
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
     ClubInfoComponent,
-    ProfileComponentComponent,
-    JoinClubComponentComponent,
+    ProfileComponent,
+    JoinClubComponent,
+    SettingInfoComponent
   ],
   imports: [
     CommonModule,
     IonicModule,
     PipesModule
-
   ],
   exports:[
   HeaderComponent,
   ClubInfoComponent,
-  ProfileComponentComponent,
-  JoinClubComponentComponent
+  ProfileComponent,
+  JoinClubComponent,
+  SettingInfoComponent
   ]
+  
 })
 export class ComponentsModule { }

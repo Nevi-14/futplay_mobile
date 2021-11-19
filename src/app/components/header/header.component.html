@@ -15,7 +15,7 @@
   
 
   <ion-toolbar style="margin-top: 20px;" *ngIf="searchbar">
-    <ion-searchbar mode="ios" placeholder="Codigo Club" inputmode="text" (ionChange)="onSearchChange($event)" debounce="250" ></ion-searchbar>
+    <ion-searchbar mode="ios" placeholder="Codigo Club" inputmode="text" debounce="250" ></ion-searchbar>
   </ion-toolbar>
   <ion-toolbar >
     <ion-buttons slot="start" *ngIf="sideMenu"> 
@@ -40,7 +40,7 @@
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end" *ngIf="menu3">
-      <ion-button (click)="presentPopoverClub($event)" *ngIf="clubs.clubAdmin">
+      <ion-button (click)="presentPopoverClub()" *ngIf="clubs.clubAdmin">
         <ion-icon slot="icon-only" name="settings"></ion-icon>
       </ion-button>
       

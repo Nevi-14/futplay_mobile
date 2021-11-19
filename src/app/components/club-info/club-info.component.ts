@@ -9,8 +9,7 @@ import { JugadoresClubesService } from '../../services/jugador-clubes.service';
 import { JugadorClubes } from 'src/app/models/jugadorClubes';
 import { ProfilePage } from '../../pages/profile/profile.page';
 import { ClubService } from 'src/app/services/club.service';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { SocialMediaPage } from '../../pages/social-media/social-media.page';
+import { Camera } from '@ionic-native/camera/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 @Component({
   selector: 'app-club-info',

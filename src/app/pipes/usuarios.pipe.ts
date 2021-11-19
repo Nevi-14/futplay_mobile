@@ -8,8 +8,8 @@ import { UserService } from '../services/user.service';
 export class UsuariosPipe implements PipeTransform {
   constructor(public user: UserService) { }
 
-  transform(texto: string = '',
-  columna: string): any {
+  transform(texto: any = '',
+  columna: any): any {
     let usuarios: Usuario[] = [];
 let user = 'usuarioID';
 console.log('columna',columna)

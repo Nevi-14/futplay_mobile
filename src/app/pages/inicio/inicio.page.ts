@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { IonSegment } from '@ionic/angular';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -6,12 +7,12 @@ import { DataService } from '../../services/data.service';
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
 })
-export class InicioPage implements OnInit {
-
+export class InicioPage {
+  @ViewChild(IonSegment) segment: IonSegment;
+  opcionesMenu =[{tab:'about',name:'Futplay', icon:'football'},{tab:'login',name:'Iniciar Sessión', icon:'person'},{tab:'register',name:'Registro', icon:'person-add'}];
   constructor(public data: DataService) { }
 
-  ngOnInit() {
 
-  }
+ 
 
 }

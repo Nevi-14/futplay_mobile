@@ -1,0 +1,55 @@
+<ion-header class="ion-no-border" >
+  <ion-toolbar class="ion-text-center ">
+    <ion-chip style="height: 60px;background: white;">
+      <ion-avatar style="height: 60px;width:60px;">
+        <img  src="../assets/inicio/logo.png">
+      </ion-avatar>
+      <ion-label style="font-size: 20px; letter-spacing: 0.5px; font-weight: bold; color: rgba(37,13,76,255);">FUTPLAY</ion-label>
+    </ion-chip>
+
+  </ion-toolbar>
+
+
+
+  <ion-segment  scrollable mode="md" color="primary" value="about">
+    <ng-template ngFor let-opciones [ngForOf]="opcionesMenu" let-i="index" >
+      <ion-segment-button mode="md" [value]="opciones.tab">
+        <ion-label text-capitalize>{{opciones.name}}</ion-label>
+      </ion-segment-button>
+
+    </ng-template>
+
+
+
+
+
+  </ion-segment>
+
+</ion-header >
+
+
+
+<ion-content color="dark">
+  
+  <ion-tabs>
+
+    <ion-tab-bar slot="top" class="ion-tab-bar">
+      <ng-template ngFor let-opciones [ngForOf]="opcionesMenu" let-i="index" >
+        <ion-tab-button [tab]="opciones.tab">
+          <ion-icon  [name]="opciones.icon"></ion-icon>
+          <ion-label>{{opciones.name}}</ion-label>
+    
+        </ion-tab-button>
+      </ng-template>
+  
+
+
+    </ion-tab-bar>
+
+
+
+  
+  </ion-tabs>
+
+
+</ion-content>

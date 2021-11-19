@@ -11,5 +11,7 @@ export class Club {
         public abreviacion: string,
         public direccion: string,
         public fecha: Date,
+        public dureza: string,
+        public estrellas: number
     ){}
 }
