@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { UserService } from '../../services/user.service';
 import { JugadoresPosicionesService } from 'src/app/services/jugador-posiciones.service';
+import { PasswordResetPage } from '../password-reset/password-reset.page';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginPage implements OnInit {
 
   showPass = false;
 
-  constructor(public userService: UserService, public route: Router, public alertCtrl: AlertController , public jugadorPosicion: JugadoresPosicionesService ) { }
+  constructor(public userService: UserService, public route: Router, public alertCtrl: AlertController , public jugadorPosicion: JugadoresPosicionesService, public popOverCtrl: PopoverController, public modalCtrl: ModalController ) { }
 
   ngOnInit() {
   }
@@ -30,7 +31,16 @@ export class LoginPage implements OnInit {
     });
     alert.present();
   }
+  async passwordReset(ev: any) {
+    const popOver = await this.popOverCtrl.create({
+      component: PasswordResetPage,
+      cssClass: 'small-width',
+      event: ev,
+      translucent: false
+    });
+    await popOver.present();
 
+  }
 
    onSubmit(formulario: NgForm){
     let  i = 0;

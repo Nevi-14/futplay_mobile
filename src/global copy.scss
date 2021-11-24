@@ -125,9 +125,3 @@ justify-content: center;
 ion-tab-bar {
 	--ion-color-primary: rgb(59, 48, 48);
 }
-
-
-/* Works - pass "my-custom-class" in cssClass to increase specificity */
-.small-width .popover-content {
-width: 90vw;
-}

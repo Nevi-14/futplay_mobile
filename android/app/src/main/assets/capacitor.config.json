@@ -1,5 +1,5 @@
 {
-	"appId": "io.ionic.starter",
+	"appId": "cr.simple.futPlay",
 	"appName": "FUTPLAY",
 	"webDir": "www",
 	"bundledWebRuntime": false
