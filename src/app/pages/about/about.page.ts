@@ -10,26 +10,26 @@ export class AboutPage implements OnInit {
     {
       img: '/assets/slides/football-field.svg',
       titulo: '¿Te gustaria disfrutar de un buen partido?',
-      desc: 'Ven y disfruta de nuestras canchas de futbol 5'
+      desc: 'Disfruta de un excelente partido de fútbol con nosotros'
     },
     {
       img: '/assets/slides/lineup.svg',
       titulo: '¿No tienes un equipo?',
-      desc: 'No te preocupes!. Podras unirte a alguno de nuestros clubes con solo enviar una solicitud'
+      desc: 'Haz tu propia ficha técnica '
     },
     {  img: '/assets/slides/strategy.svg',
       titulo: '¿Te gustaria crear un club?',
-      desc: 'Podras dirigir tu propio club y invitar a tu equipo'
+      desc: 'Crea o únete a un club con tus amigos'
     },
     {
       img: '/assets/slides/cup.svg',
       titulo: '¿Te gustan los retos?',
-      desc: 'No te preocupes si no tienes contra quien jugar, podras enviar solicitudes de retos a nuestros clubes disponibles'
+      desc: 'Reta a otros clubes en tu zona'
     },
     {
       img: '/assets/slides/scoreboard.svg',
       titulo: 'Resultados del partido',
-      desc: 'Podras en tiempo real actualizar los resultados de tu equipo'
+      desc: '¡Reserva el recinto y juega! '
     }
   ];
 

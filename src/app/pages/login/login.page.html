@@ -2,10 +2,11 @@
   <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)"  >
 
 
-    <div class="login-section ion-pading">
+    <div class="login-section ion-pading scroll">
       <div class="heading ion-padding">
-        <h1>Iniciar sessión para continuar</h1>
+        <h1>Iniciar sesión para continuar</h1>
       </div>
+      
 
       <div class="login-form ion-padding">
 
@@ -36,19 +37,12 @@
 
       <div class="action-buttons ion-padding">
         <ion-button size="small" class="login-button" shape="round" type="submit">
-          Iniciar Session
+          Iniciar Sesion
         </ion-button>
         <p (click)="passwordReset()"> Recuperar Contraseña</p>
-        <ion-button  class="signup-button" size="small" fill="outline" routerLink="/inicio/register"  shape="round" >
-          Registro
-        </ion-button>
+     
       </div>
-      <p>
-        Usuario: admin@gmail.com
-      </p>
-      <p>
-        Contraseña: admin
-      </p>
+  
   </div>
   </form>
 </ion-content>

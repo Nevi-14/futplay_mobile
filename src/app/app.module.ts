@@ -8,9 +8,12 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { HttpClientModule } from '@angular/common/http';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
 import { ComponentsModule } from './components/components.module';
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -20,6 +23,9 @@ import { ComponentsModule } from './components/components.module';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {
-constructor(private router: Router){}
+
+	constructor(library: FaIconLibrary) { 
+		library.addIconPacks(fas, fab, far);
+	}
 
 }

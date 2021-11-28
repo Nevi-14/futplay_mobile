@@ -1,6 +1,20 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+@font-face {
+  font-family: 'Soccer League';
+  src: url('../assets/fonts/SoccerLeague.eot');
+  src: url('../assets/fonts/SoccerLeague.eot') format('embedded-opentype'),
+       url('../assets/fonts/SoccerLeague.woff2') format('woff2'),
+       url( '../assets/fonts/SoccerLeague.woff') format('woff'),
+       url( '../assets/fonts/SoccerLeague.ttf') format('truetype'),
+       url( '../assets/fonts/SoccerLeague.svg') format('svg');
+  font-weight: 400;
+  font-style: normal;
+  unicode-range: U+20-21, U+3F, U+41-5A, U+61-7A;
+} 
+
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
@@ -74,8 +88,38 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
-}
 
+
+ --ion-font-family:  sans-serif;
+
+.soccer-league{
+margin-top: 20px;
+  font-family: 'Soccer League', sans-serif;
+  font-weight: 400;
+  letter-spacing: 2px;
+  font-size: 40px; 
+  color: rgba(37,13,76,255); 
+
+  }
+
+  .soccer-subtitle{
+    margin-top: 25px;
+    font-family: 'Soccer League', sans-serif;
+    font-weight: 400;
+    letter-spacing: 2px;
+    font-size: 22px; 
+    color: rgba(37,13,76,255); 
+    margin-left: 35px;
+    padding: 4px;
+  
+    }
+}
+.special-ascill{
+  font-family: 'Soccer League', sans-serif;
+  font-weight: bold;
+
+
+  }
 @media (prefers-color-scheme: dark) {
   /*
    * Dark Colors

@@ -14,6 +14,7 @@ import { AboutPage } from './about.page';
     FormsModule,
     IonicModule,
     AboutPageRoutingModule
+    
   ],
   declarations: [AboutPage],
   

@@ -9,7 +9,7 @@ import { DataService } from '../../services/data.service';
 })
 export class InicioPage {
   @ViewChild(IonSegment) segment: IonSegment;
-  opcionesMenu =[{tab:'about',name:'Futplay', icon:'football'},{tab:'login',name:'Iniciar Sessión', icon:'person'},{tab:'register',name:'Registro', icon:'person-add'}];
+  opcionesMenu =[{tab:'about',name:'Futplay', icon:'futbol'},{tab:'login',name:'Iniciar Sessión', icon:'user-alt'},{tab:'register',name:'Registro', icon:'user-plus'}];
   constructor(public data: DataService) { }
 
 

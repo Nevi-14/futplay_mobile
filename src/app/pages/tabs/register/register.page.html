@@ -1,71 +1,94 @@
 <ion-content>
-    <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)" >
-<ion-list lines="none">
-  <ion-grid >
-    <ion-row >
+  <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)" >
 
-        <ion-col size="6">
-            <ion-item>
-                <ion-label position="floating">Nombre</ion-label>
-                <ion-input type="text" placeholder="Nombre completo" name="nombre" [(ngModel)]="user.nombre" autocomplete="off"></ion-input>
-            </ion-item>
 
-        </ion-col>
+    <div class="login-section ion-pading scroll">
 
-        <ion-col size="6">
-            <ion-item>
-                <ion-label position="floating">Apellido</ion-label>
-                <ion-input type="text" placeholder="Primer apellido" name="apellido1" [(ngModel)]="user.apellido1"></ion-input>
-            </ion-item>
-        </ion-col>
+      <div class="heading ion-padding">
+        <h1>Formulario de registro</h1>
+      </div>
 
-        <ion-col size="6">
- <ion-item>
-  <ion-label position="floating">Correo</ion-label>
-  <ion-input type="email" placeholder="Correo"  name="correo" [(ngModel)]="user.correo"></ion-input>
+      <div class="login-form ion-padding">
 
- </ion-item>
-        </ion-col>
-        <ion-col size="6">
-<ion-item>
-<ion-label position="floating">Telefono</ion-label>
-<ion-input  placeholder="Telefono"  name="telefono" [(ngModel)]="user.telefono"></ion-input>
-</ion-item>
-        </ion-col>
-
-        <ion-col size="12">
-          <ion-item>
-            <ion-label position="floating">Contraseña</ion-label>
-            <ion-input type="password" placeholder="Ingresar contraseña"  name="contrasena" [(ngModel)]="user.contrasena"></ion-input>
-          </ion-item>
-
-        </ion-col>
-        <ion-col size="12">
-
-          <ion-item>
-            <ion-label position="floating">Confirmar Contraseña</ion-label>
-            <ion-input  name="confirmarContrasena" [(ngModel)]="user.confirmarContrasena" type="password" placeholder="Confirmar contraseña"></ion-input>
-          </ion-item>
-     
-        </ion-col>
-        <ion-col size="12" size-md="8" >
-          <ion-item style="display: grid; place-content: center;">
-            <ion-label  style="font-weight: bold;" >
-              Completar Registro 
-            </ion-label>
-            <ion-buttons >
+        <div class="form-input" lines="none">
           
-              <ion-button fill="solid"  shape="round"  style="margin-left:10px; height: 30px; width: 30px;" type="submit">
-                <ion-icon name="arrow-forward-outline"></ion-icon>
-            </ion-button> 
-            </ion-buttons>
+          <ion-item>
+    
+            <ion-label  position="stacked"><ion-icon  name="person"></ion-icon>Nombre</ion-label>
+            <ion-input type="text" placeholder="nombre" name="nombre" [(ngModel)]="user.nombre" autocomplete="off"></ion-input>
           </ion-item>
-                  </ion-col>
+        </div>
+
+        <div class="form-input" lines="none">
+          
+          <ion-item>
+    
+            <ion-label  position="stacked"><ion-icon  name="person"></ion-icon>Apellido</ion-label>
+            <ion-input type="text" placeholder="primer apellido" name="apellido1" [(ngModel)]="user.apellido1"></ion-input>
+          </ion-item>
+        </div>
 
 
-    </ion-row>
-</ion-grid>
-</ion-list>
-    </form>
+        <div class="form-input" lines="none">
+          
+          <ion-item>
+    
+            <ion-label  position="stacked"><ion-icon  name="mail-outline"></ion-icon>Correo</ion-label>
+            <ion-input type="email" placeholder="correo"  name="correo" [(ngModel)]="user.correo"></ion-input>
+          </ion-item>
+        </div>
 
+        <div class="form-input" lines="none">
+          
+          <ion-item>
+    
+            <ion-label  position="stacked"><ion-icon  name="call"></ion-icon>Telefono</ion-label>
+            <ion-input type="tel" placeholder="telefono"  name="telefono" [(ngModel)]="user.telefono"></ion-input>
+          </ion-item>
+        </div>
+        <div class="form-input" lines="none">
+          
+          <ion-item>
+    
+            <ion-label  position="stacked"><ion-icon  name="call"></ion-icon>Fecha de Nacimiento</ion-label>
+            <ion-datetime placeholder="Seleccionar" name="fechaNac" [(ngModel)]="user.fechaNac"  display-format="DD-MM-YYYY"></ion-datetime>
+      
+          </ion-item>
+        </div>
+        <div class="form-input">
+          <ion-item>
+
+   
+              <ion-label  position="stacked">            <ion-icon  name="lock-closed-outline" ></ion-icon>Contraseña</ion-label>
+          
+              <ion-input type="{{showPass ? 'text' : 'password'}}"  placeholder="contraseña"  name="contrasena" [(ngModel)]="user.contrasena"></ion-input>
+            <ion-icon slot="end"  item-right name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>
+          </ion-item>
+        </div>
+
+        <div class="form-input">
+          <ion-item>
+
+   
+              <ion-label  position="stacked">            <ion-icon  name="lock-closed-outline" ></ion-icon>Confirmar Contraseña</ion-label>
+          
+              <ion-input  name="confirmarContrasena" [(ngModel)]="user.confirmarContrasena" type="{{showPassConfirm ? 'text' : 'password'}}"  placeholder="confirmar contraseña"></ion-input>
+            <ion-icon slot="end"  item-right name="{{showPassConfirm ? 'eye' : 'eye-off'}}" (click)="showPassConfirm=!showPassConfirm"></ion-icon>
+          </ion-item>
+        </div>
+
+
+  
+      </div>
+
+
+      <div class="action-buttons ion-padding">
+      
+        <ion-button  class="signup-button" size="small" fill="outline" routerLink="/inicio/register"  shape="round" type="submit">
+          Registro
+        </ion-button>
+      </div>
+     
+  </div>
+  </form>
 </ion-content>

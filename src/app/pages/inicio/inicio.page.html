@@ -1,11 +1,7 @@
 <ion-header class="ion-no-border ion-padding" >
   <ion-toolbar class="ion-text-center ">
  
-
-
-      <img   style="height: 70px;width: 70px;border-radius: 50%;" src="../assets/inicio/logo.png">
-
-      <ion-label style="font-size: 30px; letter-spacing: 0.5px; font-weight: bold; color: rgba(37,13,76,255); margin-top: 20px;">FUTPLAY</ion-label>
+      <ion-label class="soccer-league">FUTPLAY</ion-label>
     
  
 
@@ -19,12 +15,11 @@
 
 <ion-content>
   <ion-tabs >
-
-    <ion-tab-bar slot="bottom" >
+    <ion-tab-bar slot="bottom" > 
       <ng-template ngFor let-opciones [ngForOf]="opcionesMenu" let-i="index" >
         <ion-tab-button [tab]="opciones.tab">
-          <ion-icon  [name]="opciones.icon"></ion-icon>
-          <ion-label>{{opciones.name}}</ion-label>
+
+          <ion-label class="ion-text-uppercase">{{opciones.name}}</ion-label>
     
         </ion-tab-button>
       </ng-template>
@@ -32,6 +27,7 @@
 
 
     </ion-tab-bar>
+
 
 
 
