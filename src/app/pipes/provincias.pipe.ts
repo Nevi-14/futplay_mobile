@@ -16,7 +16,7 @@ export class ProvinciasPipe implements PipeTransform {
     if ( provincia !== undefined){
       return provincia.nombre;
     } else {
-      return 'ND';
+      return 'Sin Especificar';
     }
   }
 

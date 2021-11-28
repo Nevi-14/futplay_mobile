@@ -16,7 +16,7 @@ export class CantonesPipe implements PipeTransform {
     if ( canton !== undefined){
       return canton.nombre;
     } else {
-      return 'ND';
+      return 'Sin Especificar';
     }
   }
 

@@ -17,7 +17,7 @@ export class DistritosPipe implements PipeTransform {
     if ( distrito !== undefined){
       return distrito.nombre;
     } else {
-      return 'ND';
+      return 'Sin Especificar';
     }
   }
 
