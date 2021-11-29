@@ -1,0 +1,52 @@
+<ion-header class="ion-no-border">
+
+  <ion-toolbar class="ion-text-center">
+
+ <ion-buttons slot="end">
+
+   <ion-button (click)="presentModal()">
+    <img class="animate__animated animate__bounce" src="/assets/home/logo.svg" alt="" height="30">
+   </ion-button>
+
+   
+ </ion-buttons>
+
+  <ion-label class=" soccer-subtitle">FUTPLAY </ion-label>
+  <ion-badge color="dark" style="text-transform: uppercase;"  mode="ios">{{titulo}}</ion-badge>
+
+
+  </ion-toolbar>
+  
+
+  <ion-toolbar style="margin-top: 20px;" *ngIf="searchbar">
+    <ion-searchbar mode="ios" placeholder="Codigo Club" inputmode="text" debounce="250" ></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar >
+    <ion-buttons slot="start" *ngIf="sideMenu"> 
+      <ion-menu-button menu="first"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-buttons slot="start" *ngIf="menu1">
+      <ion-button (click)="clubsMenu()"  >
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+   
+    <ion-buttons slot="end"  *ngIf="findClubMenu">
+      <ion-button (click)="findClub()" *ngIf="clubs.clubAdmin"> 
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end" *ngIf="menu3">
+      <ion-button (click)="presentPopoverClub()" *ngIf="clubs.clubAdmin">
+        <ion-icon slot="icon-only" name="settings"></ion-icon>
+      </ion-button>
+      
+    </ion-buttons>
+
+  </ion-toolbar>
+
+
+</ion-header>

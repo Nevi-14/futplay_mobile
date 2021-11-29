@@ -10,17 +10,16 @@
 <ng-template [ngIf]="!clubs.new">
 
 
-  <app-header titulo="Clubes"></app-header>
 
 
-  <ion-content  class="">
+  <ion-content >
 
 
-    <ion-grid class="center-grid" >
-      <ion-row >
+    <ion-grid  class="ion-text-center">
+      <ion-row>
       <ion-col size="12" >
-        <ion-card style="display:flex; justify-content: center; align-items: center; width: 80vw; height: 140px;" (click)="newClub()">
-          <ion-card-header >
+        <ion-card (click)="newClub()" style="width: 90vw">
+          <ion-card-header>
             <ion-card-subtitle>CREAR UN CLUB</ion-card-subtitle>
           </ion-card-header>
         
@@ -29,7 +28,7 @@
           </ion-card-content>
         </ion-card>
     
-        <ion-card (click)="findClub()"    style="display:flex; justify-content: center; align-items: center; width: 80vw; height: 140px;">
+        <ion-card (click)="findClub()" style="width: 90vw">
           <ion-card-header>
             <ion-card-subtitle>UNIRSE A UN CLUB</ion-card-subtitle>
           </ion-card-header>

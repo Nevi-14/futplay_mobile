@@ -6,6 +6,11 @@ import { ProfilePage } from '../pages/profile/profile.page';
 import { JugadorPosiciones } from '../models/jugadorPosiciones';
 import { JugadoresPosicionesService } from './jugador-posiciones.service';
 import { ProfileComponent } from '../components/profile-component/profile-component';
+import { SettingInfoComponent } from '../components/setting-info/setting-info.component';
+import { ProfileInfoPage } from '../pages/profile-info/profile-info.page';
+import { PasswordPage } from '../pages/password/password.page';
+import { PaymentMethodPage } from '../pages/payment-method/payment-method.page';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +22,37 @@ userProfile : Usuario;
 userPosition: JugadorPosiciones;
 switchUser: Usuario;
 age = 0;
-  constructor(private http: HttpClient, private modalCtrl: ModalController, private jugadorPosicion: JugadoresPosicionesService) {
+  constructor(private http: HttpClient, private modalCtrl: ModalController, private jugadorPosicion: JugadoresPosicionesService, public route: Router) {
   }
 
+  usuario = {
+    usuarioID: null,
+    roleID: null,
+    provinciaID: null,
+    cantonID: null,
+    distritoID: null,
+    foto: '',
+    nombre:'',
+    apodo:'',
+    apellido1: '',
+    apellido2: '',
+    fecha: null,
+    fechaNac: null,
+    telefono: '',
+    direccion: '',
+    correo: '',
+    contrasena: '',
+    confirmarContrasena: '',
+    intentos: null,
+    
+};
 
+jugadorCurrentPosicion = {
+  jugadorID: null,
+  usuarioID:null,
+  posicionID:null,
+  apodo:'',
+}
 
 
   loggedUser(user){
@@ -62,6 +94,23 @@ async show(userID){
 });
 this.swapUser(userID);
   return await modal.present();
+}
+
+async editarPeril(){
+
+  const modal = await this.modalCtrl.create({
+    component: SettingInfoComponent,
+    cssClass: 'bottom-modal',
+    backdropDismiss: true
+    
+
+  });
+  return await modal.present();
+}
+cerrarModal(){
+if(this.modalCtrl){
+  this.modalCtrl.dismiss();
+}
 }
 
   editUser(id: number, user){
@@ -109,5 +158,47 @@ this.swapUser(userID);
     const regularExpression = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return regularExpression.test(String(email).toLowerCase());
    }
+
+
+
+   async profileInfo() {
+    this.modalCtrl.dismiss();
+    const modal = await this.modalCtrl.create({
+      component: ProfileInfoPage,
+      cssClass: 'my-custom-class'
+    });
+   
+    return await modal.present();
+  }
+  async password() {
+    const modal = await this.modalCtrl.create({
+      component: PasswordPage,
+      cssClass: 'my-custom-class'
+    });
+    this.modalCtrl.dismiss();
+    return await modal.present();
+  }
+  async paymentMethod() {
+    const modal = await this.modalCtrl.create({
+      component: PaymentMethodPage,
+      cssClass: 'my-custom-class'
+    });
+    this.modalCtrl.dismiss();
+    return await modal.present();
+  }
+
+  logOut(){
+     this.modalCtrl.dismiss();
+     this.currentUser = this.usuario;
+     this.userProfile = this.usuario;
+     this.jugadorCurrentPosicion = this.jugadorCurrentPosicion;
+
+console.log(this.currentUser,this.userProfile)
+    this.route.navigate([ '/inicio/login']);
+  }
+
+
+
+
 
 }
