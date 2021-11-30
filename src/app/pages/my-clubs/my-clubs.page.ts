@@ -34,7 +34,10 @@ export class MyClubsPage implements OnInit {
     this.modalCtrl.dismiss();
     const modal = await this.modalCtrl.create({
       component:JoinClubComponent,
-      cssClass: 'bottom-modal'
+      cssClass: 'bottom-modal',
+      showBackdrop: true,
+      backdropDismiss: true,
+      animated: true,
     });
     return await modal.present();
   }

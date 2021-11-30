@@ -6,7 +6,7 @@ import { SearchPage } from './search.page';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/search/rivales',
+    redirectTo: '/home/search/rivales',
     pathMatch: 'full',
   }, {
     path: '',
