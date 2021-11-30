@@ -31,6 +31,8 @@ export class LoginPage implements OnInit {
     });
     alert.present();
   }
+
+  
   async passwordReset(ev: any) {
     const popOver = await this.popOverCtrl.create({
       component: PasswordResetPage,
@@ -41,7 +43,10 @@ export class LoginPage implements OnInit {
     await popOver.present();
 
   }
-
+  loadCredentials(){
+    this.userLogin.usuario = 'admin@gmail.com';
+    this.userLogin.contrasena = 'admin';
+  }
    onSubmit(formulario: NgForm){
     let  i = 0;
 if(this.userService.validateEmail(this.removeSpaces(this.userLogin.usuario))=== false){

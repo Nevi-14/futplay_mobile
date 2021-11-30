@@ -39,10 +39,16 @@
         <ion-button size="small" class="login-button" shape="round" type="submit">
           Iniciar Sesion
         </ion-button>
-        <p (click)="passwordReset()"> Recuperar Contraseña</p>
+        <p (click)="passwordReset($event)"> Recuperar Contraseña</p>
      
       </div>
-  
+      <div class="action-buttons ion-padding">
+        <ion-button size="small" class="signup-button" fill="outline" shape="round" (click)="loadCredentials()">
+         Credentials
+        </ion-button>
+    
+     
+      </div>
   </div>
   </form>
 </ion-content>

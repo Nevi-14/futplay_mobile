@@ -8,14 +8,14 @@
 
     </ion-list-header>
     <ion-list-header>
-      <ion-searchbar mode="ios" placeholder="nombre club" inputmode="text" type="text" (ionChange)="onSearchChange($event)" [debounce]="250"></ion-searchbar>
+      <ion-searchbar mode="ios" placeholder="nombre club" inputmode="text" type="text"  [debounce]="250"></ion-searchbar>
     </ion-list-header>
 
     <ng-template ngFor let-club [ngForOf]="clubes.club" let-i="index">
               
 
       <ion-item class="ion-no-padding" (click)="equipo(club)">
-        <ion-chip (click)="send(club)" style="height: 60px; background: transparent;">
+        <ion-chip  style="height: 60px; background: transparent;">
             <ion-avatar  style="height: 50px; width: 50px;">
               <img src="{{club.foto}}">
             

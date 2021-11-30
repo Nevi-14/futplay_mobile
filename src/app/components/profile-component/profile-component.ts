@@ -11,7 +11,7 @@ import { ModalController } from '@ionic/angular';
 
 export class ProfileComponent  {
 
-  @Input() menu : false;
+  @Input() menu : boolean;
   constructor(public userService: UserService, public jugadorPosiciones: JugadoresPosicionesService, public modalCtrl: ModalController) { }
 
 
