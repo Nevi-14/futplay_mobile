@@ -11,6 +11,8 @@ import { ClubInfoComponent } from '../club-info/club-info.component';
 import { RetosService } from '../../services/retos.service';
 
 import { EquipoSolicitudPage } from '../../pages/equipo-solicitud/equipo-solicitud.page';
+import { OpcionesComponent } from '../opciones/opciones.component';
+import { OpcionesService } from 'src/app/services/opciones.service';
 
 @Component({
   selector: 'app-join-club-component',
@@ -19,7 +21,7 @@ import { EquipoSolicitudPage } from '../../pages/equipo-solicitud/equipo-solicit
 })
 export class JoinClubComponent implements OnInit {
   textoBuscar = '';
-  constructor( public modalCtrl: ModalController, public clubs: ClubService, public solicitudes: SolicitudesService, public user: UserService, public alertCtrl: AlertController, public provincias: ProvinciasService,public cantones: CantonesService, public distritos: DistritosService, public retos:RetosService, public currentUser: UserService, public popOverCtrl:PopoverController) {  }
+  constructor( public modalCtrl: ModalController, public clubs: ClubService, public solicitudes: SolicitudesService, public user: UserService, public alertCtrl: AlertController, public provincias: ProvinciasService,public cantones: CantonesService, public distritos: DistritosService, public retos:RetosService, public currentUser: UserService, public popOverCtrl:PopoverController, public opcionesService: OpcionesService) {  }
 
 
   ngOnInit() {}
@@ -40,21 +42,7 @@ export class JoinClubComponent implements OnInit {
     this.solicitudes.delete(solicitudId);
     console.log(this.solicitudes.solicitudes);
   }
-  add(clubID: number){
-    this.solicitudes.solicitudes.push(new Solicitud(this.solicitudes.solicitudes.length+1,clubID,this.user.currentUser.usuarioID,true,false));
-    console.log(this.solicitudes.solicitudes);
-    this.message('Solicitud enviada');
-      }
-  async send(club){
-    const modal  = await this.modalCtrl.create({
-     component: ClubInfoComponent,
-     cssClass: 'my-custom-class',
-     componentProps:{
-      club:club
-     }
-   });
-   await modal .present();
- }
+
 
  cerrarModal(){
   this.modalCtrl.dismiss();
@@ -62,24 +50,9 @@ export class JoinClubComponent implements OnInit {
 
 
 
-async enviarReto(club){
 
-  const popOver = await this.popOverCtrl.create({
-    component: EquipoSolicitudPage,
-    cssClass:'my-custom-class',
-    componentProps:{
-      usuarioID: this.currentUser.currentUser.usuarioID
-    }
-  });
 
-   await popOver.present();
 
-  
-  const { data } = await popOver.onDidDismiss();
-  if(data.equipo){
-//  this.leerMarcador();
-  }
-this.retos.addReto(this.retos.retos.length+1,this.currentUser.currentUser.usuarioID,data.equipo.clubID, club.clubID, true, false);
-console.log(this.retos.retos)
-}
+
+
 }

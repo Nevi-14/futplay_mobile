@@ -11,6 +11,9 @@ import { ProfileInfoPage } from '../pages/profile-info/profile-info.page';
 import { PasswordPage } from '../pages/password/password.page';
 import { PaymentMethodPage } from '../pages/payment-method/payment-method.page';
 import { Router } from '@angular/router';
+import { JugadoresService } from './jugadores.service';
+import { JugadoresClubesService } from './jugador-clubes.service';
+import { SolicitudesService } from './solicitudes.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +25,7 @@ userProfile : Usuario;
 userPosition: JugadorPosiciones;
 switchUser: Usuario;
 age = 0;
-  constructor(private http: HttpClient, private modalCtrl: ModalController, private jugadorPosicion: JugadoresPosicionesService, public route: Router) {
+  constructor(private http: HttpClient, private modalCtrl: ModalController, private jugadorPosicion: JugadoresPosicionesService, public route: Router, public jugadoresService: JugadoresService, public jugadoresClubesService: JugadoresClubesService, public solicitudesService: SolicitudesService) {
   }
 
   usuario = {
@@ -86,7 +89,11 @@ async show(userID){
 
   const modal = await this.modalCtrl.create({
     component: ProfileComponent,
-    cssClass: 'my-custom-class'
+    backdropDismiss: true,
+    cssClass: 'informative-modal',
+    componentProps:{
+      menu: false
+    }
   });
   modal.onDidDismiss().then((data) => {
     
@@ -95,7 +102,23 @@ async show(userID){
 this.swapUser(userID);
   return await modal.present();
 }
+async verUsuario(userID){
 
+  const modal = await this.modalCtrl.create({
+    component: ProfileComponent,
+    backdropDismiss: true,
+    cssClass: 'informative-modal',
+    componentProps:{
+      menu: false
+    }
+  });
+  modal.onDidDismiss().then((data) => {
+    
+   this.userProfile = this.currentUser;
+});
+this.swapUser(userID);
+  return await modal.present();
+}
 async editarPeril(){
 
   const modal = await this.modalCtrl.create({

@@ -1,7 +1,11 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title><ion-badge color="dark" mode="ios">Mis Clubes</ion-badge></ion-title>
+    <ion-title slot="start"><ion-badge color="dark" mode="ios">Mis Clubes</ion-badge></ion-title>
     <ion-buttons slot="end">
+      <ion-button (click)="findClub()"  color="primary"  shape="round" fill="solid" *ngIf="clubs.clubAdmin"> 
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+      
       <ion-button  (click)="newClub()" color="primary"  shape="round" fill="solid">
         <ion-icon name="add"></ion-icon>
       </ion-button> 
@@ -9,46 +13,36 @@
 
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-no-padding">
+<ion-content>
 
   <ion-list lines="none">
-    <ion-item>
-      <ion-searchbar mode="ios" placeholder="Buscar Club" inputmode="text" debounce="250" ></ion-searchbar>
-    </ion-item>
-
+<ion-list-header>
+  <ion-searchbar mode="ios" placeholder="Buscar Club" inputmode="text" debounce="250" ></ion-searchbar>
+</ion-list-header>
     <ng-template ngFor let-club [ngForOf]="clubs.userclubs" let-i="index" >
-      <ion-item>
-        <ion-chip>
-          <ion-avatar>
+      <ion-item  (click)="clubs.swapClub(club.clubID)" >
+        <ion-chip  style="height: 60px; background: transparent;">
+          <ion-avatar  style="height: 50px; width: 50px;">
               <img src="{{club.foto}}">
           </ion-avatar>
           <ion-label>{{club.nombre}}</ion-label>
         </ion-chip>
 
-      
-        <ion-buttons slot="end">
-          <ion-button (click)="clubs.swapClub(club.clubID)" color="primary">
-            <ion-icon name="swap-horizontal-outline"></ion-icon>
-          </ion-button>
-        </ion-buttons>
+ 
        </ion-item>
     </ng-template>
 
     <ng-template ngFor let-userPlayerClub [ngForOf]="clubs.playerClubs" let-i="index" >
-      <ion-item>
+      <ion-item (click)="clubs.swapClub(userPlayerClub.clubID)" >
 
-        <ion-chip>
-          <ion-avatar>
+        <ion-chip  style="height: 60px; background: transparent;">
+          <ion-avatar  style="height: 50px; width: 50px;">
               <img src="{{userPlayerClub.foto}}">
           </ion-avatar>
           <ion-label>{{userPlayerClub.nombre}}</ion-label>
         </ion-chip>
 
-        <ion-buttons slot="end">
-          <ion-button (click)="clubs.swapClub(userPlayerClub.clubID)" color="primary">
-            <ion-icon name="swap-horizontal-outline"></ion-icon>
-          </ion-button>
-        </ion-buttons>
+       
       </ion-item>
 </ng-template>
 

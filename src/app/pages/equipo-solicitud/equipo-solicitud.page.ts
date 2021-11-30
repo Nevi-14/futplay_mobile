@@ -18,7 +18,7 @@ export class EquipoSolicitudPage implements OnInit {
   equipo(equipo){
 
     const i = this.clubes.club.findIndex( c => c.usuarioID === this.usuarioID);
-    this.popOver.dismiss({
+    this.modalCtrl.dismiss({
       equipo:equipo
     });
   }

@@ -34,23 +34,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
   }
-  async findClub() {
-    const modal = await this.modalCtrl.create({
-      component:JoinClubComponent,
-      cssClass: 'my-custom-class'
-    });
-    return await modal.present();
-  }
-  async  presentPopoverClub(){
-    const modal = await this.modalCtrl.create({
-      component:ClubConfigPage,
-      cssClass: 'my-custom-class',
-      componentProps:{
-        club:this.clubs.switchClub
-       }
-    });
-    return await modal.present();
-  }
+
+
   async presentPopover(ev: any) {
     const popover = await this.popoverCtrl.create({
       component: SettingInfoComponent,
@@ -62,17 +47,7 @@ export class HeaderComponent implements OnInit {
     await popover.present();
 
   }
- async clubsMenu(){
-  
-  const modal = await this.modalCtrl.create({
-    component: MyClubsPage,
-    cssClass: 'modal-menu'
-  });
-  await modal.present();
 
-
- 
- }
 
   async presentModal() {
   

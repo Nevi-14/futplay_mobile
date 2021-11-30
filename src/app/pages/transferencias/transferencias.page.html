@@ -1,31 +1,17 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-title class="ion-text-left">Lista de Transferencias</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="cerrarModal()" fill="solid" shape="round"  color="primary" slot="end" >
-        <ion-icon slot="icon-only" name="close"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-  <!-- Default Searchbar -->
-
-</ion-header>
 
 <ion-content >
   <ion-list lines="none">
     
-    <ion-grid  >
 
-    <ion-row style="height:100%;display: flex; justify-content: center; align-items: center;" >
-      <ion-col size="12">
-        <ion-item>
-        <ion-badge color="dark" mode="ios">Solicitudes</ion-badge>
-        </ion-item>
-        <ion-item>
-          <ion-searchbar mode="ios" placeholder="Buscar jugador" inputmode="text"  debounce="250" ></ion-searchbar>
-        </ion-item>
-      </ion-col>
-      <ion-col size="12" class="scroll-md">
+
+<ion-list-header>
+<ion-label class="ion-text-uppercase">Lista de Solicitudes</ion-label>
+</ion-list-header>
+<ion-list-header>
+  <ion-searchbar mode="ios" placeholder="Buscar jugador" inputmode="text"  debounce="250" ></ion-searchbar>
+</ion-list-header>
+
+   
         <ion-item *ngIf="solicitudes?.solicitudes?.length  === 0" >
           <ion-label>No hay solicitudes disponibles</ion-label>
         </ion-item>
@@ -34,26 +20,27 @@
 
           <ng-template [ngIf]="clubID === solicitud.clubID">
             <ion-item >
-
-              <ion-chip >
-                <ion-avatar>
+              <ion-chip  style="height: 60px; background: transparent;">
+                <ion-avatar  style="height: 50px; width: 50px;">
                   <img [src]="solicitud.usuarioID  | usuarios : 'foto'">
+                
                 </ion-avatar>
-    
+           
                 <ion-label>{{solicitud.usuarioID  | usuarios : 'nombre'}} {{solicitud.usuarioID  | usuarios : 'apellido1'}}</ion-label>
               </ion-chip>
+        
+       
+              <ion-buttons slot="end">
       
-              <ion-buttons  slot="end">
-                <ion-button color="dark" (click)="usuario.show(solicitud.usuarioID)">
-                  <ion-icon  name="eye"></ion-icon>
-              </ion-button>
-                <ion-button color="primary" (click)="add(solicitud)">
-                  <ion-icon name="checkmark-circle-outline"></ion-icon>
-              </ion-button>
-                <ion-button color="danger" (click)="delete(solicitud.solicitudID)">
-                  <ion-icon  name="trash"></ion-icon>
-              </ion-button>
-              </ion-buttons>
+
+                <ion-button  color="dark" slot="end" (click)="opcionesService.opciones('Opciones de usuario',[{funcion:'verUsuario', icono: 'eye-outline', parametros:  {usuarioID:solicitud.usuarioID},  arreglo:'' , boton: 'Ver Usuario' },{funcion:'agregarUsuario', icono:'person-add-outline', parametros:  {solicitud:solicitud}, arreglo:'' , boton: 'Aceptar Solicitud' },{funcion:'eliminarSolicitud', icono: 'trash-outline', parametros:  {solicitudID:solicitud.solicitudID},arreglo:'' , boton: 'Eliminar Solicitud'}])">
+                  <ion-icon name="ellipsis-horizontal"></ion-icon>
+                  </ion-button>
+        
+        
+               
+        </ion-buttons>
+
   
      
       
@@ -66,42 +53,7 @@
 
 
 
-          </ion-col>
-      <ion-col size="12">
-<ion-item>
-<ion-badge color="dark" mode="ios">Buscar Jugadores</ion-badge>
-</ion-item>
-<ion-item>
-  <ion-searchbar mode="ios" placeholder="Buscar jugador" inputmode="text"  debounce="250" ></ion-searchbar>
-</ion-item>
-    
 
-      </ion-col>
-      <ion-col size="12" class="scroll-md">
-        <ion-item *ngIf="jugadoresClubes?.jugadoresClubes?.length  === 0" >
-          <ion-label>No hay jugadores registrados</ion-label>
-        </ion-item>
-        <ion-item *ngFor="let jugador of jugadoresClubes.jugadoresClubes; let i = index">
-          <ion-chip>
-            <ion-avatar>
-              <img [src]="jugador.jugadorID  | usuarios : 'foto'">
-            </ion-avatar>
-
-            <ion-label>{{jugador.jugadorID  | usuarios : 'nombre'}} {{jugador.jugadorID  | usuarios : 'apellido1'}}</ion-label>
-          </ion-chip>
-  
-
-          <ion-buttons slot="end">
-              <ion-button (click)="usuario.show(jugador.jugadorID)">
-                  <ion-icon  name="eye"></ion-icon>
-              </ion-button>
-          </ion-buttons>
-      </ion-item>
-
-    </ion-col>
-    </ion-row>
-
-</ion-grid>
 
 </ion-list>
 </ion-content>

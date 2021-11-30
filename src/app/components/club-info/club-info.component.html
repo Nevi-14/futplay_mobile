@@ -1,6 +1,32 @@
 <ion-content >
 
   <ion-list lines="none">
+
+    <ion-list-header *ngIf="menu">
+
+
+      <ion-toolbar >
+        <ion-buttons slot="start" > 
+          <ion-menu-button color="dark"  menu="first"></ion-menu-button>
+        </ion-buttons>
+    
+        <ion-buttons slot="start" >
+          <ion-button (click)="clubsMenu()"  color="dark">
+            <ion-icon slot="icon-only" name="menu"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+    
+
+    
+        <ion-buttons slot="end" >
+          <ion-button (click)="presentPopoverClub()" color="dark" *ngIf="clubs.clubAdmin">
+            <ion-icon slot="icon-only" name="settings"></ion-icon>
+          </ion-button>
+          
+        </ion-buttons>
+    
+      </ion-toolbar>
+    </ion-list-header>
     
   <ion-grid>
     <ion-row>
@@ -21,12 +47,17 @@
               <ion-item>
                   <ion-label>(Ganes, Perdidos, Empates)</ion-label>
               </ion-item>
+     
               <ion-item>
-                <ion-label class="ion-text-center">
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                </ion-label>
+                <span style="display:block;">
+                  <ion-label style="margin-bottom: 10px;">Dureza : <img  height="20" width="20" src="{{club.dureza}}"></ion-label>
+              
+                  <ion-icon style="size: 10px;" name="star"></ion-icon>
+                  <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                  <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                  <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                  <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                </span>
             </ion-item>
        
       </ion-col>
@@ -68,41 +99,38 @@
     <ion-col size="12">
       <ng-template ngFor let-jugador [ngForOf]="jugadoresClubes.jugadoresClubes" let-i="index"  >
         <ng-template [ngIf]="club.clubID === jugador.clubID ">
-        <ion-item *ngIf="jugadoresClubes?.jugadoresClubes?.length > 0 ;else elseBlock">
-          <ion-chip>
-            <ion-avatar>
-              <img [src]="jugador.jugadorID  | usuarios : 'foto'">
-            </ion-avatar>
 
-            <ion-label>{{jugador.jugadorID  | usuarios : 'nombre'}} {{jugador.jugadorID  | usuarios : 'apellido1'}}</ion-label>
-          </ion-chip>
-          <ion-buttons  *ngIf="clubs.clubAdmin" slot="end">
-            <ion-button (click)="clubs.makeAdmin(jugador.jugadorID)">
-              <ion-icon *ngIf="jugador.admin" color="warning" name="sparkles-outline"></ion-icon>
-
-              <ion-icon *ngIf="!jugador.admin" name="sparkles-outline"></ion-icon>
-          </ion-button>
-  
-  
-          
-              <ion-button (click)="usuario.show(jugador.jugadorID)">
-                <ion-icon name="person-circle-outline"></ion-icon>
-              </ion-button>
-  
-              <ion-button (click)="jugadoresClubes.deletePlayer(jugador.jugadorID)" color="danger">
-                <ion-icon name="trash"></ion-icon>
-            </ion-button>
-    
+          <ion-item >
+            <ion-chip  style="height: 60px; background: transparent;">
+              <ion-avatar  style="height: 50px; width: 50px;">
+                <img [src]="jugador.jugadorID  | usuarios : 'foto'">
               
-          </ion-buttons>
-          
+              </ion-avatar>
+         
+              <ion-label>{{jugador.jugadorID  | usuarios : 'nombre'}} {{jugador.jugadorID  | usuarios : 'apellido1'}}</ion-label>
+            </ion-chip>
+      
+     
+            <ion-buttons slot="end">
+    
+
+              <ion-button  color="dark" slot="end" (click)="opcionesService.opciones('Opciones de usuario',[{funcion:'verUsuario', icono: 'eye-outline', parametros:  {usuarioID:jugador.jugadorID},  arreglo:'' , boton: 'Ver jugador' },{funcion:'clubAdmin', icono:'sparkles-outline', parametros:  {jugadorID:jugador.jugadorID}, arreglo:'' , boton: 'Convertir a Administrador' },{funcion:'deletePlayer', icono: 'trash-outline', parametros:  {jugadorID:jugador.jugadorID},arreglo:'' , boton: 'Eliminar Jugador'}])">
+                <ion-icon name="ellipsis-horizontal"></ion-icon>
+                </ion-button>
+      
+      
+             
+      </ion-buttons>
 
 
-        
-      </ion-item>
+   
+    
+        </ion-item>
+
+
             
 
- <ng-template #elseBlock>Content to render when value is null.</ng-template>
+
       </ng-template>
     </ng-template>
       

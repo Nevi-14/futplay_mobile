@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { JugadoresService } from './jugadores.service';
 import { JugadoresClubesService } from './jugador-clubes.service';
 import { ClubService } from './club.service';
+import { ModalController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class SolicitudesService {
 
   solicitudes:  Solicitud[]=[];
   conteoClub = 0;
-  constructor( private http: HttpClient, private jugadoresClubes: JugadoresClubesService) { }
+  constructor( private http: HttpClient, private jugadoresClubes: JugadoresClubesService, public modalCtrl: ModalController, public jugadoresClubesService: JugadoresClubesService) { }
 
 
 
@@ -36,6 +37,31 @@ export class SolicitudesService {
     this.solicitudes.splice(index,1);
    }
       }
+      this.conteoClub = 0 ? 0 : this.conteoClub -1;
     }
+
+
+
+
+
+
+        eliminarSolicitud(solicitudId: number){
+          console.log(solicitudId);
+          this.delete(solicitudId);
+          console.log(this.solicitudes);
+         
+          
+        }
+  
+  
+        agregarUsuarioSolitud(solicitud){
+ 
+              this.jugadoresClubesService.add(solicitud.usuarioID,solicitud.clubID, new Date(), true);
+              console.log(this.jugadoresClubesService.jugadoresClubes)
+              this.delete(solicitud.solicitudID);
+           //   this.clubsService.clubCount(solicitud.solicitudID);
+     
+                }
+          
 
 }

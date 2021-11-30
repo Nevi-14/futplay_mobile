@@ -4,6 +4,7 @@ import { ClubService } from '../../services/club.service';
 import { CreateClubPage } from '../create-club/create-club.page';
 import { UserService } from '../../services/user.service';
 import { JugadoresService } from '../../services/jugadores.service';
+import { JoinClubComponent } from 'src/app/components/join-club-component/join-club-component';
 
 @Component({
   selector: 'app-my-clubs',
@@ -29,5 +30,15 @@ export class MyClubsPage implements OnInit {
     return await modal.present();
   }
   
+  async findClub() {
+    this.modalCtrl.dismiss();
+    const modal = await this.modalCtrl.create({
+      component:JoinClubComponent,
+      cssClass: 'bottom-modal'
+    });
+    return await modal.present();
+  }
+
+
 
 }

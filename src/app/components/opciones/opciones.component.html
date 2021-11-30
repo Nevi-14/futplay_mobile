@@ -1,0 +1,21 @@
+<ion-content>
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label class="ion-text-uppercase">{{titulo}}</ion-label>
+    </ion-list-header>
+
+
+    <ng-template ngFor let-opcion [ngForOf]="opciones" let-i="index">
+<ion-item  (click)="opcionesService.funciones(opcion.funcion, opcion.parametros)" >
+  <ion-icon slot="start" [name]="opcion.icono"></ion-icon>
+  <ion-label>{{opcion.boton}}</ion-label>
+
+</ion-item>
+    </ng-template>
+
+
+ 
+
+  </ion-list>
+  
+</ion-content>

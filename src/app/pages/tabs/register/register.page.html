@@ -14,7 +14,7 @@
           
           <ion-item>
     
-            <ion-label  position="stacked"><ion-icon  name="person"></ion-icon>Nombre</ion-label>
+            <ion-label  position="stacked"><ion-icon  name="person-outline"></ion-icon>Nombre</ion-label>
             <ion-input type="text" placeholder="nombre" name="nombre" [(ngModel)]="user.nombre" autocomplete="off"></ion-input>
           </ion-item>
         </div>
@@ -23,7 +23,7 @@
           
           <ion-item>
     
-            <ion-label  position="stacked"><ion-icon  name="person"></ion-icon>Apellido</ion-label>
+            <ion-label  position="stacked"><ion-icon  name="person-outline"></ion-icon>Apellido</ion-label>
             <ion-input type="text" placeholder="primer apellido" name="apellido1" [(ngModel)]="user.apellido1"></ion-input>
           </ion-item>
         </div>
@@ -42,7 +42,7 @@
           
           <ion-item>
     
-            <ion-label  position="stacked"><ion-icon  name="call"></ion-icon>Telefono</ion-label>
+            <ion-label  position="stacked"><ion-icon  name="call-outline"></ion-icon>Telefono</ion-label>
             <ion-input type="tel" placeholder="telefono"  name="telefono" [(ngModel)]="user.telefono"></ion-input>
           </ion-item>
         </div>
@@ -50,8 +50,8 @@
           
           <ion-item>
     
-            <ion-label  position="stacked"><ion-icon  name="call"></ion-icon>Fecha de Nacimiento</ion-label>
-            <ion-datetime placeholder="Seleccionar" name="fechaNac" [(ngModel)]="user.fechaNac"  display-format="DD-MM-YYYY"></ion-datetime>
+            <ion-label  position="stacked"><ion-icon  name="calendar-outline"></ion-icon>Fecha de Nacimiento</ion-label>
+            <ion-datetime placeholder="fecha de nacimiento" name="fechaNac" [(ngModel)]="user.fechaNac"  display-format="DD-MM-YYYY"></ion-datetime>
       
           </ion-item>
         </div>
@@ -84,8 +84,8 @@
 
       <div class="action-buttons ion-padding">
       
-        <ion-button  class="signup-button" size="small" fill="outline" routerLink="/inicio/register"  shape="round" type="submit">
-          Registro
+        <ion-button size="small" class="login-button" shape="round" type="submit">
+          Registrar
         </ion-button>
       </div>
      

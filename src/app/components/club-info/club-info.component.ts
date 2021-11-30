@@ -11,6 +11,10 @@ import { ProfilePage } from '../../pages/profile/profile.page';
 import { ClubService } from 'src/app/services/club.service';
 import { Camera } from '@ionic-native/camera/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { JoinClubComponent } from '../join-club-component/join-club-component';
+import { MyClubsPage } from 'src/app/pages/my-clubs/my-clubs.page';
+import { ClubConfigPage } from 'src/app/pages/club-config/club-config.page';
+import { OpcionesService } from 'src/app/services/opciones.service';
 @Component({
   selector: 'app-club-info',
   templateUrl: './club-info.component.html',
@@ -20,7 +24,7 @@ export class ClubInfoComponent implements OnInit {
   @Input() club: Club;
   @Input() menu: false;
   currentYear = new Date().toLocaleString();
-  constructor(public modalCtrl: ModalController,public popoverCtrl: PopoverController, public jugadores: JugadoresService, public solicitudes: SolicitudesService, public usuario: UserService, public jugadoresClubes: JugadoresClubesService, public clubs: ClubService,public camera: Camera, public socialSharing: SocialSharing) { }
+  constructor(public modalCtrl: ModalController,public popoverCtrl: PopoverController, public jugadores: JugadoresService, public solicitudes: SolicitudesService, public usuario: UserService, public jugadoresClubes: JugadoresClubesService, public clubs: ClubService,public camera: Camera, public socialSharing: SocialSharing, public opcionesService: OpcionesService) { }
 
   ngOnInit() {
     
@@ -30,7 +34,9 @@ export class ClubInfoComponent implements OnInit {
       async listaTransferencia(clubID) {
         const modal = await this.modalCtrl.create({
           component: TransferenciasPage,
-          cssClass: 'my-custom-class',
+          cssClass: 'bottom-modal',
+          backdropDismiss: true,
+          
           componentProps:{
             clubID:clubID
            }
@@ -49,5 +55,28 @@ export class ClubInfoComponent implements OnInit {
       }
 
       
+
+      async clubsMenu(){
+  
+        const modal = await this.modalCtrl.create({
+          component: MyClubsPage,
+          cssClass: 'modal-menu'
+        });
+        await modal.present();
+      
+      
+       
+       }
+
+       async  presentPopoverClub(){
+        const modal = await this.modalCtrl.create({
+          component:ClubConfigPage,
+          cssClass: 'my-custom-class',
+          componentProps:{
+            club:this.clubs.switchClub
+           }
+        });
+        return await modal.present();
+      }
       
 }

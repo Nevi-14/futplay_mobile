@@ -8,6 +8,9 @@ import { Solicitud } from '../models/solicitudes';
 import { Jugador } from '../models/jugadores';
 import { JugadoresService } from './jugadores.service';
 import { JugadoresClubesService } from './jugador-clubes.service';
+import { ClubInfoComponent } from '../components/club-info/club-info.component';
+import { EquipoSolicitudPage } from '../pages/equipo-solicitud/equipo-solicitud.page';
+import { RetosService } from './retos.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +23,7 @@ export class ClubService {
   userclubs: Club[] = [];
   playerClubs: Club[] = [];
   switchClub: Club;
-  constructor(private http: HttpClient, private popOverCtrl: PopoverController, private user: UserService, private solicitudes: SolicitudesService, private jugadores: JugadoresService, private jugadoresClubes: JugadoresClubesService, private modalCtrl: ModalController) { }
+  constructor(private http: HttpClient, private popOverCtrl: PopoverController, private userService: UserService, private solicitudes: SolicitudesService, private jugadores: JugadoresService, private jugadoresClubes: JugadoresClubesService, private modalCtrl: ModalController , public retosService: RetosService) { }
 
   getClubs() {
     this.http.get<Club[]>('/assets/json/clubs.json').subscribe(resp => {
@@ -48,6 +51,52 @@ export class ClubService {
 
   }
 
+    
+  async verClub(club){
+    const modal  = await this.modalCtrl.create({
+     component: ClubInfoComponent,
+     cssClass: 'informative-modal',
+     componentProps:{
+      club:club,
+      menu: false
+     }
+   });
+   await modal .present();
+ }
+
+
+ agregarClub(clubID: number){
+  this.solicitudes.solicitudes.push(new Solicitud(this.solicitudes.solicitudes.length+1,clubID,this.userService.currentUser.usuarioID,true,false));
+  console.log(this.solicitudes.solicitudes);
+  alert('completed')
+
+    }
+
+
+
+    async enviarRetoClub(club){
+
+      const modal = await this.modalCtrl.create({
+        component: EquipoSolicitudPage,
+        cssClass: 'bottom-modal',
+        componentProps: {
+          usuarioID: this.userService.currentUser.usuarioID
+        }
+      });
+
+    
+       await modal.present();
+    
+      
+      const { data } = await modal.onDidDismiss();
+      if(data!== undefined){
+        this.retosService.addReto(this.retosService.retos.length+1,this.userService.currentUser.usuarioID,data.equipo.clubID, club.clubID, true, false);
+        alert('hello')
+      }
+
+    }
+
+
   editClub(id: number, club){
 
     for( let i = 0; i < this.club.length ; i++){  
@@ -65,7 +114,7 @@ export class ClubService {
   }
 
   sendClubRequest(clubID: number) {
-    this.solicitudes.solicitudes.push(new Solicitud(this.solicitudes.solicitudes.length + 1, clubID, this.user.currentUser.usuarioID, true,false));
+    this.solicitudes.solicitudes.push(new Solicitud(this.solicitudes.solicitudes.length + 1, clubID, this.userService.currentUser.usuarioID, true,false));
     console.log(this.solicitudes.solicitudes);
   }
 
@@ -76,9 +125,9 @@ export class ClubService {
     this.new = false;
     // VALIDACION DE  PROPIETARIO DE CLUB
 
-    const userClub = this.club.findIndex(d => d.usuarioID === this.user.currentUser.usuarioID);
+    const userClub = this.club.findIndex(d => d.usuarioID === this.userService.currentUser.usuarioID);
 
-    const playerClub = this.jugadoresClubes.jugadoresClubes.findIndex(d => d.jugadorID === this.user.currentUser.usuarioID);
+    const playerClub = this.jugadoresClubes.jugadoresClubes.findIndex(d => d.jugadorID === this.userService.currentUser.usuarioID);
 
 
     if (playerClub >= 0) {
@@ -101,7 +150,7 @@ export class ClubService {
     if (userClub >= 0) {
 
       for (let i = 0; i < this.club.length; i++) {
-        if (this.user.currentUser.usuarioID === this.club[i].usuarioID ) {
+        if (this.userService.currentUser.usuarioID === this.club[i].usuarioID ) {
           this.userclubs.push(this.club[i]);
           this.switchClub = this.userclubs[0];
           
@@ -119,13 +168,13 @@ export class ClubService {
   }
 
   clubOwner(clubId){
-    const playerClub = this.jugadoresClubes.jugadoresClubes.findIndex(d => d.jugadorID === this.user.currentUser.usuarioID);
+    const playerClub = this.jugadoresClubes.jugadoresClubes.findIndex(d => d.jugadorID === this.userService.currentUser.usuarioID);
 
 
     for (let i = 0; i < this.club.length; i++) {
 
       if(this.club[i].clubID === clubId){
-        if ( playerClub >= 0  ? this.user.currentUser.usuarioID === this.club[i].usuarioID || this.jugadoresClubes.jugadoresClubes[playerClub].admin === true : this.user.currentUser.usuarioID === this.club[i].usuarioID ) {
+        if ( playerClub >= 0  ? this.userService.currentUser.usuarioID === this.club[i].usuarioID || this.jugadoresClubes.jugadoresClubes[playerClub].admin === true : this.userService.currentUser.usuarioID === this.club[i].usuarioID ) {
 
           this.clubAdmin = true;
   
