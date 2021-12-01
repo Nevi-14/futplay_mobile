@@ -1,21 +1,26 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-title slot="start"><ion-badge color="dark" mode="ios">Mis Clubes</ion-badge></ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="findClub()"  color="primary"  shape="round" fill="solid" *ngIf="clubs.clubAdmin"> 
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-      
-      <ion-button  (click)="newClub()" color="primary"  shape="round" fill="solid">
-        <ion-icon name="add"></ion-icon>
-      </ion-button> 
-    </ion-buttons>
 
-  </ion-toolbar>
-</ion-header>
+
 <ion-content>
 
   <ion-list lines="none">
+<ion-list-header>
+<ion-toolbar>
+  <ion-label slot="start"><ion-badge color="dark" mode="ios">Mis Clubes </ion-badge></ion-label>
+  <ion-buttons slot="end">
+    <ion-button (click)="findClub()"  color="dark"   *ngIf="clubs.clubAdmin"> 
+      <ion-icon slot="icon-only" name="search"></ion-icon>
+    </ion-button>
+    
+    <ion-button  (click)="newClub()" color="dark" >
+      <ion-icon name="add"></ion-icon>
+    </ion-button> 
+    <ion-button (click)="cerrarModal()" color="dark"> 
+      <ion-icon  name="close"></ion-icon>
+    </ion-button>
+
+  </ion-buttons>
+</ion-toolbar>
+</ion-list-header>
 <ion-list-header>
   <ion-searchbar mode="ios" placeholder="Buscar Club" inputmode="text" debounce="250" ></ion-searchbar>
 </ion-list-header>

@@ -26,6 +26,9 @@ export class OpcionesComponent implements OnInit {
  })
 
   }
+  cerrarModal(){
+    this.modalCtrl.dismiss();
+  }
 
 
 

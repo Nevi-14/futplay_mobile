@@ -42,6 +42,9 @@ export class MyClubsPage implements OnInit {
     return await modal.present();
   }
 
+  cerrarModal(){
+    this.modalCtrl.dismiss();
+  }
 
 
 }

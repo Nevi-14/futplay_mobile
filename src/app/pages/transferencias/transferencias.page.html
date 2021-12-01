@@ -2,11 +2,19 @@
 <ion-content >
   <ion-list lines="none">
     
-
-
 <ion-list-header>
-<ion-label class="ion-text-uppercase">Lista de Solicitudes</ion-label>
+  <ion-toolbar>
+
+<ion-label slot="start"><ion-badge color="dark" mode="ios">Lista de Solicitudes</ion-badge></ion-label>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()" color="dark"> 
+        <ion-icon  name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-list-header>
+
+
 <ion-list-header>
   <ion-searchbar mode="ios" placeholder="Buscar jugador" inputmode="text"  debounce="250" ></ion-searchbar>
 </ion-list-header>

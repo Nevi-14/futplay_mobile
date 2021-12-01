@@ -55,10 +55,13 @@ export class ClubService {
   async verClub(club){
     const modal  = await this.modalCtrl.create({
      component: ClubInfoComponent,
-     cssClass: 'informative-modal',
+     cssClass: 'my-custom-class',
      componentProps:{
       club:club,
-      menu: false
+      menu: false,
+      modalMenu: true
+
+
      }
    });
    await modal .present();

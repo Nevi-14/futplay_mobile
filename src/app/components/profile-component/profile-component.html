@@ -1,6 +1,16 @@
 
-    <ion-list lines="none" >
-    
+    <ion-list lines="none" class="ion-padding">
+        <ion-list-header *ngIf="modalMenu">
+            <ion-toolbar class="ion-padding">
+           
+              <ion-label slot="start"><ion-badge color="dark" mode="ios">Detalle usuario</ion-badge></ion-label>
+              <ion-buttons slot="end">
+                <ion-button (click)="cerrarModal()" color="dark"> 
+                  <ion-icon  name="close"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-list-header>
 
         <ion-grid >
             <ion-row>

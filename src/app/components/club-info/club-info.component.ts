@@ -23,6 +23,7 @@ import { OpcionesService } from 'src/app/services/opciones.service';
 export class ClubInfoComponent implements OnInit {
   @Input() club: Club;
   @Input() menu: boolean;
+  @Input() modalMenu: boolean;
   currentYear = new Date().toLocaleString();
   constructor(public modalCtrl: ModalController,public popoverCtrl: PopoverController, public jugadores: JugadoresService, public solicitudes: SolicitudesService, public usuario: UserService, public jugadoresClubes: JugadoresClubesService, public clubs: ClubService,public camera: Camera, public socialSharing: SocialSharing, public opcionesService: OpcionesService) { }
 
@@ -79,4 +80,7 @@ export class ClubInfoComponent implements OnInit {
         return await modal.present();
       }
       
+      cerrarModal(){
+        this.modalCtrl.dismiss();
+      }
 }

@@ -1,9 +1,19 @@
+
+
 <ion-content>
   <ion-list lines="none">
+ 
     <ion-list-header>
-      <ion-label>Opciones de perfil</ion-label>
+      <ion-toolbar>
+     
+        <ion-label slot="start"><ion-badge color="dark" mode="ios">Opciones de perfil</ion-badge></ion-label>
+        <ion-buttons slot="end">
+          <ion-button (click)="cerrarModal()" color="dark"> 
+            <ion-icon  name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
     </ion-list-header>
-    
     <ion-item (click)="userService.profileInfo()">
       <ion-icon slot="start"  name="person-circle-outline"  color="dark"></ion-icon>
       <ion-label >

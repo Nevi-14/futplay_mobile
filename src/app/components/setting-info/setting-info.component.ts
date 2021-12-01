@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-setting-info',
@@ -8,9 +9,11 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class SettingInfoComponent implements OnInit {
 
-  constructor(public userService: UserService) { }
+  constructor(public userService: UserService, public modalCtrl: ModalController) { }
 
   ngOnInit() {}
-
+  cerrarModal(){
+    this.modalCtrl.dismiss();
+  }
 
 }

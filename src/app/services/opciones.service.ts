@@ -21,8 +21,8 @@ export class OpcionesService {
     const modal = await this.modalCtrl.create({
       component: OpcionesComponent,
       cssClass: 'bottom-modal',
-      showBackdrop: true,
       backdropDismiss: true,
+      swipeToClose:true,
       animated: true,
       componentProps: {
        titulo: titulo,

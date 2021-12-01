@@ -107,9 +107,10 @@ async verUsuario(userID){
   const modal = await this.modalCtrl.create({
     component: ProfileComponent,
     backdropDismiss: true,
-    cssClass: 'informative-modal',
+    cssClass: 'my-custom-class',
     componentProps:{
-      menu: false
+      menu: false,
+      modalMenu: true
     }
   });
   modal.onDidDismiss().then((data) => {

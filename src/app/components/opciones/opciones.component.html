@@ -1,9 +1,19 @@
+
+
+
 <ion-content>
   <ion-list lines="none">
-    <ion-list-header>
-      <ion-label class="ion-text-uppercase">{{titulo}}</ion-label>
-    </ion-list-header>
+<ion-list-header>
+  <ion-toolbar>
 
+    <ion-label slot="start"><ion-badge color="dark" mode="ios">{{titulo}}</ion-badge> </ion-label>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()" color="dark"> 
+        <ion-icon  name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-list-header>
 
     <ng-template ngFor let-opcion [ngForOf]="opciones" let-i="index">
 <ion-item  (click)="opcionesService.funciones(opcion.funcion, opcion.parametros)" >

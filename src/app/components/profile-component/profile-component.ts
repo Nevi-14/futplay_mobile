@@ -12,9 +12,13 @@ import { ModalController } from '@ionic/angular';
 export class ProfileComponent  {
 
   @Input() menu : boolean;
+  @Input() modalMenu : boolean;
   constructor(public userService: UserService, public jugadorPosiciones: JugadoresPosicionesService, public modalCtrl: ModalController) { }
 
+cerrarModal(){
 
+  this.modalCtrl.dismiss();
+}
 
 
 }
