@@ -51,6 +51,7 @@
     "cordova-plugin-filechooser": "^1.2.0",
     "cordova-plugin-x-socialsharing": "^6.0.3",
     "font-awesome": "^4.7.0",
+    "ionic2-calendar": "^0.6.9",
     "jquery": "^3.6.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",

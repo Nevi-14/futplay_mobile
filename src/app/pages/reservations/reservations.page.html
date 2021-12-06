@@ -2,52 +2,31 @@
 
 <ion-content>
   <ion-list lines="none">
+    <ion-list-header>
+      <ion-label class="ion-text-uppercase">Canchas Disponibles</ion-label>
+      <ion-button (click)="filterModal()" color="dark" shape="round" fill="solid">Filtrar</ion-button>
+    </ion-list-header>
+    <ion-list-header>
 
-  <ion-grid >
-    <ion-row>
+      <ion-searchbar mode="ios" placeholder="Buscar cancha" inputmode="decimal" type="decimal"  [debounce]="250" ></ion-searchbar>
+    </ion-list-header>
 
-        <ion-col size="12">
-        
-            
-            <ion-item >
-              <ion-buttons >
-
-                <ion-button (click)="filterModal()" style="height: 50px;">
-                  <img src="{{filter}}" alt="" style="height: 50px;">
-                 
-                  </ion-button>
-          </ion-buttons>
-              <ion-searchbar mode="ios" placeholder="Buscar club" inputmode="decimal" type="decimal"  [debounce]="250" ></ion-searchbar>
-      
-
-              </ion-item>
-       
-        </ion-col>
-        <ion-col size="12">
-          
-                <ion-item>
-                  <ion-label>Canchas Disponibles</ion-label>
-                </ion-item>
-<ion-item *ngFor="let item of [1,1,1,1]; let i = index;">
- <ion-label>Cancha {{1+i}}</ion-label>
-
-  <ion-buttons  slot="end">
-    <ion-button routerLink="/calendar" style="height: 40px;">
-    <ion-img [src]="calendar" style="height: 40px;"></ion-img>
-    </ion-button>
-    <ion-button routerLink="/message"  style="height: 40px;">
-      <ion-img [src]="message" style="height:40px;"></ion-img>
-      </ion-button>
-      <ion-button routerLink="/location"  style="height:40px;">
-        <ion-img [src]="location" style="height: 40px;"></ion-img>
-        </ion-button>
-  </ion-buttons>
-</ion-item>
-
-        </ion-col>
-    </ion-row>
-</ion-grid>
-   
+    <ion-item *ngFor="let item of [1,1,1,1]; let i = index;">
+      <ion-label>Cancha {{1+i}}</ion-label>
+     
+       <ion-buttons  slot="end">
+         <ion-button routerLink="/calendar" style="height: 40px;">
+         <ion-img [src]="calendar" style="height: 40px;"></ion-img>
+         </ion-button>
+         <ion-button routerLink="/message"  style="height: 40px;">
+           <ion-img [src]="message" style="height:40px;"></ion-img>
+           </ion-button>
+           <ion-button routerLink="/location"  style="height:40px;">
+             <ion-img [src]="location" style="height: 40px;"></ion-img>
+             </ion-button>
+       </ion-buttons>
+     </ion-item>
+     
 </ion-list>
 
 </ion-content>

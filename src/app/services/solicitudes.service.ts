@@ -64,4 +64,17 @@ export class SolicitudesService {
                 }
           
 
+  mostrarSolicitudesClubes(clubID){
+this.conteoClub = 0;
+this.solicitudes.forEach( solicitud => {
+
+  if(clubID === solicitud.clubID){
+
+    this.conteoClub ++
+  }
+})
+
+
+                }
+
 }

@@ -51,8 +51,14 @@ export class ClubService {
 
   }
 
+
+  
+
     
   async verClub(club){
+
+  
+    this.solicitudes.mostrarSolicitudesClubes(club.clubID);
     const modal  = await this.modalCtrl.create({
      component: ClubInfoComponent,
      cssClass: 'my-custom-class',

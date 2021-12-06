@@ -1,26 +1,24 @@
-table {
-    border-collapse: collapse;
-  }
+.indicator-container{
+padding-left: 0.5rem;
+padding-bottom: 0.4rem;
+}
+.event-indicator{
+    background:  var (--ion-color-success);
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    display: table-cell;
+}
+:host ::ng-deep{
+    .monthview-primary-with-event{
+      background-color: white!important;
+    }
+    .monthview-selected{
+    background-color:  var(--ion-color-success)!important;
+    }
 
-  td,
-  th {
-    border: 1px solid black;
-    padding: 3px;
-    text-align: center;
-  }
-
-  th {
-    font-weight: bold;
-    background-color: #E6E6E6;
-  }
-  .wrapper{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    background-color:#7FD1AE;
-    padding: 10px;
-  }
-.wrapper-head{
-    background-color:#333333 ;
-    color: white;
+    .with-event{
+        background-color: var(--ion-color-primary);
+        border-radius: 15px;
+    }
   }

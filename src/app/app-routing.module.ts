@@ -130,6 +130,10 @@ const routes: Routes = [
     path: 'reto-detalle',
     loadChildren: () => import('./pages/reto-detalle/reto-detalle.module').then( m => m.RetoDetallePageModule)
   },
+  {
+    path: 'cal-modal',
+    loadChildren: () => import('./pages/cal-modal/cal-modal.module').then( m => m.CalModalPageModule)
+  },
 
 
 

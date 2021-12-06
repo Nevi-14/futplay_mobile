@@ -33,21 +33,36 @@ selectedDate: Date;
   async openCalModal() {
     const modal = await this.modalCtrl.create({
       component: CalModalPage,
-      cssClass: 'my-custom-class',
+      cssClass: 'cal-modal',
       backdropDismiss: false
     });
      await modal.present();
 
      modal.onDidDismiss().then((result)=>{
        if(result.data && result.data.event){
-        
- 
+         console.log(result)
        let event = result.data.event;
-       event.startTime =  new Date(event.date.getFullYear(), event.date.getMonth(), event.date.getDate(), new Date(event.startTime).getHours())
-       event.endTime = new Date(event.date.getFullYear(), event.date.getMonth(), event.date.getDate(), new Date(event.endTime).getHours())
-       console.log(result)
+       if(event.allDay){
+         let start = event.startTime;
+         event.startTime = new Date(
+           Date.UTC(
+            start.getUTCFullYear(),
+            start.getUTCMonth(),
+            start.getUTCDate()
+           )
+         );
+         event.endTime = new Date(
+          Date.UTC(
+           start.getUTCFullYear(),
+           start.getUTCMonth(),
+           start.getUTCDate() +1
+          )
+        );
+
+        this.eventSource.push(result.data.event);
+        this.myCal.loadEvents();
+       }
        this.eventSource.push(result.data.event);
-       console.log(result.data.event, 'result')
        this.myCal.loadEvents();
        }
      })
