@@ -29,6 +29,45 @@
                 <ion-item>
                   <ion-label>Canchas Disponibles</ion-label>
                 </ion-item>
+
+                <ng-template ngFor let-cancha [ngForOf]="[1,1,1,1]  let-i="index">
+            
+            
+                  <ion-item>
+                  <ion-chip  style="height: 60px; background: transparent;">
+                      <ion-avatar  style="height: 50px; width: 50px;">
+                        <img src="{{club.foto}}">
+                      
+                      </ion-avatar>
+                 
+                      <span style="display:block;">
+                        <ion-label style="margin-bottom: 10px;"> {{club.nombre}}</ion-label>
+                    
+                        <ion-icon style="size: 10px;" name="star"></ion-icon>
+                        <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                        <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                        <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                        <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                      </span>
+                    </ion-chip>
+              
+                    <ion-buttons slot="end">
+                    
+              
+                      <ion-button  color="dark" slot="end" (click)="opcionesService.opciones('Opciones de Club',[{funcion:'verClub', icono: 'eye-outline', parametros:  {arreglo:club},  arreglo:club , boton: 'Ver Club' },{funcion:'agregarClub', icono:'person-add-outline', parametros:  {clubID:club.clubID}, arreglo:club , boton: 'Enviar Solicitud' },{funcion:'enviarRetoClub', icono: 'paper-plane-outline', parametros:  {arreglo:club},arreglo:club , boton: 'Enviar Reto'},{
+                        funcion:'marcarFavorito', icono: 'star-outline', arreglo:club , boton: 'Marcar Como Favorito' }])">
+                        <ion-icon name="ellipsis-horizontal"></ion-icon>
+                        </ion-button>
+              
+              
+                     
+              </ion-buttons>
+                    
+                  </ion-item>
+              
+              
+                </ng-template>
+
 <ion-item *ngFor="let item of [1,1,1,1]; let i = index;">
  <ion-label>Cancha {{1+i}}</ion-label>
 

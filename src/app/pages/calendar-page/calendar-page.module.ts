@@ -4,20 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ReservationsPageRoutingModule } from './reservations-routing.module';
+import { CalendarPagePageRoutingModule } from './calendar-page-routing.module';
 
-import { ReservationsPage } from './reservations.page';
+import { CalendarPagePage } from './calendar-page.page';
 import { ComponentsModule } from '../../components/components.module';
-import {NgCalendarModule} from 'ionic2-calendar';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ReservationsPageRoutingModule,
-    ComponentsModule,
-    NgCalendarModule
+    CalendarPagePageRoutingModule,
+    ComponentsModule
   ],
-  declarations: [ReservationsPage]
+  declarations: [CalendarPagePage]
 })
-export class ReservationsPageModule {}
+export class CalendarPagePageModule {}

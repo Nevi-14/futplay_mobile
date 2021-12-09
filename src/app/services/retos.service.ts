@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Retos } from '../models/retos';
+import { Club } from '../models/club';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RetosService {
 retos: Retos[]=[];
+rival1: Club
+rival2: Club
+cancha = '';
+eventos=[];
+guardar = false;
   constructor() { }
 
 

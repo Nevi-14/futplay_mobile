@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { ClubService } from '../../services/club.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { FilterPage } from '../filter/filter.page';
 import { ClubInfoComponent } from '../../components/club-info/club-info.component';
@@ -16,7 +16,19 @@ export class RivalesPage implements OnInit {
   message= 'assets/search/message.svg';
   save= 'assets/search/add-user.svg';
   filter= 'assets/icons/filter.svg';
-  constructor(public data: DataService, public club: ClubService, public route: Router,public modalCtrl: ModalController) { }
+
+  header = false;
+  titulo = '';
+  constructor(public data: DataService, public club: ClubService,public modalCtrl: ModalController,public route: ActivatedRoute,public router: Router) {
+
+    this.route.queryParams.subscribe(params => {
+      if (params && params.header) {
+       this.header = params.header;
+       this.titulo = params.titulo;
+        
+      }
+    });
+   }
 
   ngOnInit() {
     console.log(this.club.club)

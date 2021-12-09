@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { Solicitud } from 'src/app/models/solicitudes';
 import { CantonesService } from 'src/app/services/cantones.service';
@@ -20,6 +20,9 @@ import { OpcionesService } from 'src/app/services/opciones.service';
   styleUrls: ['./join-club-component.scss'],
 })
 export class JoinClubComponent implements OnInit {
+  @Input() header: boolean;
+  @Input() titulo: string;
+  @Input() equipo: number
   textoBuscar = '';
   constructor( public modalCtrl: ModalController, public clubs: ClubService, public solicitudes: SolicitudesService, public user: UserService, public alertCtrl: AlertController, public provincias: ProvinciasService,public cantones: CantonesService, public distritos: DistritosService, public retos:RetosService, public currentUser: UserService, public popOverCtrl:PopoverController, public opcionesService: OpcionesService) {  }
 

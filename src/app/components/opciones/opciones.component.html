@@ -1,31 +1,30 @@
 
 
 
-<ion-content>
+      <ion-toolbar>
+        <ion-title slot="start" class="ion-text-uppercase" style="font-size: 14px;font-weight: 600;">{{titulo}}</ion-title>
+
+        <ion-buttons slot="end">
+          <ion-button (click)="cerrarModal()" color="dark"> 
+            <ion-icon  name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+<div class="inner-content">
   <ion-list lines="none">
-<ion-list-header>
-  <ion-toolbar>
 
-    <ion-label slot="start"><ion-badge color="dark" mode="ios">{{titulo}}</ion-badge> </ion-label>
-    <ion-buttons slot="end">
-      <ion-button (click)="cerrarModal()" color="dark"> 
-        <ion-icon  name="close"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-list-header>
-
-    <ng-template ngFor let-opcion [ngForOf]="opciones" let-i="index">
-<ion-item  (click)="opcionesService.funciones(opcion.funcion, opcion.parametros)" >
-  <ion-icon slot="start" [name]="opcion.icono"></ion-icon>
-  <ion-label>{{opcion.boton}}</ion-label>
-
-</ion-item>
-    </ng-template>
-
-
- 
-
-  </ion-list>
-  
-</ion-content>
+    
+        <ng-template ngFor let-opcion [ngForOf]="opciones" let-i="index">
+    <ion-item  (click)="opcionesService.funciones(opcion.funcion, opcion.parametros)" >
+      <ion-icon slot="start" [name]="opcion.icono"></ion-icon>
+      <ion-label>{{opcion.boton}}</ion-label>
+    
+    </ion-item>
+        </ng-template>
+    
+    
+     
+    
+      </ion-list>
+      
+</div>

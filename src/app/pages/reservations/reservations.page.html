@@ -1,32 +1,46 @@
 <app-header titulo="Reservaciones"></app-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <ion-list lines="none">
-    <ion-list-header>
-      <ion-label class="ion-text-uppercase">Canchas Disponibles</ion-label>
-      <ion-button (click)="filterModal()" color="dark" shape="round" fill="solid">Filtrar</ion-button>
-    </ion-list-header>
-    <ion-list-header>
+  
+      <ion-list-header>
+        <ion-label >Canchas Disponibles</ion-label>
+        <ion-button (click)="filterModal()" color="dark" shape="round" fill="solid">Filtrar</ion-button>
+      </ion-list-header>
+      <ion-list-header>
+  
+        <ion-searchbar mode="ios" placeholder="Buscar cancha" inputmode="decimal" type="decimal"  [debounce]="250" ></ion-searchbar>
+      </ion-list-header>
+      <ng-template ngFor let-cancha [ngForOf]="[1,1,1,1]"  let-i="index">
+            
+            
+        <ion-item>
+        <ion-chip  style="height: 60px; background: transparent;">
+            <ion-avatar  style="height: 50px; width: 50px;">
+              <img src="{{soccer}}">
+            
+            </ion-avatar>
+            <ion-label style="margin-bottom: 10px;"> Cancha {{i+1}}</ion-label>
 
-      <ion-searchbar mode="ios" placeholder="Buscar cancha" inputmode="decimal" type="decimal"  [debounce]="250" ></ion-searchbar>
-    </ion-list-header>
-
-    <ion-item *ngFor="let item of [1,1,1,1]; let i = index;">
-      <ion-label>Cancha {{1+i}}</ion-label>
-     
-       <ion-buttons  slot="end">
-         <ion-button routerLink="/calendar" style="height: 40px;">
-         <ion-img [src]="calendar" style="height: 40px;"></ion-img>
-         </ion-button>
-         <ion-button routerLink="/message"  style="height: 40px;">
-           <ion-img [src]="message" style="height:40px;"></ion-img>
-           </ion-button>
-           <ion-button routerLink="/location"  style="height:40px;">
-             <ion-img [src]="location" style="height: 40px;"></ion-img>
-             </ion-button>
-       </ion-buttons>
-     </ion-item>
-     
+          </ion-chip>
+    
+          <ion-buttons slot="end">
+          
+    
+            <ion-button  color="dark" slot="end" (click)="opcionesService.opciones('Opciones de Cancha',[{funcion:'verCancha', icono: 'eye-outline', parametros:  {arreglo:cancha},  arreglo:cancha , boton: 'Ver Cancha' },{funcion:'reservarCancha', icono: 'calendar-outline', parametros:  {arreglo:cancha, canchaId: i+1},  arreglo:cancha , boton: 'Reservar Cancha' },{funcion:'mensajeria', icono: 'paper-plane-outline', parametros:  {arreglo:cancha},arreglo:cancha , boton: 'Enviar Mensaje'},{
+              funcion:'marcarFavorito', icono: 'star-outline', arreglo:cancha , boton: 'Marcar Como Favorito' }])">
+              <ion-icon name="ellipsis-horizontal"></ion-icon>
+              </ion-button>
+    
+    
+           
+    </ion-buttons>
+          
+        </ion-item>
+    
+    
+      </ng-template>
+   
 </ion-list>
 
 </ion-content>

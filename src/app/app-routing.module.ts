@@ -53,10 +53,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/clasificacion/clasificacion.module').then( m => m.ClasificacionPageModule)
   },
   {
-    path: 'calendar',
-    loadChildren: () => import('./pages/calendar/calendar.module').then( m => m.CalendarPageModule)
-  },
-  {
     path: 'booking',
     loadChildren: () => import('./pages/booking/booking.module').then( m => m.BookingPageModule)
   },
@@ -122,7 +118,8 @@ const routes: Routes = [
   {
     path: 'social-media',
     loadChildren: () => import('./pages/social-media/social-media.module').then( m => m.SocialMediaPageModule)
-  },  {
+  },
+  {
     path: 'equipo-solicitud',
     loadChildren: () => import('./pages/equipo-solicitud/equipo-solicitud.module').then( m => m.EquipoSolicitudPageModule)
   },
@@ -131,9 +128,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/reto-detalle/reto-detalle.module').then( m => m.RetoDetallePageModule)
   },
   {
-    path: 'cal-modal',
-    loadChildren: () => import('./pages/cal-modal/cal-modal.module').then( m => m.CalModalPageModule)
+    path: 'calendar-page',
+    loadChildren: () => import('./pages/calendar-page/calendar-page.module').then( m => m.CalendarPagePageModule)
   },
+
 
 
 

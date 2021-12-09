@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { DataService } from '../../services/data.service';
 import { FilterPage } from '../filter/filter.page';
+import { OpcionesService } from '../../services/opciones.service';
 
 @Component({
   selector: 'app-reservations',
@@ -14,8 +15,8 @@ export class ReservationsPage implements OnInit {
   location = '../assets/icons/map.svg';
   star= 'assets/search/star.svg';
   save= 'assets/search/add-user.svg';
-  filter= 'assets/icons/filter.svg';
-  constructor( public data: DataService, public modalCtrl: ModalController) { }
+  soccer= 'assets/icon/soccer.svg';
+  constructor( public data: DataService, public modalCtrl: ModalController, public opcionesService: OpcionesService) { }
 
   ngOnInit() {
   }
