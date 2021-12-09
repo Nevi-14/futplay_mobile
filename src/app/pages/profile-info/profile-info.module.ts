@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ProfileInfoPageRoutingModule } from './profile-info-routing.module';
 
 import { ProfileInfoPage } from './profile-info.page';
+import { PipesModule } from '../../pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProfileInfoPageRoutingModule
+    ProfileInfoPageRoutingModule,
+    PipesModule
   ],
   declarations: [ProfileInfoPage]
 })

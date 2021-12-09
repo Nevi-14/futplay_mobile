@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ClubConfigPageRoutingModule } from './club-config-routing.module';
 
 import { ClubConfigPage } from './club-config.page';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ClubConfigPageRoutingModule
+    ClubConfigPageRoutingModule,
+    PipesModule
   ],
   declarations: [ClubConfigPage]
 })

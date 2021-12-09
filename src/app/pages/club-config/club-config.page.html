@@ -22,30 +22,41 @@
   <ion-list lines="none">
     <ion-grid >
       <ion-row>
-        <ion-col size="12" style="display: flex;justify-content: center;align-items: center;">
-          <img [src]="club.foto" alt="" style="height: 140px;width: 140px;border-radius: 50%;">
-        </ion-col>
-        <ion-col size="12" >
 
-      <ion-item>
-   
-        <ion-buttons  style="margin: 0 auto;">
+        
+<ion-col size="6">
+  <ion-avatar style="width: 100%; height: 100%;">
+    <img  style="width: 120px;height:120px;margin: 0 auto;" [src]="club.foto | imageSanitizer">
+  </ion-avatar>
+</ion-col>
+          <ion-col size="6" class="ion-padding">
+            <ion-item>
+     
+      
+              <ion-buttons  style="display: block;">
+            
           
-        
-          <ion-button   (click)="uploadCamera()" fill="solid" shape="round" color="primary" >
-           
-            <ion-icon  name="camera" ></ion-icon>
-  
-           
-          </ion-button>
-          <ion-button (click)="uploadPictures()" fill="solid" shape="round"   color="primary">
-           
-            <ion-icon name="image"></ion-icon>
-          </ion-button>
-        
-        </ion-buttons>
-      </ion-item>
-                </ion-col>
+                <ion-button   (click)="uploadCamera()" fill="outline" shape="round" color="dark"   style="margin-bottom: 10px;">
+                 
+                  <ion-icon slot="start"  name="camera" ></ion-icon>
+                  <ion-label>Camara</ion-label>
+    
+                 
+                </ion-button>
+                <ion-button (click)="uploadPictures()" fill="outline" shape="round"   color="dark" >
+                 
+                  <ion-icon slot="start" name="image"></ion-icon>
+                  <ion-label>Galeria</ion-label>
+                </ion-button>
+              
+              </ion-buttons>
+             
+            </ion-item>
+
+                  </ion-col>
+
+
+
   
   
           <ion-col size="12">
