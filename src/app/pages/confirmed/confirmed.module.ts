@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ConfirmedPageRoutingModule } from './confirmed-routing.module';
 
 import { ConfirmedPage } from './confirmed.page';
+import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ConfirmedPageRoutingModule
+    ConfirmedPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [ConfirmedPage]
 })

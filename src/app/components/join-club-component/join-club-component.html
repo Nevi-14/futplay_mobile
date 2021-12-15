@@ -1,67 +1,78 @@
-<ion-toolbar *ngIf="header">
 
-  <ion-title slot="start" class="ion-text-uppercase" style="font-size: 14px;font-weight: 600;">{{titulo}}</ion-title>
-  <ion-buttons slot="end">
 
-    <ion-button (click)="cerrarModal()">
-      <ion-icon slot="start" name="close"></ion-icon>
-      
+
+<ion-toolbar>
+  <ion-title  *ngIf="header" slot="start" class="ion-text-uppercase" style="font-size: 14px;font-weight: 600;">Lista de equipos</ion-title>
+
+
+
+  <ion-title   *ngIf="equiposMenu" slot="start" class="ion-text-uppercase" style="font-size: 14px;font-weight: 600;">Lista de equipos</ion-title>
+
+  <ion-title   *ngIf="clasificacionMenu" slot="start" class="ion-text-uppercase" style="font-size: 14px;font-weight: 600;">Power Rankings</ion-title>
+  
+  <ion-buttons      slot="end">
+
+      <ion-button color="dark" (click)="filtrar()"> 
+        <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+      </ion-button>
+
+    <ion-button *ngIf="header"  (click)="cerrarModal()" color="dark"> 
+      <ion-icon  name="close"></ion-icon>
     </ion-button>
- 
-   </ion-buttons>
-
+  </ion-buttons>
 
 </ion-toolbar>
+<ion-toolbar>
+  <ion-searchbar mode="ios" placeholder="buscar equipo" inputmode="text" (ionChange)="onSearchChange($event)" debounce="250" ></ion-searchbar> 
+</ion-toolbar>
 <ion-content>
-  
+    
   <ion-list lines="none">
-    <ion-list-header>
-      <ion-searchbar mode="ios" placeholder="Buscar Club" inputmode="text" (ionChange)="onSearchChange($event)" debounce="250" ></ion-searchbar> 
-    </ion-list-header>
-      <ng-template ngFor let-club [ngForOf]="clubs.club  | filtro : textoBuscar:'nombre'" let-i="index">
-            
-            
-        <ion-item>
-        <ion-chip  style="height: 60px; background: transparent;">
-            <ion-avatar  style="height: 50px; width: 50px;">
-              <img src="{{club.foto}}">
-            
-            </ion-avatar>
-       
-            <span style="display:block;">
-              <ion-label style="margin-bottom: 10px;"> {{club.nombre}}</ion-label>
-          
-              <ion-icon style="size: 10px;" name="star"></ion-icon>
-              <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-              <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-              <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-              <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-            </span>
-          </ion-chip>
-    
-          <ion-buttons slot="end">
-          
-            <ion-button *ngIf="!equipo"  color="dark" slot="end" (click)="opcionesService.opciones('Opciones de Club',[{funcion:'verClub', icono: 'eye-outline', parametros:  {arreglo:club},  arreglo:club , boton: 'Ver Club' },{funcion:'agregarClub', icono:'person-add-outline', parametros:  {clubID:club.clubID}, arreglo:club , boton: 'Enviar Solicitud' },{
-              funcion:'marcarFavorito', icono: 'star-outline', arreglo:club , boton: 'Marcar Como Favorito' }])">
-              <ion-icon name="ellipsis-horizontal"></ion-icon>
-              </ion-button>
-            <ion-button *ngIf="equipo === 1"  color="dark" slot="end" (click)="opcionesService.opciones('Opciones de Club',[{funcion:'verClub', icono: 'eye-outline', parametros:  {arreglo:club},  arreglo:club , boton: 'Ver Club' },{funcion:'agregarClub', icono:'person-add-outline', parametros:  {clubID:club.clubID}, arreglo:club , boton: 'Enviar Solicitud' },{funcion:'enviarRetoClub1', icono: 'paper-plane-outline', parametros:  {arreglo:club},arreglo:club , boton: 'Enviar Reto'},{
-              funcion:'marcarFavorito', icono: 'star-outline', arreglo:club , boton: 'Marcar Como Favorito' }])">
-              <ion-icon name="ellipsis-horizontal"></ion-icon>
-              </ion-button>
-              <ion-button *ngIf="equipo === 2"  color="dark" slot="end" (click)="opcionesService.opciones('Opciones de Club',[{funcion:'verClub', icono: 'eye-outline', parametros:  {arreglo:club},  arreglo:club , boton: 'Ver Club' },{funcion:'agregarClub', icono:'person-add-outline', parametros:  {clubID:club.clubID}, arreglo:club , boton: 'Enviar Solicitud' },{funcion:'enviarRetoClub2', icono: 'paper-plane-outline', parametros:  {arreglo:club},arreglo:club , boton: 'Enviar Reto'},{
-                funcion:'marcarFavorito', icono: 'star-outline', arreglo:club , boton: 'Marcar Como Favorito' }])">
-                <ion-icon name="ellipsis-horizontal"></ion-icon>
-                </ion-button>
-    
-           
-    </ion-buttons>
-          
-        </ion-item>
-    
-    
-      </ng-template>
-    
-    </ion-list>
 
+
+    <ng-template ngFor let-club [ngForOf]="clubs.club  | filtro : textoBuscar:'nombre'" let-i="index">
+          
+          
+      <ion-item>
+      <ion-chip  style="height: 60px; background: transparent;">
+          <ion-avatar  style="height: 50px; width: 50px;">
+            <img src="{{club.foto}}">
+          
+          </ion-avatar>
+     
+          <span style="display:block;">
+            <ion-label style="margin-bottom: 10px;"> {{club.nombre}}</ion-label>
+        
+            <ion-icon style="size: 10px;" name="star"></ion-icon>
+            <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+          </span>
+        </ion-chip>
+  
+        <ion-buttons slot="end">
+        
+          <ion-button *ngIf="!equipo"  color="dark" slot="end" (click)="opcionesService.opciones('Opciones de Club',[{funcion:'verClub', icono: 'eye-outline', parametros:  {arreglo:club},  arreglo:club , boton: 'Ver Equipo' },{funcion:'agregarClub', icono:'person-add-outline', parametros:  {clubID:club.clubID}, arreglo:club , boton: 'Enviar Solicitud' },{
+            funcion:'marcarFavorito', icono: 'star-outline', arreglo:club , boton: 'Marcar Como Favorito' }])">
+            <ion-icon name="ellipsis-horizontal"></ion-icon>
+            </ion-button>
+          <ion-button *ngIf="equipo === 1"  color="dark" slot="end" (click)="opcionesService.opciones('Opciones de Club',[{funcion:'verClub', icono: 'eye-outline', parametros:  {arreglo:club},  arreglo:club , boton: 'Ver Club' },{funcion:'agregarClub', icono:'person-add-outline', parametros:  {clubID:club.clubID}, arreglo:club , boton: 'Enviar Solicitud' },{funcion:'enviarRetoClub1', icono: 'paper-plane-outline', parametros:  {arreglo:club},arreglo:club , boton: 'Enviar Reto'},{
+            funcion:'marcarFavorito', icono: 'star-outline', arreglo:club , boton: 'Marcar Como Favorito' }])">
+            <ion-icon name="ellipsis-horizontal"></ion-icon>
+            </ion-button>
+            <ion-button *ngIf="equipo === 2"  color="dark" slot="end" (click)="opcionesService.opciones('Opciones de Club',[{funcion:'verClub', icono: 'eye-outline', parametros:  {arreglo:club},  arreglo:club , boton: 'Ver Club' },{funcion:'agregarClub', icono:'person-add-outline', parametros:  {clubID:club.clubID}, arreglo:club , boton: 'Enviar Solicitud' },{funcion:'enviarRetoClub2', icono: 'paper-plane-outline', parametros:  {arreglo:club},arreglo:club , boton: 'Enviar Reto'},{
+              funcion:'marcarFavorito', icono: 'star-outline', arreglo:club , boton: 'Marcar Como Favorito' }])">
+              <ion-icon name="ellipsis-horizontal"></ion-icon>
+              </ion-button>
+  
+         
+  </ion-buttons>
+        
+      </ion-item>
+  
+  
+    </ng-template>
+  
+  </ion-list>
 </ion-content>

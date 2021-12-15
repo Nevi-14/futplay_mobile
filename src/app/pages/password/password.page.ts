@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AlertController, ModalController } from '@ionic/angular';
-import { UserService } from '../../services/user.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+
 
 @Component({
   selector: 'app-password',
@@ -15,7 +16,7 @@ export class PasswordPage implements OnInit {
     confirm: ''
 
   };
-  constructor(public modalCtrl: ModalController, public userService: UserService, public alertCtrl: AlertController) { }
+  constructor(public modalCtrl: ModalController, public userService: UsuariosService, public alertCtrl: AlertController) { }
 
   ngOnInit() {
   }

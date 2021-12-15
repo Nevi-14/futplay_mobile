@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Canton } from '../models/canton';
 import { HttpClient } from '@angular/common/http';
+import { Cantones } from '../models/cantones';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CantonesService {
 
-  cantones:  Canton[]=[];
+  cantones:  Cantones[]=[];
   constructor( private http: HttpClient) { }
 
   getCantones(){
-    this.http.get<Canton[]>('/assets/json/cantones.json').subscribe(resp=>{
+    this.http.get<Cantones[]>('/assets/json/cantones.json').subscribe(resp=>{
     if(resp){
      this.cantones = resp;
     }else{

@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Club } from '../../models/club';
 import { ProvinciasService } from '../../services/provincias.service';
 import { CantonesService } from '../../services/cantones.service';
 import { DistritosService } from '../../services/distritos.service';
-import { ClubService } from '../../services/club.service';
+
 import { NgForm } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { EquiposService } from 'src/app/services/equipos.service';
+import { Equipos } from 'src/app/models/equipos';
 declare const window: any;
 @Component({
   selector: 'app-club-config',
@@ -14,9 +15,9 @@ declare const window: any;
   styleUrls: ['./club-config.page.scss'],
 })
 export class ClubConfigPage implements OnInit {
-  @Input() club: Club;
+  @Input() club: Equipos;
   clubInfo = {
-    clubID: this.clubs.switchClub.clubID,
+    clubID: this.clubs.switchClub.equipoID,
     usuarioID: this.clubs.switchClub.usuarioID,
     provinciaID: this.clubs.switchClub.provinciaID,
     cantonID: this.clubs.switchClub.cantonID,
@@ -24,11 +25,11 @@ export class ClubConfigPage implements OnInit {
     foto: this.clubs.switchClub.foto,
     nombre: this.clubs.switchClub.nombre,
     abreviacion: this.clubs.switchClub.abreviacion,
-    direccion: this.clubs.switchClub.direccion
+
  }
  tempImages: String[]=[];
  image = '';
-  constructor(public modalCtrl: ModalController, public provincias: ProvinciasService, public cantones: CantonesService, public distritos: DistritosService, public clubs: ClubService,public camera: Camera) { }
+  constructor(public modalCtrl: ModalController, public provincias: ProvinciasService, public cantones: CantonesService, public distritos: DistritosService, public clubs: EquiposService,public camera: Camera) { }
 
   ngOnInit() {
     console.log(this.club.provinciaID);
@@ -36,8 +37,8 @@ export class ClubConfigPage implements OnInit {
   cerrarModal(){
 this.modalCtrl.dismiss();
   }
-  onSubmit(formulario: NgForm){
-    this.clubs.editClub(this.club.clubID, this.club);
+  enviarFormulario(){
+    this.clubs.editClub(this.club.equipoID, this.club);
     this.modalCtrl.dismiss();
   }
 

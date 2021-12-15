@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../services/data.service';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -9,7 +8,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class FilterPage implements OnInit {
 
-  constructor(public data: DataService, public modalCtrl: ModalController) { }
+  constructor( public modalCtrl: ModalController) { }
 
   ngOnInit() {
   }

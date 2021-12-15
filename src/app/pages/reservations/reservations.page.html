@@ -1,16 +1,26 @@
 <app-header titulo="Reservaciones"></app-header>
+<ion-toolbar>
 
-<ion-content class="ion-padding">
+  <ion-title   slot="start" class="ion-text-uppercase" style="font-size: 14px;font-weight: 600;">Lista de canchas</ion-title>
+
+  <ion-buttons      slot="end">
+
+      <ion-button color="dark" (click)="filtrar()"> 
+        <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+      </ion-button>
+
+
+  </ion-buttons>
+
+</ion-toolbar>
+<ion-toolbar>
+  <ion-searchbar mode="ios" placeholder="Buscar cancha"  type="text"  [debounce]="250" ></ion-searchbar>
+</ion-toolbar>
+<ion-content >
   <ion-list lines="none">
   
-      <ion-list-header>
-        <ion-label >Canchas Disponibles</ion-label>
-        <ion-button (click)="filterModal()" color="dark" shape="round" fill="solid">Filtrar</ion-button>
-      </ion-list-header>
-      <ion-list-header>
-  
-        <ion-searchbar mode="ios" placeholder="Buscar cancha" inputmode="decimal" type="decimal"  [debounce]="250" ></ion-searchbar>
-      </ion-list-header>
+
+
       <ng-template ngFor let-cancha [ngForOf]="[1,1,1,1]"  let-i="index">
             
             

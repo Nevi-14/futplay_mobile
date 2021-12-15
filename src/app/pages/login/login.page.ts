@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, ModalController, PopoverController } from '@ionic/angular';
-import { UserService } from '../../services/user.service';
-import { JugadoresPosicionesService } from 'src/app/services/jugador-posiciones.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 import { PasswordResetPage } from '../password-reset/password-reset.page';
 
 @Component({
@@ -20,7 +19,7 @@ export class LoginPage implements OnInit {
 
   showPass = false;
 
-  constructor(public userService: UserService, public route: Router, public alertCtrl: AlertController , public jugadorPosicion: JugadoresPosicionesService, public popOverCtrl: PopoverController, public modalCtrl: ModalController ) { }
+  constructor(public userService: UsuariosService, public route: Router, public alertCtrl: AlertController , public popOverCtrl: PopoverController, public modalCtrl: ModalController ) { }
 
   ngOnInit() {
   }
@@ -34,13 +33,12 @@ export class LoginPage implements OnInit {
 
   
   async passwordReset(ev: any) {
-    const popOver = await this.popOverCtrl.create({
+    const modal = await this.modalCtrl.create({
       component: PasswordResetPage,
-      cssClass: 'small-width',
-      event: ev,
-      translucent: false
+      cssClass: 'dynamic-modal',
+     
     });
-    await popOver.present();
+    await modal.present();
 
   }
   loadCredentials(){
@@ -61,7 +59,7 @@ if(this.userService.validateEmail(this.removeSpaces(this.userLogin.usuario))=== 
         this.userService.loggedUser(this.userService.user[i]);
         this.userService.swapUser(this.userService.user[i].usuarioID)
         console.log(this.userService.userProfile)
-        this.route.navigate(['/', 'home']);
+        this.route.navigate(['/home/profile']);
       } else {
        this.message('Usuario o contraseña incorrectos');
       }

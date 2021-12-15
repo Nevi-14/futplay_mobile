@@ -3,18 +3,19 @@ import { NavigationExtras, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { JoinClubComponent } from '../components/join-club-component/join-club-component';
 import { OpcionesComponent } from '../components/opciones/opciones.component';
-import { ClubService } from './club.service';
-import { JugadoresClubesService } from './jugador-clubes.service';
-import { RetosService } from './retos.service';
+import { EquiposService } from './equipos.service';
+import { JugadoresEquiposService } from './jugadoresEquipos.service';
 import { SolicitudesService } from './solicitudes.service';
-import { UserService } from './user.service';
+import { UsuariosService } from './usuarios.service';
+import { ReservacionesService } from './reservaciones.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class OpcionesService {
   modalActual : any
-  constructor(public modalCtrl: ModalController, public clubService: ClubService, public userService: UserService, public solicitudesService: SolicitudesService, public jugadoresClubesService: JugadoresClubesService,public router: Router, public retoService: RetosService) { }
+  constructor(public modalCtrl: ModalController, public clubService: EquiposService, public userService: UsuariosService, public solicitudesService: SolicitudesService, public jugadoresClubesService: JugadoresEquiposService,public router: Router, public retoService: ReservacionesService) { }
 
 
   async opciones(titulo,opciones){
@@ -51,6 +52,29 @@ export class OpcionesService {
 
     switch(funcion) {
     
+      // INICIO OPCIONES DE PERFIL
+
+      case  'gestionarPerfil':
+        this.userService.gestionarPerfil();
+        break;
+
+        case  'gestionarContrasena':
+          this.modalCtrl.dismiss();
+          this.userService.gestionarContrasena();
+          break;
+          
+          case  'gestionarMetodosDePago':
+            this.modalCtrl.dismiss();
+            this.userService.gestionarMetodosDePago();
+            break;
+
+            case  'cerrarSession':
+              this.userService.cerrarSession();
+              break;
+
+  
+
+                // FIN  OPCIONES DE PERFIL
       case 'verClub':
         this.modalCtrl.dismiss();
         this.clubService.verClub(parametros.arreglo);
@@ -104,7 +128,7 @@ export class OpcionesService {
                 break;
                 case 'clubAdmin':
                   this.modalCtrl.dismiss();
-                  this.clubService.makeAdmin(parametros.jugadorID);
+              //    this.clubService.makeAdmin(parametros.jugadorID);
            
                   break;
                   case 'deletePlayer':

@@ -1,52 +1,52 @@
+
+     <ion-toolbar *ngIf="modalMenu">
+      <ion-title slot="start" class="ion-text-uppercase" style="font-size: 14px;font-weight: 600;">Detalle equipo</ion-title>
+
+      <ion-buttons slot="end">
+        <ion-button (click)="cerrarModal()" color="dark"> 
+          <ion-icon  name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar *ngIf="menu">
+      <ion-buttons slot="start" > 
+        <ion-menu-button color="dark"  menu="first"></ion-menu-button>
+      </ion-buttons>
+  
+      <ion-buttons slot="start" >
+        <ion-button (click)="clubsMenu()"  color="dark">
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  
+
+  
+      <ion-buttons slot="end" >
+        <ion-button (click)="presentPopoverClub()" color="dark" *ngIf="clubs.clubAdmin">
+          <ion-icon slot="icon-only" name="settings"></ion-icon>
+        </ion-button>
+        
+      </ion-buttons>
+  
+    </ion-toolbar>
 <ion-content >
 
   
     <ion-list lines="none" class="ion-padding">
-    <ion-list-header *ngIf="modalMenu">
-      <ion-toolbar class="ion-padding">
-     
-        <ion-label slot="start"><ion-badge color="dark" mode="ios">Detalle Club</ion-badge></ion-label>
-        <ion-buttons slot="end">
-          <ion-button (click)="cerrarModal()" color="dark"> 
-            <ion-icon  name="close"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-list-header>
 
 
-    <ion-list-header *ngIf="menu">
+
+  
+    <ion-grid >
+      <ion-row>
+    
+          <ion-col size="12" size-md="6" size-lg="4" class="ion-text-center" >
+       
+            <img  class="border-invert"  [src]="club.foto">
+            </ion-col>
 
 
-      <ion-toolbar >
-        <ion-buttons slot="start" > 
-          <ion-menu-button color="dark"  menu="first"></ion-menu-button>
-        </ion-buttons>
-    
-        <ion-buttons slot="start" >
-          <ion-button (click)="clubsMenu()"  color="dark">
-            <ion-icon slot="icon-only" name="menu"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-    
-
-    
-        <ion-buttons slot="end" >
-          <ion-button (click)="presentPopoverClub()" color="dark" *ngIf="clubs.clubAdmin">
-            <ion-icon slot="icon-only" name="settings"></ion-icon>
-          </ion-button>
-          
-        </ion-buttons>
-    
-      </ion-toolbar>
-    </ion-list-header>
-    
-  <ion-grid>
-    <ion-row>
-      <ion-col size="4" style="display: flex;justify-content: center;align-items: center;">
-        <img [src]="club.foto" alt="" style="height: 120px;width: 120px;border-radius: 50%;">
-      </ion-col>
-      <ion-col size="8" size-md="6" size-lg="8">
+            <ion-col size="8" size-md="6" size-lg="8">
         
               <ion-item>
                   <ion-label style="font-weight: 600;"> {{club.nombre}}</ion-label>
@@ -110,7 +110,7 @@
 
           </ion-col>
     <ion-col size="12">
-      <ng-template ngFor let-jugador [ngForOf]="jugadoresClubes.jugadoresClubes" let-i="index"  >
+      <ng-template ngFor let-jugador [ngForOf]="jugadores.jugadoresClubes" let-i="index"  >
         <ng-template [ngIf]="club.clubID === jugador.clubID ">
 
           <ion-item >
@@ -148,8 +148,13 @@
     </ng-template>
       
     </ion-col>
+         
+      </ion-row>
 
-</ion-row>
+
+
   </ion-grid>
+
+
   </ion-list>
 </ion-content>

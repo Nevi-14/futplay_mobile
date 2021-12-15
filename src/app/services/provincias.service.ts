@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Provincia } from '../models/provincia';
 import { HttpClient } from '@angular/common/http';
+import { Provincias } from '../models/provincias';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProvinciasService {
 
-  provincias:  Provincia[]=[];
+  provincias:  Provincias[]=[];
   constructor( private http: HttpClient) { }
 
   getProvincias(){
-    this.http.get<Provincia[]>('/assets/json/provincias.json').subscribe(resp=>{
+    this.http.get<Provincias[]>('/assets/json/provincias.json').subscribe(resp=>{
     if(resp){
      this.provincias = resp;
     }else{

@@ -1,0 +1,94 @@
+<ion-header class="ion-no-border">
+
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cerrarModal()"  color="dark"  shape="round">
+        <ion-icon slot="start" name="chevron-back"></ion-icon>
+        <ion-label>Volver</ion-label>
+       
+      </ion-button>
+    </ion-buttons>
+    <ion-title slot="end" class="ion-text-left">FUTPLAY </ion-title> 
+
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+
+
+  <ion-list lines="none">
+
+    
+  
+    <ion-item-divider>
+   
+    </ion-item-divider>
+
+
+    <ng-template ngFor let-item [ngForOf]="[1,1,1,1]" let-i="index" >
+      <ion-item-divider>
+        <ion-label>Reto #  - Fecha</ion-label>
+        <ion-buttons slot="end">
+      
+    
+          <ion-button  color="dark" slot="end">
+            <ion-icon name="ellipsis-horizontal"></ion-icon>
+            </ion-button>
+    
+    
+         
+    </ion-buttons>
+      </ion-item-divider>
+
+      <ion-item style="padding: 1rem;">
+
+        <ion-chip  style="height: 70px; background: transparent;">
+          <ion-avatar  style="height: 50px; width: 50px;">
+            <img src="../assets/flags/brazil.svg">
+          
+          </ion-avatar>
+      
+          <span style="display:block;">
+            <ion-label style="margin-bottom: 10px;"> club nombre {{i+1}}</ion-label>
+        
+            <ion-icon style="size: 10px;" name="star"></ion-icon>
+            <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            <ion-label style="margin-top: 10px;">Retador</ion-label>
+          </span>
+        </ion-chip>
+        <ion-chip  style="height: 70px; background: transparent;">
+          <ion-avatar  style="height: 50px; width: 50px;">
+            <img src="../assets/flags/brazil.svg">
+          
+          </ion-avatar>
+      
+          <span style="display:block;">
+            <ion-label style="margin-bottom: 10px;"> club nombre</ion-label>
+        
+            <ion-icon style="size: 10px;" name="star"></ion-icon>
+            <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            <ion-label style="margin-top: 10px;">Rival</ion-label>
+          </span>
+        </ion-chip>
+      
+      </ion-item>
+      <ion-item-divider>
+      </ion-item-divider>
+    </ng-template>
+
+
+
+
+  
+ 
+
+
+  </ion-list>
+</ion-content>

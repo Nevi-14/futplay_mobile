@@ -1,162 +1,139 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
 
- <ion-title class="ion-text-center" >FUTPLAY <ion-badge color="primary" style="text-transform: uppercase;">Datos Personales</ion-badge></ion-title>
- <ion-buttons slot="end">
-  <ion-button (click)="cerrarModal()" fill="solid" color="primary" slot="end" shape="round">
-    <ion-icon slot="icon-only" name="close"></ion-icon>
-  </ion-button>
-</ion-buttons>
+ <ion-toolbar>
+  <ion-title slot="start" class="ion-text-uppercase" style="font-size: 14px;font-weight: 600;">Editar Perfil</ion-title>
 
+  <ion-buttons slot="end">
+    <ion-button (click)="cerrarModal()" color="dark"> 
+      <ion-icon  name="close"></ion-icon>
+    </ion-button>
+  </ion-buttons>
 </ion-toolbar>
-
-</ion-header>
-
-<ion-content class="ion-padding">
+<ion-content >
 
 
 
-  <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)">
-    <ion-list lines="none" >
+  <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)" >
+    <ion-list lines="none"  class="styled-form ion-padding">
+
       <ion-grid >
         <ion-row >
+          <ion-col size="12" size-md="6" size-lg="4" class="ion-text-center" >
+            <img  class="border-invert"  [src]="user.foto  | imageSanitizer">
+         
+       
 
-<ion-col size="6">
-  <ion-avatar style="width: 100%; height: 100%;">
-    <img  style="width: 120px;height:120px;margin: 0 auto;" [src]="user.foto | imageSanitizer">
-  </ion-avatar>
-</ion-col>
-          <ion-col size="6" class="ion-padding">
-            <ion-item>
-     
-      
-              <ion-buttons  style="display: block;">
-            
-          
-                <ion-button   (click)="uploadCamera()" fill="outline" shape="round" color="dark"   style="margin-bottom: 10px;">
-                 
-                  <ion-icon slot="start"  name="camera" ></ion-icon>
-                  <ion-label>Camara</ion-label>
+            </ion-col>
+            <ion-col size="12" size-md="6" size-lg="4" class="ion-text-center" >
+
+              <ion-label style="font-size: 14px;font-weight: 600;">{{user.nombre}} {{user.apellido1}}</ion-label>
+  
+              </ion-col>
+
+          <ion-col size="12" size-md="6" size-lg="4" class="ion-text-center" >
+         
+        
+              <ion-button   (click)="uploadCamera()"    color="dark"  >
+               
+                <ion-icon  name="camera" ></ion-icon>
     
-                 
-                </ion-button>
-                <ion-button (click)="uploadPictures()" fill="outline" shape="round"   color="dark" >
-                 
-                  <ion-icon slot="start" name="image"></ion-icon>
-                  <ion-label>Galeria</ion-label>
-                </ion-button>
+    
+               
+              </ion-button>
+              <ion-button (click)="uploadPictures()"     color="dark">
+               
+                <ion-icon  name="image"></ion-icon>
               
-              </ion-buttons>
-             
-            </ion-item>
+              </ion-button>
+            
+   
 
-                  </ion-col>
+            </ion-col>
 
-                  <ion-col size="6">
+                  <ion-col size="12" class="styled-input">
                     <ion-item>
-                      <ion-label position="floating">Nombre</ion-label>
-                      <ion-input type="text" placeholder="Ingresar nombre" name="nombre" [(ngModel)]="user.nombre" autocomplete="off"></ion-input>
+                      <ion-label position="stacked">Nombre</ion-label>
+                      <ion-input type="text"  placeholder="Ingresar nombre" name="nombre" [(ngModel)]="user.nombre" autocomplete="off"></ion-input>
                     </ion-item>
-                  </ion-col>
-                
-                  <ion-col size="6">
                     <ion-item>
-                      <ion-label position="floating">1er Apellido</ion-label>
+                      <ion-label position="stacked">Primer Apellido</ion-label>
                       <ion-input type="text" placeholder="Ingresar apellido"  name="apellido1" [(ngModel)]="user.apellido1"></ion-input>
                     </ion-item>
-                  </ion-col>
-                  <ion-col size="6">
                     <ion-item>
-                      <ion-label position="floating">2º Apellido</ion-label>
-                      <ion-input type="text" placeholder="Ingresar apellido"  name="apellido2" [(ngModel)]="user.apellido2"></ion-input>
+                      <ion-label position="stacked">Segundo Apellido</ion-label>
+                      <ion-input type="text"  placeholder="Ingresar apellido"  name="apellido2" [(ngModel)]="user.apellido2"></ion-input>
                     </ion-item>
-                  </ion-col>
-                  <ion-col size="6" *ngIf="jugadoresPosiciones.jugadorCurrentPosicion.usuarioID !== null">
                     <ion-item >
-                      <ion-label position="floating">Apodo</ion-label>
-                      <ion-input type="text" placeholder="Apodo" name="apodo" [(ngModel)]="jugadorPosicion.apodo"></ion-input>
+                      <ion-label position="stacked">Apodo</ion-label>
+                      <ion-input type="text"  placeholder="Apodo" name="apodo" [(ngModel)]="user.apodo"></ion-input>
                     </ion-item>
-                  </ion-col>
-                  <ion-col size="6" *ngIf="jugadoresPosiciones.jugadorCurrentPosicion.usuarioID !== null" >
                     <ion-item >
-                      <ion-label>Posicion</ion-label>
-                      <ion-select placeholder="Seleccionar" name="posicionID" [(ngModel)]="jugadorPosicion.posicionID">
+                      <ion-label position="stacked">Posicion</ion-label>
+                      <ion-select  placeholder="Seleccionar" name="posicionID" [(ngModel)]="user.posicion">
                         <ion-select-option *ngFor="let posicion of posiciones.posiciones"   [value]="posicion.posicionID">{{posicion.nombre}}</ion-select-option>
                       </ion-select>
                     </ion-item>
-                  </ion-col>
-                  <ion-col size="6">
                     <ion-item>
-                      <ion-label position="floating">Correo</ion-label>
+                      <ion-label position="stacked">Correo</ion-label>
                       <ion-input type="email" placeholder="Ingresar correo"  name="correo" [(ngModel)]="user.correo"></ion-input>
                     </ion-item>
-                  </ion-col>
-                  <ion-col size="6">
                     <ion-item>
-                      <ion-label position="floating">Telefono</ion-label>
-                      <ion-input type="tel" placeholder="Ingresar telefono"  name="telefono" [(ngModel)]="user.telefono"></ion-input>
+                      <ion-label position="stacked">Telefono</ion-label>
+                      <ion-input   type="tel" placeholder="Ingresar telefono"  name="telefono" [(ngModel)]="user.telefono"></ion-input>
                     </ion-item>
-                  </ion-col>
-                  <ion-col size="6">
                     <ion-item>
-                      <ion-label position="floating">Fecha de Nacimiento</ion-label>
-                      <ion-datetime placeholder="Seleccionar" name="fechaNac" [(ngModel)]="user.fechaNac"  display-format="DD-MM-YYYY"></ion-datetime>
+                      <ion-label position="stacked">Fecha de Nacimiento</ion-label>
+                      <ion-datetime  placeholder="Seleccionar" name="fechaNac" [(ngModel)]="user.fechaNac"  display-format="DD-MM-YYYY"></ion-datetime>
                     </ion-item>
+                    <ion-item>
+                      <ion-label position="stacked">Provincia</ion-label>
+                      <ion-select   placeholder="Seleccionar" name="provinciaID" [(ngModel)]="user.provinciaID">
+                        <ion-select-option *ngFor="let provincia of provincias.provincias" [value]="provincia.provinciaID" > {{provincia.nombre}}</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Canton</ion-label>
+                        <ion-select  placeholder="Seleccionar" name="cantonID"  [(ngModel)]="user.cantonID">
+                          <ion-select-option *ngFor="let canton of cantones.cantones" [value]="canton.cantonID">{{canton.nombre}}</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label position="stacked">Distrito</ion-label>
+                        <ion-select placeholder="Seleccionar" name="distritoID" [(ngModel)]="user.distritoID">
+                          <ion-select-option *ngFor="let distrito of distritos.distritos"   [value]="distrito.distritoID">{{distrito.nombre}}</ion-select-option>
+                        </ion-select>
+                      </ion-item>
                   </ion-col>
-                  
-                  <ion-col size="12">
-                    <ion-list lines="none">
-                 
                 
-                
-                        <ion-item>
-                          <ion-label>Provincia</ion-label>
-                          <ion-select placeholder="Seleccionar" name="provinciaID" [(ngModel)]="user.provinciaID">
-                            <ion-select-option *ngFor="let provincia of provincias.provincias" [value]="provincia.provinciaID" > {{provincia.nombre}}</ion-select-option>
-                          </ion-select>
-                        </ion-item>
-                        <ion-item>
-                            <ion-label>Canton</ion-label>
-                            <ion-select placeholder="Seleccionar" name="cantonID"  [(ngModel)]="user.cantonID">
-                              <ion-select-option *ngFor="let canton of cantones.cantones" [value]="canton.cantonID">{{canton.nombre}}</ion-select-option>
-                            </ion-select>
-                          </ion-item>
-                          <ion-item>
-                            <ion-label>Distrito</ion-label>
-                            <ion-select placeholder="Seleccionar" name="distritoID" [(ngModel)]="user.distritoID">
-                              <ion-select-option *ngFor="let distrito of distritos.distritos"   [value]="distrito.distritoID">{{distrito.nombre}}</ion-select-option>
-                            </ion-select>
-                          </ion-item>
-                
-                          <ion-item>
-                            <ion-label >Dirección</ion-label>
-                            <ion-textarea placeholder="Dirección" name="direccion" [(ngModel)]="user.direccion"></ion-textarea>
-                          </ion-item>
-                  
-                      </ion-list>
-                
-                </ion-col>
-                <ion-col size="12">
-                  <ion-item>
-                    <ion-buttons  slot="end">
-                      <ion-button fill="solid" shape="round" type="submit"  color="primary" >
-                        <ion-icon name="save"></ion-icon>
-                      </ion-button>
-                      <ion-button fill="solid"  color="danger" shape="round"  (click)="deleteUser(user.usuarioID)">
-                        <ion-icon name="trash" ></ion-icon>
-                    
-                      </ion-button>
-                  
-                    </ion-buttons>
-                  </ion-item>
-                </ion-col>
+
+         
+       
                 
         </ion-row>
       </ion-grid>
+          
+
+      
+
     </ion-list>
-    
+
+  
+  
 </form>
   
   </ion-content>
 
-
+  <ion-footer>
+    <ion-toolbar class="ion-text-center">
+    
+      <ion-button fill="solid"  (click)="enviarFormulario()"  color="primary" >
+    <ion-label>Guardar</ion-label>
+      </ion-button>
+      <ion-button fill="solid"  color="danger"   (click)="deleteUser(user.usuarioID)">
+        <ion-label>Eliminar</ion-label>
+    
+      </ion-button>
+  
+  
+  </ion-toolbar>
+  
+  </ion-footer>

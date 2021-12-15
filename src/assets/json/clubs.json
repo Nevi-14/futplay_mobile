@@ -1,5 +1,5 @@
 [{
-    "clubID": 1,
+    "equipoID": 1,
     "usuarioID": 1,
     "provinciaID": 1,
     "cantonID": 1,
@@ -12,7 +12,7 @@
     "estrellas":5
  },
  {
-    "clubID": 2,
+    "equipoID": 2,
     "usuarioID": 1,
     "provinciaID": 1,
     "cantonID": 1,
@@ -25,7 +25,7 @@
     "estrellas":3
     
  },{
-    "clubID": 3,
+    "equipoID": 3,
     "usuarioID": 1,
     "provinciaID": 1,
     "cantonID": 1,
@@ -38,7 +38,7 @@
     "estrellas":3
  },
  {
-    "clubID": 4,
+    "equipoID": 4,
     "usuarioID": 1,
     "provinciaID": 1,
     "cantonID": 1,
@@ -50,7 +50,7 @@
     "dureza":"../assets/icons/sad.svg",
     "estrellas":1
  },{
-    "clubID": 5,
+    "equipoID": 5,
     "usuarioID": 1,
     "provinciaID": 1,
     "cantonID": 1,
@@ -63,7 +63,7 @@
     "estrellas":2
  },
  {
-    "clubID": 6,
+    "equipoID": 6,
     "usuarioID": 1,
     "provinciaID": 1,
     "cantonID": 1,
@@ -75,7 +75,7 @@
     "dureza":"../assets/icons/smiling-face.svg",
     "estrellas":3
  },{
-    "clubID": 7,
+    "equipoID": 7,
     "usuarioID": 1,
     "provinciaID": 1,
     "cantonID": 1,
@@ -88,7 +88,7 @@
     "estrellas":1
  },
  {
-    "clubID": 8,
+    "equipoID": 8,
     "usuarioID": 1,
     "provinciaID": 1,
     "cantonID": 1,

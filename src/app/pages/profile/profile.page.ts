@@ -1,11 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PopoverController, ModalController } from '@ionic/angular';
 import { SettingInfoComponent } from '../../components/setting-info/setting-info.component';
-import { UserService } from '../../services/user.service';
 import { AngularFileUploaderModule } from 'angular-file-uploader';
-import { JugadoresPosicionesService } from 'src/app/services/jugador-posiciones.service';
-import { JugadorClubes } from 'src/app/models/jugadorClubes';
-import { Usuario } from '../../models/usuario';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+import { JugadoresEquipos } from '../../models/jugadoresEquipos';
 
 @Component({
   selector: 'app-profile',
@@ -13,14 +11,18 @@ import { Usuario } from '../../models/usuario';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  @Input() userInfo: JugadorClubes;
+  @Input() userInfo: JugadoresEquipos;
   afuConfig = {
     uploadAPI: {
       url:"http://localhost:8101/..assets/photos"
     }
 };
 
-  constructor(public popoverCtrl: PopoverController,public userService: UserService, public modalCtrl: ModalController, public jugadorPosiciones: JugadoresPosicionesService) { }
+  constructor(public popoverCtrl: PopoverController,public userService: UsuariosService, public modalCtrl: ModalController) {
+    
+
+    
+  }
 
   ngOnInit() {
   }
@@ -28,6 +30,8 @@ export class ProfilePage implements OnInit {
   uploadPicture(){
 
   }
+
+
   async presentPopover(ev: any) {
     const popover = await this.popoverCtrl.create({
       component: SettingInfoComponent,

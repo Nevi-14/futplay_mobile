@@ -1,10 +1,10 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
-import { CalendarService } from 'src/app/services/calendar.service';
 import { CalendarComponent } from 'ionic2-calendar';
-import { RetosService } from 'src/app/services/retos.service';
-import { ClubService } from '../../services/club.service';
+
 import { OpcionesService } from 'src/app/services/opciones.service';
+import { ReservacionesService } from '../../services/reservaciones.service';
+import { EquiposService } from '../../services/equipos.service';
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendar.component.html',
@@ -32,7 +32,7 @@ export class CalendarioComponent implements OnInit {
   hourValues = ['08','09','10','11','12','13','14','15','16','17','18','19'];
   selectedDate: Date;
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
-  constructor( public cal: CalendarService, public retosService: RetosService, public clubs: ClubService, public opcionesService: OpcionesService) { }
+  constructor( public retosService: ReservacionesService, public clubs: EquiposService, public opcionesService: OpcionesService) { }
 
   ngOnInit() {
  

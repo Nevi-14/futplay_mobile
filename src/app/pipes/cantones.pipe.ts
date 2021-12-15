@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Canton } from '../models/canton';
+import { Cantones } from '../models/cantones';
 import { CantonesService } from '../services/cantones.service';
 
 @Pipe({
@@ -9,7 +9,7 @@ export class CantonesPipe implements PipeTransform {
   constructor(public cantones: CantonesService) { }
 
   transform(value: any): any {
-    let cantones: Canton[] = [];
+    let cantones: Cantones[] = [];
 
     cantones = this.cantones.cantones;
     const canton = cantones.find( d => d.cantonID === value );

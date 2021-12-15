@@ -97,21 +97,7 @@ min-height: 100vh;
       }
 
 
-      ion-tab-bar {
-        border: 0;
-        margin-top: -1px;
-}
 
-.ion-tab-bar{
-
-    --background: rgba(37,13,76,255);
- 
-
-    ion-tab-button {
-      --background: transparent;
-      color: #FFF;
-    }
-}
 .custom-menu{
 
   --background: rgba(37,13,76,255);
@@ -202,5 +188,70 @@ ion-modal.autoheight-modal-bottom {
           overflow: auto;
           padding: 10px;
       }
+  }
+}
+.border-invert{
+  height: 10rem;
+   width: 10rem; 
+  border: 0.4rem solid #354A53;border-radius: 50%;
+}
+ion-list ,ion-item {
+  --ion-item-background: transparent;
+}
+ion-modal.dynamic-modal {
+  &.bottom {
+      align-items: flex-end;
+  }
+
+  --height: auto;
+
+  .ion-page {
+      position: relative;
+      display: block;
+      contain: content;
+
+      .inner-content {
+          max-height: 80vh;
+          overflow: auto;
+          padding: 10px;
+      }
+  }
+}
+
+.styled-form{
+  ion-list ,ion-item {
+    --ion-item-background: transparent;
+  }
+  .styled-input{
+    position: relative;
+    margin-bottom: 10px;
+    ion-item::part(native){
+    padding-left: 0;
+    }
+
+    ion-icon{
+    margin-right: 18px;
+
+    }
+
+    ion-label{
+      font-size: 18px;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+ 
+    }
+
+    ion-input,ion-select,
+    ion-datetime{
+      font-size: 16px;
+      color: #7b7b7b;
+    }
+  }
+
+
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark light;
   }
 }

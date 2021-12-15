@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { RetosService } from '../../services/retos.service';
-import { ClubService } from '../../services/club.service';
+import { EquiposService } from 'src/app/services/equipos.service';
+import { ReservacionesService } from 'src/app/services/reservaciones.service';
 import { ClubInfoComponent } from '../../components/club-info/club-info.component';
 
 @Component({
@@ -12,7 +12,7 @@ import { ClubInfoComponent } from '../../components/club-info/club-info.componen
 export class ConfirmedPage implements OnInit {
 
 
-  constructor( public modalCtrl: ModalController, public retos: RetosService, public clubs: ClubService) { }
+  constructor( public modalCtrl: ModalController, public retos: ReservacionesService, public clubs: EquiposService) { }
 
   ngOnInit() {
   }
@@ -20,18 +20,18 @@ export class ConfirmedPage implements OnInit {
     this.modalCtrl.dismiss();
   }
 
-  returnName(clubID){
-    const i = this.clubs.club.findIndex(c=> c.clubID === clubID)
+  returnName(equipoID){
+    const i = this.clubs.club.findIndex(c=> c.equipoID === equipoID)
     return this.clubs.club[i].nombre;
       }
-      returnImage(clubID){
-        const i = this.clubs.club.findIndex(c=> c.clubID === clubID)
+      returnImage(equipoID){
+        const i = this.clubs.club.findIndex(c=> c.equipoID === equipoID)
         return this.clubs.club[i].foto;
       }
       
       
   async details(reto){
-    const i = this.clubs.club.findIndex(c => c.clubID === reto.clubID2)
+    const i = this.clubs.club.findIndex(c => c.equipoID === reto.equipoID2)
         const modal = await  this.modalCtrl.create({
           component: ClubInfoComponent,
           cssClass:'my-custom-class',

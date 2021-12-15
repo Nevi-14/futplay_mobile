@@ -13,6 +13,8 @@ import {NgCalendarModule} from 'ionic2-calendar'
 import { CalendarioComponent } from './calendar/calendario.component';
 import localeDe from '@angular/common/locales/es';
 import { FormsModule } from '@angular/forms';
+import { ReservacionesComponent } from './reservaciones/reservaciones.component';
+import { RetosTemplateComponent } from './retos-template/retos-template.component';
 registerLocaleData(localeDe);
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ registerLocaleData(localeDe);
     JoinClubComponent,
     SettingInfoComponent,
     OpcionesComponent,
-    CalendarioComponent
+    CalendarioComponent,
+    ReservacionesComponent,
+    RetosTemplateComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +43,9 @@ registerLocaleData(localeDe);
   JoinClubComponent,
   SettingInfoComponent,
   OpcionesComponent,
-  CalendarioComponent
+  CalendarioComponent,
+  ReservacionesComponent,
+  RetosTemplateComponent
   ],
   providers: [{provide: LOCALE_ID, useValue: 'es'}]
   

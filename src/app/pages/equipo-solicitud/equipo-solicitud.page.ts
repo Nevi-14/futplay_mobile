@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController, PopoverController } from '@ionic/angular';
-import { ClubService } from '../../services/club.service';
+import { EquiposService } from '../../services/equipos.service';
 
 @Component({
   selector: 'app-equipo-solicitud',
@@ -9,7 +9,7 @@ import { ClubService } from '../../services/club.service';
 })
 export class EquipoSolicitudPage implements OnInit {
 @Input() usuarioID: number;
-  constructor(public modalCtrl: ModalController,public clubes: ClubService, public popOver: PopoverController) { }
+  constructor(public modalCtrl: ModalController,public clubes: EquiposService, public popOver: PopoverController) { }
 
   ngOnInit() {
   }

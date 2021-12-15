@@ -6,8 +6,8 @@ import { SettingInfoComponent } from '../setting-info/setting-info.component';
 import { MyClubsPage } from '../../pages/my-clubs/my-clubs.page';
 import { CreateClubPage } from '../../pages/create-club/create-club.page';
 import { ClubConfigPage } from '../../pages/club-config/club-config.page';
-import { ClubService } from '../../services/club.service';
 import { JoinClubComponent } from '../join-club-component/join-club-component';
+import { EquiposService } from '../../services/equipos.service';
 
 
 @Component({
@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
   invalidURL = ['/home/clubs','/test '];
   valid : boolean;
 
-  constructor(public popoverCtrl: PopoverController, public route: Router, public modalCtrl: ModalController, public clubs: ClubService) { }
+  constructor(public popoverCtrl: PopoverController, public route: Router, public modalCtrl: ModalController, public clubs: EquiposService) { }
 
 
   ngOnInit() {

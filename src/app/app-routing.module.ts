@@ -53,10 +53,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/clasificacion/clasificacion.module').then( m => m.ClasificacionPageModule)
   },
   {
-    path: 'booking',
-    loadChildren: () => import('./pages/booking/booking.module').then( m => m.BookingPageModule)
-  },
-  {
     path: 'checkout',
     loadChildren: () => import('./pages/checkout/checkout.module').then( m => m.CheckoutPageModule)
   },
@@ -64,10 +60,7 @@ const routes: Routes = [
     path: 'location',
     loadChildren: () => import('./pages/location/location.module').then( m => m.LocationPageModule)
   },
-  {
-    path: 'message',
-    loadChildren: () => import('./pages/message/message.module').then( m => m.MessagePageModule)
-  },
+
   
   {
     path: 'my-clubs',
@@ -77,22 +70,13 @@ const routes: Routes = [
     path: 'my-reservations',
     loadChildren: () => import('./pages/my-reservations/my-reservations.module').then( m => m.MyReservationsPageModule)
   },
-  {
-    path: 'new-reservation',
-    loadChildren: () => import('./pages/new-reservation/new-reservation.module').then( m => m.NewReservationPageModule)
-  },
-  {
-    path: 'sent',
-    loadChildren: () => import('./pages/sent/sent.module').then( m => m.SentPageModule)
-  },
+ 
+
   {
     path: 'confirmed',
     loadChildren: () => import('./pages/confirmed/confirmed.module').then( m => m.ConfirmedPageModule)
   },
-  {
-    path: 'received',
-    loadChildren: () => import('./pages/received/received.module').then( m => m.ReceivedPageModule)
-  },
+
   {
     path: 'profile-info',
     loadChildren: () => import('./pages/profile-info/profile-info.module').then( m => m.ProfileInfoPageModule)
@@ -115,10 +99,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/club-config/club-config.module').then( m => m.ClubConfigPageModule)
   },
 
-  {
-    path: 'social-media',
-    loadChildren: () => import('./pages/social-media/social-media.module').then( m => m.SocialMediaPageModule)
-  },
+
   {
     path: 'equipo-solicitud',
     loadChildren: () => import('./pages/equipo-solicitud/equipo-solicitud.module').then( m => m.EquipoSolicitudPageModule)

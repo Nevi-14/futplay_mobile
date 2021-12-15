@@ -2,15 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, ModalController, ToastController } from '@ionic/angular';
-import { DataService } from '../../services/data.service';
-import { UserService } from '../../services/user.service';
 import { PosicionesService } from '../../services/posiciones.service';
 import { CantonesService } from 'src/app/services/cantones.service';
 import { ProvinciasService } from 'src/app/services/provincias.service';
 import { DistritosService } from 'src/app/services/distritos.service';
-import { JugadoresClubesService } from 'src/app/services/jugador-clubes.service';
-import { JugadoresPosicionesService } from 'src/app/services/jugador-posiciones.service';
+
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 declare const window: any;
 @Component({
   selector: 'app-profile-info',
@@ -22,30 +20,27 @@ export class ProfileInfoPage implements OnInit {
 image = '';
   user = {
     usuarioID: this.userService.currentUser.usuarioID,
-    roleID: this.userService.currentUser.roleID,
     provinciaID:this.userService.currentUser.provinciaID,
     cantonID:this.userService.currentUser.cantonID,
     distritoID:this.userService.currentUser.distritoID,
     foto:this.userService.currentUser.foto,
     nombre: this.userService.currentUser.nombre,
+    apodo: this.userService.currentUser.apodo,
+    posicion: this.userService.currentUser.posicion,
     apellido1:this.userService.currentUser.apellido1,
     apellido2:this.userService.currentUser.apellido2,
     fechaNac: new Date(this.userService.currentUser.fechaNac).toISOString(),
     telefono:this.userService.currentUser.telefono,
-    direccion:this.userService.currentUser.direccion,
     correo:this.userService.currentUser.correo,
     contrasena: this.userService.currentUser.contrasena,
     intentos: this.userService.currentUser.intentos
   };
 
-  jugadorPosicion = {
-    posicionID: this.jugadoresPosiciones.jugadorCurrentPosicion.posicionID,
-    apodo:this.jugadoresPosiciones.jugadorCurrentPosicion.apodo,
-  }
-  constructor(public data: DataService, public modalCtrl: ModalController, public userService: UserService, public toastCtrl: ToastController, public alertCtrl: AlertController, public route: Router, public posiciones: PosicionesService, public cantones: CantonesService, public provincias: ProvinciasService,public distritos: DistritosService, public jugadoresPosiciones: JugadoresPosicionesService,public camera: Camera) { }
+
+  constructor( public modalCtrl: ModalController, public userService: UsuariosService, public toastCtrl: ToastController, public alertCtrl: AlertController, public route: Router, public posiciones: PosicionesService, public cantones: CantonesService, public provincias: ProvinciasService,public distritos: DistritosService,public camera: Camera) { }
 
   ngOnInit() {
- console.log(this.jugadoresPosiciones.jugadorCurrentPosicion);
+
 
   }
 cerrarModal(){
@@ -61,10 +56,10 @@ async message( text: string){
 }
 
 
-async onSubmit(formulario: NgForm){
-  this.userService.loggedUser(this.user);
+async enviarFormulario(){
 this.userService.editUser(this.user.usuarioID, this.user);
-this.jugadoresPosiciones.editJugadorPosiciones(this.user.usuarioID, this.jugadorPosicion);
+
+//this.jugadoresPosiciones.editJugadorPosiciones(this.user.usuarioID, this.jugadorPosicion);
 this.message('Datos actualizados');
 
 

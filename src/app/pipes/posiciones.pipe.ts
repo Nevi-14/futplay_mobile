@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Posicion } from '../models/posicion';
+import { Posiciones } from '../models/posiciones';
 import { PosicionesService } from '../services/posiciones.service';
 
 
@@ -10,7 +10,7 @@ export class PosicionesPipe implements PipeTransform {
   constructor(public posiciones: PosicionesService) { }
 
   transform(value: any): any {
-    let posiciones: Posicion[] = [];
+    let posiciones: Posiciones[] = [];
 
     posiciones = this.posiciones.posiciones;
     const posicion = posiciones.find( d => d.posicionID === value );

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Distrito } from '../models/distrito';
+import {  Distritos } from '../models/distritos';
 import { DistritosService } from '../services/distritos.service';
 
 @Pipe({
@@ -10,7 +10,7 @@ export class DistritosPipe implements PipeTransform {
   constructor(public distrito: DistritosService) { }
 
   transform(value: any): any {
-    let distritos: Distrito[] = [];
+    let distritos: Distritos[] = [];
 
     distritos = this.distrito.distritos;
     const distrito = distritos.find( d => d.distritoID === value );

@@ -1,18 +1,22 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AlertController, ModalController, PopoverController } from '@ionic/angular';
-import { Solicitud } from 'src/app/models/solicitudes';
+
 import { CantonesService } from 'src/app/services/cantones.service';
-import { ClubService } from 'src/app/services/club.service';
+
 import { DistritosService } from 'src/app/services/distritos.service';
 import { ProvinciasService } from 'src/app/services/provincias.service';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
-import { UserService } from 'src/app/services/user.service';
+
 import { ClubInfoComponent } from '../club-info/club-info.component';
-import { RetosService } from '../../services/retos.service';
+
 
 import { EquipoSolicitudPage } from '../../pages/equipo-solicitud/equipo-solicitud.page';
 import { OpcionesComponent } from '../opciones/opciones.component';
 import { OpcionesService } from 'src/app/services/opciones.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+import { ReservacionesService } from '../../services/reservaciones.service';
+import { EquiposService } from '../../services/equipos.service';
+import { FilterPage } from '../../pages/filter/filter.page';
 
 @Component({
   selector: 'app-join-club-component',
@@ -23,8 +27,10 @@ export class JoinClubComponent implements OnInit {
   @Input() header: boolean;
   @Input() titulo: string;
   @Input() equipo: number
+  @Input() equiposMenu: boolean
+  @Input() clasificacionMenu: boolean;
   textoBuscar = '';
-  constructor( public modalCtrl: ModalController, public clubs: ClubService, public solicitudes: SolicitudesService, public user: UserService, public alertCtrl: AlertController, public provincias: ProvinciasService,public cantones: CantonesService, public distritos: DistritosService, public retos:RetosService, public currentUser: UserService, public popOverCtrl:PopoverController, public opcionesService: OpcionesService) {  }
+  constructor( public modalCtrl: ModalController, public clubs: EquiposService, public solicitudes: SolicitudesService, public alertCtrl: AlertController, public provincias: ProvinciasService,public cantones: CantonesService, public distritos: DistritosService, public retos:ReservacionesService, public currentUser: UsuariosService, public popOverCtrl:PopoverController, public opcionesService: OpcionesService) {  }
 
 
   ngOnInit() {}
@@ -52,7 +58,15 @@ export class JoinClubComponent implements OnInit {
 }
 
 
-
+async filtrar(){
+  const modal = await this.modalCtrl.create({
+   component: FilterPage,
+   cssClass: 'dynamic-modal'
+ });
+ console.log('hello')
+ return await modal.present();
+ 
+}
 
 
 

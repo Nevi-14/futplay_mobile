@@ -6,7 +6,6 @@ import { UsuariosPipe } from './usuarios.pipe';
 import { DistritosPipe } from './distritos.pipe';
 import { CantonesPipe } from './cantones.pipe';
 import { ProvinciasPipe } from './provincias.pipe';
-import { RolesPipe } from './roles.pipe';
 import { PosicionesPipe } from './posiciones.pipe';
 import { ImageSanitizerPipe } from './image-sanitizer.pipe';
 
@@ -20,7 +19,6 @@ import { ImageSanitizerPipe } from './image-sanitizer.pipe';
     DistritosPipe,
     CantonesPipe,
     ProvinciasPipe,
-    RolesPipe,
     PosicionesPipe,
     ImageSanitizerPipe
   ],
@@ -31,7 +29,6 @@ import { ImageSanitizerPipe } from './image-sanitizer.pipe';
     DistritosPipe,
     CantonesPipe,
     ProvinciasPipe,
-    RolesPipe,
     PosicionesPipe,
     ImageSanitizerPipe
   ],

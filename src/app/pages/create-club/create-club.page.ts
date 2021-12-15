@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { DataService } from '../../services/data.service';
-import { ClubService } from '../../services/club.service';
-import { Club } from 'src/app/models/club';
+
 import { ProvinciasService } from '../../services/provincias.service';
 import { CantonesService } from 'src/app/services/cantones.service';
 import { DistritosService } from 'src/app/services/distritos.service';
-import { UserService } from 'src/app/services/user.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+import { EquiposService } from 'src/app/services/equipos.service';
+import { Equipos } from 'src/app/models/equipos';
 declare const window: any;  
 @Component({
   selector: 'app-create-club',
@@ -19,10 +19,10 @@ export class CreateClubPage implements OnInit {
   tempImages: String[]=[];
   image = '';
 
-  constructor(public modalCtrl: ModalController, public data: DataService, public clubService: ClubService, public provincias: ProvinciasService, public cantones: CantonesService, public distritos: DistritosService, public usuario: UserService,public camera: Camera, public clubs: ClubService) { }
+  constructor(public modalCtrl: ModalController, public clubService: EquiposService, public provincias: ProvinciasService, public cantones: CantonesService, public distritos: DistritosService, public usuario: UsuariosService,public camera: Camera) { }
 
 club = {
-   clubID: this.clubs.club.length + 1,
+   equipoID: this.clubService.club.length + 1,
    usuarioID: this.usuario.currentUser.usuarioID,
    provinciaID: null,
    cantonID: null,
@@ -35,10 +35,10 @@ club = {
   ngOnInit() {
    console.log(this.club.distritoID)
   }
-  onSubmit(formulario: NgForm){
-    this.clubService.club.push(new Club(this.club.cantonID,this.club.usuarioID,this.club.provinciaID,this.club.cantonID,this.club.distritoID,this.club.foto,this.club.nombre,this.club.abreviacion,this.club.direccion, new Date(),'../assets/icons/sad.svg',1));
+  enviarFormulario(){
+    //this.clubService.club.push(new Equipos(this.club.cantonID,this.club.usuarioID,this.club.provinciaID,this.club.cantonID,this.club.distritoID,this.club.foto,this.club.nombre,this.club.abreviacion, new Date(),'../assets/icons/sad.svg',1));
     console.log(this.club, this.clubService.club.length);
-    this.clubService.checkIfHasClub();
+//    this.clubService.checkIfHasClub();
     this.modalCtrl.dismiss();
   }
   cerrarModal(){

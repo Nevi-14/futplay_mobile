@@ -1,16 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Usuario } from '../models/usuario';
-import { UserService } from '../services/user.service';
+import { Usuarios } from '../models/usuarios';
+import { UsuariosService } from '../services/usuarios.service';
 
 @Pipe({
   name: 'usuarios'
 })
 export class UsuariosPipe implements PipeTransform {
-  constructor(public user: UserService) { }
+  constructor(public user: UsuariosService) { }
 
   transform(texto: any = '',
   columna: any): any {
-    let usuarios: Usuario[] = [];
+    let usuarios: Usuarios[] = [];
 let user = 'usuarioID';
 console.log('columna',columna)
     usuarios = this.user.user;

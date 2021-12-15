@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, PopoverController } from '@ionic/angular';
-import { ClubService } from '../../services/club.service';
 import { CreateClubPage } from '../create-club/create-club.page';
-import { UserService } from '../../services/user.service';
-import { JugadoresService } from '../../services/jugadores.service';
+
 import { JoinClubComponent } from 'src/app/components/join-club-component/join-club-component';
+import { EquiposService } from 'src/app/services/equipos.service';
+import { UsuariosService } from '../../services/usuarios.service';
 
 @Component({
   selector: 'app-my-clubs',
@@ -13,7 +13,7 @@ import { JoinClubComponent } from 'src/app/components/join-club-component/join-c
 })
 export class MyClubsPage implements OnInit {
 
-  constructor(public clubs: ClubService, public modalCtrl: ModalController, public popOverCtrl: PopoverController, public user: UserService, public jugadores: JugadoresService) { }
+  constructor(public clubs: EquiposService, public modalCtrl: ModalController, public popOverCtrl: PopoverController, public user: UsuariosService) { }
 
   ngOnInit() {
 
@@ -34,9 +34,12 @@ export class MyClubsPage implements OnInit {
     this.modalCtrl.dismiss();
     const modal = await this.modalCtrl.create({
       component:JoinClubComponent,
-      cssClass: 'bottom-modal',
+      cssClass: 'my-custom-modal',
       showBackdrop: true,
       backdropDismiss: true,
+      componentProps:{
+        header:true
+      },
       animated: true,
     });
     return await modal.present();

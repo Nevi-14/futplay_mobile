@@ -1,24 +1,25 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {UserService} from '../../../services/user.service';
-import {Usuario} from 'src/app/models/usuario';
 import {Router} from '@angular/router';
-import {DataService} from '../../../services/data.service';
-import {Provincia} from '../../../models/provincia';
+
 import {Observable} from 'rxjs';
 import {AlertController} from '@ionic/angular';
-import { JugadoresPosicionesService } from 'src/app/services/jugador-posiciones.service';
-import { JugadorPosiciones } from 'src/app/models/jugadorPosiciones';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+import { Provincias } from 'src/app/models/provincias';
+import { Usuarios } from 'src/app/models/usuarios';
+
 
 @Component({selector: 'app-register', templateUrl: './register.page.html', styleUrls: ['./register.page.scss']})
 export class RegisterPage implements OnInit {
-    provincias : Observable < Provincia[] >;
+    provincias : Observable < Provincias[] >;
     user = {
         usuarioID: this.userService.user.length + 1,
         roleID: 2,
         provinciaID: null,
         cantonID: null,
         distritoID: null,
+        administrador: false,
+        customMode: true,
         foto: '../assets/profile/nopicture.svg',
         nombre: '',
         apodo:'',
@@ -34,12 +35,10 @@ export class RegisterPage implements OnInit {
     };
     showPass = false;
     showPassConfirm = false;
-    constructor(public userService : UserService, public route : Router, public data : DataService, public alertCtrl : AlertController, public jugadorPosicion: JugadoresPosicionesService) {}
+    constructor(public userService : UsuariosService, public route : Router, public alertCtrl : AlertController) {}
 
     ngOnInit() {
-        console.log(this.data.provincias);
-        console.log(this.data.cantones);
-        console.log(this.data.distritos);
+       
     }
 
 
@@ -84,13 +83,13 @@ export class RegisterPage implements OnInit {
               //  alert([this.user.confirmarContrasena, this.user.contrasena])
                 if(this.user.confirmarContrasena === this.user.contrasena){
                     this.userService.loggedUser(this.user);
-                    this.userService.user.push(new Usuario(this.user.usuarioID, this.user.roleID, this.user.provinciaID, this.user.cantonID, this.user.distritoID, this.user.foto, this.user.nombre,this.user.apodo, this.user.apellido1, this.user.apellido2, new Date(this.user.fechaNac), this.user.telefono, this.user.direccion, this.user.correo, this.user.contrasena, this.user.intentos, new Date()));
+                    this.userService.user.push(new Usuarios(this.user.usuarioID, this.user.provinciaID, this.user.cantonID, this.user.distritoID, false,true,  this.user.nombre, this.user.apellido1, this.user.apellido2, new Date(this.user.fechaNac),this.user.foto, this.user.telefono, this.user.correo, this.user.contrasena, this.user.intentos, new Date(), 1, 'test'));
                     this.route.navigate(['/', 'home']);
-                    this.jugadorPosicion.jugadoresPosiciones.push(new JugadorPosiciones(this.jugadorPosicion.jugadoresPosiciones.length+1,this.user.usuarioID, null,''));
+                  //  this.jugadorPosicion.jugadoresPosiciones.push(new JugadorPosiciones(this.jugadorPosicion.jugadoresPosiciones.length+1,this.user.usuarioID, null,''));
                   
                     this.userService.swapUser(this.user.usuarioID)
             
-                    console.log(this.jugadorPosicion.jugadoresPosiciones)
+
 
                     const resetUser =  {
                         usuarioID: null,
@@ -98,6 +97,8 @@ export class RegisterPage implements OnInit {
                         provinciaID: null,
                         cantonID: null,
                         distritoID: null,
+                        administrador: false,
+                        customMode: true,
                         foto: '',
                         nombre: '',
                         apodo:'',

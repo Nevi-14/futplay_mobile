@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Solicitud } from '../models/solicitudes';
+
 import { HttpClient } from '@angular/common/http';
-import { JugadoresService } from './jugadores.service';
-import { JugadoresClubesService } from './jugador-clubes.service';
-import { ClubService } from './club.service';
+
+
+
 import { ModalController } from '@ionic/angular';
+import { SolicitudClubes } from '../models/solicitudesClubes';
+import { JugadoresEquiposService } from './jugadoresEquipos.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SolicitudesService {
 
-  solicitudes:  Solicitud[]=[];
+  solicitudes:  SolicitudClubes[]=[];
   conteoClub = 0;
-  constructor( private http: HttpClient, private jugadoresClubes: JugadoresClubesService, public modalCtrl: ModalController, public jugadoresClubesService: JugadoresClubesService) { }
+  constructor( private http: HttpClient, private jugadoresClubes: JugadoresEquiposService, public modalCtrl: ModalController) { }
 
 
 
@@ -23,7 +25,7 @@ export class SolicitudesService {
       }
 
   getSolicitudes(){
-    this.http.get<Solicitud[]>('/assets/json/solicitudes.json').subscribe(resp=>{
+    this.http.get<SolicitudClubes[]>('/assets/json/solicitudes.json').subscribe(resp=>{
     if(resp){
      this.solicitudes = resp;
     }else{
@@ -56,9 +58,9 @@ export class SolicitudesService {
   
         agregarUsuarioSolitud(solicitud){
  
-              this.jugadoresClubesService.add(solicitud.usuarioID,solicitud.clubID, new Date(), true);
-              console.log(this.jugadoresClubesService.jugadoresClubes)
-              this.delete(solicitud.solicitudID);
+          //    this.jugadoresClubesService.add(solicitud.usuarioID,solicitud.clubID, new Date(), true);
+            //  console.log(this.jugadoresClubesService.jugadoresClubes)
+              //this.delete(solicitud.solicitudID);
            //   this.clubsService.clubCount(solicitud.solicitudID);
      
                 }
@@ -68,7 +70,7 @@ export class SolicitudesService {
 this.conteoClub = 0;
 this.solicitudes.forEach( solicitud => {
 
-  if(clubID === solicitud.clubID){
+  if(clubID === solicitud.equipoID){
 
     this.conteoClub ++
   }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { DataService } from '../../services/data.service';
 import { FilterPage } from '../filter/filter.page';
 import { OpcionesService } from '../../services/opciones.service';
 
@@ -16,15 +15,18 @@ export class ReservationsPage implements OnInit {
   star= 'assets/search/star.svg';
   save= 'assets/search/add-user.svg';
   soccer= 'assets/icon/soccer.svg';
-  constructor( public data: DataService, public modalCtrl: ModalController, public opcionesService: OpcionesService) { }
+  constructor( public modalCtrl: ModalController, public opcionesService: OpcionesService) { }
 
   ngOnInit() {
   }
-  async filterModal(){
+  async filtrar(){
     const modal = await this.modalCtrl.create({
      component: FilterPage,
-     cssClass: 'my-custom-class'
+     cssClass: 'dynamic-modal'
    });
+   console.log('hello')
    return await modal.present();
- }
+   
+  }
+  
 }

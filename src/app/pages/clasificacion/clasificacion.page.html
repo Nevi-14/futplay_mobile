@@ -1,25 +1,21 @@
 
-    <ion-grid fixed>
-      <ion-row>
-        <ion-col size="12">
-<ion-list lines="none">
-  <ion-item>
-    <ion-label>Tus puntos de calidad: 000</ion-label>
-  </ion-item>
+<ion-toolbar>
+  <ion-title   slot="start" class="ion-text-uppercase" style="font-size: 14px;font-weight: 600;">Ranking Global</ion-title>
+</ion-toolbar>
+<ion-content>
+  <ion-list lines="none">
+    <ion-item>
+      <ion-icon slot="start" name="trophy-outline"></ion-icon>
+      <ion-label  >Tus puntos de calidad: 000</ion-label>
+    </ion-item>
+  
+    <ion-item>
+      <ion-icon slot="start" name="trophy-outline"></ion-icon>
+      <ion-label >Tu posicion actual: #000</ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <app-join-club-component [header]="header" [clasificacionMenu]="true" [titulo]="titulo"></app-join-club-component>
 
-  <ion-item>
-    <ion-label>Tus posicion actual: #000</ion-label>
-  </ion-item>
-</ion-list>
-
-        </ion-col>
-      
-          <ion-col size="12">
-                <ion-list lines="none">
-  <ion-item *ngFor="let item of [1,1,1]; let i = index;">
-<ion-label>Equipo {{1+i}}</ion-label>
-  </ion-item>
-</ion-list>
-          </ion-col>
-      </ion-row>
-  </ion-grid>
+</ion-content>
+  

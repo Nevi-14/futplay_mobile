@@ -2,24 +2,34 @@
 
 
   <ion-toolbar>
-    <ion-title class="ion-text-left">FUTPLAY <ion-badge color="primary">Eventos</ion-badge></ion-title> 
-    <ion-buttons slot="end">
-      <ion-button (click)="cerrarModal()" fill="solid" color="primary" slot="end" shape="round">
-        <ion-icon slot="icon-only" name="close"></ion-icon>
+    <ion-buttons slot="start">
+      <ion-button (click)="cerrarModal()"  color="dark"  shape="round">
+        <ion-icon slot="start" name="chevron-back"></ion-icon>
+        <ion-label>Volver</ion-label>
+       
       </ion-button>
     </ion-buttons>
+    <ion-title slot="end" class="ion-text-left">FUTPLAY <ion-badge color="primary">Eventos</ion-badge></ion-title> 
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content>
+  <ion-content>
+    <!-- fab placed to the top end -->
+    <ion-fab vertical="top" horizontal="end"  slot="fixed">
+      <ion-fab-button (click)="reservacion()" color="dark">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 
   <ion-grid  style="height:100%;display: flex; justify-content: center; align-items: center;" >
 
     <ion-row>
       <ion-col size="12">
         <ion-list lines="none">
-          <ion-item>
-            <ion-card>
+          <ion-item >
+            <ion-card (click)="confirm()">
               <ion-card-header>
                 <ion-card-subtitle>Retos Confirmados</ion-card-subtitle>
               </ion-card-header>
@@ -32,7 +42,7 @@
                       <ion-label>Hora: 24:00</ion-label>
                     </ion-card-content>
                     <ion-buttons slot="end">
-                      <ion-button (click)="confirm()" style="height: 80px;">
+                      <ion-button  style="height: 80px;">
                         <ion-avatar>
                           <img [src]="img1">
                         </ion-avatar>
@@ -45,7 +55,7 @@
   
           </ion-item>
           <ion-item>
-            <ion-card>
+            <ion-card (click)="send()">
               <ion-card-header>
                 <ion-card-subtitle>Retos Enviados</ion-card-subtitle>
               </ion-card-header>
@@ -58,7 +68,7 @@
       <ion-label>Hora: 24:00</ion-label>
     </ion-card-content>
     <ion-buttons slot="end">
-      <ion-button (click)="send()" style="height: 80px;">
+      <ion-button  style="height: 80px;">
         <ion-avatar>
           <img [src]="img2">
         </ion-avatar>
@@ -71,7 +81,7 @@
   
           </ion-item>
           <ion-item>
-            <ion-card>
+            <ion-card (click)="receive()">
               <ion-card-header>
                 <ion-card-subtitle>Retos Recibidos</ion-card-subtitle>
               </ion-card-header>
@@ -84,7 +94,7 @@
                       <ion-label>Hora: 24:00</ion-label>
                     </ion-card-content>
                     <ion-buttons slot="end">
-                      <ion-button (click)="receive()" style="height: 80px;">
+                      <ion-button  style="height: 80px;">
                         <ion-avatar>
                           <img [src]="img3">
                         </ion-avatar>

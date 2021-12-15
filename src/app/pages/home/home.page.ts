@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ClubService } from '../../services/club.service';
+import { EquiposService } from 'src/app/services/equipos.service';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +8,7 @@ import { ClubService } from '../../services/club.service';
 })
 export class HomePage implements OnInit {
 
-  constructor(public clubs: ClubService) { }
+  constructor(public clubs: EquiposService) { }
 
   ngOnInit( ) {
 

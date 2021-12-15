@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../services/data.service';
-import { ClubService } from '../../services/club.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { FilterPage } from '../filter/filter.page';
 import { ClubInfoComponent } from '../../components/club-info/club-info.component';
+import { EquiposService } from 'src/app/services/equipos.service';
 
 @Component({
   selector: 'app-rivales',
@@ -19,7 +18,7 @@ export class RivalesPage implements OnInit {
 
   header = false;
   titulo = '';
-  constructor(public data: DataService, public club: ClubService,public modalCtrl: ModalController,public route: ActivatedRoute,public router: Router) {
+  constructor(public club: EquiposService,public modalCtrl: ModalController,public route: ActivatedRoute,public router: Router) {
 
     this.route.queryParams.subscribe(params => {
       if (params && params.header) {
