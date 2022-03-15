@@ -36,10 +36,7 @@ const routes: Routes = [
     path: 'reservations',
     loadChildren: () => import('./pages/reservations/reservations.module').then( m => m.ReservationsPageModule)
   },
-  {
-    path: 'transferencias',
-    loadChildren: () => import('./pages/transferencias/transferencias.module').then( m => m.TransferenciasPageModule)
-  },
+
   {
     path: 'create-club',
     loadChildren: () => import('./pages/create-club/create-club.module').then( m => m.CreateClubPageModule)
@@ -52,14 +49,7 @@ const routes: Routes = [
     path: 'clasificacion',
     loadChildren: () => import('./pages/clasificacion/clasificacion.module').then( m => m.ClasificacionPageModule)
   },
-  {
-    path: 'checkout',
-    loadChildren: () => import('./pages/checkout/checkout.module').then( m => m.CheckoutPageModule)
-  },
-  {
-    path: 'location',
-    loadChildren: () => import('./pages/location/location.module').then( m => m.LocationPageModule)
-  },
+
 
   
   {
@@ -70,48 +60,82 @@ const routes: Routes = [
     path: 'my-reservations',
     loadChildren: () => import('./pages/my-reservations/my-reservations.module').then( m => m.MyReservationsPageModule)
   },
- 
 
-  {
-    path: 'confirmed',
-    loadChildren: () => import('./pages/confirmed/confirmed.module').then( m => m.ConfirmedPageModule)
-  },
-
-  {
-    path: 'profile-info',
-    loadChildren: () => import('./pages/profile-info/profile-info.module').then( m => m.ProfileInfoPageModule)
-  },
   {
     path: 'password',
     loadChildren: () => import('./pages/password/password.module').then( m => m.PasswordPageModule)
   },
+ 
   {
     path: 'payment-method',
     loadChildren: () => import('./pages/payment-method/payment-method.module').then( m => m.PaymentMethodPageModule)
   },
 
+
   {
-    path: 'filter',
-    loadChildren: () => import('./pages/filter/filter.module').then( m => m.FilterPageModule)
+    path: 'cancha-detalle',
+    loadChildren: () => import('./pages/cancha-detalle/cancha-detalle.module').then( m => m.CanchaDetallePageModule)
   },
+
   {
-    path: 'club-config',
-    loadChildren: () => import('./pages/club-config/club-config.module').then( m => m.ClubConfigPageModule)
+    path: 'canchas',
+    loadChildren: () => import('./pages/canchas/canchas.module').then( m => m.CanchasPageModule)
   },
 
 
   {
-    path: 'equipo-solicitud',
-    loadChildren: () => import('./pages/equipo-solicitud/equipo-solicitud.module').then( m => m.EquipoSolicitudPageModule)
+    path: 'inicio-partido',
+    loadChildren: () => import('./pages/inicio-partido/inicio-partido.module').then( m => m.InicioPartidoPageModule)
+  },
+
+
+
+  {
+    path: 'qr-verification',
+    loadChildren: () => import('./pages/qr-verification/qr-verification.module').then( m => m.QrVerificationPageModule)
   },
   {
-    path: 'reto-detalle',
-    loadChildren: () => import('./pages/reto-detalle/reto-detalle.module').then( m => m.RetoDetallePageModule)
+    path: 'qr-verification-page',
+    loadChildren: () => import('./pages/qr-verification-details/qr-verification-details.module').then( m => m.QrVerificationDetailsPageModule)
+  },
+
+
+
+
+
+
+  {
+    path: 'generar-reservacion',
+    loadChildren: () => import('./pages/generar-reservacion/generar-reservacion.module').then( m => m.GenerarReservacionPageModule)
+  },
+ 
+  {
+    path: 'lista-canchas',
+    loadChildren: () => import('./pages/lista-canchas/lista-canchas.module').then( m => m.ListaCanchasPageModule)
   },
   {
-    path: 'calendar-page',
-    loadChildren: () => import('./pages/calendar-page/calendar-page.module').then( m => m.CalendarPagePageModule)
+    path: 'lista-equipos',
+    loadChildren: () => import('./pages/lista-equipos/lista-equipos.module').then( m => m.ListaEquiposPageModule)
   },
+ 
+  {
+    path: 'equipo-detalle-modal',
+    loadChildren: () => import('./pages/equipo-detalle-modal/equipo-detalle-modal.module').then( m => m.EquipoDetalleModalPageModule)
+  },
+  {
+    path: 'equipo-reservacion',
+    loadChildren: () => import('./pages/equipo-reservacion/equipo-reservacion.module').then( m => m.EquipoReservacionPageModule)
+  },
+  {
+    path: 'aceptar-reto',
+    loadChildren: () => import('./pages/aceptar-reto/aceptar-reto.module').then( m => m.AceptarRetoPageModule)
+  },
+
+ 
+
+
+
+
 
 
 

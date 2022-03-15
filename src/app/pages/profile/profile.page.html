@@ -3,7 +3,24 @@
 </app-header>
 
 
+<ion-toolbar>
+  <ion-buttons slot="end" >
+  
+    <ion-button  color="dark" (click)="userService.onOpenMenu()">
+      <ion-icon size="large" slot="icon-only" name="settings-outline"></ion-icon>
+    </ion-button>
+
+
+    
+  </ion-buttons>
+
+
+
+    
+  </ion-toolbar>
+  
+
 <ion-content>
 
-    <app-profile-component [menu]="true"></app-profile-component>
+    <app-profile-component [menu]="true" [usuario]="userService.usuarioActual"></app-profile-component>
 </ion-content>

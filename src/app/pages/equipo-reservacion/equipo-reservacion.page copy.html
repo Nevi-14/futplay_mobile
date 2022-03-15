@@ -1,0 +1,196 @@
+
+<ion-toolbar style="background-color: #fff;">
+  <ion-label style="text-align: left; font-size: 16px; font-weight: 600;text-transform:uppercase;margin-left:1rem;">Generar Reto</ion-label>
+</ion-toolbar>
+
+<ion-content >
+
+  <ion-button *ngIf="!rival" (click)="agregarRival()"  class="ion-margin" expand="full" color="dark">
+    Agregar Rival
+   </ion-button>
+
+
+
+  <ion-card *ngIf="rival" >
+    <ion-card-header>
+      <ion-card-subtitle style="text-align: left;">Rival</ion-card-subtitle>
+      
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-chip  style="height: 60px; background: transparent;">
+          <ion-avatar  style="height: 50px; width: 50px;">
+            <img src="assets/img/equipos/{{rival.Foto}}">
+          
+          </ion-avatar>
+     
+      <ion-label>{{rival.Nombre}}</ion-label>
+
+  
+        </ion-chip>
+        <ion-buttons slot="end">
+          <ion-button (click)="agregarRival()"  color="dark" shape="round" fill="clear"> 
+            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+          
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+
+    </ion-card-content>
+
+  </ion-card>
+
+
+  <ion-button (click)="agregarRetador()" *ngIf="!retador" class="ion-margin" expand="full" color="dark">
+    Agregar Retador
+   </ion-button>
+  
+  <ion-card *ngIf="retador">
+    <ion-card-header>
+      <ion-card-subtitle style="text-align: left;">Retador</ion-card-subtitle>
+      
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-chip  style="height: 60px; background: transparent;">
+          <ion-avatar  style="height: 50px; width: 50px;">
+            <img src="assets/img/equipos/{{retador.Foto}}">
+          
+          </ion-avatar>
+     
+      <ion-label>{{retador.Nombre}}</ion-label>
+
+      
+        </ion-chip>
+
+        <ion-buttons slot="end">
+          <ion-button (click)="agregarRetador()" color="dark" shape="round" fill="clear">
+            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+          
+          </ion-button>
+        </ion-buttons>
+     
+      </ion-item>
+
+  
+    </ion-card-content>
+
+
+    
+  </ion-card>
+
+
+
+
+  <ion-button (click)="agregarCancha()" *ngIf="retador && rival && !cancha" class="ion-margin" expand="full" color="dark">
+    Agregar Cancha
+   </ion-button>
+
+   <ion-card *ngIf="cancha">
+    <ion-card-header>
+      <ion-card-subtitle style="text-align: left;">Cancha</ion-card-subtitle>
+      
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-chip  style="height: 60px; background: transparent;">
+          <ion-avatar  style="height: 50px; width: 50px;">
+            <img [src]="soccer">
+          
+          </ion-avatar>
+     
+      <ion-label>{{cancha.Nombre}}</ion-label>
+    
+      
+        </ion-chip>
+
+        <ion-buttons slot="end">
+          <ion-button (click)="agregarCancha()" color="dark" shape="round" fill="clear">
+            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+          
+          </ion-button>
+        </ion-buttons>
+     
+      </ion-item>
+<ion-item>
+  <ion-label>
+    <h2>Ubicación</h2>
+    <p>{{cancha.Nombre_Provincia}}, {{cancha.Nombre_Canton}} , {{cancha.Nombre_Distrito}}</p>
+    
+    </ion-label>
+</ion-item>
+      <ion-item>
+        <ion-label>Precio: ₡ {{cancha.Precio_Hora}}</ion-label>
+      </ion-item>
+      <ion-item *ngIf="cancha.Luz">
+        <ion-label>Luz: + ₡  {{cancha.Precio_Luz}}</ion-label>
+        <ion-checkbox slot="end"></ion-checkbox>
+      </ion-item>
+
+      <ion-item  id="date" (click)="agregarHora()">
+        <ion-label  position="stacked">Dia</ion-label>
+        <ion-input
+          [value]="nuevaReservacion.Hora_Inicio"
+          placeholder="Hora inicio"
+       
+    
+        ></ion-input>
+
+        <ion-label  position="stacked">Hora de inicio</ion-label>
+        <ion-input
+          [value]="nuevaReservacion.Hora_Inicio"
+          placeholder="Hora inicio"
+       
+    
+        ></ion-input>
+        <ion-popover mode="ios"  trigger="date" size="small" alignment="end">
+          <ng-template>
+         
+            <ion-datetime displayFormat="HH:mm:ss" #popoverDatetime1 minuteValues="0"  hour-cycle="h12"  name="picker1"  presentation="time" [(ngModel)]="nuevaReservacion.Hora_Inicio" (ionChange)="nuevaReservacion.Hora_Inicio =formatDate(nuevaReservacion.Hora_Inicio)">
+            
+        
+            </ion-datetime>
+          </ng-template>
+        </ion-popover>
+      </ion-item>
+      <ion-item   id="date2" >
+        <ion-label position="stacked">Hora Fin</ion-label>
+        <ion-input
+        placeholder="Hora fin"
+          [value]="nuevaReservacion.Hora_Fin"
+        ></ion-input>
+        <ion-popover mode="ios" trigger="date2"  size="small" alignment="end">
+          <ng-template force-overscroll="true">
+         
+            <ion-datetime  displayFormat="HH:mm:ss" #popoverDatetime2  minuteValues="0"  hour-cycle="h12" name="picker2" presentation="time" [(ngModel)]="nuevaReservacion.Hora_Fin" (ionChange)="nuevaReservacion.Hora_Fin =formatDate(nuevaReservacion.Hora_Fin)">
+            
+          
+            </ion-datetime>
+          </ng-template>
+        </ion-popover>
+      </ion-item>
+  
+    </ion-card-content>
+
+
+    
+  </ion-card>
+
+  
+
+   <ion-button *ngIf="retador && rival" class="ion-margin" expand="full" color="dark">
+    Enviar Reto
+   </ion-button>
+  </ion-content>
+  
+  
+  
+  <ion-fab  (click)="cerrarModal()" vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button size="small" color="dark">
+      <ion-icon  name="arrow-back-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  

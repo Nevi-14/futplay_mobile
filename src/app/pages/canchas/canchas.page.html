@@ -1,0 +1,43 @@
+
+<ion-toolbar>
+
+  <ion-title   slot="start" class="ion-text-uppercase" style="font-size: 14px;font-weight: 600;">Lista de canchas</ion-title>
+ <ion-buttons slot="end">
+   <ion-button (click)="cerrarModal()">
+     <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+ 
+   </ion-button>
+ </ion-buttons>
+
+</ion-toolbar>
+<ion-toolbar>
+  <ion-searchbar mode="ios" placeholder="Buscar cancha"  type="text"  [debounce]="250" ></ion-searchbar>
+</ion-toolbar>
+<ion-content >
+  <ion-list lines="none">
+  
+
+
+      <ng-template ngFor let-cancha [ngForOf]="canchasService.canchas"  let-i="index">
+            
+            
+        <ion-item (click)="seleccionar(cancha)">
+        <ion-chip  style="height: 60px; background: transparent;">
+            <ion-avatar  style="height: 50px; width: 50px;">
+              <img src="{{soccer}}">
+            
+            </ion-avatar>
+            <ion-label style="margin-bottom: 10px;"> {{cancha.Nombre}}</ion-label>
+
+          </ion-chip>
+    
+
+          
+        </ion-item>
+    
+    
+      </ng-template>
+   
+</ion-list>
+
+</ion-content>

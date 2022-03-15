@@ -1,0 +1,32 @@
+<app-header  titulo="Mi Perfil" [sideMenu]="true" [menu2]="true">
+
+</app-header>
+
+
+<ion-toolbar *ngIf="!modalMenu">
+    <ion-icon slot="start" size="large" class="ion-margin" [name]="globalService.icon"></ion-icon>
+    <ion-label slot="start" >{{globalService.mode}}</ion-label>
+    <ion-toggle  size="large"  slot="end" [checked]="userService.currentUser.customMode" 
+    (ionChange)="cambio()"></ion-toggle>
+    <ion-buttons slot="end" >
+  
+      <ion-button  color="dark" (click)="userService.onOpenMenu()">
+        <ion-icon size="large" slot="icon-only" name="settings-outline"></ion-icon>
+      </ion-button>
+      <ion-button  color="dark" (click)="solicitudesJugadoresEquipos()">
+        <ion-icon size="large" slot="icon-only" name="notifications-outline"></ion-icon>
+  
+      </ion-button>
+      <ion-list >
+        <ion-badge color="primary" mode="ios">42</ion-badge>
+      </ion-list>
+      
+    </ion-buttons>
+    
+  </ion-toolbar>
+  
+
+<ion-content>
+
+    <app-profile-component [menu]="true" [usuario]="userService.currentUser"></app-profile-component>
+</ion-content>

@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CreateClubPage } from '../create-club/create-club.page';
 
-import { SolicitudesService } from '../../services/solicitudes.service';
-import { TransferenciasPage } from '../transferencias/transferencias.page';
-import { JoinClubComponent } from 'src/app/components/join-club-component/join-club-component';
 import { Equipos } from 'src/app/models/equipos';
 import { UsuariosService } from '../../services/usuarios.service';
-import { JugadoresEquiposService } from '../../services/jugadoresEquipos.service';
+
 import { EquiposService } from 'src/app/services/equipos.service';
+
+import { MyClubsPage } from '../my-clubs/my-clubs.page';
 
 @Component({
   selector: 'app-clubs',
@@ -18,12 +17,15 @@ import { EquiposService } from 'src/app/services/equipos.service';
 
 export class ClubsPage implements OnInit {
   club: Equipos;
+
   add ='../assets/icons/create.svg';
  find ='../assets/icons/join.svg';
-  constructor( public modalCtrl: ModalController, public user: UsuariosService, public players: JugadoresEquiposService, public clubs: EquiposService, public solicitudes: SolicitudesService) { }
+  constructor( public modalCtrl: ModalController, public user: UsuariosService,  public equiposService: EquiposService) { }
 
   ngOnInit() {
-    this.clubs.checkIfHasClub();
+  
+
+   // this.user.getJugadoresEquipos(this.clubs.switchClub);
 
   }
   async newClub() {
@@ -33,16 +35,22 @@ export class ClubsPage implements OnInit {
     });
     return await modal.present();
   }
-  async findClub() {
+
+
+  
+  async myClubsMenu(){
+
     const modal = await this.modalCtrl.create({
-      component:JoinClubComponent,
+      component: MyClubsPage,
       cssClass: 'my-custom-class',
-      componentProps:{
-        header: true
-      }
     });
-    return await modal.present();
-  }
+    await modal.present();
+  
+    
+   
+   }
+
+
 
 
 

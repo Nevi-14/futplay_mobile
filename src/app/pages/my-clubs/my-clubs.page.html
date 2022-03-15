@@ -1,58 +1,50 @@
 
 
 <ion-content>
-
-  <ion-toolbar>
-    <ion-title slot="start" class="ion-text-uppercase" style="font-size: 14px;font-weight: 600;">Mis Equipos</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="findClub()"  color="dark"   *ngIf="clubs.clubAdmin"> 
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-      
-      <ion-button  (click)="newClub()" color="dark" >
-        <ion-icon slot="icon-only"  name="add"></ion-icon>
-      </ion-button> 
-      <ion-button (click)="cerrarModal()" color="dark"> 
-        <ion-icon  slot="icon-only"   name="close"></ion-icon>
-      </ion-button>
-  
-    </ion-buttons>
-  </ion-toolbar>
-  <ion-toolbar>
-    <ion-searchbar mode="ios" placeholder="Buscar Club" inputmode="text" debounce="250" ></ion-searchbar>
-  </ion-toolbar>
-  <ion-list lines="none">
-
-
-    <ng-template ngFor let-club [ngForOf]="clubs.userclubs" let-i="index" >
-      <ion-item  (click)="clubs.swapClub(club.equipoID)">
-        <ion-chip  style="height: 60px; background: transparent;">
-          <ion-avatar  style="height: 50px; width: 50px;">
-              <img src="{{club.foto}}">
-          </ion-avatar>
-          <ion-label>{{club.nombre}}</ion-label>
-        </ion-chip>
-
- 
-       </ion-item>
-    </ng-template>
-
-    <ng-template ngFor let-userPlayerClub [ngForOf]="clubs.playerClubs" let-i="index" >
-      <ion-item (click)="clubs.swapClub(userPlayerClub.equipoID)" >
-
-        <ion-chip  style="height: 60px; background: transparent;">
-          <ion-avatar  style="height: 50px; width: 50px;">
-              <img src="{{userPlayerClub.foto}}">
-          </ion-avatar>
-          <ion-label>{{userPlayerClub.nombre}}</ion-label>
-        </ion-chip>
-
+  <ion-col tappable    size="12" class="header"  [style.backgroundImage]="'url(' + stadiumProfile + ')'">
        
-      </ion-item>
-</ng-template>
+    <ion-label  class="ion-text-uppercase"  style="letter-spacing: 0.5rem; color: white;font-size: 2rem; font-weight: 600; text-shadow: 2px 2px  rgba(37,13,76,255);">
+      Mis Equipos
+       </ion-label>
+
+
+  </ion-col>
+  <ion-list  class=" body" style="height: 100%; ">
+    <ion-item *ngFor="let equipo of clubs.misEquipos"   style="position: relative;" >
 
 
 
-    </ion-list>
+      <ion-avatar slot="start" style="display:block; height: auto; width: auto;" class="ion-text-center">
+        <img style="height: 60px; width: 60px;" src="assets/soccer-shields-svg/{{equipo.Foto}}">
+      </ion-avatar>
+      <ion-label >
+     <h2>   {{equipo.Nombre}}
+    </h2>
+
+        <p style="margin-top: 0.5rem;margin-bottom: 0.5rem;">
+          <span style="display:block;">
+          <ion-icon style="size: 10px;" name="star"></ion-icon>
+          <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+          <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+          <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+          <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+        </span>
+      </p>
+      </ion-label>
+    
+    </ion-item>
+  
+  </ion-list>
+
+   
+  <ion-fab  (click)="cerrarModal()" vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button size="small" color="dark">
+      <ion-icon  name="arrow-back-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 
 </ion-content>
+  <ion-fab vertical="bottom" horizontal="end" (click)="newClub()" >
+    <ion-fab-button  color="dark"><ion-icon class="menu"  name="add" ></ion-icon></ion-fab-button>  
+  </ion-fab>

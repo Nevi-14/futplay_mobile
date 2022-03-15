@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ClubsPageRoutingModule } from './clubs-routing.module';
 
 import { ClubsPage } from './clubs.page';
-import { ComponentsModule } from '../../components/components.module';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [

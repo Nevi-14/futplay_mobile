@@ -1,9 +1,29 @@
 
 <ion-toolbar>
-  <ion-title   slot="start" class="ion-text-uppercase" style="font-size: 14px;font-weight: 600;">Ranking Global</ion-title>
+  <ion-label slot="start" class="ion-margin ion-text-uppercase" style="font-weight: bold; letter-spacing: 2px;">
+  <h2>Ranking Global</h2>
+  </ion-label>
 </ion-toolbar>
-<ion-content>
+<ion-toolbar>
   <ion-list lines="none">
+    <ion-item>
+      <ion-chip  style="height: 60px; background: transparent;">
+        <ion-avatar  style="height: 50px; width: 50px;">
+          <img [src]="equiposService.switchClub.foto">
+        
+        </ion-avatar>
+   
+        <span style="display:block;">
+          <ion-label style="margin-bottom: 10px;"> {{equiposService.switchClub.nombre}}</ion-label>
+      
+          <ion-icon style="size: 10px;" name="star"></ion-icon>
+          <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+          <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+          <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+          <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+        </span>
+      </ion-chip>
+    </ion-item>
     <ion-item>
       <ion-icon slot="start" name="trophy-outline"></ion-icon>
       <ion-label  >Tus puntos de calidad: 000</ion-label>
@@ -14,8 +34,16 @@
       <ion-label >Tu posicion actual: #000</ion-label>
     </ion-item>
   </ion-list>
-  
-  <app-join-club-component [header]="header" [clasificacionMenu]="true" [titulo]="titulo"></app-join-club-component>
+</ion-toolbar>
 
+<ion-toolbar>
+  <ion-label slot="start" class="ion-margin ion-text-uppercase" style="font-weight: bold; letter-spacing: 2px;">
+  <h2>Power Rankings</h2></ion-label>
+</ion-toolbar>
+
+
+<ion-content>
+
+  
 </ion-content>
   

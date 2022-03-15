@@ -1,6 +1,5 @@
 <ion-content>
-  <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)"  >
-
+  <form (ngSubmit)="login(fLogin)" #fLogin="ngForm"> 
 
     <div class="login-section ion-pading scroll">
       <div class="heading ion-padding">
@@ -15,7 +14,9 @@
           <ion-item>
     
             <ion-label  position="stacked"><ion-icon  name="mail-outline"></ion-icon>Correo o número  de teléfono</ion-label>
-            <ion-input type="email" placeholder="correo o numero de telefono" name="correo" [(ngModel)]="userLogin.usuario"></ion-input>
+            <ion-input [(ngModel)]="loginUser.email"   placeholder="correo electronico" name="email"
+            type="email"
+            required></ion-input>
           </ion-item>
         </div>
 
@@ -24,9 +25,14 @@
 
    
               <ion-label  position="stacked">            <ion-icon  name="lock-closed-outline" ></ion-icon>Contraseña</ion-label>
-          
-            <ion-input type="password" name="contrasena" autocomplete="off" [(ngModel)]="userLogin.contrasena" type="{{showPass ? 'text' : 'password'}}" placeholder="contraseña"></ion-input>
-            <ion-icon slot="end"  item-right name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>
+              <ion-input [(ngModel)]="loginUser.password"    placeholder="contraseña" name="password"
+              type="{{showPass ? 'text' : 'password'}}"
+              required></ion-input>
+              <ion-icon slot="end"  item-right name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>
+  
+
+
+        
           </ion-item>
         </div>
 
@@ -39,11 +45,11 @@
         <ion-button size="small" class="login-button" shape="round" type="submit">
           Iniciar Sesion
         </ion-button>
-        <p (click)="passwordReset($event)"> Recuperar Contraseña</p>
+        <p > Recuperar Contraseña</p>
      
       </div>
       <div class="action-buttons ion-padding">
-        <ion-button size="small" class="signup-button" fill="outline" shape="round" (click)="loadCredentials()">
+        <ion-button size="small" class="signup-button" fill="outline" shape="round" >
          Credentials
         </ion-button>
     

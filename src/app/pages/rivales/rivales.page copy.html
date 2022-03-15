@@ -1,0 +1,30 @@
+<ion-toolbar>
+  <ion-buttons slot="start" *ngIf="modal">
+    <ion-button (click)="cerrarModal()">
+      <ion-icon color="dark" name="arrow-back-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+<ion-label slot="start" class="ion-margin ion-text-uppercase" style="font-weight: bold; letter-spacing: 2px;"><h2>{{titulo}}</h2></ion-label>
+</ion-toolbar>
+
+<ion-toolbar>
+
+
+  <ion-searchbar mode="ios" placeholder="buscar equipo" inputmode="text" (ionChange)="onSearchChange($event)" debounce="250" ></ion-searchbar> 
+  <ion-button fill="clear" slot="end"  style="padding-top: 1px;
+  padding-bottom: 15px;
+  height: 52px;" (click)="filtrar()">
+    <ion-icon  size="large"  slot="icon-only" color="dark" name="options"></ion-icon>
+  </ion-button>
+
+
+
+  
+ 
+</ion-toolbar>
+
+
+<ion-content>
+  <app-join-club-component [header]="header" [titulo]="titulo" [equiposMenu]="true"></app-join-club-component>
+
+</ion-content>

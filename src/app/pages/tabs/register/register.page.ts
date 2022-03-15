@@ -1,132 +1,196 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
-
-import {Observable} from 'rxjs';
-import {AlertController} from '@ionic/angular';
+import {ModalController } from '@ionic/angular';
 import { UsuariosService } from 'src/app/services/usuarios.service';
-import { Provincias } from 'src/app/models/provincias';
-import { Usuarios } from 'src/app/models/usuarios';
+;
+import { format } from 'date-fns';
+import { ProvinciasService } from 'src/app/services/provincias.service';
+import { CantonesService } from 'src/app/services/cantones.service';
+import { DistritosService } from 'src/app/services/distritos.service';
 
 
 @Component({selector: 'app-register', templateUrl: './register.page.html', styleUrls: ['./register.page.scss']})
 export class RegisterPage implements OnInit {
-    provincias : Observable < Provincias[] >;
-    user = {
-        usuarioID: this.userService.user.length + 1,
-        roleID: 2,
-        provinciaID: null,
-        cantonID: null,
-        distritoID: null,
-        administrador: false,
-        customMode: true,
-        foto: '../assets/profile/nopicture.svg',
-        nombre: '',
-        apodo:'',
-        apellido1: '',
-        apellido2: '',
-        fechaNac: null,
-        telefono: '',
-        direccion: '',
-        correo: '',
-        contrasena: '',
-        confirmarContrasena: '',
-        intentos: 0
-    };
-    showPass = false;
-    showPassConfirm = false;
-    constructor(public userService : UsuariosService, public route : Router, public alertCtrl : AlertController) {}
-
-    ngOnInit() {
-       
-    }
-
-
-    async alert(email) {
-      if(email){
-        const alert = await this.alertCtrl.create({
-            header: 'Lo sentimos!',
-            message: 'Usuario duplicado. ¿Desea recuperar contraseña?',
-            buttons: [
-                {
-                    text: 'SI',
-                    handler: () => {
-                        this.route.navigate(['/', 'password-reset']);
-                    }
-                }, {
-                    text: 'NO',
-                    handler: () => {
-                        this.route.navigate(['/inicio/', 'login']);
-                    }
-                }
-            ]
-        });
-        await alert.present();
-      }else{
-
-        const alert = await this.alertCtrl.create({
-            header: 'Lo sentimos!',
-            message: 'Ingresa un correo valido!'
-        });
-        await alert.present();
-      }
-    }
-    async onSubmit(formulario : NgForm) {
-        if(this.userService.validateEmail(this.user.correo)=== false){
-             this.alert(false);
-        }else{
-            const i = this.userService.user.findIndex(d => d.correo === this.user.correo);
-            console.log(i);
-            if (i >= 0) {
-                this.alert(true);
-            } else {
-              //  alert([this.user.confirmarContrasena, this.user.contrasena])
-                if(this.user.confirmarContrasena === this.user.contrasena){
-                    this.userService.loggedUser(this.user);
-                    this.userService.user.push(new Usuarios(this.user.usuarioID, this.user.provinciaID, this.user.cantonID, this.user.distritoID, false,true,  this.user.nombre, this.user.apellido1, this.user.apellido2, new Date(this.user.fechaNac),this.user.foto, this.user.telefono, this.user.correo, this.user.contrasena, this.user.intentos, new Date(), 1, 'test'));
-                    this.route.navigate(['/', 'home']);
-                  //  this.jugadorPosicion.jugadoresPosiciones.push(new JugadorPosiciones(this.jugadorPosicion.jugadoresPosiciones.length+1,this.user.usuarioID, null,''));
-                  
-                    this.userService.swapUser(this.user.usuarioID)
-            
-
-
-                    const resetUser =  {
-                        usuarioID: null,
-                        roleID: null,
-                        provinciaID: null,
-                        cantonID: null,
-                        distritoID: null,
-                        administrador: false,
-                        customMode: true,
-                        foto: '',
-                        nombre: '',
-                        apodo:'',
-                        apellido1: '',
-                        apellido2: '',
-                        fechaNac: null,
-                        telefono: '',
-                        direccion: '',
-                        correo: '',
-                        contrasena: '',
-                        confirmarContrasena: '',
-                        intentos: 0
-                    };
-                    this.user = resetUser;
-                }else{
-                    const alert = await this.alertCtrl.create({
-                        header: 'Lo sentimos!',
-                        message: 'Las contrasenas no coinciden'
-                    });
-                    await alert.present();
-                }
-               
-            }
-
-        }
    
+  public tipos  =[{nombre:'1',valor:'general'},{nombre:'2',valor:'cumpleanos'},{nombre:'3',valor:'seguridad'}];
+  public selectedType: string ='general';
+
+// MONTHS ARE ALWAYS THE SAME
+
+  months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+days = [];
+years = [];
+selectedYear = new Date().getFullYear();
+selectedMonth: string;
+selectedDay:number;
+previousDay:number;
+usuario = {
+  Cod_Provincia: null,
+  Cod_Canton : null,
+  Cod_Distrito : null,
+  Cod_Posicion: 1,
+  Cod_Role: 2,
+  Modo_Customizado: false,
+  Foto: 'user.svg',
+  Nombre: '',
+  Primer_Apellido: '',
+  Segundo_Apellido: '',
+  Fecha_Nacimiento: format(new Date(), 'yyyy-MM-dd'),
+  Telefono: '',
+  Correo: '',
+  Contrasena: '',
+  FechaRegistro : new Date(),
+  Intentos:0,
+  Estatura: 0,
+  Peso: 0,
+  Apodo: '',
+  Partidos_Jugados: 0,
+  Partidos_Jugador_Futplay: 0,
+
+};
+
+  confirmarContrasena = null;
+  showPass = false;
+  showPassConfirm = false;
+  provincia = null;
+  canton: null;
+  distrito: null;
+  constructor(
+    private route: Router,
+    public usuariosServicio : UsuariosService,
+    public provinciasService: ProvinciasService,
+    public cantonesService: CantonesService,
+    public distritosService: DistritosService,
+    public modalCtrl: ModalController
+  ) { }
+
+  ngOnInit() {
+
+    //this.selectedMonth = this.months[0];
+    this.popualteYears();
+    this.provinciasService.syncProvincias();
+  }
+  formatDate(event) {
+    //  this.usuario.Fecha_Nacimiento = $event.detail.value;
+    this.usuario.Fecha_Nacimiento = event.detail.value;
+    this.modalCtrl.dismiss();
+  }
+
+
+    
+  registro(fRegistro: NgForm){
+    if(fRegistro.invalid) {return;}
+    console.log(fRegistro.valid);
+    console.log(this.usuario)
+    this.usuariosServicio.registro(this.usuario)
+    
+    }
+    
+  syncProvincias(){
+    this.provinciasService.syncProvincias();
+  }
+
+
+  onChange($event , provincia, canton, distrito){
+    if(provincia){
+  
+   this.cantonesService.syncCantones($event.target.value);
+    }else if(canton){
+  
+      this.distritosService.syncDistritos(this.usuario.Cod_Provincia, $event.target.value);
+  
+    }else{
+      
+    }
+    console.log($event.target.value);
+    }
+
+
+
+
+
+
+  dayonChange(selectedValue:any){
+    this.previousDay =  selectedValue.detail.value;
+
+  }
+
+  yearonChange(selectedValue:any){
+    this.popualteYears();
+
+  }
+
+
+  onSelectChange(selectedValue: any) {
+  let   monthValue =  selectedValue.detail.value;
+
+  let currentYear = this.selectedYear;
+
+
+  let dayNum = 0;
+  if(monthValue === 'January' || monthValue === 'March'|| monthValue === 'May' || monthValue === 'July' || monthValue === 'August' || monthValue === 'October' || monthValue === 'December'){
+    dayNum = 31;
+  }else if( monthValue === 'April' || monthValue === 'June' || monthValue === 'September' || monthValue === 'November'){
+    dayNum = 30;
+  }else{
+
+  // CHECK FOR A LEAP YEAR
+
+  if(new Date(currentYear, 1, 29 ).getMonth()===1){
+    dayNum = 29;
+  }else{
+    dayNum = 28;
+  }
+
+  }
+
+ //  INSERT THE CORRECT DAY INTO the dropdown
+ this.days = [];
+
+ for ( let i = 1; i <= dayNum; i++){
+
+  this.days.push(i);
+
+ }
+ this.popualteYears();
+
+  }
+
+
+  popualteYears(){
+
+    this.years = [];
+
+    // GET THE CURRENT YEAR AS A NUMBER
+    let year = this.selectedYear;
+    // make the previous 100 yars be an option
+    for(let i = 0; i < 101 ; i++){
+
+      this.years.push(year-i);
+      
+
+    }
+    if(this.previousDay){
 
     }
 
+  }
+
+  segmentChanged(event:any){
+    console.log(event)
+    
+    this.selectedType = event.detail.value;
+      }
+
+
+      regresar(){
+        this.route.navigate(['/inicio-sesion'])
+      }
+
+
+      populateDays(month){
+
+      }
 
 }

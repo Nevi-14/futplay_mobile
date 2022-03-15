@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CanchasService } from 'src/app/services/canchas.service';
 import { EquiposService } from 'src/app/services/equipos.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +10,34 @@ import { EquiposService } from 'src/app/services/equipos.service';
 })
 export class HomePage implements OnInit {
 
-  constructor(public clubs: EquiposService) { }
+  constructor(
+    
+    public equiposService: EquiposService,
+    public usuariosService:UsuariosService,
+    public canchasService: CanchasService
+    
+    
+    
+    ) { }
 
   ngOnInit( ) {
 
   }
 
+
+  misEquipos(){
+    this.equiposService.new = true;
+this.equiposService.perfilEquipo = null;
+    this.equiposService.SyncMisEquipos(this.usuariosService.usuarioActual.Cod_Usuario)
+
+  }
+equipos(){
+  this.equiposService.SyncEquipos(this.usuariosService.usuarioActual.Cod_Usuario)
+    
+  }
+  canchas(){
+ this.canchasService.syncCanchas();
+   
+    
+  }
 }

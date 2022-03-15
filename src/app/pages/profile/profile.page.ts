@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PopoverController, ModalController } from '@ionic/angular';
-import { SettingInfoComponent } from '../../components/setting-info/setting-info.component';
-import { AngularFileUploaderModule } from 'angular-file-uploader';
+
 import { UsuariosService } from 'src/app/services/usuarios.service';
-import { JugadoresEquipos } from '../../models/jugadoresEquipos';
+
+import { GlobalService } from 'src/app/services/global.service';
+import { EquiposService } from 'src/app/services/equipos.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,39 +12,25 @@ import { JugadoresEquipos } from '../../models/jugadoresEquipos';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  @Input() userInfo: JugadoresEquipos;
   afuConfig = {
     uploadAPI: {
       url:"http://localhost:8101/..assets/photos"
     }
 };
 
-  constructor(public popoverCtrl: PopoverController,public userService: UsuariosService, public modalCtrl: ModalController) {
+  constructor(public popoverCtrl: PopoverController,public userService: UsuariosService, public modalCtrl: ModalController, public globalService: GlobalService, public equiposService: EquiposService) {
     
 
     
   }
 
   ngOnInit() {
+    
+   // this.equiposService.checkIfHasClub();
   }
 
   uploadPicture(){
 
-  }
-
-
-  async presentPopover(ev: any) {
-    const popover = await this.popoverCtrl.create({
-      component: SettingInfoComponent,
-      cssClass: 'my-custom-class',
-      event: ev,
-      translucent: true,
-      backdropDismiss: true
-    });
-    await popover.present();
-
-    const { data } = await popover.onWillDismiss();
-    console.log(data);
   }
 
 

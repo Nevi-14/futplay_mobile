@@ -34,8 +34,8 @@ export class PasswordPage implements OnInit {
     alert.present();
   }
    onSubmit(formulario: NgForm){
-   if(this.userService.currentUser.contrasena === this.credentials.password && this.credentials.new ===  this.credentials.confirm){
-    this.userService.editUserPassword(this.userService.currentUser.usuarioID, this.credentials);
+   if(this.userService.usuarioActual.Contrasena === this.credentials.password && this.credentials.new ===  this.credentials.confirm){
+   // this.userService.editUserPassword(this.userService.currentUser.usuarioID, this.credentials);
     this.message('Contraseña actualizada');
     }else{
       this.message('Las contraseñas no coinciden');

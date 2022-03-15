@@ -1,0 +1,99 @@
+
+<ion-toolbar *ngIf="!modalMenu">
+  <ion-icon slot="start" class="ion-margin" [name]="globalService.icon"></ion-icon>
+  <ion-label slot="start" >{{globalService.mode}}</ion-label>
+  <ion-toggle  slot="end" [checked]="this.userService.currentUser.customMode" 
+  (ionChange)="cambio()"></ion-toggle>
+  <ion-buttons slot="end" >
+
+    <ion-button (click)="opcionesService.opciones('Opciones de usuario',[{funcion:'gestionarPerfil', icono: 'create-outline', parametros:  {arreglo:''},  arreglo:'' , boton: 'Editar perfil' },{funcion:'gestionarContrasena', icono:'lock-closed-outline', parametros:  {}, arreglo:'' , boton: 'Gestionar contraseñas' },{
+      funcion:'gestionarMetodosDePago', icono: 'card-outline', arreglo:'' , boton: 'Metodos de pago' },{
+        funcion:'cerrarSession', icono: 'log-out-outline', arreglo:'' , boton: 'Cerrar Session' }])" color="dark" >
+      <ion-icon slot="icon-only" name="settings"></ion-icon>
+    </ion-button>
+    
+  </ion-buttons>
+  
+</ion-toolbar>
+
+  <ion-toolbar *ngIf="modalMenu">
+ 
+    <ion-title slot="start" class="ion-text-uppercase" style="font-size: 14px;font-weight: 600;">{{userService.userProfile.nombre}} {{userService.userProfile.apellido1}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()" color="dark"> 
+        <ion-icon  name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+
+<ion-content>
+
+  
+  
+  <ion-list lines="none"  >
+
+
+
+    <ion-grid >
+        <ion-row>
+      
+            <ion-col size="12" size-md="6" size-lg="4" class="ion-text-center" >
+         
+              <img  class="border-invert"   [src]="userService.userProfile.foto">
+              </ion-col>
+ 
+  
+            <ion-col size="12" size-md="6" size-lg="8" >
+  
+            
+                    <ion-item>
+                      <ion-label style="font-weight: 600;" class="ion-text-">{{userService.userProfile.nombre}} {{userService.userProfile.apellido1}} {{userService.userProfile.apellido2}}</ion-label>
+                        
+                       
+                    </ion-item>
+                    <ion-item *ngIf="userService.userProfile.apodo">
+                        <ion-label>Apodo : {{userService.userProfile.apodo}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label >Región : {{userService.userProfile.provinciaID | provincias}}  </ion-label>
+                    </ion-item>
+                    <ion-item *ngIf="userService.userProfile.posicion">
+                        <ion-label>Posición: {{userService.userProfile.posicion}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Edad : {{userService.age}} años</ion-label>
+                    </ion-item>
+               
+            </ion-col>
+            <ion-col size="12" >
+           <ion-item>
+            <ion-label color="dark">Estadisticas Personales :</ion-label>
+           </ion-item>
+             </ion-col>
+             <ion-col size="12" >
+      
+                     <ion-item>
+                         <ion-label  slot="start" class="ion-text-left">Partidos Jugados</ion-label>
+                         <ion-label slot="end">0</ion-label>
+                     </ion-item>
+                     <ion-item>
+                      <ion-label  slot="start" class="ion-text-left">Jugador del partido</ion-label>
+                         <ion-label slot="end">0</ion-label>
+                     </ion-item>
+                     <ion-item>
+                      <ion-label  slot="start" class="ion-text-left">Jugador FutPlay</ion-label>
+                      <ion-label slot="end">0</ion-label>
+                     </ion-item>
+              
+             </ion-col>
+        </ion-row>
+  
+  
+  
+    </ion-grid>
+  
+</ion-list>
+
+
+</ion-content>

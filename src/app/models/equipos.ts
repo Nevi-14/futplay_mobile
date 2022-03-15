@@ -12,5 +12,7 @@ export class Equipos {
         public fecha: Date,
         public estrellas: number,
         public dureza: string,
+        public Estado: boolean,
+        public Descripcion_Estado: string,
     ){}
 }

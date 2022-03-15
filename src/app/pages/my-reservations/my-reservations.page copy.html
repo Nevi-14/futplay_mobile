@@ -1,0 +1,215 @@
+<ion-toolbar>
+  <ion-title class="ion-text-uppercase">Gestion de retos</ion-title>
+</ion-toolbar>
+
+<ion-header>
+  <ion-navbar color="dark">
+    <ion-title> The Hotel </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <img class="header" src="http://placehold.it/500x500" />
+  </ion-card>
+  <p>Welcome to <strong>The Hotel</strong>, we hope you enjoy your stay.</p>
+  <button (click)="openSearch()" ion-button full color="light">
+    Find a Room
+  </button>
+</ion-content>
+  <ion-content>
+
+    
+  <ion-segment [value]="selectedType" (ionChange)="segmentChanged($event)"  scrollable mode="md">
+    <ion-segment-button *ngFor="let tipo of tipos" [value]="tipo">
+      <ion-label style="font-size: 10px;font-weight: 600;">{{tipo}}</ion-label>
+    </ion-segment-button>
+    
+  </ion-segment>
+
+  <ion-grid  style="height:auto;display: flex; justify-content: center; align-items: center;" >
+
+    <ion-row>
+      <ion-col size="12" >
+        <ion-list lines="none">
+          <ion-item   *ngIf="selectedType ==='inicio'">
+            <ion-card  (click)="confirm()">
+              <ion-card-header>
+                <ion-card-subtitle>Retos Confirmados</ion-card-subtitle>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-list lines="none">
+                  <ion-item color="success" style="border-radius: 10px;">
+                    <ion-card-content>
+                      <ion-label>Equipo 1</ion-label>
+                      <ion-label>Fecha 00/00/00</ion-label>
+                      <ion-label>Hora: 24:00</ion-label>
+                    </ion-card-content>
+                    <ion-buttons slot="end">
+                      <ion-button  style="height: 80px;">
+                        <ion-avatar>
+                          <img [src]="img1">
+                        </ion-avatar>
+                      </ion-button>
+                    </ion-buttons>
+                  </ion-item>
+                </ion-list>
+              </ion-card-content>
+            </ion-card>
+  
+          </ion-item>
+          <ion-item  *ngIf="selectedType ==='inicio'">
+            <ion-card (click)="send()">
+              <ion-card-header>
+                <ion-card-subtitle>Retos Enviados</ion-card-subtitle>
+              </ion-card-header>
+              <ion-card-content>
+<ion-list lines="none">
+  <ion-item color="primary" style="border-radius: 10px;">
+    <ion-card-content>
+      <ion-label>Equipo 1</ion-label>
+      <ion-label>Fecha 00/00/00</ion-label>
+      <ion-label>Hora: 24:00</ion-label>
+    </ion-card-content>
+    <ion-buttons slot="end">
+      <ion-button  style="height: 80px;">
+        <ion-avatar>
+          <img [src]="img2">
+        </ion-avatar>
+      </ion-button>
+    </ion-buttons>
+  </ion-item>
+</ion-list>
+              </ion-card-content>
+            </ion-card>
+  
+          </ion-item>
+          <ion-item *ngIf="selectedType ==='inicio'">
+            <ion-card (click)="receive()">
+              <ion-card-header>
+                <ion-card-subtitle>Retos Recibidos</ion-card-subtitle>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-list lines="none">
+                  <ion-item  color="medium" style="border-radius: 10px;">
+                    <ion-card-content>
+                      <ion-label>Equipo 1</ion-label>
+                      <ion-label>Fecha 00/00/00</ion-label>
+                      <ion-label>Hora: 24:00</ion-label>
+                    </ion-card-content>
+                    <ion-buttons slot="end">
+                      <ion-button  style="height: 80px;">
+                        <ion-avatar>
+                          <img [src]="img3">
+                        </ion-avatar>
+                      </ion-button>
+                    </ion-buttons>
+                  </ion-item>
+                </ion-list>
+              </ion-card-content>
+            </ion-card>
+  
+          </ion-item>
+        </ion-list>
+
+      </ion-col>
+
+    </ion-row>
+
+</ion-grid>
+<ion-list   *ngIf="selectedType !=='inicio'">
+
+  <ion-card *ngFor="let reto of gestionRestosService.retos" (click)="detalleReto(reto)">
+<ion-toolbar>
+<ion-label slot="start">{{reto.Titulo}}</ion-label>
+
+  <ion-label slot="end">{{reto.Fecha | date:'fullDate'}}</ion-label>
+</ion-toolbar>
+    <ion-card-content>
+
+      <ion-grid >
+        <ion-row>
+          <ion-col size="6" style="display: block;justify-content: center;align-items: center;" >
+  
+      <ion-row>
+        <ion-col size="12">
+          <ion-chip  style="height: 60px; background: transparent;">
+            <ion-avatar  style="height: 50px; width: 50px;">
+              <img src="assets/img/equipos/{{reto.Foto_Rival}}">
+           
+            </ion-avatar>
+  
+          </ion-chip>
+        
+  
+        </ion-col>
+        <ion-col size="12" class="ion-text-center">
+  
+            <ion-label >{{reto.Nombre_Rival}}</ion-label>
+  
+        </ion-col>
+      </ion-row>
+          </ion-col>
+          <ion-col size="6" style="display: block;" >
+  
+  <ion-row>
+   <ion-col size="12">
+    <ion-chip    style="height: 60px; background: transparent;">
+      <ion-avatar  style="height: 50px; width: 50px;">
+        <img src="assets/img/equipos/{{reto.Foto_Retador}}">
+     
+      </ion-avatar>
+    
+  
+  
+    </ion-chip>
+  
+   </ion-col>
+  
+   <ion-col size="12" class="ion-text-center">
+    <ion-label  >{{reto.Nombre_Retador}}</ion-label>
+   </ion-col>
+  </ion-row>
+  
+          </ion-col>
+  
+          <ion-col size="12">
+            <ion-label > 
+              
+              <h2> Cancha : {{reto.Nombre_Cancha}}</h2>
+              
+              <p class="ion-margin">Hora : {{ hours(reto.Fecha,reto.Hora_Inicio) | date:'shortTime' }}</p>
+              </ion-label>
+          
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  
+
+
+
+
+
+
+
+  <ion-item *ngIf="gestionRestosService.retos.length == 0">
+    <ion-icon slot="start" name="close-outline"></ion-icon>
+    <ion-label>No hay retos disponibles</ion-label>
+  </ion-item>
+</ion-list>
+</ion-content>
+
+<ion-fab (click)="nuevaReservacion()" vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button color="dark">
+    <ion-icon name="add" ></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+<ion-fab  (click)="cerrarModal()" vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button size="small" color="dark">
+    <ion-icon  name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

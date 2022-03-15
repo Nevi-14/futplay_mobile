@@ -1,0 +1,95 @@
+
+
+<ng-template [ngIf]="clubs.new">
+  <app-header titulo="Clubes" ></app-header>
+
+
+
+  <ion-toolbar >
+    <ion-buttons slot="start" > 
+      <ion-menu-button color="dark"  menu="first"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-buttons slot="start" >
+      <ion-button (click)="myClubsMenu()"  color="dark">
+        <ion-icon class="menu" slot="icon-only" name="menu-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+
+
+    <ion-buttons slot="end" >
+      <ion-button (click)="editarEquipo()" color="dark" *ngIf="clubs.clubAdmin">
+        <ion-icon class="menu" slot="icon-only" name="settings-outline"></ion-icon>
+      </ion-button>
+      
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button  color="dark" (click)="solicitudesJugadoresEquipos()">
+        <ion-icon size="large" slot="icon-only" name="notifications-outline"></ion-icon>
+  
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+
+
+  
+<ion-content>
+ 
+
+  <app-equipos   [club]="clubs.switchClub"></app-equipos>
+
+  <app-lista-jugadores [club]="clubs.switchClub"></app-lista-jugadores>
+
+  
+</ion-content>
+
+</ng-template>
+
+<ng-template [ngIf]="!clubs.new">
+
+
+
+  <app-header titulo="Clubes"></app-header>
+
+
+  <ion-content  class="">
+
+
+    <ion-grid class="center-grid" >
+      <ion-row >
+      <ion-col size="12" >
+        <ion-card style="display:flex; justify-content: center; align-items: center; width: 80vw; height: 140px;" (click)="newClub()">
+          <ion-card-header >
+            <ion-card-subtitle color="dark">CREAR UN CLUB</ion-card-subtitle>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <img [src]="add" class="invert" style="height: 80px;">
+          </ion-card-content>
+        </ion-card>
+    
+        <ion-card (click)="findClub()"    style="display:flex; justify-content: center; align-items: center; width: 80vw; height: 140px;">
+          <ion-card-header>
+            <ion-card-subtitle color="dark">UNIRSE A UN CLUB</ion-card-subtitle>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <img [src]="find" class="invert" style="height: 80px;">
+          </ion-card-content>
+        </ion-card>
+    
+    
+      </ion-col>
+
+
+    </ion-row>
+    </ion-grid>
+
+
+   
+  </ion-content>
+
+</ng-template>

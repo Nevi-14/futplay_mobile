@@ -1,22 +1,54 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 import { Cantones } from '../models/cantones';
+import { AlertasService } from './alertas.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CantonesService {
 
-  cantones:  Cantones[]=[];
-  constructor( private http: HttpClient) { }
+  cantones: Cantones[]=[];
 
-  getCantones(){
-    this.http.get<Cantones[]>('/assets/json/cantones.json').subscribe(resp=>{
-    if(resp){
-     this.cantones = resp;
-    }else{
-      console.log('Error cantones');
+
+  constructor(
+    private http: HttpClient,
+    public aslertasService: AlertasService
+    
+    ) { }
+
+  getURL( api: string,provincia: string ){
+    let test: string = ''
+    if ( !environment.prdMode ) {
+      test = environment.TestURL;
     }
-   });
- }
+
+    const URL = environment.preURL  + test +  environment.postURL + api + environment.Cod_Provincia + provincia;
+console.log(URL);
+    return URL;
+  }
+  private getCantones( provincia){
+    const URL = this.getURL( environment.cantonesURL,provincia);
+    return this.http.get<Cantones[]>( URL );
+  }
+
+  syncCantones(provincia){
+
+    this.getCantones(provincia).subscribe(
+      resp =>{
+        this.cantones = resp.slice(0);
+        console.log(this.cantones, 'cantones')
+
+      }, error =>{
+
+        if(error){
+
+          this.aslertasService.message('FUTPLAY', 'Error cargando cantones');
+
+        }
+      }
+    );
+  }
+  
 }

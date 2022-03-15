@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { RivalesPageRoutingModule } from './rivales-routing.module';
 
 import { RivalesPage } from './rivales.page';
-import { ComponentsModule } from '../../components/components.module';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -15,7 +15,7 @@ import { ComponentsModule } from '../../components/components.module';
     FormsModule,
     IonicModule,
     RivalesPageRoutingModule,
-    ComponentsModule
+    PipesModule
   ],
   declarations: [RivalesPage]
 })

@@ -1,0 +1,56 @@
+<app-header titulo="Reservaciones"></app-header>
+<ion-toolbar>
+
+  <ion-title   slot="start" class="ion-text-uppercase" style="font-size: 14px;font-weight: 600;">Lista de canchas</ion-title>
+
+  <ion-buttons      slot="end">
+
+      <ion-button color="dark" (click)="filtrar()"> 
+        <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+      </ion-button>
+
+
+  </ion-buttons>
+
+</ion-toolbar>
+<ion-toolbar>
+  <ion-searchbar mode="ios" placeholder="Buscar cancha"  type="text"  [debounce]="250" ></ion-searchbar>
+</ion-toolbar>
+<ion-content >
+  <ion-list lines="none">
+  
+
+
+      <ng-template ngFor let-cancha [ngForOf]="[1,1,1,1]"  let-i="index">
+            
+            
+        <ion-item>
+        <ion-chip  style="height: 60px; background: transparent;">
+            <ion-avatar  style="height: 50px; width: 50px;">
+              <img src="{{soccer}}">
+            
+            </ion-avatar>
+            <ion-label style="margin-bottom: 10px;"> Cancha {{i+1}}</ion-label>
+
+          </ion-chip>
+    
+          <ion-buttons slot="end">
+          
+    
+            <ion-button  color="dark" slot="end" (click)="opcionesService.opciones('Opciones de Cancha',[{funcion:'verCancha', icono: 'eye-outline', parametros:  {arreglo:cancha},  arreglo:cancha , boton: 'Ver Cancha' },{funcion:'reservarCancha', icono: 'calendar-outline', parametros:  {arreglo:cancha, canchaId: i+1},  arreglo:cancha , boton: 'Reservar Cancha' },{funcion:'mensajeria', icono: 'paper-plane-outline', parametros:  {arreglo:cancha},arreglo:cancha , boton: 'Enviar Mensaje'},{
+              funcion:'marcarFavorito', icono: 'star-outline', arreglo:cancha , boton: 'Marcar Como Favorito' }])">
+              <ion-icon name="ellipsis-horizontal"></ion-icon>
+              </ion-button>
+    
+    
+           
+    </ion-buttons>
+          
+        </ion-item>
+    
+    
+      </ng-template>
+   
+</ion-list>
+
+</ion-content>

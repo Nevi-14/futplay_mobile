@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
-import { FilterPage } from '../filter/filter.page';
-import { ClubInfoComponent } from '../../components/club-info/club-info.component';
+import { ListaEquiposService } from 'src/app/services/lista-equipos.service';
+import { ModalController, ActionSheetController, ActionSheetButton } from '@ionic/angular';
+import { EquipoReservacionPage } from '../equipo-reservacion/equipo-reservacion.page';
 import { EquiposService } from 'src/app/services/equipos.service';
 
 @Component({
@@ -11,45 +10,101 @@ import { EquiposService } from 'src/app/services/equipos.service';
   styleUrls: ['./rivales.page.scss'],
 })
 export class RivalesPage implements OnInit {
-  star= 'assets/search/star.svg';
-  message= 'assets/search/message.svg';
-  save= 'assets/search/add-user.svg';
-  filter= 'assets/icons/filter.svg';
 
-  header = false;
-  titulo = '';
-  constructor(public club: EquiposService,public modalCtrl: ModalController,public route: ActivatedRoute,public router: Router) {
-
-    this.route.queryParams.subscribe(params => {
-      if (params && params.header) {
-       this.header = params.header;
-       this.titulo = params.titulo;
-        
-      }
-    });
+  constructor(
+    
+    public listaEquiposService: ListaEquiposService,
+    public modalCtrl:ModalController,
+    public actionSheetCtrl: ActionSheetController,
+    public equiposService: EquiposService,
+    
+    
+    ) {
    }
 
   ngOnInit() {
-    console.log(this.club.club)
+  
+  //  this.listaEquiposService.SyncEquipos();
+   
   }
 
  
-  async send(club){
-     const modal = await this.modalCtrl.create({
-      component: ClubInfoComponent,
-      cssClass: 'my-custom-class',
-      componentProps:{
-        club: club
-      }
+  async onOpenMenu(equipo){
+
+
+    const normalBtns : ActionSheetButton[] = [
+      {   
+         text: 'Ver Equipo',
+         icon:'eye-outline',
+         handler: () =>{
+          
+          this.listaEquiposService.detalleEquipo(equipo)
+         }
+        
+        },
+ {   
+ //   text: canchaFavoritos ? 'Remover Favorito' : 'Favorito',
+   // icon: canchaFavoritos ? 'heart' : 'heart-outline',
+   text: 'Agregar a favoritos',
+   icon:'heart-outline',
+    handler: () =>{
+     
+    }
+   
+   },
+ 
+         {   
+          text: 'Enviar Reto',
+          icon:'paper-plane-outline',
+          handler: () =>{
+            this.rivalReservacion(equipo)
+       
+          }
+         
+         },
+
+         {   
+          text: 'Cancelar',
+          icon:'close-outline',
+         role:'cancel',
+         
+         }
+      
+        ]
+
+  
+    const actionSheet = await this.actionSheetCtrl.create({
+      header:'FUTPLAY',
+      buttons:normalBtns
     });
-    return await modal.present();
-  }
-  async filterModal(){
-    const modal = await this.modalCtrl.create({
-     component: FilterPage,
-     cssClass: 'my-custom-class'
+  
+  
+  
+  
+  
+  await actionSheet.present();
+  
+  
+    }
+
+    
+   async rivalReservacion(rival){
+
+  
+     
+    const modal  = await this.modalCtrl.create({
+     component: EquipoReservacionPage,
+     cssClass: 'my-custom-class',
+     componentProps:{
+      rival:rival,
+      retador:null,
+      cancha:null
+
+     },
+     id:'my-modal-id'
    });
-   return await modal.present();
+   await modal .present();
  }
+
 
 }

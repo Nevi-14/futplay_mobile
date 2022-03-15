@@ -5,9 +5,9 @@
  <ion-buttons slot="end">
 
    <ion-button (click)="presentModal()">
-    <img class="animate__animated animate__bounce." src="/assets/futplay/icons/soccer.svg" alt="" height="30">
+    <img [ngClass]="gestionRestosService.retos.length > 0 ? 'animate__animated animate__bounce' : '' " c src="/assets/futplay/icons/soccer.svg" alt="" height="30">
    </ion-button>
-
+<ion-badge color="dark" mode="ios">{{gestionRestosService.retos.length}}</ion-badge>
    
  </ion-buttons>
 

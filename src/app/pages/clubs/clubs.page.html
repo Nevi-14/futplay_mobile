@@ -1,13 +1,139 @@
 
-<ng-template [ngIf]="clubs.new">
+
+<ng-template [ngIf]="!equiposService.new">
   <app-header titulo="Clubes" ></app-header>
+
+
+
+  <ion-toolbar >
+    <ion-buttons slot="start" > 
+      <ion-menu-button color="dark"  menu="first"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-buttons slot="start" >
+      <ion-button (click)="myClubsMenu()"  color="dark">
+        <ion-icon class="menu" slot="icon-only" name="menu-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+
+
+    <ion-buttons slot="end" >
+      <ion-button color="dark" >
+        <ion-icon class="menu" slot="icon-only" name="settings-outline"></ion-icon>
+      </ion-button>
+      
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button  color="dark" >
+        <ion-icon size="large" slot="icon-only" name="notifications-outline"></ion-icon>
+  
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+
+
+  
 <ion-content>
-  <app-club-info  [menu]="true"   [club]="clubs.switchClub"></app-club-info>
+ 
+  <ion-grid >
+
+
+    
+    <ion-row  style="margin-top: 50px;">
+
+      <ion-col size="12"  class="ion-text-center" >
+   
+        <img  class="border-invert"  src="assets/soccer-shields-svg/{{equiposService.perfilEquipo.Foto}}">
+        </ion-col>
+
+      <ion-col size="12" size-md="6" size-lg="8">
+  
+        <ion-item lines="none">
+            <ion-label style="font-weight: 600;"> {{equiposService.perfilEquipo.Nombre}}</ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label >Abreviación : {{equiposService.perfilEquipo.Abreviacion}} </ion-label>                         
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label >Región :  {{equiposService.perfilEquipo.Nombre_Provincia}} , {{equiposService.perfilEquipo.Nombre_Canton}} </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+            <ion-label>(Ganes, Perdidos, Empates)</ion-label>
+        </ion-item>
+
+        <ion-item lines="none">
+          <span style="display:block;">
+            <ion-label style="margin-bottom: 10px;">Dureza : <img  height="20" width="20" src="assets/icons/{{equiposService.perfilEquipo.Dureza}}"></ion-label>
+        
+            <ion-icon style="size: 10px;" name="star"></ion-icon>
+            <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+          </span>
+      </ion-item>
+ 
+</ion-col>
+</ion-row>
+
+<ion-row>
+<ion-col size="12" style="margin-top:40px;">
+<ion-item lines="none">
+  
+  <ion-chip >
+    <ion-icon name="download-outline"></ion-icon>
+    <ion-label>Transferencias</ion-label>
+    <ion-badge color="primary" style="margin-left:10px">0</ion-badge>
+  </ion-chip>
+
+
+  
+
+
+
+
+
+</ion-item>
+
+<ion-list-header>
+  <ion-label style="font-size: 1rem;margin-top: 2rem;margin-bottom: 2rem;" class="ion-text-uppercase">Lista de jugadores</ion-label>
+
+</ion-list-header>
+
+<ion-item>
+  <ion-avatar slot="start" style="display:block; height: auto; width: auto;" class="ion-text-center">
+    <img style="height: 60px; width: 60px;" src="assets/icons/football-player.svg">
+  
+  </ion-avatar>
+
+  <ion-label>  Nombre </ion-label>
+</ion-item>
+
+<ion-fab style="position: absolute; top: 15px; right: 100px;" >
+  <ion-fab-button class="no-shadow" color="light"  style="height: 30px; width: 30px;" >
+    <ion-icon name="share-social-outline"></ion-icon>
+  </ion-fab-button>
+
+</ion-fab>
+    </ion-col>
+
+
+   
+</ion-row>
+
+
+  </ion-grid>
+  
+  
 </ion-content>
 
 </ng-template>
 
-<ng-template [ngIf]="!clubs.new">
+<ng-template [ngIf]="equiposService.new">
+
 
 
   <app-header titulo="Clubes"></app-header>
@@ -29,7 +155,7 @@
           </ion-card-content>
         </ion-card>
     
-        <ion-card (click)="findClub()"    style="display:flex; justify-content: center; align-items: center; width: 80vw; height: 140px;">
+        <ion-card    style="display:flex; justify-content: center; align-items: center; width: 80vw; height: 140px;">
           <ion-card-header>
             <ion-card-subtitle color="dark">UNIRSE A UN CLUB</ion-card-subtitle>
           </ion-card-header>

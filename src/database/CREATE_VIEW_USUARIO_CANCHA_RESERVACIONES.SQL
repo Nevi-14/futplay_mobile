@@ -1,0 +1,4 @@
+CREATE VIEW USUARIO_CANCHA_RESERVACIONES AS
+SELECT USUARIOS.Cod_Usuario,USUARIOS.Nombre AS Nombre_Usuario, USUARIOS.Primer_Apellido AS Usuario_Primer_Apellido,USUARIOS.Segundo_Apellido AS Usuario_Segundo_Apellido,USUARIOS.Foto,Canchas.Cod_Cancha, Canchas.Nombre AS Nombre_Cancha , Reservaciones.Cod_Reservacion  , Reservaciones.Reservacion_Externa ,Reservaciones.diaCompleto, Reservaciones.Titulo  ,Reservaciones.Fecha,
+Reservaciones.Hora_Inicio ,Reservaciones.Hora_Fin ,Reservaciones.Estado ,Reservaciones.Descripcion 
+FROM Reservaciones INNER JOIN Canchas ON Reservaciones.Cod_Cancha = Canchas.Cod_Cancha INNER JOIN USUARIOS on Canchas.Cod_Usuario = USUARIOS.Cod_Usuario

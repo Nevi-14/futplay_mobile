@@ -28,16 +28,27 @@
 @import url('http://fonts.cdnfonts.com/css/soccer-league');
 
 
-html, body{
+.futplay-title{
   font-family: 'Soccer League'!important;
-font-family: 'Soccer League College'!important;
-min-height: 100vh;
+  font-family: 'Soccer League College'!important;
+  min-height: 100vh;
 }
 .btn-circle{
     --border-radius: 50%!important;
     height: 30px;
     width: 30px;
     }
+
+    .circle-button{
+
+    width: 32px;
+    --border-radius: 100%!important;
+    ion-icon{
+      font-size: 10px;
+    }
+ 
+    }
+    
     .center-column{
         margin: 0 auto;
     }
@@ -191,8 +202,8 @@ ion-modal.autoheight-modal-bottom {
   }
 }
 .border-invert{
-  height: 10rem;
-   width: 10rem; 
+  height: 12rem;
+   width: 12rem; 
   border: 0.4rem solid #354A53;border-radius: 50%;
 }
 ion-list ,ion-item {
@@ -253,5 +264,107 @@ ion-modal.dynamic-modal {
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark light;
+  }
+}
+
+.custom-bottom-modal{
+  .modal-wrapper {
+    --position:fixed;
+    --width: 100% !important;
+    position: fixed;
+    height: 50%;
+    bottom: 0;
+  }
+}
+
+
+ion-toolbar, ion-header{
+  --ion-toolbar-background: #FFF!important;   
+}
+
+ion-menu,ion-list ,ion-item {
+  --background-color: #FFF;
+  --ion-color-base: #FFF !important;
+  --ion-item-background: #FFF!important;
+}
+
+
+ion-modal.large-modal {
+
+  --backdrop-opacity: 0.8 !important;
+  align-items: start;
+  justify-content: center; 
+  &::part(content){
+    position: absolute;
+    width: 80%;
+    height: 80%; 
+  }
+
+
+}
+
+
+ion-modal.medium-modal {
+
+  --backdrop-opacity: 0.8 !important;
+  align-items: start;
+  justify-content: center; 
+  &::part(content){
+    position: absolute;
+    top: 15vh;
+    width: 60vw;
+    height: 60vh; 
+  }
+
+
+}
+
+
+
+ion-datetime{
+  color: #000000;
+}
+
+@media only screen and (max-width: 600px) {
+
+  ion-modal.large-modal {
+    &::part(content){
+      top: 0%;
+      width: 100%;
+      height: 100%; 
+    }
+  }
+  ion-modal.medium-modal {
+      &::part(content){
+        top: 0%;
+        width: 100%;
+        height: 100%; 
+      }
+    }
+
+}
+
+@media only screen and (min-width: 1400px) {
+  ion-modal.large-modal {
+    &::part(content){
+      width: 50%;
+      height: 35%; 
+    }
+  }
+
+  ion-modal.medium-modal {
+      &::part(content){
+        width: 50%;
+        height: 35%; 
+      }
+    }
+}
+
+ion-modal.list-modal {
+  --backdrop-opacity: 0.8 !important;
+
+  &::part(content){
+    width: 90%;
+    height: 80%; 
   }
 }
