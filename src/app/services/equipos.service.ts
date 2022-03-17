@@ -8,6 +8,7 @@ import { UsuariosService } from './usuarios.service';
 
 import { environment } from 'src/environments/environment';
 import { vistaEquipos } from '../models/vistaEquipos';
+import { AlertasService } from './alertas.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class EquiposService {
   tieneEquipos = false;
   stadiumProfile = null;
   misEquipos: vistaEquipos[];
-  constructor(private http: HttpClient, private popOverCtrl: PopoverController, private userService: UsuariosService, private modalCtrl: ModalController , public retosService: ReservacionesService) { }
+  constructor(private http: HttpClient, private popOverCtrl: PopoverController, private userService: UsuariosService, private modalCtrl: ModalController , public retosService: ReservacionesService, public alertasService:AlertasService) { }
 
   getURL( api: string,id: string ){
     let test: string = ''
@@ -49,18 +50,25 @@ export class EquiposService {
     return this.http.get<vistaEquipos[]>( URL );
   }
   SyncMisEquipos(Cod_Usuario){
+
+    this.alertasService.presentaLoading('Cargando lista de equipos')
    this.perfilEquipo = null;
+   
     this.getMisEquipos(Cod_Usuario).subscribe(
       resp =>{
         this.misEquipos = [];
         this.misEquipos = resp;
-
+this.alertasService.loadingDissmiss();
         this.perfilEquipo =  this.misEquipos[0]
 console.log(this.perfilEquipo, 'perfil equipo', 'misqui', this.misEquipos[0])
         console.log('mis equipos', this.misEquipos)
        if(this.misEquipos.length  > 0){
          this.new = false
+       }else{
+         this.new = true;
        }
+      }, error =>  {
+        this.alertasService.loadingDissmiss();
       }
  
     );
@@ -80,12 +88,16 @@ console.log(this.perfilEquipo, 'perfil equipo', 'misqui', this.misEquipos[0])
   }
 
   SyncEquipos(Cod_Usuario){
-   
+    this.alertasService.presentaLoading('Cargando lista de rivales')
     this.getEquipos(Cod_Usuario).subscribe(
       resp =>{
         this.equipos = resp.slice(0);
         console.log('provinaisdkdkdk', this.equipos)
+
+        this.alertasService.loadingDissmiss();
        
+      }, error =>{
+        this.alertasService.loadingDissmiss();
       }
  
     );

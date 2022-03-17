@@ -25,7 +25,7 @@ export class ProfilePage implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.equiposService.SyncMisEquipos(this.userService.usuarioActual.Cod_Usuario)
    // this.equiposService.checkIfHasClub();
   }
 

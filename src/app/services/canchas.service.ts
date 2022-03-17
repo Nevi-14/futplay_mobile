@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Canchas } from '../models/canchas';
 import { ListaCanchas } from '../models/listaCanchas';
+import { AlertasService } from './alertas.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class CanchasService {
   canchas: ListaCanchas[]=[];
   canchasFavoritas: Canchas[]=[];
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    public alertasService: AlertasService
     ) { }
 
 
@@ -86,16 +88,18 @@ export class CanchasService {
 
       this.canchas = [];
   
-  
+      this.alertasService.presentaLoading('Cargando lista de canchas')
       this.getCanchas().subscribe(
         resp =>{
-          
+          this.alertasService.loadingDissmiss();
   
           this.canchas = resp.slice(0);
   
           console.log(this.canchas, 'canchas')
   
   
+        }, error =>{
+          this.alertasService.loadingDissmiss();
         }
   
       );

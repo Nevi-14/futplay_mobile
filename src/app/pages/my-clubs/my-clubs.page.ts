@@ -11,12 +11,12 @@ import { UsuariosService } from '../../services/usuarios.service';
 })
 export class MyClubsPage implements OnInit {
   stadiumProfile =  'assets/main/my-clubs.jpg';
-  constructor(public clubs: EquiposService, public modalCtrl: ModalController, public popOverCtrl: PopoverController, public user: UsuariosService) { }
+  constructor(public equiposService: EquiposService, public modalCtrl: ModalController, public popOverCtrl: PopoverController, public user: UsuariosService) { }
 
   ngOnInit() {
 
-    console.log(this.clubs.userclubs ,'owner');
-    console.log(this.clubs.playerClubs , 'player');
+    console.log(this.equiposService.userclubs ,'owner');
+    console.log(this.equiposService.playerClubs , 'player');
   }
   async newClub() {
     const modal = await this.modalCtrl.create({
@@ -28,7 +28,10 @@ export class MyClubsPage implements OnInit {
   }
   
 
-
+seleccionarEquipo(equipo){
+  this.equiposService.perfilEquipo = equipo
+  this.modalCtrl.dismiss();
+}
   cerrarModal(){
     this.modalCtrl.dismiss();
   }

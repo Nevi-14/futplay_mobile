@@ -10,7 +10,7 @@
 
   </ion-col>
   <ion-list  class=" body" style="height: 100%; ">
-    <ion-item *ngFor="let equipo of clubs.misEquipos"   style="position: relative;" >
+    <ion-item *ngFor="let equipo of equiposService.misEquipos"   style="position: relative;"  (click)="seleccionarEquipo(equipo)" detail>
 
 
 

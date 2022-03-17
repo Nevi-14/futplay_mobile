@@ -23,12 +23,7 @@ export class HomePage implements OnInit {
   ngOnInit( ) {
 
   }
-  profile(){
-    //   this.equiposService.new = true;
-   //this.equiposService.perfilEquipo = null;
-       this.equiposService.SyncMisEquipos(this.usuariosService.usuarioActual.Cod_Usuario)
-   
-     }
+
 
   misEquipos(){
  //   this.equiposService.new = true;
