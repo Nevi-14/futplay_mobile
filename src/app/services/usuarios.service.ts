@@ -119,7 +119,8 @@ export class UsuariosService {
     
       const actionSheet = await this.actionSheetCtrl.create({
         header:'Opciones',
-        buttons:normalBtns
+        buttons:normalBtns,
+        mode:'ios'
       });
     
     
