@@ -8,6 +8,7 @@ import { HistorialPartidoService } from 'src/app/services/historial-partido.serv
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { HistorialPartido } from 'src/app/models/historialPartido';
 import { InicioPartidoPage } from '../inicio-partido/inicio-partido.page';
+import { vistaEquipos } from 'src/app/models/vistaEquipos';
 @Component({
   selector: 'app-qr-verification',
   templateUrl: './qr-verification.page.html',
@@ -17,6 +18,7 @@ export class QrVerificationPage implements OnInit {
   @Input() reto: GestionRetos
   @Input() cancha : ListaCanchas
   @Input() retador;
+  @Input() equipo:vistaEquipos;
   @Input() rival;
   @Input() partido: HistorialPartido
   swiperOpts = {
@@ -42,7 +44,7 @@ public usuariosService:UsuariosService
     this.modalCtrl.dismiss();
   }
   scan(){
-
+   
     this.barcodeScanner.scan().then(barcodeData => {
       console.log('Barcode data', barcodeData);
   
@@ -82,7 +84,9 @@ public usuariosService:UsuariosService
         reto:this.reto,
         cancha:this.cancha,
         retador:this.retador,
-        rival:this.rival
+        rival:this.rival,
+        equipo: this.equipo,
+        partido: this.partido
       }
     });
     return await modal.present();

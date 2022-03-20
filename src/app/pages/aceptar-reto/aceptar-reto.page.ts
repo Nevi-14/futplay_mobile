@@ -22,6 +22,7 @@ export class AceptarRetoPage implements OnInit {
 @Input() cancha : ListaCanchas
 @Input() retador;
 @Input() rival;
+equipo : vistaEquipos
 
 partido : HistorialPartido;
 soccer= 'assets/icon/soccer.svg';
@@ -108,6 +109,7 @@ this.cerrarModal();
        cancha:this.cancha,
        retador:this.retador,
        rival:this.rival,
+       equipo: this.equipo,
        partido: this.partido
      }
  
@@ -121,16 +123,9 @@ this.cerrarModal();
      }
      async partidoActual() {
 
-      let equipo : vistaEquipos
+      
       this.modalCtrl.dismiss();
-      if(    this.usuariosService.usuarioActual.Cod_Usuario == this.retador.Cod_Usuario
-        ){
-      
-       equipo =  this.retador
-        }else{
-       equipo =  this.rival
-      
-        }
+
       const modal = await this.modalCtrl.create({
         component:InicioPartidoPage,
         cssClass: 'my-custom-class',
@@ -140,7 +135,7 @@ this.cerrarModal();
           retador:this.retador,
           rival:this.rival,
           partido: this.partido,
-          equipo: equipo
+          equipo: this.equipo
         }
       });
     
@@ -171,6 +166,17 @@ this.cerrarModal();
 
 
   iniciarPartido(){
+
+    if(    this.usuariosService.usuarioActual.Cod_Usuario == this.retador.Cod_Usuario
+      ){
+    
+     this.equipo =  this.retador
+      }else{
+     this.equipo =  this.rival
+    
+      }
+
+      
 
     this.historialPartidoService.syncPartidoActual(this.reto.Cod_Reservacion).then(
        resp =>{
