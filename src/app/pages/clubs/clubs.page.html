@@ -89,30 +89,31 @@
 
 
 
-
-
-</ion-item>
-
-<ion-list-header>
-  <ion-label style="font-size: 1rem;margin-top: 2rem;margin-bottom: 2rem;" class="ion-text-uppercase">Lista de jugadores</ion-label>
-
-</ion-list-header>
-
-<ion-item>
-  <ion-avatar slot="start" style="display:block; height: auto; width: auto;" class="ion-text-center">
-    <img style="height: 60px; width: 60px;" src="assets/icons/football-player.svg">
-  
-  </ion-avatar>
-
-  <ion-label>  Nombre </ion-label>
-</ion-item>
-
-<ion-fab style="position: absolute; top: 15px; right: 100px;" >
-  <ion-fab-button class="no-shadow" color="light"  style="height: 30px; width: 30px;" >
+  <ion-fab-button size="small" class="no-shadow" color="light"   >
     <ion-icon name="share-social-outline"></ion-icon>
   </ion-fab-button>
 
-</ion-fab>
+</ion-item>
+
+
+    </ion-col>
+
+    <ion-col size="12">
+      <ion-list-header>
+        <ion-label style="font-size: 1rem;margin-top: 2rem;margin-bottom: 2rem;" class="ion-text-uppercase">Lista de jugadores</ion-label>
+      
+      </ion-list-header>
+      
+      <ion-item *ngFor="let jugador of equiposService.jugadoresPerfilEquipo" detail>
+        <ion-avatar slot="start"  style="display:block; height: auto; width: auto;" class="ion-text-center">
+          <img style="height: 40px; width: 40px;" src="assets/icons/football-player.svg">
+        
+        </ion-avatar>
+        
+        <ion-label class="ion-text-wrap">{{jugador.Nombre_Jugador}} {{jugador.Primer_Apellido}}</ion-label>
+      
+      </ion-item>
+      
     </ion-col>
 
 

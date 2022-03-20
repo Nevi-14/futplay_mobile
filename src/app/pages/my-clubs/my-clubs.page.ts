@@ -30,7 +30,16 @@ export class MyClubsPage implements OnInit {
 
 seleccionarEquipo(equipo){
   this.equiposService.perfilEquipo = equipo
-  this.modalCtrl.dismiss();
+
+    
+  this.equiposService.SyncJugadoresEquipos( equipo.Cod_Equipo).then( jugadores =>{
+    this.equiposService.jugadoresPerfilEquipo = []
+    this.equiposService.jugadoresPerfilEquipo = jugadores;
+
+    this.modalCtrl.dismiss();
+    
+  })
+
 }
   cerrarModal(){
     this.modalCtrl.dismiss();

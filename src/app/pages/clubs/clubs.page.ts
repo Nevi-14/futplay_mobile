@@ -23,7 +23,7 @@ export class ClubsPage implements OnInit {
   constructor( public modalCtrl: ModalController, public user: UsuariosService,  public equiposService: EquiposService) { }
 
   ngOnInit() {
-  
+
 
    // this.user.getJugadoresEquipos(this.clubs.switchClub);
 

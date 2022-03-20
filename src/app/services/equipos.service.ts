@@ -29,6 +29,7 @@ export class EquiposService {
   misEquipos: vistaEquipos[];
 jugadoresRival : JugadoresEquipos[]=[];
 jugadoresRetador : JugadoresEquipos[]=[];
+jugadoresPerfilEquipo : JugadoresEquipos[]=[];
   constructor(private http: HttpClient, private popOverCtrl: PopoverController, private userService: UsuariosService, private modalCtrl: ModalController , public retosService: ReservacionesService, public alertasService:AlertasService) { }
 
   getURL( api: string,id: string ){
@@ -67,6 +68,14 @@ console.log(this.perfilEquipo, 'perfil equipo', 'misqui', this.misEquipos[0])
         console.log('mis equipos', this.misEquipos)
        if(this.misEquipos.length  > 0){
          this.new = false
+         this.SyncJugadoresEquipos( this.perfilEquipo.Cod_Equipo).then( jugadores =>{
+
+          this.jugadoresPerfilEquipo = []
+          this.jugadoresPerfilEquipo = jugadores;
+    
+    
+          
+        })
        }else{
          this.new = true;
        }
