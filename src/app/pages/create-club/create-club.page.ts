@@ -17,7 +17,7 @@ declare const window: any;
   styleUrls: ['./create-club.page.scss'],
 })
 export class CreateClubPage implements OnInit {
-  stadiumProfile =  'assets/main/team-profile.jpg';
+  stadiumProfile =  'assets/main/team-profile.svg';
   img1 = 'assets/main/team-profile.svg';
   tempImages: String[]=[];
   image = '';
@@ -137,7 +137,7 @@ this.equiposService.nuevoEquipo(this.equipo)
 
 
 onChange($event,identifier){
-
+console.log(identifier)
 switch(identifier){
 
 case 'provincia':

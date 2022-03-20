@@ -7,7 +7,7 @@ import { HistorialPartido } from '../models/historialPartido';
   providedIn: 'root'
 })
 export class HistorialPartidoService {
-
+  counter: { min: number, sec: number }
 partidoActual : HistorialPartido
   constructor(public http: HttpClient) { }
 
@@ -88,7 +88,7 @@ iniciarPartido(partido){
 private   putPartidoActual( partido, Cod_Reservacion ){
 
   let  URL = this.getURL( environment.actualizarPartidoURL);
-   URL = URL  + environment.codReservacionParam + Cod_Reservacion
+   URL = URL  + environment.codReservacion + Cod_Reservacion
 
   console.log(URL,'URL', 'reser', Cod_Reservacion)
 
@@ -110,11 +110,11 @@ private   putPartidoActual( partido, Cod_Reservacion ){
 
 actualizarPartido(partido, Cod_Reservacion  ){
 
-
+  console.log('partido actualizado', partido , Cod_Reservacion)
   this.putPartidoActual( partido, Cod_Reservacion  ).subscribe(
     resp => {
 
-     console.log('partido actualizada', resp)
+     console.log('partido actualizado', resp)
     }, error => {
       console.log('error', error)
     }
@@ -122,8 +122,70 @@ actualizarPartido(partido, Cod_Reservacion  ){
 }
 
 
+private evaluacionJugadorPost(evaluacion){
 
 
+  const URL = this.getURL(environment.evaluacionJugador);
+
+  const options   = {
+    headers: {
+      'Content-type':'application/json',
+      'Accept':'application/json',
+      'Acess-Control-Allow-Origin':'*'
+    }
+  };
+
+
+  return this.http.post(URL,JSON.stringify(evaluacion), options);
+
+
+}
+private evaluacionEquipoPost(evaluacion){
+
+
+  const URL = this.getURL(environment.evaluacionEquipo);
+
+  const options   = {
+    headers: {
+      'Content-type':'application/json',
+      'Accept':'application/json',
+      'Acess-Control-Allow-Origin':'*'
+    }
+  };
+
+
+  return this.http.post(URL,JSON.stringify(evaluacion), options);
+
+
+}
+evaluacionEquipo(evaluacion){
+  console.log(evaluacion, 'stored 1')
+
+  this.evaluacionEquipoPost(evaluacion).subscribe(
+    resp =>{
+
+      console.log(resp, 'resp eva ugardada')
+
+
+    }, error =>{
+
+    }
+  )
+}
+evaluacionJugador(evaluacion){
+  console.log(evaluacion, 'stored 1')
+
+  this.evaluacionJugadorPost(evaluacion).subscribe(
+    resp =>{
+
+      console.log(resp, 'resp eva ugardada')
+
+
+    }, error =>{
+
+    }
+  )
+}
 private   putPartidoActualQR( partido, Cod_Reservacion ){
 
   let  URL = this.getURL( environment.actualizarQrURL);
@@ -162,7 +224,27 @@ actualizarPartidoQR(partido, Cod_Reservacion  ){
 }
 
 
+startTimer() {
+  this.counter = { min: 60, sec: 0 } // choose whatever you want
+  let intervalId = setInterval(() => {
+    if (this.counter.sec - 1 == -1) {
+      this.counter.min -= 1;
+      this.counter.sec = 59
+      
+ 
+    } 
+    else this.counter.sec -= 1
+    if (this.counter.min === 0 && this.counter.sec == 0) clearInterval(intervalId)
 
+
+    
+  console.log('this.counter', this.counter)
+
+
+  }, 1000)
+
+
+}
 
 
 

@@ -94,17 +94,8 @@ const routes: Routes = [
     path: 'qr-verification',
     loadChildren: () => import('./pages/qr-verification/qr-verification.module').then( m => m.QrVerificationPageModule)
   },
-  {
-    path: 'qr-verification-page',
-    loadChildren: () => import('./pages/qr-verification-details/qr-verification-details.module').then( m => m.QrVerificationDetailsPageModule)
-  },
 
-
-
-
-
-
-  {
+{
     path: 'generar-reservacion',
     loadChildren: () => import('./pages/generar-reservacion/generar-reservacion.module').then( m => m.GenerarReservacionPageModule)
   },
@@ -130,6 +121,15 @@ const routes: Routes = [
     path: 'aceptar-reto',
     loadChildren: () => import('./pages/aceptar-reto/aceptar-reto.module').then( m => m.AceptarRetoPageModule)
   },
+  {
+    path: 'evaluacion-jugador',
+    loadChildren: () => import('./pages/evaluacion-jugador/evaluacion-jugador.module').then( m => m.EvaluacionJugadorPageModule)
+  },
+  {
+    path: 'evaluacion-equipo',
+    loadChildren: () => import('./pages/evaluacion-equipo/evaluacion-equipo.module').then( m => m.EvaluacionEquipoPageModule)
+  },
+
 
  
 

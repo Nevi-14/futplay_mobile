@@ -1,7 +1,7 @@
 
 
   <ion-content>
-    <ion-col tappable    size="12" class="header"  [style.backgroundImage]="'url(' + stadiumProfile + ')'">
+    <ion-col     size="12" class="header"  [style.backgroundImage]="'url(' + stadiumProfile + ')'">
        
       <ion-label  class="ion-text-uppercase"  style="letter-spacing: 0.5rem; color: white;font-size: 2rem; font-weight: 600; text-shadow: 2px 2px  rgba(37,13,76,255);">
       Mis Retos
@@ -13,9 +13,9 @@
     <ion-col class="body">
 
     
-      <ion-segment style="margin-top: 20px;" [value]="selectedType" (ionChange)="segmentChanged($event)"  scrollable mode="md">
+      <ion-segment style="margin: 10px;" [value]="selectedType" (ionChange)="segmentChanged($event)"  scrollable mode="ios">
         <ion-segment-button *ngFor="let tipo of tipos" [value]="tipo">
-          <ion-label style="font-weight: 500;">{{tipo}}</ion-label>
+          <ion-label style="font-weight: 500;"class="ion-text-capitalize">{{tipo}}</ion-label>
         </ion-segment-button>
         
       </ion-segment>

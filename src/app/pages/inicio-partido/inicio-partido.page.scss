@@ -3,7 +3,7 @@
     height: 35vh;
     z-index: -1;
     background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,4 +36,27 @@
   }.custom-button{
     --background: rgba(37,13,76,255);
     –-border-radius: 50%;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+  }
+
+
+  .pick-avatar {
+    width: 12rem;
+    opacity: 0.3;
+    margin: 0 auto;
+  }
+  .dark{
+    --background:purple;
+    --background-activated:transparent!important;
+  }
+  .outline{
+    --background:purple;
+    --background-activated:transparent!important; 
+    --color: 1px solid purple;
+  }
+  .pick-avatar-seleccionado {
+    transition: opacity 0.5s linear;
+    opacity: 1 !important;
   }

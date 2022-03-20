@@ -7,8 +7,7 @@ export class HistorialPartido {
        public  Verificacion_QR_Rival : boolean,
        public Goles_Retador : number,
        public  Goles_Rival : number,
-       public  Dureza_Rival: string,
-       public  Dureza_Retador : string,
+       public  Estado : boolean,
        public Reservaciones: [],
        public Historial_Partidos_Jugador: []
     ){}

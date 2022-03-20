@@ -1,0 +1,116 @@
+
+
+
+
+
+
+<ion-content>
+
+  <ion-col tappable    size="12" class="header"  [style.backgroundImage]="'url(' + stadiumProfile + ')'">
+    <img  class="border-invert"  src="assets/soccer-shields-svg/{{equipo.Foto}}">
+    <ion-label  class="ion-text-uppercase"  style="letter-spacing: 0.5rem; color: white;font-size: 1.2rem; font-weight: 600; text-shadow: 2px 2px  rgba(37,13,76,255);">
+
+      {{equipo.Nombre_Equipo}}
+       </ion-label>
+
+
+  </ion-col>
+<ion-grid class="body">
+
+  <ion-row  style="margin-top: 50px;">
+
+
+<ion-col size="12">
+  <ion-label class="ion-text-wrap" style="font-size: 1rem;font-weight: 500;letter-spacing: 0.2rem;margin: 0.5rem;text-transform: uppercase;">Evaluacion Individual</ion-label>
+</ion-col>
+
+<ion-col size="12">
+  <ion-slides  [options]="slideOpts">
+    <ion-slide>
+  
+      <ion-list style="width: 100%;">
+        <ion-item-divider>
+          <ion-label class="ion-text-wrap" style="font-weight: 500;margin: 0.5rem;text-transform: uppercase;">
+            Jugador del Partido
+           </ion-label>
+        </ion-item-divider>
+        <ion-radio-group (ionChange)="agregarJDP($event)">
+
+      
+          <ion-item *ngFor="let jugador of  jugadores">
+            <ion-avatar  style="display:block; height: auto; width: auto;" class="ion-text-center">
+              <img style="height: 40px; width: 40px;" src="assets/icons/football-player.svg">
+            
+            </ion-avatar>
+            
+            <ion-label>{{jugador.Nombre_Jugador}}</ion-label>
+    
+            <ion-radio [value]="jugador"></ion-radio>
+          </ion-item>
+  
+        </ion-radio-group>
+      </ion-list>
+
+
+
+
+    </ion-slide>
+
+
+    <ion-slide>
+
+  
+      <ion-list style="width: 100%;">
+
+        <ion-item-divider>
+          <ion-label style="font-weight: 500;margin: 0.5rem;text-transform: uppercase;">
+            Jugador Futplay
+           </ion-label>
+        </ion-item-divider>
+
+
+        <ion-radio-group (ionChange)="agregarJFP($event)">
+  
+      
+          <ion-item *ngFor="let jugador of  jugadores">
+            <ion-avatar  style="display:block; height: auto; width: auto;" class="ion-text-center">
+              <img style="height: 40px; width: 40px;" src="assets/icons/football-player.svg">
+            
+            </ion-avatar>
+            
+            <ion-label>{{jugador.Nombre_Jugador}}</ion-label>
+    
+            <ion-radio [value]="jugador" ></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+
+
+
+
+    </ion-slide>
+
+
+  </ion-slides>
+
+</ion-col>
+
+</ion-row>
+
+
+
+</ion-grid>
+
+
+
+</ion-content>
+
+
+<ion-fab  (click)="cerrarModal()" vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button size="small" color="dark">
+    <ion-icon  name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+

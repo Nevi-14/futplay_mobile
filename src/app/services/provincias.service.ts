@@ -34,18 +34,19 @@ console.log(URL);
   }
 
   syncProvincias(){
-
+this.aslertasService.presentaLoading('Cargando lista de provincias')
 
     this.getProvincias().subscribe(
       resp =>{
 
         console.log(resp)
         this.provincias = resp.slice(0);
+        this.aslertasService.loadingDissmiss();
 
       }, error =>{
 
         if(error){
-
+          this.aslertasService.loadingDissmiss();
           this.aslertasService.message('FUTPLAY', 'Error cargando provincias');
 
         }

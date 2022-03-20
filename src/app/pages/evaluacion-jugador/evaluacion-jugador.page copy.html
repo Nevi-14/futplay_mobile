@@ -1,0 +1,140 @@
+
+
+
+
+
+
+<ion-content>
+
+  <ion-col tappable    size="12" class="header"  [style.backgroundImage]="'url(' + stadiumProfile + ')'">
+       
+    <ion-label  class="ion-text-uppercase"  style="letter-spacing: 0.5rem; color: white;font-size: 2rem; font-weight: 600; text-shadow: 2px 2px  rgba(37,13,76,255);">
+      {{equipo.Nombre}}
+       </ion-label>
+
+
+  </ion-col>
+<ion-grid class="body">
+
+  <ion-row  style="margin-top: 50px;">
+
+    <ion-col size="12"  class="ion-text-center" >
+ 
+      <img  class="border-invert"  src="assets/soccer-shields-svg/{{equipo.Foto}}">
+      </ion-col>
+<ion-col size="12">
+  <ion-label>Evaluacion Individual</ion-label>
+</ion-col>
+
+<ion-col size="12">
+  <ion-slides  [options]="slideOpts">
+    <ion-slide>
+  
+      <ion-list style="width: 100%;">
+        <ion-item-divider>
+          <ion-label>
+            Jugador del Partido
+           </ion-label>
+        </ion-item-divider>
+        <ion-radio-group (ionChange)="agregarJDP($event)">
+
+      
+          <ion-item *ngFor="let jugador of  jugadores">
+            <ion-avatar  style="display:block; height: auto; width: auto;" class="ion-text-center">
+              <img style="height: 40px; width: 40px;" src="assets/icons/football-player.svg">
+            
+            </ion-avatar>
+            
+            <ion-label>{{jugador.Nombre_Jugador}}</ion-label>
+    
+            <ion-radio [value]="jugador"></ion-radio>
+          </ion-item>
+  
+        </ion-radio-group>
+      </ion-list>
+
+
+
+
+    </ion-slide>
+
+
+    <ion-slide>
+
+  
+      <ion-list style="width: 100%;">
+
+        <ion-item-divider>
+          <ion-label>
+            Jugador Futplay
+           </ion-label>
+        </ion-item-divider>
+
+
+        <ion-radio-group (ionChange)="agregarJFP($event)">
+  
+      
+          <ion-item *ngFor="let jugador of  jugadores">
+            <ion-avatar  style="display:block; height: auto; width: auto;" class="ion-text-center">
+              <img style="height: 40px; width: 40px;" src="assets/icons/football-player.svg">
+            
+            </ion-avatar>
+            
+            <ion-label>{{jugador.Nombre_Jugador}}</ion-label>
+    
+            <ion-radio [value]="jugador" ></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+
+
+
+
+    </ion-slide>
+
+
+  </ion-slides>
+
+</ion-col>
+
+</ion-row>
+
+
+
+</ion-grid>
+
+
+
+</ion-content>
+
+
+<ion-fab  (click)="cerrarModal()" vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button size="small" color="dark">
+    <ion-icon  name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+
+
+
+
+<ion-footer class="ion-no-border ion-padding">
+  <ion-button (click)="slidePrev()" expand="block" fill="solid"  color="dark">
+    Anterior
+    <ion-icon  slot="end"  size="large" name="chevron-back-outline"></ion-icon>
+  </ion-button>
+
+  <ion-button (click)="slideNext()"   expand="block" fill="solid"  color="dark">
+    Siguiente
+    <ion-icon slot="end"  size="large" name="chevron-forward-outline"></ion-icon>
+  </ion-button>
+
+</ion-footer >
+
+
+<ion-fab  (click)="cerrarModal()" vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button size="small" color="dark">
+    <ion-icon  name="arrow-back-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

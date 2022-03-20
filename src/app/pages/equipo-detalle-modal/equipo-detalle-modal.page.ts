@@ -10,7 +10,7 @@ import { vistaEquipos } from 'src/app/models/vistaEquipos';
 })
 export class EquipoDetalleModalPage implements OnInit {
 @Input() equipo:vistaEquipos;
-stadiumProfile =  'assets/main/player-profile.jpg';
+stadiumProfile =  'assets/main/player-profile.svg';
 img = '';
 dureza = '';
   constructor(

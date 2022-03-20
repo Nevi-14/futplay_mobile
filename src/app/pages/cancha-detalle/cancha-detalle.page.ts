@@ -10,7 +10,7 @@ import { ListaCanchas } from '../../models/listaCanchas';
   styleUrls: ['./cancha-detalle.page.scss'],
 })
 export class CanchaDetallePage implements OnInit {
-  img = 'assets/main/stadium-profile.jpg';
+  img = 'assets/main/stadium-profile.svg';
 @Input() cancha: ListaCanchas
 
   constructor(

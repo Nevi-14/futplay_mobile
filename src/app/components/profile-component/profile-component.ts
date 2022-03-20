@@ -29,6 +29,7 @@ export class ProfileComponent  {
 
 
   ngOnInit() {
+    console.log(this.usuario, 'usuariooooo')
     const today = new Date();
     const birthday = new Date(this.usuario.Fecha_Nacimiento);
     this.age = today.getFullYear() - birthday.getFullYear();

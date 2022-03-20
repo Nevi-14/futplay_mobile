@@ -10,7 +10,7 @@ import { UsuariosService } from '../../services/usuarios.service';
   styleUrls: ['./my-clubs.page.scss'],
 })
 export class MyClubsPage implements OnInit {
-  stadiumProfile =  'assets/main/my-clubs.jpg';
+  stadiumProfile =  'assets/main/my-clubs.svg';
   constructor(public equiposService: EquiposService, public modalCtrl: ModalController, public popOverCtrl: PopoverController, public user: UsuariosService) { }
 
   ngOnInit() {

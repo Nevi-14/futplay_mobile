@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { ModalController, NavController } from '@ionic/angular';
 import { Registro } from '../models/registro.model';
-import { QrVerificationPage } from '../pages/qr-verification/qr-verification.page';
-import { QrVerificationDetailsPage } from '../pages/qr-verification-details/qr-verification-details.page';
 @Injectable({
   providedIn: 'root'
 })
@@ -48,7 +46,7 @@ export class QrVerificationService {
       break;
        case 'no reconocido':
   
-       this.openModal(registro);
+
         break;
   
   
@@ -57,16 +55,5 @@ export class QrVerificationService {
     }
   
   
-    async openModal(registro: Registro){
-  
-      const modal = await this.modalCtrl.create({
-        component: QrVerificationDetailsPage,
-        cssClass: 'my-custom-class',
-        componentProps: {
-          registro: registro
-        }
-      });
-      return await modal.present();
-   
-    }
+
 }

@@ -42,17 +42,18 @@ console.log(URL);
   syncRetosEnviados(Cod_Usuario){
 this.retos = [];
 
+this.aslertasService.presentaLoading('Cargando lista de retos')
     this.getRetosEnviados(Cod_Usuario).subscribe(
       resp =>{
 
         console.log(resp)
         this.retos = resp.slice(0);
-
+this.aslertasService.loadingDissmiss();
       }, error =>{
 
         if(error){
-
-          this.aslertasService.message('FUTPLAY', 'Error cargando provincias');
+          this.aslertasService.loadingDissmiss();
+          this.aslertasService.message('FUTPLAY', 'Error cargando retos');
 
         }
       }
@@ -62,18 +63,18 @@ this.retos = [];
 
   syncRetosRecibidos(Cod_Usuario){
     this.retos = [];
-    
+    this.aslertasService.presentaLoading('Cargando lista de retos')
         this.getRetosRecibidos(Cod_Usuario).subscribe(
           resp =>{
     
             console.log(resp)
             this.retos = resp.slice(0);
-    
+    this.aslertasService.loadingDissmiss();
           }, error =>{
     
             if(error){
-    
-              this.aslertasService.message('FUTPLAY', 'Error cargando provincias');
+              this.aslertasService.loadingDissmiss();
+              this.aslertasService.message('FUTPLAY', 'Error cargando retos');
     
             }
           }
@@ -84,6 +85,8 @@ this.retos = [];
 
       
   syncRetosConfirmados(Cod_Usuario){
+
+    this.aslertasService.presentaLoading('Cargando lista de retos')
     this.retos = [];
     
         this.getRetosConfirmadas(Cod_Usuario).subscribe(
@@ -91,11 +94,11 @@ this.retos = [];
     
             console.log(resp)
             this.retos = resp.slice(0);
-    
+    this.aslertasService.loadingDissmiss();
           }, error =>{
     
             if(error){
-    
+              this.aslertasService.loadingDissmiss();
               this.aslertasService.message('FUTPLAY', 'Error cargando provincias');
     
             }

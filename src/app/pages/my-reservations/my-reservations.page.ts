@@ -16,7 +16,7 @@ import { AceptarRetoPage } from '../aceptar-reto/aceptar-reto.page';
   styleUrls: ['./my-reservations.page.scss'],
 })
 export class MyReservationsPage implements OnInit {
-  stadiumProfile =  'assets/main/game-match.jpeg';
+  stadiumProfile =  'assets/main/game-match.svg';
   img1 = '../assets/icons/ball.svg';
   img2 = '../assets/icons/time.svg';
   img3 = '../assets/icons/eye.svg';
@@ -35,7 +35,7 @@ constructor(public modalCtrl: ModalController, public retos: ReservacionesServic
     ) { }
 
   ngOnInit() {
- 
+    this.gestionRestosService.syncRetosConfirmados(this.usuariosService.usuarioActual.Cod_Usuario)
   }
   async detalleReto(reto) {
 let mostrarModal = false;

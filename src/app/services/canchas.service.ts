@@ -81,6 +81,8 @@ export class CanchasService {
   
     private getCanchas(){
       const URL = this.getURL( environment.canchasURL);
+
+      console.log(URL,'canchasss')
       return this.http.get<ListaCanchas[]>( URL );
     }
 

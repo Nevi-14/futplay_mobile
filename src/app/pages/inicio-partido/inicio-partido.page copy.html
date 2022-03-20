@@ -1,0 +1,100 @@
+
+<ion-content>
+  
+  <ion-col  size="12" class="header"  [style.backgroundImage]="'url(' + stadiumProfile + ')'">
+       
+    <ion-label  class="ion-text-uppercase"  style="letter-spacing: 0.5rem; color: white;font-size: 2rem; font-weight: 600; text-shadow: 2px 2px  rgba(37,13,76,255);">
+      Inicio Partido
+       </ion-label>
+       
+
+
+  </ion-col>
+
+  <ion-col class="body">
+
+
+    <ion-grid >
+
+
+      <ion-row style="margin-top: 2rem;margin-bottom: 2rem;">
+        <ion-col size="6" style="display: grid;place-content: center;">
+
+ 
+          <ion-avatar   [ngClass]="equipo.Cod_Equipo == rival.Cod_Equipo ? 'pick-avatar-seleccionado':  'pick-avatar'"     style="height: auto; width: auto;" class="ion-text-center">
+            <img  style="height: 5rem; width: 5rem;"   src="assets/soccer-shields-svg/{{rival.Foto}}">
+            
+            </ion-avatar>
+
+            <ion-label    class="ion-text-wrap ion-text-center ion-margin ion-text-uppercase" style="font-size: 1.5rem; font-weight: 500;"> {{rival.Nombre}}   </ion-label>
+
+
+
+
+        </ion-col>
+        <ion-col size="6" style="display: grid;place-content: center;">
+
+
+          <ion-avatar   [ngClass]="equipo.Cod_Equipo == retador.Cod_Equipo ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
+            <img  style="height: 5rem; width: 5rem;"   src="assets/soccer-shields-svg/{{retador.Foto}}">
+            
+            </ion-avatar>
+         
+            <ion-label    class="ion-text-wrap ion-text-center ion-margin ion-text-uppercase" style="font-size: 1.5rem; font-weight: 500;"> {{retador.Nombre}}   </ion-label>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="margin-top: 2rem;margin-bottom: 2rem;">
+
+        <ion-col size="4" style="display: grid;place-content: center;">
+          <ion-label style="font-weight: 500; font-size: 2rem;">  {{partido.Goles_Rival}}</ion-label>
+        </ion-col>
+        <ion-col size="4" style="display: grid;place-content: center;">
+          <ion-label style="font-weight: 500; font-size: 1.5rem; margin-bottom: 1rem;">Tiempo</ion-label>
+          
+<ion-label style="font-weight: 500; font-size: 1.5rem;">{{historialPartidoService.counter.min}} : {{historialPartidoService.counter.sec}}</ion-label>
+        </ion-col>
+        <ion-col size="4" style="display: grid;place-content: center;">
+          <ion-label style="font-weight: 500; font-size: 2rem;">  {{partido.Goles_Retador}}</ion-label>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="margin-top: 2rem;margin-bottom: 2rem;">
+     
+        <ion-col size="4" style="display: grid;place-content: center;">
+          <ion-fab-button  class="custom-button"   (click)="restarMarcador()">
+            <ion-icon  size="large" name="remove-outline"></ion-icon>
+          </ion-fab-button>
+      
+     
+        </ion-col>
+
+        <ion-col size="4" style="display: grid;place-content: center;">
+          <ion-button (click)="evaluacionIndividual()" expand="block" fill="solid"  color="dark">
+            Iniciar Partido
+          </ion-button>
+        </ion-col>
+
+
+        <ion-col size="4" style="display: grid;place-content: center;">
+          <ion-fab-button class="custom-button" (click)="sumarMarcador()" >
+            <ion-icon  size="large"  name="add-outline"></ion-icon>
+          </ion-fab-button>
+      
+     
+        </ion-col>
+      </ion-row>
+
+
+    </ion-grid>    
+  </ion-col>
+
+  
+  </ion-content>
+
+
+  <ion-fab  (click)="cerrarModal()" vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button size="small" color="dark">
+      <ion-icon  name="arrow-back-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>

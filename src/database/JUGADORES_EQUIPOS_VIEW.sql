@@ -1,0 +1,3 @@
+CREATE VIEW JUGADORES_EQUIPOS_VIEW AS
+SELECT Usuarios.Nombre as Nombre_Jugador, Usuarios.Primer_Apellido as Primer_Apellido,Usuarios.Apodo, Usuarios.Cod_Usuario , Usuarios.Foto, Equipos.Cod_Equipo,Equipos.Abreviacion, Equipos.Nombre as Nombre_Equipo, Equipos.Foto as Foto_Equipo from Usuarios inner join Jugadores_Equipos on Usuarios.Cod_Usuario = Jugadores_Equipos.Cod_Usuario
+inner join Equipos on Jugadores_Equipos.Cod_Equipo = Equipos.Cod_Equipo

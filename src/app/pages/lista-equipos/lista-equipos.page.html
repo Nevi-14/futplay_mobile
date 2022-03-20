@@ -25,9 +25,9 @@
 
   <ion-virtual-scroll [items]="equiposService.misEquipos | filtro : textoBuscar:'Nombre'" approxItemHeight="320px">
 
-<ion-item *virtualItem="let equipo;" (click)="detalleEquipo(equipo)" >
+<ion-item *virtualItem="let equipo;"  >
 
-  <ion-avatar slot="start" style="display:block; height: auto; width: auto;" class="ion-text-center">
+  <ion-avatar (click)="detalleEquipo(equipo)" slot="start" style="display:block; height: auto; width: auto;" class="ion-text-center">
     <img style="height: 60px; width: 60px;"  src="assets/soccer-shields-svg/{{equipo.Foto}}">
     
     </ion-avatar>

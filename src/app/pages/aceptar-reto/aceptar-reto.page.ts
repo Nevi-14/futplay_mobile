@@ -10,6 +10,7 @@ import { GestionRetosService } from '../../services/gestion-retos.service';
 import { HistorialPartidoService } from 'src/app/services/historial-partido.service';
 import { HistorialPartido } from 'src/app/models/historialPartido';
 import { InicioPartidoPage } from '../inicio-partido/inicio-partido.page';
+import { vistaEquipos } from '../../models/vistaEquipos';
 
 @Component({
   selector: 'app-aceptar-reto',
@@ -24,7 +25,7 @@ export class AceptarRetoPage implements OnInit {
 
 partido : HistorialPartido;
 soccer= 'assets/icon/soccer.svg';
-img = 'assets/main/team-profile.jpg';
+img = 'assets/main/team-profile.svg';
   constructor(
     public modalCtrl:ModalController,
     public canchasService: CanchasService,
@@ -119,11 +120,28 @@ this.cerrarModal();
 
      }
      async partidoActual() {
+
+      let equipo : vistaEquipos
       this.modalCtrl.dismiss();
+      if(    this.usuariosService.usuarioActual.Cod_Usuario == this.retador.Cod_Usuario
+        ){
       
+       equipo =  this.retador
+        }else{
+       equipo =  this.rival
+      
+        }
       const modal = await this.modalCtrl.create({
         component:InicioPartidoPage,
-        cssClass: 'my-custom-class'
+        cssClass: 'my-custom-class',
+        componentProps:{
+          reto:this.reto,
+          cancha:this.cancha,
+          retador:this.retador,
+          rival:this.rival,
+          partido: this.partido,
+          equipo: equipo
+        }
       });
     
       return await modal.present();

@@ -42,13 +42,13 @@ public usuariosService:UsuariosService
     this.modalCtrl.dismiss();
   }
   scan(){
-    this.actualizarQR();
+
     this.barcodeScanner.scan().then(barcodeData => {
       console.log('Barcode data', barcodeData);
   
   if(!barcodeData.cancelled){
-
-  this.qrVerificationService.guardarRegistro(barcodeData.format, barcodeData.text)
+    this.actualizarQR();
+  //this.qrVerificationService.guardarRegistro(barcodeData.format, barcodeData.text)
   }
   
      }).catch(err => {

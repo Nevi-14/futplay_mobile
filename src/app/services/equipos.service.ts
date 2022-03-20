@@ -9,6 +9,7 @@ import { UsuariosService } from './usuarios.service';
 import { environment } from 'src/environments/environment';
 import { vistaEquipos } from '../models/vistaEquipos';
 import { AlertasService } from './alertas.service';
+import { JugadoresEquipos } from '../models/jugadoresEquipos';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,8 @@ export class EquiposService {
   tieneEquipos = false;
   stadiumProfile = null;
   misEquipos: vistaEquipos[];
+jugadoresRival : JugadoresEquipos[]=[];
+jugadoresRetador : JugadoresEquipos[]=[];
   constructor(private http: HttpClient, private popOverCtrl: PopoverController, private userService: UsuariosService, private modalCtrl: ModalController , public retosService: ReservacionesService, public alertasService:AlertasService) { }
 
   getURL( api: string,id: string ){
@@ -51,14 +54,14 @@ export class EquiposService {
   }
   SyncMisEquipos(Cod_Usuario){
 
-    this.alertasService.presentaLoading('Cargando lista de equipos')
+  //  this.alertasService.presentaLoading('Cargando lista de equipos')
    this.perfilEquipo = null;
    
     this.getMisEquipos(Cod_Usuario).subscribe(
       resp =>{
         this.misEquipos = [];
         this.misEquipos = resp;
-this.alertasService.loadingDissmiss();
+// this.alertasService.loadingDissmiss();
         this.perfilEquipo =  this.misEquipos[0]
 console.log(this.perfilEquipo, 'perfil equipo', 'misqui', this.misEquipos[0])
         console.log('mis equipos', this.misEquipos)
@@ -68,12 +71,32 @@ console.log(this.perfilEquipo, 'perfil equipo', 'misqui', this.misEquipos[0])
          this.new = true;
        }
       }, error =>  {
-        this.alertasService.loadingDissmiss();
+   //     this.alertasService.loadingDissmiss();
       }
  
     );
   }
 
+
+  private getJugadoresEquipos(Cod_Equipo){
+
+    let URL = this.getURL(environment.jugadoresEquiposURL,'');
+    let test: string = ''
+    if ( !environment.prdMode ) {
+      test = environment.TestURL;
+    }
+     URL = URL + environment.codEquipoParam + Cod_Equipo
+    console.log(URL,'URL')
+    return this.http.get<JugadoresEquipos[]>( URL );
+
+
+  }
+
+  SyncJugadoresEquipos(Cod_Usuario){
+
+return this.getJugadoresEquipos(Cod_Usuario).toPromise();
+
+  }
 
   private getCodEquipo( Cod_Equipo ){
 
@@ -88,16 +111,16 @@ console.log(this.perfilEquipo, 'perfil equipo', 'misqui', this.misEquipos[0])
   }
 
   SyncEquipos(Cod_Usuario){
-    this.alertasService.presentaLoading('Cargando lista de rivales')
+   // this.alertasService.presentaLoading('Cargando lista de rivales')
     this.getEquipos(Cod_Usuario).subscribe(
       resp =>{
         this.equipos = resp.slice(0);
         console.log('provinaisdkdkdk', this.equipos)
 
-        this.alertasService.loadingDissmiss();
+     //   this.alertasService.loadingDissmiss();
        
       }, error =>{
-        this.alertasService.loadingDissmiss();
+        // this.alertasService.loadingDissmiss();
       }
  
     );
@@ -168,7 +191,7 @@ nuevoEquipo(equipo){
 
   this.equipoPost(equipo).subscribe(
     resp =>{
-
+this.alertasService.message('FUTPLAY','Se há generado un nuevo equipo con  exíto -> '+ equipo.Nombre )
       console.log(equipo, 'stored')
 
 

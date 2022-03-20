@@ -1,7 +1,7 @@
 
 <ion-content>
   
-  <ion-col tappable  *ngIf="img1"  size="12" class="header"  [style.backgroundImage]="'url(' + equiposService.stadiumProfile + ')'">
+  <ion-col tappable  *ngIf="img1"  size="12" class="header"  [style.backgroundImage]="'url(' + stadiumProfile + ')'">
        
     <ion-label  class="ion-text-uppercase"  style="letter-spacing: 0.5rem; color: white;font-size: 2rem; font-weight: 600; text-shadow: 2px 2px  rgba(37,13,76,255);">
       Crear Equipo
@@ -94,7 +94,7 @@
           <ion-label position="stacked">
             <ion-icon slot="icon-only" name="location-outline"></ion-icon>
             Provincia</ion-label>
-            <ion-select (ionChange)="onChange($event, 'provincia')"
+            <ion-select (click)="provinciasService.syncProvincias()" (ionChange)="onChange($event, 'provincia')"
              required [(ngModel)]="equipo.Cod_Provincia"   name="Cod_Provincia">
               <ion-select-option [value]="provincia.Cod_Provincia" *ngFor="let provincia of provinciasService.provincias">
                 {{provincia.Provincia}}

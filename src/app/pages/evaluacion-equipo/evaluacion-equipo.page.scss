@@ -1,0 +1,36 @@
+.header{
+    height: 35vh;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size:cover;
+    display: grid;
+   place-content: center;
+    text-align: center;
+     -webkit-transition: background-image 1s ease-in-out, -webkit-transform 200ms ease;
+      transition: background-image 1s ease-in-out, transform 200ms ease;
+    
+    
+    ion-title{
+        --backdrop-opacity: 0.8 !important;
+        font-size:30px;
+         letter-spacing: 0.2em;
+    }
+    
+    
+  
+  }
+  .body{
+    position: absolute;
+    top: 30vh;
+   border-top-right-radius: 6%;
+   border-top-left-radius: 4%;
+    z-index: 1;
+height: 100%;
+background-color: #FFF;
+padding-top: 5%;
+width: 100%;
+
+
+
+
+}
