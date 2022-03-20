@@ -10,6 +10,19 @@
 
   </ion-col>
   <ion-list  class=" body" >
+    <ion-buttons (click)="buscarEquipos()"  style="position: absolute; top: 10px; right: 20px;">
+           
+      <ion-button  size="large"     color="dark"  >
+         
+      <ion-label>Unirse a Equipo</ion-label>
+<ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+
+       
+      </ion-button>
+    
+  
+    </ion-buttons>
+
     <ion-item *ngFor="let equipo of equiposService.misEquipos"   style="position: relative;"  (click)="seleccionarEquipo(equipo)" detail>
 
 

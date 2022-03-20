@@ -3,6 +3,8 @@ import { ModalController, PopoverController } from '@ionic/angular';
 import { CreateClubPage } from '../create-club/create-club.page';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { UsuariosService } from '../../services/usuarios.service';
+import { ListaEquiposPage } from '../lista-equipos/lista-equipos.page';
+import { BuscarEquiposPage } from '../buscar-equipos/buscar-equipos.page';
 
 @Component({
   selector: 'app-my-clubs',
@@ -27,7 +29,15 @@ export class MyClubsPage implements OnInit {
     return await modal.present();
   }
   
+  async buscarEquipos(){
 
+    const modal = await this.modalCtrl.create({
+      component:BuscarEquiposPage,
+      cssClass:'my-cutom-class'
+    });
+
+    return await modal.present();
+  }
 seleccionarEquipo(equipo){
   this.equiposService.perfilEquipo = equipo
 

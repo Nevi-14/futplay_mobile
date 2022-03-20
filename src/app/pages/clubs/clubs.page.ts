@@ -8,6 +8,7 @@ import { UsuariosService } from '../../services/usuarios.service';
 import { EquiposService } from 'src/app/services/equipos.service';
 
 import { MyClubsPage } from '../my-clubs/my-clubs.page';
+import { SolicitudesEquiposPage } from '../solicitudes-equipos/solicitudes-equipos.page';
 
 @Component({
   selector: 'app-clubs',
@@ -37,7 +38,14 @@ export class ClubsPage implements OnInit {
   }
 
 
-  
+  async solicitudesEquipos() {
+    const modal = await this.modalCtrl.create({
+      component:SolicitudesEquiposPage,
+      cssClass: 'my-custom-class'
+    });
+    return await modal.present();
+  }
+
   async myClubsMenu(){
 
     const modal = await this.modalCtrl.create({

@@ -129,6 +129,19 @@ const routes: Routes = [
     path: 'evaluacion-equipo',
     loadChildren: () => import('./pages/evaluacion-equipo/evaluacion-equipo.module').then( m => m.EvaluacionEquipoPageModule)
   },
+  {
+    path: 'solicitudes-equipos',
+    loadChildren: () => import('./pages/solicitudes-equipos/solicitudes-equipos.module').then( m => m.SolicitudesEquiposPageModule)
+  },
+   {
+    path: 'buscar-jugadores',
+    loadChildren: () => import('./pages/buscar-jugadores/buscar-jugadores.module').then( m => m.BuscarJugadoresPageModule)
+  },
+  {
+    path: 'buscar-equipos',
+    loadChildren: () => import('./pages/buscar-equipos/buscar-equipos.module').then( m => m.BuscarEquiposPageModule)
+  },
+
 
 
  
