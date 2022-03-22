@@ -16,7 +16,7 @@
       <ng-template ngFor let-equipo [ngForOf]="equiposService.equipos " let-i="index">
           
           
-        <ion-item>
+        <ion-item (click)="jugadorEquipoSolicitud(equipo)">
      
           <ion-avatar slot="start" style="display:block; height: auto; width: auto;" class="ion-text-center">
             <img style="height: 60px; width: 60px;"  src="assets/soccer-shields-svg/{{equipo.Foto}}">

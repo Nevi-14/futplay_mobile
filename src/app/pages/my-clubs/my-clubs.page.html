@@ -9,9 +9,12 @@
 
 
   </ion-col>
-  <ion-list  class=" body" >
-    <ion-buttons (click)="buscarEquipos()"  style="position: absolute; top: 10px; right: 20px;">
+  <div class=" body" >
+    <ion-buttons  (click)="buscarEquipos()"  style="position: absolute; top: 10px; right: 20px;">
            
+      <ion-button size="large" >
+        <ion-icon  size="large" slot="icon-only"  name="notifications-outline"></ion-icon>
+      </ion-button>
       <ion-button  size="large"     color="dark"  >
          
       <ion-label>Unirse a Equipo</ion-label>
@@ -23,31 +26,36 @@
   
     </ion-buttons>
 
-    <ion-item *ngFor="let equipo of equiposService.misEquipos"   style="position: relative;"  (click)="seleccionarEquipo(equipo)" detail>
+
+
+<ion-list style="margin-top: 2rem;">
+  <ion-item *ngFor="let equipo of equiposService.misEquipos"   style="position: relative;"  (click)="seleccionarEquipo(equipo)" detail>
 
 
 
-      <ion-avatar slot="start" style="display:block; height: auto; width: auto;" class="ion-text-center">
-        <img style="height: 60px; width: 60px;" src="assets/soccer-shields-svg/{{equipo.Foto}}">
-      </ion-avatar>
-      <ion-label >
-     <h2>   {{equipo.Nombre}}
-    </h2>
+    <ion-avatar slot="start" style="display:block; height: auto; width: auto;" class="ion-text-center">
+      <img style="height: 60px; width: 60px;" src="assets/soccer-shields-svg/{{equipo.Foto}}">
+    </ion-avatar>
+    <ion-label >
+   <h2>   {{equipo.Nombre}}
+  </h2>
 
-        <p style="margin-top: 0.5rem;margin-bottom: 0.5rem;">
-          <span style="display:block;">
-          <ion-icon style="size: 10px;" name="star"></ion-icon>
-          <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-          <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-          <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-          <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-        </span>
-      </p>
-      </ion-label>
-    
-    </ion-item>
+      <p style="margin-top: 0.5rem;margin-bottom: 0.5rem;">
+        <span style="display:block;">
+        <ion-icon style="size: 10px;" name="star"></ion-icon>
+        <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+        <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+        <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+        <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+      </span>
+    </p>
+    </ion-label>
   
-  </ion-list>
+  </ion-item>
+
+</ion-list>
+
+  </div>
 
    
   <ion-fab  (click)="cerrarModal()" vertical="top" horizontal="end" slot="fixed">
