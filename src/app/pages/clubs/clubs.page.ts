@@ -9,6 +9,7 @@ import { EquiposService } from 'src/app/services/equipos.service';
 
 import { MyClubsPage } from '../my-clubs/my-clubs.page';
 import { SolicitudesEquiposPage } from '../solicitudes-equipos/solicitudes-equipos.page';
+import { SolicitudesService } from 'src/app/services/solicitudes.service';
 
 @Component({
   selector: 'app-clubs',
@@ -21,7 +22,7 @@ export class ClubsPage implements OnInit {
 
   add ='../assets/icons/create.svg';
  find ='../assets/icons/join.svg';
-  constructor( public modalCtrl: ModalController, public user: UsuariosService,  public equiposService: EquiposService) { }
+  constructor( public modalCtrl: ModalController, public user: UsuariosService,  public equiposService: EquiposService, public solicitudesService:SolicitudesService) { }
 
   ngOnInit() {
 

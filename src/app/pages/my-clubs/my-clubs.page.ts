@@ -5,6 +5,7 @@ import { EquiposService } from 'src/app/services/equipos.service';
 import { UsuariosService } from '../../services/usuarios.service';
 import { ListaEquiposPage } from '../lista-equipos/lista-equipos.page';
 import { BuscarEquiposPage } from '../buscar-equipos/buscar-equipos.page';
+import { SolicitudesService } from 'src/app/services/solicitudes.service';
 
 @Component({
   selector: 'app-my-clubs',
@@ -13,7 +14,7 @@ import { BuscarEquiposPage } from '../buscar-equipos/buscar-equipos.page';
 })
 export class MyClubsPage implements OnInit {
   stadiumProfile =  'assets/main/my-clubs.svg';
-  constructor(public equiposService: EquiposService, public modalCtrl: ModalController, public popOverCtrl: PopoverController, public user: UsuariosService) { }
+  constructor(public equiposService: EquiposService, public modalCtrl: ModalController, public popOverCtrl: PopoverController, public user: UsuariosService, public solicitudesService:SolicitudesService) { }
 
   ngOnInit() {
 
@@ -41,7 +42,7 @@ export class MyClubsPage implements OnInit {
 seleccionarEquipo(equipo){
   this.equiposService.perfilEquipo = equipo
 
-    
+  this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo);
   this.equiposService.SyncJugadoresEquipos( equipo.Cod_Equipo).then( jugadores =>{
     this.equiposService.jugadoresPerfilEquipo = []
     this.equiposService.jugadoresPerfilEquipo = jugadores;

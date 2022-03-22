@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { EquiposService } from 'src/app/services/equipos.service';
+import { SolicitudesService } from 'src/app/services/solicitudes.service';
 import { BuscarJugadoresPage } from '../buscar-jugadores/buscar-jugadores.page';
 
 @Component({
@@ -12,10 +14,13 @@ export class SolicitudesEquiposPage implements OnInit {
   public tipos : string[]=['recibidos','enviados'];
   public selectedType: string = this.tipos[0];
   constructor(
-    public modalCtrl:ModalController
+    public modalCtrl:ModalController,
+    public solicitudesService:SolicitudesService,
+    public equiposService: EquiposService
   ) { }
 
   ngOnInit() {
+   
   }
   segmentChanged(event:any){
     console.log(event)

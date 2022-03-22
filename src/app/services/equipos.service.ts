@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { vistaEquipos } from '../models/vistaEquipos';
 import { AlertasService } from './alertas.service';
 import { JugadoresEquipos } from '../models/jugadoresEquipos';
+import { SolicitudesService } from './solicitudes.service';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class EquiposService {
 jugadoresRival : JugadoresEquipos[]=[];
 jugadoresRetador : JugadoresEquipos[]=[];
 jugadoresPerfilEquipo : JugadoresEquipos[]=[];
-  constructor(private http: HttpClient, private popOverCtrl: PopoverController, private userService: UsuariosService, private modalCtrl: ModalController , public retosService: ReservacionesService, public alertasService:AlertasService) { }
+  constructor(private http: HttpClient, private popOverCtrl: PopoverController, private userService: UsuariosService, private modalCtrl: ModalController , public retosService: ReservacionesService, public alertasService:AlertasService, public solicitudesService: SolicitudesService) { }
 
   getURL( api: string,id: string ){
     let test: string = ''
@@ -72,9 +73,9 @@ console.log(this.perfilEquipo, 'perfil equipo', 'misqui', this.misEquipos[0])
 
           this.jugadoresPerfilEquipo = []
           this.jugadoresPerfilEquipo = jugadores;
-    
-    
-          
+          this.solicitudesService.syncGetSolicitudesEquipos(this.perfilEquipo.Cod_Equipo);
+     
+        
         })
        }else{
          this.new = true;
