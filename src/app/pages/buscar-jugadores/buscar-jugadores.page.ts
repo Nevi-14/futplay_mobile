@@ -36,15 +36,17 @@ export class BuscarJugadoresPage implements OnInit {
     ) { }
   
     ngOnInit() {
-  this.usuariosService.syncUsusarios();
+  this.usuariosService.syncUsusarios(this.usuariosService.usuarioActual.Cod_Usuario);
       this.equiposService.SyncEquipos(this.usuariosService.usuarioActual.Cod_Usuario);
     }
     jugadorEquipoSolicitud(usuario: PerfilUsuario){
       this.solicitudJugadorEquipo.Cod_Usuario = usuario.Cod_Usuario
   
       this.solicitudesService.generarSolicitud(this.solicitudJugadorEquipo);
-      
-  
+
+      this.modalCtrl.dismiss({
+        'dismissed': true
+      });
     }
   
     cerrarModal(){

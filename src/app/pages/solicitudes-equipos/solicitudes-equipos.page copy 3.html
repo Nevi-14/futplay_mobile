@@ -30,7 +30,11 @@
             
           <ion-label>
             <h2 class="ion-text-uppercase">{{solicitud.Nombre_Jugador}} {{solicitud.Primer_Apellido}}</h2>
-    
+            <p *ngIf="selectedType ==='recibidos'"><ion-button class="ion-text-lowercase"  expand="block" fill="clear">
+         
+              <ion-icon slot="start" name="eye-outline"></ion-icon>
+              perfil jugador
+            </ion-button></p>
           </ion-label>
 
           <ion-buttons slot="end" *ngIf="selectedType ==='recibidos'">

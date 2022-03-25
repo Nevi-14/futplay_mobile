@@ -41,7 +41,10 @@ solicitudJugadorEquipo:SolicitudesJugadoresEquipos = {
     this.solicitudJugadorEquipo.Cod_Equipo = equipo.Cod_Equipo
 
     this.solicitudesService.generarSolicitud(this.solicitudJugadorEquipo);
-    
+
+    this.modalCtrl.dismiss({
+      'dismissed': true
+    });
 
   }
 

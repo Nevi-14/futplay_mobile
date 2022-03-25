@@ -21,16 +21,15 @@
       </ion-segment>
     
       <ion-list>
-        <ion-item *ngFor="let solicitud of solicitudesService.solicitudesEquiposArray" >
+        <ion-item *ngFor="let solicitud of solicitudesService.solicitudesJugadoresArray">
           <ion-avatar slot="start"  style="display:block; height: auto; width: auto;" class="ion-text-center">
-            <img style="height: 40px; width: 40px;" src="assets/icons/football-player.svg">
+            <img style="height: 60px; width: 60px;" src="assets/soccer-shields-svg/{{solicitud.Equipo_Foto}}">
           
           </ion-avatar>
-    
-            
+          
           <ion-label>
-            <h2 class="ion-text-uppercase">{{solicitud.Nombre_Jugador}} {{solicitud.Primer_Apellido}}</h2>
-    
+            <h2 class="ion-text-uppercase">{{solicitud.Nombre_Equipo}}</h2>
+     
           </ion-label>
 
           <ion-buttons slot="end" *ngIf="selectedType ==='recibidos'">
@@ -47,7 +46,6 @@
 
             
           </ion-buttons>
-  
         </ion-item>
       </ion-list>
 

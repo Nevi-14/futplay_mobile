@@ -8,6 +8,7 @@ import { ReservacionesService } from './reservaciones.service';
 import { PerfilUsuario } from '../models/perfilUsuario';
 import { AlertasService } from './alertas.service';
 import { environment } from 'src/environments/environment';
+import { SolicitudesService } from './solicitudes.service';
 
 
 
@@ -32,7 +33,8 @@ export class UsuariosService {
     public canchasService: CanchasService,
     public reservacionesService: ReservacionesService,
     public alertasService: AlertasService,
-    public actionSheetCtrl: ActionSheetController
+    public actionSheetCtrl: ActionSheetController,
+    public solicitudesService:SolicitudesService
     ) {
 
 
@@ -231,6 +233,10 @@ console.log(resp,'resppppp')
    user.then( resp =>{
      this.alertasService.loadingDissmiss();
     this.usuarioActual = resp[0]
+
+   this.solicitudesService.syncGetSolicitudesJugadores(this.usuarioActual.Cod_Usuario, false,true, true)
+   
+ 
     console.log('perfil usuario',  resp[0])
     this.route.navigate(['/home/profile']);
    })
@@ -272,14 +278,16 @@ return this.perfilUsuario(id).toPromise();
 
 
 
-  private getUsuarios( ){
-    const URL = this.getURL( environment.usuariosURL);
+  private getUsuarios( Cod_Usuario){
+  let URL = this.getURL( environment.usuariosURL);
+     URL = URL + environment.codUsuarioParam +Cod_Usuario;
+
     return this.http.get<PerfilUsuario[]>( URL );
   }
 
-  syncUsusarios(){
+  syncUsusarios(Cod_Usuario){
 
-    this.getUsuarios().subscribe(
+    this.getUsuarios(Cod_Usuario).subscribe(
       resp =>{
         this.usuarios = resp.slice(0);
         console.log(this.usuarios,'usuarios')
@@ -347,6 +355,7 @@ this.alertasService.presentaLoading('Cargando Perfil de usuario')
 
   this.alertasService.loadingDissmiss();
    this.usuarioActual = resp[0]
+
    this.route.navigate(['/home/profile']);
 
   })

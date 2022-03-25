@@ -21,7 +21,7 @@
       </ion-segment>
     
       <ion-list>
-        <ion-item *ngFor="let solicitud of solicitudesService.solicitudesEquiposArray" >
+        <ion-item *ngFor="let solicitud of solicitudesService.solicitudesEquiposArray" (click)="actualizar(solicitud)">
           <ion-avatar slot="start"  style="display:block; height: auto; width: auto;" class="ion-text-center">
             <img style="height: 40px; width: 40px;" src="assets/icons/football-player.svg">
           
@@ -30,17 +30,21 @@
             
           <ion-label>
             <h2 class="ion-text-uppercase">{{solicitud.Nombre_Jugador}} {{solicitud.Primer_Apellido}}</h2>
-    
+            <p *ngIf="selectedType ==='recibidos'"><ion-button class="ion-text-lowercase"  expand="block" fill="clear">
+         
+              <ion-icon slot="start" name="eye-outline"></ion-icon>
+              perfil jugador
+            </ion-button></p>
           </ion-label>
 
           <ion-buttons slot="end" *ngIf="selectedType ==='recibidos'">
        
-            <ion-button (click)="aceptar(solicitud)" size="large"  fill="clear"   >
+            <ion-button size="large"  fill="clear"   >
               <ion-icon size="large" slot="icon-only"  name="checkmark-outline" color="primary"></ion-icon>
              
             </ion-button>
 
-            <ion-button (click)="rechazar(solicitud)" size="large"  fill="clear" >
+            <ion-button size="large"  fill="clear" >
               <ion-icon size="large" slot="icon-only"  name="close-outline" color="danger"></ion-icon>
              
             </ion-button>

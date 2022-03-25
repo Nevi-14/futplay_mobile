@@ -44,7 +44,18 @@ export class ClubsPage implements OnInit {
       component:SolicitudesEquiposPage,
       cssClass: 'my-custom-class'
     });
-    return await modal.present();
+     await modal.present();
+
+     const { data } = await modal.onWillDismiss();
+     if(data != undefined){
+       this.equiposService.SyncJugadoresEquipos( this.equiposService.perfilEquipo.Cod_Equipo).then( jugadores =>{
+         this.equiposService.jugadoresPerfilEquipo = []
+         this.equiposService.jugadoresPerfilEquipo = jugadores;
+     
+         
+       })
+       
+     }
   }
 
   async myClubsMenu(){
@@ -53,9 +64,11 @@ export class ClubsPage implements OnInit {
       component: MyClubsPage,
       cssClass: 'my-custom-class',
     });
+
     await modal.present();
-  
-    
+
+
+ 
    
    }
 

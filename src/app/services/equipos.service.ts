@@ -73,7 +73,7 @@ console.log(this.perfilEquipo, 'perfil equipo', 'misqui', this.misEquipos[0])
 
           this.jugadoresPerfilEquipo = []
           this.jugadoresPerfilEquipo = jugadores;
-          this.solicitudesService.syncGetSolicitudesEquipos(this.perfilEquipo.Cod_Equipo);
+          this.solicitudesService.syncGetSolicitudesEquipos(this.perfilEquipo.Cod_Equipo, true,false, true);
      
         
         })

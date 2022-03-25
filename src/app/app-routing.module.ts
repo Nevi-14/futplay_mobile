@@ -140,7 +140,15 @@ const routes: Routes = [
   {
     path: 'buscar-equipos',
     loadChildren: () => import('./pages/buscar-equipos/buscar-equipos.module').then( m => m.BuscarEquiposPageModule)
+  },  {
+    path: 'solicitudes-jugadores',
+    loadChildren: () => import('./pages/solicitudes-jugadores/solicitudes-jugadores.module').then( m => m.SolicitudesJugadoresPageModule)
   },
+  {
+    path: 'solicitudes-rechazadas',
+    loadChildren: () => import('./pages/solicitudes-rechazadas/solicitudes-rechazadas.module').then( m => m.SolicitudesRechazadasPageModule)
+  },
+
 
 
 

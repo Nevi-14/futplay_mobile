@@ -42,7 +42,7 @@ export class MyClubsPage implements OnInit {
 seleccionarEquipo(equipo){
   this.equiposService.perfilEquipo = equipo
 
-  this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo);
+  this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, true, true,true);
   this.equiposService.SyncJugadoresEquipos( equipo.Cod_Equipo).then( jugadores =>{
     this.equiposService.jugadoresPerfilEquipo = []
     this.equiposService.jugadoresPerfilEquipo = jugadores;

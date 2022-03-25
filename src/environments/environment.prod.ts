@@ -30,6 +30,10 @@ export const environment = {
   SolicitudesJugadoresEquiposDeleteURL:'solicitud-jugadores-equipos/',
   codSolicitudParam:'?Cod_solicitud=',
   jugadoresEquiposPostURL:'jugadores-equipos',
+  codConfirmacionUsuarioParam:'&Confirmacion_Usuario=',
+  codConfirmacionEquipoParam:'&Confirmacion_Equipo=',
+  codEstadoParam:'&Estado=',
+
   correoParam:'?correo=',
   contrasenaPatam:'&contrasena=',
    distritosURL: 'Distritos',
