@@ -29,4 +29,10 @@ export class LoginPage implements OnInit {
   
   
   }
+
+  loginDetails(){
+
+    this.loginUser.email = 'workemailnelson@gmail.com';
+    this.loginUser.password = 'W3lcomeAb0ard!'
+  }
 }
