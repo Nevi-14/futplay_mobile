@@ -78,6 +78,7 @@ usuario = {
   }
 
 
+
     
   registro(fRegistro: NgForm){
     if(fRegistro.invalid) {return;}

@@ -10,6 +10,9 @@ import { EquiposService } from 'src/app/services/equipos.service';
 import { MyClubsPage } from '../my-clubs/my-clubs.page';
 import { SolicitudesEquiposPage } from '../solicitudes-equipos/solicitudes-equipos.page';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
+import { EditarPerfilEquipoPage } from '../editar-perfil-equipo/editar-perfil-equipo.page';
+import { EstadisticaEquipoPage } from '../estadistica-equipo/estadistica-equipo.page';
+
 
 @Component({
   selector: 'app-clubs',
@@ -30,6 +33,15 @@ export class ClubsPage implements OnInit {
    // this.user.getJugadoresEquipos(this.clubs.switchClub);
 
   }
+
+  async presentModal() {
+    const modal = await this.modalCtrl.create({
+      component: EstadisticaEquipoPage,
+      breakpoints: [0, 0.2, 0.5, 1],
+      initialBreakpoint: 0.2,
+    });
+    return await modal.present();
+  }
   async newClub() {
     const modal = await this.modalCtrl.create({
       component:CreateClubPage,
@@ -38,11 +50,25 @@ export class ClubsPage implements OnInit {
     return await modal.present();
   }
 
+  
+  async  gestionarPerfil(){
+
+    const modal = await this.modalCtrl.create({
+      component:EditarPerfilEquipoPage,
+      componentProps:{
+        equipo:this.equiposService.perfilEquipo
+      },
+      cssClass:'my-custom-modal'
+    });
+
+    return await modal.present();
+
+    }
 
   async solicitudesEquipos() {
     const modal = await this.modalCtrl.create({
       component:SolicitudesEquiposPage,
-      cssClass: 'my-custom-class'
+      cssClass:'my-custom-modal'
     });
      await modal.present();
 
@@ -62,7 +88,7 @@ export class ClubsPage implements OnInit {
 
     const modal = await this.modalCtrl.create({
       component: MyClubsPage,
-      cssClass: 'my-custom-class',
+      cssClass:'my-custom-modal'
     });
 
     await modal.present();

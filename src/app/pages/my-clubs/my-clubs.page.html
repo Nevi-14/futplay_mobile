@@ -1,7 +1,7 @@
 
 
 <ion-content>
-  <ion-col tappable    size="12" class="header"  [style.backgroundImage]="'url(' + stadiumProfile + ')'">
+  <ion-col tappable    size="12" class="header"  >
        
     <ion-label  class="ion-text-uppercase"  style="letter-spacing: 0.5rem; color: white;font-size: 2rem; font-weight: 600; text-shadow: 2px 2px  rgba(37,13,76,255);">
       Mis Equipos
@@ -9,9 +9,14 @@
 
 
   </ion-col>
-  <div class=" body" >
-
-
+  <div class="styled-elemets body" style="height: 100%;" >
+    <ion-buttons  style="position: absolute; top: 20px; right: 30px;">
+           
+      <ion-button (click)="buscarJugadores()">
+        <ion-icon slot="start" name="search-outline"></ion-icon>
+        Unirse a un equipo 
+      </ion-button>
+    </ion-buttons>
 
 <ion-list style="margin-top: 2rem;">
   <ion-item *ngFor="let equipo of equiposService.misEquipos"   style="position: relative;"  (click)="seleccionarEquipo(equipo)" detail>

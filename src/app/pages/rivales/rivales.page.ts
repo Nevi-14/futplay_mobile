@@ -75,7 +75,9 @@ export class RivalesPage implements OnInit {
   
     const actionSheet = await this.actionSheetCtrl.create({
       header:'FUTPLAY',
-      buttons:normalBtns
+      cssClass: 'left-align-buttons',
+      buttons:normalBtns,
+      mode:'ios'
     });
   
   

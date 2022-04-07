@@ -140,7 +140,8 @@ const routes: Routes = [
   {
     path: 'buscar-equipos',
     loadChildren: () => import('./pages/buscar-equipos/buscar-equipos.module').then( m => m.BuscarEquiposPageModule)
-  },  {
+  },
+  {
     path: 'solicitudes-jugadores',
     loadChildren: () => import('./pages/solicitudes-jugadores/solicitudes-jugadores.module').then( m => m.SolicitudesJugadoresPageModule)
   },
@@ -148,6 +149,18 @@ const routes: Routes = [
     path: 'solicitudes-rechazadas',
     loadChildren: () => import('./pages/solicitudes-rechazadas/solicitudes-rechazadas.module').then( m => m.SolicitudesRechazadasPageModule)
   },
+  {
+    path: 'editar-perfil-usuario',
+    loadChildren: () => import('./pages/editar-perfil-usuario/editar-perfil-usuario.module').then( m => m.EditarPerfilUsuarioPageModule)
+  },
+  {
+    path: 'editar-perfil-equipo',
+    loadChildren: () => import('./pages/editar-perfil-equipo/editar-perfil-equipo.module').then( m => m.EditarPerfilEquipoPageModule)
+  },  {
+    path: 'estadistica-equipo',
+    loadChildren: () => import('./pages/estadistica-equipo/estadistica-equipo.module').then( m => m.EstadisticaEquipoPageModule)
+  },
+
 
 
 

@@ -5,6 +5,7 @@ export const environment = {
   preURL: 'https://dev-coding.com/FUTPLAY_APIS_HOST/api/',
   preURL2: 'https://dev-coding.com/FUTPLAY_APIS_HOST/',
   TestURL: '',
+  posicionesURL: 'Posiciones/',
   postURL: '',
   iniciarPartidoURL: 'iniciar-partido/',
   actualizarQrURL: 'actualizar-qr"/',

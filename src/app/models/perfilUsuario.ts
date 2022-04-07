@@ -1,6 +1,8 @@
 export class PerfilUsuario {
     constructor(
     public Cod_Usuario:  number,
+    public Cod_Posicion: number,
+    public Posicion:string,
     public Nombre: string,
     public Primer_Apellido: string,
     public Segundo_Apellido: string,

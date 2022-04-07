@@ -14,6 +14,7 @@ export const environment = {
   cantonesURL: 'Cantones',
   distritosURL: 'Distritos',
   usuariosURL: 'Usuarios/',
+  posicionesURL: 'Posiciones/',
   retosEnviadosURL:'reservaciones-enviadas',
   retosRecibidosURL:'reservaciones-recibidas',
   equiposURL: 'Equipos/',

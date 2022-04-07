@@ -1,8 +1,7 @@
 
 export class Posiciones {
     constructor(
-        public posicionID: number,
-        public abreviacion: string,
-        public nombre: string
+        public Cod_Posicion: number,
+        public Posicion: string,
     ){}
 }

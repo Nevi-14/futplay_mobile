@@ -1,4 +1,10 @@
+ion-content{
+  display: flex!important;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
 
+}
 .header{
   height: 35vh;
   z-index: -1;
@@ -10,6 +16,7 @@
   text-align: center;
    -webkit-transition: background-image 1s ease-in-out, -webkit-transform 200ms ease;
     transition: background-image 1s ease-in-out, transform 200ms ease;
+    background-color: #282828;
   
   
   ion-title{
@@ -22,15 +29,16 @@
   .body{
     position: absolute;
     top: 30vh;
-   border-top-right-radius: 6%;
-   border-top-left-radius: 4%;
+   border-top-right-radius: 10%;
+   border-top-left-radius: 10%;
     z-index: 1;
 height: 100%;
+width: 95%;
 background-color: #FFF;
 padding-top: 5%;
-width: 100%;
-
-
+left: 0;
+right: 0;
+margin: auto
 
 
 }

@@ -70,7 +70,7 @@ export class ListaEquiposService {
      
       const modal  = await this.modalCtrl.create({
        component: EquipoDetalleModalPage,
-       cssClass: 'my-custom-class',
+       cssClass:'my-custom-modal',
        componentProps:{
         equipo:equipo
   

@@ -42,11 +42,11 @@ cerrarModal(){
 }
 
 profilePosicion(id){
-const i = this.posicionesService.posiciones.findIndex(posicion => posicion.posicionID === id);
+const i = this.posicionesService.posiciones.findIndex(posicion => posicion.Cod_Posicion === id);
 
 console.log(i, this.posicionesService.posiciones[i])
 if(i >=0){
-  return this.posicionesService.posiciones[i].nombre
+  return this.posicionesService.posiciones[i].Posicion
 }
 }
 

@@ -55,87 +55,7 @@ export class UsuariosService {
   }
 
   
-    // INICIO MENU DE OPCIONES RELACIONADAS AL PERFIL DE USUARIO
-  
-  
-    async onOpenMenu(){
-  
-  
-      const normalBtns : ActionSheetButton[] = [
-        {   
-           text: 'Editar Perfil',
-           icon:'create-outline',
-           handler: () =>{
-   //  this.gestionarPerfil();
-           }
-          
-          },
-          {   
-            text: 'Modo Claro',
-            icon:'sunny-outline',
-            handler: () =>{
-  
-            }
-           
-           },
-           {   
-            text: 'Modo Oscuro',
-            icon:'moon-outline',
-            handler: () =>{
-   
-            }
-           
-           },
-          {   
-            text: 'Gestionar Contraseñas',
-            icon:'lock-closed-outline',
-            handler: () =>{
-        // this.gestionarContrasena();
-            }
-           
-           },
-           {   
-            text: 'Metodos de Pago',
-            icon:'card-outline',
-            handler: () =>{
-    //    this.gestionarMetodosDePago();
-            }
-          },
-          {   
-            text: 'Cerrar Sesión',
-            icon:'log-out-outline',
-            handler: () =>{
-        this.cerrarSession();
-            } },
-           {   
-            text: 'Cancelar',
-            icon:'close-outline',
-           role:'cancel',
-           
-           }
-        
-          ]
-    
-    
-    
-    
-      const actionSheet = await this.actionSheetCtrl.create({
-        header:'Opciones',
-        buttons:normalBtns,
-        mode:'ios'
-      });
-    
-    
-    
-    
-    
-    await actionSheet.present();
-    
-    
-      }
-  
-    // FIN MENU DE OPCIONES RELACIONADAS AL PERFIL DE USUARIO
-
+ 
 
 
 
@@ -189,9 +109,9 @@ export class UsuariosService {
       this.putProfile( usuario, Cod_Usuario ).subscribe(
         resp => {
               
-       
+           
           this.syncLogin(usuario.Correo, usuario.Contrasena)
-         console.log('completed')
+      this.alertasService.message('FUTPLAY','Datos Actualizados')
         }, error => {
           console.log('error', error)
         }
@@ -233,7 +153,7 @@ console.log(resp,'resppppp')
    user.then( resp =>{
      this.alertasService.loadingDissmiss();
     this.usuarioActual = resp[0]
-
+console.log(  this.usuarioActual , '  this.usuarioActual ')
    this.solicitudesService.syncGetSolicitudesJugadores(this.usuarioActual.Cod_Usuario, false,true, true)
    
  

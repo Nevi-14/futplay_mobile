@@ -11,7 +11,7 @@ import { BuscarEquiposPage } from '../buscar-equipos/buscar-equipos.page';
   styleUrls: ['./solicitudes-jugadores.page.scss'],
 })
 export class SolicitudesJugadoresPage implements OnInit {
-  stadiumProfile =  'assets/main/game-match.svg';
+  img =  'assets/main/game-match.svg';
   public tipos : string[]=['recibidos','enviados'];
   public selectedType: string = this.tipos[0];
   constructor(

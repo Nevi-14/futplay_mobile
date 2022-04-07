@@ -86,6 +86,39 @@ console.log(this.perfilEquipo, 'perfil equipo', 'misqui', this.misEquipos[0])
  
     );
   }
+  private   putEquipo( equipo, Cod_Usuario ){
+    let URL = this.getURL( environment.equiposURL,'');
+         URL = URL + environment.codEquipoParam +equipo.Cod_Equipo + environment.codUsuarioSecondParam +Cod_Usuario;
+    const options = {
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+      }
+    };
+   
+ 
+    return this.http.put( URL, JSON.stringify(equipo), options );
+  }
+
+   actualizarEquipo(equipo, Cod_Usuario ){
+
+    console.log('equipo', equipo)
+    this.putEquipo( equipo, Cod_Usuario ).subscribe(
+      resp => {
+
+        this.alertasService.message('FUTPLAY', 'Equipo actualizado')
+        this.syncEquipo(equipo.Cod_Equipo).then(resp =>{
+console.log(resp,'resp')
+          this.perfilEquipo = resp[0];
+          console.log('this.perfilEquipothis.perfilEquipo', this.perfilEquipo)
+
+        })
+        console.log('pdated')
+      }
+   
+    )
+  }
 
 
   private getJugadoresEquipos(Cod_Equipo){
@@ -117,7 +150,7 @@ return this.getJugadoresEquipos(Cod_Usuario).toPromise();
     }
      URL = URL + environment.codEquipoParam + Cod_Equipo
     console.log(URL,'URL')
-    return this.http.get<vistaEquipos[]>( URL );
+    return this.http.get<vistaEquipos>( URL );
   }
 
   SyncEquipos(Cod_Usuario){
@@ -143,34 +176,6 @@ return this.getJugadoresEquipos(Cod_Usuario).toPromise();
 
    }
 
-   async syncEquipo2(Cod_Cancha){
-
-    let equipo : vistaEquipos[];
-
-     this.getCodEquipo(Cod_Cancha).subscribe(
-       resp =>{
-
-        equipo = resp.slice(0);
-         console.log(equipo,'equipoequipo')
-         return equipo
-         
-         
- 
- 
-       }, error =>{
-
-        equipo = null
-         console.log(error)
-         return equipo
-       }
-
-      
- 
-     );
-
-     await equipo
-
-   }
 
 
 

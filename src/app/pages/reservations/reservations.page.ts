@@ -85,7 +85,9 @@ export class ReservationsPage implements OnInit {
 
   const actionSheet = await this.actionSheetCtrl.create({
     header:'Opciones',
-    buttons:normalBtns
+    cssClass: 'left-align-buttons',
+    buttons:normalBtns,
+    mode:'ios'
   });
 
 
@@ -135,7 +137,7 @@ await actionSheet.present();
 
     const modal = await this.modalCtrl.create({
       component: CanchaDetallePage,
-      cssClass: 'custom-class',
+      cssClass:'my-custom-modal',
       backdropDismiss: true,
       swipeToClose:false,
       animated: true,

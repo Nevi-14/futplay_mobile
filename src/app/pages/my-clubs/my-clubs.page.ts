@@ -13,7 +13,7 @@ import { SolicitudesService } from 'src/app/services/solicitudes.service';
   styleUrls: ['./my-clubs.page.scss'],
 })
 export class MyClubsPage implements OnInit {
-  stadiumProfile =  'assets/main/my-clubs.svg';
+  img =  'assets/main/my-clubs.svg';
   constructor(public equiposService: EquiposService, public modalCtrl: ModalController, public popOverCtrl: PopoverController, public user: UsuariosService, public solicitudesService:SolicitudesService) { }
 
   ngOnInit() {
@@ -55,6 +55,19 @@ seleccionarEquipo(equipo){
   cerrarModal(){
     this.modalCtrl.dismiss();
   }
+  async buscarJugadores(){
 
+    const modal = await this.modalCtrl.create({
+      component:BuscarEquiposPage,
+      cssClass:'my-cutom-class'
+    });
+
+     await modal.present();
+
+     const { data } = await modal.onWillDismiss();
+if(data != undefined){
+  
+}
+  }
 
 }
