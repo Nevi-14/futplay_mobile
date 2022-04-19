@@ -5,6 +5,7 @@ import { vistaEquipos } from 'src/app/models/vistaEquipos';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { SolicitudesService } from '../../services/solicitudes.service';
+import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
 
 @Component({
   selector: 'app-buscar-equipos',
@@ -47,7 +48,17 @@ solicitudJugadorEquipo:SolicitudesJugadoresEquipos = {
     });
 
   }
+  async filtroUbicacion(cancha){
 
+  
+     
+    const modal  = await this.modalCtrl.create({
+     component: FiltroUbicacionPage,
+     cssClass: 'my-custom-class',
+     id:'my-modal-id'
+   });
+   await modal .present();
+ }
   cerrarModal(){
 
     this.modalCtrl.dismiss();

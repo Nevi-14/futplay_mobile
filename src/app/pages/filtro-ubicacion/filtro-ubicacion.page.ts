@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetButton, ActionSheetController, ModalController } from '@ionic/angular';
+import { CantonesService } from 'src/app/services/cantones.service';
+import { DistritosService } from 'src/app/services/distritos.service';
+import { ProvinciasService } from 'src/app/services/provincias.service';
 
 @Component({
   selector: 'app-filtro-ubicacion',
@@ -7,16 +10,24 @@ import { ActionSheetButton, ActionSheetController, ModalController } from '@ioni
   styleUrls: ['./filtro-ubicacion.page.scss'],
 })
 export class FiltroUbicacionPage implements OnInit {
-
+  filtro ={
+    Cod_Provincia: null,
+    Cod_Canton: null,
+    Cod_Distrito: null
+  }
   constructor(
 public modalCtrl:ModalController,
-public actionSheetCtrl: ActionSheetController
+public actionSheetCtrl: ActionSheetController,
+public provinciasService: ProvinciasService,
+public cantonesService: CantonesService,
+public distritosService: DistritosService
 
   ) { }
 
   ngOnInit(
 
   ) {
+    this.provinciasService.syncProvincias();
   }
  
   cerrarModal(){
@@ -98,4 +109,19 @@ public actionSheetCtrl: ActionSheetController
   
   
     }
+
+    onChange($event , provincia, canton, distrito){
+      if(provincia){
+    
+     this.cantonesService.syncCantones($event.target.value);
+      }else if(canton){
+    
+        this.distritosService.syncDistritos(this.filtro.Cod_Provincia, $event.target.value);
+    
+      }else{
+        
+      }
+      console.log($event.target.value);
+      }
+
 }

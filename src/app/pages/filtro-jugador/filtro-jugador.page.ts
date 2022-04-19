@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActionSheetButton, ActionSheetController } from '@ionic/angular';
+import { ActionSheetButton, ActionSheetController, ModalController } from '@ionic/angular';
 import { CantonesService } from 'src/app/services/cantones.service';
 import { DistritosService } from 'src/app/services/distritos.service';
+import { PosicionesService } from 'src/app/services/posiciones.service';
 import { ProvinciasService } from 'src/app/services/provincias.service';
 
 @Component({
@@ -16,6 +17,8 @@ public actionSheetCtrl: ActionSheetController,
 public provinciasService: ProvinciasService,
 public cantonesService: CantonesService,
 public distritosService: DistritosService,
+public posicionesService: PosicionesService,
+public modalCtrl: ModalController
 
   ) { }
 
@@ -23,6 +26,7 @@ public distritosService: DistritosService,
     Cod_Provincia: null,
     Cod_Canton: null,
     Cod_Distrito: null,
+    Cod_Posicion: null,
     Estatura: 0,
     Peso: 0
   }
@@ -30,6 +34,7 @@ public distritosService: DistritosService,
   ngOnInit() {
 
     this.provinciasService.syncProvincias();
+    this.posicionesService.syncPosiciones();
 
 
   }
@@ -115,4 +120,9 @@ public distritosService: DistritosService,
 change(range){
   console.log(this.filtro.Estatura)
 }
+ 
+cerrarModal(){
+  this.modalCtrl.dismiss();
+}
+
 }

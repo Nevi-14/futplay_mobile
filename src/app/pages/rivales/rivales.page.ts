@@ -3,6 +3,7 @@ import { ListaEquiposService } from 'src/app/services/lista-equipos.service';
 import { ModalController, ActionSheetController, ActionSheetButton } from '@ionic/angular';
 import { EquipoReservacionPage } from '../equipo-reservacion/equipo-reservacion.page';
 import { EquiposService } from 'src/app/services/equipos.service';
+import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
 
 @Component({
   selector: 'app-rivales',
@@ -27,7 +28,17 @@ export class RivalesPage implements OnInit {
   //  this.listaEquiposService.SyncEquipos();
    
   }
+  async filtroUbicacion(cancha){
 
+  
+     
+    const modal  = await this.modalCtrl.create({
+     component: FiltroUbicacionPage,
+     cssClass: 'my-custom-class',
+     id:'my-modal-id'
+   });
+   await modal .present();
+ }
  
   async onOpenMenu(equipo){
 

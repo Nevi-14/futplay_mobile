@@ -4,15 +4,14 @@
   <ion-list>
     <ion-list-header style="margin-bottom: 2rem;">
       <ion-button (click)="cerrarModal()"> <ion-icon  name="arrow-back-outline"></ion-icon></ion-button>
-      <ion-label style="font-size: 1rem">Filtrar Ubicacion</ion-label>
-      <ion-button (click)="onOpenMenu()">Mas Filtros</ion-button>
+      <ion-label style="font-size: 1rem" class="ion-text-uppercase">Filtro Ubicación</ion-label>
     </ion-list-header>
 
       <ion-item>
         <ion-label position="stacked">
           <ion-icon slot="icon-only" name="location-outline"></ion-icon>
           Provincia</ion-label>
-          <ion-select (click)="syncProvincias()" required [(ngModel)]="usuario.Cod_Provincia" (ionChange)="onChange($event, true,false,false)"   name="Cod_Provincia">
+          <ion-select (click)="syncProvincias()" required [(ngModel)]="filtro.Cod_Provincia" (ionChange)="onChange($event, true,false,false)"   name="Cod_Provincia">
             <ion-select-option [value]="provincia.Cod_Provincia" *ngFor="let provincia of provinciasService.provincias">
               {{provincia.Provincia}}
             </ion-select-option>
@@ -27,7 +26,7 @@
         <ion-label position="stacked">
           <ion-icon slot="icon-only" name="location-outline"></ion-icon>
           Cantón</ion-label>
-          <ion-select  required [(ngModel)]="usuario.Cod_Canton"  (ionChange)="onChange($event, false,true,false)"   name="Cod_Canton" >
+          <ion-select  required [(ngModel)]="filtro.Cod_Canton"  (ionChange)="onChange($event, false,true,false)"   name="Cod_Canton" >
             <ion-select-option [value]="canton.Cod_Canton" *ngFor="let canton of cantonesService.cantones">
               {{canton.Canton}}
             </ion-select-option>
@@ -41,7 +40,7 @@
         <ion-label position="stacked">
           <ion-icon slot="icon-only" name="location-outline"></ion-icon>
           Distrito</ion-label>
-          <ion-select required   [(ngModel)]="usuario.Cod_Distrito"   (ionChange)="onChange($event, false,false,true)" name="Cod_Distrito">
+          <ion-select required   [(ngModel)]="filtro.Cod_Distrito"   (ionChange)="onChange($event, false,false,true)" name="Cod_Distrito">
             <ion-select-option [value]="distrito.Cod_Distrito" *ngFor="let distrito of distritosService.distritos">
               {{distrito.Distrito}}
             </ion-select-option>

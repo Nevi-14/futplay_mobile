@@ -4,8 +4,7 @@
   <ion-list>
     <ion-list-header style="margin-bottom: 2rem;">
       <ion-button (click)="cerrarModal()"> <ion-icon  name="arrow-back-outline"></ion-icon></ion-button>
-      <ion-label style="font-size: 1rem">Filtro Jugadores</ion-label>
-      <ion-button (click)="onOpenMenu()">Mas Filtros</ion-button>
+      <ion-label style="font-size: 1rem" class="ion-text-uppercase">Filtro Jugadores</ion-label>
     </ion-list-header>
 
       <ion-item>
@@ -50,16 +49,19 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">
-          <ion-icon slot="icon-only" name="location-outline"></ion-icon>
-          Posición</ion-label>
-          <ion-select required   [(ngModel)]="filtro.Cod_Distrito"   (ionChange)="onChange($event, false,false,true)" name="Cod_Distrito">
-            <ion-select-option [value]="distrito.Cod_Distrito" *ngFor="let distrito of distritosService.distritos">
-              {{distrito.Distrito}}
-            </ion-select-option>
+        <ion-label position="stacked" >
+          <ion-icon slot="icon-only" name="person-outline"></ion-icon>Posición</ion-label>
       
-          </ion-select>
+          <ion-select required [(ngModel)]="filtro.Cod_Posicion"   name="Cod_Posicion">
+            <ion-select-option [value]="posicion.Cod_Posicion" *ngFor="let posicion of posicionesService.posiciones">
+              {{posicion.Posicion}} 
+            </ion-select-option>
+            
+            </ion-select>
+         
+      
       </ion-item>
+
       <ion-item>
         <ion-label position="stacked">
           <ion-icon slot="icon-only" name="location-outline"></ion-icon>
