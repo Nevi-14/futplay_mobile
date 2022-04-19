@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 
 import { ReservacionesService } from 'src/app/services/reservaciones.service';
 import { EquipoReservacionPage } from '../equipo-reservacion/equipo-reservacion.page';
+import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
 
 @Component({
   selector: 'app-reservations',
@@ -98,7 +99,17 @@ await actionSheet.present();
 
 
   }
+  async filtroUbicacion(cancha){
+
   
+     
+    const modal  = await this.modalCtrl.create({
+     component: FiltroUbicacionPage,
+     cssClass: 'my-custom-class',
+     id:'my-modal-id'
+   });
+   await modal .present();
+ }
   async canchaReservacion(cancha){
 
   

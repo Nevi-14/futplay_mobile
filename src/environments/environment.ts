@@ -93,4 +93,3 @@ horaFin:'&Hora_Fin=',
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
-import { SolicitudesEquiposPage } from '../app/pages/solicitudes-equipos/solicitudes-equipos.page';

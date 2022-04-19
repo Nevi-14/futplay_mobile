@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ActionSheetButton, ModalController } from '@ionic/angular';
 import { UsuariosService } from '../../services/usuarios.service';
 import { EquiposService } from '../../services/equipos.service';
 import { SolicitudesService } from '../../services/solicitudes.service';
-import { vistaEquipos } from '../../models/vistaEquipos';
 import { SolicitudesJugadoresEquipos } from '../../models/solicitudesJugadoresEquipos';
 import { PerfilUsuario } from '../../models/perfilUsuario';
+import { FiltroJugadorPage } from '../filtro-jugador/filtro-jugador.page';
 
 @Component({
   selector: 'app-buscar-jugadores',
@@ -53,4 +53,19 @@ export class BuscarJugadoresPage implements OnInit {
   
       this.modalCtrl.dismiss();
     }
+
+
+    async filtroJugador(){
+  
+    
+       
+      const modal  = await this.modalCtrl.create({
+       component: FiltroJugadorPage,
+       cssClass: 'my-custom-class',
+       id:'my-modal-id'
+     });
+     await modal .present();
+   }
+
+
 }

@@ -34,12 +34,12 @@ console.log(URL);
   }
 
   syncProvincias(){
-
+console.log('prinvicias')
 
     this.getProvincias().subscribe(
       resp =>{
 
-        console.log(resp)
+        console.log(resp,'prinvicias')
         this.provincias = resp.slice(0);
        
 

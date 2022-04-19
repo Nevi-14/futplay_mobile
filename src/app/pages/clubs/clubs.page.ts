@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ActionSheetButton, ModalController, ActionSheetController } from '@ionic/angular';
 import { CreateClubPage } from '../create-club/create-club.page';
 
 import { Equipos } from 'src/app/models/equipos';
@@ -12,6 +12,7 @@ import { SolicitudesEquiposPage } from '../solicitudes-equipos/solicitudes-equip
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
 import { EditarPerfilEquipoPage } from '../editar-perfil-equipo/editar-perfil-equipo.page';
 import { EstadisticaEquipoPage } from '../estadistica-equipo/estadistica-equipo.page';
+import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class ClubsPage implements OnInit {
 
   add ='../assets/icons/create.svg';
  find ='../assets/icons/join.svg';
-  constructor( public modalCtrl: ModalController, public user: UsuariosService,  public equiposService: EquiposService, public solicitudesService:SolicitudesService) { }
+  constructor( public modalCtrl: ModalController, public user: UsuariosService,  public equiposService: EquiposService, public solicitudesService:SolicitudesService, public actionSheetCtrl: ActionSheetController) { }
 
   ngOnInit() {
 
@@ -33,6 +34,75 @@ export class ClubsPage implements OnInit {
    // this.user.getJugadoresEquipos(this.clubs.switchClub);
 
   }
+
+     // INICIO MENU DE OPCIONES RELACIONADAS AL PERFIL DE USUARIO
+  
+  
+     async onOpenMenu(jugador){
+  console.log(jugador)
+  
+      const normalBtns : ActionSheetButton[] = [
+        {   
+           text: 'Detalle Jugador',
+           icon:'person-outline',
+           handler: () =>{
+   this.perfilJugador(jugador);
+           }
+          
+          },
+          {   
+            text: 'Convertir Administrador',
+            icon:'settings-outline',
+            handler: () =>{
+  
+            }
+           
+           },
+           {   
+            text: 'Convertir jugador regular',
+            icon:'person-outline',
+            handler: () =>{
+   
+            }
+           
+           },
+          {   
+            text: 'Remover Jugador',
+            icon:'lock-closed-outline',
+            handler: () =>{
+        // this.gestionarContrasena();
+            }
+           
+           },
+          
+           {   
+            text: 'Cancelar',
+            icon:'close-outline',
+           role:'cancel',
+           
+           }
+        
+          ]
+    
+    
+    
+    
+      const actionSheet = await this.actionSheetCtrl.create({
+        header:'Opciones',
+        cssClass: 'left-align-buttons',
+        buttons:normalBtns,
+        mode:'ios'
+      });
+    
+    
+    
+    
+    
+    await actionSheet.present();
+    
+    
+      }
+  
 
   async presentModal() {
     const modal = await this.modalCtrl.create({
@@ -46,6 +116,17 @@ export class ClubsPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component:CreateClubPage,
       cssClass: 'my-custom-class'
+    });
+    return await modal.present();
+  }
+
+  async perfilJugador(jugador) {
+    const modal = await this.modalCtrl.create({
+      component:PerfilJugadorPage,
+      cssClass: 'my-custom-class',
+      componentProps:{
+        perfil: jugador
+      }
     });
     return await modal.present();
   }

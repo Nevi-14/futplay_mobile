@@ -160,6 +160,26 @@ const routes: Routes = [
     path: 'estadistica-equipo',
     loadChildren: () => import('./pages/estadistica-equipo/estadistica-equipo.module').then( m => m.EstadisticaEquipoPageModule)
   },
+  {
+    path: 'perfil-jugador',
+    loadChildren: () => import('./pages/perfil-jugador/perfil-jugador.module').then( m => m.PerfilJugadorPageModule)
+  },
+  {
+    path: 'filtro-ubicacion',
+    loadChildren: () => import('./pages/filtro-ubicacion/filtro-ubicacion.module').then( m => m.FiltroUbicacionPageModule)
+  },
+  {
+    path: 'filtro-equipo',
+    loadChildren: () => import('./pages/filtro-equipo/filtro-equipo.module').then( m => m.FiltroEquipoPageModule)
+  },
+  {
+    path: 'filtro-jugador',
+    loadChildren: () => import('./pages/filtro-jugador/filtro-jugador.module').then( m => m.FiltroJugadorPageModule)
+  },
+  {
+    path: 'filtro-cancha',
+    loadChildren: () => import('./pages/filtro-cancha/filtro-cancha.module').then( m => m.FiltroCanchaPageModule)
+  },
 
 
 

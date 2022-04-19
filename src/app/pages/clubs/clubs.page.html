@@ -97,9 +97,9 @@
       
       </ion-list-header>
       
-      <ion-item *ngFor="let jugador of equiposService.jugadoresPerfilEquipo" detail>
+      <ion-item *ngFor="let jugador of equiposService.jugadoresPerfilEquipo" detail (click)="onOpenMenu(jugador)">
         <ion-avatar slot="start"  style="display:block; height: auto; width: auto;" class="ion-text-center">
-          <img style="height: 40px; width: 40px;" src="assets/icons/football-player.svg">
+          <img style="height: 40px; width: 40px;"  src="assets/profile/avatars/{{jugador.Foto}}">
         
         </ion-avatar>
         
