@@ -1,6 +1,7 @@
 export class ListaCanchas {
     constructor(
     public Cod_Categoria: number,
+    public Categoria:string,
     public Categoria_Canchas:  string,
     public Cod_Cancha: number,
     public Cod_Provincia: number,

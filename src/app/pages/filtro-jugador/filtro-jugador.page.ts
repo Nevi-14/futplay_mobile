@@ -4,6 +4,7 @@ import { CantonesService } from 'src/app/services/cantones.service';
 import { DistritosService } from 'src/app/services/distritos.service';
 import { PosicionesService } from 'src/app/services/posiciones.service';
 import { ProvinciasService } from 'src/app/services/provincias.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-filtro-jugador',
@@ -18,7 +19,8 @@ public provinciasService: ProvinciasService,
 public cantonesService: CantonesService,
 public distritosService: DistritosService,
 public posicionesService: PosicionesService,
-public modalCtrl: ModalController
+public modalCtrl: ModalController,
+public usuariosService: UsuariosService
 
   ) { }
 
@@ -125,4 +127,10 @@ cerrarModal(){
   this.modalCtrl.dismiss();
 }
 
+
+submit(){
+  this.cerrarModal();
+  this.usuariosService.syncfiltrarUsuarios(this.filtro.Cod_Provincia,this.filtro.Cod_Canton, this.filtro.Cod_Distrito, this.filtro.Cod_Posicion,this.filtro.Estatura, this.filtro.Peso)
+
+}
 }

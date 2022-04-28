@@ -196,6 +196,34 @@ return this.perfilUsuario(id).toPromise();
 
   }
 
+  private filtrarUsuarios( Cod_Provincia: number, Cod_Canton:number,Cod_Distrito:number,Cod_Posicion:number,Estatura:number,Peso:number){
+
+    let URL = this.getURL( environment.fitrarUsuarios);
+   let params = environment.Cod_Provincia+ Cod_Provincia + environment.Cod_Canton_Param+ Cod_Canton +
+                environment.Cod_Distrito_Param+ Cod_Distrito + environment.Cod_Posicion_Param+ Cod_Posicion + 
+                environment.Estatura_Param+ Estatura + environment.Peso_Param+ Peso
+    URL = URL+ params
+
+    console.log(URL,'filtro Usuarios ')
+
+    return this.http.get<PerfilUsuario[]>( URL );
+  }
+
+   syncfiltrarUsuarios(Cod_Provincia: number, Cod_Canton:number,Cod_Distrito:number,Cod_Posicion:number,Estatura:number,Peso:number){
+ 
+this.filtrarUsuarios(Cod_Provincia,Cod_Canton,Cod_Distrito,Cod_Posicion,Estatura,Peso).subscribe(
+
+  resp =>{
+this.usuarios = [];
+    this.usuarios = resp.slice(0);
+
+    console.log(this.usuarios,'usuarios')
+
+
+  }
+
+);
+  }
 
 
   private getUsuarios( Cod_Usuario){

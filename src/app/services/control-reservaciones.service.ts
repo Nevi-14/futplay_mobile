@@ -265,7 +265,7 @@ this.mesesDisponibles.push(i+1);
 
   postReservacion(reservacion, cancha, rival, retador){
 
-    this.reservacionesService.insertarReservacion(reservacion, cancha, rival, retador)
+   // this.reservacionesService.insertarReservacion(reservacion, cancha, rival, retador)
   }
 
   putURL( api: string ){

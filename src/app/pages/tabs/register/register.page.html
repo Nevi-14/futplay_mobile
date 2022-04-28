@@ -5,219 +5,108 @@
 
 
 
-
-
-  <form  (ngSubmit)="registro(fRegistro)" #fRegistro="ngForm" class="styled-elemets" style="height: 100%; ">
-<ion-grid style="height: 100%;display:flex;justify-content: center;align-items: center;" >
-
-
-  <ion-row style="height:100%;display: flex; justify-content: center;">
-
-
-
-    <ion-col size="12" size-md="6">
-
-      <ion-item>
-        <ion-label position="stacked" >
-          <ion-icon slot="icon-only" name="person-outline"></ion-icon> Nombre</ion-label>
-          <ion-input required  [(ngModel)]="usuario.Nombre"  placeholder="Nombre" name="nombre"
-          type="text"
-          ></ion-input>
-       
-      
-      </ion-item>
-
-
-    </ion-col>
-
-
-    <ion-col size="12" size-md="6">
-
-      <ion-item>
-        <ion-label position="stacked">
-          <ion-icon slot="icon-only" name="person-outline"></ion-icon>
-          Apellido</ion-label>
-      
-        <ion-input type="text" placeholder="Primer Apellido" name="Primer_Apellido" [(ngModel)]="usuario.Primer_Apellido"   name="Primer Apellido"  autocomplete="off"></ion-input>
-      </ion-item>
-
-
-    </ion-col>
-
-    <ion-col size="12" size-md="6">
-
-      <ion-item>
-        <ion-label position="stacked">
-          <ion-icon slot="icon-only" name="mail-outline"></ion-icon>
-          
-          Correo</ion-label>
-        <ion-input type="email" placeholder="Correo" name="Correo"  [(ngModel)]="usuario.Correo"   autocomplete="off"></ion-input>
-      
-      </ion-item>
-
-
-    </ion-col>
-    <ion-col size="12" size-md="6">
-
-      <ion-item>
-        <ion-label position="stacked">
-          <ion-icon slot="icon-only" name="call-outline"></ion-icon>
-          Telefono</ion-label>
-        <ion-input type="tel" placeholder="Telefono"  name="Telefono"   [(ngModel)]="usuario.Telefono"   autocomplete="off"></ion-input>
-      
-      </ion-item>
-
-
-    </ion-col>
-
-
-    <ion-col size="12" size-md="6">
-
-      <ion-item  id="Fecha_Nacimiento"  > 
-        <ion-label position="stacked">
-          <ion-icon slot="icon-only" name="calendar-outline"></ion-icon>
-          Fecha de Nacimiento</ion-label>
-          <ion-input type="text" [value]="usuario.Fecha_Nacimiento  | date: 'dd/MM/yyyy'"></ion-input>             
-                                    
-      </ion-item>
-      <ion-modal trigger="Fecha_Nacimiento">
-        <ng-template>
-          <ion-datetime
-          name="Fecha_Nacimiento"
-            presentation="date"
-            [value]="usuario.Fecha_Nacimiento"
-            (ionChange)="formatDate($event)"
-          ></ion-datetime>
-        </ng-template>
-      </ion-modal>
-
-
-
-
-    </ion-col>
-
-    <ion-col size="12" size-md="6">
-
-      <ion-item>
-        <ion-label position="stacked">
-          <ion-icon slot="icon-only" name="location-outline"></ion-icon>
-          Provincia</ion-label>
-          <ion-select (click)="syncProvincias()" required [(ngModel)]="usuario.Cod_Provincia" (ionChange)="onChange($event, true,false,false)"   name="Cod_Provincia">
-            <ion-select-option [value]="provincia.Cod_Provincia" *ngFor="let provincia of provinciasService.provincias">
-              {{provincia.Provincia}}
-            </ion-select-option>
-            
-            </ion-select>
-      </ion-item>
-
-
-    </ion-col>
-
-    <ion-col size="12" size-md="6">
-
-      <ion-item>
-        <ion-label position="stacked">
-          <ion-icon slot="icon-only" name="location-outline"></ion-icon>
-          Cantón</ion-label>
-          <ion-select  required [(ngModel)]="usuario.Cod_Canton"  (ionChange)="onChange($event, false,true,false)"   name="Cod_Canton" >
-            <ion-select-option [value]="canton.Cod_Canton" *ngFor="let canton of cantonesService.cantones">
-              {{canton.Canton}}
-            </ion-select-option>
-            
-            </ion-select>
-      </ion-item>
-
-
-    </ion-col>
-
-    <ion-col size="12" size-md="6">
-
-      <ion-item>
-        <ion-label position="stacked">
-          <ion-icon slot="icon-only" name="location-outline"></ion-icon>
-          Distrito</ion-label>
-          <ion-select required   [(ngModel)]="usuario.Cod_Distrito"   (ionChange)="onChange($event, false,false,true)" name="Cod_Distrito">
-            <ion-select-option [value]="distrito.Cod_Distrito" *ngFor="let distrito of distritosService.distritos">
-              {{distrito.Distrito}}
-            </ion-select-option>
-      
-          </ion-select>
-      </ion-item>
-
-
-    </ion-col>
-
-    <ion-col size="12" size-md="6">
-      <ion-item>
-      
-      
-        <ion-label position="stacked">            <ion-icon slot="icon-only"  name="lock-closed-outline" ></ion-icon>Contraseña</ion-label>
+  <div id="header">
+    <h1>Formulario de Registro</h1>
+  
+  
+   <form id="form" (ngSubmit)="registro(fRegistro)" #fRegistro="ngForm"  >
+  
     
-        <ion-input  type="{{showPass ? 'text' : 'password'}}"  placeholder="Contraseña"  name="Contrasena" [(ngModel)]="usuario.Contrasena"></ion-input>
-      <ion-icon slot="end"  item-right name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>
-    </ion-item>
-
-    </ion-col>
-
-
-
-    <ion-col size="12" size-md="6">
- 
-          
-          
-     
-    
-    
-    
-      
-       
-
-      
-      
-          <ion-item>
-      
-      
-              <ion-label  position="stacked">            <ion-icon  name="lock-closed-outline" ></ion-icon>Contraseña</ion-label>
-          
-              <ion-input   name="confirmarContrasena" [(ngModel)]="confirmarContrasena" type="{{showPassConfirm ? 'text' : 'password'}}"  placeholder="Contraseña"></ion-input>
-            <ion-icon slot="end"  item-right name="{{showPassConfirm ? 'eye' : 'eye-off'}}" (click)="showPassConfirm=!showPassConfirm"></ion-icon>
+  <ion-grid >
+    <ion-row>
+      <ion-col size="12" size-md="6">
+        <ion-label>Nombre</ion-label>
+        <ion-item class="ion-margin-bottom ion-margin-top">
+          <ion-input  [(ngModel)]="usuario.Nombre" name="Nombre"  type="text" placeholder="Nombre"></ion-input>
           </ion-item>
       
-      
-      
-      
-
-      
-      
-      
-      
-      
-      
-          </ion-col>
-    
-    
-
-          <ion-col size="12" class="ion-text-center ion-margin">
-     
-            <ion-button class="ion-margin"  [disabled]="fRegistro.invalid" type="submit"
-                color="dark"
-                shape="round"     
-                fill="outline" >
-                    Crear usuario
-                </ion-button>
-       
-          </ion-col>
-    
-
-
-
-
-
-
-  </ion-row>
-</ion-grid>
+          <ion-label>Apellido</ion-label>
+          <ion-item class="ion-margin-bottom ion-margin-top">
+          <ion-input name="apellido" [(ngModel)]="usuario.Primer_Apellido"   type="text" placeholder="Apellido"></ion-input>
+          </ion-item>
+          <ion-label>Correo</ion-label>
+          <ion-item class="ion-margin-bottom ion-margin-top">
   
-</form>
-
-
+            <ion-input  [(ngModel)]="usuario.Correo" name="Correo"  type="email" placeholder="Correo"></ion-input>
+            </ion-item>
+        
+            <ion-label>Telefono</ion-label>
+            <ion-item class="ion-margin-bottom ion-margin-top">
+            <ion-input name="Telefono" [(ngModel)]="usuario.Telefono"   type="tel" placeholder="Telefono"></ion-input>
+            </ion-item>
+            <ion-label>Fecha de nacimiento</ion-label>
+    
+            <ion-item class="ion-margin-bottom ion-margin-top"(click)="SelectDate()">
+              <ion-input   name="Fecha_Nacimiento"  type="text"  [value]="usuario.Fecha_Nacimiento  | date :'longDate'" placeholder="Fecha Nacimiento"></ion-input>
+              </ion-item>
+      
+      </ion-col>
+      <ion-col size="12" size-md="6">
+  
+   
+        <ion-label>Provincia</ion-label>
+        <ion-item class="ion-margin-bottom ion-margin-top">
+    
+              <ion-select placeholder="Provincia" (click)="syncProvincias()" required [(ngModel)]="usuario.Cod_Provincia" (ionChange)="onChange($event, true,false,false)"   name="Cod_Provincia">
+                <ion-select-option [value]="provincia.Cod_Provincia" *ngFor="let provincia of provinciasService.provincias">
+                  {{provincia.Provincia}}
+                </ion-select-option>
+                
+                </ion-select>
+          </ion-item>
+      
+          <ion-label>Cantón</ion-label>
+          <ion-item class="ion-margin-bottom ion-margin-top">
+    
+              <ion-select placeholder="Canton"  required [(ngModel)]="usuario.Cod_Canton"  (ionChange)="onChange($event, false,true,false)"   name="Cod_Canton" >
+                <ion-select-option [value]="canton.Cod_Canton" *ngFor="let canton of cantonesService.cantones">
+                  {{canton.Canton}}
+                </ion-select-option>
+                
+                </ion-select>
+          </ion-item>
+      
+  
+          <ion-label>Distrito</ion-label>
+          <ion-item class="ion-margin-bottom ion-margin-top">
+    
+              <ion-select placeholder="Distrito" required   [(ngModel)]="usuario.Cod_Distrito"   (ionChange)="onChange($event, false,false,true)" name="Cod_Distrito">
+                <ion-select-option [value]="distrito.Cod_Distrito" *ngFor="let distrito of distritosService.distritos">
+                  {{distrito.Distrito}}
+                </ion-select-option>
+          
+              </ion-select>
+          </ion-item>
+  
+  
+        
+  
+          <ion-label>Contraseña</ion-label>
+          <ion-item class="ion-margin-bottom ion-margin-top">
+            <ion-input name="password" [(ngModel)]="usuario.Contrasena"    type="{{showPass ? 'text' : 'password'}}"placeholder="contraseña"></ion-input>
+            <ion-icon slot="end"  item-right name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>
+            </ion-item>
+      
+            <ion-label>Contraseña</ion-label>
+            <ion-item class="ion-margin-bottom ion-margin-top">
+              <ion-input name="password" [(ngModel)]="confirmarContrasena"    type="{{showPassConfirm ? 'text' : 'password'}}" placeholder="confirmar contraseña"></ion-input>
+              <ion-icon slot="end"  item-right name="{{showPassConfirm ? 'eye' : 'eye-off'}}" (click)="showPassConfirm=!showPassConfirm"></ion-icon>
+              </ion-item>
+          
+  
+  
+  
+      </ion-col>
+      <ion-col size="12" style="display: grid;place-content: center;">
+        <ion-button type="submit" color="dark"  shape="round"  [disabled]="fRegistro.invalid" >
+          Completar Registro
+        </ion-button>
+  
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+   </form>
+  
+  </div>
+  
 </ion-content>

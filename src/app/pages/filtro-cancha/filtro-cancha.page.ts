@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { CanchasService } from 'src/app/services/canchas.service';
 import { CantonesService } from 'src/app/services/cantones.service';
 import { DistritosService } from 'src/app/services/distritos.service';
+import { ListaCanchasService } from 'src/app/services/lista-canchas.service';
 import { ProvinciasService } from 'src/app/services/provincias.service';
 
 @Component({
@@ -14,14 +16,15 @@ export class FiltroCanchaPage implements OnInit {
     Cod_Provincia: null,
     Cod_Canton: null,
     Cod_Distrito: null,
-    Cod_Posicion: null,
     Precio: 0
   }
   constructor(
     public provinciasService: ProvinciasService,
     public cantonesService: CantonesService,
     public distritosService: DistritosService,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public listaCanchasService: ListaCanchasService,
+    public canchasService: CanchasService
 
   ) { }
 
@@ -29,6 +32,17 @@ export class FiltroCanchaPage implements OnInit {
 
     this.provinciasService.syncProvincias();
 
+  }
+
+  submit(){
+    this.cerrarModal();
+    this.canchasService.syncfiltrarCanchas(
+      
+      this.filtro.Cod_Provincia,
+      this.filtro.Cod_Canton,
+      this.filtro.Cod_Distrito,
+      this.filtro.Precio
+    )
   }
     onChange($event , provincia, canton, distrito){
     if(provincia){

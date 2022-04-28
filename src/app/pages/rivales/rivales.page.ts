@@ -28,7 +28,7 @@ export class RivalesPage implements OnInit {
   //  this.listaEquiposService.SyncEquipos();
    
   }
-  async filtroUbicacion(cancha){
+  async filtroUbicacion(){
 
   
      

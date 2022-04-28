@@ -21,7 +21,7 @@ export class ReservationsPage implements OnInit {
   location = '../assets/icons/map.svg';
   star= 'assets/search/star.svg';
   save= 'assets/search/add-user.svg';
-  soccer= 'assets/icon/soccer.svg';
+  soccer= 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c29jY2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60';
   constructor(
     
      public modalCtrl: ModalController, 
@@ -100,7 +100,7 @@ await actionSheet.present();
 
 
   }
-  async filtroUbicacion(cancha){
+  async filtroUbicacion(){
 
   
      

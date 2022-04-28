@@ -1,0 +1,75 @@
+
+<ion-toolbar>
+  <ion-button slot="start" (click)="cerrarModal()" fill="clear">
+   <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+  </ion-button>
+  <ion-label class="title ion-text-wrap">{{title}}</ion-label>
+
+</ion-toolbar>
+
+
+<ion-content class="ion-padding" >
+
+<ion-grid >
+  <ion-row>
+    <ion-col size="12" size-md="4">
+      <ion-label   class="ion-text-uppercase">
+
+        Dia</ion-label>
+      <ion-item class="ion-margin-bottom ion-margin-top">
+     
+          <ion-select  required [(ngModel)]="dateObjectReturn.date" (ionChange)="obtenerDia($event)"   name="dia">
+            <ion-select-option [value]="dia" *ngFor="let dia of dias">
+             {{dia}} 
+            </ion-select-option>
+            
+            </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12" size-md="4">
+    <ion-label  class="ion-text-uppercase">
+
+      Mes</ion-label>
+    <ion-item class="ion-margin-bottom ion-margin-top">
+  
+        <ion-select required [(ngModel)]="dateObjectReturn.month" (ionChange)="obtenerMes($event)"   name="mes">
+          <ion-select-option [value]="mes" *ngFor="let mes of meses" class="ion-text-capitalized">
+            {{mes}}
+          </ion-select-option>
+          
+          </ion-select>
+    </ion-item>
+    </ion-col>
+
+    <ion-col size="12" size-md="4">
+      
+
+    <ion-label class="ion-text-uppercase">
+    
+      Año</ion-label>
+    <ion-item class="ion-margin-bottom ion-margin-top">
+
+        <ion-select   required [(ngModel)]="dateObjectReturn.year" (ionChange)="obtenerAno($event)"   name="ano">
+          <ion-select-option [value]="ano" *ngFor="let ano of anos">
+            {{ano}}
+          </ion-select-option>
+          
+          </ion-select>
+    </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+
+
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+<ion-buttons slot="end">
+  <ion-button (click)="continuar()">
+    <ion-label>Continuar</ion-label>
+    <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+  </ion-button>
+</ion-buttons>
+  </ion-toolbar>
+</ion-footer>

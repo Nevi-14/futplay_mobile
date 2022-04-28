@@ -1,0 +1,61 @@
+
+<ion-toolbar>
+  <ion-button slot="start" (click)="cerrarModal()" fill="clear">
+   <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+  </ion-button>
+  <ion-label class="title ion-text-wrap">Editar Reservacion  <ion-badge    color="dark" mode="ios">{{editarReservacion.Fecha | date:'shortDate'}}</ion-badge></ion-label>
+  <ion-button slot="end"   size="large"   (click)="delete()" fill="clear">
+
+    <ion-icon  color="danger" slot="icon-only" name="trash-outline"></ion-icon>
+  </ion-button>
+</ion-toolbar>
+
+<ion-content>
+
+  <ion-grid >
+    <ion-row>
+      <ion-col size="12" >
+        <ion-label   >Dia completo</ion-label>
+ <ion-item lines="none">
+  <ion-label    slot="start"  >Si</ion-label>
+  <ion-toggle  mode="ios"   (ionChange)="switch(editarReservacion.diaCompleto)" [(ngModel)]="editarReservacion.diaCompleto" ></ion-toggle>
+ </ion-item>
+      
+      </ion-col>
+      <ion-col size="12">
+        <ion-label >Detalle</ion-label>
+
+<ion-item class="ion-margin-bottom ion-margin-top">
+
+    <ion-textarea placeholder="Detalle reservacion" [(ngModel)]="editarReservacion.Descripcion" ></ion-textarea>
+  </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-label >Hora / Actual <ion-badge color="dark" mode="ios">{{editarReservacion.Hora_Inicio}}</ion-badge></ion-label>
+
+        <ion-item  class="ion-margin-bottom ion-margin-top" *ngIf="generrReservacionService.horasdiaConsulta.length > 0 &&  !editarReservacion.diaCompleto">
+          <ion-select [(ngModel)]="editarReservacion.Hora_Inicio"   placeholder=" Nueva Hora Inicio">
+            <ion-select-option  [value]="hora.hora_inicio" *ngFor="let hora of generrReservacionService.horasdiaConsulta">{{hora.formato12}}</ion-select-option>
+          </ion-select>
+      </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+<ion-buttons slot="end">
+  <ion-button (click)="save()">
+    <ion-label>Continuar</ion-label>
+    <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+  </ion-button>
+</ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+

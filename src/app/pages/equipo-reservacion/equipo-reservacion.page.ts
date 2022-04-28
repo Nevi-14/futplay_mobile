@@ -11,6 +11,8 @@ import { ControlReservacionesService } from '../../services/control-reservacione
 import { NgForm } from '@angular/forms';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { MyReservationsPage } from '../my-reservations/my-reservations.page';
+import { GenerarReservacionPage } from '../generar-reservacion/generar-reservacion.page';
+import { GenerarReservacionService } from 'src/app/services/generar-reservacion.service';
 
 
 @Component({
@@ -22,7 +24,7 @@ export class EquipoReservacionPage implements OnInit {
 @Input()rival : vistaEquipos;
 @Input()retador : vistaEquipos;
 @Input()cancha : ListaCanchas;
-
+selectedDate: Date = new Date();
 soccer= 'assets/icon/soccer.svg';
 fechaDateTime =  new Date().toISOString()
 
@@ -33,6 +35,7 @@ fechaDateTime =  new Date().toISOString()
     public http: HttpClient,
     public  controlReservacionesService: ControlReservacionesService,
     public alertasService: AlertasService,
+    public generrReservacionService: GenerarReservacionService
   ) { }
 
 
@@ -53,7 +56,7 @@ fechaDateTime =  new Date().toISOString()
    }
 
   ngOnInit() {
-
+    this.generrReservacionService.generarReservacion(  this.cancha.Cod_Cancha,this.selectedDate);
 
 // ACTIVAR FILTRO PROVINCIA, CANTON DISTRITO CANCHAS -  JUGADORES
 // CARGAR MIS EQUIPOS
@@ -80,6 +83,18 @@ this.controlReservacionesService.syncReservacionesFecha(this.cancha.Cod_Cancha, 
 
   }
       
+  async agregarReservacion() {
+    const modal = await this.modalCtrl.create({
+      component: GenerarReservacionPage,
+      componentProps:{
+        fecha:this.selectedDate,
+        cancha: this.cancha
+      },
+      cssClass: 'large',
+    });
+    return await modal.present();
+  }
+
 
   cerrarModal(){
     this.modalCtrl.dismiss(undefined, undefined,'my-modal-id');

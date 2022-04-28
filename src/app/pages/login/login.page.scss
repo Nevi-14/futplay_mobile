@@ -1,81 +1,69 @@
-
-
-.heading{
-  margin-top: 10px;
-
+ion-toolbar{
+  --background:#fff;
 }
-H1{
-  margin-top: 10px;
-  font-size: 22px;
-  color: #7b7b7b;
-}
-p{
-  margin-top: 10px;
+
+.company-name{
+  text-transform: uppercase;
+  font-weight: 600;
   font-size: 16px;
-  color: #7b7b7b;
+  color: #010101;
 }
-  .login-form{
+ion-content{
+  --background:#fff;
+  #header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    .form-input{
-      position: relative;
-      margin-bottom: 10px;
-      ion-item::part(native){
-      padding-left: 0;
-      }
-
-      ion-icon{
-      margin-right: 18px;
-
-      }
-
-      ion-label{
-        font-size: 18px;
-        letter-spacing: 2px;
-   
-      }
-
-      ion-input{
-        font-size: 16px;
-        --padding-start:16px;
-        --padding-top:16px;
-        color: #7b7b7b;
-      }
+    h1{
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 20px;
+      color: #010101;
+      margin-bottom:2rem;
     }
+    img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 8px solid #ffff;
+    }
+  } 
 
-
+  #form {
+padding-left: 30px;
+padding-right: 30px;
+max-width: 400px;
+width: 100%;
+ion-button{
+  margin-top: 35px;
+  height: 48px;
+  font-size: 18px;
+  text-transform: initial;
+  border-radius: 50px;
+  box-shadow: 1px 8px 8px 0px rgba(0,0,0,0.05);
+}
   }
 
-  .action-buttons{
-    text-align: center;
-    .login-button{
-      --background: rgba(37,13,76,255);
-      width: 200px;
-      font-weight: bold;
-      height: 40px;
-    }
-    p{
-      margin-top: 10px;
-      font-size: 14px;
-      color: #7b7b7b;
-    
-    }
-
-    .signup-button{
-      --border-color:#b4b4b4;
-      -color: #000;
-      font-weight: bold;
-      margin-top: 20px;
-      width: 200px;
-      height: 40px;
-    }
-  }
- 
-/* DOES NOT WORK - not specific enough */
-.modal-wrapper {
-  background: #222;
 }
 
-/* Works - pass "my-custom-class" in cssClass to increase specificity */
-.my-custom-class .modal-wrapper {
-  background: #222;
+ion-item{
+  border-radius: 50px;
+  height: 55px;
+  box-shadow: 1px 8px 8px 0px rgba(0,0,0,0.08);
+  --highlight-height:0px;
+}
+
+ion-input{
+  font-size: 18px;
+  --padding-top:20px;
+  --padding-bottom:15px;
+  --padding-start:5px;
+
+}
+
+a{
+  font-size: 17px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
 }

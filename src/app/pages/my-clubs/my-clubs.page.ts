@@ -20,6 +20,7 @@ export class MyClubsPage implements OnInit {
 
     console.log(this.equiposService.userclubs ,'owner');
     console.log(this.equiposService.playerClubs , 'player');
+    console.log(this.equiposService.misEquipos,'equiposService.misEquipo')
   }
   async newClub() {
     const modal = await this.modalCtrl.create({

@@ -1,71 +1,70 @@
 
-<ion-content style="display: flex;justify-content: center; background: red;">
+<ion-toolbar>
+  <ion-button slot="start" (click)="cerrarModal()" fill="clear">
+   <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+  </ion-button>
+  <ion-label class="title ion-text-wrap">Editar Equipo <ion-badge color="warning" mode="ios">{{equipo.Nombre}}</ion-badge></ion-label>
+
+</ion-toolbar>
+<ion-content  >
   
-  <ion-col tappable   size="12" class="header" >
-       
-    <ion-label  class="ion-text-uppercase"  style="letter-spacing: 0.5rem; color: white;font-size: 2rem; font-weight: 600; text-shadow: 2px 2px  rgba(37,13,76,255);">
-      Editar Perfil
-       </ion-label>
 
-
-  </ion-col>
-
-  <form   (ngSubmit)="updateTeam(fEquipo)" #fEquipo="ngForm" class="styled-elemets body" style="height: 100%; ">
-    
+  <form   (ngSubmit)="updateTeam(fEquipo)" #fEquipo="ngForm">
   <ion-grid >
     <ion-row>
-      <ion-buttons  style="position: absolute; top: 20px; right: 30px;">
-           
-        <ion-button  size="large"  (click)="uploadCamera()"    color="dark"  >
-           
-          <ion-icon  size="large" slot="icon-only" name="camera-outline" ></ion-icon>
 
-
-         
-        </ion-button>
-        <ion-button size="large" (click)="uploadPictures()"     color="dark">
-         
-          <ion-icon  size="large" slot="icon-only" name="image-outline"></ion-icon>
-        
-        </ion-button>
-    
-      </ion-buttons>
-      <ion-col size="12" style="margin-top: 3rem;">
+      <ion-col size="12" >
         
         
-          <ion-fab-button  class="custom-button" style="position: absolute;top: 50%;left: 0px;z-index: 2;"  (click)="slidePrev()" >
-            <ion-icon  size="large"  name="chevron-back-outline"></ion-icon>
-          </ion-fab-button>
+        <ion-fab-button color="dark"  class="custom-button" style="position: absolute;top: 50%;left: 0px;z-index: 2;"  (click)="slidePrev()" >
+          <ion-icon  size="small"  name="chevron-back-outline"></ion-icon>
+        </ion-fab-button>
 
-          <ion-fab-button class="custom-button" style="position: absolute;top: 50%;right:0px;z-index: 2;" (click)="slideNext()" >
-            <ion-icon  size="large" name="chevron-forward-outline"></ion-icon>
-          </ion-fab-button>
+        <ion-fab-button color="dark" class="custom-button" style="position: absolute;top: 50%;right:0px;z-index: 2;" (click)="slideNext()" >
+          <ion-icon  size="small" name="chevron-forward-outline"></ion-icon>
+        </ion-fab-button>
 
 
-        <ion-slides  (ionSlideDidChange)="slideChange($event)"  [options]="avatarSlide">
-          <ion-slide  *ngFor="let img of imgs">
-              <ion-img class="pick-avatar" 
-                      src="assets/soccer-shields-svg/{{img.img}}"
-                      [ngClass]="{'pick-avatar-seleccionado': img.seleccionado}" (click)="seleccionarAvatar(img)"></ion-img>
-        
-        
+      <ion-slides  (ionSlideDidChange)="slideChange($event)"  [options]="avatarSlide">
+        <ion-slide  *ngFor="let img of imgs">
+            <ion-img class="pick-avatar" 
+                    src="assets/soccer-shields-svg/{{img.img}}"
+                    [ngClass]="{'pick-avatar-seleccionado': img.seleccionado}" (click)="seleccionarAvatar(img)"></ion-img>
       
-        
-          </ion-slide>
-          </ion-slides>
-        
-
+      
+    
+      
+        </ion-slide>
+        </ion-slides>
+      
+      </ion-col>
+      <ion-col size="12" style="display: flex;justify-content: end;">
+        <ion-buttons  >
+           
+          <ion-button  size="large"      color="dark"  >
+             
+            <ion-icon  size="large" slot="icon-only" name="camera-outline" ></ion-icon>
+  
+  
+           
+          </ion-button>
+          <ion-button size="large"     color="dark">
+           
+            <ion-icon  size="large" slot="icon-only" name="image-outline"></ion-icon>
+          
+          </ion-button>
+      
+        </ion-buttons>
       </ion-col>
     
       <ion-col size="12" size-md="6">
-  
-        <ion-item>
-          <ion-label position="stacked" >
-  
-            <ion-icon slot="icon-only" name="text-outline"></ion-icon> Nombre Equipo</ion-label>
-            <ion-input required  [(ngModel)]="equipo.Nombre"  placeholder="Nombre" name="nombre"
-            type="text"
-            ></ion-input>
+        <ion-label >
+Nombre Equipo</ion-label>
+<ion-item class="ion-margin-bottom ion-margin-top">
+    
+  <ion-input required  [(ngModel)]="equipo.Nombre"  placeholder="Nombre" name="nombre"
+  type="text"
+  ></ion-input>
          
         
         </ion-item>
@@ -75,43 +74,42 @@
   
   
       <ion-col size="12" size-md="6">
-  
-        <ion-item>
-          <ion-label position="stacked">
-            <ion-icon slot="icon-only" name="text-outline"></ion-icon>
-            Abreviación</ion-label>
+        <ion-label >
+   
+          Abreviación</ion-label>
+        <ion-item class="ion-margin-bottom ion-margin-top">
+         
         
           <ion-input maxlength="3" type="text" placeholder="Abreviacion" name="Abreviacion" [(ngModel)]="equipo.Abreviacion"   name="Abreviacion"  autocomplete="off"></ion-input>
         </ion-item>
-  
-  
       </ion-col>
-  
-  
+
+
+
       <ion-col size="12" size-md="6">
-  
-        <ion-item>
-          <ion-label position="stacked">
-            <ion-icon slot="icon-only" name="location-outline"></ion-icon>
-            Provincia</ion-label>
-            <ion-select (click)="provinciasService.syncProvincias()" (ionChange)="onChange($event, 'provincia')"
-             required [(ngModel)]="equipo.Cod_Provincia"   name="Cod_Provincia">
-              <ion-select-option [value]="provincia.Cod_Provincia" *ngFor="let provincia of provinciasService.provincias">
-                {{provincia.Provincia}}
-              </ion-select-option>
-              
-              </ion-select>
+        <ion-label >
+       
+          Provincia</ion-label>
+        <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
+     
+          <ion-select (click)="provinciasService.syncProvincias()" (ionChange)="onChange($event, 'provincia')"
+          required [(ngModel)]="equipo.Cod_Provincia"   name="Cod_Provincia">
+           <ion-select-option [value]="provincia.Cod_Provincia" *ngFor="let provincia of provinciasService.provincias">
+             {{provincia.Provincia}}
+           </ion-select-option>
+           
+           </ion-select>
         </ion-item>
   
   
       </ion-col>
   
       <ion-col size="12" size-md="6">
-  
-        <ion-item>
-          <ion-label position="stacked">
-            <ion-icon slot="icon-only" name="location-outline"></ion-icon>
-            Cantón</ion-label>
+        <ion-label>
+      
+          Cantón</ion-label>
+          <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
+    
             <ion-select  (ionChange)="onChange($event, 'canton')"  required [(ngModel)]="equipo.Cod_Canton"    name="Cod_Canton" >
               <ion-select-option [value]="canton.Cod_Canton" *ngFor="let canton of cantonesService.cantones">
                 {{canton.Canton}}
@@ -124,11 +122,10 @@
       </ion-col>
   
       <ion-col size="12" size-md="6">
-  
-        <ion-item>
-          <ion-label position="stacked">
-            <ion-icon slot="icon-only" name="location-outline"></ion-icon>
-            Distrito</ion-label>
+        <ion-label>
+
+          Distrito</ion-label>
+          <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
             <ion-select  (ionChange)="onChange($event, 'distrito')" required   [(ngModel)]="equipo.Cod_Distrito"   name="Cod_Distrito">
               <ion-select-option [value]="distrito.Cod_Distrito" *ngFor="let distrito of distritosService.distritos">
                 {{distrito.Distrito}}
@@ -140,24 +137,23 @@
   
       </ion-col>
   
+
       
-  
-              
-  
-     
-  
-  
-  
   
       <ion-col size="12" class="ion-text-center ion-margin">
        
-        <ion-button class="ion-margin purple"  [disabled]="fEquipo.invalid" type="submit"
-           
-            shape="round">
-                Editar Equipo
-            </ion-button>
-   
+        <ion-button [disabled]="fEquipo.invalid" type="submit"
+                  color="dark"
+                  shape="round"     
+                  fill="outline" >
+                    Editar Cancha
+                  </ion-button>
+         
       </ion-col>
+
+  
+  
+  
 
   
   
@@ -176,8 +172,5 @@
   </ion-content>
 
 
-  <ion-fab  (click)="cerrarModal()" vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button size="small" color="dark">
-      <ion-icon  name="arrow-back-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+
+  

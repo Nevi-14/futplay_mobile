@@ -1,21 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.prod';
+import { BloqueoCanchas } from '../models/bloqueoCanchas';
 import { ReservacionesCanchasUsuarios } from '../models/Reservaciones_Canchas_Usuarios';
 import { Router } from '@angular/router';
 import { Canchas } from '../models/canchas';
 import { LoadingController, AlertController, ModalController } from '@ionic/angular';
-import { ConfirmacionReservacionesService } from './confirmacion-reservaciones.service';
 
+import { UsuariosService } from './usuarios.service';
 import { AlertasService } from './alertas.service';
-import { GestionRetos } from '../models/gestionRetos';
+import { Reservaciones } from '../models/reservaciones';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservacionesService {
-  reservaciones :GestionRetos[]=[]
+  reservaciones :Reservaciones[]=[];
   reservaconesUsuario = [];
   reservacionesCanchasUsusario: ReservacionesCanchasUsuarios[]=[];
   reservacionesCanchaActual = [];
@@ -23,7 +24,6 @@ export class ReservacionesService {
   loading: HTMLIonLoadingElement;
   eventSource = [];
 cancha:Canchas;
-respPostReservacion = null;
 bloqueo = {
   Cod_Cancha:  null,
   Cod_Usuario:  null,
@@ -48,10 +48,8 @@ bloqueo = {
     public router: Router, 
     public loadingCtrl: LoadingController, 
     public alertController: AlertController, 
-    public modalCtrl: ModalController,
-    public confirmacionReservacionesService: ConfirmacionReservacionesService,
-    public alertasSeervice: AlertasService
-
+    public modalCtrl: ModalController, 
+    public alertasService: AlertasService
     
     
     ) { }
@@ -220,8 +218,10 @@ console.log(this.reservacionesCanchasUsusario[i].diaCompleto, 'dia completo')
           Hora_Fin: this.reservacionesCanchasUsusario[i].Hora_Fin,
           startTime: startTime,
           endTime: endTime,
+          Cod_Cancha:this.reservacionesCanchasUsusario[i].Cod_Cancha,
           desc:  this.reservacionesCanchasUsusario[i].Descripcion,
-          allDay: true
+          allDay: true,
+          fecha: this.reservacionesCanchasUsusario[i].Fecha
       });
    //   this.markDisabled(this.reservacionesCanchasUsusario[i].Fecha)
       }
@@ -243,7 +243,9 @@ console.log(this.reservacionesCanchasUsusario[i].diaCompleto, 'dia completo')
           startTime: this.time(new Date(this.reservacionesCanchasUsusario[i].Fecha), this.reservacionesCanchasUsusario[i].Hora_Inicio) ,
           endTime:this.time(new Date(this.reservacionesCanchasUsusario[i].Fecha), this.reservacionesCanchasUsusario[i].Hora_Fin),
           desc:this.reservacionesCanchasUsusario[i].Descripcion,
-          allDay: false
+          Cod_Cancha:this.reservacionesCanchasUsusario[i].Cod_Cancha,
+          allDay: false,
+          fecha: this.reservacionesCanchasUsusario[i].Fecha
       });
       }
 
@@ -320,27 +322,17 @@ console.log(this.eventSource,'srouce')
         return this.http.post( URL, JSON.stringify(reservacion), options );
       }
     
-      insertarReservacion(reservacion, cancha, rival, retador){
-
-        this.alertasSeervice.presentaLoading('Guardando reservacion')
+      insertarReservacion(reservacion){
 
         this.postReservaciones(reservacion).subscribe(
   
           resp => {
-       this.alertasSeervice.loadingDissmiss();
+          this.alertasService.message('FUTPLAY', 'La reservación se efectuo con excito ')
             console.log(resp, 'post');
-            this.respPostReservacion = resp;
       //     this.loadingDissmiss();
           // this.canchasService.syncCanchasParam( reservacion.Cod_Usuario)
-      const confirmacion = {
- Cod_Reservacion: this.respPostReservacion.Cod_Reservacion,
- Cod_Retador : retador.Cod_Equipo,
- Cod_Rival : rival.Cod_Equipo,
- Confirmacion_Retador: true,
- Confirmacion_Rival : false,
- Estado : false,
-      }
-          this.confirmacionReservacionesService.insertarReservacion(confirmacion)
+      
+          
           
       this.syncReservacionesCanchaActual(reservacion.Cod_Cancha)
        
@@ -349,7 +341,7 @@ console.log(this.eventSource,'srouce')
         Cod_Usuario:  null,
         Reservacion_Externa: true,
         Titulo: null,
-        Fecha:   null,    
+        Fecha:   null,
         Hora_Inicio:  null,
         Hora_Fin: null,
         Estado:  true,
@@ -380,6 +372,18 @@ else if(this.bloqueo.Cod_Usuario && this.bloqueo.Descripcion && this.bloqueo.Hor
 
 
 
+
+
+
+
+
+
+
+
+      //=========================================================================================
+      //
+      //==========================================================================================
+       
 
 
 }

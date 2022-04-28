@@ -1,9 +1,16 @@
 
-<ion-toolbar style="background-color: #fff;">
-  <ion-label style="text-align: left; font-size: 16px; font-weight: 600;text-transform:uppercase;margin-left:1rem;">Generar Reto</ion-label>
+<ion-toolbar>
+  <ion-button slot="start" (click)="cerrarModal()" fill="clear">
+   <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+  </ion-button>
+  <ion-label class="title ion-text-wrap">Nueva Reservacion  <ion-badge    color="dark" mode="ios">{{this.selectedDate| date:'shortDate'}}</ion-badge></ion-label>
+
 </ion-toolbar>
 
 <ion-content >
+
+
+
   <form  (ngSubmit)="generarReto(fRegistro)" #fRegistro="ngForm" class="styled-elemets" style="height: 100%; ">
 
   <ion-button *ngIf="!rival" (click)="agregarRival()" style="margin-top: 2rem;"  class="ion-margin" expand="full" color="dark">
@@ -12,74 +19,11 @@
 
 
 
-  <ion-card *ngIf="rival"  >
-    <ion-card-header>
-      <ion-card-subtitle style="text-align: left;">Rival</ion-card-subtitle>
-      
-    </ion-card-header>
-  
-    <ion-card-content>
-      <ion-item lines="none">
-
-          <ion-avatar slot="start" style="display:block; height: auto; width: auto;" class="ion-text-center">
-            <img style="height: 60px; width: 60px;"  src="assets/soccer-shields-svg/{{rival.Foto}}">
-            
-            </ion-avatar>
-     
-      <ion-label>{{rival.Nombre}}</ion-label>
-
-  
-
-        <ion-buttons slot="end">
-          <ion-button (click)="agregarRival()"  color="dark" shape="round" fill="clear"> 
-            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-          
-          </ion-button>
-        </ion-buttons>
-      </ion-item>
-
-    </ion-card-content>
-
-  </ion-card>
 
 
   <ion-button style="margin-top: 2rem;" (click)="agregarRetador()" *ngIf="!retador" class="ion-margin" expand="full" color="dark">
     Agregar Retador
    </ion-button>
-  
-  <ion-card *ngIf="retador">
-    <ion-card-header>
-      <ion-card-subtitle style="text-align: left;">Retador</ion-card-subtitle>
-      
-    </ion-card-header>
-  
-    <ion-card-content>
-      <ion-item lines="none">
-  
-          <ion-avatar slot="start" style="display:block; height: auto; width: auto;" class="ion-text-center">
-            <img style="height: 60px; width: 60px;"  src="assets/soccer-shields-svg/{{retador.Foto}}">
-            
-            </ion-avatar>
-     
-      <ion-label>{{retador.Nombre}}</ion-label>
-
-      
-
-        <ion-buttons slot="end">
-          <ion-button (click)="agregarRetador()" color="dark" shape="round" fill="clear">
-            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-          
-          </ion-button>
-        </ion-buttons>
-     
-      </ion-item>
-
-  
-    </ion-card-content>
-
-
-    
-  </ion-card>
 
 
 
@@ -88,92 +32,109 @@
     Agregar Cancha
    </ion-button>
 
-   <ion-card *ngIf="cancha">
-    <ion-card-header>
-      <ion-card-subtitle style="text-align: left;">Cancha</ion-card-subtitle>
+   <ion-card mode="ios"  *ngIf="rival">
+
+    <ion-item class="ion-margin-top">
+      <ion-avatar slot="start" style="height: 60px;width: 60px;" >
+        <img style="height: 60px;width: 60px;" src="assets/soccer-shields-svg/{{rival.Foto}}">
+      </ion-avatar>
+      <ion-label slot="end" style="display:block;">
+        <h2 >{{rival.Nombre}} <ion-badge color="warning" mode="ios">Rival</ion-badge></h2>
+        
+      </ion-label>
       
-    </ion-card-header>
-  
+
+<ion-fab-button slot="end" (click)="agregarRival()" color="dark" size="small">
+
+  <ion-icon   name="create-outline"></ion-icon>
+</ion-fab-button>
+
+    </ion-item>
     <ion-card-content>
-      <ion-item lines="none">
-        <ion-chip  style="height: 60px; background: transparent;">
-          <ion-avatar  style="height: 50px; width: 50px;">
-            <img [src]="soccer">
-          
-          </ion-avatar>
-     
-      <ion-label>{{cancha.Nombre}}</ion-label>
-    
-      
-        </ion-chip>
-
-        <ion-buttons slot="end">
-          <ion-button (click)="agregarCancha()" color="dark" shape="round" fill="clear">
-            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-          
-          </ion-button>
-        </ion-buttons>
-     
-      </ion-item>
-<ion-item>
-  <ion-label>
-    <h2>Ubicación</h2>
-    <p>{{cancha.Nombre_Provincia}}, {{cancha.Nombre_Canton}} , {{cancha.Nombre_Distrito}}</p>
-    
-    </ion-label>
-</ion-item>
-      <ion-item>
-        <ion-label>Precio: ₡ {{cancha.Precio_Hora}}</ion-label>
-      </ion-item>
-      <ion-item *ngIf="cancha.Luz">
-        <ion-label>Luz: + ₡  {{cancha.Precio_Luz}}</ion-label>
-        <ion-checkbox slot="end"></ion-checkbox>
-      </ion-item>
-
-  
-      <ion-item id="open-fechaModal">
-        <ion-label  position="stacked">Fecha</ion-label>
-        <ion-input
-          [value]="fechaDateTime | date:'fullDate'"
-          placeholder="Fecha"
-       
-    
-        ></ion-input>
-        <ion-icon slot="end" size="small" name="calendar-outline"></ion-icon>
-        <ion-modal trigger="open-fechaModal">
-          <ng-template>
-            <ion-content>
-              <ion-datetime [monthValues]="controlReservacionesService.mesesDisponibles" size="cover" mode="ios"  presentation="date" [value]="fechaDateTime"
-              (ionChange)="retornarFecha($event)"></ion-datetime>
-            </ion-content>
-          </ng-template>
-        </ion-modal>
-      </ion-item>
-
-
-      <ion-list  class="list" *ngIf="controlReservacionesService.arregloHorasDisponibles.length > 0">
-        <ion-list-header class="ion-text-left">
-          <ion-label class="ion-text-uppercase" style="font-size: 16px;">Reservaciones disponibles</ion-label>
-        </ion-list-header>
-        <ion-radio-group name="Hora_Inicio"  [(ngModel)]="nuevaReservacion.Hora_Inicio">
-
-          <ion-item *ngFor="let item of controlReservacionesService.arregloHorasDisponibles">
-            <ion-label>{{item.formato12}}</ion-label>
-            <ion-radio mode="ios"  slot="end" [value]="item"  ></ion-radio>
-          </ion-item>
-      
-          
-        </ion-radio-group>
-
-      </ion-list>
-   
+      {{rival.Nombre_Provincia}},    {{rival.Nombre_Canton}},  {{rival.Nombre_Distrito}}
     </ion-card-content>
 
+  </ion-card>
 
-    
+  <ion-card mode="ios"  *ngIf="retador">
+
+    <ion-item class="ion-margin-top">
+      <ion-avatar slot="start" style="height: 60px;width: 60px;" >
+        <img style="height: 60px;width: 60px;" src="assets/soccer-shields-svg/{{retador.Foto}}">
+      </ion-avatar>
+      <ion-label slot="end" style="display:block;">
+        <h2 >{{retador.Nombre}} <ion-badge color="warning" mode="ios">Retador</ion-badge></h2>
+        
+      </ion-label>
+      
+
+<ion-fab-button slot="end" (click)="agregarRetador()" color="dark" size="small">
+
+  <ion-icon   name="create-outline"></ion-icon>
+</ion-fab-button>
+
+    </ion-item>
+    <ion-card-content>
+      {{retador.Nombre_Provincia}},    {{retador.Nombre_Canton}},  {{retador.Nombre_Distrito}}
+    </ion-card-content>
+
   </ion-card>
 
 
+  <ion-card mode="ios"  *ngIf="cancha">
+
+    <ion-item class="ion-margin-top">
+      <ion-avatar slot="start" style="height: 60px;width: 60px;" >
+        <img style="height: 60px;width: 60px;" [src]="soccer">
+      </ion-avatar>
+      <ion-label slot="end" style="display:block;">
+        <h2 >{{cancha.Nombre}} <ion-badge color="warning" mode="ios"> ₡ {{cancha.Precio_Hora}}</ion-badge></h2>
+        
+      </ion-label>
+      
+
+<ion-fab-button slot="end" (click)="agregarCancha()" color="dark" size="small">
+
+  <ion-icon   name="create-outline"></ion-icon>
+</ion-fab-button>
+
+    </ion-item>
+<ion-card-header>
+  <ion-card-subtitle>Detalle Cancha</ion-card-subtitle>
+</ion-card-header>
+    <ion-card-content>
+     {{cancha.Nombre_Provincia}}, {{cancha.Nombre_Canton}} , {{cancha.Nombre_Distrito}}
+     <ion-label >Monto Luz</ion-label>
+    <ion-item class="ion-item ion-margin-top ion-margin-bottom" lines="none" *ngIf="cancha.Luz">
+      <ion-label> ₡  {{cancha.Precio_Luz}}</ion-label>
+      <ion-checkbox slot="end"></ion-checkbox>
+    </ion-item>
+
+    <ion-label >Fecha</ion-label>
+    <ion-item  class="ion-item ion-margin-top ion-margin-bottom" lines="none" >
+  
+      <ion-input
+        [value]="fechaDateTime | date:'fullDate'"
+        placeholder="Fecha"
+     
+  
+      ></ion-input>
+      <ion-icon slot="end" size="small" name="calendar-outline"></ion-icon>
+
+    </ion-item>
+
+    <ion-col size="12" >
+      <ion-label >Hora</ion-label>
+
+      <ion-item  class="ion-item ion-margin-top ion-margin-bottom" lines="none"  >
+        <ion-select [(ngModel)]="nuevaReservacion.Hora_Inicio"   placeholder="Hora Inicio">
+          <ion-select-option  [value]="hora.hora_inicio" *ngFor="let hora of generrReservacionService.horasdiaConsulta">{{hora.formato12}}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    </ion-col>
+    </ion-card-content>
+
+  </ion-card>
   
 
 
@@ -185,11 +146,4 @@
   </form>
   </ion-content>
   
-  
-  
-  <ion-fab  (click)="cerrarModal()" vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button size="small" color="dark">
-      <ion-icon  name="arrow-back-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
   

@@ -1,0 +1,63 @@
+
+<ion-toolbar>
+  <ion-button slot="start" (click)="cerrarModal()" fill="clear">
+   <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+  </ion-button>
+  <ion-label class="title ion-text-wrap">Nueva Reservacion  <ion-badge    color="dark" mode="ios">{{nuevaReservacion.Fecha | date:'shortDate'}}</ion-badge></ion-label>
+
+</ion-toolbar>
+
+<ion-content>
+  <ion-list lines="none">
+
+  
+  <ion-item  *ngIf="generrReservacionService.reservacionesFiltroFecha.length == 0  && generrReservacionService.horasdiaConsulta.length > 0">
+    <ion-label    slot="start"  >Dia completo</ion-label>
+          <ion-toggle  mode="ios"   (ionChange)="switch(nuevaReservacion.diaCompleto)" [(ngModel)]="nuevaReservacion.diaCompleto" ></ion-toggle>
+    
+  
+  </ion-item>
+    <ion-item  *ngIf="generrReservacionService.horasdiaConsulta.length > 0">
+      <ion-label  slot="start" >Detalle</ion-label>
+      <ion-textarea placeholder="Detalle reservacion" [(ngModel)]="nuevaReservacion.Descripcion" ></ion-textarea>
+    </ion-item>
+  
+  </ion-list>
+
+
+<ion-item *ngIf="generrReservacionService.horasdiaConsulta.length == 0" lines="none">
+  <ion-avatar slot="start" style="height: 60px;width: 60px;">
+    <img  style="height: 60px;width: 60px;" src="assets/img/images/goal-post.svg" />
+  </ion-avatar>
+  <ion-label slot="start" class="ion-text-wrap">Canca No Disponible</ion-label>
+
+</ion-item>
+
+  <ion-list  class="list" *ngIf="generrReservacionService.horasdiaConsulta.length > 0 &&  !nuevaReservacion.diaCompleto">
+    <ion-list-header class="ion-text-left">
+      <ion-label class="ion-text-uppercase" style="font-size: 16px;">Reservaciones disponibles</ion-label>
+    </ion-list-header>
+    <ion-radio-group name="Hora_Inicio"  [(ngModel)]="generrReservacionService.horaSeleccionada">
+
+      <ion-item  *ngFor="let item of generrReservacionService.horasdiaConsulta">
+        <ion-label>{{item.formato12}}</ion-label>
+        <ion-radio  mode="ios"  slot="end" [value]="item.hora_inicio"  ></ion-radio>
+      </ion-item>
+  
+      
+    </ion-radio-group>
+
+  </ion-list>
+</ion-content>
+
+<ion-footer *ngIf="generrReservacionService.horasdiaConsulta.length > 0">
+  <ion-toolbar>
+<ion-buttons slot="end">
+  <ion-button (click)="save()">
+    <ion-label>Continuar</ion-label>
+    <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+  </ion-button>
+</ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+

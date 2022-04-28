@@ -156,7 +156,8 @@ const routes: Routes = [
   {
     path: 'editar-perfil-equipo',
     loadChildren: () => import('./pages/editar-perfil-equipo/editar-perfil-equipo.module').then( m => m.EditarPerfilEquipoPageModule)
-  },  {
+  },
+  {
     path: 'estadistica-equipo',
     loadChildren: () => import('./pages/estadistica-equipo/estadistica-equipo.module').then( m => m.EstadisticaEquipoPageModule)
   },
@@ -182,7 +183,10 @@ const routes: Routes = [
   },
 
 
-
+  {
+    path: 'seleccionar-fecha',
+    loadChildren: () => import('./pages/seleccionar-fecha/seleccionar-fecha.module').then( m => m.SeleccionarFechaPageModule)
+  },
 
 
  

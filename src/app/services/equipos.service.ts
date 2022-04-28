@@ -33,23 +33,23 @@ jugadoresRetador : JugadoresEquipos[]=[];
 jugadoresPerfilEquipo : JugadoresEquipos[]=[];
   constructor(private http: HttpClient, private popOverCtrl: PopoverController, private userService: UsuariosService, private modalCtrl: ModalController , public retosService: ReservacionesService, public alertasService:AlertasService, public solicitudesService: SolicitudesService) { }
 
-  getURL( api: string,id: string ){
+  getURL( api: string ){
     let test: string = ''
     if ( !environment.prdMode ) {
    test = environment.TestURL;
     }
-  const URL = environment.preURL  + test +  environment.postURL + api + id;
+  const URL = environment.preURL  + test +  environment.postURL + api 
  
     return URL;
   }
    getEquipos(Cod_Usuario ){
-    let URL = this.getURL( environment.equiposURL,'');
+    let URL = this.getURL( environment.equiposURL);
     URL = URL +environment.codUsuarioParam + Cod_Usuario
     console.log(URL,'URL')
     return this.http.get<vistaEquipos[]>( URL );
   }
   getMisEquipos( Cod_Usuario){
-    let URL = this.getURL( environment.misEquiposURL,'');
+    let URL = this.getURL( environment.misEquiposURL);
     URL = URL +  environment.codUsuarioParam + Cod_Usuario
     console.log(URL,'URL')
     return this.http.get<vistaEquipos[]>( URL );
@@ -87,7 +87,7 @@ console.log(this.perfilEquipo, 'perfil equipo', 'misqui', this.misEquipos[0])
     );
   }
   private   putEquipo( equipo, Cod_Usuario ){
-    let URL = this.getURL( environment.equiposURL,'');
+    let URL = this.getURL( environment.equiposURL);
          URL = URL + environment.codEquipoParam +equipo.Cod_Equipo + environment.codUsuarioSecondParam +Cod_Usuario;
     const options = {
       headers: {
@@ -123,7 +123,7 @@ console.log(resp,'resp')
 
   private getJugadoresEquipos(Cod_Equipo){
 
-    let URL = this.getURL(environment.jugadoresEquiposURL,'');
+    let URL = this.getURL(environment.jugadoresEquiposURL);
     let test: string = ''
     if ( !environment.prdMode ) {
       test = environment.TestURL;
@@ -143,7 +143,7 @@ return this.getJugadoresEquipos(Cod_Usuario).toPromise();
 
   private getCodEquipo( Cod_Equipo ){
 
-    let URL = this.getURL( environment.perfilEquipoURL,'');
+    let URL = this.getURL( environment.perfilEquipoURL);
     let test: string = ''
     if ( !environment.prdMode ) {
       test = environment.TestURL;
@@ -184,7 +184,7 @@ return this.getJugadoresEquipos(Cod_Usuario).toPromise();
 private equipoPost(equipo){
 
 
-  const URL = this.getURL(environment.equiposURL,'');
+  const URL = this.getURL(environment.equiposURL);
 
   const options   = {
     headers: {
@@ -222,7 +222,33 @@ this.alertasService.message('FUTPLAY','Se há generado un nuevo equipo con  exí
 
 
 
+private filtrarEquipos( Cod_Provincia: number, Cod_Canton:number,Cod_Distrito:number){
 
+  let URL = this.getURL( environment.fitrarEquipos);
+ let params = environment.Cod_Provincia+ Cod_Provincia + environment.Cod_Canton_Param+ Cod_Canton +
+              environment.Cod_Distrito_Param+ Cod_Distrito
+  URL = URL+ params
+
+  console.log(URL,'filtro Usuarios ')
+
+  return this.http.get<vistaEquipos[]>( URL );
+}
+
+ syncfiltrarEquipos( Cod_Provincia: number, Cod_Canton:number,Cod_Distrito:number){
+
+this.filtrarEquipos(Cod_Provincia,Cod_Canton,Cod_Distrito).subscribe(
+
+resp =>{
+this.equipos = [];
+  this.equipos = resp.slice(0);
+
+  console.log(this.equipos,'equipos')
+
+
+}
+
+);
+}
 
 
 

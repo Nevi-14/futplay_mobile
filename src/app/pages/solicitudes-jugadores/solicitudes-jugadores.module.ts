@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { SolicitudesJugadoresPageRoutingModule } from './solicitudes-jugadores-routing.module';
 
 import { SolicitudesJugadoresPage } from './solicitudes-jugadores.page';
+import { PipesModule } from '../../pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SolicitudesJugadoresPageRoutingModule
+    SolicitudesJugadoresPageRoutingModule,
+    PipesModule
   ],
   declarations: [SolicitudesJugadoresPage]
 })

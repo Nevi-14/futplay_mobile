@@ -48,7 +48,7 @@ solicitudJugadorEquipo:SolicitudesJugadoresEquipos = {
     });
 
   }
-  async filtroUbicacion(cancha){
+  async filtroUbicacion(){
 
   
      

@@ -22,12 +22,12 @@ export class ListaEquiposService {
     public alertasService: AlertasService
   ) {}
 
-    getURL( api: string,id: string ){
+    getURL( api: string ){
       let test: string = ''
       if ( !environment.prdMode ) {
      test = environment.TestURL;
       }
-    const URL = environment.preURL  + test +  environment.postURL + api + id;
+    const URL = environment.preURL  + test +  environment.postURL + api 
    
       return URL;
     }
@@ -43,7 +43,7 @@ export class ListaEquiposService {
 
 
      getEquipos( ){
-      const URL = this.getURL( environment.equiposURL,'');
+      const URL = this.getURL( environment.equiposURL);
       console.log(URL,'URL')
       return this.http.get<vistaEquipos[]>( URL );
     }
@@ -95,7 +95,33 @@ export class ListaEquiposService {
    await modal .present();
  }
 
-  
+ private filtrarEquipos( Cod_Provincia: number, Cod_Canton:number,Cod_Distrito:number){
+
+  let URL = this.getURL( environment.fitrarEquipos);
+ let params = environment.Cod_Provincia+ Cod_Provincia + environment.Cod_Canton_Param+ Cod_Canton +
+              environment.Cod_Distrito_Param+ Cod_Distrito
+  URL = URL+ params
+
+  console.log(URL,'filtro Usuarios ')
+
+  return this.http.get<vistaEquipos[]>( URL );
+}
+
+ syncfiltrarEquipos( Cod_Provincia: number, Cod_Canton:number,Cod_Distrito:number){
+
+this.filtrarEquipos(Cod_Provincia,Cod_Canton,Cod_Distrito).subscribe(
+
+resp =>{
+this.equipos = [];
+  this.equipos = resp.slice(0);
+
+  console.log(this.equipos,'equipos')
+
+
+}
+
+);
+}
 
 
    }

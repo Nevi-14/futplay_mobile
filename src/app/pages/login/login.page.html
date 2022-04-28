@@ -1,60 +1,45 @@
-<ion-content>
-  <form (ngSubmit)="login(fLogin)" #fLogin="ngForm"> 
+<ion-content><div id="header">
 
-    <div class="login-section ion-pading scroll">
-      <div class="heading ion-padding">
-        <h1>Iniciar sesión para continuar</h1>
-      </div>
+  <img src="assets/logo.png" alt="">
+  <h1>Inicio de Sesión</h1>
+  <form id="form" (ngSubmit)="login(fLogin)" #fLogin="ngForm" >
+ 
+   
+<ion-grid >
+  <ion-row>
+    <ion-col size="12">
+      <ion-label>Correo</ion-label>
+      <ion-item class="ion-margin-bottom ion-margin-top">
+        <ion-input  [(ngModel)]="loginUser.email" name="email"  type="text" placeholder="Correo"></ion-input>
+        </ion-item>
+    
+    
+      
+    </ion-col>
+    <ion-col size="12">
+      <ion-label>Contraseña</ion-label>
+      <ion-item class="ion-margin-bottom ion-margin-top">
+  <ion-input name="password" [(ngModel)]="loginUser.password"     type="{{showPass ? 'text' : 'password'}}" placeholder="contraseña"></ion-input>
+  <ion-icon slot="end"  item-right name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>
+  </ion-item>
+
+
+
+    </ion-col>
+
+    <ion-col size="12" class="ion-text-center">
       
 
-      <div class="login-form ion-padding">
-
-        <div class="form-input" lines="none">
-          
-          <ion-item>
-    
-            <ion-label  position="stacked"><ion-icon  name="mail-outline"></ion-icon>Correo o número  de teléfono</ion-label>
-            <ion-input [(ngModel)]="loginUser.email"   placeholder="correo electronico" name="email"
-            type="email"
-            required></ion-input>
-          </ion-item>
-        </div>
-
-        <div class="form-input">
-          <ion-item>
-
-   
-              <ion-label  position="stacked">            <ion-icon  name="lock-closed-outline" ></ion-icon>Contraseña</ion-label>
-              <ion-input [(ngModel)]="loginUser.password"    placeholder="contraseña" name="password"
-              type="{{showPass ? 'text' : 'password'}}"
-              required></ion-input>
-              <ion-icon slot="end"  item-right name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>
-  
-
-
-        
-          </ion-item>
-        </div>
-
-
-  
-      </div>
-
-
-      <div class="action-buttons ion-padding">
-        <ion-button size="small" class="login-button" shape="round" type="submit">
-          Iniciar Sesion
-        </ion-button>
-        <p > Recuperar Contraseña</p>
-     
-      </div>
-      <div class="action-buttons ion-padding">
-        <ion-button (click)="loginDetails()" size="small" class="signup-button" fill="outline" shape="round" >
-         Credentials
-        </ion-button>
-    
-     
-      </div>
-  </div>
+<ion-button type="submit" color="dark"   shape="round"  [disabled]="fLogin.invalid" >
+  Iniciar Sesión
+</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+ 
   </form>
+ 
+ </div>
+
+  
 </ion-content>

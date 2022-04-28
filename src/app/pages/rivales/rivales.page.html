@@ -3,15 +3,10 @@
 <ion-label slot="start" class="ion-margin ion-text-uppercase" style="font-weight: bold; letter-spacing: 2px;"><h2>Lista Rivales</h2></ion-label>
 </ion-toolbar>
 
-<ion-toolbar style="display: flex;justify-content: center;align-items: center;">
+<ion-toolbar >
 
 
   <ion-searchbar mode="ios" placeholder="buscar equipo" inputmode="text"  debounce="250" ></ion-searchbar> 
-  <ion-button (click)="filtroUbicacion()" fill="clear" slot="end"  style="padding-top: 1px;
-  padding-bottom: 15px;
-  height: 52px;" >
-    <ion-icon  size="large"  slot="icon-only" color="dark" name="location"></ion-icon>
-  </ion-button>
 
 
 
@@ -24,37 +19,81 @@
   <ng-template ngFor let-equipo [ngForOf]="equiposService.equipos " let-i="index">
           
           
-    <ion-item>
- 
-      <ion-avatar slot="start" style="display:block; height: auto; width: auto;" class="ion-text-center">
-        <img style="height: 60px; width: 60px;"  src="assets/soccer-shields-svg/{{equipo.Foto}}">
-        
-        </ion-avatar>
-   
-        <span style="display:block;">
-          <ion-label style="margin-bottom: 10px;"> {{equipo.Nombre}}</ion-label>
-      
-          <ion-icon style="size: 10px;" name="star"></ion-icon>
-          <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-          <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-          <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-          <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-        </span>
-   
+<ion-card mode="ios">
 
-      <ion-buttons slot="end">
-      
-        <ion-button (click)="onOpenMenu(equipo)">
-          <ion-icon name="ellipsis-horizontal"></ion-icon>
-          </ion-button>
+  <ion-item class="ion-margin-top">
+    <ion-avatar slot="start" style="height: 60px;width: 60px;" >
+      <img style="height: 60px;width: 60px;" src="assets/soccer-shields-svg/{{equipo.Foto}}">
+    </ion-avatar>
+    <ion-label><ion-icon color="warning" name="trophy" style="margin-right: 1rem;"></ion-icon> <ion-badge color="dark" mode="ios" >0</ion-badge></ion-label>
+<ion-label slot="end" style="display:block;">
+  <h2 >{{equipo.Nombre}}</h2>
+  <p  >
+       
+    <ion-icon style="size: 10px;" name="star"></ion-icon>
+    <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+    <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+    <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+    <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+  </p>
+</ion-label>
+
+  </ion-item>
+  <ion-card-content>
+ <ion-icon   name="location" class="ion-margin-right"></ion-icon>   {{equipo.Nombre_Provincia}},       {{equipo.Nombre_Canton}},       {{equipo.Nombre_Distrito}}
+  </ion-card-content>
+  <ion-footer class="ion-no-border">
+    
+    <ion-row>
+      <ion-col size="4" class="ion-text-center" >
+   <ion-button  expand="block" fill="outline" >
+    <ion-label  class="ion-text-center ion-padding">
+<h2>      <ion-icon  name="heart-outline"></ion-icon>
+</h2>
+Favoritos
+</ion-label>
+   </ion-button>
+
+      </ion-col>
+      <ion-col size="4" class="ion-text-center">
+        <ion-button  expand="block" fill="outline" >
+
+          <ion-label  class="ion-text-center ion-padding">
+            <h2>      <ion-icon  name="eye-outline"></ion-icon>
+          </h2>
+          Detalle
+          </ion-label>
+
+        </ion-button>
+
+      </ion-col>
+      <ion-col size="4" class="ion-text-center">
+        <ion-button (click)="rivalReservacion(equipo)"  expand="block" fill="outline"  >
 
           
-
-       
-</ion-buttons>
+          <ion-label  class="ion-text-center ion-padding">
+            <h2>      <ion-icon  name="arrow-forward-outline"></ion-icon>
+          </h2>
+          Reto
+          </ion-label>
+        </ion-button>
       
-    </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-footer>
+</ion-card>
 
 
   </ng-template>
 </ion-content>
+
+
+<ion-fab (click)="filtroUbicacion()" vertical="bottom" horizontal="end" slot="fixed">
+
+  <ion-fab-button  color="dark">
+    
+    <ion-icon class="menu"  name="options-outline" ></ion-icon>
+
+  </ion-fab-button>  
+
+</ion-fab>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActionSheetButton, ActionSheetController, ModalController } from '@ionic/angular';
 import { CantonesService } from 'src/app/services/cantones.service';
 import { DistritosService } from 'src/app/services/distritos.service';
+import { EquiposService } from 'src/app/services/equipos.service';
+import { ListaEquiposService } from 'src/app/services/lista-equipos.service';
 import { ProvinciasService } from 'src/app/services/provincias.service';
 
 @Component({
@@ -20,7 +22,8 @@ public modalCtrl:ModalController,
 public actionSheetCtrl: ActionSheetController,
 public provinciasService: ProvinciasService,
 public cantonesService: CantonesService,
-public distritosService: DistritosService
+public distritosService: DistritosService,
+public equiposService:EquiposService
 
   ) { }
 
@@ -32,6 +35,15 @@ public distritosService: DistritosService
  
   cerrarModal(){
     this.modalCtrl.dismiss();
+  }
+
+  submit(){
+    this.cerrarModal()
+    this.equiposService.syncfiltrarEquipos(
+      this.filtro.Cod_Provincia,
+      this.filtro.Cod_Canton,
+      this.filtro.Cod_Distrito
+    );
   }
   async onOpenMenu(){
   

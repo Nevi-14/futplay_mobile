@@ -8,10 +8,10 @@
     </ion-list-header>
 
       <ion-item>
-        <ion-label position="stacked">
+        <ion-label class="standard-label" position="stacked">
           <ion-icon slot="icon-only" name="location-outline"></ion-icon>
           Provincia</ion-label>
-          <ion-select (click)="syncProvincias()" required [(ngModel)]="filtro.Cod_Provincia" (ionChange)="onChange($event, true,false,false)"   name="Cod_Provincia">
+          <ion-select  required [(ngModel)]="filtro.Cod_Provincia" (ionChange)="onChange($event, true,false,false)"   name="Cod_Provincia">
             <ion-select-option [value]="provincia.Cod_Provincia" *ngFor="let provincia of provinciasService.provincias">
               {{provincia.Provincia}}
             </ion-select-option>
@@ -23,7 +23,7 @@
 
 
       <ion-item>
-        <ion-label position="stacked">
+        <ion-label  class="standard-label" position="stacked">
           <ion-icon slot="icon-only" name="location-outline"></ion-icon>
           Cantón</ion-label>
           <ion-select  required [(ngModel)]="filtro.Cod_Canton"  (ionChange)="onChange($event, false,true,false)"   name="Cod_Canton" >
@@ -37,7 +37,7 @@
 
 
       <ion-item>
-        <ion-label position="stacked">
+        <ion-label class="standard-label" position="stacked">
           <ion-icon slot="icon-only" name="location-outline"></ion-icon>
           Distrito</ion-label>
           <ion-select required   [(ngModel)]="filtro.Cod_Distrito"   (ionChange)="onChange($event, false,false,true)" name="Cod_Distrito">
@@ -49,7 +49,7 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked" >
+        <ion-label class="standard-label" position="stacked" >
           <ion-icon slot="icon-only" name="person-outline"></ion-icon>Posición</ion-label>
       
           <ion-select required [(ngModel)]="filtro.Cod_Posicion"   name="Cod_Posicion">
@@ -63,18 +63,19 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">
+        <ion-label class="standard-label" position="stacked">
           <ion-icon slot="icon-only" name="location-outline"></ion-icon>
           Estatura </ion-label>
-          <ion-badge slot="end" color="dark" mode="ios">{{filtro.Estatura}}</ion-badge>
+
+          <ion-input type="text" [(ngModel)]="filtro.Estatura"></ion-input>
           <ion-range min="0" max="220" [(ngModel)]="filtro.Estatura" (ionChange)="change(rangeValue)" [pin]="true"></ion-range>
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">
+        <ion-label class="standard-label" position="stacked">
           <ion-icon slot="icon-only" name="location-outline"></ion-icon>
           Peso </ion-label>
-          <ion-badge slot="end" color="dark" mode="ios">{{filtro.Peso}}</ion-badge>
+          <ion-input type="text" [(ngModel)]="filtro.Peso"></ion-input>
           <ion-range min="0" max="220" [(ngModel)]="filtro.Peso" (ionChange)="change(rangeValue)" [pin]="true"></ion-range>
       </ion-item>
 
@@ -86,7 +87,7 @@
 
 
 
-<ion-fab  (click)="cerrarModal()" vertical="bottom" horizontal="end" slot="fixed">
+<ion-fab  (click)="submit()" vertical="bottom" horizontal="end" slot="fixed">
   <ion-fab-button size="small" color="dark">
     <ion-icon  name="arrow-forward-outline"></ion-icon>
   </ion-fab-button>

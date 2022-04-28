@@ -1,0 +1,60 @@
+<ion-toolbar>
+
+<ion-label slot="start" class="ion-margin ion-text-uppercase" style="font-weight: bold; letter-spacing: 2px;"><h2>Lista Rivales</h2></ion-label>
+</ion-toolbar>
+
+<ion-toolbar style="display: flex;justify-content: center;align-items: center;">
+
+
+  <ion-searchbar mode="ios" placeholder="buscar equipo" inputmode="text"  debounce="250" ></ion-searchbar> 
+  <ion-button (click)="filtroUbicacion()" fill="clear" slot="end"  style="padding-top: 1px;
+  padding-bottom: 15px;
+  height: 52px;" >
+    <ion-icon  size="large"  slot="icon-only" color="dark" name="location"></ion-icon>
+  </ion-button>
+
+
+
+  
+ 
+</ion-toolbar>
+
+
+<ion-content>
+  <ng-template ngFor let-equipo [ngForOf]="equiposService.equipos " let-i="index">
+          
+          
+    <ion-item>
+ 
+      <ion-avatar slot="start" style="display:block; height: auto; width: auto;" class="ion-text-center">
+        <img style="height: 60px; width: 60px;"  src="assets/soccer-shields-svg/{{equipo.Foto}}">
+        
+        </ion-avatar>
+   
+        <span style="display:block;">
+          <ion-label style="margin-bottom: 10px;"> {{equipo.Nombre}}</ion-label>
+      
+          <ion-icon style="size: 10px;" name="star"></ion-icon>
+          <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+          <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+          <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+          <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+        </span>
+   
+
+      <ion-buttons slot="end">
+      
+        <ion-button (click)="onOpenMenu(equipo)">
+          <ion-icon name="ellipsis-horizontal"></ion-icon>
+          </ion-button>
+
+          
+
+       
+</ion-buttons>
+      
+    </ion-item>
+
+
+  </ng-template>
+</ion-content>

@@ -7,6 +7,7 @@ import { CantonesService } from 'src/app/services/cantones.service';
 import { DistritosService } from 'src/app/services/distritos.service';
 import { NgForm } from '@angular/forms';
 import { PosicionesService } from 'src/app/services/posiciones.service';
+import { SeleccionarFechaPage } from '../seleccionar-fecha/seleccionar-fecha.page';
 
 @Component({
   selector: 'app-editar-perfil-usuario',
@@ -14,6 +15,7 @@ import { PosicionesService } from 'src/app/services/posiciones.service';
   styleUrls: ['./editar-perfil-usuario.page.scss'],
 })
 export class EditarPerfilUsuarioPage implements OnInit {
+  private modalOpen:boolean = false;
   img =  'assets/main/team-profile.svg';
   image = '';
   @ViewChild(IonSlides) slides: IonSlides;
@@ -206,4 +208,35 @@ this.usuario.Foto = this.imgs[resp].img;
 
     this.modalCtrl.dismiss(null, null, "fecha-modal");
   }
+
+  async SelectDate(){
+    if (!this.modalOpen){
+      this.modalOpen = true;
+      const modal = await this.modalCtrl.create({
+        component:SeleccionarFechaPage,
+        cssClass:'date-modal',
+        componentProps:{
+          title:'Fecha de nacimiento',
+          id: 'seleccionar-fecha'
+        },
+        id: 'seleccionar-fecha'
+      })
+    
+      await modal.present();
+      const { data } = await modal.onWillDismiss();
+   
+      if(data !== undefined ){
+        console.log(data,'data')
+       this.usuario.Fecha_Nacimiento = data.date
+            this.modalOpen = false;
+      }else{
+   
+             this.modalOpen = false;
+      }
+      
+    }
+  
+    
+  }
+  
 }
