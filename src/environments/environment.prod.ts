@@ -35,7 +35,6 @@ export const environment = {
   codConfirmacionEquipoParam:'&Confirmacion_Equipo=',
   codEstadoParam:'&Estado=',
   FiltrarFecha:'reservaciones/filtrar-fecha/',
-
   correoParam:'?correo=',
   contrasenaPatam:'&contrasena=',
    distritosURL: 'Distritos',

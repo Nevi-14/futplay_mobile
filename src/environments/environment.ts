@@ -78,8 +78,6 @@ horaFin:'&Hora_Fin=',
   codConfirmacionEquipoParam:'&Confirmacion_Equipo=',
   codEstadoParam:'&Estado=',
   FiltrarFecha:'reservaciones/filtrar-fecha/',
-
-
   mapboxKey:'pk.eyJ1IjoibWhlcnJhIiwiYSI6ImNrcWxhdXk4eTByMDUyd28xNnZ2b2hoMjMifQ.IrIAxPGO4oFiRVR8U5sqkA',
   prdMode: false,
  // url:'http://192.168.178.30:3000'
