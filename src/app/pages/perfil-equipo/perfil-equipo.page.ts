@@ -22,7 +22,7 @@ export class PerfilEquipoPage implements OnInit {
 
   add ='../assets/icons/create.svg';
  find ='../assets/icons/join.svg';
- teamPic =  this.equiposService.perfilEquipo ? 'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+  this.equiposService.perfilEquipo  +'?'+ this.dateF() : 'assets/team.png';
+ teamPic = 'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+  this.equiposService.perfilEquipo.Foto  +'?'+ this.dateF();
   constructor( 
     public modalCtrl: ModalController, 
     public user: UsuariosService,  

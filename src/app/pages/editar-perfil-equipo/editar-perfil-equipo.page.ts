@@ -163,8 +163,9 @@ if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
          this.gestorImagenesService.selectImage(source,fileName,location).then(resp =>{
           this.equipo.Foto = resp;
           this.equiposService.perfilEquipo.Foto = resp;
-    console.log(resp,  this.equipo.Foto, 'respppppppppppppppppggggg')
-    this.equipo.Avatar = false;
+          this.equipo.Avatar = false;
+          this.equiposService.perfilEquipo.Avatar = false;
+    console.log(resp, this.equipo,  this.equipo.Foto, 'respppppppppppppppppggggg')
     this.equiposService.actualizarEquipo(this.equipo, this.usuariosService.usuarioActual.Cod_Usuario)
          })
      
@@ -203,57 +204,18 @@ if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
       }
       }
   
-      uploadCamera(){
-        const options: CameraOptions = {
-          quality: 100,
-          destinationType: this.camera.DestinationType.FILE_URI,
-          encodingType: this.camera.EncodingType.JPEG,
-          mediaType: this.camera.MediaType.PICTURE,
-          correctOrientation: true,
-          sourceType: this.camera.PictureSourceType.CAMERA
-        };
-        this.camera.getPicture(options).then((imageData) => {
-          // imageData is either a base64 encoded string or a file URI
-          // If it's base64 (DATA_URL):
-          const img = window.Ionic.WebView.convertFileSrc(imageData);
-        
-          this.equipo.Foto = img;
-      
-        
-         }, (err) => {
-          // Handle error
-         });
-      }
-      uploadPictures(){
-        const options: CameraOptions = {
-          quality: 100,
-          destinationType: this.camera.DestinationType.FILE_URI,
-          encodingType: this.camera.EncodingType.JPEG,
-          mediaType: this.camera.MediaType.PICTURE,
-          correctOrientation: true,
-          sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-        };
-        this.camera.getPicture(options).then((imageData) => {
-          // imageData is either a base64 encoded string or a file URI
-          // If it's base64 (DATA_URL):
-          const img = window.Ionic.WebView.convertFileSrc(imageData);
-         
-          this.equipo.Foto = img;
-          
-      
-         }, (err) => {
-          // Handle error
-         });
-      }
-  seleccionarAvatar(img){
+  seleccionarAvatar(img, i){
+  
 
     this.imgs.forEach(av => av.seleccionado = false);
     img.seleccionado = true;
-    this.image = img.img
-    this.equipo.Foto =  img.img;
+    this.image = this.imgs[i].img;
+    this.equipo.Foto =  this.imgs[i].img;
+    this.equipo.Avatar = true;
+    this.equiposService.perfilEquipo.Avatar = true;
 
-      console.log(this.image,'this.image')
     }
+
 
   slideChange(event){
     let currentIndex = this.slides.getActiveIndex().then(resp =>{
@@ -262,15 +224,22 @@ if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
       this.image = this.imgs[resp].img
       this.equipo.Foto = this.imgs[resp].img;
       this.equipo.Avatar = true;
-      console.log(resp,'resp')
-      this.gestorImagenesService.actualizaFotoEquipo(this.equipo.Cod_Equipo, this.equipo.Avatar, this.equipo.Foto);    
+      this.equiposService.perfilEquipo.Avatar = true;
+      this.equiposService.perfilEquipo.Foto =  this.imgs[resp].img;
+
+      this.gestorImagenesService.actualizaFotoEquipo(this.equipo.Cod_Equipo, this.equipo.Avatar, this.equipo.Foto); 
+
       this.equiposService.syncEquipo(this.equipo.Cod_Equipo).then(resp =>{
-console.log(resp, 'profile updated')
-        this.equiposService.perfilEquipo = resp[0];
+
+        this.equiposService.perfilEquipo.Foto =  this.image;
+
       })
+  
     })
  
   }
+
+  
   slidePrev() {
     this.slides.slidePrev();
   }

@@ -27,10 +27,15 @@
     </ion-toolbar>
 
 <ion-content class="ion-text-center">
+  <ion-avatar  style="height: 12rem;width:12rem;margin:0 auto;">
 
     <img *ngIf="!userService.usuarioActual.Avatar" [src]="userPic" onerror="this.src='assets/user.svg'"    alt="">
 
     <img *ngIf="userService.usuarioActual.Avatar"src="assets/profile/avatars/{{userService.usuarioActual.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+
+  </ion-avatar>
+
+
 
     <h3 class="ion-text-uppercase"> {{userService.usuarioActual.Nombre}} {{userService.usuarioActual.Primer_Apellido}} {{userService.usuarioActual.Segundo_Apellido}}</h3>
         

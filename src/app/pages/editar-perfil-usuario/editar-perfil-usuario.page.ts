@@ -30,8 +30,9 @@ showProvicia = false;
 showCanton = false;
 showDistrito = false;
   private modalOpen:boolean = false;
+  userPic = 'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+ this.userService.usuarioActual.Foto +'?'+ this.dateF();
   areaUnit =1;
-    userPic = this.gestorImagenesService.images.length > 0 ? this.gestorImagenesService.images[0].data : 'assets/user.svg';
+    userPic1 = this.gestorImagenesService.images.length > 0 ? this.gestorImagenesService.images[0].data : 'assets/user.svg';
     usuario = {
       Cod_Usuario: this.usuarioService.usuarioActual.Cod_Usuario,
       Cod_Role: 2,
@@ -227,7 +228,32 @@ this.usuario.Cod_Provincia = this.usuarioService.usuarioActual.Cod_Provincia
     alert( o1 === o2)
     return o1 === o2;
   };
+
+
+
   slideChange(event){
+    let currentIndex = this.slides.getActiveIndex().then(resp =>{
+      this.imgs.forEach(av => av.seleccionado = false);
+      this.imgs[resp].seleccionado = true;
+      this.image = this.imgs[resp].img
+      this.usuario.Foto = this.imgs[resp].img;
+      this.usuario.Avatar = true;
+      this.usuarioService.usuarioActual.Avatar = true;
+      this.usuarioService.usuarioActual.Foto =  this.imgs[resp].img;
+
+      this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.usuario.Avatar, this.usuario.Foto); 
+      this.usuarioService.syncPerfilUsuario( this.usuarioService.usuarioActual.Cod_Usuario).then(resp =>{
+
+        this.usuarioService.usuarioActual.Foto =  this.image;
+
+      })
+  
+    })
+ 
+  }
+
+
+  slideChange2(event){
     let currentIndex = this.slides.getActiveIndex().then(resp =>{
       this.imgs.forEach(av => av.seleccionado = false);
       this.imgs[resp].seleccionado = true;
@@ -280,7 +306,21 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
     this.provinciasService.syncProvincias();
   }
 
-  seleccionarAvatar(img){
+  seleccionarAvatar(img, i){
+  
+
+    this.imgs.forEach(av => av.seleccionado = false);
+    img.seleccionado = true;
+    this.image = this.imgs[i].img;
+    this.usuario.Foto =  this.imgs[i].img;
+    this.usuario.Avatar = true;
+    this.usuarioService.usuarioActual.Avatar = true;
+    this.usuarioService.usuarioActual.Foto =   this.image;
+    }
+
+
+
+  seleccionarAvatar2(img){
 
     this.imgs.forEach(av => av.seleccionado = false);
     img.seleccionado = true;

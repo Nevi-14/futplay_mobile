@@ -45,7 +45,7 @@ imageURL=  "https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/165160
 
   ngOnInit() {
     this.cdr.detectChanges();
-    this.equiposService.SyncMisEquipos(this.userService.usuarioActual.Cod_Usuario)
+ //   this.equiposService.SyncMisEquipos(this.userService.usuarioActual.Cod_Usuario)
   
    // this.equiposService.checkIfHasClub();
   }

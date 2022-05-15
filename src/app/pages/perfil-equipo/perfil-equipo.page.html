@@ -25,12 +25,15 @@
   
       <ion-content class="ion-text-center">
 
-        <img class="picture-img" *ngIf="!equiposService.perfilEquipo.Avatar" src="{{this.equiposService.perfilEquipo ?  teamPic  : 'assets/team.png'}}" onerror="this.src='assets/team.png'"   alt="">
+        <ion-avatar   style="height: 12rem;width:12rem;margin:0 auto;">
+            
+        <img  *ngIf="!equiposService.perfilEquipo.Avatar" src="{{teamPic}}"  onerror="this.src='assets/team.png'" alt="">
 
-        <img class="picture-img"  *ngIf="equiposService.perfilEquipo.Avatar"  src="assets/soccer-shields-svg/{{equiposService.perfilEquipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
+        <img *ngIf="equiposService.perfilEquipo.Avatar"  src="assets/soccer-shields-svg/{{equiposService.perfilEquipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">     
+        </ion-avatar>
+
     <h3 class="ion-text-uppercase"> 
        {{equiposService.perfilEquipo.Nombre}}
-      
       
        <span style="display:block;">
        
