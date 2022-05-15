@@ -38,6 +38,10 @@ export class PosicionesService {
       );
     }
   
+    syncPosicionesToPromise(){
 
+     return this.getPosiciones().toPromise();
+    }
+  
 
 }

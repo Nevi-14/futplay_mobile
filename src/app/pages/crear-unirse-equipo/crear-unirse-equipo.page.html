@@ -1,0 +1,39 @@
+<app-encabezado-modal></app-encabezado-modal>
+
+  <ion-content  class="">
+
+
+    <ion-grid class="mainContent" style="height: 100%;display: flex;justify-content: center;align-items: center;">
+      <ion-row  >
+      <ion-col size="12" >
+        <ion-card class="animate__animated animate__fadeIn" style="display:flex; justify-content: center; align-items: center; width: 80vw; height: 140px;" (click)="crearEquipo()">
+          <ion-card-header >
+            <ion-card-subtitle color="dark">CREAR UN EQUIPO</ion-card-subtitle>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <img [src]="add" class="invert" style="height: 80px;">
+          </ion-card-content>
+        </ion-card>
+    
+        <ion-card  class="animate__animated animate__fadeIn" (click)="buscarEquipos()"  style="display:flex; justify-content: center; align-items: center; width: 80vw; height: 140px;">
+          <ion-card-header>
+            <ion-card-subtitle color="dark">UNIRSE A UN EQUIPO</ion-card-subtitle>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <img [src]="find" class="invert" style="height: 80px;">
+          </ion-card-content>
+        </ion-card>
+    
+    
+      </ion-col>
+
+
+    </ion-row>
+    </ion-grid>
+
+
+   
+  </ion-content>
+

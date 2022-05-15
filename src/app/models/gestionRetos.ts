@@ -28,6 +28,8 @@ export class GestionRetos{
         public Luz: boolean,
         public  Precio_Hora: number,
         public Precio_Luz: number,
+        public confirmacion_Estado: number,
+        public Cod_Estado: number
     ){
 
     }

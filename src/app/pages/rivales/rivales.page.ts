@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ListaEquiposService } from 'src/app/services/lista-equipos.service';
 import { ModalController, ActionSheetController, ActionSheetButton } from '@ionic/angular';
-import { EquipoReservacionPage } from '../equipo-reservacion/equipo-reservacion.page';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
+import { GenerarReservacionPage } from '../generar-reservacion/generar-reservacion.page';
+import { ClasificacionPage } from '../clasificacion/clasificacion.page';
+import { AlertasService } from '../../services/alertas.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-rivales',
@@ -11,13 +14,22 @@ import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
   styleUrls: ['./rivales.page.scss'],
 })
 export class RivalesPage implements OnInit {
-
+  categories = ['Rivales', 'Clasificacion'];
+  opts = {
+    freeMode:true,
+    slidesPerView: 2.8,
+    slidesOffsetBefore:30,
+    slidesOffsetAfter:100
+  }
+  activeCategory = 0;
   constructor(
     
     public listaEquiposService: ListaEquiposService,
     public modalCtrl:ModalController,
     public actionSheetCtrl: ActionSheetController,
     public equiposService: EquiposService,
+    public alertasService: AlertasService,
+    public usuariosService: UsuariosService
     
     
     ) {
@@ -28,6 +40,46 @@ export class RivalesPage implements OnInit {
   //  this.listaEquiposService.SyncEquipos();
    
   }
+
+  selectCategory(index){
+    this.activeCategory = index;
+   
+    switch(index){
+   
+     case 0:
+      this.equiposService.equipos  = [];
+      this.alertasService.presentaLoading('Cargando datos...');
+      this.equiposService.SyncEquipos(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
+        this.alertasService.loadingDissmiss();
+        this.equiposService.equipos = resp.slice(0);
+      }, error =>{
+        this.alertasService.loadingDissmiss();
+        this.alertasService.message('FUTLAY', 'Error cargando datos...');
+      })
+        
+     
+     case 1:
+     
+      this.equiposService.equipos  = [];
+      this.alertasService.presentaLoading('Cargando datos...');
+      this.equiposService.SyncEquipos(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
+        this.alertasService.loadingDissmiss();
+        this.equiposService.equipos = resp.slice(0);
+      }, error =>{
+        this.alertasService.loadingDissmiss();
+        this.alertasService.message('FUTLAY', 'Error cargando datos...');
+      })
+        
+     break;
+
+   
+     default:
+       
+       break;
+   }
+  }
+   
+
   async filtroUbicacion(){
 
   
@@ -39,7 +91,16 @@ export class RivalesPage implements OnInit {
    });
    await modal .present();
  }
- 
+ async clasificacionGlobal(){
+
+  
+     
+  const modal  = await this.modalCtrl.create({
+   component: ClasificacionPage,
+   cssClass: 'my-custom-class',
+ });
+ await modal .present();
+}
   async onOpenMenu(equipo){
 
 
@@ -106,15 +167,14 @@ export class RivalesPage implements OnInit {
   
      
     const modal  = await this.modalCtrl.create({
-     component: EquipoReservacionPage,
+     component: GenerarReservacionPage,
      cssClass: 'my-custom-class',
      componentProps:{
       rival:rival,
       retador:null,
       cancha:null
 
-     },
-     id:'my-modal-id'
+     }
    });
    await modal .present();
  }

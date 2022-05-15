@@ -1,82 +1,76 @@
 
+  <ion-header >
 
-<ion-content  >
+    <ion-toolbar>
+      <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
+        <ion-buttons slot="start">
+          <ion-button  (click)="cerrarModal()" color="light">
+            <ion-icon slot="start" name="chevron-back"></ion-icon>
+            &nbsp;Perfil Jugador
+          </ion-button>
+        </ion-buttons>
+   
+      </ion-item>
   
-  <ion-col tappable   size="12" class="header" >
-       
-    <ion-label  class="ion-text-uppercase"  style="letter-spacing: 0.5rem; color: white;font-size: 2rem; font-weight: 600; text-shadow: 2px 2px  rgba(37,13,76,255);">
-      Perfil 
-       </ion-label>
+    </ion-toolbar>
+    </ion-header>
+    <ion-content fullscreen class="ion-text-center">
+      <div class="mainContent">
+        <img *ngIf="!perfil.Avatar" [src]="userPic" onerror="this.src='assets/user.svg'"    alt="">
 
-
-  </ion-col>
-
-
-    <ion-grid  class="styled-elemets body" style="height: 100%; ">
-      <ion-row>
-        <ion-col size="12" size-md="7" size-lg="7" class="ion-text-center" >
-          <img class="border-invert"  src="assets/profile/avatars/{{perfil.Foto}}">
-  
-          </ion-col>
-  
-  
-        <ion-col size="12" size-md="7" size-lg="7" >
-  
+        <img *ngIf="perfil.Avatar"src="assets/profile/avatars/{{perfil.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+    
+        <h3 class="ion-text-uppercase"> {{perfil.Nombre}} {{perfil.Primer_Apellido}} {{perfil.Segundo_Apellido}}</h3>
+            
+            
+    
+      <ion-list lines="none">
         
-                <ion-item >
-                    <ion-label>Nombre : {{perfil.Nombre_Jugador}}  {{perfil.Primer_Apellido}}  </ion-label>
-                </ion-item>
-
-                <ion-item >
-                  <ion-label>Apodo : {{perfil.Apodo}}  </ion-label>
-              </ion-item>
-                <ion-item>
-           
-                    <ion-avatar slot="start" style="height: 60px; width: 60px;">
-                      <img style="height: 40px; width: 40px;"  src="assets/soccer-shields-svg/{{perfil.Foto_Equipo}}">
-                    </ion-avatar>
-                    <ion-label>{{perfil.Nombre_Equipo}}</ion-label>
-           
-                </ion-item>
-          
-           
-        </ion-col>
-        <ion-col size="12"  size-md="7">
-       <ion-item>
-        <ion-label color="dark">Totalidad de Estadisticas Personales:</ion-label>
-       </ion-item>
-         </ion-col>
-         <ion-col size="12"  size-md="7">
-  
-                 <ion-item>
-                     <ion-label  slot="start" class="ion-text-left ion-text-wrap">Partidos Jugados</ion-label>
-                     <ion-label slot="end">0</ion-label>
-                 </ion-item>
-                 <ion-item>
-                  <ion-label  slot="start" class="ion-text-left ion-text-wrap">Jugador del partido</ion-label>
-                     <ion-label slot="end">0</ion-label>
-                 </ion-item>
-                 <ion-item>
-                  <ion-label  slot="start" class="ion-text-left ion-text-wrap">Jugador FutPlay</ion-label>
-                  <ion-label slot="end">0</ion-label>
-                 </ion-item>
-          
-         </ion-col>
-      </ion-row>
-    </ion-grid>
-  
-
-  
-  
-  </ion-content>
-
-
-
-  <ion-fab  (click)="cerrarModal()" vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button size="small" color="dark">
-      <ion-icon  name="arrow-back-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-
-  
-
+    
+        <ion-item *ngIf="perfil.Apodo">
+            <ion-label>Apodo : {{perfil.Apodo}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label >Región :  {{perfil.Canton}}, {{perfil.Provincia}}  </ion-label>
+        </ion-item>
+        <ion-item  >
+            <ion-label>Posición: <ion-badge color="dark" mode="ios">{{perfil.Posicion}}</ion-badge> </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Edad : {{calcularEdad(perfil.Fecha_Nacimiento)}} años</ion-label>
+        </ion-item>
+    
+    
+    
+    <ion-item>
+    <ion-label class="ion-text-uppercase"><b>Estadisticas Personales</b></ion-label >
+    </ion-item>
+    
+    <ion-item  lines="none" class="employeeItem  animate__animated animate__fadeIn"  >
+    
+      <ion-label>
+        Partidos Jugados
+    
+      </ion-label>
+      <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
+    </ion-item>
+    <ion-item  lines="none" class="employeeItem  animate__animated animate__fadeIn"  >
+    
+      <ion-label>
+        Jugador del partido
+    
+      </ion-label>
+      <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
+    </ion-item>
+    <ion-item  lines="none" class="employeeItem  animate__animated animate__fadeIn"  >
+    
+      <ion-label>
+        Jugador FutPlay
+      </ion-label>
+    <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
+    </ion-item>
+    
+    
+      </ion-list>
+      </div>
+    </ion-content>

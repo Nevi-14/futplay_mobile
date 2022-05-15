@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { iif } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { SolicitudesJugadoresEquipos } from '../models/solicitudesJugadoresEquipos';
-import { options } from 'preact';
 import { SolicitudesJugadoresEquiposVista } from '../models/solicitudesJugadoresEquiposVista';
 import { AlertasService } from './alertas.service';
 

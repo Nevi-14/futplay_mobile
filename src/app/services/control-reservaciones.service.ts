@@ -168,6 +168,7 @@ for (var i = h; i < 24; ++i) {
       let hour = i%12 == 0 ? 12 : i%12 ;
       
       let time12 = hour+ ':' + (j*step||'00') + ' ' + meridiem[i/12|0]
+      let formato12HoraFin = hour + 1+ ':' + (j*step||'00') + ' ' + meridiem[i/12|0]
 
       let time24 = i+ ':00:00';
       let formato24HoraFin = i+1+ ':00:00';
@@ -175,6 +176,7 @@ for (var i = h; i < 24; ++i) {
       if(time12 !='11:00 PM'){
         const hora ={
           formato12:time12,
+          formato12HoraFin:formato12HoraFin,
           hora_inicio: time24,
           hora_fin: formato24HoraFin
           

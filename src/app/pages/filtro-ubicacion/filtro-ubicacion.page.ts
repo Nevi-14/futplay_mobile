@@ -13,9 +13,9 @@ import { ProvinciasService } from 'src/app/services/provincias.service';
 })
 export class FiltroUbicacionPage implements OnInit {
   filtro ={
-    Cod_Provincia: null,
-    Cod_Canton: null,
-    Cod_Distrito: null
+    Cod_Provincia: 0,
+    Cod_Canton: 0,
+    Cod_Distrito: 0
   }
   constructor(
 public modalCtrl:ModalController,

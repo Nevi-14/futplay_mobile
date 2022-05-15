@@ -8,7 +8,7 @@ export class Reservaciones {
   public Fecha:  Date,
   public Hora_Inicio:  number,
   public Hora_Fin:  number,
-  public Estado:  boolean,
+  public Cod_Estado:  number,
   public diaCompleto: Boolean,
   public Descripcion:  string,
   public Canchas:  [],

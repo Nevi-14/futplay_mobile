@@ -1,43 +1,49 @@
+<app-header titulo="Canchas"></app-header>
 
-<ion-toolbar>
 
-  <ion-title   slot="start" class="ion-text-uppercase" style="font-size: 14px;font-weight: 600;">Lista de canchas</ion-title>
- <ion-buttons slot="end">
-   <ion-button (click)="cerrarModal()">
-     <ion-icon slot="icon-only" name="close-outline"></ion-icon>
- 
-   </ion-button>
- </ion-buttons>
-
-</ion-toolbar>
-<ion-toolbar>
-  <ion-searchbar mode="ios" placeholder="Buscar cancha"  type="text"  [debounce]="250" ></ion-searchbar>
-</ion-toolbar>
 <ion-content >
-  <ion-list lines="none">
+
+  
+<ion-header class="ion-no-border ion-padding">
+
+
+  <ion-toolbar>
+
+
+    <ion-searchbar slot="start" style="width: 80% ;" mode="ios" placeholder="buscar cancha" inputmode="text"  debounce="250" ></ion-searchbar> 
+  
+    <ion-button  slot="end" (click)="filtroUbicacion()"  >
+      <ion-icon size="large"  name="options-outline" ></ion-icon>
+    </ion-button>
+  
+    
+   
+  </ion-toolbar>
+  
+</ion-header>
+  <div class="mainContent">
+  
+
+    <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"    (click)="onOpenMenu(cancha)" *ngFor="let cancha of canchasService.canchas" >
+      <img  src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilCanchaUploads/'+cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">
+
+      <ion-label>
+        <h2>{{cancha.Nombre}} <ion-badge color="dark" mode="ios">₡ {{cancha.Precio_Hora}}</ion-badge></h2>
+        <p   >
+             
+          Categoria <ion-badge color="warning" mode="ios">{{cancha.Categoria}}</ion-badge>
+    
+        </p>
+        <p>{{cancha.Nombre_Provincia}},       {{cancha.Nombre_Canton}} ...</p>
+      </ion-label>
+
+    </ion-item>
+  
+  </div>
   
 
 
-      <ng-template ngFor let-cancha [ngForOf]="canchasService.canchas"  let-i="index">
-            
-            
-        <ion-item (click)="seleccionar(cancha)">
-        <ion-chip  style="height: 60px; background: transparent;">
-            <ion-avatar  style="height: 50px; width: 50px;">
-              <img src="{{soccer}}">
-            
-            </ion-avatar>
-            <ion-label style="margin-bottom: 10px;"> {{cancha.Nombre}}</ion-label>
 
-          </ion-chip>
-    
-
-          
-        </ion-item>
-    
-    
-      </ng-template>
-   
-</ion-list>
 
 </ion-content>
+

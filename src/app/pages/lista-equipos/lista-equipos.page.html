@@ -1,61 +1,69 @@
-<ion-toolbar >
-<ion-grid >
-  <ion-row>
-    <ion-col size="9" >
-      <ion-searchbar placeholder="Buscar equipo"  (ionChange)="onSearchChange($event)" [debounce]="250" mode="ios"></ion-searchbar>
-    </ion-col>
-    <ion-col size="3">
-     
-  <!-- fab placed to the top end -->
 
-<ion-buttons >
-  <ion-button  color="dark" fill="outline" shape="round">
-    <ion-icon slot="icon-only" name="location"></ion-icon>
-  </ion-button>
-  <ion-button (click)="cerrarModal()"  color="dark" fill="outline" shape="round">
-    <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
-  </ion-button>
-</ion-buttons>
+  <ion-header >
 
-    </ion-col>
-  </ion-row>
-</ion-grid>
-</ion-toolbar>
-<ion-content [scrollEvents]="true"> 
-
-  <ion-virtual-scroll [items]="equiposService.misEquipos | filtro : textoBuscar:'Nombre'" approxItemHeight="320px">
-
-<ion-item *virtualItem="let equipo;"  >
-
-  <ion-avatar (click)="detalleEquipo(equipo)" slot="start" style="display:block; height: auto; width: auto;" class="ion-text-center">
-    <img style="height: 60px; width: 60px;"  src="assets/soccer-shields-svg/{{equipo.Foto}}">
-    
-    </ion-avatar>
-
-  <span style="display:block;">
-    <ion-label style="margin-bottom: 10px;"> {{equipo.Nombre}}</ion-label>
-
-    <ion-icon style="size: 10px;" name="star"></ion-icon>
-    <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-    <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-    <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-    <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-  </span>
-
-
-<ion-fab-button (click)="retornarEquipo(equipo)" size="small" slot="end" color="dark">
-  <ion-icon name="add"></ion-icon>
-</ion-fab-button>
-
-</ion-item>
-
-
-  </ion-virtual-scroll>
-
-  <ion-button *ngIf="equiposService.misEquipos.length > 10" class="ion-margin" (click)="ScrollToTop()" color="dark" expand="full"> 
-      
-    Volver al incio
+    <ion-toolbar>
+      <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
+        <ion-buttons slot="start">
+          <ion-button color="light" (click)="cerrarModal()">
+            <ion-icon slot="start" name="chevron-back"></ion-icon>
+            &nbsp;Lista de  {{rival ? 'Rivales' : 'Retadores'}}
+          </ion-button>
+        </ion-buttons>
+   
+      </ion-item>
   
-  </ion-button>
+    </ion-toolbar>
+    </ion-header>
+   
 
-</ion-content >
+      <ion-content fullscreen>
+        <div class="mainContent">
+    
+          <ion-list *ngIf="!rival">
+            <ion-item    (click)="retornarEquipo(equipo)" lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.misEquipos | filtro : textoBuscar:'Nombre'">
+              <ion-avatar slot="start"  >
+                <img *ngIf="!equipo.Avatar"  src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
+                <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
+       
+              </ion-avatar>
+              
+              <ion-label>
+                {{equipo.Nombre}}
+                <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
+                
+                  <ion-icon style="size: 10px;" name="star"></ion-icon>
+                  <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                  <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                  <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                  <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                </p>
+              </ion-label>
+    
+            </ion-item>
+          
+          </ion-list>
+          <ion-list *ngIf="rival" >
+            <ion-item   (click)="retornarEquipo(equipo)" lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'Nombre'">
+              <ion-avatar slot="start"  >
+                <img *ngIf="!equipo.Avatar"  src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
+                <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
+       
+              </ion-avatar>
+              
+              <ion-label>
+                {{equipo.Nombre}}
+                <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
+                
+                  <ion-icon style="size: 10px;" name="star"></ion-icon>
+                  <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                  <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                  <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                  <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                </p>
+              </ion-label>
+    
+            </ion-item>
+          </ion-list>
+      </div>
+    </ion-content>
+

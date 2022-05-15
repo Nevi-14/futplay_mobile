@@ -1,89 +1,105 @@
 
-<ion-content style="display: flex;justify-content: center; background: red;">
+  <ion-header >
+
+    <ion-toolbar>
+      <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
+        <ion-buttons slot="start">
+          <ion-button color="light" (click)="cerrarModal()">
+            <ion-icon slot="start" name="chevron-back"></ion-icon>
+            &nbsp;Perfil Equipo
+          </ion-button>
+        </ion-buttons>
+
+      </ion-item>
   
-  <ion-col tappable   size="12" class="header" >
-       
-    <ion-label  class="ion-text-uppercase"  style="letter-spacing: 0.5rem; color: white;font-size: 2rem; font-weight: 600; text-shadow: 2px 2px  rgba(37,13,76,255);">
-      Equipo
-       </ion-label>
-
-
-  </ion-col>
-
-  <form  class="styled-elemets body" style="height: 100%; ">
-    
-  <ion-grid >
-    <ion-row>
-
-      <ion-col size="12"  class="ion-text-center" >
+    </ion-toolbar>
+    </ion-header>
+    <ion-content fullscreen class="ion-text-center">
+      <div class="mainContent">
  
-        <img  class="border-invert"  src="assets/soccer-shields-svg/{{equipo.Foto}}">
-        </ion-col>
-      <ion-col size="12" style="margin-top: 3rem;">
-        
-        <ion-item lines="none">
-          <ion-label style="font-weight: 600;"> {{equipo.Nombre}}</ion-label>
-      </ion-item>
-      <ion-item lines="none">
-        <ion-label >Abreviación : {{equipo.Abreviacion}} </ion-label>                         
-      </ion-item>
-      <ion-item lines="none">
-        <ion-label >Región :  {{equipo.Nombre_Provincia}} , {{equipo.Nombre_Canton}} </ion-label>
-      </ion-item>
+        <img class="picture-img" *ngIf="!equipo.Avatar" src="{{this.equipo ?  teamPic  : 'assets/team.png'}}" onerror="this.src='assets/team.png'"   alt="">
 
-
-      <ion-item lines="none">
-        <span style="display:block;">
-          <ion-label style="margin-bottom: 10px;">Dureza : <img  height="20" width="20" src="assets/icons/{{equipo.Dureza}}"></ion-label>
+        <img class="picture-img"  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
+    <h3 class="ion-text-uppercase"> 
+       {{equipo.Nombre}}
       
-          <ion-icon style="size: 10px;" name="star"></ion-icon>
-          <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-          <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-          <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-          <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-        </span>
-    </ion-item>   
+      
+       <span style="display:block;">
+       
+      
+        <ion-icon style="size: 10px;" name="star"></ion-icon>
+        <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+        <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+        <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+        <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+      </span>
+      </h3>
+            
 
-      </ion-col>
-    
-      <ion-col size="12">
-        <ion-list-header>
-          <ion-label style="font-size: 1rem;margin-top: 2rem;margin-bottom: 2rem;" class="ion-text-uppercase">Lista de jugadores</ion-label>
+  
+
+
+
+  <ion-list>
+
+    <ion-item  lines="none">
+      <ion-label>Abreviación : {{equipo.Abreviacion}}</ion-label>
+  </ion-item>
+  <ion-item lines="none">
+      <ion-label >Región :  {{equipo.Nombre_Provincia}} , {{equipo.Nombre_Canton}} </ion-label>
+  </ion-item>
+  <ion-item lines="none"  (click)="presentModal(equipo)"  color="light" detail>
+    <ion-label>Estadisticas Equipo</ion-label>
+   
+  </ion-item>
+  <ion-item lines="none" class="ion-margin-top ion-margin-bottom">
+
+    <ion-label slot="start" >Dureza : </ion-label>
+
+    <ion-avatar slot="start"   style="height: 45px;width: 45px;" >
+      <img      src="assets/icons/{{equipo.Dureza}}">
+    </ion-avatar>
+  </ion-item>
+
+
+<ion-item lines="none" >
+  <h2 slot="start" class="soccer-league-subtitle">Lista de Jugadores</h2>
+</ion-item>
+
+    <ion-item lines="full" class="employeeItem  animate__animated animate__fadeIn"    *ngIf="equiposService.jugadoresPerfilEquipo.length == 0  ">
+      <ion-avatar slot="start">
+        <img style="width: 8rem;margin: 0 auto;" src="assets/exclamation-mark.svg" alt="">
+      
+      </ion-avatar>
+            <ion-label class="ion-padding">
+              <h2>No hay Jugadores Disponibles</h2>
+  
         
-        </ion-list-header>
-        
-        <ion-item>
-          <ion-avatar slot="start" style="display:block; height: auto; width: auto;" class="ion-text-center">
-            <img style="height: 60px; width: 60px;" src="assets/icons/football-player.svg">
-          
-          </ion-avatar>
-        
-          <ion-label>  Nombre </ion-label>
-        </ion-item>
-      </ion-col>
-  
+            </ion-label>
+      
+          </ion-item>
+    <ion-item (click)="perfilJugador(jugador)" lines="full" class="employeeItem  animate__animated animate__fadeIn"   *ngFor="let jugador of equiposService.jugadoresPerfilEquipo">
+<ion-avatar slot="start">
+  <img *ngIf="!jugador.Avatar" src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+jugador.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
 
-  
-
-  
-  
-  
-  
-  
-  
-    </ion-row>
-  </ion-grid>
-    
-  
-
-  </form>
-  
-  
-  </ion-content>
+      <img *ngIf="jugador.Avatar"src="assets/profile/avatars/{{jugador.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
 
 
-  <ion-fab  (click)="cerrarModal()" vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button size="small" color="dark">
-      <ion-icon  name="arrow-back-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+</ion-avatar>
+      <ion-label>
+        <h2>{{jugador.Nombre}} {{jugador.Primer_Apellido}}  </h2>
+        <p>Posicion : <ion-badge color="warning" mode="ios">{{jugador.Posicion}}</ion-badge> </p>
+        <p>Apodo: {{jugador.Apodo}}</p>
+       
+  
+      </ion-label>
+
+    </ion-item>
+
+
+  </ion-list>
+
+
+
+      </div>
+    </ion-content>

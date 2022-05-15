@@ -1,9 +1,21 @@
-.title{
-    font-size: 18px!important;
-    font-weight: 600;
-    letter-spacing: 0.1rem;
-    text-transform: uppercase;
-}
-.standard-label{
-    font-size: 25px!important;
-}
+
+
+  ion-item{
+    border-radius: 50px;
+    height: 55px;
+    box-shadow: 1px 8px 8px 0px rgba(0,0,0,0.08);
+    --highlight-height:0px;
+    width: 80vw;
+    max-height: 55px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  ion-input{
+    font-size: 18px;
+    --padding-top:20px;
+    --padding-bottom:15px;
+    --padding-start:5px;
+  
+  }
+  

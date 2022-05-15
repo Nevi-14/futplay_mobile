@@ -1,6 +1,6 @@
 <ion-toolbar class="ion-text-center ion-padding">
  
-  <ion-label class="soccer-league">FUTPLAY</ion-label>
+  <ion-label class="soccer-league-header-title">FUTPLAY</ion-label>
 
 
 
@@ -9,13 +9,12 @@
 
 
 <ion-content>
-  <ion-tabs >
+  <ion-tabs  mode="ios">
     <ion-tab-bar slot="bottom" > 
       <ng-template ngFor let-opciones [ngForOf]="opcionesMenu" let-i="index" >
         <ion-tab-button [tab]="opciones.tab">
 
-          <ion-label class="ion-text-uppercase">{{opciones.name}}</ion-label>
-    
+          <ion-label class="tabs-label">{{opciones.name}}</ion-label>
         </ion-tab-button>
       </ng-template>
   

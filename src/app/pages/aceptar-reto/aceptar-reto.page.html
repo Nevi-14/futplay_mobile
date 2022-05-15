@@ -1,208 +1,160 @@
 
-  <ion-content>
-      
-    <ion-col size="12" class="header"  [style.backgroundImage]="'url(' + img + ')'">
-      
-           
-      <ion-label  class="ion-text-uppercase"  style="letter-spacing: 0.5rem; color: white;font-size: 2rem; font-weight: 600; text-shadow: 2px 2px  rgba(37,13,76,255);">
-        {{reto.Titulo}}
-         </ion-label>
-  
-        
-          </ion-col>
+  <ion-header >
 
-          <ion-col size="12" class="body">
-      
-            <ion-col size="12" >
-            <ion-label class="title " style="position: relative;">
-            Cancha <ion-badge style="position: absolute; top: -10px;margin-left: 0.2rem;" color="dark" mode="ios"><h2>{{cancha.Nombre}}</h2></ion-badge>
+    <ion-toolbar>
+      <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
+        <ion-buttons slot="start">
+          <ion-button color="light" (click)="cerrarModal()">
+            <ion-icon slot="start" name="chevron-back"></ion-icon>
+            &nbsp;{{reto.Titulo}}
+          </ion-button>
+        </ion-buttons>
+
+        <ion-badge slot="end" color="warning" mode="ios">{{reto.Fecha | date:'shortDate'}}</ion-badge>
+      </ion-item>
+  
+    </ion-toolbar>
+
+    </ion-header>
+    <ion-content fullscreen>
+      <div class="mainContent">
+       <ion-row>
+         <ion-col size="12">
+
+          <ion-item>
+            <ion-label>Participantes</ion-label>
+            <ion-avatar slot="end" style="height: 4rem;width: 4rem;">
+              <img style="height: 4rem;width: 4rem;"   src="assets/soccer-shields-svg/{{retador.Foto}}">
+            </ion-avatar>
+            <ion-avatar  slot="end" style="height: 4rem;width: 4rem;">
+              <img  style="height: 4rem;width: 4rem;"   src="assets/soccer-shields-svg/{{rival.Foto}}">
+            </ion-avatar>
+          </ion-item>
+         </ion-col>
+       </ion-row>
+
+                    <ion-row >
+                      <ion-col size="12" class="ion-margin-top ion-margin-bottom">
+                        <ion-label class="soccer-league-subtitle">Cancha  {{cancha.Nombre}}</ion-label>
                
-      
-            
+                        
+                      </ion-col>
+                      <ion-col size="12">
+                        <img class="gfg" src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilCanchaUploads/'+cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">  
               
-            </ion-label>
-       
-            </ion-col>
-            <ion-col size="12">
-              <p class="ion-margin">{{reto.Fecha | date:'fullDate'}}</p>
+                      </ion-col>
+                                  
+                
+                                      <ion-row>
+                                        <ion-col size="12" class="ion-padding">
+                                          <ion-label class="soccer-league-subtitle">Ubicacion Cancha</ion-label>
+                                        </ion-col>
+                                      </ion-row>
+                      <ion-col  size="12" class="ion-padding">
+                        <app-mapa  [lngLat]="[cancha.Longitud, cancha.Latitud]"></app-mapa>
+                      </ion-col>
+                      <ion-col size="12">
+                        <ion-label >  {{cancha.Nombre_Provincia}},  {{cancha.Nombre_Canton}}...</ion-label>
+                        
+                      </ion-col>
+                      <ion-col size="12" class="ion-margin-top ion-margin-bottom">
+                        <ion-button class="ion-margin ion-text-center" (click)="navigate()" expand="block"  color="dark">
+                         <ion-icon  name="location-outline" style="margin-right:0.2rem"></ion-icon> Abrir Ubicación
+                        </ion-button>
+                      </ion-col>
+          
+          
+                
+                
+                    </ion-row>
+                
+          
             
-            </ion-col>
-                <ion-row >
+          
+          
+            <ion-row>
             
-            
-            
-                  <ion-col  size="12" class="ion-padding">
-                    <app-mapa  [lngLat]="[cancha.Longitud, cancha.Latitud]"></app-mapa>
-                  </ion-col>
-                  <ion-col size="12">
-                    <ion-label >Ubicación: {{cancha.Nombre_Provincia}},  {{cancha.Nombre_Canton}}</ion-label>
-                    
-                  </ion-col>
-                  <ion-col size="12">
-                    <ion-button class="ion-margin ion-text-center" (click)="navigate()" expand="block"  color="dark">
-                     <ion-icon  name="location-outline" style="margin-right:0.2rem"></ion-icon> Abrir ubicación
-                    </ion-button>
-                  </ion-col>
-      
-            
-           
-            
-            
-                </ion-row>
-            
-      
-                <ion-row  style="margin-top: 50px;">
-                  <ion-col size="12"  >
-                    <ion-label class="title" style="position: relative;">Retador 
-              
-                    
-                    
-                      <ion-badge style="position: absolute; top: -10px;margin-left: 0.2rem;" color="dark" mode="ios"><h2>{{retador.Nombre}}</h2></ion-badge>
-                    </ion-label>
-               
-                    </ion-col>
-                  <ion-col size="12"  class="ion-text-center" >
-               
-                    <img  class="border-invert"  src="assets/soccer-shields-svg/{{retador.Foto}}">
-                    </ion-col>
-        
-                  <ion-col size="12" size-md="6" size-lg="8">
-              
-                    <ion-item lines="none">
-                        <ion-label style="font-weight: 600;"> {{retador.Nombre}}</ion-label>
-                    </ion-item>
-                    <ion-item lines="none">
-                      <ion-label >Abreviación : {{retador.Abreviacion}} </ion-label>                         
-                    </ion-item>
-                    <ion-item lines="none">
-                      <ion-label >Región :  {{retador.Nombre_Provincia}} , {{retador.Nombre_Canton}} </ion-label>
-                    </ion-item>
-                    <ion-item lines="none">
-                        <ion-label>(Ganes, Perdidos, Empates)</ion-label>
-                    </ion-item>
-           
-                    <ion-item lines="none">
-                      <span style="display:block;">
-                        <ion-label style="margin-bottom: 10px;">Dureza : <img  height="20" width="20" src="assets/icons/{{retador.Dureza}}"></ion-label>
-                    
-                        <ion-icon style="size: 10px;" name="star"></ion-icon>
-                        <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-                        <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-                        <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-                        <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-                      </span>
-                  </ion-item>
-             
-            </ion-col>
-        </ion-row >
-      
-      
-        <ion-row>
-        
-          <ion-col size="12"  class="header-row">
-            <ion-label  style="font-size: 1rem;margin-top:1rem;margin-bottom: 2rem;" class="ion-text-uppercase">Detalle Reservación</ion-label>
-        
-          </ion-col>
-      
-          <ion-col size="12" class="data-row">
-            <ion-label>
-              <h2>Fecha</h2>
-              <p>{{reto.Fecha | date:'fullDate'}}</p>
-            </ion-label>
-          </ion-col>
-          <ion-col size="12" class="data-row">
-            <ion-label>
-              <h2>Hora</h2>
-              <p>{{reto.Hora_Inicio}}</p>
-            </ion-label>
-          </ion-col>
-      
-          <ion-col size="12" class="data-row">
-            <ion-label>Cacha : {{cancha.Nombre}}</ion-label>
-          </ion-col>
-      
-          <ion-col size="12" class="data-row">
-            <ion-label>
-              
-              <h2>Precio Cacha:</h2>
-            <p>₡ {{cancha.Precio_Hora}}</p>
-            
-            
-            </ion-label>
-          </ion-col>
-      
-          <ion-col *ngIf="cancha.Luz" size="12" class="data-row">
-            <ion-label>
-              <h2>Precio Luz :</h2>
-              <p>₡ {{cancha.Precio_Luz}}</p>
-            </ion-label>
-          </ion-col>
-      
-          <ion-col size="12" class="data-row">
-      
-            <ion-label>
-              <h2>Monto Total</h2> 
-              <p> ₡ {{(cancha.Precio_Hora + cancha.Precio_Luz )}}</p>
-            
-            
-            </ion-label>
-          </ion-col>
-          <ion-col size="12" class="data-row">
-            <ion-label >
-      
-              <h2>Monto Total a cancelar por Equipo </h2>
-              <p>₡ {{(cancha.Precio_Hora + cancha.Precio_Luz ) / 2}}</p>
-            </ion-label>
-          </ion-col>
-          <ion-col size="12" class="data-row">
-            <ion-label >
-              <h2>Monto a pagar en persona </h2>
-              <p>₡ {{(cancha.Precio_Hora + cancha.Precio_Luz )}}</p>
-      
-            </ion-label>
-          </ion-col>
-          <ion-col size="12" class="data-row">
-            <ion-label >
-              <h2>Monto a pagar para  completar reservación (10%)</h2>
-              <p>₡ {{(cancha.Precio_Hora + cancha.Precio_Luz ) / 2}}</p>
-            </ion-label>
-          </ion-col>
-      
-      
-      <ion-col size="12" *ngIf="!reto.Estado_Confirmacion && reto.Cod_Usuario_Rival == usuariosService.usuarioActual.Cod_Usuario">
-        <ion-button (click)="aceptarReto()" class="ion-margin ion-text-center"  expand="block"  color="dark">
-      Aceptar Reto
-        </ion-button>
-      
-        
-      </ion-col>
-      
-      <ion-col size="12" *ngIf="reto.Estado_Confirmacion">
-        <ion-button (click)="iniciarPartido()" class="ion-margin ion-text-center"  expand="block"  color="dark">
-      Iniciar Partido
-        </ion-button>
-      
-        
-      </ion-col>
-        
-      
-            </ion-row>
-        
-      
-            
+              <ion-col size="12"  class="ion-margin-top ion-margin-bottom">
+                <ion-label class="soccer-league-subtitle">Detalle Reservacion</ion-label>
               </ion-col>
-            
+          
+              <ion-col size="12" class="data-row">
+                <ion-label>
+                  <h2>Fecha</h2>
+                  <p>{{reto.Fecha | date:'fullDate'}}</p>
+                </ion-label>
+              </ion-col>
+              <ion-col size="12" class="data-row">
+                <ion-label>
+                  <h2>Hora</h2>
+                  <p>{{reto.Hora_Inicio}}</p>
+                </ion-label>
+              </ion-col>
+          
+              <ion-col size="12" class="data-row">
+                <ion-label>Cacha : {{cancha.Nombre}}</ion-label>
+              </ion-col>
+          
+              <ion-col size="12" class="data-row">
+                <ion-label>
+                  
+                  <h2>Precio Cacha:</h2>
+                <p>₡ {{cancha.Precio_Hora}}</p>
+                
+                
+                </ion-label>
+              </ion-col>
+          
+              <ion-col *ngIf="cancha.Luz" size="12" class="data-row">
+                <ion-label>
+                  <h2>Precio Luz :</h2>
+                  <p>₡ {{cancha.Precio_Luz}}</p>
+                </ion-label>
+              </ion-col>
+          
+              <ion-col size="12" class="data-row">
+          
+                <ion-label>
+                  <h2>Monto Total</h2> 
+                  <p> ₡ {{(cancha.Precio_Hora + cancha.Precio_Luz )}}</p>
+                
+                
+                </ion-label>
+              </ion-col>
+              <ion-col size="12" class="data-row">
+                <ion-label >
+          
+                  <h2>Monto Total a cancelar por Equipo </h2>
+                  <p>₡ {{(cancha.Precio_Hora + cancha.Precio_Luz ) / 2}}</p>
+                </ion-label>
+              </ion-col>
+              <ion-col size="12" class="data-row">
+                <ion-label >
+                  <h2>Monto a pagar en persona </h2>
+                  <p>₡ {{(cancha.Precio_Hora + cancha.Precio_Luz )}}</p>
+          
+                </ion-label>
+              </ion-col>
+              <ion-col size="12" class="data-row">
+                <ion-label >
+                  <h2>Monto a pagar para  completar reservación (10%)</h2>
+                  <p>₡ {{(cancha.Precio_Hora + cancha.Precio_Luz ) / 2}}</p>
+                </ion-label>
+              </ion-col>
+            </ion-row>
+          
+                
+            </div>
+    </ion-content>
+    <ion-footer>
 
-  
-  
-
-  
-
-</ion-content>
-
-
-<ion-fab  (click)="cerrarModal()" vertical="top" style="margin-top: 50px;" horizontal="end" slot="fixed">
-  <ion-fab-button size="small" color="dark">
-    <ion-icon  name="arrow-back-outline"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
+      <ion-button (click)="aceptarReto()" *ngIf="reto.Cod_Estado != 4 && reto.Cod_Usuario_Rival == usuariosService.usuarioActual.Cod_Usuario"   expand="block" >
+       <ion-label>Aceptar Reto </ion-label>
+             </ion-button>
+       
+             <ion-button  (click)="iniciarPartido()"  *ngIf="reto.Cod_Estado == 4"   expand="block" >
+              <ion-label> Iniciar Partido</ion-label>
+                    </ion-button>
+        
+   </ion-footer>
+ 

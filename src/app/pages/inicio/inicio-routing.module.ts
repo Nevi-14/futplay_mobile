@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { InicioPage } from './inicio.page';
+import { RegistroPageModule } from '../registro/registro.module';
 
 const routes: Routes = [
   {
@@ -14,16 +15,16 @@ const routes: Routes = [
     component: InicioPage,
     children:[
       {
-        path:'about',
-        loadChildren: () => import('../about/about.module').then( m => m.AboutPageModule)
+        path:'sobre-nosotros',
+        loadChildren: () => import('../sobre-nosotros/sobre-nosotros.module').then( m => m.SobreNosotrosPageModule)
       },
       {
-        path:'login',
-        loadChildren: () => import('../login/login.module').then( m => m.LoginPageModule)
+        path:'inicio-sesion',
+        loadChildren: () => import('../inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule)
       },
       {
-        path:'register',
-        loadChildren: () => import('../tabs/register/register.module').then( m => m.RegisterPageModule)
+        path:'registro',
+        loadChildren: () => import('../registro/registro.module').then( m => m.RegistroPageModule)
       }
     ]
   }

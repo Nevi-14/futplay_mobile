@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { SeleccionarFechaPageRoutingModule } from './seleccionar-fecha-routing.module';
 
 import { SeleccionarFechaPage } from './seleccionar-fecha.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SeleccionarFechaPageRoutingModule
+    SeleccionarFechaPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [SeleccionarFechaPage]
 })

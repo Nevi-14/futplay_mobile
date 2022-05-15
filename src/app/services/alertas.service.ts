@@ -18,13 +18,12 @@ export class AlertasService {
 
 
 
-  
-V
 
   async presentaLoading( message: string ){
     this.isLoading = true;
     this.loadingCtrl.create({
-      message: message ? message : 'Please wait...'
+      message: message ? message : 'Please wait...',
+      cssClass:'activity-detail-loading'
     }).then(loader => {
       loader.present().then(() => {
         if (!this.isLoading) {

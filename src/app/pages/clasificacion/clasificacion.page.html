@@ -1,49 +1,46 @@
 
-<ion-toolbar>
-  <ion-label slot="start" class="ion-margin ion-text-uppercase" style="font-weight: bold; letter-spacing: 2px;">
-  <h2>Ranking Global</h2>
-  </ion-label>
-</ion-toolbar>
-<ion-toolbar>
-  <ion-list lines="none">
-    <ion-item>
-      <ion-chip  style="height: 60px; background: transparent;">
-        <ion-avatar  style="height: 50px; width: 50px;">
-          <img [src]="equiposService.switchClub.foto">
-        
-        </ion-avatar>
-   
-        <span style="display:block;">
-          <ion-label style="margin-bottom: 10px;"> {{equiposService.switchClub.nombre}}</ion-label>
-      
-          <ion-icon style="size: 10px;" name="star"></ion-icon>
-          <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-          <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-          <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-          <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-        </span>
-      </ion-chip>
-    </ion-item>
-    <ion-item>
-      <ion-icon slot="start" name="trophy-outline"></ion-icon>
-      <ion-label  >Tus puntos de calidad: 000</ion-label>
-    </ion-item>
-  
-    <ion-item>
-      <ion-icon slot="start" name="trophy-outline"></ion-icon>
-      <ion-label >Tu posicion actual: #000</ion-label>
-    </ion-item>
-  </ion-list>
-</ion-toolbar>
+
+<app-encabezado-modal></app-encabezado-modal>
+
 
 <ion-toolbar>
-  <ion-label slot="start" class="ion-margin ion-text-uppercase" style="font-weight: bold; letter-spacing: 2px;">
-  <h2>Power Rankings</h2></ion-label>
-</ion-toolbar>
+  <ion-label slot="start" class="ion-margin ion-text-uppercase soccer-league-subtitle" ><h2>Ranking Global</h2></ion-label>
 
+</ion-toolbar>
 
 <ion-content>
 
+  <div class="mainContent">
   
+
+    <ion-list>
+      <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"   *ngFor="let equipo of equiposService.equipos">
+        <ion-avatar slot="start"  >
+          <img *ngIf="!equipo.Avatar"  src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
+          <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
+ 
+        </ion-avatar>
+        <ion-label>
+          <h2>{{equipo.Nombre}}</h2>
+          <p  style="display:block; margin-top: 0.5rem;" >
+               
+             
+                       
+            <ion-icon style="size: 10px;" name="star"></ion-icon>
+            <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+      
+          </p>
+        </ion-label>
+
+      </ion-item>
+    </ion-list>
+  </div>
+  
+
+
+
+
 </ion-content>
-  

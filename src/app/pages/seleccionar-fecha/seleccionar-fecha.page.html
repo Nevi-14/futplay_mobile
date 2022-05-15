@@ -1,21 +1,12 @@
 
-<ion-toolbar>
-  <ion-button slot="start" (click)="cerrarModal()" fill="clear">
-   <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
-  </ion-button>
-  <ion-label class="title ion-text-wrap">{{title}}</ion-label>
+<app-encabezado-modal></app-encabezado-modal>
 
-</ion-toolbar>
+<ion-content>
 
-
-<ion-content class="ion-padding" >
-
-<ion-grid >
-  <ion-row>
-    <ion-col size="12" size-md="4">
-      <ion-label   class="ion-text-uppercase">
-
-        Dia</ion-label>
+<ion-grid  style="height: 100%;">
+  <ion-row  style="height: 100%;display: flex;justify-content: center;align-items: center;">
+    <ion-col size="10" size-md="4">
+<ion-badge color="dark" mode="ios" class="ion-text-uppercase">Dia</ion-badge>
       <ion-item class="ion-margin-bottom ion-margin-top">
      
           <ion-select  required [(ngModel)]="dateObjectReturn.date" (ionChange)="obtenerDia($event)"   name="dia">
@@ -26,10 +17,8 @@
             </ion-select>
       </ion-item>
     </ion-col>
-    <ion-col size="12" size-md="4">
-    <ion-label  class="ion-text-uppercase">
-
-      Mes</ion-label>
+    <ion-col size="10" size-md="4">
+      <ion-badge color="dark" mode="ios" class="ion-text-uppercase">Mes</ion-badge>
     <ion-item class="ion-margin-bottom ion-margin-top">
   
         <ion-select required [(ngModel)]="dateObjectReturn.month" (ionChange)="obtenerMes($event)"   name="mes">
@@ -41,12 +30,10 @@
     </ion-item>
     </ion-col>
 
-    <ion-col size="12" size-md="4">
+    <ion-col size="10" size-md="4">
       
 
-    <ion-label class="ion-text-uppercase">
-    
-      Año</ion-label>
+      <ion-badge color="dark" mode="ios" class="ion-text-uppercase">Año</ion-badge>
     <ion-item class="ion-margin-bottom ion-margin-top">
 
         <ion-select   required [(ngModel)]="dateObjectReturn.year" (ionChange)="obtenerAno($event)"   name="ano">
@@ -63,13 +50,10 @@
 
 
 </ion-content>
-<ion-footer class="ion-no-border">
+<ion-footer>
   <ion-toolbar>
-<ion-buttons slot="end">
-  <ion-button (click)="continuar()">
-    <ion-label>Continuar</ion-label>
-    <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
-  </ion-button>
-</ion-buttons>
+ <ion-button (click)="continuar()" expand="block" color="dark">
+ Seleccionar
+ </ion-button>
   </ion-toolbar>
 </ion-footer>

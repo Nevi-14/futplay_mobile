@@ -1,28 +1,43 @@
 
-<ion-content style="display: flex;justify-content: center; background: red;">
+  <ion-header >
+
+    <ion-toolbar>
+      <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
+        <ion-buttons slot="start">
+          <ion-button color="light" (click)="cerrarModal()">
+            <ion-icon slot="start" name="chevron-back"></ion-icon>
+            &nbsp; Cancha {{cancha.Nombre}}
+          </ion-button>
+        </ion-buttons>
+
+      </ion-item>
   
-  <ion-col tappable   size="12" class="header" >
-       
-    <ion-label  class="ion-text-uppercase"  style="letter-spacing: 0.5rem; color: white;font-size: 2rem; font-weight: 600; text-shadow: 2px 2px  rgba(37,13,76,255);">
-      {{cancha.Nombre}}
-       </ion-label>
-
-
+    </ion-toolbar>
+    </ion-header>
+    <ion-content fullscreen class="ion-text-center">
+      <div class="mainContent">
+    
+<ion-row>
+  <ion-col size="12" class="ion-padding">
+    <ion-label class="soccer-league-title">Ubicacion Cancha</ion-label>
   </ion-col>
+</ion-row>
+     <!-- background image -->
+    
+     <app-mapa  [lngLat]="[cancha.Longitud, cancha.Latitud]"></app-mapa>
 
 
-  <ion-grid  class="styled-elemets body" style="height: 100%; ">
+  <ion-grid  style="height: 100%; ">
   
   
+
             <ion-row >
         
         
         
-              <ion-col  size="12" class="ion-padding">
-                <app-mapa  [lngLat]="[cancha.Longitud, cancha.Latitud]"></app-mapa>
-              </ion-col>
-              <ion-col size="12">
-                <ion-label >Ubicación: {{cancha.Nombre_Provincia}},  {{cancha.Nombre_Canton}}</ion-label>
+        
+              <ion-col size="12" class="ion-margin-top ion-margin-bottom">
+                <ion-label >{{cancha.Nombre_Provincia}},  {{cancha.Nombre_Canton}}</ion-label>
                 
               </ion-col>
               <ion-col size="12">
@@ -30,9 +45,19 @@
                  <ion-icon  name="location-outline" style="margin-right:0.2rem"></ion-icon> Abrir ubicación
                 </ion-button>
               </ion-col>
+
+              <ion-col size="12">
+                <ion-label class="soccer-league-title">Imagen Cancha</ion-label>
+              </ion-col>
+              
+              <ion-col size="12">
+                <img class="gfg" src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilCanchaUploads/'+cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">  
+      
+              </ion-col>
+              
         
               <ion-col size="12">
-                <ion-label >Precio Hora: {{cancha.Precio_Hora}}</ion-label>
+                <ion-label >Precio Hora: <ion-badge color="warning" mode="ios">{{cancha.Precio_Hora}}</ion-badge></ion-label>
               </ion-col>
         
         <ion-col size="4"class="header-row">
@@ -57,12 +82,7 @@
         
         
         </ng-template>
-        
-        <ion-col size="12">
-          <ion-button (click)="reservarCancha()" expand="block"  color="dark">
-           Reservar Cancha
-          </ion-button>
-        </ion-col>
+       
         
         
             </ion-row>
@@ -80,13 +100,16 @@
     
   
 
-  
-  
-  </ion-content>
+      </div>
+ 
 
-
-  <ion-fab  (click)="cerrarModal()" vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button size="small" color="dark">
-      <ion-icon  name="arrow-back-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    </ion-content>
+    <ion-footer>
+ 
+       
+       <ion-button  expand="block" >
+        <ion-label> Reservar Cancha</ion-label>
+              </ion-button>
+  
+    </ion-footer>
+  

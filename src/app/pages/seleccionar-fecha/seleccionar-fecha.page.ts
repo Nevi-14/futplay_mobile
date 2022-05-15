@@ -7,13 +7,14 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./seleccionar-fecha.page.scss'],
 })
 export class SeleccionarFechaPage implements OnInit {
-  today = new Date();
 @Input()  title:  string;
 @Input() id: string
+@Input() fecha:Date
+today : Date = new Date();
 dateObjectReturn = {
-date:  new Date().getDate(),
-month: this.capitalizeFirstLetter(this.today.toLocaleString('es-ES', { month: 'long' })),
-year: new Date().getFullYear()
+date: null,
+month: null,
+year: null
 
   }
    meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
@@ -22,6 +23,7 @@ year: new Date().getFullYear()
 
 
     capitalizeFirstLetter(str) {
+
 
     // converting first letter to uppercase
     const capitalized = str.charAt(0).toUpperCase() + str.slice(1);
@@ -36,6 +38,34 @@ year: new Date().getFullYear()
 
   ngOnInit() {
 
+    if(this.fecha){
+
+      let day = this.fecha.getDate();
+      let month = this.fecha.getMonth();
+      let year = this.fecha.getFullYear();
+      let monthName = this.capitalizeFirstLetter(this.fecha.toLocaleString('es-ES', { month: 'long' }))
+   
+      this.dateObjectReturn = {
+        date: day,
+        month: monthName,
+        year: year
+        
+          }
+    }else{
+   
+      let month = this.today.getMonth();
+      let day = this.today.getDate();
+      let year = this.today.getFullYear();
+      let monthName = this.capitalizeFirstLetter(this.today.toLocaleString('es-ES', { month: 'long' }))
+      this.dateObjectReturn = {
+        date: day,
+        month: monthName,
+        year: year
+        
+          }
+
+    }
+    
   
     this.populateDays();
     this.populateYears();
@@ -61,6 +91,7 @@ year: new Date().getFullYear()
     let mes = event.detail.value; 
     this.dateObjectReturn.month = mes;
    }else{
+    let monthValue = this.capitalizeFirstLetter(this.today.toLocaleString('es-ES', { month: 'long' }))
     this.dateObjectReturn.month = this.dateObjectReturn.month ;
    }
     this.populateDays();
@@ -80,9 +111,8 @@ year: new Date().getFullYear()
    }
   populateDays(){
     this.dias = [];
-    let   monthValue =  this.dateObjectReturn.month;
-
-    let currentYear = this.dateObjectReturn.year;
+    let monthValue = this.capitalizeFirstLetter(this.today.toLocaleString('es-ES', { month: 'long' }))
+    let currentYear = this.today.getFullYear();
      
 
     let numeroDias = 0;
@@ -144,7 +174,7 @@ year: new Date().getFullYear()
     this.anos = [];
 
     // GET THE CURRENT YEAR AS A NUMBER
-    let ano = this.dateObjectReturn.year;
+    let ano = this.today.getFullYear();
     // make the previous 100 yars be an option
     for(let i = 0; i < 101 ; i++){
 

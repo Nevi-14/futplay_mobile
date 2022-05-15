@@ -35,20 +35,7 @@ console.log(URL);
 
   syncCantones(provincia){
 
-    this.getCantones(provincia).subscribe(
-      resp =>{
-        this.cantones = resp.slice(0);
-        console.log(this.cantones, 'cantones')
-
-      }, error =>{
-
-        if(error){
-
-          this.aslertasService.message('FUTPLAY', 'Error cargando cantones');
-
-        }
-      }
-    );
+    return this.getCantones(provincia).toPromise();
   }
   
 }

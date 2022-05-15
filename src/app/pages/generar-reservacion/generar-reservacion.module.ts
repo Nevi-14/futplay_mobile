@@ -7,15 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { GenerarReservacionPageRoutingModule } from './generar-reservacion-routing.module';
 
 import { GenerarReservacionPage } from './generar-reservacion.page';
-import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    GenerarReservacionPageRoutingModule,
-    PipesModule
+    GenerarReservacionPageRoutingModule
   ],
   declarations: [GenerarReservacionPage]
 })

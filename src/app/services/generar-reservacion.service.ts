@@ -5,6 +5,7 @@ import { HorarioCanchas } from '../models/horarioCanchas';
 import { ReservacionesCanchasUsuarios } from '../models/Reservaciones_Canchas_Usuarios';
 import { AlertasService } from './alertas.service';
 interface horas{
+  formatoFin12:string,
   formato12:string,
   hora_inicio: string
   hora_fin: string
@@ -13,7 +14,7 @@ interface horas{
   providedIn: 'root'
 })
 export class GenerarReservacionService {
-
+stopLoading = 0;
 
 diaConsulta = {
 
@@ -84,6 +85,7 @@ console.log(URL);
  
      let URL = this.getURL( environment.FiltrarFecha);
      URL = URL +  environment.codCanchaParam + Cod_Cancha +  environment.fechaParam + Fecha;
+     console.log(URL,'url')
      return this.http.get<ReservacionesCanchasUsuarios[]>( URL );
  
    }
@@ -101,7 +103,7 @@ console.log(URL);
   
       
           generarReservacion(Cod_Cancha,Fecha){
-        //    this.alertasService.presentaLoading('Verificando Horas Disponibles')
+            this.alertasService.presentaLoading('Verificando Horas Disponibles')
             this.horasdiaConsulta = []
             this.syncHorarioCanchas(Cod_Cancha).then(resp =>{
 
@@ -186,14 +188,15 @@ break;
 
 
       generarArregloHorasDisponibles(date){
-console.log(date,'dattttt')
-        
+
+
         // Extraemos el valor del horario de la cancha
 
         let index =  this.horarioCancha.findIndex(cancha => cancha.Cod_Dia ===  date.getDay()+1 )
-
-        if(this.horarioCancha[index].Estado){
-          
+        this.alertasService.loadingDissmiss()
+        if(this.horarioCancha[index].Estado == false){
+          this.alertasService.loadingDissmiss()
+          this.alertasService.message('Futplat', 'Cancha no disponible')
           return
          }
          // Extraemos el valor de inicio y fin del dia a consultar
@@ -225,15 +228,21 @@ if(minutes > 0){
       start =  Number(this.horarioCancha[index].Hora_Inicio.match(/([0-9]{1,2})/).slice(1)); 
     }
 
+ console.log(start, 'start')
+ if(start > open){
+  this.alertasService.loadingDissmiss()
 
-
+  console.log(this.horarioCancha[index],'this.horarioCancha[index]')
+  return
+ }
        for (var i = start; i < end; ++i) {
-
+this.stopLoading  = i;
 // Extraemos valores generales como valor hora,  formato 12 horas - 24 horas  y hora fin en formato 24 horas
 
        let hour = i%12 == 0 ? 12 : i%12 ;
-       let  time12 = hour+ ':' + '00' + ' ' +  (i < 12 ? 'AM': 'PM')
-       let startTime24 = i+ ':00:00';
+       let  time12 =   hour+ ':' + '00' + ' ' +  (i < 12 ? 'AM': 'PM')
+       let  formatoFin12 =   hour + 1+ ':' + '00' + ' ' +  (i < 12 ? 'AM': 'PM')
+       let startTime24 =  i+ ':00:00';
        let endTime24 = i+1+ ':00:00';
 
        const hora ={
@@ -241,6 +250,7 @@ if(minutes > 0){
         dia:new Date(date).toLocaleString('es', {weekday:'long'}),
         fecha:this.formatoFecha(new Date(date), '/'),
         formato12:time12,
+        formatoFin12: formatoFin12,
         hora_inicio: startTime24,
         hora_fin: endTime24
        }
@@ -260,6 +270,7 @@ if(minutes > 0){
       
     this.horasdiaConsulta.splice(h, 1)
 
+
         }
     
    //     this.alertasService.loadingDissmiss()
@@ -268,7 +279,12 @@ if(minutes > 0){
 //alert(this.horaSeleccionada)
 this.diaCompleto = 0;
 this.diaCompleto = this.reservacionesFiltroFecha.filter(guia => guia.diaCompleto == true).length
+
+console.log(this.horasdiaConsulta, 'horasdiaConsulta')
        }
+       if(this.stopLoading ==  end){
+        this.alertasService.loadingDissmiss()
+      }
 
        }
 

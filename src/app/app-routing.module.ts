@@ -12,35 +12,9 @@ const routes: Routes = [
     path: 'inicio',
     loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
   },
-  {
-    path: 'password-reset',
-    loadChildren: () => import('./pages/password-reset/password-reset.module').then( m => m.PasswordResetPageModule)
-  },
-  {
-    path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
-  },
-  {
-    path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
-  },
-  {
-    path: 'clubs',
-    loadChildren: () => import('./pages/clubs/clubs.module').then( m => m.ClubsPageModule)
-  },
-  {
-    path: 'search',
-    loadChildren: () => import('./pages/search/search.module').then( m => m.SearchPageModule)
-  },
-  {
-    path: 'reservations',
-    loadChildren: () => import('./pages/reservations/reservations.module').then( m => m.ReservationsPageModule)
-  },
 
-  {
-    path: 'create-club',
-    loadChildren: () => import('./pages/create-club/create-club.module').then( m => m.CreateClubPageModule)
-  },
+
+
   {
     path: 'rivales',
     loadChildren: () => import('./pages/rivales/rivales.module').then( m => m.RivalesPageModule)
@@ -51,25 +25,6 @@ const routes: Routes = [
   },
 
 
-  
-  {
-    path: 'my-clubs',
-    loadChildren: () => import('./pages/my-clubs/my-clubs.module').then( m => m.MyClubsPageModule)
-  },
-  {
-    path: 'my-reservations',
-    loadChildren: () => import('./pages/my-reservations/my-reservations.module').then( m => m.MyReservationsPageModule)
-  },
-
-  {
-    path: 'password',
-    loadChildren: () => import('./pages/password/password.module').then( m => m.PasswordPageModule)
-  },
- 
-  {
-    path: 'payment-method',
-    loadChildren: () => import('./pages/payment-method/payment-method.module').then( m => m.PaymentMethodPageModule)
-  },
 
 
   {
@@ -77,10 +32,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/cancha-detalle/cancha-detalle.module').then( m => m.CanchaDetallePageModule)
   },
 
-  {
-    path: 'canchas',
-    loadChildren: () => import('./pages/canchas/canchas.module').then( m => m.CanchasPageModule)
-  },
+
 
 
   {
@@ -90,15 +42,7 @@ const routes: Routes = [
 
 
 
-  {
-    path: 'qr-verification',
-    loadChildren: () => import('./pages/qr-verification/qr-verification.module').then( m => m.QrVerificationPageModule)
-  },
 
-{
-    path: 'generar-reservacion',
-    loadChildren: () => import('./pages/generar-reservacion/generar-reservacion.module').then( m => m.GenerarReservacionPageModule)
-  },
  
   {
     path: 'lista-canchas',
@@ -113,10 +57,7 @@ const routes: Routes = [
     path: 'equipo-detalle-modal',
     loadChildren: () => import('./pages/equipo-detalle-modal/equipo-detalle-modal.module').then( m => m.EquipoDetalleModalPageModule)
   },
-  {
-    path: 'equipo-reservacion',
-    loadChildren: () => import('./pages/equipo-reservacion/equipo-reservacion.module').then( m => m.EquipoReservacionPageModule)
-  },
+ 
   {
     path: 'aceptar-reto',
     loadChildren: () => import('./pages/aceptar-reto/aceptar-reto.module').then( m => m.AceptarRetoPageModule)
@@ -169,10 +110,7 @@ const routes: Routes = [
     path: 'filtro-ubicacion',
     loadChildren: () => import('./pages/filtro-ubicacion/filtro-ubicacion.module').then( m => m.FiltroUbicacionPageModule)
   },
-  {
-    path: 'filtro-equipo',
-    loadChildren: () => import('./pages/filtro-equipo/filtro-equipo.module').then( m => m.FiltroEquipoPageModule)
-  },
+
   {
     path: 'filtro-jugador',
     loadChildren: () => import('./pages/filtro-jugador/filtro-jugador.module').then( m => m.FiltroJugadorPageModule)
@@ -187,9 +125,86 @@ const routes: Routes = [
     path: 'seleccionar-fecha',
     loadChildren: () => import('./pages/seleccionar-fecha/seleccionar-fecha.module').then( m => m.SeleccionarFechaPageModule)
   },
+  {
+    path: 'ionic-calendar2',
+    loadChildren: () => import('./pages/ionic-calendar2/ionic-calendar2.module').then( m => m.IonicCalendar2PageModule)
+  },
+
+ {
+    path: 'crear-unirse-equipo',
+    loadChildren: () => import('./pages/crear-unirse-equipo/crear-unirse-equipo.module').then( m => m.CrearUnirseEquipoPageModule)
+  },
+
+  {
+    path: 'registro',
+    loadChildren: () => import('./pages/registro/registro.module').then( m => m.RegistroPageModule)
+  },
+  {
+    path: 'sobre-nosotros',
+    loadChildren: () => import('./pages/sobre-nosotros/sobre-nosotros.module').then( m => m.SobreNosotrosPageModule)
+  },
+
+  {
+    path: 'inicio-sesion',
+    loadChildren: () => import('./pages/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule)
+  },
+  {
+    path: 'mi-perfil',
+    loadChildren: () => import('./pages/mi-perfil/mi-perfil.module').then( m => m.MiPerfilPageModule)
+  },
+
+  {
+    path: 'perfil-equipo',
+    loadChildren: () => import('./pages/perfil-equipo/perfil-equipo.module').then( m => m.PerfilEquipoPageModule)
+  },
+  {
+    path: 'crear-equipo',
+    loadChildren: () => import('./pages/crear-equipo/crear-equipo.module').then( m => m.CrearEquipoPageModule)
+  },
+  {
+    path: 'generar-reservacion',
+    loadChildren: () => import('./pages/generar-reservacion/generar-reservacion.module').then( m => m.GenerarReservacionPageModule)
+  },
+  {
+    path: 'futplay',
+    loadChildren: () => import('./pages/futplay/futplay.module').then( m => m.FutplayPageModule)
+  },
+  {
+    path: 'mis-equipos',
+    loadChildren: () => import('./pages/mis-equipos/mis-equipos.module').then( m => m.MisEquiposPageModule)
+  },
+  {
+    path: 'mis-reservaciones',
+    loadChildren: () => import('./pages/mis-reservaciones/mis-reservaciones.module').then( m => m.MisReservacionesPageModule)
+  },
+  {
+    path: 'gestor-contrasena',
+    loadChildren: () => import('./pages/gestor-contrasena/gestor-contrasena.module').then( m => m.GestorContrasenaPageModule)
+  },
+  {
+    path: 'recuperar-contrasena',
+    loadChildren: () => import('./pages/recuperar-contrasena/recuperar-contrasena.module').then( m => m.RecuperarContrasenaPageModule)
+  },
+  {
+    path: 'metodos-pago',
+    loadChildren: () => import('./pages/metodos-pago/metodos-pago.module').then( m => m.MetodosPagoPageModule)
+  },
+  {
+    path: 'verificacion-qr',
+    loadChildren: () => import('./pages/verificacion-qr/verificacion-qr.module').then( m => m.VerificacionQrPageModule)
+  },
+  {
+    path: 'canchas',
+    loadChildren: () => import('./pages/canchas/canchas.module').then( m => m.CanchasPageModule)
+  }
 
 
- 
+
+
+
+
+
+
 
 
 

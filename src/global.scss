@@ -27,11 +27,16 @@
 
 @import url('http://fonts.cdnfonts.com/css/soccer-league');
 
+ion-content{
+
+  --ion-background-color: #ffffff;
+}
 
 .futplay-title{
   font-family: 'Soccer League'!important;
   font-family: 'Soccer League College'!important;
   min-height: 100vh;
+ // font-size: 3rem;
 }
 .btn-circle{
     --border-radius: 50%!important;
@@ -202,9 +207,11 @@ ion-modal.autoheight-modal-bottom {
   }
 }
 .border-invert{
-  height: 10rem;
-   width: 10rem; 
+  width: 14rem;
+  height: 14rem;
+  object-fit: contain;
   border: 0.4rem solid #354A53;border-radius: 50%;
+ 
 }
 ion-list ,ion-item {
   --ion-item-background: transparent;
@@ -343,6 +350,15 @@ ion-datetime{
     }
 
 }
+ion-modal.calendar-modal {
+  &::part(content){
+    --width: 90%;
+    --height: 80%;
+    --border-radius: 8px;
+  }
+}
+
+
 
 @media only screen and (min-width: 1400px) {
   ion-modal.large-modal {
@@ -381,4 +397,21 @@ ion-modal.list-modal {
 }
 .left-align-buttons .action-sheet-button-inner.sc-ion-action-sheet-ios {
   justify-content: flex-start;
+  font-size: 1rem;
+
+}
+
+.activity-detail-loading{
+  ion-backdrop{
+    opacity:  0.2 !important;
+  }
+}
+
+ion-fab .fab-list-active .fab-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(100, 100, 100, 0.5);
 }

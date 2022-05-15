@@ -12,14 +12,14 @@ import { MapaComponent } from './mapa/mapa.component';
 
 import { FormsModule } from '@angular/forms';
 import { PipesModule } from '../pipes/pipes.module';
-import { ProfileComponent } from './profile-component/profile-component';
+import { EncabezadoModalComponent } from './encabezado-modal/encabezado-modal.component';
 
 registerLocaleData(localeDe);
 @NgModule({
   declarations: [
     HeaderComponent,
     MapaComponent,
-    ProfileComponent
+    EncabezadoModalComponent
 
 
  
@@ -35,7 +35,7 @@ registerLocaleData(localeDe);
   exports:[
   HeaderComponent,
   MapaComponent,
-  ProfileComponent
+  EncabezadoModalComponent
 
   ],
   providers: [{provide: LOCALE_ID, useValue: 'es'}]

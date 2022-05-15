@@ -108,11 +108,11 @@ export class CanchasService {
     }
   
 
-    private filtrarCanchas( Cod_Provincia: number, Cod_Canton:number,Cod_Distrito:number,Precio_Hora:number){
+    private filtrarCanchas( Cod_Provincia: number, Cod_Canton:number,Cod_Distrito:number,Cod_Categoria:number){
 
       let URL = this.getURL( environment.fitrarCanchas);
      let params = environment.Cod_Provincia+ Cod_Provincia + environment.Cod_Canton_Param+ Cod_Canton +
-                  environment.Cod_Distrito_Param+ Cod_Distrito + environment.Precio_Hora_Param+ Precio_Hora
+                  environment.Cod_Distrito_Param+ Cod_Distrito + environment.Cod_Categoria_Param+ Cod_Categoria
       URL = URL+ params
   
       console.log(URL,'filtro Usuarios ')
@@ -120,9 +120,9 @@ export class CanchasService {
       return this.http.get<ListaCanchas[]>( URL );
     }
   
-     syncfiltrarCanchas( Cod_Provincia: number, Cod_Canton:number,Cod_Distrito:number,Precio_Hora:number){
+     syncfiltrarCanchas( Cod_Provincia: number, Cod_Canton:number,Cod_Distrito:number,Cod_Categoria:number){
    
-  this.filtrarCanchas(Cod_Provincia,Cod_Canton,Cod_Distrito,Precio_Hora).subscribe(
+  this.filtrarCanchas(Cod_Provincia,Cod_Canton,Cod_Distrito,Cod_Categoria).subscribe(
   
     resp =>{
   this.canchas = [];

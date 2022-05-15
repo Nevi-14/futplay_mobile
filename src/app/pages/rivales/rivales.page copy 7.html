@@ -1,0 +1,80 @@
+<ion-toolbar>
+
+<ion-label slot="start" class="ion-margin ion-text-uppercase" style="font-weight: bold; letter-spacing: 2px;"><h2>Lista Rivales</h2></ion-label>
+<ion-button slot="end" (click)="filtroUbicacion()"  fill="clear" shape="round">
+  <ion-icon size="large"  name="options-outline" ></ion-icon>
+</ion-button>
+
+</ion-toolbar>
+
+<ion-toolbar >
+
+
+  <ion-searchbar mode="ios" placeholder="buscar equipo" inputmode="text"  debounce="250" ></ion-searchbar> 
+
+
+
+  
+ 
+</ion-toolbar>
+
+
+<ion-content>
+
+
+  <div class="event-slider">
+
+    <ion-grid >
+      <ion-row *ngFor="let equipo of equiposService.equipos">
+  
+        <ion-col size="12" style="display: flex; justify-content:space-between;align-items: center;">
+          <ion-avatar >
+            <img src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
+
+
+          </ion-avatar>
+
+
+          <ion-card (click)="onOpenMenu(equipo)">
+
+
+            <ion-card-content>
+     
+              <h2 class="eventname">
+                {{equipo.Nombre}}
+                <ion-label  style="display:block; margin-top: 0.5rem;" >
+               
+             
+                       
+                  <ion-icon style="size: 10px;" name="star"></ion-icon>
+                  <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                  <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                  <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                  <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            
+              </ion-label>
+              </h2>
+     
+              <p class="location">
+                <ion-icon  name="location" class="ion-margin">
+                </ion-icon>
+                {{equipo.Nombre_Provincia}},  {{equipo.Nombre_Canton}}
+              </p>
+    
+   
+              </ion-card-content>
+      
+  
+  
+      </ion-card>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+
+
+</ion-content>
+
+

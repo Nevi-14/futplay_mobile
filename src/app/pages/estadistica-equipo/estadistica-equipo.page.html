@@ -1,57 +1,60 @@
-<ion-toolbar class="ion-padding">
-  <ion-avatar slot="start" style="display:block; height: auto; width: auto;" class="ion-text-center">
-    <img style="height: 60px; width: 60px;" src="assets/soccer-shields-svg/{{equiposService.perfilEquipo.Foto}}">
-  </ion-avatar>
 
+  <ion-header >
 
-  <ion-label class="ion-margin ion-text-uppercase">Estadistica   {{equiposService.perfilEquipo.Nombre}}</ion-label>
-</ion-toolbar>
-
-<ion-toolbar>
-
-<ion-label slot="start" class="ion-margin ion-text-uppercase">Promedios</ion-label>
-</ion-toolbar>
-<ion-content>
-
+    <ion-toolbar>
+      <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
+        <ion-buttons slot="start">
+          <ion-button color="light" (click)="cerrarModal()">
+            <ion-icon slot="start" name="chevron-back"></ion-icon>
+            &nbsp;Estadisticas {{equipo.Abreviacion}}
+          </ion-button>
+        </ion-buttons>
+        <ion-avatar slot="end" style="height: 60px; width: 60px;" >
+          <img src="assets/soccer-shields-svg/{{equipo.Foto}}">
+        
+        </ion-avatar>
+      </ion-item>
   
-  <ion-list>
+    </ion-toolbar>
+    </ion-header>
+    <ion-content fullscreen>
+      <div class="mainContent">
+        <ion-list >
 
-    <ion-item>
-      <ion-label slot="start"  class="ion-text-wrap">Total Partidos Ganados</ion-label>
-      <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
-    </ion-item> 
-    <ion-item>
-      <ion-label class="ion-text-wrap" slot="start">Total Partidos Perdidos</ion-label>
-      <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
-    </ion-item> 
-    <ion-item>
-      <ion-label  class="ion-text-wrap" slot="start">Posición Actual</ion-label>
-      <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
-    </ion-item> 
-    <ion-item>
-      <ion-label class="ion-text-wrap"  slot="start">Puntaje Actual</ion-label>
-      <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
-    </ion-item> 
-    <ion-item>
-      <ion-label class="ion-text-wrap" slot="start">Goles a Favor</ion-label>
-      <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
-    </ion-item>
-    <ion-item>
-      <ion-label  class="ion-text-wrap" slot="start">Goles Encontra</ion-label>
-      <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
-    </ion-item> 
-    <ion-item>
-      <ion-label class="ion-text-wrap" slot="start">Altura Jugadores</ion-label>
-      <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
-    </ion-item> 
-    <ion-item>
-      <ion-label class="ion-text-wrap"  slot="start">Peso Jugadores</ion-label>
-      <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
-    </ion-item> 
-  </ion-list>
-</ion-content>
-<ion-fab  (click)="cerrarModal()" vertical="top" horizontal="end" slot="fixed">
-  <ion-fab-button size="small" color="dark">
-    <ion-icon  name="arrow-back-outline"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
+          <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn" >
+            <ion-label slot="start"  class="ion-text-wrap">Total Partidos Ganados</ion-label>
+            <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
+          </ion-item> 
+          <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn" >
+            <ion-label class="ion-text-wrap" slot="start">Total Partidos Perdidos</ion-label>
+            <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
+          </ion-item> 
+          <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn" >
+            <ion-label  class="ion-text-wrap" slot="start">Posición Actual</ion-label>
+            <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
+          </ion-item> 
+          <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn" >
+            <ion-label class="ion-text-wrap"  slot="start">Puntaje Actual</ion-label>
+            <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
+          </ion-item> 
+          <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn" >
+            <ion-label class="ion-text-wrap" slot="start">Goles a Favor</ion-label>
+            <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
+          </ion-item>
+          <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn" >
+            <ion-label  class="ion-text-wrap" slot="start">Goles Encontra</ion-label>
+            <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
+          </ion-item> 
+          <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn" >
+            <ion-label class="ion-text-wrap" slot="start">Altura Jugadores</ion-label>
+            <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
+          </ion-item> 
+          <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn" >
+            <ion-label class="ion-text-wrap"  slot="start">Peso Jugadores</ion-label>
+            <ion-badge slot="end" color="dark" mode="ios">0</ion-badge>
+          </ion-item> 
+        </ion-list>
+          
+      </div>
+    </ion-content>
+

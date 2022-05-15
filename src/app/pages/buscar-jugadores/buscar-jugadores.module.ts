@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { BuscarJugadoresPageRoutingModule } from './buscar-jugadores-routing.module';
 
 import { BuscarJugadoresPage } from './buscar-jugadores.page';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    BuscarJugadoresPageRoutingModule
+    BuscarJugadoresPageRoutingModule,
+    PipesModule
   ],
   declarations: [BuscarJugadoresPage]
 })

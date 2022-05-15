@@ -9,7 +9,8 @@ import { PerfilUsuario } from '../models/perfilUsuario';
 import { AlertasService } from './alertas.service';
 import { environment } from 'src/environments/environment';
 import { SolicitudesService } from './solicitudes.service';
-
+import { GestorImagenesService } from './gestor-imagenes.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 
@@ -34,7 +35,8 @@ export class UsuariosService {
     public reservacionesService: ReservacionesService,
     public alertasService: AlertasService,
     public actionSheetCtrl: ActionSheetController,
-    public solicitudesService:SolicitudesService
+    public solicitudesService:SolicitudesService,
+    public gestorImagenesService: GestorImagenesService
     ) {
 
 
@@ -44,7 +46,7 @@ export class UsuariosService {
 
     cerrarSession(){
       this.usuarioActual = null;
-      this.route.navigate([ '/inicio/login']);
+      this.route.navigate([ '/inicio/inicio-sesion']);
     }
   
   
@@ -104,21 +106,39 @@ export class UsuariosService {
     }
 
      actualizarUsuario(usuario, Cod_Usuario ){
-
+/**
+ *       if(this.gestorImagenesService.images.length > 0){
+        usuario.Foto = this.gestorImagenesService.images[0].fileName;
+      }else{
+        usuario.Foto = '';
+      }
+     
+ */
       console.log('usuario', usuario)
       this.putProfile( usuario, Cod_Usuario ).subscribe(
         resp => {
-              
+        //  this.gestorImagenesService.startUpload(   this.gestorImagenesService.images[0])
+/**
+ *           this.gestorImagenesService.startUpload(this.gestorImagenesService.images[0],this.gestorImagenesService.images[0].fileName ,'perfil-usuario')
+ */
+console.log(resp, 'resssp')
            
-          this.syncLogin(usuario.Correo, usuario.Contrasena)
-      this.alertasService.message('FUTPLAY','Datos Actualizados')
+          this.syncDatos(usuario.Cod_Usuario)
+ 
         }, error => {
           console.log('error', error)
         }
       )
     }
 
+    private verificarUsuario( Cod_Usuario:number){
+      let URL = this.getURL( environment.actualizarDatos);
 
+      URL = URL + environment.codUsuarioParam + Cod_Usuario
+      console.log(URL)
+      return this.http.get<PerfilUsuario>( URL );
+    }
+  
 
 
   getLoginURL( api: string,correo: string, contrasena:string ){
@@ -133,6 +153,29 @@ export class UsuariosService {
     const URL = this.getLoginURL( environment.loginURL,correo,contrasena);
     console.log(URL)
     return this.http.get<PerfilUsuario>( URL );
+  }
+  syncDatos(Cod_Usuario:number){
+
+    this.alertasService.presentaLoading('Cargando datos...')
+
+    this.verificarUsuario(Cod_Usuario).subscribe(
+      resp =>{
+  this.alertasService.loadingDissmiss();
+this.usuarioActual = resp[0];
+
+console.log('feril actualziado' , resp , this.usuarioActual ,  resp[0])
+
+        
+      } , error =>{
+
+    if(error){
+      this.alertasService.message('FUTPLAY','Se ha producido un error');
+
+    }
+
+      }
+
+    );
   }
 
 
@@ -158,7 +201,7 @@ console.log(  this.usuarioActual , '  this.usuarioActual ')
    
  
     console.log('perfil usuario',  resp[0])
-    this.route.navigate(['/home/profile']);
+    this.route.navigate(['/futplay/mi-perfil']);
    })
 
         
@@ -304,7 +347,7 @@ this.alertasService.presentaLoading('Cargando Perfil de usuario')
   this.alertasService.loadingDissmiss();
    this.usuarioActual = resp[0]
 
-   this.route.navigate(['/home/profile']);
+   this.route.navigate(['/home/mi-perfil']);
 
   })
 

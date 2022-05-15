@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { FiltroCanchaPageRoutingModule } from './filtro-cancha-routing.module';
 
 import { FiltroCanchaPage } from './filtro-cancha.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FiltroCanchaPageRoutingModule
+    FiltroCanchaPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [FiltroCanchaPage]
 })

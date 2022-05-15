@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActionSheetButton, ModalController } from '@ionic/angular';
+import { ActionSheetButton, ModalController, ActionSheetController } from '@ionic/angular';
 import { UsuariosService } from '../../services/usuarios.service';
 import { EquiposService } from '../../services/equipos.service';
 import { SolicitudesService } from '../../services/solicitudes.service';
 import { SolicitudesJugadoresEquipos } from '../../models/solicitudesJugadoresEquipos';
 import { PerfilUsuario } from '../../models/perfilUsuario';
 import { FiltroJugadorPage } from '../filtro-jugador/filtro-jugador.page';
+import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
+import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
 
 @Component({
   selector: 'app-buscar-jugadores',
@@ -13,7 +15,7 @@ import { FiltroJugadorPage } from '../filtro-jugador/filtro-jugador.page';
   styleUrls: ['./buscar-jugadores.page.scss'],
 })
 export class BuscarJugadoresPage implements OnInit {
-
+  textoBuscar = '';
   stadiumProfile =  'assets/main/game-match.svg';
   solicitudJugadorEquipo:SolicitudesJugadoresEquipos = {
 
@@ -32,7 +34,8 @@ export class BuscarJugadoresPage implements OnInit {
       public modalCtrl: ModalController,
       public equiposService: EquiposService,
       public usuariosService:UsuariosService,
-      public solicitudesService:SolicitudesService
+      public solicitudesService:SolicitudesService,
+      public actionSheetCtrl: ActionSheetController
     ) { }
   
     ngOnInit() {
@@ -53,6 +56,83 @@ export class BuscarJugadoresPage implements OnInit {
   
       this.modalCtrl.dismiss();
     }
+    async perfilJugador(jugador) {
+      const modal = await this.modalCtrl.create({
+        component:PerfilJugadorPage,
+        cssClass: 'my-custom-class',
+        componentProps:{
+          perfil: jugador
+        }
+      });
+      return await modal.present();
+    }
+  
+  
+    async onOpenMenu(jugador){
+      console.log(jugador)
+      
+          const normalBtns : ActionSheetButton[] = [
+            {   
+               text: 'Detalle Jugador',
+               icon:'person-outline',
+               handler: () =>{
+       this.perfilJugador(jugador);
+               }
+              
+              },
+        
+              {   
+                text: 'Enviar Solicitud',
+                icon:'paper-plane-outline',
+                handler: () =>{
+                  this.jugadorEquipoSolicitud(jugador)
+                }
+               
+               },
+              
+               {   
+                text: 'Cancelar',
+                icon:'close-outline',
+               role:'cancel',
+               
+               }
+            
+              ]
+        
+        
+        
+        
+          const actionSheet = await this.actionSheetCtrl.create({
+            header:'Opciones',
+            cssClass: 'left-align-buttons',
+            buttons:normalBtns,
+            mode:'ios'
+          });
+        
+        
+        
+        
+        
+        await actionSheet.present();
+        
+        
+          }
+          onSearchChange(event){
+
+            this.textoBuscar = event.detail.value;
+              }
+              
+          async filtroUbicacion(){
+
+  
+     
+            const modal  = await this.modalCtrl.create({
+             component: FiltroUbicacionPage,
+             cssClass: 'my-custom-class',
+             id:'my-modal-id'
+           });
+           await modal .present();
+         }
 
 
     async filtroJugador(){

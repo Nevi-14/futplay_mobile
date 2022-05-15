@@ -21,6 +21,7 @@ export class vistaEquipos {
       public Nombre_Canton: string,
       public Cod_Distrito: number,
       public Nombre_Distrito: string,
+      public Avatar:boolean,
     ){}
 
 }

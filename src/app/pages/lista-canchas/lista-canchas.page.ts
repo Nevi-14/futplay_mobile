@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ActionSheetButton, ModalController, ActionSheetController } from '@ionic/angular';
 import { CanchasService } from 'src/app/services/canchas.service';
 import { CanchaDetallePage } from '../cancha-detalle/cancha-detalle.page';
+import { FiltroCanchaPage } from '../filtro-cancha/filtro-cancha.page';
 
 @Component({
   selector: 'app-lista-canchas',
@@ -13,7 +14,8 @@ export class ListaCanchasPage implements OnInit {
   textoBuscar = '';
   constructor(
     public modalCtrl: ModalController,
-    public canchasService: CanchasService
+    public canchasService: CanchasService,
+    public actionSheetCtrl: ActionSheetController
 
   ) { }
 
@@ -63,4 +65,66 @@ this.canchasService.syncCanchas();
 
     
   }
+
+  async onOpenMenu(cancha){
+
+    //  const canchaFavoritos = this.canchasService.canchasInFavorite(cancha);
+     //console.log(canchaFavoritos,'fav');
+      const normalBtns : ActionSheetButton[] = [
+        {   
+           text: 'Ver Cancha',
+           icon:'eye-outline',
+           handler: () =>{
+             this.canchaDetalle(cancha);
+           }
+          
+          },
+          {   
+            text: 'Reservar Cancha',
+            icon:'calendar-outline',
+            handler: () =>{
+              //this.router.navigate(['/calendar-page'])
+            //  this.retosService.getReservaciones(cancha);
+            this.retornarCancha(cancha)
+          
+            }
+           
+           },
+           {   
+            text: 'Cancelar',
+            icon:'close-outline',
+           role:'cancel',
+           
+           }
+        
+          ]
+
+
+    
+      const actionSheet = await this.actionSheetCtrl.create({
+        header:'Opciones',
+        cssClass: 'left-align-buttons',
+        buttons:normalBtns,
+        mode:'ios'
+      });
+    
+    
+    
+    
+    
+    await actionSheet.present();
+    
+    
+      }
+      async filtroUbicacion(){
+    
+      
+         
+        const modal  = await this.modalCtrl.create({
+         component: FiltroCanchaPage,
+         cssClass: 'my-custom-class',
+         id:'my-modal-id'
+       });
+       await modal .present();
+     }
 }

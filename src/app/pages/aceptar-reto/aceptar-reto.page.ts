@@ -3,7 +3,6 @@ import { ModalController, ActionSheetController } from '@ionic/angular';
 import { ListaCanchas } from 'src/app/models/listaCanchas';
 import { CanchasService } from 'src/app/services/canchas.service';
 import { GestionRetos } from '../../models/gestionRetos';
-import { QrVerificationPage } from '../qr-verification/qr-verification.page';
 import { ControlReservacionesService } from 'src/app/services/control-reservaciones.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { GestionRetosService } from '../../services/gestion-retos.service';
@@ -11,6 +10,7 @@ import { HistorialPartidoService } from 'src/app/services/historial-partido.serv
 import { HistorialPartido } from 'src/app/models/historialPartido';
 import { InicioPartidoPage } from '../inicio-partido/inicio-partido.page';
 import { vistaEquipos } from '../../models/vistaEquipos';
+import { VerificacionQrPage } from '../verificacion-qr/verificacion-qr.page';
 
 @Component({
   selector: 'app-aceptar-reto',
@@ -40,7 +40,7 @@ img = 'assets/main/team-profile.svg';
   async ngOnInit() {
 
 
-console.log('reto', this.reto)
+console.log('reto', this.reto, 'retador', this.retador, this.rival, this.cancha)
   }
   async navigate() {
      
@@ -102,7 +102,7 @@ console.log('reto', this.reto)
 this.cerrarModal();
 
     const modal = await this.modalCtrl.create({
-     component: QrVerificationPage,
+     component: VerificacionQrPage,
      cssClass:'large-modal',
      componentProps:{
        reto:this.reto,
@@ -143,7 +143,7 @@ this.cerrarModal();
     }
      aceptarReto(){
        
-      this.modalCtrl.dismiss();
+ 
 
        let confirmacion = {
         Cod_Reservacion: this.reto.Cod_Reservacion,
@@ -151,13 +151,14 @@ this.cerrarModal();
         Cod_Rival : this.reto.Cod_Rival,
         Confirmacion_Retador: true,
         Confirmacion_Rival : true,
-        Estado : true,
+        Cod_Estado : 4,
              }
 
 
       this.controlReservacionesService.actualizarReservacion(confirmacion, this.reto.Cod_Usuario, this.reto.Cod_Reservacion);
 
       this.gestionRestosService.syncRetosConfirmados(this.usuariosService.usuarioActual.Cod_Usuario)
+      this.modalCtrl.dismiss();
      }
 
   cerrarModal(){

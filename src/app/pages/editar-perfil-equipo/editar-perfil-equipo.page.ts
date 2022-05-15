@@ -7,6 +7,8 @@ import { EquiposService } from 'src/app/services/equipos.service';
 import { ProvinciasService } from 'src/app/services/provincias.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { GestorImagenesService } from 'src/app/services/gestor-imagenes.service';
+import { AlertasService } from 'src/app/services/alertas.service';
 declare const window: any; 
 @Component({
   selector: 'app-editar-perfil-equipo',
@@ -15,11 +17,16 @@ declare const window: any;
 })
 export class EditarPerfilEquipoPage implements OnInit {
   img =  'assets/main/team-profile.svg';
+  imageURL = null;
   image = '';
   @ViewChild(IonSlides) slides: IonSlides;
   avatarSlide = {
-    slidesPerView: 1
+    slidesPerView: 2.5
   }
+  showProvincia = false;
+  showCanton = false;
+  showDistrito = false;
+  teamPic = 'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/' + this.equiposService.perfilEquipo.Foto;
   
   imgs = [
     
@@ -57,11 +64,13 @@ export class EditarPerfilEquipoPage implements OnInit {
     
     
     ]
+    avatars = false;
     equipo = {
       Cod_Equipo: this.equiposService.perfilEquipo.Cod_Equipo ,
+      Avatar: this.equiposService.perfilEquipo.Avatar,
       Cod_Usuario:  this.usuariosService.usuarioActual.Cod_Usuario,
-      Cod_Provincia:  this.equiposService.perfilEquipo.Cod_Provincia,
-      Cod_Canton:  this.equiposService.perfilEquipo.Cod_Equipo,
+      Cod_Provincia: this.equiposService.perfilEquipo.Cod_Provincia,
+      Cod_Canton:  this.equiposService.perfilEquipo.Cod_Canton,
       Cod_Distrito:  this.equiposService.perfilEquipo.Cod_Distrito,
       Foto:  this.equiposService.perfilEquipo.Foto,
       Nombre:  this.equiposService.perfilEquipo.Nombre,
@@ -79,11 +88,15 @@ export class EditarPerfilEquipoPage implements OnInit {
       public distritosService: DistritosService,
       public usuariosService: UsuariosService,
       public equiposService: EquiposService,
-      public camera: Camera
+      public camera: Camera,
+      public gestorImagenesService: GestorImagenesService,
+      public alertasService: AlertasService
     ) { }
   
     ngOnInit() {
 
+
+      this. imageURL = "assets/soccer-shields-svg/"+this.equiposService.perfilEquipo.Foto
       
       const i = this.imgs.findIndex(image => image.img == this.equipo.Foto)
 
@@ -97,13 +110,69 @@ export class EditarPerfilEquipoPage implements OnInit {
         console.log(selectedImage)
       }
 
+this.provinciasService.provincias = [];
 
-      this.provinciasService.syncProvincias();
-      this.cantonesService.syncCantones(this.equipo.Cod_Provincia);
-      this.distritosService.syncDistritos(this.equipo.Cod_Provincia, this.equipo.Cod_Canton);
+      this.provinciasService.syncProvinciasPromise().then(resp =>{
+this.showProvincia = true;
+this.provinciasService.provincias = resp;
+this.equipo.Cod_Provincia = this.equiposService.perfilEquipo.Cod_Provincia 
+
+
+if(this.equipo.Cod_Provincia){
+  this.cantonesService.syncCantones(this.equipo.Cod_Provincia).then(resp =>{
+this.showCanton = true;
+this.showDistrito = null;
+this.cantonesService.cantones = resp.slice(0);
+this.alertasService.loadingDissmiss();
+this.equipo.Cod_Canton = this.equiposService.perfilEquipo.Cod_Canton
+
+if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
+  this.distritosService.syncDistritos(this.equipo.Cod_Provincia,this.equipo.Cod_Canton).then(resp =>{
+    this.distritosService.distritos = resp.slice(0);
+    this.showDistrito = true;
+    this.alertasService.loadingDissmiss();
+    this.equipo.Cod_Distrito = this.equiposService.perfilEquipo.Cod_Distrito
+  });
+
+  }
+
+
+
+  })
+
+
+
+
+
+ }else{
+  this.alertasService.loadingDissmiss();
+ }
+      });
+  
+ 
+
+
     }
-
-
+    avatar(){
+      this.avatars = !this.avatars
+    }
+    imageUpload(source:string){
+   
+      let   fileName =this.equiposService.perfilEquipo.Nombre+'-'+this.equiposService.perfilEquipo.Cod_Equipo;
+      let location = 'perfil-equipo';
+         this.gestorImagenesService.selectImage(source,fileName,location).then(resp =>{
+          this.equipo.Foto = resp;
+          this.equiposService.perfilEquipo.Foto = resp;
+    console.log(resp,  this.equipo.Foto, 'respppppppppppppppppggggg')
+    this.equipo.Avatar = false;
+    this.equiposService.actualizarEquipo(this.equipo, this.usuariosService.usuarioActual.Cod_Usuario)
+         })
+     
+       //  
+    }
+    dateF(){
+      return new Date().getTime() 
+    }
     onChange($event,identifier){
       console.log(identifier)
       switch(identifier){
@@ -182,6 +251,7 @@ export class EditarPerfilEquipoPage implements OnInit {
     img.seleccionado = true;
     this.image = img.img
     this.equipo.Foto =  img.img;
+
       console.log(this.image,'this.image')
     }
 
@@ -191,7 +261,13 @@ export class EditarPerfilEquipoPage implements OnInit {
       this.imgs[resp].seleccionado = true;
       this.image = this.imgs[resp].img
       this.equipo.Foto = this.imgs[resp].img;
+      this.equipo.Avatar = true;
       console.log(resp,'resp')
+      this.gestorImagenesService.actualizaFotoEquipo(this.equipo.Cod_Equipo, this.equipo.Avatar, this.equipo.Foto);    
+      this.equiposService.syncEquipo(this.equipo.Cod_Equipo).then(resp =>{
+console.log(resp, 'profile updated')
+        this.equiposService.perfilEquipo = resp[0];
+      })
     })
  
   }
@@ -211,12 +287,55 @@ export class EditarPerfilEquipoPage implements OnInit {
 
   
 
-  updateTeam(fActualizar:NgForm){
+  updateTeam(){
     
-    if(fActualizar.invalid) {return;}
+ //   if(fActualizar.invalid) {return;}
  console.log(this.equipo,'this.equipo')
     this.equiposService.actualizarEquipo(this.equipo, this.usuariosService.usuarioActual.Cod_Usuario)
   }
+
+  onChangeProvincias($event){
+    this.alertasService.presentaLoading('Cargando datos...')
+    this.equipo.Cod_Provincia = $event.target.value;
+    this.equipo.Cod_Canton = null;
+    this.equipo.Cod_Distrito = null;
+    this.cantonesService.cantones = [];
+    this.distritosService.distritos = [];
+ if(this.equipo.Cod_Provincia){
+  this.cantonesService.syncCantones(this.equipo.Cod_Provincia).then(resp =>{
+this.showCanton = true;
+this.showDistrito = null;
+this.cantonesService.cantones = resp.slice(0);
+this.alertasService.loadingDissmiss();
+  })
+ }else{
+  this.alertasService.loadingDissmiss();
+ }
+  }
+  onChangeCantones($event){
+    this.alertasService.presentaLoading('Cargando datos...')
+    this.equipo.Cod_Canton = $event.target.value;
+    this.equipo.Cod_Distrito = null;
+    this.distritosService.distritos = [];
+if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
+  this.distritosService.syncDistritos(this.equipo.Cod_Provincia,this.equipo.Cod_Canton).then(resp =>{
+    this.distritosService.distritos = resp.slice(0);
+    this.showDistrito = true;
+    this.alertasService.loadingDissmiss();
+    
+  })
+}else{
+  this.alertasService.loadingDissmiss();
+}
+
+  }
+
+  onChangeDistritos($event){
+
+    this.equipo.Cod_Distrito = $event.target.value;
+
+  }
+
 
 
 }

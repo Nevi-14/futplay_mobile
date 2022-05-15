@@ -25,7 +25,8 @@ export class PerfilUsuario {
     public Cod_Canton: number,
     public Canton: string,
     public Cod_Distrito:number,
-    public Distrito:string
+    public Distrito:string,
+    public Avatar: boolean
     ){}
     
     }

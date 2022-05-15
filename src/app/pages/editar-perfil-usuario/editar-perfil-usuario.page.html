@@ -1,293 +1,294 @@
 
-<ion-toolbar>
-  <ion-button slot="start" (click)="cerrarModal()" fill="clear">
-   <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
-  </ion-button>
-  <ion-label class="title ion-text-wrap">Mi Perfil  <ion-badge    color="dark" mode="ios">{{usuario.Nombre}}</ion-badge></ion-label>
+  <ion-header >
 
-</ion-toolbar>
-<ion-content  >
-  
-
-
-  <form id="form"  (ngSubmit)="updateUser(fActualizar)" #fActualizar="ngForm"  style="height: 100%; margin: 0 auto;">
-    
-  <ion-grid >
-    <ion-row>
-
-      <ion-col size="12" >
-        
-           
-        <ion-fab-button color="dark"  class="custom-button" style="position: absolute;top: 50%;left: 0px;z-index: 2;"  (click)="slidePrev()" >
-          <ion-icon  size="small"  name="chevron-back-outline"></ion-icon>
-        </ion-fab-button>
-
-        <ion-fab-button color="dark" class="custom-button" style="position: absolute;top: 50%;right:0px;z-index: 2;" (click)="slideNext()" >
-          <ion-icon  size="small" name="chevron-forward-outline"></ion-icon>
-        </ion-fab-button>
-
-
-
-        <ion-slides  (ionSlideDidChange)="slideChange($event)"  [options]="avatarSlide">
-          <ion-slide  *ngFor="let img of imgs">
-              <ion-img class="pick-avatar" 
-                      src="assets/profile/avatars/{{img.img}}"
-                      [ngClass]="{'pick-avatar-seleccionado': img.seleccionado}" (click)="seleccionarAvatar(img)"></ion-img>
-        
-        
-      
-        
-          </ion-slide>
-          </ion-slides>
-  
-          <h1>Mi Perfil</h1>
-      </ion-col>
-      <ion-col size="12" style="display: flex;justify-content: end;">
-        <ion-buttons  >
-           
-          <ion-button  size="large"      color="dark"  >
-             
-            <ion-icon  size="large" slot="icon-only" name="camera-outline" ></ion-icon>
-  
-  
-           
+    <ion-toolbar>
+      <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
+        <ion-buttons slot="start">
+          <ion-button color="light" (click)="cerrarModal()">
+            <ion-icon slot="start" name="chevron-back"></ion-icon>
+            &nbsp;Mi Perfil
           </ion-button>
-          <ion-button size="large"     color="dark">
-           
-            <ion-icon  size="large" slot="icon-only" name="image-outline"></ion-icon>
-          
-          </ion-button>
-      
         </ion-buttons>
-      </ion-col>
+
+      </ion-item>
+  
+    </ion-toolbar>
+    </ion-header>
+    <ion-content fullscreen>
+      <div class="mainContent">
+        <form id="form"  (ngSubmit)="updateUser()" #fActualizar="ngForm"  style="height: 100%; margin: 0 auto;">
     
-      <ion-col size="12" size-md="6">
-        <ion-label >
-Nombre</ion-label>
-<ion-item class="ion-margin-bottom ion-margin-top">
-    
-            <ion-input required  [(ngModel)]="usuario.Nombre"  placeholder="Nombre" name="nombre"
-            type="text"
-            ></ion-input>
-         
+          <ion-grid >
+            <ion-row>
+              <ion-col size="12"  *ngIf="avatars">
+                
+                   
+            
         
-        </ion-item>
-  
-  
-      </ion-col>
-  
-  
-      <ion-col size="12" size-md="6">
-        <ion-label >
-   
-          Apellido</ion-label>
-        <ion-item class="ion-margin-bottom ion-margin-top">
-         
-        
-          <ion-input type="text" placeholder="Primer Apellido" name="Primer_Apellido" [(ngModel)]="usuario.Primer_Apellido"   name="Primer Apellido"  autocomplete="off"></ion-input>
-        </ion-item>
-  
-  
-      </ion-col>
-      <ion-col size="12" size-md="6">
-        <ion-label>
-  Apodo</ion-label>
-        <ion-item class="ion-margin-bottom ion-margin-top">
-
-            <ion-input required  [(ngModel)]="usuario.Apodo"  placeholder="Apodo" name="apodo"
-            type="text"
-            ></ion-input>
-         
-        
-        </ion-item>
-  
-  
-      </ion-col>
-
-      <ion-col size="12" size-md="6">
-        <ion-label>
-          Posición</ion-label>
-        <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
-
-        
-            <ion-select required [(ngModel)]="usuario.Cod_Posicion"   name="Cod_Posicion">
-              <ion-select-option [value]="posicion.Cod_Posicion" *ngFor="let posicion of posicionesService.posiciones">
-                {{posicion.Posicion}} 
-              </ion-select-option>
+                <ion-slides mode="ios"    (ionSlideDidChange)="slideChange($event)"  [options]="avatarSlide">
+                  <ion-slide  *ngFor="let img of imgs">
+                      <ion-img class="pick-avatar" 
+                              src="assets/profile/avatars/{{img.img}}"
+                              [ngClass]="{'pick-avatar-seleccionado': img.seleccionado}" (click)="seleccionarAvatar(img)"></ion-img>
+                
+                
               
-              </ion-select>
-           
-        
-        </ion-item>
-  
-  
-      </ion-col>
-      <ion-col size="12" size-md="6">
-        <ion-label>
-          Estatura</ion-label>
-        <ion-item class="ion-margin-bottom ion-margin-top">
-    
-            <ion-input required  [(ngModel)]="usuario.Estatura"  placeholder="Estatura" name="estatura"
-            type="text"
-            ></ion-input>
-         
-        
-        </ion-item>
-  
-  
-      </ion-col>
-
-      <ion-col size="12" size-md="6">
-        <ion-label>
-          Peso</ion-label>
-        <ion-item class="ion-margin-bottom ion-margin-top">
-         
-            <ion-input required  [(ngModel)]="usuario.Peso"  placeholder="Peso" name="peso"
-            type="text"
-            ></ion-input>
-         
-        
-        </ion-item>
-  
-  
-      </ion-col>
-
-      <ion-col size="12" size-md="6">
-        <ion-label>
-
+                
+                  </ion-slide>
+                  </ion-slides>
           
-          Correo</ion-label>
-        <ion-item class="ion-margin-bottom ion-margin-top">
-   
-          <ion-input type="email" placeholder="Correo" name="Correo"  [(ngModel)]="usuario.Correo"   autocomplete="off"></ion-input>
+                  <h3>{{usuario.Nombre}} {{usuario.Primer_Apellido}} {{usuario.Segundo_Apellido}}</h3>
+              </ion-col>
         
-        </ion-item>
-  
-  
-      </ion-col>
-      <ion-col size="12" size-md="6">
-        <ion-label>
-
-          Telefono</ion-label>
-        <ion-item class="ion-margin-bottom ion-margin-top">
-     
-          <ion-input type="tel" placeholder="Telefono"  name="Telefono"   [(ngModel)]="usuario.Telefono"   autocomplete="off"></ion-input>
+              <ion-col size="12" size-md="7" size-lg="7" class="ion-text-center" *ngIf="!avatars">
         
-        </ion-item>
-  
-  
-      </ion-col>
-  
-  
-      <ion-col size="12" size-md="6">
-        <ion-label >
-          Fecha de Nacimiento</ion-label>
-        <ion-item class="ion-margin-bottom ion-margin-top" (click)="SelectDate()">
-          <ion-input   name="Fecha_Nacimiento"  type="text"  [value]="usuario.Fecha_Nacimiento  | date :'longDate'" placeholder="Fecha Nacimiento"></ion-input>            
-                                      
-        </ion-item>
-     
-  
-  
-  
-  
-      </ion-col>
-  
-      <ion-col size="12" size-md="6">
-        <ion-label >
-       
-          Provincia</ion-label>
-        <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
-     
-            <ion-select (click)="syncProvincias()" required [(ngModel)]="usuario.Cod_Provincia" (ionChange)="onChange($event, true,false,false)"   name="Cod_Provincia">
-              <ion-select-option [value]="provincia.Cod_Provincia" *ngFor="let provincia of provinciasService.provincias">
-                {{provincia.Provincia}}
-              </ion-select-option>
-              
-              </ion-select>
-        </ion-item>
-  
-  
-      </ion-col>
-  
-      <ion-col size="12" size-md="6">
-        <ion-label>
-      
-          Cantón</ion-label>
-          <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
-    
-            <ion-select  required [(ngModel)]="usuario.Cod_Canton"  (ionChange)="onChange($event, false,true,false)"   name="Cod_Canton" >
-              <ion-select-option [value]="canton.Cod_Canton" *ngFor="let canton of cantonesService.cantones">
-                {{canton.Canton}}
-              </ion-select-option>
-              
-              </ion-select>
-        </ion-item>
-  
-  
-      </ion-col>
-  
-      <ion-col size="12" size-md="6">
-        <ion-label>
-
-          Distrito</ion-label>
-          <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
-
-            <ion-select required   [(ngModel)]="usuario.Cod_Distrito"   (ionChange)="onChange($event, false,false,true)" name="Cod_Distrito">
-              <ion-select-option [value]="distrito.Cod_Distrito" *ngFor="let distrito of distritosService.distritos">
-                {{distrito.Distrito}}
-              </ion-select-option>
+                <div class="circle-image" *ngIf="this.gestorImagenesService.images.length === 0">
+                  <img src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/' + this.userService.usuarioActual.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+                  
+                </div>
+                
+                <div class="circle-image" *ngIf="this.gestorImagenesService.images.length > 0" >
+                  <img src="{{this.gestorImagenesService.images[0].data}}" alt="">
+                  
+                </div>
+                
         
-            </ion-select>
-        </ion-item>
-  
-  
-      </ion-col>
-  
-
-      
-  
-      <ion-col size="12" class="ion-text-center ion-margin">
-       
-        <ion-button [disabled]="fActualizar.invalid" type="submit"
-                  color="dark"
-                  shape="round"     
-                  fill="outline" >
-                      Actualizar usuario
+        
+        
+                <h3 class="ion-text-center">{{usuario.Nombre}} {{usuario.Primer_Apellido}} {{usuario.Segundo_Apellido}}</h3>
+        
+              </ion-col>
+        
+            
+              <ion-col size="12" style="display: flex;justify-content: end;">
+                <ion-buttons  >
+                  <ion-button  (click)="avatar()" size="large"      color="dark"  >
+                     
+                    <ion-icon  size="large" slot="icon-only" name="{{avatars ? 'close-outline' : 'albums-outline'}}" ></ion-icon>
+          
+          
+                   
                   </ion-button>
-         
-      </ion-col>
-
-  
-  
-  
-
-  
-  
-  
-  
-  
-  
-    </ion-row>
-  </ion-grid>
+                  <ion-button  (click)="imageUpload('camera')" size="large"      color="dark"  *ngIf="!avatars">
+                     
+                    <ion-icon  size="large" slot="icon-only" name="camera-outline" ></ion-icon>
+          
+          
+                   
+                  </ion-button>
+                  <ion-button (click)="imageUpload('photos')" size="large"     color="dark" *ngIf="!avatars">
+                   
+                    <ion-icon  size="large" slot="icon-only" name="image-outline"></ion-icon>
+                  
+                  </ion-button>
+              
+                </ion-buttons>
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <ion-label >
+        Nombre</ion-label>
+        <ion-item class="ion-margin-bottom ion-margin-top">
+            
+                    <ion-input required  name="nombre"  [(ngModel)]="usuario.Nombre"  placeholder="Nombre" 
+                    type="text"
+                    ></ion-input>
+                 
+                
+                </ion-item>
+          
+          
+              </ion-col>
+          
+          
+              <ion-col size="12" size-md="6">
+                <ion-label >
+           
+                  Apellido</ion-label>
+                <ion-item class="ion-margin-bottom ion-margin-top">
+                 
+                
+                  <ion-input type="text" placeholder="Primer Apellido" name="Primer_Apellido" [(ngModel)]="usuario.Primer_Apellido"   name="Primer Apellido"  autocomplete="off"></ion-input>
+                </ion-item>
+          
+          
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <ion-label>
+          Apodo</ion-label>
+                <ion-item class="ion-margin-bottom ion-margin-top">
+        
+                    <ion-input required  [(ngModel)]="usuario.Apodo"  placeholder="Apodo" name="apodo"
+                    type="text"
+                    ></ion-input>
+                 
+                
+                </ion-item>
+          
+          
+              </ion-col>
+        
+              <ion-col size="12" size-md="6" *ngIf="showPosicion">
+                <ion-label>
+                  Posición</ion-label>
+                <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
+        
+                
+                    <ion-select required [(ngModel)]="usuario.Cod_Posicion"   name="Cod_Posicion">
+                      <ion-select-option [value]="posicion.Cod_Posicion" *ngFor="let posicion of posicionesService.posiciones">
+                        {{posicion.Posicion}} 
+                      </ion-select-option>
+                      
+                      </ion-select>
+                   
+                
+                </ion-item>
+          
+          
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <ion-label>
+                  Estatura</ion-label>
+                <ion-item class="ion-margin-bottom ion-margin-top">
+            
+                    <ion-input required  [(ngModel)]="usuario.Estatura"  placeholder="Estatura" name="estatura"
+                    type="text"
+                    ></ion-input>
+                 
+                
+                </ion-item>
+          
+          
+              </ion-col>
+        
+              <ion-col size="12" size-md="6">
+                <ion-label>
+                  Peso</ion-label>
+                <ion-item class="ion-margin-bottom ion-margin-top">
+                 
+                    <ion-input required  [(ngModel)]="usuario.Peso"  placeholder="Peso" name="peso"
+                    type="text"
+                    ></ion-input>
+                 
+                
+                </ion-item>
+          
+          
+              </ion-col>
+        
+              <ion-col size="12" size-md="6">
+                <ion-label>
+        
+                  
+                  Correo</ion-label>
+                <ion-item class="ion-margin-bottom ion-margin-top">
+           
+                  <ion-input type="email" placeholder="Correo" name="Correo"  [(ngModel)]="usuario.Correo"   autocomplete="off"></ion-input>
+                
+                </ion-item>
+          
+          
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <ion-label>
+        
+                  Telefono</ion-label>
+                <ion-item class="ion-margin-bottom ion-margin-top">
+             
+                  <ion-input type="tel" placeholder="Telefono"  name="Telefono"   [(ngModel)]="usuario.Telefono"   autocomplete="off"></ion-input>
+                
+                </ion-item>
+          
+          
+              </ion-col>
+          
+          
+              <ion-col size="12" size-md="6">
+                <ion-label >
+                  Fecha de Nacimiento</ion-label>
+                <ion-item class="ion-margin-bottom ion-margin-top" (click)="SelectDate()">
+                  <ion-input   name="Fecha_Nacimiento"  type="text"  [value]="usuario.Fecha_Nacimiento  | date :'longDate'" placeholder="Fecha Nacimiento"></ion-input>            
+                                              
+                </ion-item>
+             
+          
+          
+          
+          
+              </ion-col>
+          
+              <ion-col size="12" size-md="6" *ngIf="showProvicia">
+          
+                <ion-label>Provincia</ion-label>
+                <ion-item class="ion-margin-bottom ion-margin-top">
+            
+                      <ion-select placeholder="Provincia" required [(ngModel)]="usuario.Cod_Provincia" (ionChange)="onChangeProvincias($event)"   name="Cod_Provincia">
+                        <ion-select-option [value]="provincia.Cod_Provincia" *ngFor="let provincia of provinciasService.provincias">
+                          {{provincia.Provincia}}
+                        </ion-select-option>
+                        
+                        </ion-select>
+                  </ion-item>
+              
+          
+              </ion-col>
+          
+              <ion-col size="12" size-md="6" *ngIf="showCanton">
+                <ion-label *ngIf="showCanton">Cantón</ion-label>
+                  <ion-item *ngIf="showCanton" class="ion-margin-bottom ion-margin-top">
+            
+                      <ion-select placeholder="Canton"  required [(ngModel)]="usuario.Cod_Canton"  (ionChange)="onChangeCantones($event)"   name="Cod_Canton" >
+                        <ion-select-option [value]="canton.Cod_Canton" *ngFor="let canton of cantonesService.cantones">
+                          {{canton.Canton}}
+                        </ion-select-option>
+                        
+                        </ion-select>
+                  </ion-item>
+              
+          
+              </ion-col>
+          
+              <ion-col size="12" size-md="6" *ngIf="showDistrito">
+                <ion-label *ngIf="showDistrito">Distrito</ion-label>
+                <ion-item *ngIf="showDistrito"  class="ion-margin-bottom ion-margin-top">
+          
+                    <ion-select placeholder="Distrito" required   [(ngModel)]="usuario.Cod_Distrito"   (ionChange)="onChangeDistritos($event)" name="Cod_Distrito">
+                      <ion-select-option [value]="distrito.Cod_Distrito" *ngFor="let distrito of distritosService.distritos">
+                        {{distrito.Distrito}}
+                      </ion-select-option>
+                
+                    </ion-select>
+                </ion-item>
+      
+          
+              </ion-col>
+          
+        
+              
     
-  
+          
+          
+          
+          
+          
+          
+            </ion-row>
+          </ion-grid>
+            
+          
+        
+          </form>
+          
+      </div>
+    </ion-content>
+    <ion-footer>
+ 
+       
+       <ion-button  (click)="updateUser()"  >
+        <ion-label>  Actualizar usuario</ion-label>
+              </ion-button>
+       <ion-button    >
+  <ion-label>Eliminar</ion-label>
+       </ion-button>
 
-  </form>
+    </ion-footer>
   
-  
-  </ion-content>
-
-
-
-  
-  <ion-modal id="fecha" trigger="Fecha_Nacimiento">
-    <ng-template>
-      <ion-datetime
-      name="Fecha_Nacimiento"
-        presentation="date"
-        [value]="usuario.Fecha_Nacimiento"
-        (ionChange)="formatDate($event)"
-      ></ion-datetime>
-    </ng-template>
-  </ion-modal>

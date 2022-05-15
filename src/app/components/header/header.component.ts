@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, PopoverController } from '@ionic/angular';
-import { MyReservationsPage } from 'src/app/pages/my-reservations/my-reservations.page';
 import { EquiposService } from '../../services/equipos.service';
 import { GestionRetosService } from 'src/app/services/gestion-retos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { MisReservacionesPage } from '../../pages/mis-reservaciones/mis-reservaciones.page';
 
 
 @Component({
@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit {
 
   async presentModal() {
     const modal = await this.modalCtrl.create({
-      component: MyReservationsPage,
+      component: MisReservacionesPage,
       cssClass: 'my-custom-class'
     });
     return await modal.present();

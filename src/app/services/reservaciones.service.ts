@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.prod';
 import { BloqueoCanchas } from '../models/bloqueoCanchas';
 import { ReservacionesCanchasUsuarios } from '../models/Reservaciones_Canchas_Usuarios';
 import { Router } from '@angular/router';
@@ -10,6 +9,7 @@ import { LoadingController, AlertController, ModalController } from '@ionic/angu
 import { UsuariosService } from './usuarios.service';
 import { AlertasService } from './alertas.service';
 import { Reservaciones } from '../models/reservaciones';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -61,12 +61,12 @@ bloqueo = {
 
 
 
-  getURL( api: string,id: string ){
+  getURL( api: string ){
     let test: string = ''
     if ( !environment.prdMode ) {
       test = environment.TestURL;
     }
-    const URL = environment.preURL  + test +  environment.postURL + api + environment.codCanchaParam + id;
+    const URL = environment.preURL  + test +  environment.postURL + api  
 console.log(URL);
     return URL;
   }
@@ -86,7 +86,8 @@ console.log(URL);
 
   private getReservaciones(Cod_Cancha ){
 
-    const URL = this.getURL( environment.reservacionesUrl,Cod_Cancha);
+    let URL = this.getURL( environment.reservacionesUrl);
+    URL = URL + environment.codCanchaParam + Cod_Cancha;
 
     return this.http.get<ReservacionesCanchasUsuarios[]>( URL );
 
@@ -96,9 +97,9 @@ console.log(URL);
 
   private getReservacionesporCancha(Cod_Cancha ){
 
-    const URL = this.getURL( environment.reservacionesUrl,Cod_Cancha);
+    let URL = this.getURL( environment.reservacionesUrl);
 
-
+    URL = URL + environment.codCanchaParam + Cod_Cancha;
 
     return this.http.get<ReservacionesCanchasUsuarios[]>( URL );
 
@@ -310,7 +311,7 @@ console.log(this.eventSource,'srouce')
       // POST CANCHA
 
       private postReservaciones (reservacion){
-        const URL = this.getURL( environment.bloqueoCanchasURL, '' );
+        const URL = this.getURL( environment.bloqueoCanchasURL);
         const options = {
           headers: {
               'Content-Type': 'application/json',
@@ -319,40 +320,13 @@ console.log(this.eventSource,'srouce')
           }
         };
        
+        console.log('POST URL', URL)
         return this.http.post( URL, JSON.stringify(reservacion), options );
       }
     
       insertarReservacion(reservacion){
-
-        this.postReservaciones(reservacion).subscribe(
-  
-          resp => {
-          this.alertasService.message('FUTPLAY', 'La reservación se efectuo con excito ')
-            console.log(resp, 'post');
-      //     this.loadingDissmiss();
-          // this.canchasService.syncCanchasParam( reservacion.Cod_Usuario)
-      
-          
-          
-      this.syncReservacionesCanchaActual(reservacion.Cod_Cancha)
-       
-      this.bloqueo = {
-        Cod_Cancha:  null,
-        Cod_Usuario:  null,
-        Reservacion_Externa: true,
-        Titulo: null,
-        Fecha:   null,
-        Hora_Inicio:  null,
-        Hora_Fin: null,
-        Estado:  true,
-        diaCompleto:  false,
-        Descripcion: ''
-       }
-          }, error => {
-            console.log(this.bloqueo);
-           console.log('error')
-          }
-        )
+console.log(reservacion, 'post')
+    return    this.postReservaciones(reservacion).toPromise();
 
   /**
    *       if(!this.bloqueo.Cod_Usuario){

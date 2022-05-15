@@ -1,71 +1,94 @@
+<app-encabezado-modal></app-encabezado-modal>
 
 <ion-content>
 
-  <ion-list>
-    <ion-list-header style="margin-bottom: 2rem;">
-      <ion-button (click)="cerrarModal()"> <ion-icon  name="arrow-back-outline"></ion-icon></ion-button>
-      <ion-label style="font-size: 1rem" class="ion-text-uppercase">Filtro Canchas</ion-label>
-    </ion-list-header>
 
-      <ion-item>
-        <ion-label class="standard-label" position="stacked">
-          <ion-icon slot="icon-only" name="location-outline"></ion-icon>
+
+  <ion-grid  style="height: 100%;">
+    <ion-row style="  margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);">
+      <ion-col size="12" size-md="6">
+        <ion-label >
+       
+          Categoria</ion-label>
+        <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
+     
+          <ion-select placeholder="Categoria"   [(ngModel)]="filtro.Cod_Categoria"    name="categoria">
+              <ion-select-option [value]="categoria.Cod_Categoria" *ngFor="let categoria of categoriaCanchasService.categoria_canchas">
+                {{categoria.Nombre}}
+              </ion-select-option>
+              
+              </ion-select>
+        </ion-item>
+  
+  
+      </ion-col>
+
+      <ion-col size="12" size-md="6">
+        <ion-label >
+       
           Provincia</ion-label>
-          <ion-select  required [(ngModel)]="filtro.Cod_Provincia" (ionChange)="onChange($event, true,false,false)"   name="Cod_Provincia">
-            <ion-select-option [value]="provincia.Cod_Provincia" *ngFor="let provincia of provinciasService.provincias">
-              {{provincia.Provincia}}
-            </ion-select-option>
-            
-            </ion-select>
-      </ion-item>
-
-
-
-
-      <ion-item>
-        <ion-label class="standard-label" position="stacked">
-          <ion-icon slot="icon-only" name="location-outline"></ion-icon>
-          Cantón</ion-label>
-          <ion-select  required [(ngModel)]="filtro.Cod_Canton"  (ionChange)="onChange($event, false,true,false)"   name="Cod_Canton" >
-            <ion-select-option [value]="canton.Cod_Canton" *ngFor="let canton of cantonesService.cantones">
-              {{canton.Canton}}
-            </ion-select-option>
-            
-            </ion-select>
-      </ion-item>
-
-
-
-      <ion-item>
-        <ion-label class="standard-label" position="stacked">
-          <ion-icon slot="icon-only" name="location-outline"></ion-icon>
-          Distrito</ion-label>
-          <ion-select required   [(ngModel)]="filtro.Cod_Distrito"   (ionChange)="onChange($event, false,false,true)" name="Cod_Distrito">
-            <ion-select-option [value]="distrito.Cod_Distrito" *ngFor="let distrito of distritosService.distritos">
-              {{distrito.Distrito}}
-            </ion-select-option>
+        <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
+     
+          <ion-select placeholder="Provincia"  required [(ngModel)]="filtro.Cod_Provincia" (ionChange)="onChange($event, true,false,false)"   name="Cod_Provincia">
+              <ion-select-option [value]="provincia.Cod_Provincia" *ngFor="let provincia of provinciasService.provincias">
+                {{provincia.Provincia}}
+              </ion-select-option>
+              
+              </ion-select>
+        </ion-item>
+  
+  
+      </ion-col>
+  
+      <ion-col size="12" size-md="6">
+        <ion-label>
       
-          </ion-select>
-      </ion-item>
+          Cantón</ion-label>
+          <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
+            <ion-select   placeholder="Canton" required [(ngModel)]="filtro.Cod_Canton"  (ionChange)="onChange($event, false,true,false)"   name="Cod_Canton" >
+              <ion-select-option [value]="canton.Cod_Canton" *ngFor="let canton of cantonesService.cantones">
+                {{canton.Canton}}
+              </ion-select-option>
+              
+              </ion-select>
+        </ion-item>
+  
+  
+      </ion-col>
+  
+      <ion-col size="12" size-md="6">
+        <ion-label>
 
-      <ion-item>
-        <ion-label class="standard-label" position="stacked">
-          <ion-icon slot="icon-only" name="location-outline"></ion-icon>
-          Precio  </ion-label>
-        <ion-input type="text" [(ngModel)]="filtro.Precio"></ion-input>
-          <ion-range min="0" max="60000" [(ngModel)]="filtro.Precio"  [pin]="true"></ion-range>
-      </ion-item>
+          Distrito</ion-label>
+          <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
 
+            <ion-select   placeholder="Distrito" required   [(ngModel)]="filtro.Cod_Distrito"   (ionChange)="onChange($event, false,false,true)" name="Cod_Distrito">
+              <ion-select-option [value]="distrito.Cod_Distrito" *ngFor="let distrito of distritosService.distritos">
+                {{distrito.Distrito}}
+              </ion-select-option>
+        
+            </ion-select>
+        </ion-item>
+  
+  
+      </ion-col>
+  
 
+    </ion-row>
+  </ion-grid>
 
-  </ion-list>
 </ion-content>
 
 
 
 
+
 <ion-fab  (click)="submit()" vertical="bottom" horizontal="end" slot="fixed">
-  <ion-fab-button size="small" color="dark">
+  <ion-fab-button  color="dark">
     <ion-icon  name="arrow-forward-outline"></ion-icon>
   </ion-fab-button>
 </ion-fab>

@@ -1,3 +1,120 @@
-ion-content{
-    --background:#fff;
+
+
+.circle-image {
+  display: inline-block;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 16rem;
+  height: 16rem;
+
 }
+
+.circle-image img{
+
+  width: 100%;
+  height: 100%;
+  object-fit: cover ;
+}
+
+ion-card-subtitle {
+
+    padding-left: 1.2rem;
+    margin-top: 1.9rem;
+    padding-bottom: 0.3rem;
+    --color: white;
+}
+
+
+
+ion-list {
+
+    background-color: #e7edfb;
+}
+
+ion-footer {
+
+    background-color: #e7edfb;
+    padding: 1rem;
+
+    ion-button {
+
+        --background: #5a55ca;
+        --background-focused: #6f6bbb;
+        --background-activated: #6f6bbb;
+        --padding-top: 1rem;
+        --padding-bottom: 1rem;
+        --padding-start: 0.75rem;
+        --padding-end: 0.75rem;
+        height: 3.5rem;
+        font-weight: 700;
+    }
+}
+
+.transparent{
+--background: transparent!important;
+}
+.mainContent {
+
+
+background-color: #e7edfb;
+height: 100%;
+width: 100%;
+overflow: scroll !important;
+border-top-left-radius: 30px;
+border-top-right-radius: 30px;
+}
+ion-searchbar {
+
+  --border-radius: 10px;
+  --background: white;
+  --color: black;
+  min-height: 5rem;
+  padding: 1rem;
+  padding-top: 0;
+  margin-top: -1rem;
+}
+ion-avatar{
+  height: 5rem; width: 5rem;
+}
+.employeeItem {
+
+    --border-radius: 10px;
+   margin: 0 auto;
+   margin-top: 0.5rem;
+   margin-bottom: 0.5rem;
+   width: 90%;
+
+    }
+    
+    .ion-button {
+    
+      --background: #5a55ca;
+      --background-focused: #6f6bbb;
+      --background-activated: #6f6bbb;
+      --padding-top: 1rem;
+      --padding-bottom: 1rem;
+      --padding-start: 0.75rem;
+      --padding-end: 0.75rem;
+      color: #fff;
+      margin-right: 0.5rem;
+  }
+  ion-slides{
+    --background: transparent!important;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 0.5rem;
+    ion-button  {
+      color: #fff;
+      font-size: 1rem;
+    }
+  }
+  
+  .active-category{
+    --background: #5a55ca;
+    --background-focused: #6f6bbb;
+    --background-activated: #6f6bbb;
+    --color:#fff;
+    --border-radius:30px;
+    font-weight: 600;
+  }
+

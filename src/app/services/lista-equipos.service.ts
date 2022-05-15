@@ -6,8 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { ModalController } from '@ionic/angular';
 import { EquipoDetalleModalPage } from '../pages/equipo-detalle-modal/equipo-detalle-modal.page';
 import { vistaEquipos } from '../models/vistaEquipos';
-import { EquipoReservacionPage } from '../pages/equipo-reservacion/equipo-reservacion.page';
 import { AlertasService } from './alertas.service';
+import { GenerarReservacionPage } from '../pages/generar-reservacion/generar-reservacion.page';
 
 @Injectable({
   providedIn: 'root'
@@ -85,7 +85,7 @@ export class ListaEquiposService {
   
      
     const modal  = await this.modalCtrl.create({
-     component: EquipoReservacionPage,
+     component: GenerarReservacionPage,
      cssClass: 'my-custom-class',
      componentProps:{
       equipo:equipo

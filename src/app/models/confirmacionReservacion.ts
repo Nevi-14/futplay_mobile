@@ -7,7 +7,7 @@ public Cod_Retador : number,
 public Cod_Rival : number,
 public Confirmacion_Retador: boolean,
 public Confirmacion_Rival : boolean,
-public Estado : boolean,
+public Cod_Estado:  number,
 ){
 
 }

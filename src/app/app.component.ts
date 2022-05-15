@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
     this.equiposService.stadiumProfile =  'assets/main/team-profile.jpg';
 
   if(this.user.usuarioActual == null){
-    this.router.navigate(['/inicio/login'])
+    this.router.navigate(['/inicio/inicio-sesion'])
   }
     (mapboxgl as any ).accessToken = environment.mapboxKey;
 

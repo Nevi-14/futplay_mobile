@@ -3,7 +3,8 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AlertasService } from './alertas.service';
 import { ModalController } from '@ionic/angular';
-import { MyReservationsPage } from '../pages/my-reservations/my-reservations.page';
+import { MisReservacionesPage } from '../pages/mis-reservaciones/mis-reservaciones.page';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -64,7 +65,7 @@ console.log(confirmacion,'confirmacion')
 
       async presentModal() {
         const modal = await this.modalCtrl.create({
-          component: MyReservationsPage,
+          component: MisReservacionesPage,
           cssClass: 'my-custom-class'
         });
         return await modal.present();

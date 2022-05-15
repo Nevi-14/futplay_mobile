@@ -54,4 +54,10 @@ console.log('prinvicias')
 
     );
   }
+
+  syncProvinciasPromise(){
+    console.log('prinvicias')
+    
+    return    this.getProvincias().toPromise();
+      }
 }

@@ -34,19 +34,6 @@ console.log(URL);
 
   syncDistritos(provincia,canton){
 
-    this.getDistritos(provincia,canton).subscribe(
-      resp =>{
-        this.distritos = resp.slice(0);
-console.log( this.distritos, 'distritos')
-      }, error =>{
-
-        if(error){
-
-          this.aslertasService.message('FUTPLAY', 'Error cargando distritos');
-
-        }
-      }
-
-    );
+    return this.getDistritos(provincia,canton).toPromise();
   }
 }

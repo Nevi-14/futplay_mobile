@@ -1,0 +1,55 @@
+
+  <ion-header >
+
+    <ion-toolbar>
+      <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
+        <ion-buttons slot="start">
+          <ion-button  (click)="cerrarModal()" color="light">
+            <ion-icon slot="start" name="chevron-back"></ion-icon>
+            &nbsp;Mis Equipos
+          </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button color="light">
+            <ion-icon slot="start" name="chevron-forward"></ion-icon>
+            Otros&nbsp;
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+  
+      <ion-searchbar></ion-searchbar>
+    </ion-toolbar>
+    </ion-header>
+    <ion-content fullscreen>
+      <div class="mainContent">
+  
+        <ion-list>
+          <ion-item (click)="seleccionarEquipo(equipo)" lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.misEquipos; let i = index;">
+            <ion-avatar slot="start"  >
+              <img *ngIf="!equipo.Avatar"  src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
+              <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
+     
+            </ion-avatar>
+            
+            <ion-label>
+              {{equipo.Nombre}}
+              <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
+              
+                <ion-icon style="size: 10px;" name="star"></ion-icon>
+                <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+              </p>
+            </ion-label>
+  
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-content>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="crearUnirseEquipo()" color="dark">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-fab-button>
+  
+    </ion-fab>

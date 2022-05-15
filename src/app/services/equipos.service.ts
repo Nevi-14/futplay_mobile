@@ -55,36 +55,8 @@ jugadoresPerfilEquipo : JugadoresEquipos[]=[];
     return this.http.get<vistaEquipos[]>( URL );
   }
   SyncMisEquipos(Cod_Usuario){
-
-  //  this.alertasService.presentaLoading('Cargando lista de equipos')
-   this.perfilEquipo = null;
    
-    this.getMisEquipos(Cod_Usuario).subscribe(
-      resp =>{
-        this.misEquipos = [];
-        this.misEquipos = resp;
-// this.alertasService.loadingDissmiss();
-        this.perfilEquipo =  this.misEquipos[0]
-console.log(this.perfilEquipo, 'perfil equipo', 'misqui', this.misEquipos[0])
-        console.log('mis equipos', this.misEquipos)
-       if(this.misEquipos.length  > 0){
-         this.new = false
-         this.SyncJugadoresEquipos( this.perfilEquipo.Cod_Equipo).then( jugadores =>{
-
-          this.jugadoresPerfilEquipo = []
-          this.jugadoresPerfilEquipo = jugadores;
-          this.solicitudesService.syncGetSolicitudesEquipos(this.perfilEquipo.Cod_Equipo, true,false, true);
-     
-        
-        })
-       }else{
-         this.new = true;
-       }
-      }, error =>  {
-   //     this.alertasService.loadingDissmiss();
-      }
- 
-    );
+   return  this.getMisEquipos(Cod_Usuario).toPromise();
   }
   private   putEquipo( equipo, Cod_Usuario ){
     let URL = this.getURL( environment.equiposURL);
@@ -155,24 +127,13 @@ return this.getJugadoresEquipos(Cod_Usuario).toPromise();
 
   SyncEquipos(Cod_Usuario){
    // this.alertasService.presentaLoading('Cargando lista de rivales')
-    this.getEquipos(Cod_Usuario).subscribe(
-      resp =>{
-        this.equipos = resp.slice(0);
-        console.log('provinaisdkdkdk', this.equipos)
-
-     //   this.alertasService.loadingDissmiss();
-       
-      }, error =>{
-        // this.alertasService.loadingDissmiss();
-      }
- 
-    );
+    return this.getEquipos(Cod_Usuario).toPromise();
   }
 
-   syncEquipo(Cod_Cancha){
+   syncEquipo(Cod_Equipo){
 
 
-    return this.getCodEquipo(Cod_Cancha).toPromise();
+    return this.getCodEquipo(Cod_Equipo).toPromise();
 
    }
 

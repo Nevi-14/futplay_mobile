@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ActionSheetButton, ActionSheetController, ModalController } from '@ionic/angular';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
 import { BuscarJugadoresPage } from '../buscar-jugadores/buscar-jugadores.page';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
 
 @Component({
   selector: 'app-solicitudes-equipos',
@@ -13,16 +15,124 @@ export class SolicitudesEquiposPage implements OnInit {
   stadiumProfile =  'assets/main/game-match.svg';
   public tipos : string[]=['recibidos','enviados'];
   public selectedType: string = this.tipos[0];
+  title = 'Recibidas'
+  showReceive = true;
+  showSend = false;
   constructor(
     public modalCtrl:ModalController,
     public solicitudesService:SolicitudesService,
-    public equiposService: EquiposService
+    public equiposService: EquiposService,
+    public actionSheetCtrl: ActionSheetController,
+    public usuariosService: UsuariosService
   ) { }
 
   ngOnInit() {
+  
     this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, true,false, true)
 
   }
+
+  async perfilJugador(jugador) {
+    const modal = await this.modalCtrl.create({
+      component:PerfilJugadorPage,
+      cssClass: 'my-custom-class',
+      componentProps:{
+        perfil: jugador
+      }
+    });
+    return await modal.present();
+  }
+
+  async onOpenMenu(solicitud){
+
+if(this.usuariosService.usuarios.length == 0){
+  
+  this.usuariosService.syncUsusarios(this.usuariosService.usuarioActual.Cod_Usuario);
+
+}
+
+    const normalBtns : ActionSheetButton[] = [
+      {   
+         text: 'Detalle',
+         icon:'eye-outline',
+         handler: () =>{
+let usuario = null;
+           let i = this.usuariosService.usuarios.findIndex(usu => usu.Cod_Usuario == solicitud.Cod_Usuario)
+
+           if(i >=0){
+            usuario = this.usuariosService.usuarios[i];
+            this.perfilJugador(usuario);
+
+           }
+          console.log(solicitud,'solicitud')
+         
+         }
+        
+        },
+ {   
+ //   text: canchaFavoritos ? 'Remover Favorito' : 'Favorito',
+   // icon: canchaFavoritos ? 'heart' : 'heart-outline',
+   text: 'Aceptar',
+   icon:'checkmark-outline',
+    handler: () =>{
+     this.aceptar(solicitud)
+    }
+   
+   },
+ 
+         {   
+          text: 'Eliminar',
+          icon:'trash-outline',
+          handler: () =>{
+          this.rechazar(solicitud)
+       
+          }
+         
+         },
+
+         {   
+          text: 'Cancelar',
+          icon:'close-outline',
+         role:'cancel',
+         
+         }
+      
+        ]
+
+  
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Opiones Solicitud'+' '+  solicitud.Nombre_Jugador +' ' + solicitud.Primer_Apellido,
+      cssClass: 'left-align-buttons',
+      buttons:normalBtns,
+      mode:'ios'
+    });
+  
+  
+  
+  
+  
+  await actionSheet.present();
+  
+  
+    }
+
+  send(){
+    this.showSend = true;
+    this.showReceive = false;
+
+    this.title = 'Enviadas'
+    this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, false,true, true)
+  }
+
+  receive(){
+    this.showReceive = true;
+    this.showSend = false;
+    this.title = 'Recibidas'
+    this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, true,false, true)
+
+
+  }
+  
   segmentChanged(event:any){
     console.log(event)
     
