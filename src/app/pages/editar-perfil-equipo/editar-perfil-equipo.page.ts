@@ -160,7 +160,7 @@ if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
    
       let   fileName =this.equiposService.perfilEquipo.Nombre+'-'+this.equiposService.perfilEquipo.Cod_Equipo;
       let location = 'perfil-equipo';
-         this.gestorImagenesService.selectImage(source,fileName,location).then(resp =>{
+         this.gestorImagenesService.selectImage(source,fileName,location, false).then(resp =>{
           this.equipo.Foto = resp;
           this.equiposService.perfilEquipo.Foto = resp;
           this.equipo.Avatar = false;
@@ -213,6 +213,13 @@ if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
     this.equipo.Foto =  this.imgs[i].img;
     this.equipo.Avatar = true;
     this.equiposService.perfilEquipo.Avatar = true;
+    this.gestorImagenesService.actualizaFotoEquipo(this.equipo.Cod_Equipo, this.equipo.Avatar, this.equipo.Foto); 
+
+    this.equiposService.syncEquipo(this.equipo.Cod_Equipo).then(resp =>{
+
+      this.equiposService.perfilEquipo.Foto =  this.image;
+
+    })
 
     }
 

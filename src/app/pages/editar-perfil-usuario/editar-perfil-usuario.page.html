@@ -37,16 +37,15 @@
                   </ion-slide>
                   </ion-slides>
           
-                  <h3>{{usuario.Nombre}} {{usuario.Primer_Apellido}} {{usuario.Segundo_Apellido}}</h3>
+              
               </ion-col>
-              <ion-col size="12" size-md="7" size-lg="7" class="ion-text-center" *ngIf="!avatars" >
+              <ion-col size="12" size-md="7" size-lg="7" class="ion-text-center"  >
 
                 <ion-avatar *ngIf="this.gestorImagenesService.images.length === 0"   style="height: 12rem;width:12rem;margin:0 auto;">
                  
+                  <img *ngIf="!userService.usuarioActual.Avatar" [src]="userPic" onerror="this.src='assets/user.svg'"    alt="">
 
-        <img class="picture-img" *ngIf="!userService.usuarioActual.Avatar" src="{{userPic}}"  onerror="this.src='assets/user.svg'" alt="">
-
-        <img class="picture-img"  *ngIf="userService.usuarioActual.Avatar"  src="assets/profile/avatars//{{userService.usuarioActual.Foto}}" onerror="this.src='assets/user.svg'"   alt="">
+                  <img *ngIf="userService.usuarioActual.Avatar"src="assets/profile/avatars/{{userService.usuarioActual.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
                 </ion-avatar>
 
                 <ion-avatar *ngIf="this.gestorImagenesService.images.length > 0 "  style="height: 12rem;width:12rem;margin:0 auto;">

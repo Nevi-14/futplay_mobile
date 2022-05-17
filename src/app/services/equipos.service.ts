@@ -11,6 +11,7 @@ import { vistaEquipos } from '../models/vistaEquipos';
 import { AlertasService } from './alertas.service';
 import { JugadoresEquipos } from '../models/jugadoresEquipos';
 import { SolicitudesService } from './solicitudes.service';
+import { GestorImagenesService } from 'src/app/services/gestor-imagenes.service';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ export class EquiposService {
 jugadoresRival : JugadoresEquipos[]=[];
 jugadoresRetador : JugadoresEquipos[]=[];
 jugadoresPerfilEquipo : JugadoresEquipos[]=[];
-  constructor(private http: HttpClient, private popOverCtrl: PopoverController, private userService: UsuariosService, private modalCtrl: ModalController , public retosService: ReservacionesService, public alertasService:AlertasService, public solicitudesService: SolicitudesService) { }
+  constructor(private http: HttpClient, private popOverCtrl: PopoverController, private userService: UsuariosService, private modalCtrl: ModalController , public retosService: ReservacionesService, public alertasService:AlertasService, public solicitudesService: SolicitudesService, public gestorImagenesService:GestorImagenesService) { }
 
   getURL( api: string ){
     let test: string = ''
@@ -160,18 +161,36 @@ private equipoPost(equipo){
 
 
 }
+cerrarModal(){
+  this.modalCtrl.dismiss();
+}
 
 
-nuevoEquipo(equipo){
+nuevoEquipo(equipo:Equipos){
   console.log(equipo, 'stored 1')
 
   this.equipoPost(equipo).subscribe(
     resp =>{
-this.alertasService.message('FUTPLAY','Se há generado un nuevo equipo con  exíto -> '+ equipo.Nombre )
+this.gestorImagenesService.startUpload(this.gestorImagenesService.images[0]);
       console.log(equipo, 'stored')
 
 
-      this.SyncMisEquipos(equipo.Cod_Usuario)
+      this.misEquipos = [];
+      this.alertasService.presentaLoading('Cargando datos...');
+        this.SyncMisEquipos(equipo.Cod_Usuario).then(resp =>{
+          this.misEquipos = resp.slice(0);
+          this.perfilEquipo = this.misEquipos[0];
+          this.alertasService.loadingDissmiss();
+          this.cerrarModal();
+     
+       
+        }, error =>{
+          this.alertasService.loadingDissmiss();
+          this.alertasService.message('FUTLAY', 'Error cargando datos...');
+       
+        })
+      
+      
       this.modalCtrl.dismiss();
 
     }, error =>{

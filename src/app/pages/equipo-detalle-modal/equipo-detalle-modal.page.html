@@ -17,9 +17,17 @@
     <ion-content fullscreen class="ion-text-center">
       <div class="mainContent">
  
-        <img class="picture-img" *ngIf="!equipo.Avatar" src="{{this.equipo ?  teamPic  : 'assets/team.png'}}" onerror="this.src='assets/team.png'"   alt="">
+        <ion-avatar  style="height: 12rem;width:12rem;margin:0 auto;">
+          <img class="picture-img" *ngIf="!equipo.Avatar" src="{{this.equipo ?  teamPic  : 'assets/team.png'}}" onerror="this.src='assets/team.png'"   alt="">
 
-        <img class="picture-img"  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
+          <img class="picture-img"  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
+        </ion-avatar>
+
+
+
+
+
+     
     <h3 class="ion-text-uppercase"> 
        {{equipo.Nombre}}
       

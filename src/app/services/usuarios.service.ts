@@ -9,7 +9,6 @@ import { PerfilUsuario } from '../models/perfilUsuario';
 import { AlertasService } from './alertas.service';
 import { environment } from 'src/environments/environment';
 import { SolicitudesService } from './solicitudes.service';
-import { GestorImagenesService } from './gestor-imagenes.service';
 import { ChangeDetectorRef } from '@angular/core';
 
 
@@ -36,7 +35,6 @@ export class UsuariosService {
     public alertasService: AlertasService,
     public actionSheetCtrl: ActionSheetController,
     public solicitudesService:SolicitudesService,
-    public gestorImagenesService: GestorImagenesService
     ) {
 
 
@@ -347,7 +345,7 @@ this.alertasService.presentaLoading('Cargando Perfil de usuario')
   this.alertasService.loadingDissmiss();
    this.usuarioActual = resp[0]
 
-   this.route.navigate(['/home/mi-perfil']);
+   this.route.navigate(['/futplay/mi-perfil']);
 
   })
 

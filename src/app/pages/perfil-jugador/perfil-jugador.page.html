@@ -16,10 +16,14 @@
     </ion-header>
     <ion-content fullscreen class="ion-text-center">
       <div class="mainContent">
-        <img *ngIf="!perfil.Avatar" [src]="userPic" onerror="this.src='assets/user.svg'"    alt="">
 
-        <img *ngIf="perfil.Avatar"src="assets/profile/avatars/{{perfil.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
-    
+        <ion-avatar  style="height: 12rem;width:12rem;margin:0 auto;">
+          <img *ngIf="!perfil.Avatar" [src]="userPic" onerror="this.src='assets/user.svg'"    alt="">
+
+          <img *ngIf="perfil.Avatar"src="assets/profile/avatars/{{perfil.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+      
+        </ion-avatar>
+
         <h3 class="ion-text-uppercase"> {{perfil.Nombre}} {{perfil.Primer_Apellido}} {{perfil.Segundo_Apellido}}</h3>
             
             

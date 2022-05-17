@@ -6,6 +6,7 @@ import { Filesystem, Directory } from '@capacitor/filesystem';
 import { LoadingController, Platform, ToastController, ModalController } from '@ionic/angular';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
+import { UsuariosService } from './usuarios.service';
 
 let IMAGE_DIR = null;
  
@@ -19,7 +20,7 @@ interface LocalFile {
   providedIn: 'root'
 })
 export class GestorImagenesService {
-
+  newElement:boolean = false;
   images: LocalFile[] = [];
 imageURL =  "https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/Nelson-33.png";
   constructor(
@@ -28,7 +29,8 @@ imageURL =  "https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/Nelso
     public alertasService: AlertasService,
     public modalCtrl: ModalController,
     public loadingCtrl: LoadingController,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public usuariosService:UsuariosService
   ) { }
 
   
@@ -91,7 +93,7 @@ imageURL =  "https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/Nelso
      actualizaFotoUsuario(Cod_Usuario ,Avatar,Foto ){
       this.putFotoUsuario( Cod_Usuario ,Avatar,Foto).subscribe(
         resp => {
-
+          this.usuariosService.syncDatos( this.usuariosService.usuarioActual.Cod_Usuario);
         }, error => {
           console.log('error')
         }
@@ -179,7 +181,9 @@ imageURL =  "https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/Nelso
 }
       this.images.push(file);
 
-      this.startUpload( this.images[0])
+  if(!this.newElement){
+    this.startUpload( this.images[0])
+  }
     }
   }
  
@@ -193,10 +197,13 @@ imageURL =  "https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/Nelso
   }
  
 
-  async selectImage(source:string, customFileName:string, location:string) {
+  async selectImage(source:string, customFileName:string, location:string, newElement:boolean) {
     IMAGE_DIR = location;
+
+    this.newElement = false;
+    this.newElement = newElement;
   
-   // this.reset();
+    this.reset();
    this.loadFiles(customFileName)
 
 

@@ -242,11 +242,7 @@ this.usuario.Cod_Provincia = this.usuarioService.usuarioActual.Cod_Provincia
       this.usuarioService.usuarioActual.Foto =  this.imgs[resp].img;
 
       this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.usuario.Avatar, this.usuario.Foto); 
-      this.usuarioService.syncPerfilUsuario( this.usuarioService.usuarioActual.Cod_Usuario).then(resp =>{
 
-        this.usuarioService.usuarioActual.Foto =  this.image;
-
-      })
   
     })
  
@@ -290,7 +286,7 @@ this.usuario.Cod_Provincia = this.usuarioService.usuarioActual.Cod_Provincia
    
     let   fileName = this.userService.usuarioActual.Foto
     let location = 'perfil-usuario';
-       this.gestorImagenesService.selectImage(source,fileName,location).then(resp =>{
+       this.gestorImagenesService.selectImage(source,fileName,location, false).then(resp =>{
 this.usuario.Foto = resp
 console.log(this.usuario, 'edit')
 this.usuario.Avatar = false;
@@ -316,6 +312,9 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
     this.usuario.Avatar = true;
     this.usuarioService.usuarioActual.Avatar = true;
     this.usuarioService.usuarioActual.Foto =   this.image;
+
+    this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.usuario.Avatar, this.usuario.Foto); 
+ 
     }
 
 

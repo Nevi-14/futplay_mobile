@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { IonSlides, ModalController } from '@ionic/angular';
+import { Equipos } from 'src/app/models/equipos';
+import { vistaEquipos } from 'src/app/models/vistaEquipos';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { CanchasService } from 'src/app/services/canchas.service';
 import { CantonesService } from 'src/app/services/cantones.service';
@@ -9,6 +11,7 @@ import { EquiposService } from 'src/app/services/equipos.service';
 import { GestorImagenesService } from 'src/app/services/gestor-imagenes.service';
 import { ProvinciasService } from 'src/app/services/provincias.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { CrearUnirseEquipoPage } from '../crear-unirse-equipo/crear-unirse-equipo.page';
 declare const window: any;  
 @Component({
   selector: 'app-crear-equipo',
@@ -24,6 +27,8 @@ export class CrearEquipoPage implements OnInit {
 imageURL =  null
   tempImages: String[]=[];
   image = '';
+  avatars = false;
+  
   @ViewChild(IonSlides) slides: IonSlides;
  
   constructor(
@@ -81,12 +86,13 @@ imageURL =  null
     allowTouchMove: false
     };
     
-  avatarSlide = {
-    slidesPerView: 1
-  }
-  equipo = {
-    Cod_Equipo: 0 ,
-    Cod_Usuario:  this.usuariosService.usuarioActual.Cod_Usuario,
+    avatarSlide = {
+      slidesPerView: 2.5
+    }
+
+  equipo:Equipos = {
+    Cod_Equipo: 0,
+    Cod_Usuario: this.usuariosService.usuarioActual.Cod_Usuario,
     Cod_Provincia: null,
     Cod_Canton: null,
     Cod_Distrito: null,
@@ -96,8 +102,11 @@ imageURL =  null
     Fecha: new Date(),
     Estrellas: 0,
     Dureza: 'meh.svg',
-    Estado: 1,
+    Posicion_Actual: 0,
+    Puntaje_Actual: 0,
+    Estado: true,
     Descripcion_Estado: '',
+    Avatar:true
  }
  slidePrev() {
   this.slides.slidePrev();
@@ -111,6 +120,7 @@ slideNext() {
 
  img = 'assets/img/equipos/'+this.equipo.Foto
   ngOnInit() {
+    this.gestorImagenesService.images = [];
     this.provinciasService.provincias = [];
     this.provinciasService.syncProvinciasPromise().then(resp =>{
 this.showProvincia = true;
@@ -120,27 +130,41 @@ this.provinciasService.provincias = resp;
 this.imageURL =   "assets/team.svg?" + new Date().getTime()
    // this.equipo.Foto = 'assets/equipos/soccer.png';
 
-   console.log(this.equipo.Foto)
+   console.log(this.equipo)
   }
   imageUpload(source:string){
    
     let   fileName = this.equipo.Nombre
     let location = 'perfil-equipo';
-       this.gestorImagenesService.selectImage(source,fileName,location).then(resp =>{
+       this.gestorImagenesService.selectImage(source,fileName,location, true).then(resp =>{
         this.equipo.Foto = resp;
-  console.log(resp,  this.equipo.Foto, 'respppppppppppppppppggggg')
+        this.equipo.Avatar = false;
+
+        console.log(this.equipo)
 
        })
    
      //  
   }
+  avatar(){
+    this.equipo.Avatar = true;
+    this.image = this.imgs[0].img
+    this.equipo.Foto =  this.imgs[0].img;
+    this.gestorImagenesService.reset();
+    this.avatars = !this.avatars
+  }
 
-  seleccionarAvatar(img){
+    seleccionarAvatar(img, i){
+  
+this.gestorImagenesService.reset();
+      this.imgs.forEach(av => av.seleccionado = false);
+      img.seleccionado = true;
+      this.image = this.imgs[i].img;
+      this.equipo.Foto =  this.imgs[i].img;
+      this.equipo.Avatar = true;
 
-    this.imgs.forEach(av => av.seleccionado = false);
-    img.seleccionado = true;
-    this.equipo.Foto = img.img
-
+    
+   console.log(this.equipo)
     }
 
   slideChange(event){
@@ -148,17 +172,30 @@ this.imageURL =   "assets/team.svg?" + new Date().getTime()
       this.imgs.forEach(av => av.seleccionado = false);
       this.imgs[resp].seleccionado = true;
       this.equipo.Foto = this.imgs[resp].img
-
-      console.log(resp,'resp')
+      this.equipo.Avatar = true;
+      this.gestorImagenesService.reset();
+      console.log(this.equipo)
     })
  
   }
+
+  async  crearUnirseEquipo(){
+    const modal = await this.modalCtrl.create({
+      component:CrearUnirseEquipoPage,
+      cssClass:'my-custom-modal'
+    });
+   
+    return await modal.present();
+   
+        }
   crearRegistro(){
 
 
 
 this.equiposService.nuevoEquipo(this.equipo)
-this.cerrarModal();
+
+
+
 
 
 
@@ -223,8 +260,9 @@ break;
       const img = window.Ionic.WebView.convertFileSrc(imageData);
       this.tempImages.push(img);
       this.equipo.Foto = img;
-  
-      console.log(this.tempImages);
+      this.equipo.Avatar = false;
+      console.log(this.equipo)
+
      }, (err) => {
       // Handle error
      });
@@ -244,8 +282,9 @@ break;
       const img = window.Ionic.WebView.convertFileSrc(imageData);
       this.tempImages.push(img);
       this.equipo.Foto = img;
-      
-      console.log(this.tempImages);
+      this.equipo.Avatar = false;
+      console.log(this.equipo)
+    
      }, (err) => {
       // Handle error
      });
