@@ -147,6 +147,7 @@ this.imageURL =   "assets/team.svg?" + new Date().getTime()
      //  
   }
   avatar(){
+    this.gestorImagenesService.images = []
     this.equipo.Avatar = true;
     this.image = this.imgs[0].img
     this.equipo.Foto =  this.imgs[0].img;
@@ -155,7 +156,7 @@ this.imageURL =   "assets/team.svg?" + new Date().getTime()
   }
 
     seleccionarAvatar(img, i){
-  
+      this.gestorImagenesService.images = []
 this.gestorImagenesService.reset();
       this.imgs.forEach(av => av.seleccionado = false);
       img.seleccionado = true;
@@ -168,6 +169,7 @@ this.gestorImagenesService.reset();
     }
 
   slideChange(event){
+    this.gestorImagenesService.images = []
     let currentIndex = this.slides.getActiveIndex().then(resp =>{
       this.imgs.forEach(av => av.seleccionado = false);
       this.imgs[resp].seleccionado = true;
