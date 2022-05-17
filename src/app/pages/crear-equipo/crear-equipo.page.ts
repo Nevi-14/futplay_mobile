@@ -26,7 +26,7 @@ export class CrearEquipoPage implements OnInit {
   showDistrito = false;
 imageURL =  null
   tempImages: String[]=[];
-  image = '';
+
   avatars = false;
   
   @ViewChild(IonSlides) slides: IonSlides;
@@ -82,6 +82,7 @@ imageURL =  null
   
   ]
 
+  image = this.imgs[0].img;
   slideOpts = {
     allowTouchMove: false
     };
@@ -149,8 +150,6 @@ this.imageURL =   "assets/team.svg?" + new Date().getTime()
   avatar(){
     this.gestorImagenesService.images = []
     this.equipo.Avatar = true;
-    this.image = this.imgs[0].img
-    this.equipo.Foto =  this.imgs[0].img;
     this.gestorImagenesService.reset();
     this.avatars = !this.avatars
   }
@@ -175,6 +174,7 @@ this.gestorImagenesService.reset();
       this.imgs[resp].seleccionado = true;
       this.equipo.Foto = this.imgs[resp].img
       this.equipo.Avatar = true;
+      this.image =this.imgs[resp].img;
       this.gestorImagenesService.reset();
       console.log(this.equipo)
     })
