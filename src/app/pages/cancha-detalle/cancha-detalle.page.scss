@@ -5,6 +5,9 @@ ion-content{
   align-items: center;
 
 }
+ion-checkbox.checkbox-disabled {
+  opacity : 1;
+  }
 /* blurring the image */
 .gfg {
  // filter: blur(5px);

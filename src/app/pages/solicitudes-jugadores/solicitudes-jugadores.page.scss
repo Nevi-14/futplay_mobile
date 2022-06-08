@@ -30,7 +30,7 @@ ion-toolbar {
 
 ion-content {
 
-    --background: #5a55ca;
+    //--background: #5a55ca;
     overflow: hidden;
 }
 
@@ -52,16 +52,11 @@ ion-searchbar {
     --border-radius: 10px;
     --background: white;
     --color: black;
-    min-height: 5rem;
     padding: 1rem;
     padding-top: 0;
     margin-top: -1rem;
 }
 
-ion-list {
-
-    background-color: #e7edfb;
-}
 
 ion-footer {
 
@@ -85,15 +80,22 @@ ion-footer {
 .transparent{
 --background: transparent!important;
 }
+ion-list {
+
+    background-color: transparent!important;
+}
 .mainContent {
 
+    ion-list {
 
+        background-color: #e7edfb;
+    }
+    
 background-color: #e7edfb;
 height: 100%;
 width: 100%;
 overflow: scroll !important;
-border-top-left-radius: 30px;
-border-top-right-radius: 30px;
+
 }
 
 .employeeItem {

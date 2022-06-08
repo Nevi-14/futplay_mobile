@@ -313,9 +313,11 @@ async startUpload(file: LocalFile) {
 
 
   this.syncimagePost(formData,IMAGE_DIR, file.oldFileName).then(resp=>{
-    this.modalCtrl.dismiss({
+/**
+ *     this.modalCtrl.dismiss({
       'data':true
     },null,IMAGE_DIR)
+ */
 this.reset();
     console.log(resp,'resp')
     this.images = [];

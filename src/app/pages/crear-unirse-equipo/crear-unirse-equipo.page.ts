@@ -9,8 +9,8 @@ import { CrearEquipoPage } from '../crear-equipo/crear-equipo.page';
   styleUrls: ['./crear-unirse-equipo.page.scss'],
 })
 export class CrearUnirseEquipoPage implements OnInit {
-  add ='../assets/icons/create.svg';
- find ='../assets/icons/join.svg';
+  add ='../assets/img/images/emblem.svg';
+ find ='../assets/img/images/team.svg';
   constructor(
     public modalCtrl: ModalController
   ) { }
@@ -28,7 +28,15 @@ export class CrearUnirseEquipoPage implements OnInit {
       cssClass:'my-custom-class'
     });
 
-    return modal.present();
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+ 
+    if(data !== undefined ){
+      console.log(data,'data')
+      this.modalCtrl.dismiss({
+        'data':data
+      })
+    }
 
   }
 

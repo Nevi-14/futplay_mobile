@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActionSheetButton, ModalController, ActionSheetController } from '@ionic/angular';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
@@ -12,9 +12,12 @@ import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-m
   styleUrls: ['./solicitudes-jugadores.page.scss'],
 })
 export class SolicitudesJugadoresPage implements OnInit {
+  @Input() showReceiveInput;
+  @Input()showSendInput;
 title = 'Recibidas'
 showReceive = true;
 showSend = false;
+selected:string = '';
   constructor(
     public modalCtrl:ModalController,
     public solicitudesService:SolicitudesService,
@@ -24,8 +27,13 @@ showSend = false;
   ) { }
 
   ngOnInit() {
-   
-    this.solicitudesService.syncGetSolicitudesJugadores(this.usuariosService.usuarioActual.Cod_Usuario, false,true, true)
+   this.showReceive =  this.showReceiveInput;
+   this.showSend = this.showSendInput;
+    if(this.showReceive){
+this.receive();
+    }else{
+this.send();
+    }
   
   }
   async onOpenMenu(solicitud){
@@ -117,8 +125,17 @@ this.equiposService.SyncEquipos(this.usuariosService.usuarioActual.Cod_Usuario).
      });
      await modal .present();
    }
-  
+   radioGroupChange(event) {
+  let value =  event.detail.value;
+
+  if(value=='send'){
+this.send()
+  }else{
+this.receive();
+  }
+    }
   send(){
+    this.selected ='send';
     this.showReceive = false;
     this.showSend = true;
     this.title = 'Enviadas'
@@ -126,6 +143,7 @@ this.equiposService.SyncEquipos(this.usuariosService.usuarioActual.Cod_Usuario).
   }
 
   receive(){
+    this.selected ='receive';
     this.showReceive = true;
     this.showSend = false;
     

@@ -129,25 +129,36 @@ private postJugadorEquipo(JugadorEquipo){
 }
 generarSolicitud(solicitud){
 
-
-this.postSolicitud(solicitud).subscribe(
-
-  resp =>{
-this.alertasService.message('FUTPLAY','Solicitud Enviada')
-    console.log(resp, 'post solicitud completed', solicitud)
-    //this.syncGetSolicitudesJugadores(solicitud.Cod_Usuario, Confirmacion_Usuario,Confirmacion_Equipo,Estado)
-    //this.syncGetSolicitudesEquipos(solicitud.Cod_Equipo, Confirmacion_Usuario,Confirmacion_Equipo,Estado)
-
-  }, error =>{
-    console.log(error, 'post solicitud error', solicitud)
-
-
-
-
-  }
-)
+return this.postSolicitud(solicitud).toPromise();
 
 }
+
+private   deleteJugador(Cod_Usuario ){
+  
+
+  let URL = this.getURL( environment.jugadoresEquiposPostURL);
+      URL = URL + environment.codUsuarioParam + Cod_Usuario;
+
+      console.log('del', URL)
+  const options = {
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+    }
+
+    
+  };
+ 
+
+  return this.http.delete( URL, options );
+}
+    
+syncDeleteJugador(Cod_Usuario  ){
+ return this.deleteJugador( Cod_Usuario ).toPromise();
+}
+
+
 generarJugadorEquipo(JugadorEquipo){
 
 
@@ -202,7 +213,7 @@ actualizarSolicitud(Solicitud,Cod_Solicitud,Cod_Usuario){
 
     resp =>{
 
-      
+      this.deleteSolicitud(Solicitud.Cod_Solicitud);
     this.syncGetSolicitudesJugadores(Solicitud.Cod_Usuario, false,true, true)
 
 
@@ -237,11 +248,11 @@ actualizarSolicitud(Solicitud,Cod_Solicitud,Cod_Usuario){
 }
 
 
-private deleteSolicitudes(Cod_Solicitud, Cod_Usuario){
+private deleteSolicitudes(Cod_Solicitud){
 
 let URL = this.getURL(environment.SolicitudesJugadoresEquiposDeleteURL);
 
-URL = URL + environment.codSolicitudParam + Cod_Solicitud  + environment.codUsuarioSecondParam + Cod_Usuario;
+URL = URL + environment.codSolicitudParam + Cod_Solicitud  ;
 
 const options = {
 
@@ -257,9 +268,9 @@ return this.http.delete(URL,options);
 
 }
 
-deleteSolicitud(Cod_Solicitud,Cod_Usuario){
+deleteSolicitud(Cod_Solicitud){
 
-  this.deleteSolicitudes(Cod_Solicitud,Cod_Usuario).subscribe(
+  this.deleteSolicitudes(Cod_Solicitud).subscribe(
 
     resp =>{
       console.log('reservacion eliminada', resp)

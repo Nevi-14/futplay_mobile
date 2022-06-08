@@ -59,7 +59,7 @@ constructor(
 let mostrarModal = false;
 
 
-
+console.log(reto, 'ksjskskks')
  this.canchasService.syncCodCancha(reto.Cod_Cancha).then(resp =>{
       console.log(resp, 'canaaaaa')
 this.cancha = resp[0]

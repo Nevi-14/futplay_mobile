@@ -6,13 +6,16 @@
         <ion-buttons slot="start">
           <ion-button  (click)="cerrarModal()" color="light">
             <ion-icon slot="start" name="chevron-back"></ion-icon>
-            &nbsp;Mis Equipos
+        
+          </ion-button>
+          <ion-button (click)="misEquipos()" color="{{ btn1 ? 'dark' : 'light'}}" fill="{{ btn1 ? 'solid' : 'clear'}}" shape="round">
+      <ion-label>Mis Equipos</ion-label>
           </ion-button>
         </ion-buttons>
-        <ion-buttons slot="end">
-          <ion-button color="light">
-            <ion-icon slot="start" name="chevron-forward"></ion-icon>
-            Otros&nbsp;
+        <ion-buttons slot="start">
+          <ion-button color="{{ btn2 ? 'dark' : 'light'}}"  fill="{{ btn2 ? 'solid' : 'clear'}}" (click)="otrosEquipos()"  shape="round">
+    
+        <ion-label>    Otros</ion-label>
           </ion-button>
         </ion-buttons>
       </ion-item>
@@ -23,8 +26,32 @@
     <ion-content fullscreen>
       <div class="mainContent">
   
-        <ion-list>
-          <ion-item (click)="seleccionarEquipo(equipo)" lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.misEquipos; let i = index;">
+        <ion-list *ngIf="equiposService.misEquipos && equiposService.misEquipos.length > 0">
+          <ion-item  (click)="seleccionarEquipo(equipo)" lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.misEquipos; let i = index;">
+            <ion-avatar slot="start"  >
+              <img *ngIf="!equipo.Avatar"  src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
+              <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
+     
+            </ion-avatar>
+            
+            <ion-label>
+              {{equipo.Nombre}}
+              <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
+              
+                <ion-icon style="size: 10px;" name="star"></ion-icon>
+                <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+              </p>
+            </ion-label>
+  
+          </ion-item>
+        </ion-list>
+
+         
+        <ion-list  *ngIf="equiposService.otrosEquipos && equiposService.otrosEquipos.length > 0">
+          <ion-item (click)="seleccionarEquipo(equipo)" lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.otrosEquipos; let i = index;">
             <ion-avatar slot="start"  >
               <img *ngIf="!equipo.Avatar"  src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
               <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">

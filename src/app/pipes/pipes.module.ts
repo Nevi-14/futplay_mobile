@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { FiltroPipe } from './filtro.pipe';
 
 import { ImageSanitizerPipe } from './image-sanitizer.pipe';
@@ -15,6 +15,8 @@ import { ImageSanitizerPipe } from './image-sanitizer.pipe';
   exports:[
     FiltroPipe,
     ImageSanitizerPipe,
+    DatePipe,
+    CurrencyPipe
   
   ],
   imports: [

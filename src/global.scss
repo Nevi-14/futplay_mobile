@@ -43,7 +43,14 @@ ion-content{
     height: 30px;
     width: 30px;
     }
-
+    .alertCancel{
+      --min-width: 90vw;
+ 
+ 
+        button.alertButton{
+          color: white;
+        }
+     }
     .circle-button{
 
     width: 32px;
@@ -414,4 +421,17 @@ ion-fab .fab-list-active .fab-backdrop {
   bottom: 0;
   left: 0;
   background: rgba(100, 100, 100, 0.5);
+}  
+
+@media only screen and (min-width:600px){
+  ion-modal.modal-view{
+    --backdrop-opacity: 0.8 !important;
+    &::part(content){
+      width: 60%;
+      min-height: 60vh;
+      max-height:85%;
+      height: 100%; 
+  
+    }
+  }
 }

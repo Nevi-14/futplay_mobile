@@ -8,9 +8,11 @@ import { ReservacionesService } from './reservaciones.service';
 import { PerfilUsuario } from '../models/perfilUsuario';
 import { AlertasService } from './alertas.service';
 import { environment } from 'src/environments/environment';
-import { SolicitudesService } from './solicitudes.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { Usuarios } from '../models/usuarios';
 
+import * as bcrypt from 'bcryptjs';  // npm install bcryptjs --save  &&  npm install @types/bcrypt --save-dev npm i --save-dev @types/bcryptjs
+import { SolicitudesService } from './solicitudes.service';
 
 
 @Injectable({
@@ -34,13 +36,17 @@ export class UsuariosService {
     public reservacionesService: ReservacionesService,
     public alertasService: AlertasService,
     public actionSheetCtrl: ActionSheetController,
-    public solicitudesService:SolicitudesService,
+    public solicitudesService: SolicitudesService
     ) {
 
 
      }
 
 
+     hashPassword(Contrasena){
+
+      return bcrypt.hashSync(Contrasena, 10);
+    }
 
     cerrarSession(){
       this.usuarioActual = null;
@@ -134,23 +140,23 @@ console.log(resp, 'resssp')
 
       URL = URL + environment.codUsuarioParam + Cod_Usuario
       console.log(URL)
-      return this.http.get<PerfilUsuario>( URL );
+      return this.http.get<Usuarios>( URL );
     }
   
 
 
-  getLoginURL( api: string,correo: string, contrasena:string ){
+  getLoginURL( api: string,elementoEntrada: string, contrasena:string ){
     let test: string = ''
     if ( !environment.prdMode ) {
       test = environment.TestURL;
     }
 
-    const URL = environment.preURL  + test +  environment.postURL + api + environment.correoParam+ correo + environment.contrasenaPatam + contrasena;
+    const URL = environment.preURL  + test +  environment.postURL + api + environment.elementoEntrada+ elementoEntrada + environment.contrasenaPatam + contrasena;
     return URL;
-  }  private loginURL( correo: string, contrasena:string){
-    const URL = this.getLoginURL( environment.loginURL,correo,contrasena);
+  }  private loginURL( elementoEntrada: string, contrasena:string){
+    const URL = this.getLoginURL( environment.loginURL,elementoEntrada,contrasena);
     console.log(URL)
-    return this.http.get<PerfilUsuario>( URL );
+    return this.http.get<PerfilUsuario[]>( URL );
   }
   syncDatos(Cod_Usuario:number){
 
@@ -160,7 +166,7 @@ console.log(resp, 'resssp')
       resp =>{
   this.alertasService.loadingDissmiss();
 this.usuarioActual = resp[0];
-
+this.perfilUsuario = resp[0];
 console.log('feril actualziado' , resp , this.usuarioActual ,  resp[0])
 
         
@@ -176,50 +182,45 @@ console.log('feril actualziado' , resp , this.usuarioActual ,  resp[0])
     );
   }
 
+  isEmpty(object) {
+    for (const property in object) {
+      return false;
+    }
+    return true;
+  }
 
-  syncLogin(correo: string, contrasena:string){
-    this.usuarioActual = null;
+  syncLogin(elementoEntrada: string, contrasena:string){
 
     this.alertasService.presentaLoading('Verificando Datos')
+    this.loginURL(elementoEntrada, contrasena).subscribe(
+      (resp: PerfilUsuario[]) =>{
+       
+console.log('respresp', resp, resp.length)
+        if(resp.length > 0){
 
-    this.loginURL(correo, contrasena).subscribe(
-      resp =>{
-  this.alertasService.loadingDissmiss();
+          if(this.comparePassword(contrasena, resp[0].Contrasena )){
 
-console.log(resp,'resppppp')
-        if(resp){
- let user = this.syncPerfilUsuario(resp[0].Cod_Usuario);
+          this.usuarioActual = null;
+          this.alertasService.loadingDissmiss();
+          this.usuarioActual = resp[0];
+          this.route.navigate(['/futplay/mi-perfil']);
+          this.solicitudesService.syncGetSolicitudesJugadores(this.usuarioActual.Cod_Usuario, false,true, true)
+          }else{
+            this.alertasService.loadingDissmiss();
+            this.alertasService.message('FUTPLAY','suario o contrasena incorrecto')
+          }
 
- this.alertasService.presentaLoading('Cargando Perfil de usuario')
-   user.then( resp =>{
-     this.alertasService.loadingDissmiss();
-    this.usuarioActual = resp[0]
-console.log(  this.usuarioActual , '  this.usuarioActual ')
-   this.solicitudesService.syncGetSolicitudesJugadores(this.usuarioActual.Cod_Usuario, false,true, true)
-   
- 
-    console.log('perfil usuario',  resp[0])
-    this.route.navigate(['/futplay/mi-perfil']);
-   })
-
-        
-        
         }else{
 
-          this.alertasService.message('FUTPLAY','Usuario o contraseña incorrectos');
+          this.alertasService.loadingDissmiss();
+          this.alertasService.message('FUTPLAY','Error, contacte al administrador');
         }
+  
 
-        
-      } , error =>{
-
-    if(error){
-      this.alertasService.message('FUTPLAY','Se ha producido un error');
-
-    }
-
-      }
-
-    );
+      }, error =>{
+        this.alertasService.loadingDissmiss();
+        this.alertasService.message('FUTPLAY','Error, contacte al administrador');
+      })
   }
 
 
@@ -228,11 +229,11 @@ console.log(  this.usuarioActual , '  this.usuarioActual ')
     URL = URL+environment.codUsuarioParam+ id;  
 
     console.log(URL,'PERFIL ')
-    return this.http.get<PerfilUsuario>( URL );
+    return this.http.get<PerfilUsuario[]>( URL );
   }
 
    syncPerfilUsuario(id: number){
- 
+ console.log('perfil error', id, this.usuarioActual)
 return this.perfilUsuario(id).toPromise();
 
   }
@@ -323,37 +324,41 @@ validarCorreo(email) {
      
       return this.http.post( URL, JSON.stringify(usuario), options )
     }
-  
-    registro(usuario){
 
+
+    comparePassword(password, databasePwd){
+
+      if(bcrypt.compareSync(password, databasePwd)){
+        return true;
+      }else{
+        return false;
+      }
+    }
+  
+    registro(usuario:Usuarios){
+      this.usuarioActual = null;
       this.alertasService.presentaLoading('Generando registro');
 
-      this.postUsuario(usuario).subscribe(
+     usuario.Contrasena = bcrypt.hashSync(usuario.Contrasena, 10);
+        this.postUsuario(usuario).subscribe(
       
-       ( resp : PerfilUsuario) => {
-        let   localvariable: PerfilUsuario; // or whatever u want 
-   
-    localvariable = resp
-
-     this.alertasService.loadingDissmiss();
-
-let user = this.syncPerfilUsuario(localvariable.Cod_Usuario);
-
-this.alertasService.presentaLoading('Cargando Perfil de usuario')
-  user.then( resp =>{
-
-  this.alertasService.loadingDissmiss();
-   this.usuarioActual = resp[0]
-
-   this.route.navigate(['/futplay/mi-perfil']);
-
-  })
-
-        }, error => {
-
-          this.alertasService.message('FUTPLAY', 'Error creando el usuario')
-        }
-      )
+          ( resp : PerfilUsuario) => {
+          if(resp != null || resp != undefined ){
+            console.log(resp, 'rekmm')
+            this.alertasService.loadingDissmiss();
+            this.usuarioActual = resp
+            this.route.navigate(['/futplay/mi-perfil']);
+          }else{
+            this.alertasService.loadingDissmiss();
+            this.alertasService.message('FUTPLAY', 'Error creando el usuario, verifica que el usuario no exista!.')
+          }
+             
+      }, error =>{
+        usuario.Contrasena = '';
+        this.alertasService.loadingDissmiss();
+        this.alertasService.message('FUTPLAY', 'Error creando el usuario, verifica que el usuario no exista!.')
+      });
+     
     }
 
 

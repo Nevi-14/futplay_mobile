@@ -3,6 +3,8 @@ import { ModalController, ActionSheetController } from '@ionic/angular';
 import { Canchas } from 'src/app/models/canchas';
 import { HorarioCanchasService } from '../../services/horario-canchas.service';
 import { ListaCanchas } from '../../models/listaCanchas';
+import { ConfiguracionHorarioService } from 'src/app/services/configuracion-horario.service';
+import { GenerarReservacionPage } from '../generar-reservacion/generar-reservacion.page';
 
 @Component({
   selector: 'app-cancha-detalle',
@@ -15,8 +17,9 @@ export class CanchaDetallePage implements OnInit {
 
   constructor(
     public modalCtrl: ModalController,
+    public actionCtrl: ActionSheetController,
     public horarioCanchasService: HorarioCanchasService,
-    public actionCtrl: ActionSheetController
+    public configuracionHorarioService: ConfiguracionHorarioService
   ) { }
 
   ngOnInit() {
@@ -24,6 +27,12 @@ export class CanchaDetallePage implements OnInit {
     this.horarioCanchasService.syncHorarioCanchas(this.cancha.Cod_Cancha)
  
     console.log(this.cancha,   this.horarioCanchasService.horarioCancha)
+    this.horarioCanchasService.syncHorarioCanchasPromise(this.cancha.Cod_Cancha).then((resp:any) =>{
+      console.log(resp,'resp')
+  this.configuracionHorarioService.horarioCancha = resp;
+
+  console.log('this.configuracionHorarioService.horarioCancha', this.configuracionHorarioService.horarioCancha)
+    })
   }
 
   cerrarModal(){
@@ -50,6 +59,43 @@ this.modalCtrl.dismiss();
     
   }
 
+  async canchaReservacion(cancha){
+
+  
+     this.modalCtrl.dismiss();
+     
+    const modal  = await this.modalCtrl.create({
+      component: GenerarReservacionPage,
+     cssClass: 'my-custom-class',
+     componentProps:{
+      rival:null,
+      retador:null,
+      cancha:cancha
+
+     },
+     id:'my-modal-id'
+   });
+   await modal .present();
+ }
+
+
+  retornaHoraAmPm(hours){
+
+
+    let minutes = null;
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    hours = hours < 10 ? '0' + hours : hours;
+    // appending zero in the start if hours less than 10
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    
+    let hourValue = hours +':'+'00'+':'+'00'+' ' + ampm;
+    
+    
+    return hourValue;
+    
+    }
 
   async navigate() {
      

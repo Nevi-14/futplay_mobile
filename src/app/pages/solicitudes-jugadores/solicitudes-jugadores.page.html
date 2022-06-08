@@ -13,12 +13,34 @@
       </ion-item>
   
       <ion-searchbar></ion-searchbar>
+
+      <ion-list class="transparent"  class="ion-padding-bottom">
+        <ion-radio-group  class="transparent" name="radio-group"
+        (ionChange)="radioGroupChange($event)" [(ngModel)]="selected">
+ 
+          <ion-item  class="transparent">
+            <ion-icon *ngIf="selected == 'receive'" color="warning" slot="start" name="star-outline"></ion-icon>
+            <ion-label><ion-badge color="warning" mode="ios">Solicitudes Recibidas </ion-badge></ion-label>
+            <ion-radio mode="ios" value="receive"></ion-radio>
+           
+          </ion-item>
+      
+          <ion-item  class="transparent" >
+            <ion-icon *ngIf="selected == 'send'" color="warning" slot="start" name="star-outline"></ion-icon>
+            <ion-label><ion-badge color="warning" mode="ios">Solicitudes Enviadas</ion-badge></ion-label>
+            <ion-radio  mode="ios"    value="send"></ion-radio>
+          </ion-item>
+      
+         
+        </ion-radio-group >
+      </ion-list>
     </ion-toolbar>
     </ion-header>
     <ion-content fullscreen>
       <div class="mainContent">
   
         <ion-list>
+
           <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngIf="solicitudesService.solicitudesJugadoresArray.length == 0" >
             <img height="30" src="assets/exclamation-mark.svg" alt="">
             <ion-label>
@@ -46,13 +68,4 @@
         </ion-list>
       </div>
     </ion-content>
-    <ion-footer>
-  
-         <ion-button     (click)="receive()" >
-          <ion-label>Recibidas</ion-label>
-         </ion-button>
-         <ion-button (click)="send()"  >
-          <ion-label>Enviadas</ion-label>
-           </ion-button>
-    </ion-footer>
-  
+ 

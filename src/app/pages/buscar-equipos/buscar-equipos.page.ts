@@ -8,6 +8,7 @@ import { SolicitudesService } from '../../services/solicitudes.service';
 import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
 import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-modal.page';
 import { AlertasService } from 'src/app/services/alertas.service';
+import { SolicitudesJugadoresPage } from '../solicitudes-jugadores/solicitudes-jugadores.page';
 
 @Component({
   selector: 'app-buscar-equipos',
@@ -118,7 +119,22 @@ solicitudJugadorEquipo:SolicitudesJugadoresEquipos = {
    text: 'Enviar Solicitud',
    icon:'paper-plane-outline',
     handler: () =>{
-      this.jugadorEquipoSolicitud(equipo)
+      this.alertasService.presentaLoading('Enviando solicitud..')
+      this.solicitudJugadorEquipo.Cod_Equipo = equipo.Cod_Equipo
+
+     
+      this.solicitudesService.generarSolicitud(this.solicitudJugadorEquipo).then(resp =>{
+
+        this.cerrarModal();
+this.alertasService.message('FUTPLAY','Solicitud Enviada')
+this.alertasService.loadingDissmiss();
+}, error =>{
+  this.cerrarModal();
+
+this.alertasService.message('FUTPLAY','Solicitud no enviada, verifica que no hayas enviando una solicitud o seas parte del equipo')
+this.alertasService.loadingDissmiss();
+
+    })
     
     }
    
@@ -151,6 +167,23 @@ solicitudJugadorEquipo:SolicitudesJugadoresEquipos = {
   
     }
 
+    async soliitudes(){
+
+
+      const modal = await this.modalCtrl.create({
+  
+        component:SolicitudesJugadoresPage,
+        cssClass:'my-custom-modal',
+        componentProps:{
+          showReceiveInput:false,
+          showSendInput:true
+        }
+      });
+  
+  
+      return await modal.present();
+  
+    }
 
 
 }

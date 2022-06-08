@@ -167,13 +167,14 @@ export class GenerarReservacionPage implements OnInit {
   const {  data } = await modal.onDidDismiss();
   
   if(data != undefined){
+
+    console.log(data, 'dataaa')
     // new Date(yearValue, IndexOfMonth, dayValue, hours, minutes, seconds)
   this.nuevaReservacion.Hora_Inicio = data.fechaHora.Hora_Inicio ;
   this.nuevaReservacion.Hora_Fin = data.fechaHora.Hora_Fin;
   this.nuevaReservacion.Fecha = data.fechaHora.Fecha;
   this.selectedDate = data.fechaHora.Fecha;
-  this.nuevaReservacionTime.time12_Hora_Inicio = data.fechaHora.time12_Hora_Inicio
-  this.nuevaReservacionTime.time12_Hora_Fin = data.fechaHora.time12_Hora_Fin
+
   }
   
   }

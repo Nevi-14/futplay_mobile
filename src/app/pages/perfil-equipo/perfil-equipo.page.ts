@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActionSheetButton, ActionSheetController, ModalController } from '@ionic/angular';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { ActionSheetButton, ActionSheetController, ModalController, AlertController } from '@ionic/angular';
 import { Equipos } from 'src/app/models/equipos';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { EquiposService } from 'src/app/services/equipos.service';
@@ -16,7 +16,7 @@ import { MisEquiposPage } from '../mis-equipos/mis-equipos.page';
   templateUrl: './perfil-equipo.page.html',
   styleUrls: ['./perfil-equipo.page.scss'],
 })
-export class PerfilEquipoPage implements OnInit {
+export class PerfilEquipoPage  {
 
   club: Equipos;
 
@@ -30,33 +30,37 @@ export class PerfilEquipoPage implements OnInit {
     public solicitudesService:SolicitudesService,
      public actionSheetCtrl: ActionSheetController,
      private cdr: ChangeDetectorRef,
-      public alertasService: AlertasService) { }
+      public alertasService: AlertasService,
+      public alertCtrl: AlertController
+      ) { }
 
-  ngOnInit() {
 
-
-   // this.user.getJugadoresEquipos(this.clubs.switchClub);
-
-  }
   ionViewWillEnter(){
     if( this.equiposService.perfilEquipo){
+      
       this.equiposService.jugadoresPerfilEquipo = []
       this.alertasService.presentaLoading('Cargando lista de jugadores...')
-      this.equiposService.SyncJugadoresEquipos( this.equiposService.perfilEquipo.Cod_Equipo).then( jugadores =>{
-        this.equiposService.jugadoresPerfilEquipo = jugadores;
-    this.alertasService.loadingDissmiss();
-    this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, true,false, true)
-        
-      }, error =>{
-
-        this.alertasService.loadingDissmiss();
-        this.alertasService.message('FUTPLAY', 'Error cargando lista de jugadores...')
-      })
+this.jugadoresEquipo();
 
     }
 
   }
 
+
+  jugadoresEquipo(){
+
+ this.equiposService.SyncJugadoresEquipos( this.equiposService.perfilEquipo.Cod_Equipo).then( jugadores =>{
+ this.alertasService.loadingDissmiss();
+  this.equiposService.jugadoresPerfilEquipo = []
+  this.equiposService.jugadoresPerfilEquipo = jugadores;
+  this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, true,false, true)
+      
+    }, error =>{
+
+      this.alertasService.loadingDissmiss();
+      this.alertasService.message('FUTPLAY', 'Error cargando lista de jugadores...')
+    })
+  }
      // INICIO MENU DE OPCIONES RELACIONADAS AL PERFIL DE USUARIO
   
   
@@ -92,7 +96,9 @@ export class PerfilEquipoPage implements OnInit {
             text: 'Remover Jugador',
             icon:'lock-closed-outline',
             handler: () =>{
-        // this.gestionarContrasena();
+              this.confirmDelete(jugador);
+
+   
             }
            
            },
@@ -124,6 +130,45 @@ export class PerfilEquipoPage implements OnInit {
     
     
       }
+
+      
+  async confirmDelete(jugador) {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'FUTPLAY',
+      message: '¿Desea eliminar el jugador del equipo?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Aceptar',
+          id: 'confirm-button',
+          handler: () => {
+            this.alertasService.presentaLoading('Eliminando jugador..')
+            this.solicitudesService.syncDeleteJugador(jugador.Cod_Usuario).then(resp =>{
+         this.alertasService.loadingDissmiss();
+                              this.jugadoresEquipo();
+                              this.alertasService.message('FUTPLAY', 'Jugador Eliminado')
+                            }, error =>{
+
+                              this.alertasService.loadingDissmiss();
+                              this.alertasService.message('FUTPLAY', 'Error eliminando jugador.')
+                            })
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+
   
       dateF(){
         return new Date().getTime() 
@@ -187,12 +232,7 @@ export class PerfilEquipoPage implements OnInit {
      const { data } = await modal.onWillDismiss();
      if(data != undefined){
        
-       this.equiposService.SyncJugadoresEquipos( this.equiposService.perfilEquipo.Cod_Equipo).then( jugadores =>{
-         this.equiposService.jugadoresPerfilEquipo = []
-         this.equiposService.jugadoresPerfilEquipo = jugadores;
-     
-         
-       })
+      this.jugadoresEquipo();
        
      }
   }
@@ -216,13 +256,10 @@ export class PerfilEquipoPage implements OnInit {
       this.cdr.detectChanges();
       this.teamPic = 'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+ this.equiposService.perfilEquipo.Foto +'?'+ this.dateF();
       console.log(this.equiposService.perfilEquipo,'this.equiposService.perfilEquipo')
-      this.equiposService.SyncJugadoresEquipos( this.equiposService.perfilEquipo.Cod_Equipo).then( jugadores =>{
-        this.equiposService.jugadoresPerfilEquipo = []
-        this.equiposService.jugadoresPerfilEquipo = jugadores;
-        this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, true,false, true)
-    
-        
-      })
+      this.jugadoresEquipo();
+
+
+
 
  
    

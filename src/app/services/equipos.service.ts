@@ -12,6 +12,7 @@ import { AlertasService } from './alertas.service';
 import { JugadoresEquipos } from '../models/jugadoresEquipos';
 import { SolicitudesService } from './solicitudes.service';
 import { GestorImagenesService } from 'src/app/services/gestor-imagenes.service';
+import { vistaOtrosEquipos } from '../models/vistaOtrosEquipos';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,7 @@ export class EquiposService {
   tieneEquipos = false;
   stadiumProfile = null;
   misEquipos: vistaEquipos[];
+  otrosEquipos:vistaOtrosEquipos[];
 jugadoresRival : JugadoresEquipos[]=[];
 jugadoresRetador : JugadoresEquipos[]=[];
 jugadoresPerfilEquipo : JugadoresEquipos[]=[];
@@ -55,10 +57,21 @@ jugadoresPerfilEquipo : JugadoresEquipos[]=[];
     console.log(URL,'URL')
     return this.http.get<vistaEquipos[]>( URL );
   }
+  getOtrosEquipos( Cod_Usuario){
+    let URL = this.getURL( environment.otrosEquiposURL);
+    URL = URL +  environment.codUsuarioParam + Cod_Usuario
+    console.log(URL,'URL')
+    return this.http.get<vistaOtrosEquipos[]>( URL );
+  }
   SyncMisEquipos(Cod_Usuario){
    
    return  this.getMisEquipos(Cod_Usuario).toPromise();
   }
+  SyncOtrosEquipos(Cod_Usuario){
+   
+    return  this.getOtrosEquipos(Cod_Usuario).toPromise();
+   }
+
   private   putEquipo( equipo, Cod_Usuario ){
     let URL = this.getURL( environment.equiposURL);
          URL = URL + environment.codEquipoParam +equipo.Cod_Equipo + environment.codUsuarioSecondParam +Cod_Usuario;
@@ -167,36 +180,7 @@ cerrarModal(){
 
 
 nuevoEquipo(equipo:Equipos){
-  console.log(equipo, 'stored 1')
-
-  this.equipoPost(equipo).subscribe(
-    resp =>{
-this.gestorImagenesService.startUpload(this.gestorImagenesService.images[0]);
-      console.log(equipo, 'stored')
-
-
-      this.misEquipos = [];
-      this.alertasService.presentaLoading('Cargando datos...');
-        this.SyncMisEquipos(equipo.Cod_Usuario).then(resp =>{
-          this.misEquipos = resp.slice(0);
-          this.perfilEquipo = this.misEquipos[0];
-          this.alertasService.loadingDissmiss();
-          this.cerrarModal();
-     
-       
-        }, error =>{
-          this.alertasService.loadingDissmiss();
-          this.alertasService.message('FUTLAY', 'Error cargando datos...');
-       
-        })
-      
-      
-      this.modalCtrl.dismiss();
-
-    }, error =>{
-
-    }
-  )
+ return  this.equipoPost(equipo).toPromise();
 }
 
 

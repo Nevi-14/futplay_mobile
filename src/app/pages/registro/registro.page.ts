@@ -3,13 +3,14 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { format } from 'date-fns';
+import { Usuarios } from 'src/app/models/usuarios';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { CantonesService } from 'src/app/services/cantones.service';
 import { DistritosService } from 'src/app/services/distritos.service';
 import { ProvinciasService } from 'src/app/services/provincias.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { SeleccionarFechaPage } from '../seleccionar-fecha/seleccionar-fecha.page';
-
+import * as bcrypt from 'bcryptjs';  // npm install bcryptjs --save  &&  npm install @types/bcrypt --save-dev
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
@@ -30,7 +31,8 @@ selectedYear = new Date().getFullYear();
 selectedMonth: string;
 selectedDay:number;
 previousDay:number;
-usuario = {
+usuario: Usuarios = {
+  Cod_Usuario:0,
   Cod_Provincia: null,
   Cod_Canton : null,
   Cod_Distrito : null,
@@ -52,6 +54,7 @@ usuario = {
   Apodo: '',
   Partidos_Jugados: 0,
   Partidos_Jugador_Futplay: 0,
+  Avatar: true
 
 };
 confirmarContrasena ='';
@@ -62,7 +65,7 @@ canton: null;
 distrito: null;
 showCanton = null;
 showDistrito = null;
-
+emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   protected isModalIsOpen:boolean=false;
 
 
@@ -80,6 +83,7 @@ showDistrito = null;
   ngOnInit() {
 
   
+  
   }
   formatDate(value: string) {
     //  this.usuario.Fecha_Nacimiento = $event.detail.value;
@@ -96,6 +100,7 @@ showDistrito = null;
 limpiarDatos(){
   this.provinciasService.syncProvincias();
   this.usuario = {
+    Cod_Usuario:0,
     Cod_Provincia: null,
     Cod_Canton : null,
     Cod_Distrito : null,
@@ -117,6 +122,9 @@ limpiarDatos(){
     Apodo: '',
     Partidos_Jugados: 0,
     Partidos_Jugador_Futplay: 0,
+    Avatar: true,
+ 
+
   
   };
   this.confirmarContrasena ='';
@@ -211,8 +219,8 @@ async SelectDate(){
     this.modalOpen = true;
     const modal = await this.modalCrtl.create({
       component:SeleccionarFechaPage,
-      cssClass:'calendar-modal',
-      id: 'seleccionar-fecha',
+      cssClass:'medium-modal',
+      mode:'ios',
       componentProps:{
         title:'Fecha de nacimiento',
         id: 'seleccionar-fecha',

@@ -96,7 +96,7 @@ border-top-left-radius: 30px;
 border-top-right-radius: 30px;
 }
 
-.employeeItem {
+.custom-item {
 
   --border-radius: 10px;
   --padding-start: 1rem;
@@ -106,15 +106,6 @@ border-top-right-radius: 30px;
   padding: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  img {
-    height: 5rem;
-          width: 5rem;
-          border-radius: 10px;
-          border: 2px solid #e7edfb;
-          object-fit:cover;
-      }
-      
-
   
   ion-label {
     font-size: 14px!important;
@@ -135,6 +126,18 @@ border-top-right-radius: 30px;
   }
   
 
+
+  }
+
+  .custom-item-img{
+    img {
+      height: 5rem;
+            width: 5rem;
+            border-radius: 10px;
+            border: 2px solid #e7edfb;
+            object-fit:cover;
+        }
+        
   }
 
 .ion-fab:first  {

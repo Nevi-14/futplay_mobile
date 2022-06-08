@@ -13,7 +13,7 @@
       </ion-item>
   <ion-item class="transparent ion-margin-bottom ion-margin-top"  *ngIf="nuevaReservacion.Hora_Inicio != null && nuevaReservacion.Hora_Fin != null">
     <ion-icon slot="start" name="time-outline"></ion-icon>
-    <ion-label>  <ion-badge color="warning" mode="ios">{{ nuevaReservacionTime.time12_Hora_Inicio}}</ion-badge> /  <ion-badge color="warning" mode="ios">{{nuevaReservacionTime.time12_Hora_Fin}}</ion-badge></ion-label>
+    <ion-label>  <ion-badge color="warning" mode="ios">{{ nuevaReservacion.Hora_Inicio | date:'shortTime'}}</ion-badge> /  <ion-badge color="warning" mode="ios">{{nuevaReservacion.Hora_Fin | date:'shortTime'}}</ion-badge></ion-label>
   </ion-item>
     </ion-toolbar>
     </ion-header>

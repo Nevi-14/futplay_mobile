@@ -192,9 +192,34 @@ this.gestorImagenesService.reset();
         }
   crearRegistro(){
 
+    this.alertasService.presentaLoading('Guardando Equipo');
+this.equiposService.nuevoEquipo(this.equipo).then(resp =>{
+  this.alertasService.loadingDissmiss();
+  if(this.gestorImagenesService.images.length > 0){
+    this.gestorImagenesService.startUpload(this.gestorImagenesService.images[0]);
+ 
+  }
+  this.equiposService.misEquipos = [];
+  this.alertasService.presentaLoading('Cargando datos...');
+    this.equiposService.SyncMisEquipos(this.equipo.Cod_Usuario).then(resp =>{
+      this.equiposService.misEquipos = resp.slice(0);
+      this.equiposService.perfilEquipo = this.equiposService.misEquipos[0];
+      this.alertasService.loadingDissmiss();
+      this.modalCtrl.dismiss({
+        'equipo':this.equipo
+      })
+   
+    }, error =>{
+      this.alertasService.loadingDissmiss();
+      this.alertasService.message('FUTLAY', 'Error cargando datos...');
+   
+    })
 
+}, error =>{
+  this.alertasService.loadingDissmiss();
+  this.alertasService.message('FUTLAY', 'Error guardando equipo...');
+})
 
-this.equiposService.nuevoEquipo(this.equipo)
 
 
 

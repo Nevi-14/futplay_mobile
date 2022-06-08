@@ -117,7 +117,7 @@ year: null
 
     let numeroDias = 0;
 
-    if(monthValue === 'Enero' || monthValue === 'March'|| monthValue === 'Marzo' || monthValue === 'Julio' || monthValue === 'Agosto' || monthValue === 'Octubre' || monthValue === 'Diciembre'){
+    if(monthValue === 'Enero' || monthValue === 'Mayo'|| monthValue === 'Marzo' || monthValue === 'Julio' || monthValue === 'Agosto' || monthValue === 'Octubre' || monthValue === 'Diciembre'){
       numeroDias = 31;
     }else if( monthValue === 'Abril' || monthValue === 'Junio' || monthValue === 'Septiembre' || monthValue === 'Noviembre'){
       numeroDias = 30;
@@ -164,7 +164,7 @@ year: null
   cerrarModal(){
     this.modalCtrl.dismiss(this.modalCtrl.dismiss({
       'date':null
-    },null,this.id));
+    }));
   }
 
 
@@ -217,7 +217,7 @@ this.populateDays()
   let completeDate = new Date(year,this.meses.indexOf(month), day)
     this.modalCtrl.dismiss({
       'date':completeDate
-    },null,this.id);
+    });
   }
 
 

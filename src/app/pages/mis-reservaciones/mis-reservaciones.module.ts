@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { MisReservacionesPageRoutingModule } from './mis-reservaciones-routing.module';
 
 import { MisReservacionesPage } from './mis-reservaciones.page';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MisReservacionesPageRoutingModule
+    MisReservacionesPageRoutingModule,
+    PipesModule
   ],
   declarations: [MisReservacionesPage]
 })

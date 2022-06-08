@@ -5,26 +5,28 @@
 
     <ion-grid class="mainContent" style="height: 100%;display: flex;justify-content: center;align-items: center;">
       <ion-row  >
-      <ion-col size="12" >
-        <ion-card class="animate__animated animate__fadeIn" style="display:flex; justify-content: center; align-items: center; width: 80vw; height: 140px;" (click)="crearEquipo()">
-          <ion-card-header >
-            <ion-card-subtitle color="dark">CREAR UN EQUIPO</ion-card-subtitle>
-          </ion-card-header>
-        
-          <ion-card-content>
-            <img [src]="add" class="invert" style="height: 80px;">
-          </ion-card-content>
-        </ion-card>
-    
-        <ion-card  class="animate__animated animate__fadeIn" (click)="buscarEquipos()"  style="display:flex; justify-content: center; align-items: center; width: 80vw; height: 140px;">
-          <ion-card-header>
-            <ion-card-subtitle color="dark">UNIRSE A UN EQUIPO</ion-card-subtitle>
-          </ion-card-header>
-        
-          <ion-card-content>
-            <img [src]="find" class="invert" style="height: 80px;">
-          </ion-card-content>
-        </ion-card>
+      <ion-col size="12" class="ion-text-center">
+
+        <ion-button color="dark" (click)="crearEquipo()" expand="blocked" fill="outline" style=" width: 90vw; height: 140px;border-radius: 40px;" class="ion-margin-bottom">
+          <ion-label slot="start"><strong>CREAR  EQUIPO</strong></ion-label>
+
+
+          <img slot="end" [src]="add" class="invert" style="height: 30vh;width: 30vw;">
+        </ion-button>
+
+
+        <ion-button color="dark" (click)="buscarEquipos()" expand="blocked" fill="outline" style=" width: 90vw; height: 140px;border-radius: 40px;" class="ion-margin-top">
+          <ion-label slot="start"><strong>UNIRSE A UN EQUIPO</strong></ion-label>
+
+
+          <img slot="end" [src]="find" class="invert" style="height: 30vh;width: 30vw;">
+        </ion-button>
+
+
+
+
+
+
     
     
       </ion-col>

@@ -92,7 +92,7 @@
               <ion-col size="12" size-md="6">
                 <ion-label >
         Nombre</ion-label>
-        <ion-item class="ion-margin-bottom ion-margin-top">
+        <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
             
                     <ion-input required  name="nombre"  [(ngModel)]="usuario.Nombre"  placeholder="Nombre" 
                     type="text"
@@ -109,7 +109,7 @@
                 <ion-label >
            
                   Apellido</ion-label>
-                <ion-item class="ion-margin-bottom ion-margin-top">
+                <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
                  
                 
                   <ion-input type="text" placeholder="Primer Apellido" name="Primer_Apellido" [(ngModel)]="usuario.Primer_Apellido"   name="Primer Apellido"  autocomplete="off"></ion-input>
@@ -120,7 +120,7 @@
               <ion-col size="12" size-md="6">
                 <ion-label>
           Apodo</ion-label>
-                <ion-item class="ion-margin-bottom ion-margin-top">
+                <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
         
                     <ion-input required  [(ngModel)]="usuario.Apodo"  placeholder="Apodo" name="apodo"
                     type="text"
@@ -135,7 +135,7 @@
               <ion-col size="12" size-md="6" *ngIf="showPosicion">
                 <ion-label>
                   Posición</ion-label>
-                <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
+                <ion-item class="ion-margin-bottom ion-margin-top" lines="none" lines="none">
         
                 
                     <ion-select required [(ngModel)]="usuario.Cod_Posicion"   name="Cod_Posicion">
@@ -153,13 +153,13 @@
               <ion-col size="12" size-md="6">
                 <ion-label>
                   Estatura</ion-label>
-                <ion-item class="ion-margin-bottom ion-margin-top">
+                <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
             
-                    <ion-input required  [(ngModel)]="usuario.Estatura"  placeholder="Estatura" name="estatura"
-                    type="text"
+                    <ion-input required  [(ngModel)]="usuario.Estatura "  placeholder="Estatura" name="estatura"
+                    type="text"    
                     ></ion-input>
                  
-                
+                    <ion-badge color="dark" mode="ios">CM</ion-badge>
                 </ion-item>
           
           
@@ -168,11 +168,12 @@
               <ion-col size="12" size-md="6">
                 <ion-label>
                   Peso</ion-label>
-                <ion-item class="ion-margin-bottom ion-margin-top">
+                <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
                  
                     <ion-input required  [(ngModel)]="usuario.Peso"  placeholder="Peso" name="peso"
-                    type="text"
+                    type="number"
                     ></ion-input>
+                    <ion-badge color="dark" mode="ios">KG</ion-badge>
                  
                 
                 </ion-item>
@@ -185,7 +186,7 @@
         
                   
                   Correo</ion-label>
-                <ion-item class="ion-margin-bottom ion-margin-top">
+                <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
            
                   <ion-input type="email" placeholder="Correo" name="Correo"  [(ngModel)]="usuario.Correo"   autocomplete="off"></ion-input>
                 
@@ -197,7 +198,7 @@
                 <ion-label>
         
                   Telefono</ion-label>
-                <ion-item class="ion-margin-bottom ion-margin-top">
+                <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
              
                   <ion-input type="tel" placeholder="Telefono"  name="Telefono"   [(ngModel)]="usuario.Telefono"   autocomplete="off"></ion-input>
                 
@@ -210,7 +211,7 @@
               <ion-col size="12" size-md="6">
                 <ion-label >
                   Fecha de Nacimiento</ion-label>
-                <ion-item class="ion-margin-bottom ion-margin-top" (click)="SelectDate()">
+                <ion-item class="ion-margin-bottom ion-margin-top" (click)="SelectDate()" lines="none">
                   <ion-input   name="Fecha_Nacimiento"  type="text"  [value]="usuario.Fecha_Nacimiento  | date :'longDate'" placeholder="Fecha Nacimiento"></ion-input>            
                                               
                 </ion-item>
@@ -224,7 +225,7 @@
               <ion-col size="12" size-md="6" *ngIf="showProvicia">
           
                 <ion-label>Provincia</ion-label>
-                <ion-item class="ion-margin-bottom ion-margin-top">
+                <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
             
                       <ion-select placeholder="Provincia" required [(ngModel)]="usuario.Cod_Provincia" (ionChange)="onChangeProvincias($event)"   name="Cod_Provincia">
                         <ion-select-option [value]="provincia.Cod_Provincia" *ngFor="let provincia of provinciasService.provincias">
@@ -239,7 +240,7 @@
           
               <ion-col size="12" size-md="6" *ngIf="showCanton">
                 <ion-label *ngIf="showCanton">Cantón</ion-label>
-                  <ion-item *ngIf="showCanton" class="ion-margin-bottom ion-margin-top">
+                  <ion-item *ngIf="showCanton" class="ion-margin-bottom ion-margin-top" lines="none">
             
                       <ion-select placeholder="Canton"  required [(ngModel)]="usuario.Cod_Canton"  (ionChange)="onChangeCantones($event)"   name="Cod_Canton" >
                         <ion-select-option [value]="canton.Cod_Canton" *ngFor="let canton of cantonesService.cantones">
@@ -254,7 +255,7 @@
           
               <ion-col size="12" size-md="6" *ngIf="showDistrito">
                 <ion-label *ngIf="showDistrito">Distrito</ion-label>
-                <ion-item *ngIf="showDistrito"  class="ion-margin-bottom ion-margin-top">
+                <ion-item *ngIf="showDistrito"  class="ion-margin-bottom ion-margin-top" lines="none">
           
                     <ion-select placeholder="Distrito" required   [(ngModel)]="usuario.Cod_Distrito"   (ionChange)="onChangeDistritos($event)" name="Cod_Distrito">
                       <ion-select-option [value]="distrito.Cod_Distrito" *ngFor="let distrito of distritosService.distritos">

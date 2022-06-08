@@ -15,6 +15,8 @@ import { GenerarReservacionPage } from '../generar-reservacion/generar-reservaci
 })
 export class MisEquiposPage implements OnInit {
   img =  'assets/main/my-clubs.svg';
+  btn1 = true;
+  btn2 = false;
   constructor(
     public equiposService: EquiposService,
      public modalCtrl: ModalController, 
@@ -26,9 +28,11 @@ export class MisEquiposPage implements OnInit {
 
   ngOnInit() {
 
+  
     console.log(this.equiposService.userclubs ,'owner');
     console.log(this.equiposService.playerClubs , 'player');
     console.log(this.equiposService.misEquipos,'equiposService.misEquipo')
+    this.misEquipos();
   }
   async crearEquipo() {
     const modal = await this.modalCtrl.create({
@@ -40,6 +44,23 @@ export class MisEquiposPage implements OnInit {
   }
   
 
+  misEquipos(){
+    this.btn1 = true;
+    this.btn2 = false;
+    this.equiposService.SyncMisEquipos(this.user.usuarioActual.Cod_Usuario).then(resp=>{
+this.equiposService.otrosEquipos = [];
+      this.equiposService.misEquipos = resp;
+    })
+  }
+  otrosEquipos(){
+    this.btn1 = false;
+    this.btn2 = true;
+    this.equiposService.misEquipos = [];
+    this.equiposService.SyncOtrosEquipos(this.user.usuarioActual.Cod_Usuario).then(resp=>{
+console.log('resp', resp)
+      this.equiposService.otrosEquipos = resp;
+    })
+  }
  async  crearUnirseEquipo(){
     const modal = await this.modalCtrl.create({
       component:CrearUnirseEquipoPage,

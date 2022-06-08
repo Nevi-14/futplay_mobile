@@ -103,7 +103,7 @@ console.log(URL);
   
       
           generarReservacion(Cod_Cancha,Fecha){
-            this.alertasService.presentaLoading('Verificando Horas Disponibles')
+        
             this.horasdiaConsulta = []
             this.syncHorarioCanchas(Cod_Cancha).then(resp =>{
 
@@ -117,7 +117,7 @@ console.log(URL);
             }).then(resp =>{
 
 
-console.log('completed')
+
 
 this.syncreservacionesFiltrarFecha(Cod_Cancha,this.formatoFecha(Fecha, '-')).then(resp =>{
 
@@ -135,7 +135,7 @@ console.log('completed 2')
 
 
 
-this.generarArregloHorasDisponibles(Fecha)
+//this.generarArregloHorasDisponibles(Fecha)
 
 })
 
@@ -186,7 +186,9 @@ break;
       //  HORAS TOTALES DIA
       //==========================================================================================
 
-
+/**
+ * 
+ * @param date 
       generarArregloHorasDisponibles(date){
 
 
@@ -278,7 +280,7 @@ this.stopLoading  = i;
         this.horaSeleccionada = this.horasdiaConsulta[0].hora_inicio;
 //alert(this.horaSeleccionada)
 this.diaCompleto = 0;
-this.diaCompleto = this.reservacionesFiltroFecha.filter(guia => guia.diaCompleto == true).length
+this.diaCompleto = this.reservacionesFiltroFecha.filter(guia => guia.DiaCompleto == true).length
 
 console.log(this.horasdiaConsulta, 'horasdiaConsulta')
        }
@@ -293,6 +295,9 @@ console.log(this.horasdiaConsulta, 'horasdiaConsulta')
 
 
      
+ * @param format 
+ * @returns 
+ */
 
 
 

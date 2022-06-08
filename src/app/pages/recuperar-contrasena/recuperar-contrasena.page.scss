@@ -1,0 +1,65 @@
+
+  .company-name{
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 18px;
+    color: #010101;
+  }
+  ion-content{
+    
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+      h1{
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 20px;
+        color: #010101;
+        margin-bottom:1rem;
+        
+      }
+    ion-avatar,  img {
+    width: 120px;
+    height: 120px;
+
+      }
+    
+  
+    #form {
+  
+  max-width: 500px;
+  width: 100%;
+  ion-button{
+    height: 48px;
+    font-size: 18px;
+    text-transform: initial;
+    border-radius: 50px;
+    box-shadow: 1px 8px 8px 0px rgba(0,0,0,0.05);
+    margin: 0 auto;
+    margin-right:0.5rem;
+  }
+    }
+  
+  }
+  
+  ion-item{
+    border-radius: 50px;
+    box-shadow: 1px 8px 8px 0px rgba(0,0,0,0.08);
+    --highlight-height:0px;
+  }
+  
+  ion-input{
+    font-size: 18px;
+    --padding-top:20px;
+    --padding-bottom:15px;
+    --padding-start:5px;
+  
+  }
+  
+  a{
+    font-size: 17px;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+  }

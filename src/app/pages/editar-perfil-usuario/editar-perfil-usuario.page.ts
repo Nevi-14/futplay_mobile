@@ -352,7 +352,13 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
 
     this.modalCtrl.dismiss(null, null, 'perfil-usuario')
   }
-
+  changeQuantity($event){
+    //manually launch change detection
+    this.cdr.detectChanges();
+    console.log('$event.detail.value', $event.detail.value)
+    const value:any =  Number($event.detail.value).toFixed(2);
+    this.usuario.Estatura = value;
+ }
   async SelectDate(){
     if (!this.modalOpen){
       this.modalOpen = true;
