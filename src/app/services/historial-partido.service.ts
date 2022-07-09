@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { HistorialPartido } from '../models/historialPartido';
+import { GoogleAdsService } from './google-ads.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { HistorialPartido } from '../models/historialPartido';
 export class HistorialPartidoService {
   counter: { min: number, sec: number }
 partidoActual : HistorialPartido
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, public googleAdsService: GoogleAdsService) { }
 
 
 
@@ -36,7 +37,7 @@ console.log(URL);
     let URL = this.getURL( environment.partidoActualURL);
     URL = URL + environment.codReservacion + Cod_Reservacion
 
-    return this.http.get<HistorialPartido>( URL );
+    return this.http.get<HistorialPartido[]>( URL );
 
 
   }
@@ -88,7 +89,7 @@ iniciarPartido(partido){
 private   putPartidoActual( partido, Cod_Reservacion ){
 
   let  URL = this.getURL( environment.actualizarPartidoURL);
-   URL = URL  + environment.codReservacion + Cod_Reservacion
+  URL = URL  + environment.codPartido + partido.Cod_Partido
 
   console.log(URL,'URL', 'reser', Cod_Reservacion)
 
@@ -189,7 +190,7 @@ evaluacionJugador(evaluacion){
 private   putPartidoActualQR( partido, Cod_Reservacion ){
 
   let  URL = this.getURL( environment.actualizarQrURL);
-   URL = URL  + environment.codReservacion + Cod_Reservacion
+   URL = URL  + environment.codPartido + partido.Cod_Partido
 
   console.log(URL,'URL', 'reser', Cod_Reservacion)
 
@@ -214,9 +215,16 @@ actualizarPartidoQR(partido, Cod_Reservacion  ){
 
   this.putPartidoActualQR( partido, Cod_Reservacion  ).subscribe(
     resp => {
+      alert('actualizado')
 
       this.partidoActual = resp[0];
      console.log('partido actualizada', resp)
+     this.googleAdsService.showInterstitial();
+
+
+
+
+   
     }, error => {
       console.log('error', error)
     }

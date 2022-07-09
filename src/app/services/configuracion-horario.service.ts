@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { LogicaReservacionService } from './logica-reservacion.service';
 import { HttpClient } from '@angular/common/http';
 import { AlertasService } from './alertas.service';
+import { GestionReservacionesService } from './gestion-reservaciones.service';
+
 interface time {
 id: number,
 hours: number,
@@ -41,9 +42,9 @@ export class ConfiguracionHorarioService {
 
 
   constructor(
-public logicaReservacionService:LogicaReservacionService,
 public http: HttpClient,
-public alertasService: AlertasService
+public alertasService: AlertasService,
+public gestionReservacionesService:GestionReservacionesService
 
   ) { }
 
@@ -63,7 +64,61 @@ public alertasService: AlertasService
     return URL;
   }
 
+
+    // POST HORARIO CANCHA
+
+    private postHorarioCancha (horario){
+      const URL = this.getURL( environment.horarioCanchaURL );
+      const options = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        }
+      };
+     
+      return this.http.post( URL, JSON.stringify(horario), options );
+    }
   
+    insertarHorario(Cod_Cancha?){
+
+if(Cod_Cancha){
+
+  for( let i = 0; i < this.horarioCancha.length;i++){
+    this.horarioCancha[i].Cod_Cancha = Cod_Cancha;
+    if(i == this.horarioCancha.length -1){
+      this.alertasService.presentaLoading('Guardando registro');
+
+
+
+      this.postHorarioCancha(this.horarioCancha).subscribe(
+
+      
+        resp => {
+
+          this.alertasService.loadingDissmiss();
+
+          console.log('horario creado', resp)
+
+
+        }, error => {
+
+          this.alertasService.loadingDissmiss();
+
+       
+
+         console.log('error', this.horarioCancha)
+        }
+      )
+
+    }
+  }
+}
+
+     
+  
+    }
+
 
 
 
@@ -100,11 +155,11 @@ public alertasService: AlertasService
 
       }
 
- await this.logicaReservacionService.generarArregloHorasDisponibles(0,24).then(resp =>{
+ await this.gestionReservacionesService.generarArregloHorasDisponibles(this.horarioCancha[i].Cod_Cancha,0,24).then(resp =>{
 
 hora.Hora_Inicio = resp;
 
- this.logicaReservacionService.generarArregloHorasDisponibles(1,24).then(resp =>{
+ this.gestionReservacionesService.generarArregloHorasDisponibles(this.horarioCancha[i].Cod_Cancha,1,24).then(resp =>{
 
   hora.Hora_Fin = resp;
 
@@ -122,11 +177,12 @@ hora.Hora_Inicio = resp;
 
   };
 
+  
   horaInicioOnChangeEvent($event,index){
 
     let start = $event.detail.value+1;
     this.horarioCancha[index].Hora_Fin = 23;
-    this.logicaReservacionService.generarArregloHorasDisponibles(start,24).then(resp =>{
+    this.gestionReservacionesService.generarArregloHorasDisponibles(this.horarioCancha[index].Cod_Cancha,start,24).then(resp =>{
 
       this.horariosConsulta[index].Hora_Fin = resp;;
       

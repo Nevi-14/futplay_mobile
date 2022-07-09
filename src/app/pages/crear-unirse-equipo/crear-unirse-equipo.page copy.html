@@ -1,0 +1,62 @@
+<app-encabezado-modal></app-encabezado-modal>
+
+  <ion-content  class="">
+
+
+    <ion-grid class="mainContent" style="height: 100%;display: flex;justify-content: center;align-items: center;">
+
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>Awesome Subtitle</ion-card-subtitle>
+          <ion-card-title>Awesome Title</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Awesome content
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>Awesome Subtitle</ion-card-subtitle>
+          <ion-card-title>Awesome Title</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Awesome content
+        </ion-card-content>
+      </ion-card>
+      <ion-row  >
+      <ion-col size="12" class="ion-text-center">
+
+        <ion-button color="dark" (click)="crearEquipo()" expand="blocked" fill="outline" style=" width: 90vw; height: 140px;border-radius: 40px;" class="ion-margin-bottom">
+          <ion-label slot="start"><strong>CREAR  EQUIPO</strong></ion-label>
+
+
+          <img slot="end" [src]="add" class="invert" style="height: 30vh;width: 30vw;">
+        </ion-button>
+
+
+        <ion-button color="dark" (click)="buscarEquipos()" expand="blocked" fill="outline" style=" width: 90vw; height: 140px;border-radius: 40px;" class="ion-margin-top">
+          <ion-label slot="start"><strong>UNIRSE A UN EQUIPO</strong></ion-label>
+
+
+          <img slot="end" [src]="find" class="invert" style="height: 30vh;width: 30vw;">
+        </ion-button>
+
+
+
+
+
+
+    
+    
+      </ion-col>
+
+
+    </ion-row>
+    </ion-grid>
+
+
+   
+  </ion-content>
+

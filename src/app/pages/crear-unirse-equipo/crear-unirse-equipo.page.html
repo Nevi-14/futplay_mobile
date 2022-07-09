@@ -1,41 +1,60 @@
-<app-encabezado-modal></app-encabezado-modal>
 
-  <ion-content  class="">
+  <ion-header >
 
+    <ion-toolbar mode="md">
+      <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
+        <ion-buttons slot="start">
+          <ion-button  (click)="cerrarModal()" color="light">
+            <ion-icon slot="start" name="chevron-back"></ion-icon>
+            &nbsp;Gestion Equipos
+          </ion-button>
+        </ion-buttons>
 
-    <ion-grid class="mainContent" style="height: 100%;display: flex;justify-content: center;align-items: center;">
-      <ion-row  >
-      <ion-col size="12" class="ion-text-center">
+      </ion-item>
 
-        <ion-button color="dark" (click)="crearEquipo()" expand="blocked" fill="outline" style=" width: 90vw; height: 140px;border-radius: 40px;" class="ion-margin-bottom">
-          <ion-label slot="start"><strong>CREAR  EQUIPO</strong></ion-label>
-
-
-          <img slot="end" [src]="add" class="invert" style="height: 30vh;width: 30vw;">
-        </ion-button>
-
-
-        <ion-button color="dark" (click)="buscarEquipos()" expand="blocked" fill="outline" style=" width: 90vw; height: 140px;border-radius: 40px;" class="ion-margin-top">
-          <ion-label slot="start"><strong>UNIRSE A UN EQUIPO</strong></ion-label>
-
-
-          <img slot="end" [src]="find" class="invert" style="height: 30vh;width: 30vw;">
-        </ion-button>
-
-
-
-
-
-
+ 
+     
+    </ion-toolbar>
+    </ion-header>
+    <ion-content fullscreen>
+  
     
-    
-      </ion-col>
+      <div class="mainContent" style="display:flex;justify-content:center;align-items:center;">
 
 
-    </ion-row>
-    </ion-grid>
+
+        <ion-list style="width: 90vw;">
+  
+          <ion-item (click)="crearEquipo()"    lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"      >
+            <img  src="assets/team.svg"onerror="this.src='assets/team.svg'"   alt="">
+      
+            <ion-label>
+              <h2> Crear Equipo </h2>
+        
+              <p   class="ion-text-wrap">
+                   
+                Te permite crear un nuevo equipo
+          
+              </p>
+              
+            </ion-label>
+      
+          </ion-item>
+
+          <ion-item  (click)="buscarEquipos()"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"      >
+            <img  src="assets/team2.svg"onerror="this.src='assets/team2.svg'"   alt="">
+      
+            <ion-label>
+              <h2> Unirse a un Equipo </h2>
+             
+              <p class="ion-text-wrap">Te permite unirte a un equipo</p>
+            </ion-label>
+      
+          </ion-item>
+        </ion-list>
 
 
-   
-  </ion-content>
+      </div>
+    </ion-content>
 
+ 

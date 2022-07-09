@@ -196,6 +196,10 @@ const routes: Routes = [
   {
     path: 'canchas',
     loadChildren: () => import('./pages/canchas/canchas.module').then( m => m.CanchasPageModule)
+  },
+  {
+    path: 'configuracion-horario',
+    loadChildren: () => import('./pages/configuracion-horario/configuracion-horario.module').then( m => m.ConfiguracionHorarioPageModule)
   }
 
 

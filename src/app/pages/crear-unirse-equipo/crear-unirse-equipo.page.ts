@@ -33,9 +33,8 @@ export class CrearUnirseEquipoPage implements OnInit {
  
     if(data !== undefined ){
       console.log(data,'data')
-      this.modalCtrl.dismiss({
-        'data':data
-      })
+      this.modalCtrl.dismiss(data, null, "create");
+    
     }
 
   }

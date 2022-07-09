@@ -181,7 +181,28 @@ generarJugadorEquipo(JugadorEquipo){
   )
   
   }
+  agregarJugador(JugadorEquipo){
 
+
+    this.postJugadorEquipo(JugadorEquipo).subscribe(
+    
+      resp =>{
+      //  this.syncGetSolicitudesJugadores(JugadorEquipo.Cod_Usuario)
+        //this.syncGetSolicitudesEquipos(JugadorEquipo.Cod_Equipo)
+  
+        console.log(resp, 'post JugadorEquipo completed', JugadorEquipo)
+        
+    
+      }, error =>{
+        console.log(error, 'post JugadorEquipo error', JugadorEquipo)
+    
+    
+    
+    
+      }
+    )
+    
+    }
 private putSolicitud(Solicitud,Cod_Solicitud, Cod_Usuario){
 
 let URL = this.getURL(environment.SolicitudesJugadoresEquiposPutURL);

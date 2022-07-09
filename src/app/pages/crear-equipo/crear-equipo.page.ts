@@ -9,10 +9,13 @@ import { CantonesService } from 'src/app/services/cantones.service';
 import { DistritosService } from 'src/app/services/distritos.service';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { GestorImagenesService } from 'src/app/services/gestor-imagenes.service';
+import { ListaJugadoresService } from 'src/app/services/lista-jugadores.service';
 import { ProvinciasService } from 'src/app/services/provincias.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { CrearUnirseEquipoPage } from '../crear-unirse-equipo/crear-unirse-equipo.page';
+import { SolicitudesService } from '../../services/solicitudes.service';
 declare const window: any;  
+
 @Component({
   selector: 'app-crear-equipo',
   templateUrl: './crear-equipo.page.html',
@@ -41,7 +44,8 @@ imageURL =  null
          public camera: Camera,
          public canchasService:CanchasService,
           public gestorImagenesService: GestorImagenesService,
-           public alertasService: AlertasService
+           public alertasService: AlertasService,
+           public solicitudes: SolicitudesService
            
            ) { }
 
@@ -193,7 +197,21 @@ this.gestorImagenesService.reset();
   crearRegistro(){
 
     this.alertasService.presentaLoading('Guardando Equipo');
-this.equiposService.nuevoEquipo(this.equipo).then(resp =>{
+this.equiposService.nuevoEquipo(this.equipo).then((resp:Equipos) =>{
+  
+
+
+  const jugador = {
+
+    Cod_Jugador :null,
+    Cod_Usuario: this.equipo.Cod_Usuario,
+    Cod_Equipo: resp.Cod_Equipo,
+    Fecha: new Date(),
+    Favorito: false,
+    Administrador_Equipo: false
+
+  }
+  this.solicitudes.agregarJugador(jugador);
   this.alertasService.loadingDissmiss();
   if(this.gestorImagenesService.images.length > 0){
     this.gestorImagenesService.startUpload(this.gestorImagenesService.images[0]);

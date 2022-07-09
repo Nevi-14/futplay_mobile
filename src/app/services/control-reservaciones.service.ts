@@ -318,22 +318,31 @@ this.mesesDisponibles.push(i+1);
 
       this.putReservacion( reservacion,Cod_Usuario, Cod_Reservacion  ).subscribe(
         resp => {
-              const Historia_Partidos = {
+              const Historia_PartidosRival = {
                 Cod_Partido : null,
                 Cod_Reservacion: Cod_Reservacion,
-                Verificacion_QR_Retador : false,
-                Verificacion_QR_Rival : false,
+                Cod_Equipo  : reservacion.Cod_Rival,
+                Verificacion_QR  : false,
                 Goles_Retador : 0,
                 Goles_Rival : 0,
-                Dureza_Rival : '',
-                Dureza_Retador : '',
-                Reservaciones:[],
-                Historial_Partidos_Jugador:[]
+                Estado : 0
+
+              }
+              const Historia_PartidosRetador= {
+                Cod_Partido : null,
+                Cod_Reservacion: Cod_Reservacion,
+                Cod_Equipo  : reservacion.Cod_Retador,
+                Verificacion_QR  : false,
+                Goles_Retador : 0,
+                Goles_Rival : 0,
+                Estado : 0
 
               }
          console.log('reservacion actualizada', resp)
-
-         this.historialPartidoService.iniciarPartido(Historia_Partidos)
+console.log('historuak 1', Historia_PartidosRival)
+console.log('historuak 2', Historia_PartidosRetador)
+         this.historialPartidoService.iniciarPartido(Historia_PartidosRival)
+         this.historialPartidoService.iniciarPartido(Historia_PartidosRetador)
         }, error => {
           console.log('error', error)
         }

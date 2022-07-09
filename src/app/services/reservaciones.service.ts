@@ -75,7 +75,7 @@ console.log(URL);
 
   time(date,hour){
 
-    const dateValue = date.getMonth()+1+'/'+date.getDate()+'/'+date.getFullYear() + ' ' + hour // '05/18/2015 03:45:28 PM'
+    const dateValue = date.getMonth()+1+'-'+date.getDate()+'-'+date.getFullYear() + ' ' + hour // '05/18/2015 03:45:28 PM'
  console.log(dateValue)
  return new Date(dateValue);
 
@@ -175,7 +175,33 @@ const  reservacionCanchas = {
     console.log(this.selectedDate)
     return date == new Date( this.selectedDate);
 };
+formatoFecha(date:Date, format:string){
 
+  const dateObj = new Date(date);
+  
+  const month = ('0' + (dateObj.getMonth() + 1)).slice(-2);
+  const dateValue = ('0' + dateObj.getDate()).slice(-2);
+  const year = dateObj.getFullYear();
+  let formatoFecha = null;
+
+
+  switch(format){
+
+         case '-':
+         formatoFecha =  year + '-' + month + '-' + dateValue;
+         break;
+
+         case '/':
+        formatoFecha =  year + '/' + month + '/' + dateValue;
+        break;
+
+        default :
+         formatoFecha = dateObj; 
+
+  }
+         return formatoFecha;
+
+}
   syncReservacionesCanchaActual(Cod_Cancha){
 
  //   this.presentaLoading('Cargando reservaciones por cancha')
@@ -191,7 +217,7 @@ this.eventSource = [];
 this.reservacionesCanchasUsusario = resp;
 
 for (var i = 0; i < this.reservacionesCanchasUsusario.length; i ++) {
-  var dia = new Date( this.reservacionesCanchasUsusario[i].Fecha);
+  var dia =  new Date( this.formatoFecha(this.reservacionesCanchasUsusario[i].Fecha,'-'));
   console.log(dia, dia.getDate())
   var startDay = dia.getDate();
   var endDay = dia.getDate() ;
@@ -203,7 +229,7 @@ for (var i = 0; i < this.reservacionesCanchasUsusario.length; i ++) {
 console.log(this.reservacionesCanchasUsusario[i].diaCompleto, 'dia completo')
 
   if (this.reservacionesCanchasUsusario[i].diaCompleto) {
-    const date =  new Date(this.reservacionesCanchasUsusario[i].Fecha);
+    const date =  new Date( this.formatoFecha(this.reservacionesCanchasUsusario[i].Fecha,'-'));
     startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
     if (endDay === startDay) {
         endDay += 1;

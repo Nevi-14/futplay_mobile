@@ -9,6 +9,8 @@ import { GestionRetos } from 'src/app/models/gestionRetos';
 import { ListaCanchas } from 'src/app/models/listaCanchas';
 import { vistaEquipos } from 'src/app/models/vistaEquipos';
 import { HistorialPartido } from 'src/app/models/historialPartido';
+import { AlertasService } from 'src/app/services/alertas.service';
+import { GestionReservacionesService } from '../../services/gestion-reservaciones.service';
 
 @Component({
   selector: 'app-verificacion-qr',
@@ -22,7 +24,9 @@ export class VerificacionQrPage implements OnInit {
   @Input() retador;
   @Input() equipo:vistaEquipos;
   @Input() rival;
-  @Input() partido: HistorialPartido
+  @Input() partido: HistorialPartido[]
+  rivalIndex = null;
+  retadorIndex  = null;
   swiperOpts = {
     allowSlidePrev:false,
     allowSlideNext:false
@@ -33,43 +37,75 @@ public modalCtrl: ModalController,
 public barcodeScanner: BarcodeScanner,
 public qrVerificationService: QrVerificationService,
 public historialPartidoService: HistorialPartidoService,
-public usuariosService:UsuariosService
-
+public usuariosService:UsuariosService,
+public alertasService: AlertasService,
+public gestionReservacionesService:GestionReservacionesService
   ) { }
 
   ngOnInit() {
+    let i = this.partido.findIndex(partido => partido.Cod_Equipo == this.reto.Cod_Rival);
+if(i == 0){
+  this.rivalIndex = 0;
+  this.retadorIndex = 1;
+}else{
+  this.rivalIndex = 1;
+  this.retadorIndex = 0;
+}
 
-    console.log(this.reto,this.cancha,this.retador,this.rival, this.partido)
   }
 
   cerrarModal(){
     this.modalCtrl.dismiss();
   }
   scan(){
-   
-    this.barcodeScanner.scan().then(barcodeData => {
-      console.log('Barcode data', barcodeData);
-  
-  if(!barcodeData.cancelled){
-    this.actualizarQR();
-  //this.qrVerificationService.guardarRegistro(barcodeData.format, barcodeData.text)
-  }
-  
-     }).catch(err => {
-         console.log('Error', err);
-        this.qrVerificationService.guardarRegistro('QRCode', 'https://dev-coding.com')
-     });
+
+
+    console.log(this.reto)
+    let today = new Date();
+    this.gestionReservacionesService.compararFechas(this.reto.Fecha,today).then(resp =>{
+console.log(resp, 'fecha')
+if(resp === 0){
+  this.barcodeScanner.scan().then(barcodeData => {
+    // validar el codigo del qr que sea el de la cancha
+    // Vaidar Fecha, hora incio  media hora antes
+          let Cod_Cancha = barcodeData.text;
+          if(this.reto.Cod_Cancha != Number(Cod_Cancha) ){
+    this.alertasService.message('FUTPLAY','Codigo QR no corresponde a la cancha correcta')
+            return
+          }
+          console.log('Barcode data', barcodeData);
+      
+      if(!barcodeData.cancelled){
+        this.actualizarQR();
+      //this.qrVerificationService.guardarRegistro(barcodeData.format, barcodeData.text)
+      }
+      
+         }).catch(err => {
+             console.log('Error', err);
+            this.qrVerificationService.guardarRegistro('QRCode', 'https://dev-coding.com')
+         });
+}else{
+  this.alertasService.message('FUTPLAY','Reservación no corresponde al dia de hoy')
+
+}
+    });
+ 
+
   }
 
   actualizarQR(){
 
     if(this.usuariosService.usuarioActual.Cod_Usuario == this.reto.Cod_Usuario){
-      this.partido.Verificacion_QR_Retador = true ;
 
-      this.historialPartidoService.actualizarPartidoQR(this.partido, this.reto.Cod_Reservacion)
-    }else if(this.usuariosService.usuarioActual.Cod_Usuario == this.reto.Cod_Usuario_Rival){
-      this.partido.Verificacion_QR_Rival = true ;
-      this.historialPartidoService.actualizarPartidoQR(this.partido, this.reto.Cod_Reservacion)
+
+      this.partido[this.retadorIndex].Verificacion_QR = true ;
+
+      this.historialPartidoService.actualizarPartidoQR(this.partido[this.retadorIndex], this.reto.Cod_Reservacion)
+    }else{
+     
+ 
+      this.partido[this.rivalIndex].Verificacion_QR = true ;
+      this.historialPartidoService.actualizarPartidoQR(this.partido[this.rivalIndex], this.reto.Cod_Reservacion)
     }
   }
   abrirRegistro(registro){

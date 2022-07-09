@@ -10,9 +10,10 @@ import { AlertasService } from './alertas.service';
 import { environment } from 'src/environments/environment';
 import { ChangeDetectorRef } from '@angular/core';
 import { Usuarios } from '../models/usuarios';
-
+import { IonicStorageModule } from '@ionic/storage-angular';
 import * as bcrypt from 'bcryptjs';  // npm install bcryptjs --save  &&  npm install @types/bcrypt --save-dev npm i --save-dev @types/bcryptjs
 import { SolicitudesService } from './solicitudes.service';
+import { StorageService } from './storage-service';
 
 
 @Injectable({
@@ -36,7 +37,8 @@ export class UsuariosService {
     public reservacionesService: ReservacionesService,
     public alertasService: AlertasService,
     public actionSheetCtrl: ActionSheetController,
-    public solicitudesService: SolicitudesService
+    public solicitudesService: SolicitudesService,
+    public storageService: StorageService
     ) {
 
 
@@ -167,6 +169,8 @@ console.log(resp, 'resssp')
   this.alertasService.loadingDissmiss();
 this.usuarioActual = resp[0];
 this.perfilUsuario = resp[0];
+
+
 console.log('feril actualziado' , resp , this.usuarioActual ,  resp[0])
 
         
@@ -203,6 +207,8 @@ console.log('respresp', resp, resp.length)
           this.usuarioActual = null;
           this.alertasService.loadingDissmiss();
           this.usuarioActual = resp[0];
+          
+          this.storageService.set('user',  resp[0])
           this.route.navigate(['/futplay/mi-perfil']);
           this.solicitudesService.syncGetSolicitudesJugadores(this.usuarioActual.Cod_Usuario, false,true, true)
           }else{
@@ -294,6 +300,12 @@ removerEspacios(element:string) {
   return element.split(' ').join('');
   }
 
+
+  guardarStorage(){
+
+
+
+  }
 // VALIDAR CORREO
 
 

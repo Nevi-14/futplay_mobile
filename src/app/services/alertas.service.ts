@@ -34,16 +34,34 @@ export class AlertasService {
   }
   async   loadingDissmiss(){
     this.isLoading = false;
-    let topLoader = await this.loadingCtrl.getTop();
-    while (topLoader) {
-      if (!(await topLoader.dismiss())) {
-        throw new Error('Could not dismiss the topmost loader. Aborting...');
-      }
-      topLoader = await this.loadingCtrl.getTop();
-    }
+    // Instead of directly closing the loader like below line
+    // return await this.loadingController.dismiss();
+	
+    this.checkAndCloseLoader();
+	
+	// sometimes there's delay in finding the loader. so check if the loader is closed after one second. if not closed proceed to close again
+    setTimeout(() => this.checkAndCloseLoader(), 1000);
   }
   
-  
+  async closeLoader() {
+    // Instead of directly closing the loader like below line
+    // return await this.loadingController.dismiss();
+	
+    this.checkAndCloseLoader();
+	
+	// sometimes there's delay in finding the loader. so check if the loader is closed after one second. if not closed proceed to close again
+    setTimeout(() => this.checkAndCloseLoader(), 1000);
+    
+  }
+
+ async checkAndCloseLoader() {
+   // Use getTop function to find the loader and dismiss only if loader is present.
+   const loader = await this.loadingCtrl.getTop();
+   // if loader present then dismiss
+    if(loader !== undefined) { 
+      await this.loadingCtrl.dismiss();
+    }
+  }
 
   async  message(header,message){
     

@@ -11,6 +11,7 @@ import { HistorialPartido } from 'src/app/models/historialPartido';
 import { InicioPartidoPage } from '../inicio-partido/inicio-partido.page';
 import { vistaEquipos } from '../../models/vistaEquipos';
 import { VerificacionQrPage } from '../verificacion-qr/verificacion-qr.page';
+import { GoogleAdsService } from 'src/app/services/google-ads.service';
 
 @Component({
   selector: 'app-aceptar-reto',
@@ -24,7 +25,7 @@ export class AceptarRetoPage implements OnInit {
 @Input() rival;
 equipo : vistaEquipos
 
-partido : HistorialPartido;
+partido : HistorialPartido[]=[];
 soccer= 'assets/icon/soccer.svg';
 img = 'assets/main/team-profile.svg';
   constructor(
@@ -34,7 +35,8 @@ img = 'assets/main/team-profile.svg';
     public controlReservacionesService: ControlReservacionesService,
     public usuariosService: UsuariosService,
     public gestionRestosService: GestionRetosService,
-    public historialPartidoService:HistorialPartidoService
+    public historialPartidoService:HistorialPartidoService,
+    public googleAdsService: GoogleAdsService
   ) { }
 
   async ngOnInit() {
@@ -156,7 +158,7 @@ this.cerrarModal();
 
 
       this.controlReservacionesService.actualizarReservacion(confirmacion, this.reto.Cod_Usuario, this.reto.Cod_Reservacion);
-
+this.googleAdsService.showRewardVideo();
       this.gestionRestosService.syncRetosConfirmados(this.usuariosService.usuarioActual.Cod_Usuario)
       this.modalCtrl.dismiss();
      }
@@ -181,9 +183,9 @@ this.cerrarModal();
 
     this.historialPartidoService.syncPartidoActual(this.reto.Cod_Reservacion).then(
        resp =>{
-this.partido = resp[0];
+this.partido = resp;
 
-if(!this.partido.Verificacion_QR_Retador || !this.partido.Verificacion_QR_Rival){
+if(!this.partido[0].Verificacion_QR || !this.partido[1].Verificacion_QR){
 
   this.qrVerification();
 }else{
@@ -196,6 +198,19 @@ if(!this.partido.Verificacion_QR_Retador || !this.partido.Verificacion_QR_Rival)
 
     })
 
+
+
+  }
+
+  eliminar(){
+    this.gestionRestosService.syncDeleteConfirmacionReservacion(this.reto).then(resp =>{
+      this.gestionRestosService.deleteReservacionToPromise(this.reto).then(resp =>{
+        this.gestionRestosService.syncRetosEnviados(this.usuariosService.usuarioActual.Cod_Usuario)
+  this.modalCtrl.dismiss();
+
+
+      });
+    });
 
 
   }

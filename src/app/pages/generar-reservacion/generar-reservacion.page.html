@@ -9,7 +9,7 @@
             &nbsp;Generar Reto 
           </ion-button>
         </ion-buttons>
-        <ion-badge   slot="end" color="dark" mode="ios">{{this.selectedDate| date:'shortDate'}}</ion-badge>
+        <ion-badge  color="dark" mode="ios">{{nuevaReservacion.Fecha| date:'shortDate'}}</ion-badge>
       </ion-item>
   <ion-item class="transparent ion-margin-bottom ion-margin-top"  *ngIf="nuevaReservacion.Hora_Inicio != null && nuevaReservacion.Hora_Fin != null">
     <ion-icon slot="start" name="time-outline"></ion-icon>
@@ -23,15 +23,10 @@
 
         
         <div class="mainContent ion-text-center">
-          <ion-button (click)="agregarCancha()" *ngIf="retador && rival && !cancha"   expand="block"  class="ion-margin"  >
-            <ion-label>Agregar Cancha</ion-label>
-                 </ion-button>
-                 <ion-button *ngIf="!rival" (click)="agregarRival()"  expand="block"  class="ion-margin"  >
-                  <ion-label>Agregar Rival</ion-label>
-                       </ion-button>
-                       <ion-button   (click)="agregarRetador()" *ngIf="!retador"  expand="block"  class="ion-margin" >
-                        <ion-label>Agregar Retador</ion-label>
-                             </ion-button>
+
+
+
+
 
                              <ion-list>
 
@@ -55,7 +50,7 @@
                                   </p>
                                 </ion-label>
                                 <ion-fab-button size="small" (click)="agregarRival()"  slot="end">
-                                  <ion-icon name="create-outline"></ion-icon>
+                                  <ion-icon name="reload-outline"></ion-icon>
                                 </ion-fab-button>
                       
                               </ion-item>
@@ -81,7 +76,7 @@
                                 </ion-label>
                                
                                 <ion-fab-button size="small"  (click)="agregarRetador()" slot="end">
-                                  <ion-icon name="create-outline"></ion-icon>
+                                  <ion-icon name="reload-outline"></ion-icon>
                                 </ion-fab-button>
                               </ion-item>
                            
@@ -100,7 +95,7 @@
                                 
                                 </ion-label>
                                 <ion-fab-button size="small"  (click)="agregarCancha()"  slot="end">
-                                  <ion-icon name="create-outline"></ion-icon>
+                                  <ion-icon name="reload-outline"></ion-icon>
                                 </ion-fab-button>
 
                                 
@@ -110,6 +105,136 @@
                     
                           
                              </ion-list>
+
+
+                 
+                             <ion-button (click)="agregarCancha()" *ngIf="retador && rival && !cancha"   expand="block"  class="ion-margin"  >
+                              <ion-label>Agregar Cancha</ion-label>
+                                   </ion-button>
+                                   <ion-button *ngIf="!rival" (click)="agregarRival()"  expand="block"  class="ion-margin"  >
+                                    <ion-label>Agregar Rival</ion-label>
+                                         </ion-button>
+                                         <ion-button   (click)="agregarRetador()" *ngIf="!retador"  expand="block"  class="ion-margin" >
+                                          <ion-label>Agregar Retador</ion-label>
+                                               </ion-button>
+                              
+
+
+                                               <ion-card   *ngIf="retador && rival && cancha != null ">
+                                                <ion-row class="ion-margin-top ion-margin-bottom">
+
+                                                  <ion-col size="12">
+                                                <ion-row>
+                                                        
+                                        
+                                                  
+                                                  <ion-col size="12" class="ion-text-left">
+                                                    <ion-label><strong>Horario de la cancha</strong></ion-label>
+                                                  </ion-col>
+                                                
+                                                  <ion-col size="12" style="  width: 100%;
+                                                  overflow: auto;">
+                                          
+<table id="customers">
+<thead>
+  <tr>
+    <th>Lunes</th>
+    <th>Martes</th>
+    <th>Miercoles</th>
+    <th>Jueves</th>
+    <th>Viernes</th>
+    <th>Sabado</th>
+    <th>Domingo</th>
+  </tr>
+</thead>
+<tbody>
+  <tr >
+    <td *ngFor="let dia of configuracionHorarioService.horarioCancha; let i = index;">
+     <ion-label style="display: block;">
+      {{retornaHoraAmPm(dia.Hora_Inicio)}}
+     </ion-label>
+     <hr>
+     <ion-label style="display: block;">
+      {{retornaHoraAmPm(dia.Hora_Fin)}}
+     </ion-label>
+    </td>
+ 
+  </tr>
+</tbody>
+ 
+</table>
+                              
+                                                  </ion-col>
+                                                </ion-row>
+                                                  </ion-col>
+                                                 
+                                                </ion-row>
+                                               </ion-card>
+<ion-card  *ngIf="retador && rival && cancha != null ">
+<ion-row>
+
+  <ion-col size="12"  class="ion-text-center ion-padding">
+    <ion-label style="text-transform: uppercase;font-weight: 500; font-size: 1rem;">Cancha {{cancha.Nombre}}</ion-label>
+
+      </ion-col>
+      <ion-col size="12"  class="ion-text-center ion-padding">
+
+        <ion-badge color="dark" mode="ios" class="ion-text-uppercase">{{viewTitle}}</ion-badge>
+          </ion-col>
+</ion-row>
+  <ion-card-content>
+
+        
+
+
+  <calendar   #CalendarComponent   
+  [calendarMode]="calendar.mode"
+  [currentDate]="calendar.currentDate"
+  (onTitleChanged)="onViewTitleChanged($event)"
+  (onCurrentDateChanged)="onCurrentDateChanged($event)"
+  [startHour]="0"
+  [endHour]="24"
+  [lockSwipes]="lockSwipes"
+  [showEventDetail] = "false"  
+  
+  ></calendar>
+
+<ion-list>
+
+</ion-list>
+  <ion-grid  style="margin-top: 2rem;"  *ngIf="add">
+    <ion-row >
+      <ion-col size="12">
+        <ion-label >Hora Inicio</ion-label>
+      
+        <ion-item  class="ion-item ion-margin-top ion-margin-bottom" lines="none"  >
+          <ion-select [(ngModel)]="Hora_Inicio"  (ionChange)="horaInicio($event)"    placeholder="Seleccionar hora" name="Hora_Inicio">
+            <ion-select-option  [value]="hora" *ngFor="let hora of gestionReservacionesService.horaInicioArray">{{hora.time12}} {{':00'}} {{hora.meridiem}}</ion-select-option>
+          </ion-select>
+      </ion-item>
+      </ion-col>
+      
+      
+      
+      <ion-col size="12"     >
+        <ion-label >Hora Fin</ion-label>
+      
+        <ion-item   class="ion-item ion-margin-top ion-margin-bottom" lines="none"  >
+          <ion-select [(ngModel)]="Hora_Fin"  (ionChange)="horaFin($event)"    placeholder="Seleccionar hora" name="Hora_Fin">
+            <ion-select-option  [value]="hora" *ngFor="let hora of gestionReservacionesService.horaFinArray">{{hora.time12}} {{':00'}} {{hora.meridiem}}</ion-select-option>
+          </ion-select>
+      </ion-item>
+      </ion-col>
+      
+    </ion-row>
+  </ion-grid>
+
+  </ion-card-content>
+</ion-card>
+
+
+
+                                              
       </div>
     </ion-content>
 
@@ -120,9 +245,3 @@
      </ion-button>
       
  </ion-footer>
-
- <ion-fab   *ngIf="cancha" style="bottom:  7rem;" (click)="mostrarCalendario()" vertical="bottom"  horizontal="end" slot="fixed">
-  <ion-fab-button  color="dark">
-    <ion-icon  name="calendar-outline"></ion-icon>
-  </ion-fab-button>
-</ion-fab>

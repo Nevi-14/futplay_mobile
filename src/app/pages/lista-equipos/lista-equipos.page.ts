@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { IonContent, ModalController } from '@ionic/angular';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { ListaEquiposService } from 'src/app/services/lista-equipos.service';
@@ -23,7 +23,8 @@ public listaEquiposService: ListaEquiposService,
 public modalCtrl:ModalController,
 public equiposService:EquiposService,
 public usuariosService:UsuariosService,
-public alertasService: AlertasService
+public alertasService: AlertasService,
+private cd: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -34,7 +35,8 @@ public alertasService: AlertasService
       this.equiposService.SyncEquipos(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
         this.equiposService.equipos = resp.slice(0);
         this.alertasService.loadingDissmiss();
-
+        this.cd.markForCheck();
+        this.cd.detectChanges();
       }, error =>{
         this.alertasService.loadingDissmiss();
         this.alertasService.message('FUTPLAY', 'Error cargando datos...')
@@ -47,7 +49,9 @@ public alertasService: AlertasService
       this.equiposService.SyncMisEquipos(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
         this.equiposService.misEquipos = resp.slice(0);
         this.alertasService.loadingDissmiss();
-
+        this.cd.markForCheck();
+        this.cd.detectChanges();  this.cd.markForCheck();
+  this.cd.detectChanges();
       }, error =>{
         this.alertasService.loadingDissmiss();
         this.alertasService.message('FUTPLAY', 'Error cargando datos...')

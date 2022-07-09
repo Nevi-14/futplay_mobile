@@ -8,6 +8,8 @@ import { PerfilUsuario } from '../../models/perfilUsuario';
 import { FiltroJugadorPage } from '../filtro-jugador/filtro-jugador.page';
 import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
 import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
+import { SolicitudesEquiposPage } from '../solicitudes-equipos/solicitudes-equipos.page';
+import { GoogleAdsService } from 'src/app/services/google-ads.service';
 
 @Component({
   selector: 'app-buscar-jugadores',
@@ -35,7 +37,8 @@ export class BuscarJugadoresPage implements OnInit {
       public equiposService: EquiposService,
       public usuariosService:UsuariosService,
       public solicitudesService:SolicitudesService,
-      public actionSheetCtrl: ActionSheetController
+      public actionSheetCtrl: ActionSheetController,
+      public googleAdsService: GoogleAdsService
     ) { }
   
     ngOnInit() {
@@ -85,6 +88,7 @@ export class BuscarJugadoresPage implements OnInit {
                 text: 'Enviar Solicitud',
                 icon:'paper-plane-outline',
                 handler: () =>{
+                  this.googleAdsService.showInterstitial();
                   this.jugadorEquipoSolicitud(jugador)
                 }
                
@@ -133,7 +137,21 @@ export class BuscarJugadoresPage implements OnInit {
            });
            await modal .present();
          }
-
+         async solicitudes() {
+          const modal = await this.modalCtrl.create({
+            component:SolicitudesEquiposPage,
+            cssClass:'my-custom-modal'
+          });
+           await modal.present();
+      
+           const { data } = await modal.onWillDismiss();
+           if(data != undefined){
+             
+           
+             
+           }
+        }
+      
 
     async filtroJugador(){
   

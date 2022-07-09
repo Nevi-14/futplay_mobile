@@ -10,6 +10,7 @@ import { EstadisticaEquipoPage } from '../estadistica-equipo/estadistica-equipo.
 import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
 import { SolicitudesEquiposPage } from '../solicitudes-equipos/solicitudes-equipos.page';
 import { MisEquiposPage } from '../mis-equipos/mis-equipos.page';
+import { BuscarJugadoresPage } from '../buscar-jugadores/buscar-jugadores.page';
 
 @Component({
   selector: 'app-perfil-equipo',
@@ -133,6 +134,11 @@ this.jugadoresEquipo();
 
       
   async confirmDelete(jugador) {
+
+    if(jugador.Cod_Usuario == this.equiposService.perfilEquipo.Cod_Usuario){
+this.alertasService.message('FUTPLAY', 'No se puede eliminar el usuario por defecto')
+      return
+    }
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'FUTPLAY',
@@ -224,7 +230,7 @@ this.jugadoresEquipo();
 
   async solicitudesEquipos() {
     const modal = await this.modalCtrl.create({
-      component:SolicitudesEquiposPage,
+      component:BuscarJugadoresPage,
       cssClass:'my-custom-modal'
     });
      await modal.present();
@@ -241,7 +247,8 @@ this.jugadoresEquipo();
 
     const modal = await this.modalCtrl.create({
       component: MisEquiposPage,
-      cssClass:'my-custom-modal'
+      cssClass:'my-custom-modal',
+      id:'my-clubs'
     });
 
     await modal.present();

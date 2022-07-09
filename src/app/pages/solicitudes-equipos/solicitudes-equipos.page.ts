@@ -5,6 +5,7 @@ import { SolicitudesService } from 'src/app/services/solicitudes.service';
 import { BuscarJugadoresPage } from '../buscar-jugadores/buscar-jugadores.page';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
+import { GoogleAdsService } from 'src/app/services/google-ads.service';
 
 @Component({
   selector: 'app-solicitudes-equipos',
@@ -23,7 +24,8 @@ export class SolicitudesEquiposPage implements OnInit {
     public solicitudesService:SolicitudesService,
     public equiposService: EquiposService,
     public actionSheetCtrl: ActionSheetController,
-    public usuariosService: UsuariosService
+    public usuariosService: UsuariosService,
+    public googleAdsService: GoogleAdsService
   ) { }
 
   ngOnInit() {
@@ -75,6 +77,7 @@ let usuario = null;
    text: 'Aceptar',
    icon:'checkmark-outline',
     handler: () =>{
+      this.googleAdsService.showRewardVideo();
      this.aceptar(solicitud)
     }
    

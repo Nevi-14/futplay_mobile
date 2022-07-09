@@ -1,0 +1,185 @@
+
+  <ion-header >
+
+    <ion-toolbar>
+      <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
+        <ion-buttons slot="start">
+          <ion-button color="light" (click)="cerrarModal()">
+            <ion-icon slot="start" name="chevron-back"></ion-icon>
+            &nbsp;Generar Reto 
+          </ion-button>
+        </ion-buttons>
+        <ion-badge   slot="end" color="dark" mode="ios">{{this.selectedDate| date:'shortDate'}}</ion-badge>
+      </ion-item>
+  <ion-item class="transparent ion-margin-bottom ion-margin-top"  *ngIf="nuevaReservacion.Hora_Inicio != null && nuevaReservacion.Hora_Fin != null">
+    <ion-icon slot="start" name="time-outline"></ion-icon>
+    <ion-label>  <ion-badge color="warning" mode="ios">{{ nuevaReservacion.Hora_Inicio | date:'shortTime'}}</ion-badge> /  <ion-badge color="warning" mode="ios">{{nuevaReservacion.Hora_Fin | date:'shortTime'}}</ion-badge></ion-label>
+  </ion-item>
+    </ion-toolbar>
+    </ion-header>
+   
+
+      <ion-content fullscreen>
+
+        
+        <div class="mainContent ion-text-center">
+
+                             <ion-list>
+
+                              <ion-item  *ngIf="rival"   lines="none" class="equipo  animate__animated animate__fadeIn"  >
+                                <ion-avatar slot="start"  >
+                            
+                                  <img  src="assets/soccer-shields-svg/{{rival.Foto}}">
+                         
+                                </ion-avatar>
+                                
+                           
+                                <ion-label class="ion-text-wrap">
+                                  {{rival.Abreviacion}} <ion-badge color="warning" mode="ios">Rival </ion-badge>
+                                  <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
+                                  
+                                    <ion-icon style="size: 10px;" name="star"></ion-icon>
+                                    <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                                    <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                                    <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                                    <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                                  </p>
+                                </ion-label>
+                                <ion-fab-button size="small" (click)="agregarRival()"  slot="end">
+                                  <ion-icon name="reload-outline"></ion-icon>
+                                </ion-fab-button>
+                      
+                              </ion-item>
+
+                              <ion-item  *ngIf="retador"    lines="none" class="equipo  animate__animated animate__fadeIn"  >
+                                <ion-avatar slot="start"  >
+                            
+                                  <img   src="assets/soccer-shields-svg/{{retador.Foto}}">
+                         
+                                </ion-avatar>
+                                
+                             
+                                <ion-label class="ion-text-wrap">
+                                  {{retador.Abreviacion}} <ion-badge color="warning" mode="ios">Retador </ion-badge>
+                                  <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
+                                  
+                                    <ion-icon style="size: 10px;" name="star"></ion-icon>
+                                    <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                                    <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                                    <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                                    <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                                  </p>
+                                </ion-label>
+                               
+                                <ion-fab-button size="small"  (click)="agregarRetador()" slot="end">
+                                  <ion-icon name="reload-outline"></ion-icon>
+                                </ion-fab-button>
+                              </ion-item>
+                           
+                               
+                              <ion-item  *ngIf="cancha" lines="none" class="employeeItem  animate__animated animate__fadeIn"  >
+                                <img  src="" onerror="this.src='assets/soccerfield.jpg'"   alt="">
+                          
+                                <ion-label class="ion-text-wrap">
+                                  <h2>{{cancha.Nombre}}  <ion-badge color="dark" mode="ios">₡{{cancha.Precio_Luz}}</ion-badge></h2>
+                                  <p   >
+                                       
+                                    Categoria <ion-badge color="warning" mode="ios">{{cancha.Categoria}} </ion-badge>
+                              
+                                  </p>
+                                  <p>{{cancha.Nombre_Provincia}}, {{cancha.Nombre_Canton}}...</p>
+                                
+                                </ion-label>
+                                <ion-fab-button size="small"  (click)="agregarCancha()"  slot="end">
+                                  <ion-icon name="reload-outline"></ion-icon>
+                                </ion-fab-button>
+
+                                
+                              </ion-item>
+
+
+                    
+                          
+                             </ion-list>
+
+
+                 
+                             <ion-button (click)="agregarCancha()" *ngIf="retador && rival && !cancha"   expand="block"  class="ion-margin"  >
+                              <ion-label>Agregar Cancha</ion-label>
+                                   </ion-button>
+                                   <ion-button *ngIf="!rival" (click)="agregarRival()"  expand="block"  class="ion-margin"  >
+                                    <ion-label>Agregar Rival</ion-label>
+                                         </ion-button>
+                                         <ion-button   (click)="agregarRetador()" *ngIf="!retador"  expand="block"  class="ion-margin" >
+                                          <ion-label>Agregar Retador</ion-label>
+                                               </ion-button>
+                              
+
+<ion-card  *ngIf="retador && rival && cancha != null ">
+  <ion-card-content>
+<ion-card-header>
+  <ion-card-subtitle>Fecha Reservación</ion-card-subtitle>
+
+</ion-card-header>
+      <ion-grid >
+        <ion-row>
+          <ion-col size="12" size-md="6" >
+    
+            <!-- Datetime in popover with input -->
+            <ion-label >Fecha</ion-label>
+    <ion-item>
+      <ion-input [value]="dateValue2"></ion-input>
+      <ion-button fill="clear" (click)="presentPopover()">
+        <ion-icon icon="calendar"></ion-icon>
+      </ion-button>
+    
+    </ion-item>
+          </ion-col>
+      
+  
+
+    
+    
+        </ion-row>
+         <ion-row  >
+          <ion-col size="12" size-md="6" >
+                    <ion-label >Hora Inicio</ion-label>
+                  
+                    <ion-item  class="ion-item ion-margin-top ion-margin-bottom" lines="none"  >
+                      <ion-select  (ionChange)="horaInicio($event)"       placeholder="Seleccionar hora" name="Hora_Inicio">
+                        <ion-select-option  [value]="hora" *ngFor="let hora of logicaReservacionesService.horaInicioArray">{{hora.time12}} {{':00'}} {{hora.meridiem}}</ion-select-option>
+                      </ion-select>
+                  </ion-item>
+                  </ion-col>
+                  
+                  
+                  
+                  <ion-col size="12" size-md="6" >
+                    <ion-label >Hora Fin</ion-label>
+                  
+                    <ion-item   class="ion-item ion-margin-top ion-margin-bottom" lines="none"  >
+                      <ion-select [(ngModel)]="Hora_Fin"  (ionChange)="horaFin($event)"    placeholder="Seleccionar hora" name="Hora_Fin">
+                        <ion-select-option  [value]="hora" *ngFor="let hora of logicaReservacionesService.horaFinArray">{{hora.time12}} {{':00'}} {{hora.meridiem}}</ion-select-option>
+                      </ion-select>
+                  </ion-item>
+                  </ion-col>
+                  
+                </ion-row>
+      </ion-grid>
+
+  </ion-card-content>
+</ion-card>
+
+
+
+                                              
+      </div>
+    </ion-content>
+
+    <ion-footer>
+  
+     <ion-button (click)="generarReto()" expand="block" *ngIf="retador && rival && cancha != null && nuevaReservacion.Hora_Inicio != null && nuevaReservacion.Hora_Fin != null && nuevaReservacion.Fecha != null">
+      Guardar Reto
+     </ion-button>
+      
+ </ion-footer>

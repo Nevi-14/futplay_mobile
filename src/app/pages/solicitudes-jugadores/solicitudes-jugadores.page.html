@@ -1,7 +1,7 @@
 
   <ion-header >
 
-    <ion-toolbar>
+    <ion-toolbar mode="md">
       <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
         <ion-buttons slot="start">
           <ion-button (click)="cerrarModal()" color="light">
@@ -13,27 +13,14 @@
       </ion-item>
   
       <ion-searchbar></ion-searchbar>
-
-      <ion-list class="transparent"  class="ion-padding-bottom">
-        <ion-radio-group  class="transparent" name="radio-group"
-        (ionChange)="radioGroupChange($event)" [(ngModel)]="selected">
+      <ion-segment color="light"  mode="md"    value="1"   scrollable >
+        <ion-segment-button [value]="i" *ngFor="let cat of categories; let i = index;" 
+        (click)="selectCategory(i)">
+          <ion-label [class.active-category]="activeCategory == i">{{cat}}</ion-label>
+        </ion-segment-button>
+      
+      </ion-segment>
  
-          <ion-item  class="transparent">
-            <ion-icon *ngIf="selected == 'receive'" color="warning" slot="start" name="star-outline"></ion-icon>
-            <ion-label><ion-badge color="warning" mode="ios">Solicitudes Recibidas </ion-badge></ion-label>
-            <ion-radio mode="ios" value="receive"></ion-radio>
-           
-          </ion-item>
-      
-          <ion-item  class="transparent" >
-            <ion-icon *ngIf="selected == 'send'" color="warning" slot="start" name="star-outline"></ion-icon>
-            <ion-label><ion-badge color="warning" mode="ios">Solicitudes Enviadas</ion-badge></ion-label>
-            <ion-radio  mode="ios"    value="send"></ion-radio>
-          </ion-item>
-      
-         
-        </ion-radio-group >
-      </ion-list>
     </ion-toolbar>
     </ion-header>
     <ion-content fullscreen>

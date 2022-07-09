@@ -10,9 +10,26 @@
           </ion-button>
         </ion-buttons>
 
-        <ion-badge slot="end" color="warning" mode="ios">{{reto.Fecha | date:'shortDate'}}</ion-badge>
       </ion-item>
-  
+      <ion-grid >
+        <ion-row>
+          <ion-col size="12">
+            <ion-label> Cancha : <strong>{{reto.Nombre_Cancha}}</strong> </ion-label>
+          </ion-col>
+          <ion-col size="4">
+           <ion-label>Fecha :  {{reto.Fecha | date:'shortDate'}}
+        </ion-label>
+          </ion-col>
+          <ion-col size="4">
+            <ion-label>Inicio {{reto.Hora_Inicio | date:'shortTime'}}
+            </ion-label>
+          </ion-col>
+          <ion-col size="4W">
+            <ion-label> Fin {{reto.Hora_Inicio | date:'shortTime'}}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-toolbar>
 
     </ion-header>
@@ -34,11 +51,7 @@
        </ion-row>
 
                     <ion-row >
-                      <ion-col size="12" class="ion-margin-top ion-margin-bottom">
-                        <ion-label class="soccer-league-subtitle">Cancha  {{cancha.Nombre}}</ion-label>
-               
-                        
-                      </ion-col>
+              
                       <ion-col size="12">
                         <img class="gfg" src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilCanchaUploads/'+cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">  
               
@@ -46,9 +59,7 @@
                                   
                 
                                       <ion-row>
-                                        <ion-col size="12" class="ion-padding">
-                                          <ion-label class="soccer-league-subtitle">Ubicacion Cancha</ion-label>
-                                        </ion-col>
+                             
                                       </ion-row>
                       <ion-col  size="12" class="ion-padding">
                         <app-mapa  [lngLat]="[cancha.Longitud, cancha.Latitud]"></app-mapa>
@@ -72,87 +83,100 @@
             
           
           
-            <ion-row>
+            <ion-row class="ion-padding">
             
               <ion-col size="12"  class="ion-margin-top ion-margin-bottom">
-                <ion-label class="soccer-league-subtitle">Detalle Reservacion</ion-label>
+                <ion-label class="ion-text-uppercase"><strong>Detalle Reservacion</strong></ion-label>
               </ion-col>
-          
+        
               <ion-col size="12" class="data-row">
-                <ion-label>
-                  <h2>Fecha</h2>
-                  <p>{{reto.Fecha | date:'fullDate'}}</p>
-                </ion-label>
-              </ion-col>
-              <ion-col size="12" class="data-row">
-                <ion-label>
-                  <h2>Hora</h2>
-                  <p>{{reto.Hora_Inicio}}</p>
-                </ion-label>
-              </ion-col>
-          
-              <ion-col size="12" class="data-row">
-                <ion-label>Cacha : {{cancha.Nombre}}</ion-label>
-              </ion-col>
-          
-              <ion-col size="12" class="data-row">
-                <ion-label>
+                <ion-list>
+                  <ion-item>
+                    <ion-label>
                   
-                  <h2>Precio Cacha:</h2>
-                <p>₡ {{cancha.Precio_Hora}}</p>
-                
-                
-                </ion-label>
+                      <h2 class="ion-text-wrap">Precio Cacha</h2>
+                    
+                    
+                    
+                    </ion-label>
+                    <p slot="end">₡ {{cancha.Precio_Hora}}</p>
+                  </ion-item>
+
+
+                  <ion-item *ngIf="cancha.Luz">
+                    <ion-label>
+                  
+                      <h2 class="ion-text-wrap">Precio Luz</h2>
+                    
+                    
+                    
+                    </ion-label>
+                    <p slot="end">₡ {{cancha.Precio_Luz}}</p>
+                  </ion-item>
+
+                  <ion-item >
+                    <ion-label>
+                  
+                      <h2 class="ion-text-wrap">Monto Total</h2>
+                    
+                    
+                    
+                    </ion-label>
+                    <p slot="end">₡ {{(cancha.Precio_Hora + cancha.Precio_Luz )}}</p>
+                  </ion-item>
+                  <ion-item >
+                    <ion-label>
+                  
+                      <h2 class="ion-text-wrap">Monto Total a cancelar por Equipo</h2>
+                    
+                    
+                    
+                    </ion-label>
+                    <p slot="end">₡ {{(cancha.Precio_Hora + cancha.Precio_Luz ) / 2}}</p>
+                  </ion-item>
+                  <ion-item >
+                    <ion-label>
+                  
+                      <h2 class="ion-text-wrap">Monto a pagar en persona</h2>
+                    
+                    
+                    
+                    </ion-label>
+                    <p slot="end">₡ {{(cancha.Precio_Hora + cancha.Precio_Luz )}}</p>
+                  </ion-item>
+
+                  <ion-item >
+                    <ion-label>
+                  
+                      <h2 class="ion-text-wrap">Monto a pagar para  completar reservación (10%)</h2>
+                    
+                    
+                    
+                    </ion-label>
+                    <p slot="end">₡ {{(cancha.Precio_Hora + cancha.Precio_Luz ) / 2}}</p>
+                  </ion-item>
+                </ion-list>
+          
               </ion-col>
           
-              <ion-col *ngIf="cancha.Luz" size="12" class="data-row">
-                <ion-label>
-                  <h2>Precio Luz :</h2>
-                  <p>₡ {{cancha.Precio_Luz}}</p>
-                </ion-label>
-              </ion-col>
-          
-              <ion-col size="12" class="data-row">
-          
-                <ion-label>
-                  <h2>Monto Total</h2> 
-                  <p> ₡ {{(cancha.Precio_Hora + cancha.Precio_Luz )}}</p>
-                
-                
-                </ion-label>
-              </ion-col>
-              <ion-col size="12" class="data-row">
-                <ion-label >
-          
-                  <h2>Monto Total a cancelar por Equipo </h2>
-                  <p>₡ {{(cancha.Precio_Hora + cancha.Precio_Luz ) / 2}}</p>
-                </ion-label>
-              </ion-col>
-              <ion-col size="12" class="data-row">
-                <ion-label >
-                  <h2>Monto a pagar en persona </h2>
-                  <p>₡ {{(cancha.Precio_Hora + cancha.Precio_Luz )}}</p>
-          
-                </ion-label>
-              </ion-col>
-              <ion-col size="12" class="data-row">
-                <ion-label >
-                  <h2>Monto a pagar para  completar reservación (10%)</h2>
-                  <p>₡ {{(cancha.Precio_Hora + cancha.Precio_Luz ) / 2}}</p>
-                </ion-label>
-              </ion-col>
+         
+    
+  
             </ion-row>
           
                 
             </div>
     </ion-content>
     <ion-footer>
-
-      <ion-button (click)="aceptarReto()" *ngIf="reto.Cod_Estado != 4 && reto.Cod_Usuario_Rival == usuariosService.usuarioActual.Cod_Usuario"   expand="block" >
+      <ion-button class="ion-margin-bottom" (click)="eliminar()" *ngIf="reto.Cod_Usuario == usuariosService.usuarioActual.Cod_Usuario"   expand="block" >
+        <ion-label>Eliminar Reto </ion-label>
+              </ion-button>
+        
+      <ion-button (click)="aceptarReto()" *ngIf="reto.Cod_Estado != 4 && reto.Cod_Estado != 6  && reto.Cod_Estado != 7  && reto.Cod_Usuario_Rival == usuariosService.usuarioActual.Cod_Usuario"   expand="block" >
        <ion-label>Aceptar Reto </ion-label>
              </ion-button>
        
-             <ion-button  (click)="iniciarPartido()"  *ngIf="reto.Cod_Estado == 4"   expand="block" >
+             <ion-button  (click)="iniciarPartido()"  *ngIf="reto.Cod_Estado == 4 || reto.Cod_Estado == 6 || reto.Cod_Estado == 7 "    expand="block" >
               <ion-label> Iniciar Partido</ion-label>
                     </ion-button>
         

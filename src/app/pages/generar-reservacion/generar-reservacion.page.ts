@@ -1,45 +1,95 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ModalController, PopoverController } from '@ionic/angular';
+import { HorarioCanchas } from 'src/app/models/horarioCanchas';
 import { ListaCanchas } from 'src/app/models/listaCanchas';
 import { vistaEquipos } from 'src/app/models/vistaEquipos';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { ConfirmacionReservacionesService } from 'src/app/services/confirmacion-reservaciones.service';
-import { ControlReservacionesService } from 'src/app/services/control-reservaciones.service';
 import { GenerarReservacionService } from 'src/app/services/generar-reservacion.service';
+import { HorarioCanchasService } from 'src/app/services/horario-canchas.service';
+import { ProcesoReservacionService } from 'src/app/services/proceso-reservacion.service';
 import { ReservacionesService } from 'src/app/services/reservaciones.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
-import { IonicCalendar2Page } from '../ionic-calendar2/ionic-calendar2.page';
 import { ListaCanchasPage } from '../lista-canchas/lista-canchas.page';
 import { ListaEquiposPage } from '../lista-equipos/lista-equipos.page';
-import { SeleccionarFechaPage } from '../seleccionar-fecha/seleccionar-fecha.page';
-
+import { CalendarComponent } from 'ionic2-calendar';
+import { format } from 'date-fns';
+import { ConfiguracionHorarioService } from 'src/app/services/configuracion-horario.service';
+import { GestionReservacionesService } from '../../services/gestion-reservaciones.service';
+interface objetoFecha{
+  id:number,
+  year: number,
+  month: number,
+  day: number,
+  hours: number,
+  minutes: number,
+  seconds: number,
+  milliseconds: number,
+  time12: number,
+  meridiem: string,
+  date: Date
+}
 @Component({
   selector: 'app-generar-reservacion',
   templateUrl: './generar-reservacion.page.html',
   styleUrls: ['./generar-reservacion.page.scss'],
 })
 export class GenerarReservacionPage implements OnInit {
+
+  //
+  show  = false;;
+  viewTitle: string
+  calendarMode: any = 'month'
+
+  calendar = {
+    mode: this.calendarMode,
+    currentDate: new Date()
+  }
+
+  dateValue = format(new Date(), 'yyyy-MM-dd'); 
+
+  selectedDay =  new Date();
+
+  lockSwipes = false;
+
+  currentDate = new Date();
+
+  @ViewChild(CalendarComponent) myCal: CalendarComponent;
+
+
+
+  //
   @Input()rival : vistaEquipos;
   @Input()retador : vistaEquipos;
   @Input()cancha : ListaCanchas;
   selectedDate: Date = new Date();
   soccer= 'assets/icon/soccer.svg';
-  fechaDateTime =  new Date().toISOString()
-  private modalOpen:boolean = false;
+  fechaDateTime =  new Date()
+  dateValue2 = null;
+  horarios: HorarioCanchas[]=[];
+  horario: HorarioCanchas;
+  Hora_Inicio: any;
+  Hora_Fin: any;
+  add = true;
+
     constructor(
       public modalCtrl: ModalController,
       public usuariosService: UsuariosService,
       public reservacionesService: ReservacionesService,
       public http: HttpClient,
-      public  controlReservacionesService: ControlReservacionesService,
       public alertasService: AlertasService,
       public generrReservacionService: GenerarReservacionService,
-      public confirmarReservacionesService:ConfirmacionReservacionesService
+      public confirmarReservacionesService:ConfirmacionReservacionesService,
+      private cd: ChangeDetectorRef,
+      public horarioCanchasService: HorarioCanchasService,
+      public popOverCtrl:PopoverController,
+      public procesoReservacionService: ProcesoReservacionService,
+      public configuracionHorarioService: ConfiguracionHorarioService,
+      public gestionReservacionesService: GestionReservacionesService
     ) { }
   retoRival : vistaEquipos;
-    retoRetador : vistaEquipos;
+  retoRetador : vistaEquipos;
   retoCancha : ListaCanchas;
   
     nuevaReservacion = {
@@ -61,49 +111,126 @@ export class GenerarReservacionPage implements OnInit {
     time12_Hora_Inicio  : null,
     time12_Hora_Fin  : null
   }
+
+
+
   
+  
+  retornaHoraAmPm(hours){
+
+
+    let minutes = null;
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    hours = hours < 10 ? '0' + hours : hours;
+    // appending zero in the start if hours less than 10
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    
+    let hourValue = hours +':'+'00'+':'+'00'+' ' + ampm;
+    
+    
+    return hourValue;
+    
+    }
+
+
+
+
     ngOnInit() {
-      
-     // this.generrReservacionService.generarReservacion(  this.cancha.Cod_Cancha,this.selectedDate);
+if(this.cancha != null && this.cancha != undefined){
+  this.nuevaReservacion.Cod_Cancha =  this.cancha.Cod_Cancha
+  this.horarioCanchasService.syncHorarioCanchasPromise(this.cancha.Cod_Cancha).then((resp:any) =>{
+  this.configuracionHorarioService.horarioCancha = resp;
+  this.gestionReservacionesService.calHoraInicio(this.cancha.Cod_Cancha,this.selectedDate)
+  console.log('rival',this.rival)
+  console.log('retador',this.retador)
+  console.log('cancha',this.cancha)
+
+
+  })
+}
+ 
   
-  // ACTIVAR FILTRO PROVINCIA, CANTON DISTRITO CANCHAS -  JUGADORES
-  // CARGAR MIS EQUIPOS
-  // UNIRSE A UN EQUIPO, BUSCAR JUGADORES CON FILTRO Y EXPLUIR JUGADOR ACTUAL
-  // ACEPTAR SOLICITUD  add - delete
-  // INICIAR EVENTO CUANDO SE SELECCION LA FECHA DEL CALENDARIO
-  // CARGAR HORARIO POR DIA DE CANCHA
-  // CARGAR RESERVACIONES POR DIA 
-  //ELIMINAR HORA INICIO Y HORA FIN Y UTILIZAR VISTA DIA CLICK EVENT
-  // BLOQUEAR HORAS SEGUN HORA INICIO Y FIN EN EL CALENDARIO
-  // EXCLUIR EQUIPOS DEL USUARIO CUANDO LLAMAMOS LOS EQUIPOS, SQL QUERY WHERE ID IS DIFFERENT Y HACER UN JOIN DE EQUIPOS DE LOS CUALES SOY PARTE COMO ADMIN
-  
-      console.log('rival',this.rival)
-      console.log('retador',this.retador)
-      console.log('cancha',this.cancha)
-     this.nuevaReservacion.Cod_Cancha =  this.cancha.Cod_Cancha
     }
     
-    time(timeString){
-      const timeString12hr = new Date('1970-01-01T' + timeString + 'Z')
-      .toLocaleTimeString('en-US',
-        {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}
-      );
+
   
-      return timeString12hr;
-     }
+
+  
+
+// FUNCIONES GENERALES
   
   
-    retornarFecha(event){
-  this.fechaDateTime = event.detail.value
-  this.controlReservacionesService.syncReservacionesFecha(this.cancha.Cod_Cancha, event.detail.value)
-    this.modalCtrl.dismiss();
+ horaInicio($event){
+  const value:objetoFecha = $event.detail.value;
+  this.nuevaReservacion.Hora_Inicio = value.date;
+  this.Hora_Inicio = value;
+  this.Hora_Fin = null;
+  this.nuevaReservacion.Hora_Fin = null;
+  this.gestionReservacionesService.horaFinArray = [];
+  this.cd.markForCheck();
+  this.cd.detectChanges();
+
+
+  this.gestionReservacionesService.calHoraFin(this.cancha.Cod_Cancha,value);
+}
+
+
+horaFin($event){
+  const value:objetoFecha = $event.detail.value;
+  console.log('hora fin', value)
+  this.Hora_Fin = value;
+  this.nuevaReservacion.Hora_Fin = value.date;
+
+  console.log('rser', this.nuevaReservacion)
+  this.cd.markForCheck();
+  this.cd.detectChanges();
+
+}
   
+
+
+
+    generarReto(){
+      this.nuevaReservacion.Titulo = this.rival.Nombre + ' VS ' + this.retador.Nombre;
+      this.nuevaReservacion.Fecha =  this.nuevaReservacion.Fecha.toISOString().split('T')[0]+' '+ this.nuevaReservacion.Fecha.toTimeString().split(' ')[0];
+      this.nuevaReservacion.Hora_Inicio = this.nuevaReservacion.Hora_Inicio.toISOString().split('T')[0]+' '+ this.nuevaReservacion.Hora_Inicio.toTimeString().split(' ')[0];
+      this.nuevaReservacion.Hora_Fin = this.nuevaReservacion.Hora_Fin.toISOString().split('T')[0]+' '+ this.nuevaReservacion.Hora_Fin.toTimeString().split(' ')[0];
+ /**
+  * 
+      this.nuevaReservacion.Hora_Inicio = this.Hora_Inicio;
+      this.nuevaReservacion.Hora_Fin = this.Hora_Fin;
+  */
+
+console.log(this.nuevaReservacion, 'nueva reservacion')
+
+    this.reservacionesService.insertarReservacion(this.nuevaReservacion).then((resp:any) =>{
+  console.log(resp, 'resppppp')
+      if(resp){
+        let cofirmacion = {
+   Cod_Reservacion: resp.Cod_Reservacion,
+   Cod_Retador : this.retador.Cod_Equipo,
+   Cod_Rival : this.rival.Cod_Equipo,
+   Confirmacion_Retador: true,
+   Confirmacion_Rival : false,
+   Cod_Estado : 3,
+        }
+  
+        this.confirmarReservacionesService.insertarReservacion(cofirmacion);
+      }
+    })
+    
+    
+    this.cerrarModal();
+    
+    
     }
-  
-    cerrarModal(){
-      this.modalCtrl.dismiss();
-      //this.modalCtrl.dismiss(undefined, undefined,'my-modal-id');
-    }
+
+
+    // MODALES
+
+
     async agregarRival() {
       const modal = await this.modalCtrl.create({
         component: ListaEquiposPage,
@@ -115,16 +242,19 @@ export class GenerarReservacionPage implements OnInit {
       });
   
        await modal.present();
-       const { data } = await modal.onDidDismiss();
-         console.log(data)
+          const { data } = await modal.onDidDismiss();
+       
            if(data.equipo !== undefined){
            
             this.rival = data.equipo;
   
                this.modalCtrl.dismiss();
            }
+
     }
-  
+
+
+
     async agregarRetador() {
       const modal = await this.modalCtrl.create({
         component: ListaEquiposPage,
@@ -148,151 +278,96 @@ export class GenerarReservacionPage implements OnInit {
     }
   
   
-  
-  
-  
-  
-  async mostrarCalendario(){
-  
-    const modal = await this.modalCtrl.create({
-      component:IonicCalendar2Page,
-      cssClass:'my-custom-class',
-      componentProps:{
-        cancha: this.cancha
-      }
-    });
-  
-  await modal.present();
-  
-  const {  data } = await modal.onDidDismiss();
-  
-  if(data != undefined){
 
-    console.log(data, 'dataaa')
-    // new Date(yearValue, IndexOfMonth, dayValue, hours, minutes, seconds)
-  this.nuevaReservacion.Hora_Inicio = data.fechaHora.Hora_Inicio ;
-  this.nuevaReservacion.Hora_Fin = data.fechaHora.Hora_Fin;
-  this.nuevaReservacion.Fecha = data.fechaHora.Fecha;
-  this.selectedDate = data.fechaHora.Fecha;
+  
+async agregarCancha() {
+  const modal = await this.modalCtrl.create({
+    component: ListaCanchasPage,
+    cssClass: 'my-custom-modal',
+    mode:'ios'
+  });
 
-  }
+
+   await modal.present();
+   const { data } = await modal.onDidDismiss();
+   
+       if(data.cancha !== undefined){
+       
+        this.cancha = data.cancha;
+        this.nuevaReservacion.Cod_Cancha = this.cancha.Cod_Cancha;
+
+
+           this.modalCtrl.dismiss();
+       }
+}
+
+
+
+     cerrarModal(){
+
+       this.modalCtrl.dismiss();
   
-  }
-  
-  
-    async agregarCancha() {
-      const modal = await this.modalCtrl.create({
-        component: ListaCanchasPage,
-        cssClass: 'my-custom-modal',
-        mode:'ios'
-      });
-  
-  
-       await modal.present();
-       const { data } = await modal.onDidDismiss();
-         console.log(data)
-           if(data.cancha !== undefined){
-           
-            this.cancha = data.cancha;
-            this.nuevaReservacion.Cod_Cancha = this.cancha.Cod_Cancha;
-  
-  this.controlReservacionesService.syncReservacionesFecha(this.cancha.Cod_Cancha, this.fechaDateTime)
-  
-               this.modalCtrl.dismiss();
-           }
+     }
+
+
+
+    // FUNCIONES DEL CALENDATIOS
+
+
+    slideNext() {
+
+      this.myCal.slideNext();
+
     }
-  
-  
-    generarReto(){
-  /**
-   *     if(fRegistro.invalid) {return;}
-   */
-  
-      this.nuevaReservacion.Fecha = this.nuevaReservacion.Fecha.toISOString();
-      this.nuevaReservacion.Titulo = this.rival.Nombre + ' VS ' + this.retador.Nombre;
-    this.reservacionesService.insertarReservacion(this.nuevaReservacion).then((resp:any) =>{
-  console.log(resp, 'resppppp')
-      if(resp){
-        let cofirmacion = {
-   Cod_Reservacion: resp.Cod_Reservacion,
-   Cod_Retador : this.retador.Cod_Equipo,
-   Cod_Rival : this.rival.Cod_Equipo,
-   Confirmacion_Retador: true,
-   Confirmacion_Rival : false,
-   Cod_Estado : 3,
-        }
-  
-        this.confirmarReservacionesService.insertarReservacion(cofirmacion);
-      }
-    })
     
-    
-    this.cerrarModal();
-    
-    
+
+
+    slidePrev() {
+
+    this.myCal.slidePrev();
+
     }
-    async SelectDate(){
-      if (!this.modalOpen){
-        this.modalOpen = true;
-        const modal = await this.modalCtrl.create({
-          component:SeleccionarFechaPage,
-          cssClass:'date-modal',
-          componentProps:{
-            title:'Fecha de nacimiento',
-            id: 'seleccionar-fecha'
-          },
-          id: 'seleccionar-fecha'
-        })
-      
-        await modal.present();
-        const { data } = await modal.onWillDismiss();
-     
-        if(data !== undefined ){
-          console.log(data,'data')
-          
-  this.controlReservacionesService.syncReservacionesFecha(this.cancha.Cod_Cancha, new Date(data.date).toISOString())
-          this.selectedDate = data.date
-         this.nuevaReservacion.Fecha = data.date
-              this.modalOpen = false;
-        }else{
-     
-               this.modalOpen = false;
-        }
+
+    onViewTitleChanged(title){
+
+      this.viewTitle = title;
+
+    }
+
+    onCurrentDateChanged(selectedDate) {
+
+      this.nuevaReservacion.Hora_Inicio = null;
+      this.nuevaReservacion.Hora_Fin = null;
+      this.nuevaReservacion.Fecha = selectedDate
+      this.cd.markForCheck();
+      this.cd.detectChanges();
+
+      this.gestionReservacionesService.compararFechas(this.nuevaReservacion.Fecha, new Date()).then(resp =>{
         
-      }
-    
-      
-    }
-    
-    generarReto2(fRegistro: NgForm){
-      if(fRegistro.invalid) {return;}
+      if (resp === -1){
+     
+         this.add = false;
+
+            }else{
+
+          this.add = true;
+        }
+
+      })
+        this.generrReservacionService.syncHorarioCanchas( this.cancha.Cod_Cancha).then(resp =>{
+
+        this.gestionReservacionesService.horario = resp;
+        this.Hora_Inicio = null;
+        this.Hora_Fin = null;
+
+        this.gestionReservacionesService.calHoraInicio2( this.nuevaReservacion.Fecha);
+
+      })
   
-      if(this.nuevaReservacion.Hora_Inicio == null || this.nuevaReservacion.Hora_Inicio == undefined || this.nuevaReservacion.Hora_Inicio == ''){
-  
-        return this.alertasService.message('FUTPLAY','Selecciona la hora de la reservación')
-      } else if(this.cancha == null || this.cancha == undefined){
-        return this.alertasService.message('FUTPLAY','Selecciona una cancha')
-      }
-      else if(this.rival == null || this.rival == undefined ){
-        return this.alertasService.message('FUTPLAY','Selecciona un rival')
-      }
-      else if(this.retador == null || this.retador == undefined ){
-        return this.alertasService.message('FUTPLAY','Selecciona un retador')
-      }
-      console.log(fRegistro.valid);
-  
-      this.nuevaReservacion.Hora_Fin = this.nuevaReservacion.Hora_Inicio
-      this.nuevaReservacion.Titulo = this.rival.Nombre + ' VS ' + this.retador.Nombre;
-      this.nuevaReservacion.Fecha = this.fechaDateTime;
-      this.nuevaReservacion.Descripcion  = '';
-      this.nuevaReservacion.Hora_Inicio = this.nuevaReservacion.Hora_Inicio.hora_inicio;
-      this.nuevaReservacion.Hora_Fin = this.nuevaReservacion.Hora_Fin.hora_fin;
-      console.log(this.nuevaReservacion, this.rival, this.retador, this.fechaDateTime)
-      this.controlReservacionesService.postReservacion(this.nuevaReservacion, this.cancha, this.rival, this.retador)
-  
-  this.cerrarModal();
-  
-    }
-  
+  }
+
+
+   
+
 
 }

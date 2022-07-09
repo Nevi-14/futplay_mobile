@@ -57,7 +57,7 @@ Contrasena = '';
     let codigo = String(new Date().getHours()) + String(new Date().getMinutes()) +String(new Date().getMilliseconds());
     this.email.Body =  this.email.Body + codigo;
 this.alertasService.presentaLoading('Validando datos')
-    this.emailService.syncPostEmail(this.email).then(resp =>{
+    this.emailService.syncToPromiseSendEmail(this.email).then(resp =>{
 this.alertasService.loadingDissmiss();
 this.reset();
 this.verificarCodigo = true;

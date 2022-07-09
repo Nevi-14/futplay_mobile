@@ -8,6 +8,7 @@ import { GenerarReservacionPageRoutingModule } from './generar-reservacion-routi
 
 import { GenerarReservacionPage } from './generar-reservacion.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { NgCalendarModule } from 'ionic2-calendar';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     FormsModule,
     IonicModule,
     GenerarReservacionPageRoutingModule,
+    NgCalendarModule,
     PipesModule
   ],
   declarations: [GenerarReservacionPage]

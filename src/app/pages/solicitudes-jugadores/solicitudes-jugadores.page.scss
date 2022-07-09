@@ -141,3 +141,17 @@ ion-button {
     margin-top: -0.2rem;
 }
 }
+
+ion-segment{
+    margin: 0.1rem;
+  }
+  
+  ion-segment-button{
+    color:#fff;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .active-category{
+    font-size: 1rem;
+    font-weight: 600;
+  }

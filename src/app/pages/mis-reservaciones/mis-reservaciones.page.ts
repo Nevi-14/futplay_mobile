@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { isPlatform, ModalController } from '@ionic/angular';
 import { CanchasService } from 'src/app/services/canchas.service';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { GestionRetosService } from 'src/app/services/gestion-retos.service';
+import { GoogleAdsService } from 'src/app/services/google-ads.service';
 import { ReservacionesService } from 'src/app/services/reservaciones.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { AceptarRetoPage } from '../aceptar-reto/aceptar-reto.page';
@@ -48,10 +49,18 @@ constructor(
     public equiposService: EquiposService,
     public canchasService: CanchasService,
     public usuariosService:UsuariosService,
-    public gestionRestosService:GestionRetosService
-    ) { }
+    public gestionRestosService:GestionRetosService,
+    public googleAdsService: GoogleAdsService
+    ) { 
+
+      this.googleAdsService.initialize();
+
+    }
 
   ngOnInit() {
+
+
+
     this.gestionRestosService.syncRetosConfirmados(this.usuariosService.usuarioActual.Cod_Usuario)
    // this.gestionRestosService.syncRetosConfirmados(this.usuariosService.usuarioActual.Cod_Usuario)
   }
@@ -119,7 +128,7 @@ this.detalleRetoModal(reto,this.cancha,this.retador,this.rival)
   break;
   
   case 3:
-
+    this.gestionRestosService.syncRetosHistorial(this.usuariosService.usuarioActual.Cod_Usuario)
   break;
 
   default:
@@ -173,14 +182,18 @@ this.detalleRetoModal(reto,this.cancha,this.retador,this.rival)
 
     this.selectedType = event.detail.value;
     console.log(event.detail.value)
+   
 if(event.detail.value == 'recibidos'){
   
   this.gestionRestosService.syncRetosRecibidos(this.usuariosService.usuarioActual.Cod_Usuario)
 }else if (event.detail.value == 'enviados'){
   
   this.gestionRestosService.syncRetosEnviados(this.usuariosService.usuarioActual.Cod_Usuario)
-}else{
+}else  if (event.detail.value == 'confirmados'){
   this.gestionRestosService.syncRetosConfirmados(this.usuariosService.usuarioActual.Cod_Usuario)
+}else{
+  this.gestionRestosService.syncRetosHistorial(this.usuariosService.usuarioActual.Cod_Usuario)
+
 }
       }
 
@@ -277,6 +290,19 @@ setTimeout( () => {
  }, 500 );
     }
 
+    hitory(){
+      this.Titulo = 'Historial';
+      this.show = true;
+      this.showSend = false;
+this.showReceive = true;
+this.showConfirm = false;
+this.gestionRestosService.syncRetosRecibidos(this.usuariosService.usuarioActual.Cod_Usuario)
+setTimeout( () => {
+  this.showImage = true;
+
+ }, 500 );
+    }
+
     confirm(){
       this.Titulo = 'Confirmados';
       this.showSend = false;
@@ -289,4 +315,7 @@ this.showConfirm = true;
        }, 500 );
       this.gestionRestosService.syncRetosConfirmados(this.usuariosService.usuarioActual.Cod_Usuario)
     }
+
+
+
 }

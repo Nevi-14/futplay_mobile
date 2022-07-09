@@ -38,6 +38,7 @@ year: null
 
   ngOnInit() {
 
+    console.log(this.fecha, 'fechaa')
     if(this.fecha){
 
       let day = this.fecha.getDate();

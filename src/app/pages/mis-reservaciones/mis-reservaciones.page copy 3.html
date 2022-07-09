@@ -1,0 +1,58 @@
+
+  <ion-header >
+
+    <ion-toolbar>
+      <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
+        <ion-buttons slot="start">
+          <ion-button  (click)="cerrarModal()" color="light">
+            <ion-icon slot="start" name="chevron-back"></ion-icon>
+            &nbsp;Gestion Retos
+          </ion-button>
+        </ion-buttons>
+
+      </ion-item>
+  
+      <ion-searchbar></ion-searchbar>
+      
+      <ion-slides   [options]="opts" >
+        <ion-slide *ngFor="let cat of categories; let i = index;">
+          <ion-button size="small"  fill="clear" [class.active-category]="activeCategory == i"
+          (click)="selectCategory(i)">
+       <ion-label color="light">  {{cat}}</ion-label>
+          </ion-button>
+           </ion-slide>
+    
+      </ion-slides>
+    </ion-toolbar>
+    </ion-header>
+    <ion-content fullscreen>
+  
+    
+      <div class="mainContent">
+
+
+        <ion-slides mode="ios" pager="ios" scrollbar="false" class="slide-full">
+          <ion-slide *ngFor="let cat of categories; let i = index;">
+<ion-card>
+  <ion-card-content>
+    <ion-list>
+      <ion-list-header>
+        <ion-label>{{cat}}</ion-label>
+        <ion-button>See All</ion-button>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>Awesome Label</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>
+          </ion-slide>
+        
+        </ion-slides>
+
+
+
+
+
+      </div>
+    </ion-content>

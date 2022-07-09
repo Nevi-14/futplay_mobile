@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { AlertasService } from './alertas.service';
 import { ModalController } from '@ionic/angular';
 import { MisReservacionesPage } from '../pages/mis-reservaciones/mis-reservaciones.page';
+import { GoogleAdsService } from './google-ads.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class ConfirmacionReservacionesService {
   constructor(
     public http: HttpClient,
     public alertasService:AlertasService,
-    public modalCtrl:ModalController
+    public modalCtrl:ModalController,
+    public googleAdsService: GoogleAdsService
   ) { }
 
 
@@ -55,7 +57,8 @@ console.log(confirmacion,'confirmacion')
           resp => {
             this.alertasService.loadingDissmiss();
             this.presentModal();
-           this.alertasService.message('FUTPLAY','La reservacion se guardo con exito')
+            this.googleAdsService.showInterstitial();
+          // this.alertasService.message('FUTPLAY','La reservacion se guardo con exito')
           
           }
         )

@@ -367,7 +367,8 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
         cssClass:'date-modal',
         componentProps:{
           title:'Fecha de nacimiento',
-          id: 'seleccionar-fecha'
+          id: 'seleccionar-fecha',
+          fecha: new Date(this.usuarioService.usuarioActual.Fecha_Nacimiento)
         },
         id: 'seleccionar-fecha'
       })

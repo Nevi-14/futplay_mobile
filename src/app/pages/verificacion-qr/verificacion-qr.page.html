@@ -9,10 +9,26 @@
             &nbsp;{{reto.Titulo}}
           </ion-button>
         </ion-buttons>
-
-        <ion-badge slot="end" color="warning" mode="ios">{{reto.Fecha | date:'shortDate'}}</ion-badge>
       </ion-item>
-  
+  <ion-grid >
+    <ion-row>
+      <ion-col size="12">
+        <ion-label> Cancha : <strong>{{reto.Nombre_Cancha}}</strong> </ion-label>
+      </ion-col>
+      <ion-col size="4">
+       <ion-label>Fecha :  {{reto.Fecha | date:'shortDate'}}
+    </ion-label>
+      </ion-col>
+      <ion-col size="4">
+        <ion-label>Inicio {{reto.Hora_Inicio | date:'shortTime'}}
+        </ion-label>
+      </ion-col>
+      <ion-col size="4W">
+        <ion-label> Fin {{reto.Hora_Inicio | date:'shortTime'}}
+        </ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
     </ion-toolbar>
 
     </ion-header>
@@ -51,8 +67,8 @@
       </ion-card-header>
   
       <ion-card-content class="ion-text-center">
-  <ion-list lines="none">
-    <ion-item *ngIf="rival">
+
+    <ion-item *ngIf="rival" lines="none">
   
       <ion-avatar slot="start" style="display:block; height: auto; width: auto;" class="ion-text-center">
         <img style="height: 60px; width: 60px;"  src="assets/soccer-shields-svg/{{rival.Foto}}">
@@ -70,11 +86,11 @@
         </span>
    
        
-        <ion-checkbox *ngIf="partido" slot="end" name="retador" [(ngModel)]="partido.Verificacion_QR_Retador" mode="ios" ></ion-checkbox>
+        <ion-checkbox disabled *ngIf="partido" slot="end" name="retador" [(ngModel)]="partido[rivalIndex].Verificacion_QR" mode="ios" ></ion-checkbox>
   
    
     </ion-item>
-    <ion-item *ngIf="retador">
+    <ion-item *ngIf="retador" lines="none">
   
       <ion-avatar slot="start" style="display:block; height: auto; width: auto;" class="ion-text-center">
         <img style="height: 60px; width: 60px;"  src="assets/soccer-shields-svg/{{retador.Foto}}">
@@ -90,18 +106,18 @@
           <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
           <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
         </span>
-        <ion-checkbox *ngIf="partido" slot="end" name="rival" [(ngModel)]="partido.Verificacion_QR_Rival" mode="ios" ></ion-checkbox>
+        <ion-checkbox disabled *ngIf="partido" slot="end" name="rival" [(ngModel)]="partido[retadorIndex].Verificacion_QR" mode="ios" ></ion-checkbox>
   
   
     </ion-item>
    
   
-  </ion-list>
+ 
       </ion-card-content>
   
-      <ion-card-content class="ion-text-center" *ngIf="partido.Verificacion_QR_Retador && partido.Verificacion_QR_Rival">
+      <ion-card-content  class="ion-text-center" *ngIf="partido" >
              
-        <ion-button  fill="outline"   shape="round" (click)="iniciar()">
+        <ion-button *ngIf="partido[retadorIndex].Verificacion_QR && partido[rivalIndex].Verificacion_QR"  fill="outline"   shape="round" (click)="iniciar()">
           Continuar
         </ion-button>
       </ion-card-content>

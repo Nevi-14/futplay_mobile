@@ -67,11 +67,19 @@ export class FutplayPage implements OnInit {
      async  crearUnirseEquipo(){
  const modal = await this.modalCtrl.create({
    component:CrearUnirseEquipoPage,
-   cssClass:'my-custom-modal'
+   cssClass:'my-custom-modal',
+   id:'create'
  });
 
- return await modal.present();
-
+ await modal.present();
+    const { data } = await modal.onDidDismiss();
+ 
+    if(data !== undefined ){
+      console.log(data,'data')
+this.misEquipos();
+    
+    }
+ 
      }
 
 equipos(){

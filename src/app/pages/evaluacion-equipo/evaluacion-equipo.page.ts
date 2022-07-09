@@ -3,6 +3,7 @@ import { JugadoresEquipos } from '../../models/jugadoresEquipos';
 import { HistorialPartidosEquipos } from '../../models/historialPartidosEquipos';
 import { HistorialPartidoService } from 'src/app/services/historial-partido.service';
 import { ModalController } from '@ionic/angular';
+import { GoogleAdsService } from 'src/app/services/google-ads.service';
 
 @Component({
   selector: 'app-evaluacion-equipo',
@@ -22,7 +23,8 @@ evaluacionEquipo:HistorialPartidosEquipos = {
 stadiumProfile =  'assets/main/team-profile.svg';
   constructor(
     public historialPartidosService:HistorialPartidoService,
-    public modalCtrl:ModalController
+    public modalCtrl:ModalController,
+    public googleAdsService: GoogleAdsService
   ) { }
 
   ngOnInit() {
@@ -43,7 +45,7 @@ this.finalizar();
   finalizar(){
 this.modalCtrl.dismiss();
     this.historialPartidosService.evaluacionEquipo(this.evaluacionEquipo);
-
+    this.googleAdsService.showRewardVideo();
     
   }
 }

@@ -15,6 +15,8 @@ export class SolicitudesJugadoresPage implements OnInit {
   @Input() showReceiveInput;
   @Input()showSendInput;
 title = 'Recibidas'
+activeCategory = 1;
+categories = ['Enviadas', 'Recibidas'];
 showReceive = true;
 showSend = false;
 selected:string = '';
@@ -36,6 +38,33 @@ this.send();
     }
   
   }
+
+  selectCategory(index){
+    this.activeCategory = index;
+   
+    switch(index){
+   
+     case 0:
+       this.send();
+     break;
+     
+     case 1:
+      this.receive();
+     break;
+
+     break;
+     
+     case 3:
+   
+     break;
+   
+     default:
+       
+       break;
+   }
+   
+   
+       }
   async onOpenMenu(solicitud){
 
     let equipo  = null;

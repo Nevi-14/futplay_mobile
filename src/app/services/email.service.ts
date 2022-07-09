@@ -27,7 +27,7 @@ export class EmailService {
   }
 
 
-      // POST CANCHA
+      // POST EMAIL
 
       private postEmail (bloqueo){
         const URL = this.getURL( environment.apiCorreoURL);
@@ -42,10 +42,11 @@ export class EmailService {
         return this.http.post( URL, JSON.stringify(bloqueo), options );
       }
     
-      syncPostEmail(email:Email){
+      syncToPromiseSendEmail(email:Email){
 
 
       return   this.postEmail(email).toPromise();
+
       }
 
 

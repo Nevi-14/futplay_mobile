@@ -64,10 +64,18 @@ console.log('resp', resp)
  async  crearUnirseEquipo(){
     const modal = await this.modalCtrl.create({
       component:CrearUnirseEquipoPage,
-      cssClass:'my-custom-class'
+      cssClass:'my-custom-class',
+      id:'create'
     })
 
-    return await modal.present();
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+ 
+    if(data !== undefined ){
+      console.log(data,'data')
+      this.modalCtrl.dismiss(data, null, "my-clubs");
+    
+    }
   }
   async unirseEquipo(){
 
