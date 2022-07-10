@@ -7,7 +7,7 @@ import { RegistroPageModule } from '../registro/registro.module';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/inicio/about',
+    redirectTo: '/inicio/inicio-sesion',
     pathMatch: 'full',
   },
   {
