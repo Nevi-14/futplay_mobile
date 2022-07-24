@@ -10,6 +10,7 @@ import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
 import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
 import { SolicitudesEquiposPage } from '../solicitudes-equipos/solicitudes-equipos.page';
 import { GoogleAdsService } from 'src/app/services/google-ads.service';
+import { VideoScreenPage } from '../video-screen/video-screen.page';
 
 @Component({
   selector: 'app-buscar-jugadores',
@@ -17,6 +18,11 @@ import { GoogleAdsService } from 'src/app/services/google-ads.service';
   styleUrls: ['./buscar-jugadores.page.scss'],
 })
 export class BuscarJugadoresPage implements OnInit {
+  filtro ={
+    Cod_Provincia: null,
+    Cod_Canton: null,
+    Cod_Distrito:null,
+  }
   textoBuscar = '';
   stadiumProfile =  'assets/main/game-match.svg';
   solicitudJugadorEquipo:SolicitudesJugadoresEquipos = {
@@ -50,9 +56,7 @@ export class BuscarJugadoresPage implements OnInit {
   
       this.solicitudesService.generarSolicitud(this.solicitudJugadorEquipo);
 
-      this.modalCtrl.dismiss({
-        'dismissed': true
-      });
+     
     }
   
     cerrarModal(){
@@ -88,8 +92,14 @@ export class BuscarJugadoresPage implements OnInit {
                 text: 'Enviar Solicitud',
                 icon:'paper-plane-outline',
                 handler: () =>{
-                  this.googleAdsService.showInterstitial();
-                  this.jugadorEquipoSolicitud(jugador)
+                  this.videoScreen(3).then(resp =>{
+                  /*
+            this.modalCtrl.dismiss({
+                      'dismissed': true
+                    });*/
+                   
+                  })
+                 // this.jugadorEquipoSolicitud(jugador)
                 }
                
                },
@@ -121,6 +131,23 @@ export class BuscarJugadoresPage implements OnInit {
         
         
           }
+
+          async videoScreen(id){
+            const modal = await this.modalCtrl.create({
+              component:VideoScreenPage,
+              id:'video-screen-modal',
+              cssClass:'modal-view',
+              mode:'ios',
+              backdropDismiss:false,
+              componentProps:{
+                index:id
+              }
+            });
+
+            return await modal.present();
+          }
+
+
           onSearchChange(event){
 
             this.textoBuscar = event.detail.value;
@@ -132,10 +159,27 @@ export class BuscarJugadoresPage implements OnInit {
      
             const modal  = await this.modalCtrl.create({
              component: FiltroUbicacionPage,
+             breakpoints: [0, 0.3, 0.5, 0.8],
+             initialBreakpoint: 0.5,
+             componentProps : {
+              'Cod_Provincia': this.filtro.Cod_Provincia,
+              'Cod_Canton': this.filtro.Cod_Canton,
+              'Cod_Distrito': this.filtro.Cod_Distrito
+             },
              cssClass: 'my-custom-class',
              id:'my-modal-id'
            });
            await modal .present();
+
+           const { data } = await modal.onWillDismiss();
+         console.log(data)
+           if(data !== undefined ){
+        
+            this.filtro.Cod_Provincia = data.Cod_Provincia;
+            this.filtro.Cod_Canton = data.Cod_Canton;
+            this.filtro.Cod_Distrito = data.Cod_Distrito;
+        
+           }
          }
          async solicitudes() {
           const modal = await this.modalCtrl.create({

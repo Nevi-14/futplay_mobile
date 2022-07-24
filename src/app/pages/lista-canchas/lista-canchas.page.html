@@ -13,17 +13,14 @@
       </ion-item>
   
     </ion-toolbar>
-    <ion-toolbar style="display: flex;justify-content:center;align-items:center;">
-        
-        
-      <ion-searchbar slot="start" style="width: 80% ;" mode="ios" placeholder="buscar cancha" inputmode="text"  debounce="250" ></ion-searchbar> 
-    
-      <ion-button  slot="end" (click)="filtroUbicacion()"  >
-        <ion-icon size="large"  name="options-outline" ></ion-icon>
-      </ion-button>
-    
-      
-     
+    <ion-toolbar class="ion-padding">
+
+      <ion-searchbar  mode="ios" placeholder="buscar cancha" inputmode="text"  debounce="250" ></ion-searchbar> 
+      <ion-buttons slot="end">
+        <ion-button class="ion-button"    (click)="filtroUbicacion()"  >
+          <ion-icon color="light" size="large"  name="options-outline" ></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-toolbar>
     </ion-header>
    

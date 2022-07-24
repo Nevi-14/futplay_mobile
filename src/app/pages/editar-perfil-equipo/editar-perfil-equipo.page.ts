@@ -76,7 +76,7 @@ export class EditarPerfilEquipoPage implements OnInit {
       Nombre:  this.equiposService.perfilEquipo.Nombre,
       Abreviacion:  this.equiposService.perfilEquipo.Abreviacion,
       Fecha:  this.equiposService.perfilEquipo.Fecha,
-      Estrellas:  this.equiposService.perfilEquipo.Estrella,
+      Estrellas:  this.equiposService.perfilEquipo.Estrellas,
       Dureza:  this.equiposService.perfilEquipo.Dureza,
       Estado:  this.equiposService.perfilEquipo.Estado,
       Descripcion_Estado:  this.equiposService.perfilEquipo.Descripcion_Estado,

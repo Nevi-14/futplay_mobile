@@ -325,7 +325,8 @@ this.mesesDisponibles.push(i+1);
                 Verificacion_QR  : false,
                 Goles_Retador : 0,
                 Goles_Rival : 0,
-                Estado : 0
+                Estado : false,
+                Evaluacion : false
 
               }
               const Historia_PartidosRetador= {
@@ -335,7 +336,8 @@ this.mesesDisponibles.push(i+1);
                 Verificacion_QR  : false,
                 Goles_Retador : 0,
                 Goles_Rival : 0,
-                Estado : 0
+                Estado : false,
+                Evaluacion : false
 
               }
          console.log('reservacion actualizada', resp)

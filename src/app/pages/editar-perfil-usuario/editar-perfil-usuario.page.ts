@@ -365,6 +365,8 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
       const modal = await this.modalCtrl.create({
         component:SeleccionarFechaPage,
         cssClass:'date-modal',
+     breakpoints: [0, 0.3, 0.5, 0.8],
+     initialBreakpoint: 0.5,
         componentProps:{
           title:'Fecha de nacimiento',
           id: 'seleccionar-fecha',

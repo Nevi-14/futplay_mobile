@@ -6,6 +6,7 @@ import { BuscarJugadoresPage } from '../buscar-jugadores/buscar-jugadores.page';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
 import { GoogleAdsService } from 'src/app/services/google-ads.service';
+import { VideoScreenPage } from '../video-screen/video-screen.page';
 
 @Component({
   selector: 'app-solicitudes-equipos',
@@ -77,7 +78,7 @@ let usuario = null;
    text: 'Aceptar',
    icon:'checkmark-outline',
     handler: () =>{
-      this.googleAdsService.showRewardVideo();
+      this.videoScreen(4);
      this.aceptar(solicitud)
     }
    
@@ -119,6 +120,20 @@ let usuario = null;
   
     }
 
+    async videoScreen(id){
+      const modal = await this.modalCtrl.create({
+        component:VideoScreenPage,
+        cssClass:'modal-view',
+        mode:'ios',
+        backdropDismiss:false,
+        id:'video-screen-modal',
+        componentProps:{
+          index:id
+        }
+      });
+      return await modal.present();
+      
+        }
   send(){
     this.showSend = true;
     this.showReceive = false;

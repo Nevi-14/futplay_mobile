@@ -45,5 +45,10 @@ console.log(this.categoria_canchas,'this.categoria_canchas')
 
     );
   }
+  syncCategoriaCanchasToPromise(){
+
+
+    return this.getCategoriaCanchas().toPromise();
+  }
 
 }

@@ -37,12 +37,17 @@
       
        <span style="display:block;">
        
-      
+        <ng-template ngFor let-hero [ngForOf]="filledStars(equiposService.perfilEquipo.Estrellas)"
+        let-i="index" let-odd="odd"  >
         <ion-icon style="size: 10px;" name="star"></ion-icon>
-        <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-        <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-        <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-        <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+      </ng-template>
+      <ng-template ngFor let-hero [ngForOf]="emptyStars(equiposService.perfilEquipo.Estrellas)"
+      let-i="index" let-odd="odd"  >
+      <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+    </ng-template>
+
+
+        
       </span>
       </h3>
             
@@ -63,14 +68,20 @@
     <ion-label>Estadisticas Equipo</ion-label>
    
   </ion-item>
-  <ion-item lines="none" class="ion-margin-top ion-margin-bottom">
 
-    <ion-label slot="start" >Dureza : </ion-label>
+  <ion-item lines="none" class="ion-margin-top ion-margin-bottom ion-text-center">
 
-    <ion-avatar slot="start"   style="height: 45px;width: 45px;" >
-      <img      src="assets/icons/{{equiposService.perfilEquipo.Dureza}}">
+    <ion-label  >Dureza :  </ion-label>
+    <ion-avatar    style="margin: 0.5rem;"  >
+      <img      src="assets/emojis/{{dureza[equiposService.perfilEquipo.Dureza].image}}">
+     
     </ion-avatar>
+
+    <ion-label   class="ion-text-wrap"><strong>{{dureza[equiposService.perfilEquipo.Dureza].titulo}}</strong></ion-label>
+
   </ion-item>
+
+
 <ion-item lines="none">
 
 <ion-button    (click)="solicitudesEquipos()"   fill="outline" shape="round" color="dark">

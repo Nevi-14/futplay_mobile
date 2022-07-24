@@ -78,7 +78,7 @@
     
     ion-list {
     
-        background-color: #e7edfb;
+        --background: #e7edfb;
     }
     ion-card-content ion-list {
     
@@ -263,3 +263,10 @@
             border: 0;
             border-top: 1px solid rgba(0, 0, 0, 0.1);
           }
+
+           .transparent {
+       background: transparent !important;
+       --background: transparent !important;
+          }
+
+   

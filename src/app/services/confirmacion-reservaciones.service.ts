@@ -5,6 +5,7 @@ import { AlertasService } from './alertas.service';
 import { ModalController } from '@ionic/angular';
 import { MisReservacionesPage } from '../pages/mis-reservaciones/mis-reservaciones.page';
 import { GoogleAdsService } from './google-ads.service';
+import { VideoScreenPage } from '../pages/video-screen/video-screen.page';
 
 @Injectable({
   providedIn: 'root'
@@ -57,7 +58,7 @@ console.log(confirmacion,'confirmacion')
           resp => {
             this.alertasService.loadingDissmiss();
             this.presentModal();
-            this.googleAdsService.showInterstitial();
+            this.videoScreen(1);
           // this.alertasService.message('FUTPLAY','La reservacion se guardo con exito')
           
           }
@@ -66,6 +67,20 @@ console.log(confirmacion,'confirmacion')
  
       }
 
+      async videoScreen(id){
+        const modal = await this.modalCtrl.create({
+          component:VideoScreenPage,
+          cssClass:'modal-view',
+          id:'video-screen-modal',
+          mode:'ios',
+          backdropDismiss:false,
+          componentProps:{
+            index:id
+          }
+        });
+        return await modal.present();
+        
+          }
       async presentModal() {
         const modal = await this.modalCtrl.create({
           component: MisReservacionesPage,

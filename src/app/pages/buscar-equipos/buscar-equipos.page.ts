@@ -16,6 +16,11 @@ import { SolicitudesJugadoresPage } from '../solicitudes-jugadores/solicitudes-j
   styleUrls: ['./buscar-equipos.page.scss'],
 })
 export class BuscarEquiposPage implements OnInit {
+  filtro ={
+    Cod_Provincia: null,
+    Cod_Canton: null,
+    Cod_Distrito:null,
+  }
   textoBuscar = '';
 solicitudJugadorEquipo:SolicitudesJugadoresEquipos = {
   Cod_Solicitud : null,
@@ -74,10 +79,28 @@ solicitudJugadorEquipo:SolicitudesJugadoresEquipos = {
      
     const modal  = await this.modalCtrl.create({
      component: FiltroUbicacionPage,
+             breakpoints: [0, 0.3, 0.5, 0.8],
+             initialBreakpoint: 0.5,
+             componentProps : {
+              'Cod_Provincia': this.filtro.Cod_Provincia,
+              'Cod_Canton': this.filtro.Cod_Canton,
+              'Cod_Distrito': this.filtro.Cod_Distrito
+             },
      cssClass: 'my-custom-class',
      id:'my-modal-id'
    });
+
    await modal .present();
+
+   const { data } = await modal.onWillDismiss();
+ console.log(data)
+   if(data !== undefined ){
+
+    this.filtro.Cod_Provincia = data.Cod_Provincia;
+    this.filtro.Cod_Canton = data.Cod_Canton;
+    this.filtro.Cod_Distrito = data.Cod_Distrito;
+
+   }
  }
  async detalleEquipo(equipo){
 

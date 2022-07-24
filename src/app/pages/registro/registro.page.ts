@@ -221,6 +221,8 @@ async SelectDate(){
       component:SeleccionarFechaPage,
       cssClass:'medium-modal',
       mode:'ios',
+      breakpoints: [0, 0.3, 0.5, 0.8],
+      initialBreakpoint: 0.5,
       componentProps:{
         title:'Fecha de nacimiento',
         id: 'seleccionar-fecha',

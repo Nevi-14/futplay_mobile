@@ -13,7 +13,4 @@ WHERE
 	   a.Cod_Categoria = e.Cod_Categoria and
       a.Cod_Provincia = p.Cod_Provincia and
       a.Cod_Canton = c.Cod_Canton and
-      c.Cod_Provincia = a.Cod_Provincia and
-      a.Cod_Distrito = d.Cod_Distrito and
-      a.Cod_Canton = d.Cod_Canton and
-      a.Cod_Provincia = d.Cod_Provincia
+      a.Cod_Distrito = d.Cod_Distrito

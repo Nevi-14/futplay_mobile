@@ -23,7 +23,13 @@ export class JugadoresEquipos {
         public Abreviacion:string,
         public Nombre_Equipo: string,
         public Foto_Equipo: string,
-        public Avatar:boolean
+        public Avatar:boolean,
+        public Partidos_Ganados: number,
+        public Partidos_Perdidos: number,
+        public Goles_Favor : number,
+        public Goles_Encontra :number,
+        public Promedio_Altura_Jugadores : number,
+        public Promedio_Peso_Jugadores :number,
         
     ){}
 }

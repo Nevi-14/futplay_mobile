@@ -20,7 +20,4 @@ WHERE
  AND 
   e.Cod_Provincia = p.Cod_Provincia and
       e.Cod_Canton = c.Cod_Canton and
-      c.Cod_Provincia = e.Cod_Provincia and
-      e.Cod_Distrito = d.Cod_Distrito and
-      e.Cod_Canton = d.Cod_Canton and
-      e.Cod_Provincia = d.Cod_Provincia
+      e.Cod_Distrito = d.Cod_Distrito

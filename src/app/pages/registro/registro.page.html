@@ -50,7 +50,7 @@
             <ion-label>Fecha de nacimiento</ion-label>
         
             <ion-item lines="none"  class="ion-margin-bottom ion-margin-top"(click)="SelectDate()">
-              <ion-input   name="Fecha_Nacimiento"  type="text"  [value]="usuario.Fecha_Nacimiento  | date :'longDate'" placeholder="Fecha Nacimiento" required></ion-input>
+              <ion-input  readonly  name="Fecha_Nacimiento"  type="text"  [value]="usuario.Fecha_Nacimiento  | date :'longDate'" placeholder="Fecha Nacimiento" required></ion-input>
               </ion-item>
           </ion-col>
           <ion-col size="12" size-md="6">

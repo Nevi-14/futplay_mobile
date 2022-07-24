@@ -35,19 +35,48 @@ export class PerfilEquipoPage  {
       public alertCtrl: AlertController
       ) { }
 
+dureza = [
 
+  {id:0,titulo:'Equipo Neutral',image:'equipo-neutral.svg'},
+  {id:1,titulo:'Juego Molesto',image:'juego-molesto.svg'},
+  {id:2,titulo:'Agresividad Irresponsable',image:'agresividad-irresponsable.svg'},
+  {id:3,titulo:'Caracter Revelde',image:'caracter-revelde.svg'},
+  {id:4,titulo:'Mas Que Un Club',image:'mas-que-un-club.svg'},
+  {id:5,titulo:'Clase Mundia FairPlay',image:'clase-mundial-fairplay.svg'}
+
+]
+
+durezaEquipo(value){
+console.log(value.detail.value)
+alert(value)
+ 
+}
   ionViewWillEnter(){
+
+    this.dureza.forEach(fu =>{
+      console.log(fu)
+    })
     if( this.equiposService.perfilEquipo){
       
       this.equiposService.jugadoresPerfilEquipo = []
       this.alertasService.presentaLoading('Cargando lista de jugadores...')
 this.jugadoresEquipo();
 
+
+
     }
 
   }
 
 
+  filledStars(stars:number){
+
+    return new Array(stars)
+  }
+  emptyStars(stars:number){
+    let value = 5 - stars;
+    return new Array(value)
+  }
   jugadoresEquipo(){
 
  this.equiposService.SyncJugadoresEquipos( this.equiposService.perfilEquipo.Cod_Equipo).then( jugadores =>{

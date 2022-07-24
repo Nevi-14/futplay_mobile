@@ -38,11 +38,14 @@
               {{equipo.Nombre}}
               <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
               
+                <ng-template ngFor let-hero [ngForOf]="filledStars(equipo.Estrellas)"
+                let-i="index" let-odd="odd"  >
                 <ion-icon style="size: 10px;" name="star"></ion-icon>
-                <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-                <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-                <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-                <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+              </ng-template>
+              <ng-template ngFor let-hero [ngForOf]="emptyStars(equipo.Estrellas)"
+              let-i="index" let-odd="odd"  >
+              <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+            </ng-template>
               </p>
             </ion-label>
   
@@ -62,11 +65,14 @@
               {{equipo.Nombre}}
               <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
               
+                <ng-template ngFor let-hero [ngForOf]="filledStars(equipo.Estrellas)"
+                let-i="index" let-odd="odd"  >
                 <ion-icon style="size: 10px;" name="star"></ion-icon>
-                <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-                <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-                <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-                <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+              </ng-template>
+              <ng-template ngFor let-hero [ngForOf]="emptyStars(equipo.Estrellas)"
+              let-i="index" let-odd="odd"  >
+              <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+            </ng-template>
               </p>
             </ion-label>
   

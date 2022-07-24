@@ -44,6 +44,7 @@ console.log(this.partido,'patidooo')
 
   }
   slidePrev() {
+
     this.slides.slidePrev();
   }
   slideNext() {
@@ -56,7 +57,8 @@ console.log(this.partido,'patidooo')
       component: EvaluacionEquipoPage,
       cssClass: 'my-custom-class',
       componentProps:{
-        equipo:this.equipo
+        equipo:this.equipo,
+        partido:this.partido
       }
     });
 
@@ -72,6 +74,7 @@ this.slideNext();
     console.log(value.detail.value.Cod_Usuario,'agregarJFP');
     this.evaluacionJugador.Jugador_Futplay = value.detail.value.Cod_Usuario
     console.log('final eva', this.evaluacionJugador)
+    this.evaluacionJugador.Cod_Partido = this.partido.Cod_Partido
     this.historialPartido.evaluacionJugador(this.evaluacionJugador);
     this.cerrarModal();
     this.continuar();

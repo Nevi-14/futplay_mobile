@@ -25,7 +25,8 @@ export class CrearUnirseEquipoPage implements OnInit {
   async crearEquipo(){
     let modal = await this.modalCtrl.create({
       component:CrearEquipoPage,
-      cssClass:'my-custom-class'
+      cssClass:'my-custom-class',
+      id:'create-modal'
     });
 
     await modal.present();

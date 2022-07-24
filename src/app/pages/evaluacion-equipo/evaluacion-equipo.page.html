@@ -40,56 +40,18 @@
               <ion-label   class="soccer-league-subtitle">Dureza Del Equipo</ion-label>
              
             </ion-item>
-            <ion-item  lines="full" >
-                  <ion-avatar slot="start" class="ion-margin"  style="height: 3rem; width: 3rem;" >
-                    <img style="height: 3rem; width: 3rem;"src="assets/icons/meh.svg">
-                  
-                  </ion-avatar>
-                  
-                  <ion-radio slot="end"  value="meh.svg" ></ion-radio>
-                </ion-item>
-            
-                <ion-item  lines="full" >
-                  <ion-avatar slot="start" class="ion-margin"  style="height: 3rem; width: 3rem;" >
-                    <img  style="height: 3rem; width: 3rem;" src="assets/icons/sad.svg">
-                  
-                  </ion-avatar>
-                  
-                  <ion-radio slot="end" value="sad.svg" ></ion-radio>
-                </ion-item>
-                <ion-item  lines="full" >
-                  <ion-avatar slot="start" class="ion-margin"  style="height: 3rem; width: 3rem;" >
-                    <img style="height: 3rem; width: 3rem;" src="assets/icons/frown.svg">
-                  
-                  </ion-avatar>
-                  
-                  <ion-radio  slot="end" value="frown.svg" ></ion-radio>
-                </ion-item>
+        
+            <ion-item  lines="full" *ngFor="let item of dureza">
+              <ion-avatar  slot="start" class="ion-margin"  style="height: 3rem; width: 3rem;" >
+                <img  style="height: 3rem; width: 3rem;" src="assets/emojis/{{item.image}}">
+              
+              </ion-avatar>
+              <ion-label>{{item.titulo}}</ion-label>
+              <ion-radio slot="end" value="{{item.id}}" ></ion-radio>
+            </ion-item>
+         
                 
-                <ion-item  lines="full" >
-                  <ion-avatar slot="start" class="ion-margin"  style="height: 3rem; width: 3rem;" >
-                    <img style="height: 3rem; width: 3rem;" src="assets/icons/smiling-face.svg">
-                  
-                  </ion-avatar>
-                  
-                  <ion-radio slot="end" value="smiling-face.svg" ></ion-radio>
-                </ion-item>
-                <ion-item  lines="full" >
-                  <ion-avatar slot="start" class="ion-margin"  style="height: 3rem; width: 3rem;" >
-                    <img style="height: 3rem; width: 3rem;" src="assets/icons/halo.svg">
-                  
-                  </ion-avatar>
-                  
-                  <ion-radio slot="end" value="halo.svg" ></ion-radio>
-                </ion-item>
-                <ion-item  lines="full" >
-                  <ion-avatar slot="start" class="ion-margin"  style="height: 3rem; width: 3rem;" >
-                    <img style="height: 3rem; width: 3rem;" src="assets/icons/angry.svg">
-                  
-                  </ion-avatar>
-                  
-                  <ion-radio slot="end" value="angry.svg" ></ion-radio>
-                </ion-item>
+              
             </ion-list>
             </ion-radio-group>
             

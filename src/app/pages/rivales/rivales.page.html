@@ -1,15 +1,18 @@
 <app-header titulo="{{categories[activeCategory]}}"></app-header>
-  <ion-toolbar>
 
+    
+<ion-toolbar class="ion-padding">
 
-    <ion-searchbar slot="start" style="width: 80% ;" mode="ios" placeholder="buscar equipo" inputmode="text"  debounce="250" ></ion-searchbar> 
-  
-    <ion-button class="ion-button"  slot="end" (click)="filtroUbicacion()"  >
-      <ion-icon size="large"  name="options-outline" ></ion-icon>
+  <ion-searchbar  mode="ios" placeholder="buscar equipo" inputmode="text"  debounce="250" ></ion-searchbar> 
+  <ion-buttons slot="end">
+    <ion-button class="ion-button"    (click)="filtroUbicacion()"  >
+      <ion-icon color="light" size="large"  name="options-outline" ></ion-icon>
     </ion-button>
+  </ion-buttons>
+</ion-toolbar>
 
 
-  </ion-toolbar>
+
 <ion-toolbar>
       
   <ion-slides   [options]="opts">
@@ -44,12 +47,14 @@
           <p  style="display:block;" >
                  
                
-                         
-            <ion-icon  name="star"></ion-icon>
-            <ion-icon   name="star-outline"></ion-icon>
-            <ion-icon name="star-outline"></ion-icon>
-            <ion-icon  name="star-outline"></ion-icon>
-            <ion-icon  name="star-outline"></ion-icon>
+            <ng-template ngFor let-hero [ngForOf]="filledStars(equipo.Estrellas)"
+            let-i="index" let-odd="odd"  >
+            <ion-icon style="size: 10px;" name="star"></ion-icon>
+          </ng-template>
+          <ng-template ngFor let-hero [ngForOf]="emptyStars(equipo.Estrellas)"
+          let-i="index" let-odd="odd"  >
+          <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+        </ng-template>
       
           </p>
 

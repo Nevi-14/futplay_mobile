@@ -13,6 +13,7 @@ import { JugadoresEquipos } from '../models/jugadoresEquipos';
 import { SolicitudesService } from './solicitudes.service';
 import { GestorImagenesService } from 'src/app/services/gestor-imagenes.service';
 import { vistaOtrosEquipos } from '../models/vistaOtrosEquipos';
+import { Evaluacion } from '../models/evaluacion';
 
 @Injectable({
   providedIn: 'root'
@@ -105,7 +106,10 @@ console.log(resp,'resp')
    
     )
   }
+  actualizarEquipoToPromise(equipo, Cod_Usuario ){
 
+   return this.putEquipo( equipo, Cod_Usuario ).toPromise();
+  }
 
   private getJugadoresEquipos(Cod_Equipo){
 
@@ -120,10 +124,50 @@ console.log(resp,'resp')
 
 
   }
+  private evaluacionEquipos(Cod_Equipo){
 
-  SyncJugadoresEquipos(Cod_Usuario){
+    let URL = this.getURL(environment.evaluacionEquiposURL);
+    let test: string = ''
+    if ( !environment.prdMode ) {
+      test = environment.TestURL;
+    }
+    
+    URL = URL + environment.codEquipoParam + Cod_Equipo
+    console.log(URL,'URL')
+    return this.http.get<Evaluacion[]>( URL );
 
-return this.getJugadoresEquipos(Cod_Usuario).toPromise();
+
+  }
+  syncEvaluacionEquipos(Cod_Equipo){
+
+    return this.evaluacionEquipos(Cod_Equipo).toPromise();
+    
+      }
+  private getEquiposPosicion(){
+
+    let URL = this.getURL(environment.posicionActualURL);
+    let test: string = ''
+    if ( !environment.prdMode ) {
+      test = environment.TestURL;
+    }
+
+    console.log(URL,'URL')
+    return this.http.get<Equipos[]>( URL );
+
+
+  }
+
+
+  syncGetEquiposPosicion(){
+
+    return this.getEquiposPosicion().toPromise();
+    
+      }
+
+
+  SyncJugadoresEquipos(Cod_Equipo){
+
+return this.getJugadoresEquipos(Cod_Equipo).toPromise();
 
   }
 

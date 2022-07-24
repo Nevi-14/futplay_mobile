@@ -4,6 +4,8 @@ import { NgForm } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { RecuperarContrasenaPage } from '../recuperar-contrasena/recuperar-contrasena.page';
 import { AlertasService } from 'src/app/services/alertas.service';
+import { VideoScreenPage } from '../video-screen/video-screen.page';
+import { GoogleAdsService } from 'src/app/services/google-ads.service';
 interface login{
   email: string,
 password: string
@@ -22,7 +24,8 @@ loginUser:login;
   constructor(
 public usuariosServicio: UsuariosService,
 public modalCtrl: ModalController,
-public alertasService: AlertasService
+public alertasService: AlertasService,
+public googleAddService: GoogleAdsService
 
 
   ) { }
@@ -30,6 +33,7 @@ public alertasService: AlertasService
 
 
   ionViewWillEnter(){
+  //  this.googleAddService.showBanner();
     this.limpiarDatos()
   } 
 
@@ -78,6 +82,7 @@ public alertasService: AlertasService
     return await modal.present();
     
       }
+
 
 login(fLogin: NgForm){
   console.log('fLogin', fLogin)

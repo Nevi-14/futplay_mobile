@@ -86,18 +86,7 @@ ion-avatar{
 
     }
     
-    .ion-button {
-    
-      --background: #5a55ca;
-      --background-focused: #6f6bbb;
-      --background-activated: #6f6bbb;
-      --padding-top: 1rem;
-      --padding-bottom: 1rem;
-      --padding-start: 0.75rem;
-      --padding-end: 0.75rem;
-      color: #fff;
-      margin-right: 0.5rem;
-  }
+  
   ion-slides{
     --background: transparent!important;
     padding-top: 5px;
@@ -118,3 +107,18 @@ ion-avatar{
     font-weight: 600;
   }
 
+  ion-buttons {
+    align-self: start;
+  }
+  .ion-button {
+    
+    --background: #5a55ca;
+    --background-focused: #6f6bbb;
+    --background-activated: #6f6bbb;
+    --padding-top: 1rem;
+    --padding-bottom: 1rem;
+    --padding-start: 0.75rem;
+    --padding-end: 0.75rem;
+    color: #fff;
+    margin-right: 0.5rem;
+}

@@ -17,7 +17,17 @@ export class EquipoDetalleModalPage implements OnInit {
 stadiumProfile =  'assets/main/player-profile.svg';
 teamPic =  null;
 img = '';
-dureza = '';
+durezaA = '';
+dureza = [
+
+  {id:0,titulo:'Equipo Neutral',image:'equipo-neutral.svg'},
+  {id:1,titulo:'Juego Molesto',image:'juego-molesto.svg'},
+  {id:2,titulo:'Agresividad Irresponsable',image:'agresividad-irresponsable.svg'},
+  {id:3,titulo:'Caracter Revelde',image:'caracter-revelde.svg'},
+  {id:4,titulo:'Mas Que Un Club',image:'mas-que-un-club.svg'},
+  {id:5,titulo:'Clase Mundia FairPlay',image:'clase-mundial-fairplay.svg'}
+
+]
   constructor(
     public modalCtrl: ModalController,
     public equiposService: EquiposService,
@@ -27,14 +37,21 @@ dureza = '';
   ngOnInit() {
     this.teamPic = this.equiposService.perfilEquipo ? 'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+  this.equipo.Foto  +'?'+ this.dateF() : 'assets/team.png';
     this.img = 'assets/img/equipos/'+ this.equipo.Foto;
-    this.dureza = 'assets/icons/'+this.equipo.Dureza
+    this.durezaA = 'assets/icons/'+this.equipo.Dureza
     console.log(this.equipo)
   }
 
   dateF(){
     return new Date().getTime() 
   }
+  filledStars(stars:number){
 
+    return new Array(stars)
+  }
+  emptyStars(stars:number){
+    let value = 5 - stars;
+    return new Array(value)
+  }
       
   async rivalReservacion(rival){
 

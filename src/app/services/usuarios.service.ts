@@ -91,7 +91,42 @@ export class UsuariosService {
     return URL;
   }
 
+  private   putPartidosJugados( Cod_Equipo ){
+    let URL = this.getURL( environment.partidosJugadorURL);
+    URL = URL + environment.codEquipoParam + Cod_Equipo;
+    const options = {
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+      }
+    };
+   
+ 
+    return this.http.put( URL, options );
+  }
 
+  syncPartidosJugados(Cod_Usuario){
+  return  this.putPartidosJugados(Cod_Usuario).toPromise();
+  }
+  private   putJugadorFutplay(Cod_Usuario ){
+    let URL = this.getURL( environment.jugadorFutplayURL);
+
+    URL = URL +environment.codUsuarioParam+ Cod_Usuario;
+    const options = {
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+      }
+    };
+   
+ 
+    return this.http.put( URL, options );
+  }
+  syncJugadorFutplay(Cod_Usuario){
+    return  this.putJugadorFutplay(Cod_Usuario).toPromise();
+    }
 
    // PUT: api/usuarios/?Cod_Usuario= 2   ACTUALIZAR USUARIO
 

@@ -1,14 +1,12 @@
 
-<app-encabezado-modal></app-encabezado-modal>
+<ion-content class="ion-padding">
 
-<ion-content>
-
-<ion-grid  style="height: 100%;">
-  <ion-row  style="height: 100%;display: flex;justify-content: center;align-items: center;">
+<ion-grid  >
+  <ion-row style="display: flex;justify-content:center;align-items:center">
     <ion-col size="10" size-md="4">
-<ion-badge color="dark" mode="ios" class="ion-text-uppercase">Dia</ion-badge>
-      <ion-item class="ion-margin-bottom ion-margin-top">
-     
+
+      <ion-item  >
+     <ion-label>Dia</ion-label>
           <ion-select  required [(ngModel)]="dateObjectReturn.date" (ionChange)="obtenerDia($event)"   name="dia">
             <ion-select-option [value]="dia" *ngFor="let dia of dias">
              {{dia}} 
@@ -18,9 +16,9 @@
       </ion-item>
     </ion-col>
     <ion-col size="10" size-md="4">
-      <ion-badge color="dark" mode="ios" class="ion-text-uppercase">Mes</ion-badge>
-    <ion-item class="ion-margin-bottom ion-margin-top">
-  
+     
+    <ion-item  >
+  <ion-label>Mes</ion-label>
         <ion-select required [(ngModel)]="dateObjectReturn.month" (ionChange)="obtenerMes($event)"   name="mes">
           <ion-select-option [value]="mes" *ngFor="let mes of meses" class="ion-text-capitalized">
             {{mes}}
@@ -33,9 +31,9 @@
     <ion-col size="10" size-md="4">
       
 
-      <ion-badge color="dark" mode="ios" class="ion-text-uppercase">Año</ion-badge>
-    <ion-item class="ion-margin-bottom ion-margin-top">
-
+    
+    <ion-item  >
+<ion-label>Año</ion-label>
         <ion-select   required [(ngModel)]="dateObjectReturn.year" (ionChange)="obtenerAno($event)"   name="ano">
           <ion-select-option [value]="ano" *ngFor="let ano of anos">
             {{ano}}
@@ -46,14 +44,12 @@
     </ion-col>
   </ion-row>
 </ion-grid>
-
+<ion-toolbar>
+  <ion-button (click)="continuar()" expand="block" color="dark">
+ <ion-label> Seleccionar</ion-label>
+  </ion-button>
+   </ion-toolbar>
 
 
 </ion-content>
-<ion-footer class="ion-padding">
-  <ion-toolbar>
- <ion-button (click)="continuar()" expand="block" color="dark">
-<ion-label> Seleccionar</ion-label>
- </ion-button>
-  </ion-toolbar>
-</ion-footer>
+

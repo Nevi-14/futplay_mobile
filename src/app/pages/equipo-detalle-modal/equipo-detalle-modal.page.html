@@ -35,11 +35,14 @@
        <span style="display:block;">
        
       
+        <ng-template ngFor let-hero [ngForOf]="filledStars(equipo.Estrellas)"
+        let-i="index" let-odd="odd"  >
         <ion-icon style="size: 10px;" name="star"></ion-icon>
-        <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-        <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-        <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-        <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+      </ng-template>
+      <ng-template ngFor let-hero [ngForOf]="emptyStars(equipo.Estrellas)"
+      let-i="index" let-odd="odd"  >
+      <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+    </ng-template>
       </span>
       </h3>
             
@@ -60,15 +63,20 @@
     <ion-label>Estadisticas Equipo</ion-label>
    
   </ion-item>
-  <ion-item lines="none" class="ion-margin-top ion-margin-bottom">
 
-    <ion-label slot="start" >Dureza : </ion-label>
 
-    <ion-avatar slot="start"   style="height: 45px;width: 45px;" >
-      <img      src="assets/icons/{{equipo.Dureza}}">
-    </ion-avatar>
-  </ion-item>
 
+<ion-item lines="none" class="ion-margin-top ion-margin-bottom ion-text-center">
+
+<ion-label  >Dureza :  </ion-label>
+<ion-avatar      >
+  <img      src="assets/emojis/{{dureza[equipo.Dureza].image}}">
+ 
+</ion-avatar>
+
+<ion-label   class="ion-text-wrap"><strong>{{dureza[equipo.Dureza].titulo}}</strong></ion-label>
+
+</ion-item>
 
 <ion-item lines="none" >
   <h2 slot="start" class="soccer-league-subtitle">Lista de Jugadores</h2>

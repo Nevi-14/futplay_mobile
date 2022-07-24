@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CanchasService } from 'src/app/services/canchas.service';
 import { CantonesService } from 'src/app/services/cantones.service';
@@ -14,11 +14,15 @@ import { ProvinciasService } from 'src/app/services/provincias.service';
 })
 export class FiltroCanchaPage implements OnInit {
   filtro ={
-    Cod_Provincia: 0,
-    Cod_Canton: 0,
-    Cod_Distrito: 0,
-    Cod_Categoria: 0
+    Cod_Provincia: null,
+    Cod_Canton: null,
+    Cod_Distrito: null,
+    Cod_Categoria: null
   }
+  @Input() Cod_Provincia:number;
+  @Input() Cod_Canton:number;
+  @Input() Cod_Distrito:number;
+  @Input() Cod_Categoria:number;
   constructor(
     public provinciasService: ProvinciasService,
     public cantonesService: CantonesService,
@@ -32,15 +36,63 @@ export class FiltroCanchaPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.cdr.detectChanges();
-this.categoriaCanchasService.syncCategoriaCanchas();
-    this.provinciasService.syncProvincias();
+
+this.categoriaCanchasService.categoria_canchas = [];
+this.categoriaCanchasService.syncCategoriaCanchasToPromise().then(resp =>{
+  this.categoriaCanchasService.categoria_canchas = resp.slice(0);
+  this.filtro.Cod_Categoria = this.Cod_Categoria;
+  this.provinciasService.provincias = [];
+  this.cantonesService.cantones = [];
+  this.provinciasService.syncProvinciasPromise().then(resp =>{
+
+    this.provinciasService.provincias = resp.slice(0);
+    this.filtro.Cod_Provincia = this.Cod_Provincia;
+    if(this.filtro.Cod_Provincia){
+      this.cantonesService.syncCantones(this.filtro.Cod_Provincia).then(resp =>{
+  
+    this.cantonesService.cantones = resp.slice(0);
+
+    this.filtro.Cod_Canton = this.Cod_Canton;
+
+    if(this.filtro.Cod_Canton){
+      this.distritosService.distritos = [];
+      this.distritosService.syncDistritos(this.filtro.Cod_Provincia,this.filtro.Cod_Canton).then(resp =>{
+        this.distritosService.distritos = resp.slice(0);
+        this.filtro.Cod_Distrito = this.Cod_Distrito;
+        
+      })
+    }
+  
+      })
+  
+  
+    
+    }
+
+
+  
+    
+
+  })
+
+
+});
+
+
 
   }
-
+  limpiarDatos(){
+    this.filtro ={
+      Cod_Provincia: null,
+      Cod_Canton: null,
+      Cod_Distrito: null,
+      Cod_Categoria: null
+    }
+    this.submit();
+  }
   submit(){
     this.cerrarModal();
-    this.cdr.detectChanges();
+
     this.canchasService.syncfiltrarCanchas(
       
       this.filtro.Cod_Provincia,
@@ -49,21 +101,56 @@ this.categoriaCanchasService.syncCategoriaCanchas();
       this.filtro.Cod_Categoria
     )
   }
-    onChange($event , provincia, canton, distrito){
-    if(provincia){
   
-   this.cantonesService.syncCantones($event.target.value);
-    }else if(canton){
+
+    onChangeProvincias($event){
   
-      this.distritosService.syncDistritos(this.filtro.Cod_Provincia, $event.target.value);
-  
-    }else{
-      
-    }
-    console.log($event.target.value);
+      this.filtro.Cod_Provincia = $event.target.value;
+      this.filtro.Cod_Canton = null;
+      this.filtro.Cod_Distrito = null;
+      this.cantonesService.cantones = [];
+      this.distritosService.distritos = [];
+   if(this.filtro.Cod_Provincia){
+    this.cantonesService.syncCantones(this.filtro.Cod_Provincia).then(resp =>{
+
+  this.cantonesService.cantones = resp.slice(0);
+
+    })
+   }else{
+
+   }
     }
 
+    onChangeCantones($event){
+  
+      this.filtro.Cod_Canton = $event.target.value;
+      this.filtro.Cod_Distrito = null;
+      this.distritosService.distritos = [];
+  if(this.filtro.Cod_Provincia && this.filtro.Cod_Canton){
+    this.distritosService.syncDistritos(this.filtro.Cod_Provincia,this.filtro.Cod_Canton).then(resp =>{
+      this.distritosService.distritos = resp.slice(0);
+  
+      
+    })
+  }else{
+ 
+  }
+  
+    }
+  
+    onChangeDistritos($event){
+  
+      this.filtro.Cod_Distrito = $event.target.value;
+  
+    }
     cerrarModal(){
-      this.modalCtrl.dismiss();
+      console.log(this.filtro,'cerrar fil')
+      this.modalCtrl.dismiss({
+
+        'Cod_Provincia':this.filtro.Cod_Provincia,
+        'Cod_Canton':this.filtro.Cod_Canton,
+        'Cod_Distrito':this.filtro.Cod_Distrito,
+        'Cod_Categoria':this.filtro.Cod_Categoria
+      });
     }
 }

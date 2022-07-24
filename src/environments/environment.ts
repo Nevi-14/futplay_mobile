@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   maxCharCodigoProd: 6,
   adminClave: '123456',
-  preURL: 'https://dev-coding.com/FUTPLAY_APIS_HOST/api/',
-  preURL2: 'https://dev-coding.com/FUTPLAY_APIS_HOST/',
+  preURL: 'https://nevilwebtesting.xyz/apis/api/',
+  preURL2: 'https://nevilwebtesting.xyz/apis',
   TestURL: '',
   postURL: '',
   horarioCanchaURL:'horario/cancha',
@@ -37,7 +37,7 @@ export const environment = {
   codUsuarioSecondParam:'&Cod_Usuario=',
   loginURL: 'login',
   actualizarDatos : 'actualizar-datos-usuario',
-  imageURLCheck: 'https://dev-coding.com/FUTPLAY_APIS_HOST/',
+  imageURLCheck: 'https://nevilwebtesting.xyz/apis/',
   correoParam:'?correo=',
   locationParam:'?location=',
   contrasenaPatam:'&contrasena=',
@@ -123,6 +123,10 @@ fechaSecondParam: '&Fecha=',
 reservacionesDesactivadasURL:'reservaciones/desactivadas',
 putReservacionesEstadoURL:'reservacion-estado/',
 codEstadoParam2:'&Cod_Estado=',
+posicionActualURL:'posicion-actual',
+evaluacionEquiposURL:'evaluacion-equipos',
+partidosJugadorURL:'partidos-jugados/',
+jugadorFutplayURL:'jugador-futplay/'
 };
 /*
  * For easier debugging in development mode, you can import the following file

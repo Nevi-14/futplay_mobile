@@ -15,6 +15,12 @@ import { GenerarReservacionPage } from '../generar-reservacion/generar-reservaci
   styleUrls: ['./canchas.page.scss'],
 })
 export class CanchasPage implements OnInit {
+  filtro ={
+    Cod_Provincia: null,
+    Cod_Canton: null,
+    Cod_Distrito: null,
+    Cod_Categoria: null
+  }
 
   calendar = '../assets/icons/calendar.svg';
   message = '../assets/icons/message.svg';
@@ -116,9 +122,30 @@ await actionSheet.present();
     const modal  = await this.modalCtrl.create({
      component: FiltroCanchaPage,
      cssClass: 'my-custom-class',
-     id:'my-modal-id'
+     breakpoints: [0, 0.3, 0.5, 0.8],
+     initialBreakpoint: 0.5,
+     id:'my-modal-id',
+     componentProps:{
+      'Cod_Provincia':this.filtro.Cod_Provincia, 
+      'Cod_Canton':this.filtro.Cod_Canton, 
+      'Cod_Distrito':this.filtro.Cod_Distrito , 
+      'Cod_Categoria':this.filtro.Cod_Categoria 
+     }
    });
    await modal .present();
+
+   const { data } = await modal.onWillDismiss();
+ console.log(data, 'filto return')
+   if(data !== undefined ){
+    this.filtro.Cod_Provincia = data.Cod_Provincia;
+    this.filtro.Cod_Canton = data.Cod_Canton;
+    this.filtro.Cod_Distrito = data.Cod_Distrito;
+    this.filtro.Cod_Categoria = data.Cod_Categoria;
+  
+
+   }
+ 
+
  }
   async canchaReservacion(cancha){
 

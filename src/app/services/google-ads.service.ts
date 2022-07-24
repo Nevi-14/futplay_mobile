@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { isPlatform } from '@ionic/angular';
+import { isPlatform, ModalController } from '@ionic/angular';
+
 import {
   AdMob,
   AdMobRewardItem,
@@ -9,14 +10,21 @@ import {
   BannerAdSize,
   RewardAdOptions,
   RewardAdPluginEvents,
+  InterstitialAdPluginEvents 
 
 } from '@capacitor-community/admob'
+import { VideoScreenPage } from '../pages/video-screen/video-screen.page';
+import { AlertasService } from './alertas.service';
 @Injectable({
   providedIn: 'root'
 })
 export class GoogleAdsService {
 
-  constructor() { }
+  constructor(
+
+    public modalCtrl: ModalController,
+    public alertasService:AlertasService
+  ) { }
 
 
 
@@ -28,7 +36,7 @@ export class GoogleAdsService {
     
       console.log('Display Information before ads load first time')
     }
-    
+    AdMob.addListener
     AdMob.initialize({
       requestTrackingAuthorization:true,
       testingDevices:['YOURTESTDEVICECODE'],
@@ -67,6 +75,12 @@ export class GoogleAdsService {
         };
         await AdMob.prepareInterstitial(options);
         await AdMob.showInterstitial();
+ 
+        AdMob.addListener(InterstitialAdPluginEvents.Dismissed,  () => {
+
+          this.modalCtrl.dismiss(null,null,'video-screen-modal');
+          //this.alertasService.message('FUTPLAY', message)
+        });
         }
     
         async showRewardVideo(){
@@ -79,7 +93,6 @@ export class GoogleAdsService {
           await AdMob.prepareRewardVideoAd(options);
           await AdMob.showRewardVideoAd();
         }
-
 
 
 }

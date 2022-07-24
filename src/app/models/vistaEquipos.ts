@@ -9,7 +9,8 @@ export class vistaEquipos {
       public Foto: string,
       public Abreviacion: string,
       public Fecha: Date,
-      public Estrella: number,
+      public Estrellas: number,
+      public EstrellasAnteriores:number,
       public Dureza: string,
       public Posicion_Actual: number,
       public Puntaje_Actual: number,
@@ -22,6 +23,12 @@ export class vistaEquipos {
       public Cod_Distrito: number,
       public Nombre_Distrito: string,
       public Avatar:boolean,
+      public Partidos_Ganados: number,
+      public Partidos_Perdidos: number,
+      public Goles_Favor : number,
+      public Goles_Encontra :number,
+      public Promedio_Altura_Jugadores : number,
+      public Promedio_Peso_Jugadores :number
     ){}
 
 }

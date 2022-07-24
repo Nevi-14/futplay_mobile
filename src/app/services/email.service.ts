@@ -29,7 +29,7 @@ export class EmailService {
 
       // POST EMAIL
 
-      private postEmail (bloqueo){
+      private postEmail (email){
         const URL = this.getURL( environment.apiCorreoURL);
         const options = {
           headers: {
@@ -39,7 +39,7 @@ export class EmailService {
           }
         };
        
-        return this.http.post( URL, JSON.stringify(bloqueo), options );
+        return this.http.post( URL, JSON.stringify(email), options );
       }
     
       syncToPromiseSendEmail(email:Email){

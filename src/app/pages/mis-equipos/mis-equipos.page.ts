@@ -77,6 +77,17 @@ console.log('resp', resp)
     
     }
   }
+
+  filledStars(stars:number){
+
+    return new Array(stars)
+  }
+  emptyStars(stars:number){
+    let value = 5 - stars;
+    return new Array(value)
+  }
+
+  
   async unirseEquipo(){
 
     const modal = await this.modalCtrl.create({

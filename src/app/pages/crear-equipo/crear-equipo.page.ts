@@ -14,6 +14,8 @@ import { ProvinciasService } from 'src/app/services/provincias.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { CrearUnirseEquipoPage } from '../crear-unirse-equipo/crear-unirse-equipo.page';
 import { SolicitudesService } from '../../services/solicitudes.service';
+import { GoogleAdsService } from 'src/app/services/google-ads.service';
+import { VideoScreenPage } from '../video-screen/video-screen.page';
 declare const window: any;  
 
 @Component({
@@ -45,7 +47,8 @@ imageURL =  null
          public canchasService:CanchasService,
           public gestorImagenesService: GestorImagenesService,
            public alertasService: AlertasService,
-           public solicitudes: SolicitudesService
+           public solicitudes: SolicitudesService,
+           public googleAdsService: GoogleAdsService
            
            ) { }
 
@@ -105,13 +108,20 @@ imageURL =  null
     Nombre: '',
     Abreviacion: '',
     Fecha: new Date(),
-    Estrellas: 0,
-    Dureza: 'meh.svg',
+    Estrellas: 1,
+    EstrellasAnteriores: 1,
+    Dureza: 'equiponeutral.svg',
     Posicion_Actual: 0,
     Puntaje_Actual: 0,
     Estado: true,
     Descripcion_Estado: '',
-    Avatar:true
+    Avatar:true,
+     Partidos_Ganados: 0,
+     Partidos_Perdidos: 0,
+     Goles_Favor : 0,
+     Goles_Encontra :0,
+     Promedio_Altura_Jugadores : 0,
+     Promedio_Peso_Jugadores :0
  }
  slidePrev() {
   this.slides.slidePrev();
@@ -225,14 +235,14 @@ this.equiposService.nuevoEquipo(this.equipo).then((resp:Equipos) =>{
       this.alertasService.loadingDissmiss();
       this.modalCtrl.dismiss({
         'equipo':this.equipo
-      })
+      },null,'create-modal')
    
     }, error =>{
       this.alertasService.loadingDissmiss();
       this.alertasService.message('FUTLAY', 'Error cargando datos...');
    
     })
-
+    this.videoScreen(0);
 }, error =>{
   this.alertasService.loadingDissmiss();
   this.alertasService.message('FUTLAY', 'Error guardando equipo...');
@@ -247,7 +257,20 @@ this.equiposService.nuevoEquipo(this.equipo).then((resp:Equipos) =>{
 
 }
 
-
+async videoScreen(id){
+  const modal = await this.modalCtrl.create({
+    component:VideoScreenPage,
+    cssClass:'modal-view',
+    id:'video-screen-modal',
+    mode:'ios',
+    backdropDismiss:false,
+    componentProps:{
+      index:id
+    }
+  });
+  return await modal.present();
+  
+    }
 
 
 onChange($event,identifier){
@@ -287,7 +310,7 @@ break;
     this.modalCtrl.dismiss();
   }
   cerrarModal(){
-    this.modalCtrl.dismiss();
+    this.modalCtrl.dismiss(null,null,'create-modal');
   }
 
   uploadCamera(){

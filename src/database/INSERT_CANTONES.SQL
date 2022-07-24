@@ -1,163 +1,82 @@
-
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'1', N'San José')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'2', N'Escazú')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'3', N'Desamparados')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'4', N'Puriscal')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'5', N'Tarrazú')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'6', N'Aserrí')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'7', N'Mora')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'8', N'Goicoechea')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'9', N'Santa Ana')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'10', N'Alajuelita')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'11', N'Vásquez de Coronado')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'12', N'Acosta')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'13', N'Tibás')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'14', N'Moravia')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'15', N'Montes de Oca')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'16', N'Turrubares')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'17', N'Dota')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'18', N'Curridabat')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'19', N'Pérez Zeledón')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'1', N'20', N'León Cortéz Castro')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'2', N'1', N'Alajuela')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'2', N'2', N'San Ramón')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'2', N'3', N'Grecia')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'2', N'4', N'San Mateo')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'2', N'5', N'Atenas')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'2', N'6', N'Naranjo')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'2', N'7', N'Palmares')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'2', N'8', N'Poás')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'2', N'9', N'Orotina')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'2', N'10', N'San Carlos')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'2', N'11', N'Zarcero')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'2', N'12', N'Valverde Vega')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'2', N'13', N'Upala')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'2', N'14', N'Los Chiles')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'2', N'15', N'Guatuso')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'3', N'1', N'Cartago')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'3', N'2', N'Paraíso')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'3', N'3', N'La Unión')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'3', N'4', N'Jiménez')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'3', N'5', N'Turrialba')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'3', N'6', N'Alvarado')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'3', N'7', N'Oreamuno')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'3', N'8', N'El Guarco')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'4', N'1', N'Heredia')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'4', N'2', N'Barva')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'4', N'3', N'Santo Domingo')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'4', N'4', N'Santa Bárbara')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'4', N'5', N'San Rafael')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'4', N'6', N'San Isidro')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'4', N'7', N'Belén')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'4', N'8', N'Flores')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'4', N'9', N'San Pablo')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'4', N'10', N'Sarapiquí')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'5', N'1', N'Liberia')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'5', N'2', N'Nicoya')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'5', N'3', N'Santa Cruz')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'5', N'4', N'Bagaces')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'5', N'5', N'Carrillo')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'5', N'6', N'Cañas')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'5', N'7', N'Abangares')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'5', N'8', N'Tilarán')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'5', N'9', N'Nandayure')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'5', N'10', N'La Cruz')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'5', N'11', N'Hojancha')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'6', N'1', N'Puntarenas')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'6', N'2', N'Esparza')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'6', N'3', N'Buenos Aires')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'6', N'4', N'Montes de Oro')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'6', N'5', N'Osa')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'6', N'6', N'Aguirre')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'6', N'7', N'Golfito')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'6', N'8', N'Coto Brus')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'6', N'9', N'Parrita')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'6', N'10', N'Corredores')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'6', N'11', N'Garabito')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'7', N'1', N'Limón')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'7', N'2', N'Pococí')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'7', N'3', N'Siquirres')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'7', N'4', N'Talamanca')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'7', N'5', N'Matina')
-GO
-INSERT [dbo].[Cantones] ([Cod_Provincia], [Cod_Canton], [Canton]) VALUES (N'7', N'6', N'Guácimo')
-GO
+INSERT INTO CANTONES (Cod_Canton ,Cod_Provincia ,Canton ) VALUES 
+ (101,1,'San José'),
+ (102,1,'Escazú'),
+ (103,1,'Desamparados'),
+ (104,1,'Puriscal'),
+ (105,1,'Tarrazú'),
+ (106,1,'Aserrí'),
+ (107,1,'Mora'),
+ (108,1,'Goicoechea'),
+ (109,1,'Santa Ana'),
+ (110,1,'Alajuelita'),
+ (111,1,'Vasquez de Coronado'),
+ (112,1,'Acosta'),
+ (113,1,'Tibás'),
+ (114,1,'Moravia'),
+ (115,1,'Montes de Oca'),
+ (116,1,'Turrubares'),
+ (117,1,'Dota'),
+ (118,1,'Curridabat'),
+ (119,1,'Pérez Zeledón'),
+ (120,1,'León Cortés'),
+ (201,2,'Alajuela'),
+ (202,2,'San Ramón'),
+ (203,2,'Grecia'),
+ (204,2,'San Mateo'),
+ (205,2,'Atenas'),
+ (206,2,'Naranjo'),
+ (207,2,'Palmares'),
+ (208,2,'Poás'),
+ (209,2,'Orotina'),
+ (210,2,'San Carlos'),
+ (211,2,'Alfaro Ruiz'),
+ (212,2,'Valverde Vega'),
+ (213,2,'Upala'),
+ (214,2,'Los Chiles'),
+ (215,2,'Guatuso'),
+ (301,3,'Cartago'),
+ (302,3,'Paraíso'),
+ (303,3,'La Unión'),
+ (304,3,'Jiménez'),
+ (305,3,'Turrialba'),
+ (306,3,'Alvarado'),
+ (307,3,'Oreamuno'),
+ (308,3,'El Guarco'),
+ (401,4,'Heredia'),
+ (402,4,'Barva'),
+ (403,4,'Santo Domingo'),
+ (404,4,'Santa Bárbara'),
+ (405,4,'San Rafael'),
+ (406,4,'San Isidro'),
+ (407,4,'Belén'),
+ (408,4,'Flores'),
+ (409,4,'San Pablo'),
+ (410,4,'Sarapiquí '),
+ (501,5,'Liberia'),
+ (502,5,'Nicoya'),
+ (503,5,'Santa Cruz'),
+ (504,5,'Bagaces'),
+ (505,5,'Carrillo'),
+ (506,5,'Cañas'),
+ (507,5,'Abangares'),
+ (508,5,'Tilarán'),
+ (509,5,'Nandayure'),
+ (510,5,'La Cruz'),
+ (511,5,'Hojancha'),
+ (601,6,'Puntarenas'),
+ (602,6,'Esparza'),
+ (603,6,'Buenos Aires'),
+ (604,6,'Montes de Oro'),
+ (605,6,'Osa'),
+ (606,6,'Aguirre'),
+ (607,6,'Golfito'),
+ (608,6,'Coto Brus'),
+ (609,6,'Parrita'),
+ (610,6,'Corredores'),
+ (611,6,'Garabito'),
+ (701,7,'Limón'),
+ (702,7,'Pococí'),
+ (703,7,'Siquirres '),
+ (704,7,'Talamanca'),
+ (705,7,'Matina'),
+ (706,7,'Guácimo');

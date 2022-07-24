@@ -98,5 +98,12 @@ console.log(this.listaEquiposService.equipos, 'kdkd')
      });
 
   }
+  filledStars(stars:number){
 
+    return new Array(stars)
+  }
+  emptyStars(stars:number){
+    let value = 5 - stars;
+    return new Array(value)
+  }
 }

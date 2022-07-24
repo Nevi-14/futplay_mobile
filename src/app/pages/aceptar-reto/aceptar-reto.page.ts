@@ -12,6 +12,7 @@ import { InicioPartidoPage } from '../inicio-partido/inicio-partido.page';
 import { vistaEquipos } from '../../models/vistaEquipos';
 import { VerificacionQrPage } from '../verificacion-qr/verificacion-qr.page';
 import { GoogleAdsService } from 'src/app/services/google-ads.service';
+import { VideoScreenPage } from '../video-screen/video-screen.page';
 
 @Component({
   selector: 'app-aceptar-reto',
@@ -158,7 +159,7 @@ this.cerrarModal();
 
 
       this.controlReservacionesService.actualizarReservacion(confirmacion, this.reto.Cod_Usuario, this.reto.Cod_Reservacion);
-this.googleAdsService.showRewardVideo();
+this.videoScreen(2);
       this.gestionRestosService.syncRetosConfirmados(this.usuariosService.usuarioActual.Cod_Usuario)
       this.modalCtrl.dismiss();
      }
@@ -167,7 +168,18 @@ this.googleAdsService.showRewardVideo();
     this.modalCtrl.dismiss();
   }
 
-
+  async videoScreen(id){
+    const modal = await this.modalCtrl.create({
+      component:VideoScreenPage,
+      cssClass:'modal-view',
+      id:'video-screen-modal',
+      mode:'ios',
+      backdropDismiss:false,
+      componentProps:{
+        index:id
+      }
+    });
+  }
   iniciarPartido(){
 
     if(    this.usuariosService.usuarioActual.Cod_Usuario == this.retador.Cod_Usuario

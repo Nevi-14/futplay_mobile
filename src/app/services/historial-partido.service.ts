@@ -43,9 +43,9 @@ console.log(URL);
   }
 
 
-  syncPartidoActual(Cod_Cancha){
+  syncPartidoActual(Cod_Reservacion){
 
-   return  this.getPartidoActual(Cod_Cancha ).toPromise();
+   return  this.getPartidoActual(Cod_Reservacion ).toPromise();
 
   }
 
@@ -122,7 +122,11 @@ actualizarPartido(partido, Cod_Reservacion  ){
   )
 }
 
+actualizarPartidotoPromise(partido, Cod_Reservacion  )
+{
 
+  return this.putPartidoActual( partido, Cod_Reservacion  ).toPromise();
+}
 private evaluacionJugadorPost(evaluacion){
 
 
@@ -136,6 +140,7 @@ private evaluacionJugadorPost(evaluacion){
     }
   };
 
+  console.log(URL, 'URL POST EVALUACION JUGADOR')
 
   return this.http.post(URL,JSON.stringify(evaluacion), options);
 
@@ -154,7 +159,7 @@ private evaluacionEquipoPost(evaluacion){
     }
   };
 
-
+  console.log(URL, 'URL POST EVALUACION equipo')
   return this.http.post(URL,JSON.stringify(evaluacion), options);
 
 
@@ -179,7 +184,7 @@ evaluacionJugador(evaluacion){
   this.evaluacionJugadorPost(evaluacion).subscribe(
     resp =>{
 
-      console.log(resp, 'resp eva ugardada')
+      console.log(resp, 'evaluacion jugador completada')
 
 
     }, error =>{
