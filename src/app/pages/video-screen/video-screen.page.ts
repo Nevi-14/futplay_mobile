@@ -21,7 +21,8 @@ export class VideoScreenPage implements OnInit {
     { id: '3', titulo: 'Rumor Transferencia', video: 'assets/videos/rumor-transferencia.mov' },
     { id: '4', titulo: 'Transferencia Confirmada', video: 'assets/videos/transferencia-confirmada.mov' },
     { id: '5', titulo: 'Inicio Partido', video: 'assets/videos/inicio-partido.mov' },
-    { id: '6', titulo: 'Fin Partido', video: 'assets/videos/fin-partido.mov' }
+    { id: '6', titulo: 'Fin Partido', video: 'assets/videos/fin-partido.mov' },
+    { id: '7', titulo: 'Registro', video: 'assets/videos/registro.mp4' }
 
   ]
   email:Email = 
@@ -52,10 +53,6 @@ export class VideoScreenPage implements OnInit {
           break;
         case 1:
           this.googleAddService.showInterstitial();
-          this.email.ToEmail = 'nelson199621@hotmail.com';
-          this.email.Subject = this.videos[1].titulo;
-          this.email.Body = 'Reto Enviado';
-          this.emailService.syncToPromiseSendEmail(this.email);
           break;
         case 2:
           this.googleAddService.showInterstitial()
@@ -72,7 +69,10 @@ export class VideoScreenPage implements OnInit {
         case 6:
           this.googleAddService.showInterstitial()
           break;
-
+          case 7:
+         
+            this.close = true;
+            break;
         default:
       console.log('default')
           break;

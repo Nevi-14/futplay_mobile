@@ -86,7 +86,7 @@ if(evaluaciones.length > 0 ){
     });
 
     this.historialPartidosService.actualizarPartidotoPromise(this.partido, this.partido.Cod_Reservacion);
-    this.googleAdsService.showRewardVideo();
+   // this.googleAdsService.showRewardVideo();
     
   }
 

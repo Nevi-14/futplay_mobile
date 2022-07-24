@@ -1,39 +1,37 @@
+<ion-header mode="ios">
 
-  <ion-header class="custom-header">
+  <ion-toolbar>
+    <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
+      <ion-buttons slot="start">
+        <ion-button  (click)="cerrarModal()" color="light">
+          <ion-icon slot="start" name="chevron-back"></ion-icon>
+      
+        </ion-button>
+        <ion-label>Mis Equipos</ion-label>
+      </ion-buttons>
 
-    <ion-toolbar class="custom-toolbar"  mode="ios">
-<ion-row>
-  <ion-col size="12">
-    <ion-button fill="clear" (click)="cerrarModal()">
-      <ion-icon color="light" slot="start" name="chevron-back"></ion-icon>
-      &nbsp;
-      <ion-label color="light" slot="start">Mis Equipos</ion-label>
-    </ion-button>
-  </ion-col>
+    </ion-item>
 
-  <ion-col size="12" >
-
-    <ion-searchbar  style="display: block;"  mode="ios" placeholder="buscar equipo" inputmode="text"  debounce="250" ></ion-searchbar> 
-
-  </ion-col>
-</ion-row>
-
-
+    <ion-searchbar></ion-searchbar>
   </ion-toolbar>
-    </ion-header>
+
+
+</ion-header>
+
+  <ion-button (click)="buscarEquipos()"     fill="clear" >
+       
+    <p class="ion-text-uppercase">unirme a un equipo</p>
+  
+  </ion-button>
+</ion-toolbar>
+<ion-toolbar class="ion-padding"  mode="ios">
+
+  <ion-searchbar  mode="ios" placeholder="buscar equipo" inputmode="text"  debounce="250" ></ion-searchbar> 
+
 
 
     <ion-content fullscreen>
-      <div class="mainContent">
       <ion-list class="ion-margin-top"   >
-        <ion-list-header class="ion-text-end">
-
-          <ion-button (click)="buscarEquipos()"     fill="clear" >
-       
-            <p class="ion-text-uppercase">unirme a un equipo</p>
-          
-          </ion-button>
-        </ion-list-header>
 
         <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngIf="equiposService.otrosEquipos.length == 0" >
         
@@ -52,7 +50,7 @@
          </ion-item>
 
 
-        <ion-item (click)="seleccionarEquipo(equipo)"   class="employeeItem  animate__animated animate__fadeIn" lines="none"  *ngFor="let equipo of equiposService.otrosEquipos; let i = index;">
+        <ion-item (click)="seleccionarEquipo(equipo)"   class="employeeItem  animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.otrosEquipos; let i = index;">
           <ion-avatar slot="start"  >
             <img *ngIf="!equipo.Avatar"  src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
             <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
@@ -76,7 +74,6 @@
 
         </ion-item>
       </ion-list>
-      </div>
     </ion-content>
     <ion-footer>
  

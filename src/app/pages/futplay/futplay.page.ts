@@ -5,7 +5,7 @@ import { AlertasService } from 'src/app/services/alertas.service';
 import { CanchasService } from 'src/app/services/canchas.service';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
-import { CrearUnirseEquipoPage } from '../crear-unirse-equipo/crear-unirse-equipo.page';
+import { CrearEquipoPage } from '../crear-equipo/crear-equipo.page';
 
 @Component({
   selector: 'app-futplay',
@@ -40,14 +40,15 @@ export class FutplayPage implements OnInit {
     this.alertasService.presentaLoading('Cargando datos...');
       this.equiposService.SyncMisEquipos(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
         this.equiposService.misEquipos = resp.slice(0);
-        
+        this.equiposService.perfilEquipo = null;
+        this.equiposService.perfilEquipo = this.equiposService.misEquipos[0];
+        console.log('mis equipos', this.equiposService.misEquipos)
         this.alertasService.loadingDissmiss();
     if(resp.length == 0 ){
-      this.crearUnirseEquipo();
+      this.crearEquipo();
 
     }else{
-      this.equiposService.perfilEquipo = null;
-      this.equiposService.perfilEquipo = this.equiposService.misEquipos[0];
+console.log('this.equiposService.perfilEquipo ',this.equiposService.perfilEquipo )
       this.router.navigate(['/futplay/perfil-equipo']);
     
 
@@ -64,11 +65,11 @@ export class FutplayPage implements OnInit {
         
       }
     
-     async  crearUnirseEquipo(){
+     async  crearEquipo(){
  const modal = await this.modalCtrl.create({
-   component:CrearUnirseEquipoPage,
+   component:CrearEquipoPage,
    cssClass:'my-custom-modal',
-   id:'create'
+   id:'create-modal'
  });
 
  await modal.present();
@@ -76,7 +77,7 @@ export class FutplayPage implements OnInit {
  
     if(data !== undefined ){
       console.log(data,'data')
-this.misEquipos();
+//this.misEquipos();
     
     }
  

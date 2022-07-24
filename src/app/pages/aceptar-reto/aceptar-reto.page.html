@@ -172,7 +172,7 @@
         <ion-label>Eliminar Reto </ion-label>
               </ion-button>
         
-      <ion-button (click)="aceptarReto()" *ngIf="reto.Cod_Estado != 4 && reto.Cod_Estado != 6  && reto.Cod_Estado != 7  && reto.Cod_Usuario_Rival == usuariosService.usuarioActual.Cod_Usuario"   expand="block" >
+      <ion-button (click)="alertaReservacion()" *ngIf="reto.Cod_Estado != 4 && reto.Cod_Estado != 6  && reto.Cod_Estado != 7  && reto.Cod_Usuario_Rival == usuariosService.usuarioActual.Cod_Usuario"   expand="block" >
        <ion-label>Aceptar Reto </ion-label>
              </ion-button>
        

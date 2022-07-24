@@ -16,7 +16,7 @@ export class SolicitudesJugadoresPage implements OnInit {
   @Input()showSendInput;
 title = 'Recibidas'
 activeCategory = 1;
-categories = ['Enviadas', 'Recibidas'];
+categories = ['enviadas', 'recibidas'];
 showReceive = true;
 showSend = false;
 selected:string = '';

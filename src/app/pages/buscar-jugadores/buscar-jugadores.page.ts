@@ -92,14 +92,8 @@ export class BuscarJugadoresPage implements OnInit {
                 text: 'Enviar Solicitud',
                 icon:'paper-plane-outline',
                 handler: () =>{
-                  this.videoScreen(3).then(resp =>{
-                  /*
-            this.modalCtrl.dismiss({
-                      'dismissed': true
-                    });*/
-                   
-                  })
-                 // this.jugadorEquipoSolicitud(jugador)
+                  this.videoScreen(3);
+                 this.jugadorEquipoSolicitud(jugador)
                 }
                
                },

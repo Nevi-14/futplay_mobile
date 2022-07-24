@@ -17,7 +17,7 @@ export class SolicitudesEquiposPage implements OnInit {
   stadiumProfile =  'assets/main/game-match.svg';
   public tipos : string[]=['recibidos','enviados'];
   public selectedType: string = this.tipos[0];
-  title = 'Recibidas'
+  title = 'recibidas'
   showReceive = true;
   showSend = false;
   constructor(
@@ -138,14 +138,14 @@ let usuario = null;
     this.showSend = true;
     this.showReceive = false;
 
-    this.title = 'Enviadas'
+    this.title = 'enviadas'
     this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, false,true, true)
   }
 
   receive(){
     this.showReceive = true;
     this.showSend = false;
-    this.title = 'Recibidas'
+    this.title = 'recibidas'
     this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, true,false, true)
 
 

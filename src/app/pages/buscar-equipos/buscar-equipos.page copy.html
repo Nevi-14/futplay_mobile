@@ -1,43 +1,30 @@
+<ion-header mode="ios">
 
-  <ion-header class="custom-header">
+  <ion-toolbar mode="ios">
 
-    <ion-toolbar class="custom-toolbar"  mode="ios">
-<ion-row>
-  <ion-col size="12">
-    <ion-button fill="clear" (click)="cerrarModal()">
-      <ion-icon color="light" slot="start" name="chevron-back"></ion-icon>
-      &nbsp;
-      <ion-label color="light" slot="start">Unirse  a un Equipo</ion-label>
-    </ion-button>
-  </ion-col>
+    <ion-title slot="start" class="ion-text-uppercase">Unirse a Equipo</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">
+<strong><ion-icon slot="start" size="large" name="close-outline" color="dark"></ion-icon></strong>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 
+  <ion-toolbar class="ion-padding"  mode="ios">
 
-  <ion-col size="10">
-
-    <ion-searchbar  style="display: block;"  mode="ios" placeholder="buscar solicitud" inputmode="text"  debounce="250" ></ion-searchbar> 
-
-  </ion-col>
-  <ion-col size="2">
-    <ion-buttons >
+    <ion-searchbar  mode="ios" placeholder="buscar equipo" inputmode="text"  debounce="250" ></ion-searchbar> 
+    <ion-buttons slot="end">
       <ion-button class="custom-bottom"    (click)="filtroUbicacion()"  >
         <ion-icon color="light" size="large"  name="options-outline" ></ion-icon>
       </ion-button>
     </ion-buttons>
-  </ion-col>
-</ion-row>
-
-
   </ion-toolbar>
-    </ion-header>
 
+</ion-header>
 
     <ion-content fullscreen>
-
-      <div class="mainContent">
-
-
       <ion-list class="ion-margin-top">
-        <ion-item lines="none"  (click)="onOpenMenu(equipo)"  class="employeeItem animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'Nombre'">
+        <ion-item   (click)="onOpenMenu(equipo)"  class="animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'Nombre'">
           <ion-avatar slot="start"  >
             <img *ngIf="!equipo.Avatar"  src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
             <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
@@ -59,5 +46,4 @@
         </ion-item>
       
       </ion-list>
-      </div>
     </ion-content>

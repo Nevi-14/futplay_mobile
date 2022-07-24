@@ -20,6 +20,7 @@
         <div class="mainContent">
     
           <ion-list *ngIf="!rival">
+            
             <ion-item    (click)="retornarEquipo(equipo)" lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.misEquipos | filtro : textoBuscar:'Nombre'">
               <ion-avatar slot="start"  >
                 <img *ngIf="!equipo.Avatar"  src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">

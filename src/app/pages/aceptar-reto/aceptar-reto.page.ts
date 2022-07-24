@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController, ActionSheetController } from '@ionic/angular';
+import { ModalController, ActionSheetController, AlertController } from '@ionic/angular';
 import { ListaCanchas } from 'src/app/models/listaCanchas';
 import { CanchasService } from 'src/app/services/canchas.service';
 import { GestionRetos } from '../../models/gestionRetos';
@@ -13,6 +13,7 @@ import { vistaEquipos } from '../../models/vistaEquipos';
 import { VerificacionQrPage } from '../verificacion-qr/verificacion-qr.page';
 import { GoogleAdsService } from 'src/app/services/google-ads.service';
 import { VideoScreenPage } from '../video-screen/video-screen.page';
+import { EmailService } from 'src/app/services/email.service';
 
 @Component({
   selector: 'app-aceptar-reto',
@@ -37,7 +38,9 @@ img = 'assets/main/team-profile.svg';
     public usuariosService: UsuariosService,
     public gestionRestosService: GestionRetosService,
     public historialPartidoService:HistorialPartidoService,
-    public googleAdsService: GoogleAdsService
+    public googleAdsService: GoogleAdsService,
+    public emailService: EmailService,
+    public alertCtrl: AlertController
   ) { }
 
   async ngOnInit() {
@@ -144,6 +147,47 @@ this.cerrarModal();
     
       return await modal.present();
     }
+
+    async alertaReservacion() {
+      const alert = await this.alertCtrl.create({
+        header: 'FUTPLAY',
+        subHeader:'Proceso De Reservación',
+        message:'Estimado usuario, recuerda que para poder completar la reservación se debera de efectuar el pago adelantado del 10% del costo total de la reservación, por favor completar el pago para poder finalizar el proceso.',
+        
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            handler: () => {
+    
+              console.log(this.reto, 'reservacion')
+  
+  
+            }
+          },
+          {
+            text: 'Continuar',
+            role: 'confirm',
+            handler: () => {
+              
+              console.log(this.reto, 'reservacion')
+  
+            this.aceptarReto();
+            
+             }
+          }
+        ]
+      });
+    
+      await alert.present();
+  
+      const { role } = await alert.onDidDismiss();
+    
+    }
+
+    
+
+
      aceptarReto(){
        
  
@@ -160,10 +204,27 @@ this.cerrarModal();
 
       this.controlReservacionesService.actualizarReservacion(confirmacion, this.reto.Cod_Usuario, this.reto.Cod_Reservacion);
 this.videoScreen(2);
+this.notificarUsuarios();
       this.gestionRestosService.syncRetosConfirmados(this.usuariosService.usuarioActual.Cod_Usuario)
       this.modalCtrl.dismiss();
      }
+     notificarUsuarios(){
 
+      let subject =  ' Nueva Reservación confirmada ' +  this.reto.Titulo;
+      let body =  'Estimado usuario, se ha aceptado el reto '+ this.reto.Titulo + ' queda pendiente el pago del 10% por adelantado para poder finalizar el proceso de reservación, puedes encontrar mas detalles en la bandeja de retos de la aplicación FUTPLAY';
+      this.emailService.notificarUsuarios(this.rival.Cod_Usuario, subject, body).then(resp =>{
+  
+  
+        this.emailService.notificarUsuarios(this.retador.Cod_Usuario, subject, body).then(resp =>{
+  
+        });
+  
+        
+  
+      });
+  
+  
+    }
   cerrarModal(){
     this.modalCtrl.dismiss();
   }
@@ -179,6 +240,8 @@ this.videoScreen(2);
         index:id
       }
     });
+
+    return await modal.present();
   }
   iniciarPartido(){
 

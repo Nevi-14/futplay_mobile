@@ -6,6 +6,7 @@ import { EvaluacionEquipoPage } from '../evaluacion-equipo/evaluacion-equipo.pag
 import { HistorialPartidosJugador } from '../../models/historialPartidosJugador';
 import { HistorialPartido } from 'src/app/models/historialPartido';
 import { HistorialPartidoService } from 'src/app/services/historial-partido.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-evaluacion-jugador',
@@ -32,7 +33,8 @@ slideOpts = {
   constructor(
 public modalCtrl: ModalController,
 public equiposService:EquiposService,
-public historialPartido:HistorialPartidoService
+public historialPartido:HistorialPartidoService,
+public usuariosSerice:UsuariosService
 
   ) { }
 
@@ -75,6 +77,9 @@ this.slideNext();
     this.evaluacionJugador.Jugador_Futplay = value.detail.value.Cod_Usuario
     console.log('final eva', this.evaluacionJugador)
     this.evaluacionJugador.Cod_Partido = this.partido.Cod_Partido
+    this.usuariosSerice.syncJugadorFutplay(this.evaluacionJugador.Jugador_Futplay).then(resp=>{
+      console.log('completed')
+    })
     this.historialPartido.evaluacionJugador(this.evaluacionJugador);
     this.cerrarModal();
     this.continuar();

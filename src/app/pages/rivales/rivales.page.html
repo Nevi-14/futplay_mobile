@@ -31,6 +31,23 @@
   
 
     <ion-list>
+
+      <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngIf="equiposService.equipos.length == 0" >
+        <ion-avatar slot="start">
+         <img   src="assets/logo.png" alt="">
+        </ion-avatar>
+       
+ 
+         <ion-label>
+    
+           <h2>MENSAJE FUTPLAY </h2>
+    <p class="ion-text-wrap">   No se encontraron resultados</p>
+  
+         </ion-label>
+
+       </ion-item>
+
+
       <ion-item (click)="onOpenMenu(equipo)" lines="none" class="employeeItem  animate__animated animate__fadeIn"   *ngFor="let equipo of equiposService.equipos">
     
 

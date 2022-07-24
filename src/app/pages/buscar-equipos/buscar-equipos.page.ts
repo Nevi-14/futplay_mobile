@@ -21,7 +21,8 @@ export class BuscarEquiposPage implements OnInit {
     Cod_Canton: null,
     Cod_Distrito:null,
   }
-  textoBuscar = '';
+textoBuscar = '';
+
 solicitudJugadorEquipo:SolicitudesJugadoresEquipos = {
   Cod_Solicitud : null,
   Cod_Usuario : this.usuariosService.usuarioActual.Cod_Usuario,

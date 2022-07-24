@@ -51,7 +51,7 @@ console.log(URL);
     
       insertarReservacion(confirmacion){
 
-        this.alertasService.presentaLoading('Enviando información al restador')
+        this.alertasService.presentaLoading('Enviando información al resador')
 console.log(confirmacion,'confirmacion')
         this.postReservaciones(confirmacion).subscribe(
 

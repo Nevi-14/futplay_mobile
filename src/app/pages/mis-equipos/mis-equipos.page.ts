@@ -5,8 +5,7 @@ import { EquiposService } from 'src/app/services/equipos.service';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { BuscarEquiposPage } from '../buscar-equipos/buscar-equipos.page';
-import { CrearUnirseEquipoPage } from '../crear-unirse-equipo/crear-unirse-equipo.page';
-import { GenerarReservacionPage } from '../generar-reservacion/generar-reservacion.page';
+import { CrearEquipoPage } from '../crear-equipo/crear-equipo.page';
 
 @Component({
   selector: 'app-mis-equipos',
@@ -32,17 +31,9 @@ export class MisEquiposPage implements OnInit {
     console.log(this.equiposService.userclubs ,'owner');
     console.log(this.equiposService.playerClubs , 'player');
     console.log(this.equiposService.misEquipos,'equiposService.misEquipo')
-    this.misEquipos();
+    this.otrosEquipos();
   }
-  async crearEquipo() {
-    const modal = await this.modalCtrl.create({
-      component: GenerarReservacionPage,
-      cssClass: 'my-custom-class'
-    });
 
-    return await modal.present();
-  }
-  
 
   misEquipos(){
     this.btn1 = true;
@@ -61,21 +52,32 @@ console.log('resp', resp)
       this.equiposService.otrosEquipos = resp;
     })
   }
- async  crearUnirseEquipo(){
-    const modal = await this.modalCtrl.create({
-      component:CrearUnirseEquipoPage,
+  async crearEquipo(){
+    let modal = await this.modalCtrl.create({
+      component:CrearEquipoPage,
       cssClass:'my-custom-class',
-      id:'create'
-    })
+      id:'create-modal'
+    });
 
     await modal.present();
     const { data } = await modal.onDidDismiss();
  
     if(data !== undefined ){
       console.log(data,'data')
-      this.modalCtrl.dismiss(data, null, "my-clubs");
+      this.modalCtrl.dismiss(data, null, "create");
     
     }
+
+  }
+
+  async buscarEquipos(){
+    let modal = await this.modalCtrl.create({
+      component:BuscarEquiposPage,
+      cssClass:'my-custom-class'
+
+    })
+
+    return modal.present();
   }
 
   filledStars(stars:number){

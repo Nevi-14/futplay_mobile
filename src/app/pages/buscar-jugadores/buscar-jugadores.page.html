@@ -1,31 +1,38 @@
 
-  <ion-header >
+  <ion-header class="custom-header">
 
-    <ion-toolbar>
-      <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
-        <ion-buttons slot="start">
-          <ion-button color="light" (click)="cerrarModal()">
-            <ion-icon slot="start" name="chevron-back"></ion-icon>
-            &nbsp;Buscar Jugadores
-          </ion-button>
-        </ion-buttons>
+    <ion-toolbar class="custom-toolbar"  mode="ios">
+<ion-row>
+  <ion-col size="12">
+    <ion-button fill="clear" (click)="cerrarModal()">
+      <ion-icon color="light" slot="start" name="chevron-back"></ion-icon>
+      &nbsp;
+      <ion-label color="light" slot="start">Buscar Jugadores</ion-label>
+    </ion-button>
+  </ion-col>
 
-      </ion-item>
-  
-    </ion-toolbar>
-    <ion-toolbar style="display: flex;justify-content:center;align-items:center;">
-        
-        
-      <ion-searchbar slot="start" style="width: 80% ;" mode="ios" placeholder="buscar jugador" inputmode="text"  debounce="250"  (ionChange)="onSearchChange($event)"  ></ion-searchbar> 
-    
-      <ion-button  slot="end" (click)="filtroUbicacion()"  >
-        <ion-icon size="large"  name="options-outline" ></ion-icon>
+
+  <ion-col size="10">
+
+    <ion-searchbar  style="display: block;"  mode="ios" placeholder="buscar jugador" inputmode="text"  debounce="250" ></ion-searchbar> 
+
+  </ion-col>
+  <ion-col size="2">
+    <ion-buttons >
+      <ion-button class="custom-bottom"    (click)="filtroUbicacion()"  >
+        <ion-icon color="light" size="large"  name="options-outline" ></ion-icon>
       </ion-button>
-    
-      
-     
-    </ion-toolbar>
+    </ion-buttons>
+  </ion-col>
+</ion-row>
+
+
+  </ion-toolbar>
     </ion-header>
+
+
+
+
     <ion-content fullscreen>
       <div class="mainContent">
     

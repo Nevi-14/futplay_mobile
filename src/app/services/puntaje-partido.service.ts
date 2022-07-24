@@ -151,6 +151,7 @@ if(winner.Goles_Encontra > 0){
               this.usuariosService.syncPartidosJugados(winner.Cod_Equipo).then(resp =>{
 
                 if (stars == 3) {
+                  this.alertasService.loadingDissmiss();
                   this.videoScreen(6);
                  // this.alert(winner.Nombre, winner.Foto)
                 } else if (stars == 1) {

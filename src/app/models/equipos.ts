@@ -12,7 +12,7 @@ export class Equipos {
         public Fecha: Date,
         public Estrellas: number,
         public EstrellasAnteriores:number,
-        public Dureza: string,
+        public Dureza: number,
         public Posicion_Actual: number,
         public Puntaje_Actual: number,
         public Estado: boolean,

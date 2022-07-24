@@ -29,6 +29,7 @@ export class CanchaDetallePage implements OnInit {
     console.log(this.cancha,   this.horarioCanchasService.horarioCancha)
     this.horarioCanchasService.syncHorarioCanchasPromise(this.cancha.Cod_Cancha).then((resp:any) =>{
       console.log(resp,'resp')
+      this.configuracionHorarioService.horarioCancha = [];
   this.configuracionHorarioService.horarioCancha = resp;
 
   console.log('this.configuracionHorarioService.horarioCancha', this.configuracionHorarioService.horarioCancha)

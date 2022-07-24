@@ -14,6 +14,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import * as bcrypt from 'bcryptjs';  // npm install bcryptjs --save  &&  npm install @types/bcrypt --save-dev npm i --save-dev @types/bcryptjs
 import { SolicitudesService } from './solicitudes.service';
 import { StorageService } from './storage-service';
+import { VideoScreenPage } from '../pages/video-screen/video-screen.page';
 
 
 @Injectable({
@@ -38,7 +39,8 @@ export class UsuariosService {
     public alertasService: AlertasService,
     public actionSheetCtrl: ActionSheetController,
     public solicitudesService: SolicitudesService,
-    public storageService: StorageService
+    public storageService: StorageService,
+    
     ) {
 
 
@@ -408,6 +410,8 @@ validarCorreo(email) {
      
     }
 
+    registroToPromise(usuario:Usuarios){
+    return  this.postUsuario(usuario).toPromise();
 
-
+    }
 }

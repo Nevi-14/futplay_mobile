@@ -12,7 +12,6 @@ import { GestorImagenesService } from 'src/app/services/gestor-imagenes.service'
 import { ListaJugadoresService } from 'src/app/services/lista-jugadores.service';
 import { ProvinciasService } from 'src/app/services/provincias.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
-import { CrearUnirseEquipoPage } from '../crear-unirse-equipo/crear-unirse-equipo.page';
 import { SolicitudesService } from '../../services/solicitudes.service';
 import { GoogleAdsService } from 'src/app/services/google-ads.service';
 import { VideoScreenPage } from '../video-screen/video-screen.page';
@@ -110,7 +109,7 @@ imageURL =  null
     Fecha: new Date(),
     Estrellas: 1,
     EstrellasAnteriores: 1,
-    Dureza: 'equiponeutral.svg',
+    Dureza: 0,
     Posicion_Actual: 0,
     Puntaje_Actual: 0,
     Estado: true,
@@ -195,15 +194,6 @@ this.gestorImagenesService.reset();
  
   }
 
-  async  crearUnirseEquipo(){
-    const modal = await this.modalCtrl.create({
-      component:CrearUnirseEquipoPage,
-      cssClass:'my-custom-modal'
-    });
-   
-    return await modal.present();
-   
-        }
   crearRegistro(){
 
     this.alertasService.presentaLoading('Guardando Equipo');

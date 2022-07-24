@@ -11,6 +11,8 @@ import { ProvinciasService } from 'src/app/services/provincias.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { SeleccionarFechaPage } from '../seleccionar-fecha/seleccionar-fecha.page';
 import * as bcrypt from 'bcryptjs';  // npm install bcryptjs --save  &&  npm install @types/bcrypt --save-dev
+import { PerfilUsuario } from '../../models/perfilUsuario';
+import { VideoScreenPage } from '../video-screen/video-screen.page';
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
@@ -77,7 +79,8 @@ emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
     public cantonesService: CantonesService,
     public distritosService: DistritosService,
     public modalCrtl: ModalController,
-    public alertasService: AlertasService
+    public alertasService: AlertasService,
+    public modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
@@ -148,11 +151,48 @@ return;
     }
     console.log(fRegistro.valid);
     console.log(this.usuario)
-    this.usuariosServicio.registro(this.usuario)
+    
+    this.usuario.Contrasena = bcrypt.hashSync(this.usuario.Contrasena, 10);
+    this.usuariosServicio.registroToPromise(this.usuario).then((resp:PerfilUsuario) =>{
+
+      if(resp != null || resp != undefined ){
+        this.usuariosServicio.syncDatos(resp.Cod_Usuario);
+        console.log(resp, 'rekmm')
+        this.alertasService.loadingDissmiss();
+     
+        this.videoScreen(7)
+        this.route.navigate(['/futplay/mi-perfil']);
+      }else{
+        this.alertasService.loadingDissmiss();
+        this.alertasService.message('FUTPLAY', 'Error creando el usuario, verifica que el usuario no exista!.')
+      }
+         
+  }, error =>{
+    this.usuario.Contrasena = '';
+    this.alertasService.loadingDissmiss();
+    this.alertasService.message('FUTPLAY', 'Error creando el usuario, verifica que el usuario no exista!.')
+  });
+
+
+    
     
     }
     
 
+    async videoScreen(id){
+      const modal = await this.modalCtrl.create({
+        component:VideoScreenPage,
+        cssClass:'modal-view',
+        id:'video-screen-modal',
+        mode:'ios',
+        backdropDismiss:false,
+        componentProps:{
+          index:id
+        }
+      });
+  
+      return await modal.present();
+    }
 
   onChangeProvincias($event){
     this.alertasService.presentaLoading('Cargando datos...')

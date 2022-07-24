@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ModalController, PopoverController } from '@ionic/angular';
+import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { HorarioCanchas } from 'src/app/models/horarioCanchas';
 import { ListaCanchas } from 'src/app/models/listaCanchas';
 import { vistaEquipos } from 'src/app/models/vistaEquipos';
@@ -17,6 +17,8 @@ import { CalendarComponent } from 'ionic2-calendar';
 import { format } from 'date-fns';
 import { ConfiguracionHorarioService } from 'src/app/services/configuracion-horario.service';
 import { GestionReservacionesService } from '../../services/gestion-reservaciones.service';
+import { EmailService } from 'src/app/services/email.service';
+import { Email } from 'src/app/models/email';
 interface objetoFecha{
   id:number,
   year: number,
@@ -86,7 +88,9 @@ export class GenerarReservacionPage implements OnInit {
       public popOverCtrl:PopoverController,
       public procesoReservacionService: ProcesoReservacionService,
       public configuracionHorarioService: ConfiguracionHorarioService,
-      public gestionReservacionesService: GestionReservacionesService
+      public gestionReservacionesService: GestionReservacionesService,
+      public alertCtrl: AlertController,
+      public emailService: EmailService
     ) { }
   retoRival : vistaEquipos;
   retoRetador : vistaEquipos;
@@ -200,7 +204,7 @@ horaFin($event){
  /**
   * 
       this.nuevaReservacion.Hora_Inicio = this.Hora_Inicio;
-      this.nuevaReservacion.Hora_Fin = this.Hora_Fin;
+      this.nuevaRe servacion.Hora_Fin = this.Hora_Fin;
   */
 
 console.log(this.nuevaReservacion, 'nueva reservacion')
@@ -218,6 +222,7 @@ console.log(this.nuevaReservacion, 'nueva reservacion')
         }
   
         this.confirmarReservacionesService.insertarReservacion(cofirmacion);
+        this.notificarUsuarios();
       }
     })
     
@@ -333,6 +338,63 @@ async agregarCancha() {
       this.viewTitle = title;
 
     }
+
+    
+  async alertaReservacion() {
+    const alert = await this.alertCtrl.create({
+      header: 'FUTPLAY',
+      subHeader:'Proceso De Reservación',
+      message:'Estimado usuario, recuerda que para poder completar la reservación se debera de efectuar el pago adelantado del 10% del costo total de la reservación, una vez que se haya aceptado el reto, recibiras una notificación para poder efectuar el pago y finalizar la reservación.',
+      
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+  
+            console.log(this.nuevaReservacion, 'reservacion')
+
+
+          }
+        },
+        {
+          text: 'Continuar',
+          role: 'confirm',
+          handler: () => {
+            
+            console.log(this.nuevaReservacion, 'reservacion')
+
+          this.generarReto();
+          
+           }
+        }
+      ]
+    });
+  
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+  
+  }
+
+
+  notificarUsuarios(){
+
+    let subject =  ' Nueva Reservación ' +  this.nuevaReservacion.Titulo;
+    let body = 'Estimado usuario, ha recibido una solicitud para nueva reservación, puedes encontrar mas detalles en la bandeja de retos de la aplicación FUTPLAY';
+    this.emailService.notificarUsuarios(this.rival.Cod_Usuario, subject, body).then(resp =>{
+
+
+      this.emailService.notificarUsuarios(this.retador.Cod_Usuario, subject, body).then(resp =>{
+
+      });
+
+      
+
+    });
+
+
+  }
 
     onCurrentDateChanged(selectedDate) {
 
