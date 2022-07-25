@@ -38,7 +38,7 @@
     <ion-grid >
       <ion-row  >
        
-  <ion-col size="12" *ngIf="!partido.Verificacion_QR_Retador || !partido.Verificacion_QR_Rival">
+  <ion-col size="12" *ngIf="!partido[rivalIndex].Verificacion_QR  || !partido[retadorIndex].Verificacion_QR">
     <ion-card>
       <ion-card-header>
         <ion-card-title  class="ion-text-uppsercase">FUTPLAY</ion-card-title>
