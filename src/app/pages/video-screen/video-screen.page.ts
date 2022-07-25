@@ -71,7 +71,7 @@ export class VideoScreenPage implements OnInit {
           break;
           case 7:
          
-            this.close = true;
+         //   this.close = true;
             break;
         default:
       console.log('default')
@@ -87,6 +87,10 @@ export class VideoScreenPage implements OnInit {
  
       this.pauseVideo();
      
+      if(this.index=== 7){
+
+        this.cerrarModal();
+      }
       //this.close = true;
     }, 3000);
 

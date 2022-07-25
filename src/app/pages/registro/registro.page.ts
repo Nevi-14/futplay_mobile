@@ -156,12 +156,21 @@ return;
     this.usuariosServicio.registroToPromise(this.usuario).then((resp:PerfilUsuario) =>{
 
       if(resp != null || resp != undefined ){
-        this.usuariosServicio.syncDatos(resp.Cod_Usuario);
-        console.log(resp, 'rekmm')
-        this.alertasService.loadingDissmiss();
-     
-        this.videoScreen(7)
-        this.route.navigate(['/futplay/mi-perfil']);
+        this.usuariosServicio.usuarioActual = null;
+  
+        this.usuariosServicio.syncDatosToPromise(resp.Cod_Usuario).then(usuario =>{
+
+          this.usuariosServicio.usuarioActual = usuario[0];
+
+          console.log(resp, 'rekmm')
+          this.alertasService.loadingDissmiss();
+       
+          this.videoScreen(7)
+          this.route.navigate(['/futplay/mi-perfil']);
+
+
+        })
+ 
       }else{
         this.alertasService.loadingDissmiss();
         this.alertasService.message('FUTPLAY', 'Error creando el usuario, verifica que el usuario no exista!.')

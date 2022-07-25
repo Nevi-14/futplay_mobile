@@ -26,7 +26,7 @@
       
     </ion-toolbar>
 
-<ion-content class="ion-text-center">
+<ion-content class="ion-text-center" *ngIf="userService.usuarioActual">
   <ion-avatar  style="height: 12rem;width:12rem;margin:0 auto;">
 
     <img *ngIf="!userService.usuarioActual.Avatar" [src]="userPic" onerror="this.src='assets/user.svg'"    alt="">

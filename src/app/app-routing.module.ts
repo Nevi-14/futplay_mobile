@@ -87,10 +87,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/solicitudes-jugadores/solicitudes-jugadores.module').then( m => m.SolicitudesJugadoresPageModule)
   },
   {
-    path: 'solicitudes-rechazadas',
-    loadChildren: () => import('./pages/solicitudes-rechazadas/solicitudes-rechazadas.module').then( m => m.SolicitudesRechazadasPageModule)
-  },
-  {
     path: 'editar-perfil-usuario',
     loadChildren: () => import('./pages/editar-perfil-usuario/editar-perfil-usuario.module').then( m => m.EditarPerfilUsuarioPageModule)
   },

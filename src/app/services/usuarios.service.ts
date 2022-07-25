@@ -222,7 +222,11 @@ console.log('feril actualziado' , resp , this.usuarioActual ,  resp[0])
 
     );
   }
+  syncDatosToPromise(Cod_Usuario:number){
 
+
+    return this.verificarUsuario(Cod_Usuario).toPromise();
+  }
   isEmpty(object) {
     for (const property in object) {
       return false;
