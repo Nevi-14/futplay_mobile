@@ -18,6 +18,8 @@ export class PerfilUsuario {
     public Apodo: string,
     public Partidos_Jugados: number,
     public Partidos_Jugador_Futplay: number,
+    public Partidos_Jugador_Del_Partido : number,
+    public Compartir_Datos : boolean,
     public Cod_Provincia: number,
     public Estado: boolean,
     public Descripcion_Estado: string,

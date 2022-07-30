@@ -37,6 +37,7 @@ showDistrito = false;
       Cod_Usuario: this.usuarioService.usuarioActual.Cod_Usuario,
       Cod_Role: 2,
       Avatar:this.usuarioService.usuarioActual.Avatar,
+      Compartir_Datos:this.usuarioService.usuarioActual.Compartir_Datos,
       Cod_Provincia: this.usuarioService.usuarioActual.Cod_Provincia,
       Cod_Canton:null,
       Cod_Distrito: this.usuarioService.usuarioActual.Cod_Distrito,

@@ -14,6 +14,7 @@ import { VerificacionQrPage } from '../verificacion-qr/verificacion-qr.page';
 import { GoogleAdsService } from 'src/app/services/google-ads.service';
 import { VideoScreenPage } from '../video-screen/video-screen.page';
 import { EmailService } from 'src/app/services/email.service';
+import { Canchas } from '../../models/canchas';
 
 @Component({
   selector: 'app-aceptar-reto',
@@ -22,7 +23,7 @@ import { EmailService } from 'src/app/services/email.service';
 })
 export class AceptarRetoPage implements OnInit {
 @Input() reto: GestionRetos
-@Input() cancha : ListaCanchas
+@Input() cancha : Canchas
 @Input() retador;
 @Input() rival;
 equipo : vistaEquipos
@@ -172,8 +173,16 @@ this.cerrarModal();
               
               console.log(this.reto, 'reservacion')
   
-            this.aceptarReto();
-            
+  
+            let subject =  ' Nueva Reservación confirmada ' +  this.reto.Titulo;
+            let body =  'Estimado usuario, se ha aceptado el reto en la cancha' + ' '+this.reto.Nombre_Cancha;
+            this.emailService.notificarUsuarios(this.cancha.Cod_Usuario, subject, body).then(resp =>{
+        
+        
+              this.aceptarReto();
+              
+        
+            });
              }
           }
         ]

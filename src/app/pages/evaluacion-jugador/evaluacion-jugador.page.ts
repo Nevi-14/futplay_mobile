@@ -79,10 +79,12 @@ this.slideNext();
     this.evaluacionJugador.Cod_Partido = this.partido.Cod_Partido
     this.usuariosSerice.syncJugadorFutplay(this.evaluacionJugador.Jugador_Futplay).then(resp=>{
       console.log('completed')
+      this.cerrarModal();
+      this.continuar();
     })
-    this.historialPartido.evaluacionJugador(this.evaluacionJugador);
-    this.cerrarModal();
-    this.continuar();
+    
+   // this.historialPartido.evaluacionJugador(this.evaluacionJugador);
+
    
   }
   agregarJDP(value){

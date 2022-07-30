@@ -56,6 +56,8 @@ usuario: Usuarios = {
   Apodo: '',
   Partidos_Jugados: 0,
   Partidos_Jugador_Futplay: 0,
+  Partidos_Jugador_Del_Partido : 0,
+  Compartir_Datos : false,
   Avatar: true
 
 };
@@ -123,8 +125,10 @@ limpiarDatos(){
     Estatura: 0,
     Peso: 0,
     Apodo: '',
-    Partidos_Jugados: 0,
-    Partidos_Jugador_Futplay: 0,
+     Partidos_Jugados: 0,
+     Partidos_Jugador_Futplay: 0,
+     Partidos_Jugador_Del_Partido : 0,
+     Compartir_Datos : false,
     Avatar: true,
  
 
