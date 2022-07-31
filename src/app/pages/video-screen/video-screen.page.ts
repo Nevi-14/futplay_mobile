@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Email } from 'src/app/models/email';
+import { AlertasService } from 'src/app/services/alertas.service';
 import { EmailService } from 'src/app/services/email.service';
 import { GoogleAdsService } from 'src/app/services/google-ads.service';
 
@@ -35,42 +36,64 @@ export class VideoScreenPage implements OnInit {
   constructor(
     public modalCtrl: ModalController,
     public googleAddService: GoogleAdsService,
-    public emailService: EmailService
+    public emailService: EmailService,
+    public alertasService:AlertasService
   ) { }
 
   ngOnInit() {
    // this.googleAddService.showBanner()
 
   }
+
+  consultar(){
+
+
+    if(this.googleAddService.ready){
+      this.close  = true;
+      this.cerrarModal();
+    } else{
+      this.consultar();
+    }
+  }
   ionViewWillEnter() {
 
-
+//this.close = true;
     setTimeout(()=>{
+
+      this.pauseVideo();
       switch (this.index) {
 
+
         case 0:
-          this.googleAddService.showInterstitial()
+          this.googleAddService.showInterstitial();
+       
           break;
         case 1:
           this.googleAddService.showInterstitial();
+         
           break;
         case 2:
-          this.googleAddService.showInterstitial()
+          this.googleAddService.showInterstitial();
+       
           break;
         case 3:
-          this.googleAddService.showInterstitial()
+          this.googleAddService.showInterstitial();
+        
           break;
         case 4:
-          this.googleAddService.showInterstitial()
+          this.googleAddService.showInterstitial();
+        
           break;
         case 5:
-          this.googleAddService.showInterstitial()
+          this.googleAddService.showInterstitial();
+      
           break;
         case 6:
-          this.googleAddService.showInterstitial()
+          this.googleAddService.showInterstitial();
+          
           break;
           case 7:
-         
+            this.cerrarModal();
          //   this.close = true;
             break;
         default:
@@ -80,19 +103,9 @@ export class VideoScreenPage implements OnInit {
 
 
       }
-    }, 1000);
-    
-    setTimeout(() => {
-      // this.close = true;
- 
-      this.pauseVideo();
-     
-      if(this.index=== 7){
-
-        this.cerrarModal();
-      }
-      //this.close = true;
     }, 3000);
+    
+
 
 
   }

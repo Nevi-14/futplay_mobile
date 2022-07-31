@@ -3,7 +3,11 @@
 
     background-color: #5a55ca;
 }
-
+.discount{
+  -webkit-text-decoration-line: line-through; /* Safari */
+  text-decoration-line: line-through; 
+  text-decoration-color: red;
+}
 ion-toolbar {
 
     --border-style: none;

@@ -19,7 +19,7 @@ import { AlertasService } from './alertas.service';
   providedIn: 'root'
 })
 export class GoogleAdsService {
-
+ready: boolean = false;
   constructor(
 
     public modalCtrl: ModalController,
@@ -75,11 +75,13 @@ export class GoogleAdsService {
         };
         await AdMob.prepareInterstitial(options);
         await AdMob.showInterstitial();
- 
+        this.modalCtrl.dismiss(null,null,'video-screen-modal');
         AdMob.addListener(InterstitialAdPluginEvents.Dismissed,  () => {
 
+          this.ready = true;
+         // this.modalCtrl.dismiss();
           this.modalCtrl.dismiss(null,null,'video-screen-modal');
-          //this.alertasService.message('FUTPLAY', message)
+          //this.alertasService.msessage('FUTPLAY', message)
         });
         }
     
