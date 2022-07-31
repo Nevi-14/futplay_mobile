@@ -162,3 +162,8 @@ ion-searchbar {
     }
 
   
+.discount{
+  -webkit-text-decoration-line: line-through; /* Safari */
+  text-decoration-line: line-through; 
+  text-decoration-color: red;
+}

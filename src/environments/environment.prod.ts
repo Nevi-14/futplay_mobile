@@ -19,6 +19,8 @@ export const environment = {
   retosRecibidosURL:'reservaciones-recibidas',
   equiposURL: 'Equipos/',
   canchasURL: 'Canchas/',
+  generarFacturaURL:'generar-factura/',
+  consultaeFacturaURL:'consultar-factura/',
   categoriaCanchasURL: 'Categoriacanchas/',
   bloqueoCanchasURL: 'reservaciones',
   confirmacionReservacionesURL: 'confirmacionReservaciones',

@@ -15,6 +15,8 @@ import { GoogleAdsService } from 'src/app/services/google-ads.service';
 import { VideoScreenPage } from '../video-screen/video-screen.page';
 import { EmailService } from 'src/app/services/email.service';
 import { Canchas } from '../../models/canchas';
+import { FacturacionService } from 'src/app/services/facturacion.service';
+import { FacturaDetaleReservaciones } from '../../models/facturaDetalleReservaciones';
 
 @Component({
   selector: 'app-aceptar-reto',
@@ -23,9 +25,10 @@ import { Canchas } from '../../models/canchas';
 })
 export class AceptarRetoPage implements OnInit {
 @Input() reto: GestionRetos
-@Input() cancha : Canchas
+@Input() cancha : ListaCanchas
 @Input() retador;
 @Input() rival;
+factura:FacturaDetaleReservaciones;
 equipo : vistaEquipos
 
 partido : HistorialPartido[]=[];
@@ -41,13 +44,19 @@ img = 'assets/main/team-profile.svg';
     public historialPartidoService:HistorialPartidoService,
     public googleAdsService: GoogleAdsService,
     public emailService: EmailService,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public facturacionService:FacturacionService
   ) { }
 
   async ngOnInit() {
 
 
 console.log('reto', this.reto, 'retador', this.retador, this.rival, this.cancha)
+this.facturacionService.syncConsultarFacturaGet(this.reto.Cod_Reservacion).then(factura =>{
+  this.factura = factura[0];
+console.log('factura', factura)
+
+})
   }
   async navigate() {
      

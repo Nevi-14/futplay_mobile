@@ -19,6 +19,9 @@ import { ConfiguracionHorarioService } from 'src/app/services/configuracion-hora
 import { GestionReservacionesService } from '../../services/gestion-reservaciones.service';
 import { EmailService } from 'src/app/services/email.service';
 import { Email } from 'src/app/models/email';
+import { FacturacionService } from '../../services/facturacion.service';
+import { FacturaDetaleReservaciones } from 'src/app/models/facturaDetalleReservaciones';
+
 interface objetoFecha{
   id:number,
   year: number,
@@ -75,6 +78,33 @@ export class GenerarReservacionPage implements OnInit {
   Hora_Fin: any;
   add = true;
 
+  factura:FacturaDetaleReservaciones = {
+     ID : null,
+     Cod_Reservacion  : null,
+     Cod_Pago_Retador : "",
+     Cod_Descuento : 'FREE',
+     Cod_Pago_Rival :  "",
+     Impuesto  :  0,
+     Porcentaje_FP : 10,
+     Monto_FP :0,
+     Monto_Impuesto   :  0,
+     Descuento  : 100,
+     Monto_Descuento  : 0,
+     Total_Horas:0,
+     Precio_Hora   :  0,
+     Luz: null,
+     Precio_Luz   :  0,
+     Monto_Subtotal  : 0,
+     Monto_Total  : 0,
+     Monto_Equipo  : 0,
+     Monto_Abonado_Retador   :  0,
+     Monto_Abonado_Rival    :  0,
+     Monto_Pendiente_Retador   : 0,
+     Monto_Pendiente_Rival   : 0,
+     Estado   : true,
+     Notas_Estado    :  ""
+  }
+
     constructor(
       public modalCtrl: ModalController,
       public usuariosService: UsuariosService,
@@ -90,7 +120,8 @@ export class GenerarReservacionPage implements OnInit {
       public configuracionHorarioService: ConfiguracionHorarioService,
       public gestionReservacionesService: GestionReservacionesService,
       public alertCtrl: AlertController,
-      public emailService: EmailService
+      public emailService: EmailService,
+      public faturacionService:FacturacionService
     ) { }
   retoRival : vistaEquipos;
   retoRetador : vistaEquipos;
@@ -201,11 +232,7 @@ horaFin($event){
       this.nuevaReservacion.Fecha =  this.nuevaReservacion.Fecha.toISOString().split('T')[0]+' '+ this.nuevaReservacion.Fecha.toTimeString().split(' ')[0];
       this.nuevaReservacion.Hora_Inicio = this.nuevaReservacion.Hora_Inicio.toISOString().split('T')[0]+' '+ this.nuevaReservacion.Hora_Inicio.toTimeString().split(' ')[0];
       this.nuevaReservacion.Hora_Fin = this.nuevaReservacion.Hora_Fin.toISOString().split('T')[0]+' '+ this.nuevaReservacion.Hora_Fin.toTimeString().split(' ')[0];
- /**
-  * 
-      this.nuevaReservacion.Hora_Inicio = this.Hora_Inicio;
-      this.nuevaRe servacion.Hora_Fin = this.Hora_Fin;
-  */
+
 
 console.log(this.nuevaReservacion, 'nueva reservacion')
 
@@ -220,9 +247,71 @@ console.log(this.nuevaReservacion, 'nueva reservacion')
    Confirmacion_Rival : false,
    Cod_Estado : 3,
         }
-  
-        this.confirmarReservacionesService.insertarReservacion(cofirmacion);
-        this.notificarUsuarios();
+
+        this.factura.Cod_Reservacion = resp.Cod_Reservacion;
+        this.factura.Precio_Hora = this.cancha.Precio_Hora;
+        this.factura.Luz = this.nuevaReservacion.Luz;
+        if(this.factura.Luz){
+          this.factura.Precio_Luz = this.cancha.Precio_Luz;
+        }
+       
+        this.factura.Total_Horas = new Date(resp.Hora_Fin).getHours() - new Date(resp.Hora_Inicio).getHours();
+     
+      this.factura.Monto_Subtotal =   this.factura.Precio_Hora * this.factura.Total_Horas; 
+
+      this.factura.Monto_Total =   this.factura.Monto_Subtotal + this.factura.Precio_Luz;
+      this.factura.Monto_FP =     this.factura.Monto_Total* this.factura.Porcentaje_FP / 100;
+      this.factura.Monto_Total = this.factura.Monto_Total - this.factura.Monto_FP ;
+
+      if( this.factura.Impuesto > 0){
+        this.factura.Monto_Total =   (this.factura.Monto_Total *  this.factura.Impuesto) / 100; 
+
+      }
+      if( this.factura.Descuento > 0){
+        this.factura.Monto_Descuento =   (   this.factura.Monto_FP *  this.factura.Descuento) / 100; 
+        
+        
+
+      }
+      this.factura.Monto_Equipo =  this.factura.Monto_Total / 2;
+
+        console.log('factura post', this.factura)
+  this.faturacionService.syncFacturaPost(this.factura).then(factura =>{
+
+    console.log('factura post completed', factura)
+
+    this.factura ={
+      ID : null,
+      Cod_Reservacion  : null,
+      Cod_Pago_Retador : "",
+      Porcentaje_FP : 10,
+      Monto_FP :0,
+      Cod_Descuento : 'FREE',
+      Cod_Pago_Rival :  "",
+      Impuesto  :  0,
+      Luz: null,
+      Monto_Impuesto   :  0,
+      Descuento  : 100,
+      Monto_Descuento  : 0,
+      Total_Horas:0,
+      Precio_Hora   :  0,
+      Precio_Luz   :  0,
+      Monto_Subtotal  : 0,
+      Monto_Total  : 0,
+      Monto_Equipo  : 0,
+      Monto_Abonado_Retador   :  0,
+      Monto_Abonado_Rival    :  0,
+      Monto_Pendiente_Retador   : 0,
+      Monto_Pendiente_Rival   : 0,
+      Estado   : true,
+      Notas_Estado    :  ""
+   }
+
+  }, error =>{
+    console.log('factura post error', error)
+  })
+      this.confirmarReservacionesService.insertarReservacion(cofirmacion);
+      //  this.notificarUsuarios();
       }
     })
     

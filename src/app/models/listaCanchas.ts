@@ -21,7 +21,8 @@ export class ListaCanchas {
     public Numero_Cancha: string,
     public Latitud: number,
     public Longitud: number,
-    public Fecha: number
+    public Fecha: number,
+    public Cod_Usuario: number
 
     ){}
     
