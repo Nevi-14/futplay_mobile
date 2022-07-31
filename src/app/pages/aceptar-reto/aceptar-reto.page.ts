@@ -58,6 +58,15 @@ console.log('factura', factura)
 
 })
   }
+  filledStars(stars:number){
+
+    return new Array(stars)
+  }
+
+  emptyStars(stars:number){
+    let value = 5 - stars;
+    return new Array(value)
+  }
   async navigate() {
      
     //Kuala Lumpur City Center coordinates
@@ -111,9 +120,33 @@ console.log('factura', factura)
    });
    await actionSheet.present();
 }
+async  efectuarPago(factura:FacturaDetaleReservaciones){
+  const alert = await this.alertCtrl.create({
+    header: 'FUTPLAY',
+    subHeader:'Mensaje Futplay',
+    message:'Estimado usuario,nos encontramos trabajando en esta caracteristica!.',
+    
+    buttons: [
+ 
+      {
+        text: 'Entendido',
+        role: 'confirm',
+        handler: () => {
+          
+this.alertCtrl.dismiss();
+         }
+      }
+    ]
+  });
+
+  await alert.present();
+
+  const { role } = await alert.onDidDismiss();
+}
 
   async qrVerification(){
     
+
 
 this.cerrarModal();
 
