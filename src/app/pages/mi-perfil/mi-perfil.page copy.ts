@@ -9,7 +9,6 @@ import { EquiposService } from 'src/app/services/equipos.service';
 import { GestorImagenesService } from 'src/app/services/gestor-imagenes.service';
 import { GlobalService } from 'src/app/services/global.service';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
-import { StorageService } from 'src/app/services/storage-service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { EditarPerfilUsuarioPage } from '../editar-perfil-usuario/editar-perfil-usuario.page';
 import { SolicitudesJugadoresPage } from '../solicitudes-jugadores/solicitudes-jugadores.page';
@@ -35,7 +34,7 @@ export class MiPerfilPage  {
       url:"http://localhost:8101/..assets/photos"
     }
 };
-userPic = this.userService.usuarioActual.Foto ?  'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/' + this.userService.usuarioActual.Foto +'?'+ this.dateF() : 'assets/user.svg';
+userPic = this.userService.usuarioActual.Foto ?  'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/' + this.userService.usuarioActual.Foto  : 'assets/user.svg';
  
 
 imageURL=  "https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/1651603295791.jpeg?" + new Date().getTime();
@@ -53,8 +52,7 @@ imageURL=  "https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/16
      public alertCTrl: AlertController,
      private cdr: ChangeDetectorRef,
      public autenticacionservice: AutenticacionService,
-     public emailService: EmailService,
-     public storageService: StorageService) {
+     public emailService: EmailService) {
     
  
   }
@@ -346,9 +344,10 @@ this.Contrasena = alertData.nueva_contrasena;
     modal.present();
     const { data } = await modal.onWillDismiss();
     console.log(data)
-    this.userPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+ this.userService.usuarioActual.Foto +'?'+ this.dateF();
-    this.storageService.delete('user')
-    this.storageService.set('user', this.userService.usuarioActual)
+    this.userService.syncPerfilUsuario(this.userService.usuarioActual.Cod_Usuario).then(usuario =>{
+      this.userService.usuarioActual = usuario[0]
+    })
+
     }
 
 

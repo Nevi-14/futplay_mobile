@@ -40,9 +40,7 @@
         <ion-item  >
             <ion-label>Posición: <ion-badge color="dark" mode="ios">{{perfil.Posicion}}</ion-badge> </ion-label>
         </ion-item>
-        <ion-item>
-            <ion-label>Edad : {{calcularEdad(perfil.Fecha_Nacimiento)}} años</ion-label>
-        </ion-item>
+
         <ion-item *ngIf="perfil.Compartir_Datos">
           <ion-label>Telefono : 
             

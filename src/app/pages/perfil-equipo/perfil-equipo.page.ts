@@ -23,7 +23,7 @@ export class PerfilEquipoPage  {
 
   add ='../assets/icons/create.svg';
  find ='../assets/icons/join.svg';
- teamPic = 'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+  this.equiposService.perfilEquipo.Foto  +'?'+ this.dateF();
+ teamPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+  this.equiposService.perfilEquipo.Foto  +'?'+ this.dateF();
   constructor( 
     public modalCtrl: ModalController, 
     public user: UsuariosService,  
@@ -246,14 +246,8 @@ this.alertasService.message('FUTPLAY', 'No se puede eliminar el usuario por defe
     modal.present();
     const { data } = await modal.onWillDismiss();
     console.log(data)
-    if(data != undefined){
-   /**
-    *    this.userService.usuarioActual.Foto = this.userService.usuarioActual.Foto;
-    */
-    this.cdr.detectChanges();
-    this.teamPic = 'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+ this.equiposService.perfilEquipo.Foto +'?'+ this.dateF();
+    this.teamPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+ this.equiposService.perfilEquipo.Foto +'?'+ this.dateF();
  
-    }
 
     }
 
@@ -290,7 +284,7 @@ this.alertasService.message('FUTPLAY', 'No se puede eliminar el usuario por defe
       this.equiposService.perfilEquipo = data.equipo;
       this.equiposService.perfilEquipo.Foto = data.equipo.Foto;
       this.cdr.detectChanges();
-      this.teamPic = 'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+ this.equiposService.perfilEquipo.Foto +'?'+ this.dateF();
+      this.teamPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+ this.equiposService.perfilEquipo.Foto +'?'+ this.dateF();
       console.log(this.equiposService.perfilEquipo,'this.equiposService.perfilEquipo')
       this.jugadoresEquipo();
 

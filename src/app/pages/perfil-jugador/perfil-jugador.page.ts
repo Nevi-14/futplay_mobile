@@ -15,19 +15,24 @@ userPic = null;
   ) { }
 
   ngOnInit() {
-    this.userPic = this.perfil.Foto ?  'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/' + this.perfil.Foto +'?'+ this.dateF() : 'assets/user.svg';;
+    this.userPic = this.perfil.Foto ?  'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/' + this.perfil.Foto +'?'+ this.dateF() : 'assets/user.svg';;
     console.log(this.perfil, 'perfil')
   }
 
-  calcularEdad(fechaNacimiento:Date){
-
-     
-    let todayYear = new Date().getFullYear()
-    let userYear = new Date(fechaNacimiento).getFullYear();
-    let age = todayYear - userYear;
-
-return age;
-
+  calcularFecha(fecha){
+    var dob = new Date(fecha);
+    //calculate month difference from current date in time
+    var month_diff = Date.now() - dob.getTime();
+    
+    //convert the calculated difference in date format
+    var age_dt = new Date(month_diff); 
+    
+    //extract year from date    
+    var year = age_dt.getUTCFullYear();
+    
+    //now calculate the age of the user
+    var age = Math.abs(year - 1970);
+    return age;
   }
   
   dateF(){

@@ -30,7 +30,7 @@ showProvicia = false;
 showCanton = false;
 showDistrito = false;
   private modalOpen:boolean = false;
-  userPic = 'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+ this.userService.usuarioActual.Foto +'?'+ this.dateF();
+  userPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+ this.userService.usuarioActual.Foto +'?'+ this.dateF();
   areaUnit =1;
     userPic1 = this.gestorImagenesService.images.length > 0 ? this.gestorImagenesService.images[0].data : 'assets/user.svg';
     usuario = {
@@ -292,8 +292,8 @@ this.usuario.Foto = resp
 console.log(this.usuario, 'edit')
 this.usuario.Avatar = false;
 this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.usuario.Avatar, this.usuario.Foto);    
-     
-
+this.userPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+ this.userService.usuarioActual.Foto +'?'+ this.dateF();
+//this.gestorImagenesService.reset();
 
 
        })

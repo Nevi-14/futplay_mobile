@@ -248,7 +248,7 @@ console.log('respresp', resp, resp.length)
           this.usuarioActual = null;
           this.alertasService.loadingDissmiss();
           this.usuarioActual = resp[0];
-          
+          this.storageService.delete('user')
           this.storageService.set('user',  resp[0])
           this.route.navigate(['/futplay/mi-perfil']);
           this.solicitudesService.syncGetSolicitudesJugadores(this.usuarioActual.Cod_Usuario, false,true, true)

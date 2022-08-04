@@ -214,17 +214,20 @@ this.cerrarModal();
             handler: () => {
               
               console.log(this.reto, 'reservacion')
-  
+              this.aceptarReto();
+              
   
             let subject =  ' Nueva Reservación confirmada ' +  this.reto.Titulo;
             let body =  'Estimado usuario, se ha aceptado el reto en la cancha' + ' '+this.reto.Nombre_Cancha;
-            this.emailService.notificarUsuarios(this.cancha.Cod_Usuario, subject, body).then(resp =>{
+     /**
+      *        this.emailService.notificarUsuarios(this.cancha.Cod_Usuario, subject, body).then(resp =>{
         
         
               this.aceptarReto();
               
         
             });
+      */
              }
           }
         ]

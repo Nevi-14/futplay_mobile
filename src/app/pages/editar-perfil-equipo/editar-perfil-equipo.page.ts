@@ -26,7 +26,7 @@ export class EditarPerfilEquipoPage implements OnInit {
   showProvincia = false;
   showCanton = false;
   showDistrito = false;
-  teamPic = 'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/' + this.equiposService.perfilEquipo.Foto;
+  teamPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/' + this.equiposService.perfilEquipo.Foto;
   
   imgs = [
     

@@ -93,7 +93,7 @@ imageURL =  "https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/Nelso
      actualizaFotoUsuario(Cod_Usuario ,Avatar,Foto ){
       this.putFotoUsuario( Cod_Usuario ,Avatar,Foto).subscribe(
         resp => {
-          this.usuariosService.syncDatos( this.usuariosService.usuarioActual.Cod_Usuario);
+      
         }, error => {
           console.log('error')
         }
