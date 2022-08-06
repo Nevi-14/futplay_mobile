@@ -128,7 +128,9 @@ codEstadoParam2:'&Cod_Estado=',
 posicionActualURL:'posicion-actual',
 evaluacionEquiposURL:'evaluacion-equipos',
 partidosJugadorURL:'partidos-jugados/',
-jugadorFutplayURL:'jugador-futplay/'
+jugadorFutplayURL:'jugador-futplay/',
+jugadorDelPartidoURL:'jugador-partido',
+clasificacionURL:'clasificacion',
 };
 /*
  * For easier debugging in development mode, you can import the following file

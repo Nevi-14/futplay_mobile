@@ -125,5 +125,8 @@ horarioCanchaURL:'horario/cancha',
 posicionActualURL:'posicion-actual',
 evaluacionEquiposURL:'evaluacion-equipos',
 partidosJugadorURL:'partidos-jugados/',
-jugadorFutplayURL:'jugador-futplay/'
+jugadorFutplayURL:'jugador-futplay/',
+jugadorDelPartidoURL:'jugador-partido',
+clasificacionURL:'clasificacion',
+
 };

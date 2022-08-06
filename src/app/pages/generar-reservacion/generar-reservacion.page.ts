@@ -198,7 +198,7 @@ if(this.cancha != null && this.cancha != undefined){
   
   
  horaInicio($event){
-  const value:objetoFecha = $event.detail.value;
+  const value= $event.detail.value;
   this.nuevaReservacion.Hora_Inicio = value.date;
   this.Hora_Inicio = value;
   this.Hora_Fin = null;
@@ -493,7 +493,7 @@ async agregarCancha() {
       this.cd.markForCheck();
       this.cd.detectChanges();
 
-      this.gestionReservacionesService.compararFechas(this.nuevaReservacion.Fecha, new Date()).then(resp =>{
+      this.gestionReservacionesService.compararFechas(selectedDate, new Date()).then(resp =>{
         
       if (resp === -1){
      

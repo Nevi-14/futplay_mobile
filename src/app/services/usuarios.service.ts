@@ -126,8 +126,26 @@ export class UsuariosService {
  
     return this.http.put( URL, options );
   }
+  private   putJugadorDelPartido(Cod_Usuario ){
+    let URL = this.getURL( environment.jugadorDelPartidoURL);
+
+    URL = URL +environment.codUsuarioParam+ Cod_Usuario;
+    const options = {
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+      }
+    };
+   
+ 
+    return this.http.put( URL, options );
+  }
   syncJugadorFutplay(Cod_Usuario){
     return  this.putJugadorFutplay(Cod_Usuario).toPromise();
+    }
+      syncJugadorDelPartido(Cod_Usuario){
+    return  this.putJugadorDelPartido(Cod_Usuario).toPromise();
     }
 
    // PUT: api/usuarios/?Cod_Usuario= 2   ACTUALIZAR USUARIO

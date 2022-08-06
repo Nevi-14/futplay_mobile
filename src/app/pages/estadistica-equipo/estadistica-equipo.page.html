@@ -9,10 +9,13 @@
             &nbsp;Estadisticas {{equipo.Abreviacion}}
           </ion-button>
         </ion-buttons>
-        <ion-avatar slot="end" style="height: 60px; width: 60px;" >
-          <img src="assets/soccer-shields-svg/{{equipo.Foto}}">
-        
+        <ion-avatar  style="height: 60px; width: 60px;">
+          <img class="picture-img" *ngIf="!equipo.Avatar"  src="https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/{{equipo.Foto}}"  onerror="this.src='assets/img/icon/FP.svg'"   onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+
+          <img class="picture-img"  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
         </ion-avatar>
+
+
       </ion-item>
   
     </ion-toolbar>

@@ -217,8 +217,10 @@
        <ion-label>Aceptar Reto </ion-label>
              </ion-button>
              
-      
-             <ion-button  (click)="iniciarPartido()"  *ngIf="reto.Cod_Estado == 4 || reto.Cod_Estado == 6 || reto.Cod_Estado == 7 "    expand="block" >
+             <ion-button  (click)="efectuarPago(factura)"  *ngIf="!reto.Pago"    expand="block" >
+              <ion-label> Efectuar Pago</ion-label>
+                    </ion-button>
+             <ion-button  (click)="iniciarPartido()"  *ngIf="reto.Pago ||reto.Cod_Estado == 4 || reto.Cod_Estado == 6 || reto.Cod_Estado == 7 "    expand="block" >
               <ion-label> Iniciar Partido</ion-label>
                     </ion-button>
         

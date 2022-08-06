@@ -27,9 +27,9 @@
 
         <ion-avatar   style="height: 12rem;width:12rem;margin:0 auto;">
             
-        <img  *ngIf="!equiposService.perfilEquipo.Avatar" src="{{teamPic}}"  onerror="this.src='assets/team.png'" alt="">
+        <img  *ngIf="!equiposService.perfilEquipo.Avatar" src="{{teamPic}}"  onerror="this.src='assets/img/icon/FP.svg'" alt="">
 
-        <img *ngIf="equiposService.perfilEquipo.Avatar"  src="assets/soccer-shields-svg/{{equiposService.perfilEquipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">     
+        <img *ngIf="equiposService.perfilEquipo.Avatar"  src="assets/soccer-shields-svg/{{equiposService.perfilEquipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">     
         </ion-avatar>
 
     <h3 class="ion-text-uppercase"> 
@@ -113,7 +113,7 @@
           </ion-item>
     <ion-item (click)="onOpenMenu(jugador)" lines="full" class="employeeItem  animate__animated animate__fadeIn"   *ngFor="let jugador of equiposService.jugadoresPerfilEquipo">
 <ion-avatar slot="start">
-  <img *ngIf="!jugador.Avatar" src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+jugador.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+  <img *ngIf="!jugador.Avatar" src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+jugador.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
 
       <img *ngIf="jugador.Avatar"src="assets/profile/avatars/{{jugador.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
 

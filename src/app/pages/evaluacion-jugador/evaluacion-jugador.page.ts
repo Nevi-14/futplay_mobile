@@ -78,9 +78,12 @@ this.slideNext();
     console.log('final eva', this.evaluacionJugador)
     this.evaluacionJugador.Cod_Partido = this.partido.Cod_Partido
     this.usuariosSerice.syncJugadorFutplay(this.evaluacionJugador.Jugador_Futplay).then(resp=>{
-      console.log('completed')
-      this.cerrarModal();
-      this.continuar();
+      this.usuariosSerice.syncJugadorDelPartido(this.evaluacionJugador.Jugador_Del_Partido).then(resp =>{
+        console.log('completed')
+        this.cerrarModal();
+        this.continuar();
+      });
+ 
     })
     
    // this.historialPartido.evaluacionJugador(this.evaluacionJugador);

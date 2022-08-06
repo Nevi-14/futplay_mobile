@@ -72,16 +72,23 @@ export class RivalesPage implements OnInit {
         
      
      case 1:
-     
       this.equiposService.equipos  = [];
+
       this.alertasService.presentaLoading('Cargando datos...');
-      this.equiposService.SyncEquipos(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
-        this.alertasService.loadingDissmiss();
-        this.equiposService.equipos = resp.slice(0);
+      this.equiposService.syncGetClasficiacion().then(equipos => {
+
+        let length =  equipos.length > 10  ? 10 : equipos.length;
+        for (let i =0; i < length ; i++){
+this.equiposService.equipos.push(equipos[i]);
+        }
+       
+this.alertasService.loadingDissmiss();
       }, error =>{
         this.alertasService.loadingDissmiss();
-        this.alertasService.message('FUTLAY', 'Error cargando datos...');
-      })
+      });
+     
+  
+  
         
      break;
 

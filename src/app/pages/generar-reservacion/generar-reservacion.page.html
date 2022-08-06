@@ -30,10 +30,10 @@
 
                              <ion-list>
 
-                              <ion-item  *ngIf="rival"   lines="none" class="equipo  animate__animated animate__fadeIn"  >
-                                <ion-avatar slot="start"  >
-                            
-                                  <img  src="assets/soccer-shields-svg/{{rival.Foto}}">
+                              <ion-item  *ngIf="rival"   lines="none" class="equipo  animate__animated animate__fadeIn employeeItem"  >
+                                <ion-avatar    >
+                                  <img *ngIf="!rival.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+rival.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+                                  <img  *ngIf="rival.Avatar"  src="assets/soccer-shields-svg/{{rival.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
                          
                                 </ion-avatar>
                                 
@@ -55,12 +55,13 @@
                       
                               </ion-item>
 
-                              <ion-item  *ngIf="retador"    lines="none" class="equipo  animate__animated animate__fadeIn"  >
-                                <ion-avatar slot="start"  >
-                            
-                                  <img   src="assets/soccer-shields-svg/{{retador.Foto}}">
+                              <ion-item  *ngIf="retador"    lines="none" class="equipo  animate__animated animate__fadeIn employeeItem"  >
+                                <ion-avatar    >
+                                  <img *ngIf="!retador.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+retador.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+                                  <img  *ngIf="retador.Avatar"  src="assets/soccer-shields-svg/{{retador.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
                          
                                 </ion-avatar>
+                                
                                 
                              
                                 <ion-label class="ion-text-wrap">
@@ -82,8 +83,11 @@
                            
                                
                               <ion-item  *ngIf="cancha" lines="none" class="employeeItem  animate__animated animate__fadeIn"  >
-                                <img  src="" onerror="this.src='assets/soccerfield.jpg'"   alt="">
+                                <ion-avatar slot="start">
+                                  <img  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilCanchaUploads/'+cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">
                           
+                                 </ion-avatar>
+                                
                                 <ion-label class="ion-text-wrap">
                                   <h2>{{cancha.Nombre}}  <ion-badge color="dark" mode="ios">₡{{cancha.Precio_Luz}}</ion-badge></h2>
                                   <p   >

@@ -50,7 +50,7 @@
             <ion-radio-group (ionChange)="agregarJDP($event)">
               <ion-item  lines="full" class="employeeItem  animate__animated animate__fadeIn"   *ngFor="let jugador of  jugadores">
                 <ion-avatar slot="start">
-                  <img *ngIf="!jugador.Avatar" src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+jugador.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+                  <img *ngIf="!jugador.Avatar" src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+jugador.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
                 
                       <img *ngIf="jugador.Avatar"src="assets/profile/avatars/{{jugador.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
                 
@@ -91,7 +91,7 @@
       
               <ion-item  lines="full" class="employeeItem  animate__animated animate__fadeIn"    *ngFor="let jugador of  jugadores">
                 <ion-avatar slot="start">
-                  <img *ngIf="!jugador.Avatar" src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+jugador.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+                  <img *ngIf="!jugador.Avatar" src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+jugador.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
                 
                       <img *ngIf="jugador.Avatar"src="assets/profile/avatars/{{jugador.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
                 

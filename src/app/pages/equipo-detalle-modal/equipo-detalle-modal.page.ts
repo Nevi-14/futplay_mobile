@@ -35,7 +35,7 @@ dureza = [
   ) { }
 
   ngOnInit() {
-    this.teamPic = this.equiposService.perfilEquipo ? 'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+  this.equipo.Foto  +'?'+ this.dateF() : 'assets/team.png';
+    this.teamPic = this.equiposService.perfilEquipo ? 'https:/futplaycompany/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+  this.equipo.Foto  +'?'+ this.dateF() : 'assets/img/icon/FP.svg';
     this.img = 'assets/img/equipos/'+ this.equipo.Foto;
     this.durezaA = 'assets/icons/'+this.equipo.Dureza
     console.log(this.equipo)

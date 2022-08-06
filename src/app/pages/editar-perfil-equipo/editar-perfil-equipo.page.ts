@@ -9,6 +9,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { GestorImagenesService } from 'src/app/services/gestor-imagenes.service';
 import { AlertasService } from 'src/app/services/alertas.service';
+import { Equipos } from '../../models/equipos';
 declare const window: any; 
 @Component({
   selector: 'app-editar-perfil-equipo',
@@ -166,7 +167,13 @@ if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
           this.equipo.Avatar = false;
           this.equiposService.perfilEquipo.Avatar = false;
     console.log(resp, this.equipo,  this.equipo.Foto, 'respppppppppppppppppggggg')
-    this.equiposService.actualizarEquipo(this.equipo, this.usuariosService.usuarioActual.Cod_Usuario)
+    this.equiposService.actualizarEquipoToPromise(this.equipo, this.usuariosService.usuarioActual.Cod_Usuario).then((equipo:Equipos) =>{
+      this.equiposService.perfilEquipo.Foto = equipo.Foto;
+      this.gestorImagenesService.images = [];
+      this.teamPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/' + this.equiposService.perfilEquipo.Foto+'?'+ this.dateF();;
+  
+    })
+
          })
      
        //  
@@ -268,6 +275,8 @@ if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
  //   if(fActualizar.invalid) {return;}
  console.log(this.equipo,'this.equipo')
     this.equiposService.actualizarEquipo(this.equipo, this.usuariosService.usuarioActual.Cod_Usuario)
+    
+
   }
 
   onChangeProvincias($event){

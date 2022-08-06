@@ -32,7 +32,7 @@
           <ion-item (click)="onOpenMenu(solicitud)" lines="none" class="employeeItem  animate__animated animate__fadeIn" *ngFor="let solicitud of solicitudesService.solicitudesEquiposArray">
       
             <ion-avatar class="ion-avatar">
-              <img *ngIf="!solicitud.usuario_avatar" src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+solicitud.Foto_Jugador}}" onerror="this.src='assets/user.svg'"    alt="">
+              <img *ngIf="!solicitud.usuario_avatar" src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+solicitud.Foto_Jugador}}" onerror="this.src='assets/user.svg'"    alt="">
 
               <img *ngIf="solicitud.usuario_avatar"src="assets/profile/avatars/{{solicitud.Foto_Jugador}}" onerror="this.src='assets/user.svg'"    alt="">
   

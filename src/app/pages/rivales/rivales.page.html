@@ -34,7 +34,7 @@
 
       <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngIf="equiposService.equipos.length == 0" >
         <ion-avatar slot="start">
-         <img   src="assets/logo.png" alt="">
+         <img   src="assets/img/icon/FP.svg" alt="">
         </ion-avatar>
        
  
@@ -52,8 +52,8 @@
     
 
           <ion-avatar slot="start"  >
-            <img *ngIf="!equipo.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
-            <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/team.png'"   alt="">
+            <img *ngIf="!equipo.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+            <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
    
           </ion-avatar>
           

@@ -157,11 +157,28 @@ console.log(resp,'resp')
 
   }
 
+  private getClasficiacion(){
+
+    let URL = this.getURL(environment.clasificacionURL);
+    let test: string = ''
+    if ( !environment.prdMode ) {
+      test = environment.TestURL;
+    }
+
+    console.log(URL,'URL')
+    return this.http.get<vistaEquipos[]>( URL );
+
+
+  }
+
 
   syncGetEquiposPosicion(){
 
     return this.getEquiposPosicion().toPromise();
     
+      }
+      syncGetClasficiacion(){
+        return this.getClasficiacion().toPromise(); 
       }
 
 

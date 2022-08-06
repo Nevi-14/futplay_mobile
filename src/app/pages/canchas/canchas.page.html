@@ -19,7 +19,7 @@
     <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngIf="canchasService.canchas.length == 0" >
         
       <ion-avatar slot="start">
-       <img   src="assets/logo.png" alt="">
+       <img   src="assets/img/icon/FP.svg" alt="">
       </ion-avatar>
      
 
@@ -35,7 +35,7 @@
     <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"    (click)="onOpenMenu(cancha)" *ngFor="let cancha of canchasService.canchas" >
 
       <ion-avatar slot="start">
-        <img  src="{{'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilCanchaUploads/'+cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">
+        <img  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilCanchaUploads/'+cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">
        </ion-avatar>
       
       <ion-label>
