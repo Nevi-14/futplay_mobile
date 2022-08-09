@@ -460,13 +460,18 @@ syncHorario(Cod_Cancha){
 })
 }
 
-async  cancularHora(Cod_Cancha,Fecha){
+async  cancularHora(Cod_Cancha,Fecha,Inicio){
 
   let horas = [];
 
   let index = new Date(Fecha).getDay();
   this.diaActual =  this.horario[index];
-  let apertura = this.horario[index].Hora_Inicio;
+  let apertura = null;
+  if(Inicio  != undefined && Inicio !=null){
+    apertura = Inicio
+  }else{
+    apertura = this.horario[index].Hora_Inicio;
+  }
   let cierre = this.horario[index].Hora_Fin;
 
      
