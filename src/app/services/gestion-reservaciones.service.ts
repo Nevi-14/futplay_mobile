@@ -460,6 +460,68 @@ syncHorario(Cod_Cancha){
 })
 }
 
+async  cancularHora(Cod_Cancha,Fecha){
+
+  let horas = [];
+
+  let index = new Date(Fecha).getDay();
+  this.diaActual =  this.horario[index];
+  let apertura = this.horario[index].Hora_Inicio;
+  let cierre = this.horario[index].Hora_Fin;
+
+     
+    
+    
+    
+  let year,month,day,hour,minutes,seconds,milliseconds = null;
+  // DATA THAT DOES NOT CHANGE
+  
+  year = Fecha.getFullYear();;
+  month = Fecha.getMonth();
+  day = Fecha.getDate();
+  hour = Fecha.getHours();
+  minutes = 0;
+  seconds = 0;
+  milliseconds = 0;
+
+  hour =  hour%12 == 0 ? 0 : hour
+  
+   for (var i = apertura; i < cierre; ++i) {
+     
+    let element :any = null;
+  let id = i;
+  let hours = i;
+  let time12 =   hours%12 == 0 ? 12 : hours%12;
+  let meridiem =  i < 12 ? 'AM': 'PM';
+  let formatD = this.formatoFecha(Fecha, '-');
+  let returnD = new Date(formatD +' '+ String(hours)+':'+'00'+':00');
+  element = {
+    id:id,
+        year: year,
+        month: month,
+        day: day,
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds,
+        milliseconds: milliseconds,
+        time12: time12,
+        meridiem: meridiem,
+        date: returnD
+      }
+      horas.push(element)
+
+  
+   if(i == cierre -1){
+  
+    return horas;
+  
+  
+   }
+   }
+    
+
+}
+
 
        calHoraInicio(Cod_Cancha, Fecha){
         this.horaInicioArray = [];

@@ -178,7 +178,11 @@ if(this.cancha != null && this.cancha != undefined){
   this.horarioCanchasService.syncHorarioCanchasPromise(this.cancha.Cod_Cancha).then((resp:any) =>{
   this.configuracionHorarioService.horarioCancha = resp;
   this.gestionReservacionesService.horario = resp;
-  this.gestionReservacionesService.calHoraInicio(this.cancha.Cod_Cancha,this.selectedDate)
+
+  this.gestionReservacionesService.syncreservacionesFiltrarFecha(this.cancha.Cod_Cancha ,this.gestionReservacionesService.formatoFecha(this.selectedDate,'-')).then(resp =>{
+console.log('reservacs', resp)
+  });
+ // this.gestionReservacionesService.calHoraInicio(this.cancha.Cod_Cancha,this.selectedDate)
   console.log('rival',this.rival)
   console.log('retador',this.retador)
   console.log('cancha',this.cancha)
@@ -491,6 +495,7 @@ async agregarCancha() {
       this.nuevaReservacion.Hora_Inicio = null;
       this.nuevaReservacion.Hora_Fin = null;
       this.nuevaReservacion.Fecha = selectedDate
+      this.selectedDate = selectedDate;
       this.cd.markForCheck();
       this.cd.detectChanges();
 
@@ -506,7 +511,23 @@ async agregarCancha() {
         }
 
       })
-      this.gestionReservacionesService.calHoraInicio2( this.nuevaReservacion.Fecha);
+
+      this.gestionReservacionesService.syncreservacionesFiltrarFecha(this.cancha.Cod_Cancha ,this.gestionReservacionesService.formatoFecha(this.selectedDate,'-')).then(resp =>{
+        console.log('reservacs', resp)
+
+        this.gestionReservacionesService.cancularHora(this.cancha.Cod_Cancha, this.selectedDate).then(horas =>{
+this.gestionReservacionesService.horaInicioArray = horas;
+          console.log('horas', horas)
+          
+        this.gestionReservacionesService.cancularHora(this.cancha.Cod_Cancha, this.selectedDate).then(horas =>{
+          this.gestionReservacionesService.horaFinArray = horas;
+          console.log('horas', horas)
+        })
+        })
+          });
+
+
+     /// this.gestionReservacionesService.calHoraInicio2( this.nuevaReservacion.Fecha);
   
   }
 
