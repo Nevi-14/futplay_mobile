@@ -177,6 +177,7 @@ if(this.cancha != null && this.cancha != undefined){
   this.nuevaReservacion.Cod_Cancha =  this.cancha.Cod_Cancha
   this.horarioCanchasService.syncHorarioCanchasPromise(this.cancha.Cod_Cancha).then((resp:any) =>{
   this.configuracionHorarioService.horarioCancha = resp;
+  this.gestionReservacionesService.horario = resp;
   this.gestionReservacionesService.calHoraInicio(this.cancha.Cod_Cancha,this.selectedDate)
   console.log('rival',this.rival)
   console.log('retador',this.retador)
@@ -505,15 +506,7 @@ async agregarCancha() {
         }
 
       })
-        this.generrReservacionService.syncHorarioCanchas( this.cancha.Cod_Cancha).then(resp =>{
-
-        this.gestionReservacionesService.horario = resp;
-        this.Hora_Inicio = null;
-        this.Hora_Fin = null;
-
-        this.gestionReservacionesService.calHoraInicio2( this.nuevaReservacion.Fecha);
-
-      })
+      this.gestionReservacionesService.calHoraInicio2( this.nuevaReservacion.Fecha);
   
   }
 

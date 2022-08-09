@@ -1,12 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BloqueoCanchas } from '../models/bloqueoCanchas';
 import { ReservacionesCanchasUsuarios } from '../models/Reservaciones_Canchas_Usuarios';
 import { Router } from '@angular/router';
 import { Canchas } from '../models/canchas';
 import { LoadingController, AlertController, ModalController } from '@ionic/angular';
-
-import { UsuariosService } from './usuarios.service';
 import { AlertasService } from './alertas.service';
 import { Reservaciones } from '../models/reservaciones';
 import { environment } from 'src/environments/environment';
@@ -24,22 +21,6 @@ export class ReservacionesService {
   loading: HTMLIonLoadingElement;
   eventSource = [];
 cancha:Canchas;
-bloqueo = {
-  Cod_Cancha:  null,
-  Cod_Usuario:  null,
-  Reservacion_Externa: true,
-  Titulo: null,
-  Fecha:   null,
-  Hora_Inicio:  null,
-  Hora_Fin: null,
-  Estado:  true,
-  diaCompleto:  false,
-  Descripcion: ''
- }
-
- array = [{id: 1, hour :'06',  meridiem : 'AM'},{id: 2, hour :'07', meridiem : 'AM' } ,{ id: 3,hour :'08', meridiem : 'AM'},{id: 4, hour :'09', meridiem : 'AM'},{ id:5, hour :'10', meridiem : 'AM'},{id: 6, hour :'11', meridiem : 'AM'},{id: 7 , hour :'12', meridiem : 'PM'},{id: 8, hour :'01', meridiem : 'PM'},{id:9, hour :'02', meridiem : 'PM'},{id: 10, hour :'03', meridiem : 'PM'},{id: 11, hour :'04', meridiem : 'PM'},{id: 12,hour :'05', meridiem : 'PM'},{id: 13,hour :'06', meridiem : 'PM'},{id: 14,hour :'07', meridiem : 'PM'},{id: 15,hour :'08', meridiem : 'PM'},{id: 16,hour :'09', meridiem : 'PM'},{id: 17,hour :'10', meridiem : 'PM'}];
-
-
 
   
   constructor(
@@ -258,7 +239,6 @@ console.log(this.reservacionesCanchasUsusario[i].diaCompleto, 'dia completo')
     
   } else {
 
-    console.log('hora init', this.retornaHora(this.reservacionesCanchasUsusario[i].Hora_Inicio))
 
       if(Cod_Cancha=== this.reservacionesCanchasUsusario[i].Cod_Cancha ){
         this.eventSource.push({
@@ -305,26 +285,6 @@ console.log(this.eventSource,'srouce')
     
   }
 
-
-
-
-  retornaHora(id){
-    let hora = '';   
-
-    this.array.forEach(horas => {
-
-   if(horas.id == id){
-
-   
-
-     hora = horas.hour+':'+'00'+':'+'00'+' '+horas.meridiem
-  
-    
-   }
-    })
-
-    return hora
-  }
 
 
 

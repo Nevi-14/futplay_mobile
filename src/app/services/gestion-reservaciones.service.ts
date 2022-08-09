@@ -464,44 +464,36 @@ syncHorario(Cod_Cancha){
        calHoraInicio(Cod_Cancha, Fecha){
         this.horaInicioArray = [];
         console.log(Fecha,'fechaaa')
-         this.horarioCanchasService.syncHorarioCanchasPromise(Cod_Cancha).then(resp =>{
+        let index = new Date(Fecha).getDay();
+        this.diaActual =  this.horario[index];
+        let apertura = this.horario[index].Hora_Inicio;
+        let cierre = this.horario[index].Hora_Fin;
+   
+   
+        this.compararFechas(Fecha, new Date()).then(resp =>{
+   console.log('resp', resp)
+         if(resp == 0 ){
+           this.generarArregloHorasDisponibles22(Cod_Cancha,new Date().getMinutes() > 0 ? new Date().getHours()+1 : new Date().getHours(), cierre,new Date(),'Hora_Inicio').then(resp =>{
+             this.horaInicioArray = resp
+             return  this.horaInicioArray;
 
-          this.horario = resp;
-      
-           let index = new Date(Fecha).getDay();
-           this.diaActual =  this.horario[index];
-           let apertura = this.horario[index].Hora_Inicio;
-           let cierre = this.horario[index].Hora_Fin;
-      
-      
-           this.compararFechas(Fecha, new Date()).then(resp =>{
-      console.log('resp', resp)
-            if(resp == 0 ){
-              this.generarArregloHorasDisponibles22(Cod_Cancha,new Date().getMinutes() > 0 ? new Date().getHours()+1 : new Date().getHours(), cierre,new Date(),'Hora_Inicio').then(resp =>{
-                this.horaInicioArray = resp
-                return  this.horaInicioArray;
-
-                
-              });
-      
-            }else if (resp == 1){
              
-              this.generarArregloHorasDisponibles22(Cod_Cancha,apertura, cierre,new Date(Fecha),'Hora_Inicio').then(resp =>{
-               
-              return  this.horaInicioArray = resp;
-      
-                 
-              });
-            }
-              
+           });
+   
+         }else if (resp == 1){
+          
+           this.generarArregloHorasDisponibles22(Cod_Cancha,apertura, cierre,new Date(Fecha),'Hora_Inicio').then(resp =>{
             
-                });
-      
-      
-      
-      
-      
-        }); 
+           return  this.horaInicioArray = resp;
+   
+              
+           });
+         }
+           
+         
+             });
+   
+   
       
 
 
@@ -532,29 +524,19 @@ syncHorario(Cod_Cancha){
  
         let Fecha = value.date;
  
-        this.horarioCanchasService.syncHorarioCanchasPromise(Cod_Cancha).then(resp =>{
-
-         this.horario = resp;
-     
-          let index = new Date(Fecha).getDay();
-          this.diaActual =  this.horario[index];
-          let apertura = value.hours+1;
-          let cierre = this.horario[index].Hora_Fin+1;
-     
-     
-          this.generarArregloHorasDisponibles22(Cod_Cancha,apertura, cierre,Fecha,'Hora_Fin').then(resp =>{
-              
-            return  this.horaFinArray = resp;
-    
-               
-            });
-     
-     
-     
-     
-     
-       }); 
-     
+        let index = new Date(Fecha).getDay();
+        this.diaActual =  this.horario[index];
+        let apertura = value.hours+1;
+        let cierre = this.horario[index].Hora_Fin+1;
+   
+   
+        this.generarArregloHorasDisponibles22(Cod_Cancha,apertura, cierre,Fecha,'Hora_Fin').then(resp =>{
+            
+          return  this.horaFinArray = resp;
+  
+             
+          });
+   
 
 
      }

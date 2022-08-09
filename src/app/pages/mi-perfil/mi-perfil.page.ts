@@ -7,7 +7,6 @@ import { AutenticacionService } from 'src/app/services/autenticacion.service';
 import { EmailService } from 'src/app/services/email.service';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { GestorImagenesService } from 'src/app/services/gestor-imagenes.service';
-import { GlobalService } from 'src/app/services/global.service';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
 import { StorageService } from 'src/app/services/storage-service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -43,7 +42,6 @@ imageURL=  "https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/16
     public popoverCtrl: PopoverController,
     public userService: UsuariosService, 
     public modalCtrl: ModalController, 
-    public globalService: GlobalService, 
     public equiposService: EquiposService, 
     public solicitudesService:SolicitudesService, 
     public actionSheetCtrl: ActionSheetController, 

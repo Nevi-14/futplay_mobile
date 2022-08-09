@@ -121,10 +121,7 @@ const routes: Routes = [
     path: 'seleccionar-fecha',
     loadChildren: () => import('./pages/seleccionar-fecha/seleccionar-fecha.module').then( m => m.SeleccionarFechaPageModule)
   },
-  {
-    path: 'ionic-calendar2',
-    loadChildren: () => import('./pages/ionic-calendar2/ionic-calendar2.module').then( m => m.IonicCalendar2PageModule)
-  },
+
 
   {
     path: 'registro',
