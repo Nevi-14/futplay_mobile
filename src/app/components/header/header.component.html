@@ -11,11 +11,11 @@
 
   </ion-toolbar>
 
+  <ion-fab  >
+    <ion-fab-button size="small" (click)="presentModal()">
+      <img  [ngClass]="gestionRestosService.retos.length > 0 ? 'animate__animated animate__bounce' : '' " c src="/assets/futplay/icons/soccer.svg" alt="" >
+    </ion-fab-button>
+    <ion-badge color="dark" mode="ios">{{gestionRestosService.retos.length}}</ion-badge>
+  </ion-fab>
 </ion-header>
 
-<ion-fab   vertical="top" horizontal="end" slot="fixed">
-  <ion-fab-button size="small" (click)="presentModal()">
-    <img  [ngClass]="gestionRestosService.retos.length > 0 ? 'animate__animated animate__bounce' : '' " c src="/assets/futplay/icons/soccer.svg" alt="" >
-  </ion-fab-button>
-  <ion-badge color="dark" mode="ios">{{gestionRestosService.retos.length}}</ion-badge>
-</ion-fab>
