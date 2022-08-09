@@ -2,20 +2,20 @@
 
 <ion-header class="ion-no-border ion-padding">
 
-  <ion-toolbar class="ion-text-center">
+  <ion-toolbar class="ion-text-center" style="position:relative">
 
     <ion-label style="display: block;"  class="soccer-league-header-title">FUTPLAY </ion-label>
 <ion-badge color="dark" mode="ios"   class="animate__animated  ion-margin-top  animate__zoomIn">
   <ion-label class="ion-text-uppercase"><strong>{{titulo}}</strong></ion-label>
 </ion-badge>
-
+<ion-fab style="position:absolute;top:0;right:0.5rem;display: flex;" >
+  <ion-fab-button size="small" (click)="presentModal()">
+    <img  [ngClass]="gestionRestosService.retos.length > 0 ? 'animate__animated animate__bounce' : '' " c src="/assets/futplay/icons/soccer.svg" alt="" >
+  </ion-fab-button>
+  <ion-badge color="dark" mode="ios" style="max-height:1.2rem ;">{{gestionRestosService.retos.length}}</ion-badge>
+</ion-fab>
   </ion-toolbar>
 
-  <ion-fab  >
-    <ion-fab-button size="small" (click)="presentModal()">
-      <img  [ngClass]="gestionRestosService.retos.length > 0 ? 'animate__animated animate__bounce' : '' " c src="/assets/futplay/icons/soccer.svg" alt="" >
-    </ion-fab-button>
-    <ion-badge color="dark" mode="ios">{{gestionRestosService.retos.length}}</ion-badge>
-  </ion-fab>
+
 </ion-header>
 
