@@ -707,6 +707,8 @@ console.log('generando horas fecha', date )
     
     }
     
+
+
      
 async generarArregloHorasDisponibles(Cod_Cancha:number,start:number, end:number, date?:Date,){
 

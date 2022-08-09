@@ -571,10 +571,11 @@ async agregarCancha() {
       
         dateToUse = this.selectedDate;
         start = this.gestionReservacionesService.horario[this.selectedDate.getDay()].Hora_Inicio;
-
+        //alert(start)
+      
       }
       this.gestionReservacionesService.syncreservacionesFiltrarFecha(this.cancha.Cod_Cancha ,this.gestionReservacionesService.formatoFecha(this.selectedDate,'-')).then(resp =>{
-   
+        console.log('reservacs', resp)
 
         this.gestionReservacionesService.cancularHora(this.cancha.Cod_Cancha, this.selectedDate,start).then(horas =>{
 this.gestionReservacionesService.horaInicioArray = horas;
@@ -589,12 +590,14 @@ for( let j = 0; j < resp.length; j++){
   }
 
    }
-
+          console.log('horas', horas)
           
       
         })
           });
 
+
+     /// this.gestionReservacionesService.calHoraInicio2( this.nuevaReservacion.Fecha);
   
   }
 
