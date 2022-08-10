@@ -483,7 +483,10 @@ async agregarCancha() {
             console.log(this.nuevaReservacion, 'reservacion')
 
           this.generarReto();
+         // this.notificarUsuarios();      
           
+          
+
            }
         }
       ]
