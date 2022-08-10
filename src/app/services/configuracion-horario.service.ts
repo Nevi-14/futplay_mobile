@@ -155,21 +155,6 @@ if(Cod_Cancha){
 
       }
 
- await this.gestionReservacionesService.generarArregloHorasDisponibles(this.horarioCancha[i].Cod_Cancha,0,24).then(resp =>{
-
-hora.Hora_Inicio = resp;
-
- this.gestionReservacionesService.generarArregloHorasDisponibles(this.horarioCancha[i].Cod_Cancha,1,24).then(resp =>{
-
-  hora.Hora_Fin = resp;
-
-  this.horariosConsulta.push(hora);
-
-});
-
-
- });
- 
 
 
 
@@ -177,18 +162,6 @@ hora.Hora_Inicio = resp;
 
   };
 
-  
-  horaInicioOnChangeEvent($event,index){
-
-    let start = $event.detail.value+1;
-    this.horarioCancha[index].Hora_Fin = 23;
-    this.gestionReservacionesService.generarArregloHorasDisponibles(this.horarioCancha[index].Cod_Cancha,start,24).then(resp =>{
-
-      this.horariosConsulta[index].Hora_Fin = resp;;
-      
-         });
-
-  }
 
 
 

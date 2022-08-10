@@ -335,6 +335,124 @@ private reservacionesFiltrarFecha( Cod_Cancha,Fecha){
     
       }
 
+
+      async generarArregloHorasDisponibles2(Cod_Cancha:number,start:number, end:number, date?:Date,){
+
+        console.log(start,end,date,'nnnn')
+       let horasArray:any[] =[];
+       let dateToUse: Date = null;
+      
+  
+      
+      
+      
+      let year,month,day,hour,minutes,seconds,milliseconds = null;
+      // DATA THAT DOES NOT CHANGE
+      
+      if(date ){
+      
+        if(date.getDate() === new Date().getDate()){
+      
+          dateToUse = new Date();
+        
+        }else{
+        
+          dateToUse = date;
+        
+        }
+      
+        year = dateToUse.getFullYear();;
+        month = dateToUse.getMonth();
+        day = dateToUse.getDate();
+        hour = dateToUse.getHours();
+        minutes = 0;
+        seconds = 0;
+        milliseconds = 0;
+      }
+      hour =  hour%12 == 0 ? 0 : hour
+      let newStart =  start ? start :  hour;
+      
+       for (var i = start; i < end; ++i) {
+         
+        let element :any = null;
+      let id = i;
+      let hours = i;
+      let time12 =   hours%12 == 0 ? 12 : hours%12;
+      let meridiem =  i < 12 ? 'AM': 'PM';
+      
+      if(date != undefined){
+         element = {
+      id:id,
+          year: year,
+          month: month,
+          day: day,
+          hours: hours,
+          minutes: minutes,
+          seconds: seconds,
+          milliseconds: milliseconds,
+          time12: time12,
+          meridiem: meridiem,
+          date:  date ? new Date(year, month, day, hours, minutes, seconds, milliseconds) : null
+        }
+      }else{
+         element = {
+          id:id,
+          hours: hours,
+          time12: time12,
+          meridiem: meridiem,
+       
+        }
+      }
+      
+      horasArray.push(element)
+      
+       if(i == end -1){
+      
+      return horasArray;
+      
+      
+       }
+       }
+      
+      }
+
+
+      // CALCULAR HORAS
+
+      calHoraInicio2( Fecha){
+   
+        let index = new Date(Fecha).getDay();
+        this.diaActual =  this.horario[index];
+        let apertura = this.horario[index].Hora_Inicio;
+        let cierre = this.horario[index].Hora_Fin;
+   
+   
+        this.compararFechas(Fecha, new Date()).then(resp =>{
+   console.log('resp', resp)
+         if(resp == 0 ){
+           this.generarArregloHorasDisponibles22(this.horario[0].Cod_Cancha,new Date().getMinutes() > 0 ? new Date().getHours()+1 : new Date().getHours(), cierre,new Date(),'Hora_Inicio').then(resp =>{
+             this.horaInicioArray = resp
+             return  this.horaInicioArray;
+
+             
+           });
+   
+         }else if (resp == 1){
+          
+           this.generarArregloHorasDisponibles22(this.horario[0].Cod_Cancha,apertura, cierre,new Date(Fecha),'Hora_Inicio').then(resp =>{
+            
+           return  this.horaInicioArray = resp;
+   
+              
+           });
+         }
+           
+         
+             });
+   
+   
+      }
+
 syncHorario(Cod_Cancha){
   this.horarioCanchasService.syncHorarioCanchasPromise(Cod_Cancha).then(resp =>{
     this.horario = resp;
@@ -418,9 +536,280 @@ async  cancularHora(Cod_Cancha,Fecha,Inicio){
     
 
 }
+createValidDate = (s) => {
+  const strArr = s.split(" ");
+  strArr[0] = strArr[0].split("-").reverse().join("-");
+  return strArr.join(" ");
+};
+
+       calHoraInicio(Cod_Cancha, Fecha){
+        this.horaInicioArray = [];
+        console.log(Fecha,'fechaaa')
+        let index = new Date(Fecha).getDay();
+        this.diaActual =  this.horario[index];
+        let apertura = this.horario[index].Hora_Inicio;
+        let cierre = this.horario[index].Hora_Fin;
+   
+   
+        this.compararFechas(Fecha, new Date()).then(resp =>{
+   console.log('resp', resp)
+         if(resp == 0 ){
+           this.generarArregloHorasDisponibles22(Cod_Cancha,new Date().getMinutes() > 0 ? new Date().getHours()+1 : new Date().getHours(), cierre,new Date(),'Hora_Inicio').then(resp =>{
+             this.horaInicioArray = resp
+             return  this.horaInicioArray;
+
+             
+           });
+   
+         }else if (resp == 1){
+          
+           this.generarArregloHorasDisponibles22(Cod_Cancha,apertura, cierre,new Date(Fecha),'Hora_Inicio').then(resp =>{
+            
+           return  this.horaInicioArray = resp;
+   
+              
+           });
+         }
+           
+         
+             });
+   
+   
+      
 
 
+      }
+      
+     
+      calHoraFin2(Cod_Cancha, value){
+ 
+        let Fecha = value.date;
+        let index = new Date(Fecha).getDay();
+        this.diaActual =  this.horario[index];
+        let apertura = value.hours+1;
+        let cierre = this.horario[index].Hora_Fin+1;
+   
+   
+        this.generarArregloHorasDisponibles22(Cod_Cancha,apertura, cierre,Fecha,'Hora_Fin').then(resp =>{
+            
+          return  this.horaFinArray = resp;
   
+             
+          });
+   
+
+
+     }
+      
+      calHoraFin(Cod_Cancha, value){
+ 
+        let Fecha = value.date;
+ 
+        let index = new Date(Fecha).getDay();
+        this.diaActual =  this.horario[index];
+        let apertura = value.hours+1;
+        let cierre = this.horario[index].Hora_Fin+1;
+   
+   
+        this.generarArregloHorasDisponibles22(Cod_Cancha,apertura, cierre,Fecha,'Hora_Fin').then(resp =>{
+            
+          return  this.horaFinArray = resp;
+  
+             
+          });
+   
+
+
+     }
+     
+     async generarArregloHorasDisponibles22(Cod_Cancha:number,start:number, end:number, date:Date,column){
+console.log('generando horas fecha', date )
+
+     let horasArray:any[] =[];
+     let dateToUse: Date = null;
+    
+     return this.syncreservacionesFiltrarFecha(Cod_Cancha ,this.formatoFecha(date,'-')).then(resp =>{
+    let reservacionesDia = resp;
+ 
+    
+    
+    
+    
+    let year,month,day,hour,minutes,seconds,milliseconds = null;
+    // DATA THAT DOES NOT CHANGE
+    
+    if(date ){
+    
+      if(date.getDate() === new Date().getDate()){
+    
+        dateToUse = new Date();
+      
+      }else{
+      
+        dateToUse = date;
+      
+      }
+    
+      year = dateToUse.getFullYear();;
+      month = dateToUse.getMonth();
+      day = dateToUse.getDate();
+      hour = dateToUse.getHours();
+      minutes = 0;
+      seconds = 0;
+      milliseconds = 0;
+    }
+    hour =  hour%12 == 0 ? 0 : hour
+    
+     for (var i = start; i < end; ++i) {
+       
+      let element :any = null;
+    let id = i;
+    let hours = i;
+    let time12 =   hours%12 == 0 ? 12 : hours%12;
+    let meridiem =  i < 12 ? 'AM': 'PM';
+    let formatD = this.formatoFecha(date, '-');
+    let returnD = new Date(formatD +' '+ String(hours)+':'+'00'+':00');
+    element = {
+      id:id,
+          year: year,
+          month: month,
+          day: day,
+          hours: hours,
+          minutes: minutes,
+          seconds: seconds,
+          milliseconds: milliseconds,
+          time12: time12,
+          meridiem: meridiem,
+          date: returnD
+        }
+        horasArray.push(element)
+ 
+    
+     if(i == end -1){
+    
+    
+      if(reservacionesDia.length == 0){
+        return horasArray;
+      }
+      for( let j = 0; j < reservacionesDia.length; j++){
+    
+       let index  = horasArray.findIndex (h => h.hours ==  new Date(reservacionesDia[j][column]).getHours());
+    
+       if(index >=0){
+       horasArray.splice(index,1);
+        console.log('reservacionesDia',new Date(reservacionesDia[j][column]).getHours())
+       }
+    
+        if(j == reservacionesDia.length -1){
+          console.log(horasArray, 'horass')
+          return horasArray;
+        }
+        }
+    
+    
+    
+    
+     }
+     }
+     
+    
+    
+     })
+    
+    
+    
+    
+    }
+    
+
+
+     
+async generarArregloHorasDisponibles(Cod_Cancha:number,start:number, end:number, date?:Date,){
+
+  console.log(start,end,date,'nnnn')
+ let horasArray:any[] =[];
+ let dateToUse: Date = null;
+
+
+
+
+
+
+ let year,month,day,hour,minutes,seconds,milliseconds = null;
+ // DATA THAT DOES NOT CHANGE
+ 
+ if(date ){
+ 
+   if(date.getDate() === new Date().getDate()){
+ 
+     dateToUse = new Date();
+   
+   }else{
+   
+     dateToUse = date;
+   
+   }
+ 
+   year = dateToUse.getFullYear();;
+   month = dateToUse.getMonth();
+   day = dateToUse.getDate();
+   hour = dateToUse.getHours();
+   minutes = 0;
+   seconds = 0;
+   milliseconds = 0;
+ }
+ hour =  hour%12 == 0 ? 0 : hour
+ let newStart =  start ? start :  hour;
+ 
+  for (var i = start; i < end; ++i) {
+    
+   let element :any = null;
+ let id = i;
+ let hours = i;
+ let time12 =   hours%12 == 0 ? 12 : hours%12;
+ let meridiem =  i < 12 ? 'AM': 'PM';
+ 
+ if(date != undefined){
+    element = {
+ id:id,
+     year: year,
+     month: month,
+     day: day,
+     hours: hours,
+     minutes: minutes,
+     seconds: seconds,
+     milliseconds: milliseconds,
+     time12: time12,
+     meridiem: meridiem,
+     date:  date ? new Date(year, month, day, hours, minutes, seconds, milliseconds) : null
+   }
+ }else{
+    element = {
+     id:id,
+     hours: hours,
+     time12: time12,
+     meridiem: meridiem,
+  
+   }
+ }
+ 
+ horasArray.push(element)
+ 
+  if(i == end -1){
+ 
+    return horasArray;
+ 
+ 
+  }
+  }
+  
+ 
+
+
+
+
+}
+
 
 async compararFechas(date1,date2){
   

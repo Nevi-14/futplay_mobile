@@ -45,16 +45,7 @@ export class VideoScreenPage implements OnInit {
 
   }
 
-  consultar(){
 
-
-    if(this.googleAddService.ready){
-      this.close  = true;
-      this.cerrarModal();
-    } else{
-      this.consultar();
-    }
-  }
   ionViewWillEnter() {
 
 //this.close = true;
