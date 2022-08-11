@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { HorarioCanchas } from 'src/app/models/horarioCanchas';
 import { ListaCanchas } from 'src/app/models/listaCanchas';
@@ -40,7 +40,7 @@ interface objetoFecha{
   templateUrl: './generar-reservacion.page.html',
   styleUrls: ['./generar-reservacion.page.scss'],
 })
-export class GenerarReservacionPage implements OnInit {
+export class GenerarReservacionPage implements OnInit,AfterViewInit {
 
   //
   show  = false;;
@@ -161,6 +161,11 @@ export class GenerarReservacionPage implements OnInit {
 
 
     ngOnInit() {
+
+      this.nuevaReservacion.Fecha = new Date();
+
+
+
 if(this.cancha != null && this.cancha != undefined){
   this.nuevaReservacion.Cod_Cancha =  this.cancha.Cod_Cancha
   this.horarioCancha();
@@ -168,7 +173,12 @@ if(this.cancha != null && this.cancha != undefined){
  
   
     }
-    
+    ngAfterViewInit() {
+      var me = this;
+      setTimeout(function() {
+          me.lockSwipes = true;
+      },100);
+  }
 horarioCancha(){
   this.horarioCanchasService.syncHorarioCanchasPromise(this.cancha.Cod_Cancha).then((resp:any) =>{
     this.configuracionHorarioService.horarioCancha = resp;
@@ -209,7 +219,7 @@ horarioCancha(){
   this.gestionReservacionesService.syncreservacionesFiltrarFecha(this.cancha.Cod_Cancha ,this.gestionReservacionesService.formatoFecha(this.selectedDate,'-')).then(resp =>{
 
 
-    this.gestionReservacionesService.cancularHora(this.cancha.Cod_Cancha, dateToUse, this.Hora_Inicio.hours+1).then(horas =>{
+    this.gestionReservacionesService.cancularHora( dateToUse, this.Hora_Inicio.hours+1).then(horas =>{
       this.gestionReservacionesService.horaFinArray = horas;
 
       for( let j = 0; j < resp.length; j++){
@@ -244,10 +254,12 @@ horaFin($event){
 
 
     generarReto(){
-      this.nuevaReservacion.Fecha = this.selectedDate
+
  this.nuevaReservacion.Titulo = this.rival.Nombre + ' VS ' + this.retador.Nombre;
  
+console.log('reto', this.nuevaReservacion)
 
+//return;
 
     this.reservacionesService.insertarReservacion(this.nuevaReservacion).then((resp:any) =>{
 
@@ -483,7 +495,7 @@ async agregarCancha() {
             console.log(this.nuevaReservacion, 'reservacion')
 
           this.generarReto();
-         // this.notificarUsuarios();      
+          this.notificarUsuarios();      
           
           
 
@@ -517,8 +529,18 @@ async agregarCancha() {
 
   }
 
-    onCurrentDateChanged(selectedDate) {
+    onCurrentDateChanged(selectedDate:Date) {
 
+      var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        selectedDate.setHours(0, 0, 0, 0);
+        if (this.calendar.mode === 'month') {
+          if (selectedDate.getFullYear() < today.getFullYear() || (selectedDate.getFullYear() === today.getFullYear() && selectedDate.getMonth() <= today.getMonth())) {
+            //  this.lockSwipeToPrev = true;
+          } else {
+              // this.lockSwipeToPrev = false;
+          }
+      }
      // alert(selectedDate)
       this.gestionReservacionesService.horaInicioArray = [];
       this.gestionReservacionesService.horaFinArray = [];
@@ -526,8 +548,12 @@ async agregarCancha() {
       this.nuevaReservacion.Hora_Fin = null;
       this.Hora_Inicio = null;
       this.Hora_Fin = null;
-   
       this.selectedDate = selectedDate;
+
+
+      this.nuevaReservacion.Fecha =   String(this.selectedDate.getFullYear())+'-'+String(+this.selectedDate.getMonth()+1).padStart(2,'0') + '-' + String(this.selectedDate.getDate()).padStart(2,'0');
+   
+
 
       this.cd.markForCheck();
       this.cd.detectChanges();
@@ -559,7 +585,7 @@ async agregarCancha() {
       this.gestionReservacionesService.syncreservacionesFiltrarFecha(this.cancha.Cod_Cancha ,this.gestionReservacionesService.formatoFecha(this.selectedDate,'-')).then(resp =>{
    
 
-        this.gestionReservacionesService.cancularHora(this.cancha.Cod_Cancha, this.selectedDate,start).then(horas =>{
+        this.gestionReservacionesService.cancularHora( this.selectedDate,start).then(horas =>{
 this.gestionReservacionesService.horaInicioArray = horas;
 
 console.log('horaaaaaaas inicio', horas)

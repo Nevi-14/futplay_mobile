@@ -342,7 +342,7 @@ syncHorario(Cod_Cancha){
 })
 }
 
-async  cancularHora(Cod_Cancha,Fecha,Inicio){
+async  cancularHora(Fecha,Inicio){
 
   let horas = [];
 
@@ -382,16 +382,10 @@ async  cancularHora(Cod_Cancha,Fecha,Inicio){
   let meridiem =  i < 12 ? 'AM': 'PM';
   let formatD =    String(year)+'-'+String(month+1).padStart(2,'0') + '-' + String(day).padStart(2,'0');
 
-  //2022-08-03T00:00:00
-
-
+  // 2022-08-03T00:00:00
   let returnD = formatD + 'T' + String(hours) + ':' + '00' + ':00';
      
-  console.log('formatoD', formatD)
-  console.log('returnD',returnD)
-  console.log('returnD type',typeof(returnD))
 
-  console.log('correct format',new Date(returnD))
   element = {
     id:id,
         year: year,
