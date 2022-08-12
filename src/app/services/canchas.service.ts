@@ -90,10 +90,10 @@ export class CanchasService {
 
       this.canchas = [];
   
-      this.alertasService.presentaLoading('Cargando lista de canchas')
+     // this.alertasService.presentaLoading('Cargando lista de canchas')
       this.getCanchas().subscribe(
         resp =>{
-          this.alertasService.loadingDissmiss();
+       //   this.alertasService.loadingDissmiss();
   
           this.canchas = resp.slice(0);
   
@@ -101,7 +101,8 @@ export class CanchasService {
   
   
         }, error =>{
-          this.alertasService.loadingDissmiss();
+          this.alertasService.message('FUTPLAY', 'Error cargando canchas..')
+         // this.alertasService.loadingDissmiss();
         }
   
       );

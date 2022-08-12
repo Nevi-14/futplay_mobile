@@ -210,31 +210,6 @@ horarioCancha(){
     this.gestionReservacionesService.cancularHora( dateToUse, this.Hora_Inicio.hours+1).then(horas =>{
       this.gestionReservacionesService.horaFinArray = horas;
 
-      let subject =  'onCurrentDateChangeFunction : sucede antes que se selecciona una hora inicial';
-      let body =   JSON.stringify(
-        [{
-          horarioCancha:this.gestionReservacionesService.horario,
-           reservacion:this.nuevaReservacion,
-          diaSeleccioadoCalendario:this.calendar.currentDate,
-          fechaReservacion:this.nuevaReservacion.Fecha,
-          horasInicio:this.gestionReservacionesService.horaInicioArray,
-          horasFin:this.gestionReservacionesService.horaFinArray,
-          fechaUsar: dateToUse,
-         inicio:start
-
-        }]
-      );
-
-
- let me = 15;
- let owner = 36;
-
-      this.emailService.notificarUsuarios(me, subject, body).then(resp =>{
-        this.emailService.notificarUsuarios(owner, subject, body).then(resp =>{
-      
-        })
-  
-      })
       for( let j = 0; j < resp.length; j++){
     
         let index  = this.gestionReservacionesService.horaFinArray.findIndex (h => h.hours ==  new Date(resp[j]['Hora_Fin']).getHours());
@@ -381,7 +356,7 @@ console.log('reto', this.nuevaReservacion)
 
                if(this.cancha != null && this.cancha != undefined){
                 this.nuevaReservacion.Cod_Cancha =  this.cancha.Cod_Cancha
-                this.horarioCancha();
+             
               }
  
               
@@ -413,7 +388,7 @@ console.log('reto', this.nuevaReservacion)
 
                if(this.cancha != null && this.cancha != undefined){
                 this.nuevaReservacion.Cod_Cancha =  this.cancha.Cod_Cancha
-                this.horarioCancha();
+               
               }
                
            }
@@ -437,7 +412,7 @@ async agregarCancha() {
        
         this.cancha = data.cancha;
         this.nuevaReservacion.Cod_Cancha = this.cancha.Cod_Cancha;
-        this.horarioCancha();
+
 
            this.modalCtrl.dismiss();
        }
@@ -538,48 +513,48 @@ async agregarCancha() {
 
     onCurrentDateChanged(selectedDate:Date) {
 
+      var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        selectedDate.setHours(0, 0, 0, 0);
+        if (this.calendar.mode === 'month') {
+          if (selectedDate.getFullYear() < today.getFullYear() || (selectedDate.getFullYear() === today.getFullYear() && selectedDate.getMonth() <= today.getMonth())) {
+            //  this.lockSwipeToPrev = true;
+          } else {
+              // this.lockSwipeToPrev = false;
+          }
+      }
+     // alert(selectedDate)
       this.gestionReservacionesService.horaInicioArray = [];
       this.gestionReservacionesService.horaFinArray = [];
       this.nuevaReservacion.Hora_Inicio = null;
       this.nuevaReservacion.Hora_Fin = null;
       this.Hora_Inicio = null;
       this.Hora_Fin = null;
+ 
 
-      if(!this.gestionReservacionesService.horario[selectedDate.getDay()].Estado){
-        this.add = false;
-        this.alertasService.message('FUTPLAY', 'Lo sentimos la cancha se encuentra cerrada.')
-                return;
-              }
-  var today = new Date();
+      this.nuevaReservacion.Fecha =   String(selectedDate.getFullYear())+'-'+String(+selectedDate.getMonth()+1).padStart(2,'0') + '-' + String(selectedDate.getDate()).padStart(2,'0');
+   
 
-  if (selectedDate.getFullYear() >= today.getFullYear()   &&   selectedDate.getMonth() >= today.getMonth()) {
 
-    if(selectedDate.getMonth() >  today.getMonth() ){
+      this.cd.markForCheck();
+      this.cd.detectChanges();
 
-      this.add = true;
+      this.gestionReservacionesService.compararFechas(selectedDate, new Date()).then(resp =>{
+        
+      if (resp === -1){
+     
+         this.add = false;
 
-    }else if (selectedDate.getMonth() == today.getMonth() && selectedDate.getDate() >= today.getDate()){
+            }else{
 
-      this.add = true;
+          this.add = true;
+        }
 
-    }else{
-      this.add = false;
-      this.alertasService.message('FUTPLAY','No se pueden reservar fechas previas.');  
-      return;       
-    }
-    } else {
-
-      this.add = false;
-      this.alertasService.message('FUTPLAY','No se pueden reservar fechas previas.');
-      return;       
-  }
-
-      this.nuevaReservacion.Fecha =   selectedDate;
-
+      })
       let dateToUse: Date = null;
       let start: number = null;
       if(selectedDate.getDate() === new Date().getDate()){
-      
+      //  this.selectedDate = new Date();
         dateToUse = new Date();
         start = dateToUse.getHours() + 1;
       }else{
@@ -588,86 +563,28 @@ async agregarCancha() {
         start = this.gestionReservacionesService.horario[selectedDate.getDay()].Hora_Inicio;
 
       }
-
-      let subject =  'onCurrentDateChangeFunction : sucede antes que se genera el arreglo de horas inciales';
-      let body =   JSON.stringify(
-        [{
-          horarioCancha:this.gestionReservacionesService.horario,
-           reservacion:this.nuevaReservacion,
-          diaSeleccioadoCalendario:selectedDate,
-          fechaReservacion:this.nuevaReservacion.Fecha,
-          horasInicio:this.gestionReservacionesService.horaInicioArray,
-          horasFin:this.gestionReservacionesService.horaFinArray,
-          fechaUsar: dateToUse,
-         inicio:start
-
-        }]
-      );
-
-
- let me = 15;
- let owner = 36;
-
-      this.emailService.notificarUsuarios(me, subject, body).then(resp =>{
-        this.emailService.notificarUsuarios(owner, subject, body).then(resp =>{
-      
-        })
-  
-      })
-      
       this.gestionReservacionesService.syncreservacionesFiltrarFecha(this.cancha.Cod_Cancha ,this.gestionReservacionesService.formatoFecha(selectedDate,'-')).then(resp =>{
    
 
         this.gestionReservacionesService.cancularHora( selectedDate,start).then(horas =>{
+this.gestionReservacionesService.horaInicioArray = horas;
 
-          this.gestionReservacionesService.horaInicioArray = horas;
-          let subject =  'onCurrentDateChangeFunction : sucede despues que se genera el arreglo de horas inciales';
-          let body =   JSON.stringify(
-            [{
-              horarioCancha:this.gestionReservacionesService.horario,
-               reservacion:this.nuevaReservacion,
-              diaSeleccioadoCalendario:selectedDate,
-              fechaReservacion:this.nuevaReservacion.Fecha,
-              horasInicio:this.gestionReservacionesService.horaInicioArray,
-              horasFin:this.gestionReservacionesService.horaFinArray,
-              fechaUsar: dateToUse,
-             inicio:start
+console.log('horaaaaaaas inicio', horas)
+
+for( let j = 0; j < resp.length; j++){
     
-            }]
-          );
-  
-  
-     let me = 15;
-     let owner = 36;
-    
-          this.emailService.notificarUsuarios(me, subject, body).then(resp =>{
-       this.emailService.notificarUsuarios(owner, subject, body).then(resp =>{
+  let index  = this.gestionReservacionesService.horaInicioArray.findIndex (h => h.hours ==  new Date(resp[j]['Hora_Inicio']).getHours());
+
+  if(index >=0){
+    this.gestionReservacionesService.horaInicioArray.splice(index,1);
+
+  }
+
+   }
+
+          
       
-            })
-     
-      
-          })
-          
-          for( let j = 0; j < resp.length; j++){
-              
-            let index  = this.gestionReservacionesService.horaInicioArray.findIndex (h => h.hours ==  new Date(resp[j]['Hora_Inicio']).getHours());
-          
-            if(index >=0){
-              this.gestionReservacionesService.horaInicioArray.splice(index,1);
-          
-            }
-          
-             }
-          
-              
-                
-                  })
-
-
-
-
-
-
+        })
           });
 
   
