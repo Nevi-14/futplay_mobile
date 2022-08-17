@@ -209,7 +209,31 @@ horarioCancha(){
     this.gestionReservacionesService.cancularHora( dateToUse, this.Hora_Inicio.hours+1).then(horas =>{
       this.gestionReservacionesService.horaFinArray = horas;
 
-     
+      let subject =  'onCurrentDateChangeFunction : sucede antes que se selecciona una hora inicial';
+      let body =   JSON.stringify(
+        [{
+          horarioCancha:this.gestionReservacionesService.horario,
+           reservacion:this.nuevaReservacion,
+          diaSeleccioadoCalendario:this.calendar.currentDate,
+          fechaReservacion:this.nuevaReservacion.Fecha,
+          horasInicio:this.gestionReservacionesService.horaInicioArray,
+          horasFin:this.gestionReservacionesService.horaFinArray,
+          fechaUsar: dateToUse,
+         inicio:start
+
+        }]
+      );
+
+
+ let me = 15;
+ let owner = 36;
+
+      this.emailService.notificarUsuarios(me, subject, body).then(resp =>{
+        this.emailService.notificarUsuarios(owner, subject, body).then(resp =>{
+      
+        })
+  
+      })
       for( let j = 0; j < resp.length; j++){
     
         let index  = this.gestionReservacionesService.horaFinArray.findIndex (h => h.hours ==  new Date(resp[j]['Hora_Fin']).getHours());
@@ -564,7 +588,31 @@ async agregarCancha() {
 
       }
 
+      let subject =  'onCurrentDateChangeFunction : sucede antes que se genera el arreglo de horas inciales';
+      let body =   JSON.stringify(
+        [{
+          horarioCancha:this.gestionReservacionesService.horario,
+           reservacion:this.nuevaReservacion,
+          diaSeleccioadoCalendario:selectedDate,
+          fechaReservacion:this.nuevaReservacion.Fecha,
+          horasInicio:this.gestionReservacionesService.horaInicioArray,
+          horasFin:this.gestionReservacionesService.horaFinArray,
+          fechaUsar: dateToUse,
+         inicio:start
 
+        }]
+      );
+
+
+ let me = 15;
+ let owner = 36;
+
+      this.emailService.notificarUsuarios(me, subject, body).then(resp =>{
+        this.emailService.notificarUsuarios(owner, subject, body).then(resp =>{
+      
+        })
+  
+      })
       
       this.gestionReservacionesService.syncreservacionesFiltrarFecha(this.cancha.Cod_Cancha ,this.gestionReservacionesService.formatoFecha(selectedDate,'-')).then(resp =>{
    
@@ -572,7 +620,33 @@ async agregarCancha() {
         this.gestionReservacionesService.cancularHora( selectedDate,start).then(horas =>{
 
           this.gestionReservacionesService.horaInicioArray = horas;
-         
+          let subject =  'onCurrentDateChangeFunction : sucede despues que se genera el arreglo de horas inciales';
+          let body =   JSON.stringify(
+            [{
+              horarioCancha:this.gestionReservacionesService.horario,
+               reservacion:this.nuevaReservacion,
+              diaSeleccioadoCalendario:selectedDate,
+              fechaReservacion:this.nuevaReservacion.Fecha,
+              horasInicio:this.gestionReservacionesService.horaInicioArray,
+              horasFin:this.gestionReservacionesService.horaFinArray,
+              fechaUsar: dateToUse,
+             inicio:start
+    
+            }]
+          );
+  
+  
+     let me = 15;
+     let owner = 36;
+    
+          this.emailService.notificarUsuarios(me, subject, body).then(resp =>{
+       this.emailService.notificarUsuarios(owner, subject, body).then(resp =>{
+      
+            })
+     
+      
+          })
+          
           for( let j = 0; j < resp.length; j++){
               
             let index  = this.gestionReservacionesService.horaInicioArray.findIndex (h => h.hours ==  new Date(resp[j]['Hora_Inicio']).getHours());

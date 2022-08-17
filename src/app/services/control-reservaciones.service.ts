@@ -313,6 +313,9 @@ this.mesesDisponibles.push(i+1);
       return this.http.put( URL, JSON.stringify(reservacion), options );
     }
 
+    actualizarReservacionToPromise(reservacion,Cod_Usuario, Cod_Reservacion  ){
+   return    this.putReservacion( reservacion,Cod_Usuario, Cod_Reservacion  ).toPromise()
+      }
     actualizarReservacion(reservacion,Cod_Usuario, Cod_Reservacion  ){
 
 

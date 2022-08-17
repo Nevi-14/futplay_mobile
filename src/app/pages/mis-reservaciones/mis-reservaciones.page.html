@@ -2,7 +2,7 @@
   <ion-header >
 
     <ion-toolbar mode="md">
-      <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
+      <ion-item class="transparent" lines="none">
         <ion-buttons slot="start">
           <ion-button  (click)="cerrarModal()" color="light">
             <ion-icon slot="start" name="chevron-back"></ion-icon>
@@ -12,15 +12,16 @@
 
       </ion-item>
 
+      <ion-segment  color="light"  mode="md"    value="0"   scrollable >
+        <ion-segment-button [value]="i" *ngFor="let cat of categories; let i = index;" 
+        (click)="selectCategory(i)">
+          <ion-label [class.active-category]="activeCategory == i">{{cat}}</ion-label>
+        </ion-segment-button>
+      
+      </ion-segment>
+      
       <ion-searchbar></ion-searchbar>
  
- <ion-segment color="light"  mode="md"    value="0"   scrollable >
-  <ion-segment-button [value]="i" *ngFor="let cat of categories; let i = index;" 
-  (click)="selectCategory(i)">
-    <ion-label [class.active-category]="activeCategory == i">{{cat}}</ion-label>
-  </ion-segment-button>
-
-</ion-segment>
 
     
      

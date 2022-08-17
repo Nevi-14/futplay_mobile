@@ -88,7 +88,6 @@ emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   ngOnInit() {
 
   
-  
   }
   formatDate(value: string) {
     //  this.usuario.Fecha_Nacimiento = $event.detail.value;
@@ -103,43 +102,49 @@ emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   
 }
 limpiarDatos(){
-  this.provinciasService.syncProvincias();
-  this.usuario = {
-    Cod_Usuario:0,
-    Cod_Provincia: null,
-    Cod_Canton : null,
-    Cod_Distrito : null,
-    Cod_Posicion: 1,
-    Cod_Role: 2,
-    Modo_Customizado: false,
-    Foto: 'user.svg',
-    Nombre: '',
-    Primer_Apellido: '',
-    Segundo_Apellido: '',
-    Fecha_Nacimiento: new Date(),
-    Telefono: '',
-    Correo: '',
-    Contrasena: '',
-    FechaRegistro : new Date(),
-    Intentos:0,
-    Estatura: 0,
-    Peso: 0,
-    Apodo: '',
-     Partidos_Jugados: 0,
-     Partidos_Jugador_Futplay: 0,
-     Partidos_Jugador_Del_Partido : 0,
-     Compartir_Datos : false,
-    Avatar: true,
- 
-
+  this.provinciasService.provincias = [];
+  this.provinciasService.syncProvinciasPromise().then(provincias =>{
+   
+    this.provinciasService.provincias = provincias
+console.log(provincias)
+    this.usuario = {
+      Cod_Usuario:0,
+      Cod_Provincia: null,
+      Cod_Canton : null,
+      Cod_Distrito : null,
+      Cod_Posicion: 1,
+      Cod_Role: 2,
+      Modo_Customizado: false,
+      Foto: 'user.svg',
+      Nombre: '',
+      Primer_Apellido: '',
+      Segundo_Apellido: '',
+      Fecha_Nacimiento: new Date(),
+      Telefono: '',
+      Correo: '',
+      Contrasena: '',
+      FechaRegistro : new Date(),
+      Intentos:0,
+      Estatura: 0,
+      Peso: 0,
+      Apodo: '',
+       Partidos_Jugados: 0,
+       Partidos_Jugador_Futplay: 0,
+       Partidos_Jugador_Del_Partido : 0,
+       Compartir_Datos : false,
+      Avatar: true,
+   
   
-  };
-  this.confirmarContrasena ='';
-  this.showPass = false;
-  this.showPassConfirm = false;
-  this.showCanton = null;
-this.showDistrito = null;
-
+    
+    };
+    this.confirmarContrasena ='';
+    this.showPass = false;
+    this.showPassConfirm = false;
+    this.showCanton = null;
+  this.showDistrito = null;
+  
+  })
+  
 
 
 }

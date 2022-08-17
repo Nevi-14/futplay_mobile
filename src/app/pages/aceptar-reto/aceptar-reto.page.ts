@@ -256,11 +256,51 @@ this.cerrarModal();
              }
 
 
-      this.controlReservacionesService.actualizarReservacion(confirmacion, this.reto.Cod_Usuario, this.reto.Cod_Reservacion);
-this.videoScreen(2);
+      this.controlReservacionesService.actualizarReservacionToPromise(confirmacion, this.reto.Cod_Usuario, this.reto.Cod_Reservacion).then(reto =>{
+this.gestionRestosService.syncGetReservacionToPromise(this.reto.Cod_Reservacion).then(resp =>{
+  this.reto  = resp[0];
+
+  const Historia_PartidosRival = {
+                Cod_Partido : null,
+                Cod_Reservacion:  this.reto.Cod_Reservacion,
+                Cod_Equipo  :  this.reto.Cod_Rival,
+                Verificacion_QR  : false,
+                Goles_Retador : 0,
+                Goles_Rival : 0,
+                Estado : false,
+                Evaluacion : false
+
+              }
+              const Historia_PartidosRetador= {
+                Cod_Partido : null,
+                Cod_Reservacion:  this.reto.Cod_Reservacion,
+                Cod_Equipo  :  this.reto.Cod_Retador,
+                Verificacion_QR  : false,
+                Goles_Retador : 0,
+                Goles_Rival : 0,
+                Estado : false,
+                Evaluacion : false
+
+              }
+         console.log('reservacion actualizada', resp)
+console.log('historuak 1', Historia_PartidosRival)
+console.log('historuak 2', Historia_PartidosRetador)
+         this.historialPartidoService.iniciarPartido(Historia_PartidosRival)
+         this.historialPartidoService.iniciarPartido(Historia_PartidosRetador)
+
+         this.videoScreen(2);
 this.notificarUsuarios();
+   this.gestionRestosService.syncRetosRecibidos(this.usuariosService.usuarioActual.Cod_Usuario)
       this.gestionRestosService.syncRetosConfirmados(this.usuariosService.usuarioActual.Cod_Usuario)
-      this.modalCtrl.dismiss();
+   //   this.modalCtrl.dismiss();
+  
+})
+      
+
+
+
+      })
+
      }
      notificarUsuarios(){
 

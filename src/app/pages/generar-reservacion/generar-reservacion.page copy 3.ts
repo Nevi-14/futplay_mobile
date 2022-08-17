@@ -532,7 +532,7 @@ async agregarCancha() {
       this.Hora_Fin = null;
  
 
-      this.nuevaReservacion.Fecha =   String(selectedDate.getFullYear())+'-'+String(+selectedDate.getMonth()+1).padStart(2,'0') + '-' + String(selectedDate.getDate()).padStart(2,'0');
+      this.nuevaReservacion.Fecha =    String(selectedDate.getFullYear())+'-'+String(+selectedDate.getMonth()+1).padStart(2,'0') + '-' + String(selectedDate.getDate()).padStart(2,'0');
    
 
 
