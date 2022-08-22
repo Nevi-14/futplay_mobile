@@ -10,6 +10,8 @@ import * as  mapboxgl from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
 import { Storage } from '@ionic/storage-angular';
 
+import { StatusBar} from '@capacitor/status-bar';
+import { Platform } from '@ionic/angular';
 
 import { EquiposService } from 'src/app/services/equipos.service';
 import { StorageService } from './services/storage-service';
@@ -26,7 +28,7 @@ export class AppComponent implements OnInit {
   month = new Date().getMonth()+1;
   constructor( 
     private user: UsuariosService,private club:  EquiposService, private provincia: ProvinciasService, private cantones: CantonesService, private distritos: DistritosService,private storage: Storage, private router: Router, public equiposService: EquiposService,
-   private storageService: StorageService
+   private storageService: StorageService,public platform: Platform
 
     
     
@@ -41,21 +43,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit(){
     (mapboxgl as any ).accessToken = environment.mapboxKey;
+    if(!this.platform.is('mobileweb')) {
+      StatusBar.setOverlaysWebView({overlay:false})
+      StatusBar.setBackgroundColor({color:'#5a55ca'});
+  
+    }
     this.checkDarkTheme()
-    this.equiposService.stadiumProfile =  'assets/main/team-profile.jpg';
 
-    this.storageService.get('user').then( resp =>{
-      console.log('user', resp)
-      if(resp !=null || resp !=undefined){
-        this.user.usuarioActual = resp;
-        this.router.navigate(['/futplay/mi-perfil']);
-
-      
-        
-      }else{
-        this.router.navigate(['/inicio/inicio-sesion'])
-      }
-    });
  
 
  

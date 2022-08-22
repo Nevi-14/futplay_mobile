@@ -4,10 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { FutplayPage } from './futplay.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: FutplayPage
-  },
+
   {
     path: '',
     component: FutplayPage,

@@ -204,23 +204,25 @@
 
         </ion-list>
  
+        <ion-footer>
+        
+          <ion-button class="ion-margin-bottom"  (click)="alertaReservacion()" *ngIf="reto.Cod_Estado != 4 && reto.Cod_Estado != 6  && reto.Cod_Estado != 7  && reto.Cod_Usuario_Rival == usuariosService.usuarioActual.Cod_Usuario"   expand="block" >
+           <ion-label>Aceptar Reto </ion-label>
+                 </ion-button>
+                 
           
+                 <ion-button  class="ion-margin-bottom"  (click)="iniciarPartido()"  *ngIf="reto.Cod_Estado == 4 || reto.Cod_Estado == 6 || reto.Cod_Estado == 7 "    expand="block" >
+                  <ion-label> Iniciar Partido</ion-label>
+                        </ion-button>
+
+
+                        <ion-button  color="danger"  (click)="doYouWantToDelete()"   expand="block" >
+                          <ion-label>Eliminar Reto </ion-label>
+                                </ion-button>
+                          
+            
+       </ion-footer>
+     
                 
             </div>
     </ion-content>
-    <ion-footer>
-      <ion-button class="ion-margin-bottom" (click)="eliminar()" *ngIf="reto.Cod_Usuario == usuariosService.usuarioActual.Cod_Usuario"   expand="block" >
-        <ion-label>Eliminar Reto </ion-label>
-              </ion-button>
-        
-      <ion-button (click)="alertaReservacion()" *ngIf="reto.Cod_Estado != 4 && reto.Cod_Estado != 6  && reto.Cod_Estado != 7  && reto.Cod_Usuario_Rival == usuariosService.usuarioActual.Cod_Usuario"   expand="block" >
-       <ion-label>Aceptar Reto </ion-label>
-             </ion-button>
-             
-      
-             <ion-button  (click)="iniciarPartido()"  *ngIf="reto.Cod_Estado == 4 || reto.Cod_Estado == 6 || reto.Cod_Estado == 7 "    expand="block" >
-              <ion-label> Iniciar Partido</ion-label>
-                    </ion-button>
-        
-   </ion-footer>
- 

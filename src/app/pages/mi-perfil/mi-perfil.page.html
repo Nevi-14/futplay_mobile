@@ -28,6 +28,7 @@
 
 <ion-content class="ion-text-center" *ngIf="userService.usuarioActual">
 
+<div class="content">
   <ion-avatar  style="height: 12rem;width:12rem;margin:0 auto;">
 
     <img *ngIf="!userService.usuarioActual.Avatar" [src]="userPic" onerror="this.src='assets/user.svg'"    alt="">
@@ -86,4 +87,5 @@
 
 
   </ion-list>
+</div>
 </ion-content>

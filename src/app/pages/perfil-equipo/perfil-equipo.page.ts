@@ -53,13 +53,11 @@ alert(value)
 }
   ionViewWillEnter(){
 
-    this.dureza.forEach(fu =>{
-      console.log(fu)
-    })
+
     if( this.equiposService.perfilEquipo){
       
       this.equiposService.jugadoresPerfilEquipo = []
-      this.alertasService.presentaLoading('Cargando lista de jugadores...')
+
 this.jugadoresEquipo();
 
 

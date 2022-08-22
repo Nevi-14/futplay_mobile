@@ -9,11 +9,11 @@ import { EvaluacionJugadorPage } from '../evaluacion-jugador/evaluacion-jugador.
 import { HistorialPartido } from 'src/app/models/historialPartido';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { PuntajePartidoService } from 'src/app/services/puntaje-partido.service';
-import { GestionRetosService } from '../../services/gestion-retos.service';
 import { GestionReservacionesService } from '../../services/gestion-reservaciones.service';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { GoogleAdsService } from 'src/app/services/google-ads.service';
 import { VideoScreenPage } from '../video-screen/video-screen.page';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-inicio-partido',
@@ -35,24 +35,24 @@ public usuariosSerice:UsuariosService,
 public historialPartidoService: HistorialPartidoService,
 public equiposService: EquiposService,
 public puntajeService: PuntajePartidoService,
-public gestionRestosService: GestionRetosService,
 public  gestionReservacionesService: GestionReservacionesService,
 public alertasService: AlertasService,
 private cd: ChangeDetectorRef,
-public googleAdsService: GoogleAdsService
+public googleAdsService: GoogleAdsService,
+public http: HttpClient
 
 
   ) { }
 
   ngOnInit() {
-
-
-    this.videoScreen(5);
+console.log(this.reto)
 this.index = this.partido.findIndex(p => p.Cod_Equipo == this.equipo.Cod_Equipo );
 this.index2= this.partido.findIndex(p => p.Cod_Equipo != this.equipo.Cod_Equipo );
     this.puntajeService.Historia_Partido = this.partido[this.index];
     this.puntajeService.Historia_Partido2 = this.partido[this.index2];
-   //alert(JSON.stringify(this.puntajeService.Historia_Partido))
+
+
+   this.videoScreen(5);
 
    
     
@@ -70,6 +70,30 @@ this.index2= this.partido.findIndex(p => p.Cod_Equipo != this.equipo.Cod_Equipo 
   }
 
 
+
+
+  checkURL(cod_equipo){
+
+
+    this.equiposService.syncEquipo(cod_equipo).then(resp =>{
+      let url = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/';
+      let asset = 'assets/soccer-shields-svg/';
+
+      console.log(resp,'resp')
+  /**
+   *    if( resp.Avatar ){
+      return asset+resp.Foto; 
+     }else{
+
+      return url+resp.Foto;
+     }
+   */
+    })
+  
+
+
+}
+  
 
 
 sumarMarcadorRival(){

@@ -3,6 +3,7 @@ import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { FiltroPipe } from './filtro.pipe';
 
 import { ImageSanitizerPipe } from './image-sanitizer.pipe';
+import { ColonesPipe } from './colones.pipe';
 
 
 
@@ -10,13 +11,15 @@ import { ImageSanitizerPipe } from './image-sanitizer.pipe';
   declarations: [
     FiltroPipe,
     ImageSanitizerPipe,
+    ColonesPipe
   
   ],
   exports:[
     FiltroPipe,
     ImageSanitizerPipe,
     DatePipe,
-    CurrencyPipe
+    CurrencyPipe,
+    ColonesPipe
   
   ],
   imports: [

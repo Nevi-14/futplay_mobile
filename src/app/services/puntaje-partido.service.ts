@@ -4,7 +4,6 @@ import { vistaEquipos } from '../models/vistaEquipos';
 import { AlertasService } from './alertas.service';
 import { EquiposService } from './equipos.service';
 import { GestionReservacionesService } from './gestion-reservaciones.service';
-import { GestionRetosService } from './gestion-retos.service';
 import { HistorialPartidoService } from './historial-partido.service';
 import { AlertController, ModalController } from '@ionic/angular';
 import { GoogleAdsService } from './google-ads.service';
@@ -37,7 +36,6 @@ export class PuntajePartidoService {
   constructor(
     public alertasService: AlertasService,
     public equiposService: EquiposService,
-    public gestionRestosService: GestionRetosService,
     public historialPartidoService: HistorialPartidoService,
     public gestionReservacionesService: GestionReservacionesService,
     public alertCtrl: AlertController,

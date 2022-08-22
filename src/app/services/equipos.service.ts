@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ModalController, PopoverController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { Equipos } from '../models/equipos';
 
 import { ReservacionesService } from './reservaciones.service';
-import { UsuariosService } from './usuarios.service';
 
 import { environment } from 'src/environments/environment';
 import { vistaEquipos } from '../models/vistaEquipos';
@@ -19,7 +18,7 @@ import { Evaluacion } from '../models/evaluacion';
   providedIn: 'root'
 })
 export class EquiposService {
-  new = false
+
   perfilEquipo: vistaEquipos = null;
   clubPlayer = false;
   clubAdmin = false;
@@ -35,7 +34,19 @@ export class EquiposService {
 jugadoresRival : JugadoresEquipos[]=[];
 jugadoresRetador : JugadoresEquipos[]=[];
 jugadoresPerfilEquipo : JugadoresEquipos[]=[];
-  constructor(private http: HttpClient, private popOverCtrl: PopoverController, private userService: UsuariosService, private modalCtrl: ModalController , public retosService: ReservacionesService, public alertasService:AlertasService, public solicitudesService: SolicitudesService, public gestorImagenesService:GestorImagenesService) { }
+
+  constructor(
+
+    public http: HttpClient,
+    public modalCtrl: ModalController ,
+    public retosService: ReservacionesService,
+    public alertasService:AlertasService,
+    public solicitudesService: SolicitudesService,
+    public gestorImagenesService:GestorImagenesService
+         
+         ) { }
+
+
 
   getURL( api: string ){
     let test: string = ''

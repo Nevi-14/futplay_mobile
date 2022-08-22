@@ -131,7 +131,7 @@
 
 
           <ion-avatar   [ngClass]="equipo.Cod_Equipo == reto.Cod_Rival ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
-            <img  style="height: 6rem; width: 6rem;"   src="assets/soccer-shields-svg/{{reto.Foto_Rival}}">
+            <img  style="height: 6rem; width: 6rem;"   src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+reto.Foto_Rival}}"  onerror="this.src='assets/img/icon/FP.svg'">
             
             </ion-avatar>
          

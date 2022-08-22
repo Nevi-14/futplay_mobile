@@ -6,6 +6,7 @@ import { CanchasService } from 'src/app/services/canchas.service';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { CrearEquipoPage } from '../crear-equipo/crear-equipo.page';
+import { CrearUnirseEquipoPage } from '../crear-unirse-equipo/crear-unirse-equipo.page';
 
 @Component({
   selector: 'app-futplay',
@@ -37,13 +38,13 @@ export class FutplayPage implements OnInit {
 
      misEquipos(){
       this.equiposService.misEquipos = [];
-    this.alertasService.presentaLoading('Cargando datos...');
+ 
       this.equiposService.SyncMisEquipos(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
         this.equiposService.misEquipos = resp.slice(0);
         this.equiposService.perfilEquipo = null;
         this.equiposService.perfilEquipo = this.equiposService.misEquipos[0];
         console.log('mis equipos', this.equiposService.misEquipos)
-        this.alertasService.loadingDissmiss();
+   
     if(resp.length == 0 ){
       this.crearEquipo();
 
@@ -58,7 +59,7 @@ console.log('this.equiposService.perfilEquipo ',this.equiposService.perfilEquipo
 
      
       }, error =>{
-        this.alertasService.loadingDissmiss();
+     
         this.alertasService.message('FUTLAY', 'Error cargando datos...');
      
       })
@@ -67,9 +68,9 @@ console.log('this.equiposService.perfilEquipo ',this.equiposService.perfilEquipo
     
      async  crearEquipo(){
  const modal = await this.modalCtrl.create({
-   component:CrearEquipoPage,
+   component:CrearUnirseEquipoPage,
    cssClass:'my-custom-modal',
-   id:'create-modal'
+   //id:'create-modal'
  });
 
  await modal.present();
@@ -85,12 +86,12 @@ console.log('this.equiposService.perfilEquipo ',this.equiposService.perfilEquipo
 
 equipos(){
   this.equiposService.equipos  = [];
-  this.alertasService.presentaLoading('Cargando datos...');
+
   this.equiposService.SyncEquipos(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
-    this.alertasService.loadingDissmiss();
+
     this.equiposService.equipos = resp.slice(0);
   }, error =>{
-    this.alertasService.loadingDissmiss();
+ 
     this.alertasService.message('FUTLAY', 'Error cargando datos...');
   })
     

@@ -10,66 +10,66 @@ import { UsuariosService } from './usuarios.service';
 export class EmailService {
 
   constructor(
-    
+
     private http: HttpClient,
     public usuariosService: UsuariosService
-    
-    
-    ) { }
 
-  getURL( api:string ){
+
+  ) { }
+
+  getURL(api: string) {
     let test: string = ''
-    if ( !environment.prdMode ) {
+    if (!environment.prdMode) {
       test = environment.TestURL;
     }
 
-    const URL = environment.preURL  + test +  environment.postURL + api;
+    const URL = environment.preURL + test + environment.postURL + api;
 
     return URL;
   }
 
 
-      // POST EMAIL
+  // POST EMAIL
 
-      private postEmail (email){
-        const URL = this.getURL( environment.apiCorreoURL);
-        const options = {
-          headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json',
-              'Access-Control-Allow-Origin': '*'
-          }
-        };
-       
-        return this.http.post( URL, JSON.stringify(email), options );
+  private postEmail(email) {
+    const URL = this.getURL(environment.apiCorreoURL);
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       }
-    
-      syncToPromiseSendEmail(email:Email){
+    };
+
+    return this.http.post(URL, JSON.stringify(email), options);
+  }
+
+  syncToPromiseSendEmail(email: Email) {
 
 
-      return   this.postEmail(email).toPromise();
+    return this.postEmail(email).toPromise();
 
+  }
+  notificarUsuarios(Cod_Usuario, Subject, Body) {
+    return this.usuariosService.syncPerfilUsuario(Cod_Usuario).then(resp => {
+
+      var emailPost: Email = {
+        'ToEmail': null,
+        'Subject': null,
+        'Body': null,
       }
-      notificarUsuarios(Cod_Usuario, Subject ,Body){
-   return     this.usuariosService.syncPerfilUsuario(Cod_Usuario).then(resp =>{
-      
-          var emailPost: Email  = {
-           'ToEmail': null,
-           'Subject':null,
-           'Body': null,
-         }
-         emailPost.ToEmail = resp[0].Correo
-         emailPost.Subject = Subject;
-         emailPost.Body = Body;
+      emailPost.ToEmail = resp[0].Correo
+      emailPost.Subject = Subject;
+      emailPost.Body = Body;
 
-          this.syncToPromiseSendEmail(emailPost).then(resp =>{
-     
-            console.log('emailPost  sent', emailPost)
-          }, error =>{
-            console.log('emailPost  error', emailPost)
-          })
-                 });
-      }
+      this.syncToPromiseSendEmail(emailPost).then(resp => {
+
+        console.log('emailPost  sent', emailPost)
+      }, error => {
+        console.log('emailPost  error', emailPost)
+      })
+    });
+  }
 
 
 }

@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { EquiposService } from '../../services/equipos.service';
-import { GestionRetosService } from 'src/app/services/gestion-retos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { MisReservacionesPage } from '../../pages/mis-reservaciones/mis-reservaciones.page';
+import { GestionReservacionesService } from '../../services/gestion-reservaciones.service';
 
 
 @Component({
@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(public popoverCtrl: PopoverController, public route: Router, public modalCtrl: ModalController, public clubs: EquiposService, public router: Router,
     
-    public gestionRestosService: GestionRetosService,
+    public gestionRestosService: GestionReservacionesService,
     public usuariosService: UsuariosService
     ) { }
 
@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit {
   async presentModal() {
     const modal = await this.modalCtrl.create({
       component: MisReservacionesPage,
-      cssClass: 'my-custom-class'
+      cssClass: 'full-screen-modal'
     });
     return await modal.present();
   }

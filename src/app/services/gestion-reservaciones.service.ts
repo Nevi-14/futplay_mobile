@@ -6,6 +6,10 @@ import { AlertasService } from './alertas.service';
 import { Canchas } from '../models/canchas';
 import { HorarioCanchas } from '../models/horarioCanchas';
 import { HorarioCanchasService } from './horario-canchas.service';
+import { GestionRetos } from '../models/gestionRetos';
+import { VideoScreenPage } from '../pages/video-screen/video-screen.page';
+import { MisReservacionesPage } from '../pages/mis-reservaciones/mis-reservaciones.page';
+import { ModalController } from '@ionic/angular';
 interface objetoFecha{
   id:number,
   year: number,
@@ -31,11 +35,14 @@ horaFinArray:objetoFecha[] = [];
 horario:HorarioCanchas[];
 diaActual:HorarioCanchas;
 diaCompleto:boolean = false;
+retos :GestionRetos[] = [];
+
 constructor(
 
 public http: HttpClient,
 public alertasService: AlertasService,
-public horarioCanchasService: HorarioCanchasService
+public horarioCanchasService: HorarioCanchasService,
+public modalCtrl: ModalController
 
 
   ) { }
@@ -150,12 +157,32 @@ console.log(URL, 'put');
 
 
 
-   actualizarReservacionToPromise(reservacion, Cod_Usuario, Cod_Reservacion  ){
-    return  this.putReservaciones( reservacion, Cod_Usuario, Cod_Reservacion ).toPromise();
+    private   putReservacion( reservacion,Cod_Usuario, Cod_Reservacion ){
 
-   }
+      let  URL = this.getURL( environment.actualizarReservacionURL);
+       URL = URL  + environment.codUsuarioParam + Cod_Usuario + environment.codReservacionParam +Cod_Reservacion;
+   
+      console.log(URL,'URL', 'reser', reservacion)
+   
+       const options = {
 
+        headers: {
 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+
+        }
+
+      };
+     
+   
+      return this.http.put( URL, JSON.stringify(reservacion), options );
+    }
+
+    actualizarReservacionToPromise(reservacion,Cod_Usuario, Cod_Reservacion  ){
+   return    this.putReservacion( reservacion,Cod_Usuario, Cod_Reservacion  ).toPromise()
+      }
 
  async   syncReservaciones(canchas:Canchas[]){
 
@@ -164,15 +191,15 @@ console.log(URL, 'put');
 
 
   for(let c = 0; c < canchas.length; c++){
-    this.alertasService.presentaLoading('Cargando datos..')
+
   await   this.syncReservacionesToPromise(canchas[c].Cod_Cancha).then(resp =>{
 
-this.alertasService.loadingDissmiss();
     for(let i = 0; i < resp.length; i++){
       this.reservaciones.push(resp[i]) 
     }
 
   }, error =>{
+    this.alertasService.message('FUTPLAY', 'Error sincronizando reservaciones');
 
     console.log('error')
   });
@@ -383,7 +410,7 @@ async  cancularHora(Fecha,Inicio){
   let formatD =    String(year)+'-'+String(month+1).padStart(2,'0') + '-' + String(day).padStart(2,'0');
 
   // 2022-08-03T00:00:00
-  let returnD = formatD + 'T' + String(hours) + ':' + '00' + ':00';
+  let returnD = formatD + 'T' + String(hours).padStart(2,'0') + ':' + '00' + ':00';
      
 
   element = {
@@ -441,4 +468,228 @@ async compararFechas(date1,date2){
   }
     }
 
+
+
+    private getRetosEnviados(Cod_Usuario){
+      var today = new Date();
+  
+      const Fecha_Inicio = today.getFullYear()+'-'+(today.getMonth() +1) +'-'+today.getDate();
+      let URL = this.getURL( environment.reservacionesEnviadasUrl);
+          URL = URL + environment.codUsuarioParam+Cod_Usuario+ environment.Fecha_Inicio +Fecha_Inicio
+
+          console.log(URL);
+      return this.http.get<GestionRetos[]>( URL );
+    }
+  
+    private getRetosRecibidos( Cod_Usuario){
+      var today = new Date();
+  
+      const Fecha_Inicio = today.getFullYear()+'-'+(today.getMonth() +1) +'-'+today.getDate();
+      let URL = this.getURL( environment.reservacionesRecibidasUrl);
+      URL = URL + environment.codUsuarioParam+Cod_Usuario+ environment.Fecha_Inicio +Fecha_Inicio
+      console.log(URL);
+      return this.http.get<GestionRetos[]>( URL );
+    }
+    private getRetosConfirmadas( Cod_Usuario){
+      var today = new Date();
+  
+      const Fecha_Inicio = today.getFullYear()+'-'+(today.getMonth() +1) +'-'+today.getDate();
+  
+      let URL = this.getURL( environment.reservacionesConfirmadasUrl);
+      URL = URL + environment.codUsuarioParam+Cod_Usuario+ environment.Fecha_Inicio +Fecha_Inicio
+      console.log(URL);
+      return this.http.get<GestionRetos[]>( URL );
+    }
+  
+    private getRetosHistorial( Cod_Usuario){
+      var today = new Date();
+  
+      const Fecha_Inicio = today.getFullYear()+'-'+(today.getMonth() +1) +'-'+today.getDate();
+  
+      let URL = this.getURL( environment.reservacionesHistorialUrl);
+      URL = URL + environment.codUsuarioParam+Cod_Usuario+ environment.Fecha_Inicio +Fecha_Inicio
+      console.log(URL);
+      return this.http.get<GestionRetos[]>( URL );
+    }
+  
+    private GetReservacion(Cod_Reservacion){
+  
+      let URL =  this.getURL(environment.reservacionURL);
+          URL = URL + environment.codReservacion + Cod_Reservacion;
+  
+          console.log(URL)
+          return this.http.get<GestionRetos>( URL );
+    }
+  
+    syncRetosEnviados(Cod_Usuario){
+  this.retos = [];
+  
+ 
+      this.getRetosEnviados(Cod_Usuario).subscribe(
+        resp =>{
+  
+          console.log(resp)
+          this.retos = resp.slice(0);
+
+        }, error =>{
+  
+          if(error){
+        
+            this.alertasService.message('FUTPLAY', 'Error cargando retos');
+  
+          }
+        }
+  
+      );
+    }
+    syncRetosHistorial(Cod_Usuario){
+
+   
+      this.retos = [];
+      
+          this.getRetosHistorial(Cod_Usuario).subscribe(
+            resp =>{
+      
+              console.log(resp)
+              this.retos = resp.slice(0);
+
+            }, error =>{
+      
+              if(error){
+
+                this.alertasService.message('FUTPLAY', 'Error cargando provincias');
+      
+              }
+            }
+      
+          );
+        }
+    syncRetosRecibidos(Cod_Usuario){
+      this.retos = [];
+    
+          this.getRetosRecibidos(Cod_Usuario).subscribe(
+            resp =>{
+      
+              console.log(resp)
+              this.retos = resp.slice(0);
+
+            }, error =>{
+      
+              if(error){
+              
+                this.alertasService.message('FUTPLAY', 'Error cargando retos');
+      
+              }
+            }
+      
+          );
+        }
+  
+        syncGetReservacionToPromise(Cod_Reservacion){
+  
+    return this.GetReservacion(Cod_Reservacion).toPromise();
+  }
+        
+    syncRetosConfirmados(Cod_Usuario){
+
+      this.retos = [];
+      
+          this.getRetosConfirmadas(Cod_Usuario).subscribe(
+            resp =>{
+      
+              console.log(resp)
+              this.retos = resp.slice(0);
+
+            }, error =>{
+      
+              if(error){
+   
+                this.alertasService.message('FUTPLAY', 'Error cargando provincias');
+      
+              }
+            }
+      
+          );
+        }
+  
+
+
+     
+        private   deleteConfirmacionReservacion(Cod_Reservacion ){
+    
+  
+          let URL = this.getURL( environment.confirmacionReservacionesURL);
+              URL = URL + environment.codReservacion + Cod_Reservacion;
+      
+      
+          const options = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+      
+            
+          };
+       
+          return this.http.delete( URL, options );
+        }
+        syncDeleteConfirmacionReservacion(reservacion  ){
+          return this.deleteConfirmacionReservacion( reservacion.Cod_Reservacion ).toPromise();
+        }
+
+
+        private postReservaciones (confirmacion){
+          const URL = this.getURL( environment.confirmacionReservacionesURL  );
+          const options = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+          };
+         
+          return this.http.post( URL, JSON.stringify(confirmacion), options );
+        }
+      
+        insertarReservacion(confirmacion){
+  
+          this.alertasService.presentaLoading('Enviando información al resador')
+  console.log(confirmacion,'confirmacion')
+          this.postReservaciones(confirmacion).subscribe(
+  
+            resp => {
+              this.alertasService.loadingDissmiss();
+              this.presentModal();
+              this.videoScreen(1);
+            // this.alertasService.message('FUTPLAY','La reservacion se guardo con exito')
+            
+            }
+          )
+  
+   
+        }
+
+        
+      async videoScreen(id){
+        const modal = await this.modalCtrl.create({
+          component:VideoScreenPage,
+          cssClass:'modal-view',
+          id:'video-screen-modal',
+          mode:'ios',
+          backdropDismiss:false,
+          componentProps:{
+            index:id
+          }
+        });
+        return await modal.present();
+        
+          }
+      async presentModal() {
+        const modal = await this.modalCtrl.create({
+          component: MisReservacionesPage,
+          cssClass: 'my-custom-class'
+        });
+        return await modal.present();
+      }
 }

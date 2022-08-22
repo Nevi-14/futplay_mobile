@@ -1,74 +1,203 @@
 
-  <ion-header >
+  <ion-header class="ion-no-border" >
+    <ion-toolbar mode="ios" class="ion-toolbar">
+      <ion-buttons slot="start">
+        <ion-button  (click)="cerrarModal()" >
+          <ion-icon slot="start" name="chevron-back"></ion-icon>
+          &nbsp;
+        </ion-button>
+      </ion-buttons>
+<ion-title>Gestion Retos</ion-title>
 
-    <ion-toolbar mode="md">
-      <ion-item class="transparent" lines="none">
-        <ion-buttons slot="start">
-          <ion-button  (click)="cerrarModal()" color="light">
-            <ion-icon slot="start" name="chevron-back"></ion-icon>
-            &nbsp;Gestion Retos
-          </ion-button>
-        </ion-buttons>
-
-      </ion-item>
-
-      <ion-segment  color="light"  mode="md"    value="0"   scrollable >
-        <ion-segment-button [value]="i" *ngFor="let cat of categories; let i = index;" 
-        (click)="selectCategory(i)">
-          <ion-label [class.active-category]="activeCategory == i">{{cat}}</ion-label>
-        </ion-segment-button>
-      
-      </ion-segment>
-      
-      <ion-searchbar></ion-searchbar>
- 
 
     
      
     </ion-toolbar>
+    <ion-row>
+      <ion-col size="12" size-md="6">
+        <ion-searchbar mode="ios" placeholder="Buscar reservación"   type="text" (ionChange)="onSearchChange($event)"></ion-searchbar>
+      </ion-col>
+      <ion-col size="12" size-md="6">
+        <ion-toolbar mode="ios">
+          <ion-button size="small" fill="clear" *ngIf="segment > 0" slot="start" (click)="prev()">
+            <ion-icon color="light" name="arrow-back-outline"></ion-icon>
+          </ion-button>
+          <ion-button size="small" fill="clear"  *ngIf="segment < categories.length-1" slot="end" (click)="next()">
+            <ion-icon  color="light"  name="arrow-forward-outline"></ion-icon>
+          </ion-button>
+          <ion-segment scrollable mode="md" (ionChange)="segmentChanged(segment)" [(ngModel)]="segment" >
+            <ion-segment-button mode="md" id="seg-{{i}}"  [value]="i" *ngFor="let cat of categories; let i = index;"  (click)="selectCategory(i)">
+              <ion-label [class.active-category]="activeCategory == i">{{cat}}</ion-label>
+            </ion-segment-button>
+            
+          </ion-segment>
+        
+        </ion-toolbar>
+        
+      </ion-col>
+    </ion-row>
+  
+   
+
     </ion-header>
+  
     <ion-content fullscreen>
   
     
       <div class="mainContent">
 
-
-
-        <ion-list>
-          <ion-item lines="none" class="custom-item  animate__animated animate__fadeIn"  *ngIf="gestionRestosService.retos.length == 0" >
-            <img height="30" src="assets/exclamation-mark.svg" alt="">
-            <ion-label>
-       
-              <h2> 0 Retos {{categories[activeCategory]}}</h2>
-    
-            </ion-label>
-           
-   
-          </ion-item>
-          <ion-item (click)="detalleReto(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of gestionRestosService.retos" >
-            <img  src="assets/soccerfield.jpg"onerror="this.src='assets/soccerfield.jpg'"   alt="">
+        <ion-slides (ionSlideDidChange)="slideChanged()" class="word-slides">
       
-            <ion-label>
-              <h2> {{reto.Titulo}} </h2>
-              <p> Fecha : <ion-badge color="warning" mode="ios"> {{reto.Fecha | date:'shortDate'}} </ion-badge> </p>
-              <p   >
-                   
-                Cancha : {{reto.Nombre_Cancha}}
-          
-              </p>
-              <p>Hora: {{reto.Hora_Inicio | date:'shortTime' }} - {{reto.Hora_Fin | date:'shortTime'}}.</p>
-            </ion-label>
-      
-          </ion-item>
-        </ion-list>
+          <ion-slide>
+            <ion-list  *ngIf="gestionReservacionesService.retos.length == 0">
+              <ion-item lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"  >
+                <img   src="assets/exclamation-mark.svg" alt="">
+                <ion-label>
+            
+                  <h2> 0  {{categories[activeCategory]}}</h2>
+            
+                </ion-label>
+               
+            
+              </ion-item>
+            </ion-list>
+            
+                    <ion-list *ngIf="gestionReservacionesService.retos.length > 0">
+              
+                      <ion-item  (click)="detalleReto(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of gestionReservacionesService.retos | filtro: textoBuscar:'Titulo' ; let odd = odd; let i = index;" >
+                        <img  src="assets/soccerfield.jpg"onerror="this.src='assets/soccerfield.jpg'"   alt="">
+                  
+                        <ion-label>
+                          <h2> {{reto.Titulo}} </h2>
+                          <p> Fecha : <ion-badge color="warning" mode="ios"> {{reto.Fecha | date:'shortDate'}} </ion-badge> </p>
+                          <p   >
+                               
+                            Cancha : {{reto.Nombre_Cancha}}
+                      
+                          </p>
+                          <p>Hora: {{reto.Hora_Inicio | date:'shortTime' }} - {{reto.Hora_Fin | date:'shortTime'}}.</p>
+                        </ion-label>
+                  
+                      </ion-item>
+                    </ion-list>
+          </ion-slide>
+          <ion-slide>
+            <h1>Awesome Slide Content</h1>
+          </ion-slide>
+          <ion-slide>
+            <ion-list  *ngIf="gestionReservacionesService.retos.length == 0">
+              <ion-item lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"   >
+                <img  src="assets/exclamation-mark.svg" alt="">
+                <ion-label>
+            
+                  <h2> 0  {{categories[activeCategory]}}</h2>
+            
+                </ion-label>
+               
+            
+              </ion-item>
+            </ion-list>
+            
+                    <ion-list *ngIf="gestionReservacionesService.retos.length > 0">
+              
+                      <ion-item  (click)="detalleReto(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of gestionReservacionesService.retos | filtro: textoBuscar:'Titulo' ; let odd = odd; let i = index;" >
+                        <img  src="assets/soccerfield.jpg"onerror="this.src='assets/soccerfield.jpg'"   alt="">
+                  
+                        <ion-label>
+                          <h2> {{reto.Titulo}} </h2>
+                          <p> Fecha : <ion-badge color="warning" mode="ios"> {{reto.Fecha | date:'shortDate'}} </ion-badge> </p>
+                          <p   >
+                               
+                            Cancha : {{reto.Nombre_Cancha}}
+                      
+                          </p>
+                          <p>Hora: {{reto.Hora_Inicio | date:'shortTime' }} - {{reto.Hora_Fin | date:'shortTime'}}.</p>
+                        </ion-label>
+                  
+                      </ion-item>
+                    </ion-list>
+          </ion-slide>
+          <ion-slide>
+            <ion-list  *ngIf="gestionReservacionesService.retos.length == 0">
+              <ion-item lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"   >
+                <img  src="assets/exclamation-mark.svg" alt="">
+                <ion-label>
+            
+                  <h2> 0  {{categories[activeCategory]}}</h2>
+            
+                </ion-label>
+               
+            
+              </ion-item>
+            </ion-list>
+            
+                    <ion-list *ngIf="gestionReservacionesService.retos.length > 0">
+              
+                      <ion-item  (click)="detalleReto(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of gestionReservacionesService.retos | filtro: textoBuscar:'Titulo' ; let odd = odd; let i = index;" >
+                        <img  src="assets/soccerfield.jpg"onerror="this.src='assets/soccerfield.jpg'"   alt="">
+                  
+                        <ion-label>
+                          <h2> {{reto.Titulo}} </h2>
+                          <p> Fecha : <ion-badge color="warning" mode="ios"> {{reto.Fecha | date:'shortDate'}} </ion-badge> </p>
+                          <p   >
+                               
+                            Cancha : {{reto.Nombre_Cancha}}
+                      
+                          </p>
+                          <p>Hora: {{reto.Hora_Inicio | date:'shortTime' }} - {{reto.Hora_Fin | date:'shortTime'}}.</p>
+                        </ion-label>
+                  
+                      </ion-item>
+                    </ion-list>
+          </ion-slide>
+          <ion-slide>
+            <ion-list  *ngIf="gestionReservacionesService.retos.length == 0">
+              <ion-item lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"   >
+                <img  src="assets/exclamation-mark.svg" alt="">
+                <ion-label>
+            
+                  <h2> 0  {{categories[activeCategory]}}</h2>
+            
+                </ion-label>
+               
+            
+              </ion-item>
+            </ion-list>
+            
+                    <ion-list *ngIf="gestionReservacionesService.retos.length > 0">
+              
+                      <ion-item  (click)="detalleReto(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of gestionReservacionesService.retos | filtro: textoBuscar:'Titulo' ; let odd = odd; let i = index;" >
+                        <img  src="assets/soccerfield.jpg"onerror="this.src='assets/soccerfield.jpg'"   alt="">
+                  
+                        <ion-label>
+                          <h2> {{reto.Titulo}} </h2>
+                          <p> Fecha : <ion-badge color="warning" mode="ios"> {{reto.Fecha | date:'shortDate'}} </ion-badge> </p>
+                          <p   >
+                               
+                            Cancha : {{reto.Nombre_Cancha}}
+                      
+                          </p>
+                          <p>Hora: {{reto.Hora_Inicio | date:'shortTime' }} - {{reto.Hora_Fin | date:'shortTime'}}.</p>
+                        </ion-label>
+                  
+                      </ion-item>
+                    </ion-list>
+          </ion-slide>
+         
+        </ion-slides>
+ 
+
 
 
       </div>
     </ion-content>
+    <ion-footer class="ion-no-border">
+ 
+       
+      <ion-button expand="block"  (click)="nuevaReservacion()" class="ion-text-center ion-margin" >
+       <ion-label>Nueva Reservacion</ion-label>
+       <ion-icon slot="end" name="add"></ion-icon>
+             </ion-button>
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="nuevaReservacion()" color="dark">
-        <ion-icon name="add-outline"></ion-icon>
-      </ion-fab-button>
-  
-    </ion-fab>
+   </ion-footer>
+ 

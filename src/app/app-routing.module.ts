@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'inicio',
+    redirectTo: 'inicio/inicio-sesion',
     pathMatch: 'full'
   },
+  
   {
     path: 'inicio',
     loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
@@ -155,7 +157,8 @@ const routes: Routes = [
   },
   {
     path: 'futplay',
-    loadChildren: () => import('./pages/futplay/futplay.module').then( m => m.FutplayPageModule)
+    loadChildren: () => import('./pages/futplay/futplay.module').then( m => m.FutplayPageModule),
+    canLoad:[AuthGuard]
   },
   {
     path: 'mis-equipos',
@@ -188,6 +191,10 @@ const routes: Routes = [
   {
     path: 'video-screen',
     loadChildren: () => import('./pages/video-screen/video-screen.module').then( m => m.VideoScreenPageModule)
+  },
+  {
+    path: 'crear-unirse-equipo',
+    loadChildren: () => import('./pages/crear-unirse-equipo/crear-unirse-equipo.module').then( m => m.CrearUnirseEquipoPageModule)
   },
 
 

@@ -4,10 +4,8 @@ import { AlertController, ModalController, PopoverController } from '@ionic/angu
 import { ListaCanchas } from 'src/app/models/listaCanchas';
 import { vistaEquipos } from 'src/app/models/vistaEquipos';
 import { AlertasService } from 'src/app/services/alertas.service';
-import { ConfirmacionReservacionesService } from 'src/app/services/confirmacion-reservaciones.service';
-import { GenerarReservacionService } from 'src/app/services/generar-reservacion.service';
+
 import { HorarioCanchasService } from 'src/app/services/horario-canchas.service';
-import { ProcesoReservacionService } from 'src/app/services/proceso-reservacion.service';
 import { ReservacionesService } from 'src/app/services/reservaciones.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { ListaCanchasPage } from '../lista-canchas/lista-canchas.page';
@@ -92,12 +90,9 @@ export class GenerarReservacionPage implements OnInit,AfterViewInit {
       public reservacionesService: ReservacionesService,
       public http: HttpClient,
       public alertasService: AlertasService,
-      public generrReservacionService: GenerarReservacionService,
-      public confirmarReservacionesService:ConfirmacionReservacionesService,
       private cd: ChangeDetectorRef,
       public horarioCanchasService: HorarioCanchasService,
       public popOverCtrl:PopoverController,
-      public procesoReservacionService: ProcesoReservacionService,
       public configuracionHorarioService: ConfiguracionHorarioService,
       public gestionReservacionesService: GestionReservacionesService,
       public alertCtrl: AlertController,
@@ -320,7 +315,7 @@ console.log('reto', this.nuevaReservacion)
   }, error =>{
     console.log('factura post error', error)
   })
-      this.confirmarReservacionesService.insertarReservacion(cofirmacion);
+      this.gestionReservacionesService.insertarReservacion(cofirmacion);
   
       }
     })
@@ -473,7 +468,7 @@ async agregarCancha() {
           text: 'Continuar',
           role: 'confirm',
           handler: () => {
-            
+            alert.dismiss();
             console.log(this.nuevaReservacion, 'reservacion')
 
           this.generarReto();

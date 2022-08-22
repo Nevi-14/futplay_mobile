@@ -3,12 +3,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { InicioPage } from './inicio.page';
 import { RegistroPageModule } from '../registro/registro.module';
+import { AutoLoginGuard } from 'src/app/guards/auto-login.guard';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
+
   {
     path: '',
-    redirectTo: '/inicio/inicio-sesion',
-    pathMatch: 'full',
+    redirectTo: 'inicio-sesion',
+    pathMatch: 'full'
   },
   {
     path: '',
@@ -20,7 +23,8 @@ const routes: Routes = [
       },
       {
         path:'inicio-sesion',
-        loadChildren: () => import('../inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule)
+        loadChildren: () => import('../inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule),
+        canLoad:[AutoLoginGuard]
       },
       {
         path:'registro',

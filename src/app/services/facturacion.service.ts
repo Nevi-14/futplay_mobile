@@ -8,7 +8,7 @@ import { AlertasService } from './alertas.service';
   providedIn: 'root'
 })
 export class FacturacionService {
-  FacturaDetaleReservaciones
+  
   constructor(private http: HttpClient, public alertasService:AlertasService) { }
 
   getURL( api: string ){

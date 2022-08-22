@@ -3,9 +3,7 @@ import { ModalController, ActionSheetController, AlertController } from '@ionic/
 import { ListaCanchas } from 'src/app/models/listaCanchas';
 import { CanchasService } from 'src/app/services/canchas.service';
 import { GestionRetos } from '../../models/gestionRetos';
-import { ControlReservacionesService } from 'src/app/services/control-reservaciones.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
-import { GestionRetosService } from '../../services/gestion-retos.service';
 import { HistorialPartidoService } from 'src/app/services/historial-partido.service';
 import { HistorialPartido } from 'src/app/models/historialPartido';
 import { InicioPartidoPage } from '../inicio-partido/inicio-partido.page';
@@ -17,6 +15,8 @@ import { EmailService } from 'src/app/services/email.service';
 import { Canchas } from '../../models/canchas';
 import { FacturacionService } from 'src/app/services/facturacion.service';
 import { FacturaDetaleReservaciones } from '../../models/facturaDetalleReservaciones';
+import { AlertasService } from 'src/app/services/alertas.service';
+import { GestionReservacionesService } from 'src/app/services/gestion-reservaciones.service';
 
 @Component({
   selector: 'app-aceptar-reto',
@@ -34,18 +34,19 @@ equipo : vistaEquipos
 partido : HistorialPartido[]=[];
 soccer= 'assets/icon/soccer.svg';
 img = 'assets/main/team-profile.svg';
+allowDelete = false;
   constructor(
     public modalCtrl:ModalController,
     public canchasService: CanchasService,
     public actionCtrl: ActionSheetController,
-    public controlReservacionesService: ControlReservacionesService,
     public usuariosService: UsuariosService,
-    public gestionRestosService: GestionRetosService,
     public historialPartidoService:HistorialPartidoService,
     public googleAdsService: GoogleAdsService,
     public emailService: EmailService,
     public alertCtrl: AlertController,
-    public facturacionService:FacturacionService
+    public facturacionService:FacturacionService,
+    public alertasService: AlertasService,
+    public gestionReservacionesService: GestionReservacionesService
   ) { }
 
   async ngOnInit() {
@@ -120,6 +121,18 @@ console.log('factura', factura)
    });
    await actionSheet.present();
 }
+
+isLessThan24HourAgo(date) {
+  // 👇️                    hour  min  sec  milliseconds
+  const twentyFourHrInMs = 24 * 60 * 60 * 1000;
+
+  const twentyFourHoursAgo = Date.now() - twentyFourHrInMs;
+
+  return date > twentyFourHoursAgo && date <= Date.now();
+}
+
+
+
 async  efectuarPago(factura:FacturaDetaleReservaciones){
   const alert = await this.alertCtrl.create({
     header: 'FUTPLAY',
@@ -256,8 +269,9 @@ this.cerrarModal();
              }
 
 
-      this.controlReservacionesService.actualizarReservacionToPromise(confirmacion, this.reto.Cod_Usuario, this.reto.Cod_Reservacion).then(reto =>{
-this.gestionRestosService.syncGetReservacionToPromise(this.reto.Cod_Reservacion).then(resp =>{
+      this.gestionReservacionesService.actualizarReservacionToPromise(confirmacion, this.reto.Cod_Usuario, this.reto.Cod_Reservacion).then(reto =>{
+this.gestionReservacionesService.syncGetReservacionToPromise(this.reto.Cod_Reservacion).then(resp =>{
+  console.log('resp',resp)
   this.reto  = resp[0];
 
   const Historia_PartidosRival = {
@@ -290,8 +304,9 @@ console.log('historuak 2', Historia_PartidosRetador)
 
          this.videoScreen(2);
 this.notificarUsuarios();
-   this.gestionRestosService.syncRetosRecibidos(this.usuariosService.usuarioActual.Cod_Usuario)
-      this.gestionRestosService.syncRetosConfirmados(this.usuariosService.usuarioActual.Cod_Usuario)
+   this.gestionReservacionesService.syncRetosRecibidos(this.usuariosService.usuarioActual.Cod_Usuario)
+   this.gestionReservacionesService.syncRetosEnviados(this.usuariosService.usuarioActual.Cod_Usuario)
+      this.gestionReservacionesService.syncRetosConfirmados(this.usuariosService.usuarioActual.Cod_Usuario)
    //   this.modalCtrl.dismiss();
   
 })
@@ -370,15 +385,42 @@ if(!this.partido[0].Verificacion_QR || !this.partido[1].Verificacion_QR){
 
 
   }
+  async doYouWantToDelete() {
+    const alert = await this.alertCtrl.create({
+      header: 'FUTPLAY',
+      message:'¿Desea eliminar el reto?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+           
+          },
+        },
+        {
+          text: 'OK',
+          role: 'Continuar',
+          handler: () => {
+             this.eliminar();
+          },
+        },
+      ],
+    });
 
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    
+  }
   eliminar(){
-    this.gestionRestosService.syncDeleteConfirmacionReservacion(this.reto).then(resp =>{
-      this.gestionRestosService.deleteReservacionToPromise(this.reto).then(resp =>{
-        this.gestionRestosService.syncRetosEnviados(this.usuariosService.usuarioActual.Cod_Usuario)
-  this.modalCtrl.dismiss();
 
+if(this.isLessThan24HourAgo(new Date(this.reto.Hora_Fin).getTime())){
+this.alertasService.message('FUTPLAY', 'Las reservaciones se deben de cancelar 24 horas antes.')
+  return
+}
 
-      });
+    this.gestionReservacionesService.syncDeleteConfirmacionReservacion(this.reto).then(resp =>{
+      this.modalCtrl.dismiss();
     });
 
 

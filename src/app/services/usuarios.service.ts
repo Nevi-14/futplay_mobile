@@ -15,6 +15,7 @@ import * as bcrypt from 'bcryptjs';  // npm install bcryptjs --save  &&  npm ins
 import { SolicitudesService } from './solicitudes.service';
 import { StorageService } from './storage-service';
 import { VideoScreenPage } from '../pages/video-screen/video-screen.page';
+import { AuthenticationService } from './authentication.service';
 
 
 @Injectable({
@@ -40,6 +41,7 @@ export class UsuariosService {
     public actionSheetCtrl: ActionSheetController,
     public solicitudesService: SolicitudesService,
     public storageService: StorageService,
+    public authenticationService: AuthenticationService
     
     ) {
 
@@ -53,6 +55,7 @@ export class UsuariosService {
     }
 
     cerrarSession(){
+      this.storageService.delete('Cod_Usuario')
       this.usuarioActual = null;
       this.route.navigate([ '/inicio/inicio-sesion']);
     }
@@ -217,11 +220,9 @@ console.log(resp, 'resssp')
   }
   syncDatos(Cod_Usuario:number){
 
-    this.alertasService.presentaLoading('Cargando datos...')
-
     this.verificarUsuario(Cod_Usuario).subscribe(
       resp =>{
-  this.alertasService.loadingDissmiss();
+
 this.usuarioActual = resp[0];
 this.perfilUsuario = resp[0];
 
@@ -262,14 +263,17 @@ console.log('respresp', resp, resp.length)
         if(resp.length > 0){
 
           if(this.comparePassword(contrasena, resp[0].Contrasena )){
-
-          this.usuarioActual = null;
           this.alertasService.loadingDissmiss();
           this.usuarioActual = resp[0];
-          this.storageService.delete('user')
-          this.storageService.set('user',  resp[0])
-          this.route.navigate(['/futplay/mi-perfil']);
+       
+          this.storageService.delete('Cod_Usuario')
+          this.storageService.set('Cod_Usuario',  resp[0].Cod_Usuario)
+   
+          this.authenticationService.loadToken(true);
+          this.route.navigateByUrl('/futplay/mi-perfil',{replaceUrl:true});
           this.solicitudesService.syncGetSolicitudesJugadores(this.usuarioActual.Cod_Usuario, false,true, true)
+
+          
           }else{
             this.alertasService.loadingDissmiss();
             this.alertasService.message('FUTPLAY','suario o contrasena incorrecto')
