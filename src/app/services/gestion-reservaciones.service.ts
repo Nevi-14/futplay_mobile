@@ -490,6 +490,24 @@ async compararFechas(date1,date2){
       console.log(URL);
       return this.http.get<GestionRetos[]>( URL );
     }
+
+    private getRetosActuales( Cod_Usuario){
+
+      let URL = this.getURL( environment.reservacionesActualesUrl);
+      URL = URL + environment.codUsuarioParam+Cod_Usuario;
+      console.log(URL);
+      return this.http.get<GestionRetos[]>( URL );
+    }
+
+    private getRetosRevision( Cod_Usuario){
+
+      let URL = this.getURL( environment.reservacionesRevisionUrl);
+      URL = URL + environment.codUsuarioParam+Cod_Usuario;
+      console.log(URL);
+      return this.http.get<GestionRetos[]>( URL );
+    }
+
+
     private getRetosConfirmadas( Cod_Usuario){
       var today = new Date();
   
@@ -542,6 +560,49 @@ async compararFechas(date1,date2){
   
       );
     }
+
+    syncRetosActuales(Cod_Usuario){
+      this.retos = [];
+      
+     
+          this.getRetosActuales(Cod_Usuario).subscribe(
+            resp =>{
+      
+              console.log(resp)
+              this.retos = resp.slice(0);
+    
+            }, error =>{
+      
+              if(error){
+            
+                this.alertasService.message('FUTPLAY', 'Error cargando retos');
+      
+              }
+            }
+      
+          );
+        }
+        syncRetosRevision(Cod_Usuario){
+          this.retos = [];
+          
+         
+              this.getRetosRevision(Cod_Usuario).subscribe(
+                resp =>{
+          
+                  console.log(resp)
+                  this.retos = resp.slice(0);
+        
+                }, error =>{
+          
+                  if(error){
+                
+                    this.alertasService.message('FUTPLAY', 'Error cargando retos');
+          
+                  }
+                }
+          
+              );
+            }
     syncRetosHistorial(Cod_Usuario){
 
    

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { IonSlides, ModalController } from '@ionic/angular';
+import { AlertController, IonSlides, ModalController } from '@ionic/angular';
 import { CantonesService } from 'src/app/services/cantones.service';
 import { DistritosService } from 'src/app/services/distritos.service';
 import { EquiposService } from 'src/app/services/equipos.service';
@@ -10,6 +10,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { GestorImagenesService } from 'src/app/services/gestor-imagenes.service';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { Equipos } from '../../models/equipos';
+import { Router } from '@angular/router';
+import { EliminarEquipoPage } from '../eliminar-equipo/eliminar-equipo.page';
 declare const window: any; 
 @Component({
   selector: 'app-editar-perfil-equipo',
@@ -91,7 +93,9 @@ export class EditarPerfilEquipoPage implements OnInit {
       public equiposService: EquiposService,
       public camera: Camera,
       public gestorImagenesService: GestorImagenesService,
-      public alertasService: AlertasService
+      public alertasService: AlertasService,
+      public router: Router,
+      public alertCtrl: AlertController
     ) { }
   
     ngOnInit() {
@@ -263,7 +267,7 @@ if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
   }
 
   cerrarModal(){
-    this.modalCtrl.dismiss();
+    this.modalCtrl.dismiss(null,null,'perfil-equipo');
   }
 
 
@@ -321,6 +325,70 @@ if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
 
   }
 
+eliminarEquipo(){
+  this.equiposService.syncDeleteEquipoToPromise(this.equipo.Cod_Equipo).then (resp =>{
+
+    this.equiposService.SyncMisEquipos(this.usuariosService.usuarioActual.Cod_Usuario).then(equipos =>{
+      this.equiposService.misEquipos = equipos;
+   
+      if(equipos.length == 0 ){
+        this.router.navigate(['/futplay/mi-perfil']);
+      }else{
+        this.equiposService.perfilEquipo = equipos[0];
+      
+  
+  
+  
+      }
+    })
+    this.cerrarModal();
+  }, error =>{
+    this.alertasService.message('FUTPLAY', 'Lo sentimos no se pudo eliminar el equipo, aun se encuentran reservaciones activas las cuales deben de ser verificadas, revisa el historial de reservaciones en revisión para mas detalles')
+  })
+}
+async alertaEliminar() {
+  const alert = await this.alertCtrl.create({
+    header: '¿Desea eliminar el equipo?',
+    cssClass: 'custom-alert',
+    buttons: [
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        handler: () => {
+       
+        },
+      },
+      {
+        text: 'OK',
+        role: 'Continuar',
+        handler: () => {
+        this.eliminarEquipo();
+        },
+      },
+    ],
+  });
+
+  await alert.present();
+}
+async eliminarEquipos(){
+
+  let modal = await this.modalCtrl.create({
+    component:EliminarEquipoPage,
+    cssClass:'medium-modal',
+    componentProps:{
+      equipo:this.equipo
+    }
+  })
 
 
+
+   await modal.present();
+
+   const { data } = await modal.onDidDismiss();
+
+   console.log(data, 'deleted')
+if(data.data != undefined){
+
+}
+}
 }

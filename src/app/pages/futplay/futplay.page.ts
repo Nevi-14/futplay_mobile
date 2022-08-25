@@ -70,16 +70,17 @@ console.log('this.equiposService.perfilEquipo ',this.equiposService.perfilEquipo
  const modal = await this.modalCtrl.create({
    component:CrearUnirseEquipoPage,
    cssClass:'my-custom-modal',
-   //id:'create-modal'
+   id:'create-join-modal'
  });
 
  await modal.present();
     const { data } = await modal.onDidDismiss();
  
     if(data !== undefined ){
+     modal.dismiss();
       console.log(data,'data')
-//this.misEquipos();
-    
+
+
     }
  
      }

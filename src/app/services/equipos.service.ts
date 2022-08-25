@@ -284,10 +284,33 @@ this.equipos = [];
 }
 
 );
+
 }
 
 
 
+private borrarEquipo(Cod_Equipo: number) {
+
+  let URL = this.getURL(environment.eliminarEquipo);
+  URL = URL + Cod_Equipo
+
+  const options = {
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }
+
+  };
+
+  return this.http.delete(URL, options);
+
+}
+
+syncDeleteEquipoToPromise(Cod_Equipo: number) {
+
+  return this.borrarEquipo(Cod_Equipo).toPromise();
+}
 
   
 

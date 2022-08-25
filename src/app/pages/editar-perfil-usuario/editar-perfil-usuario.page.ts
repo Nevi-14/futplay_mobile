@@ -12,6 +12,7 @@ import { GestorImagenesService } from 'src/app/services/gestor-imagenes.service'
 import { AlertasService } from 'src/app/services/alertas.service';
 import { ChangeDetectorRef } from '@angular/core'
 import { Provincias } from 'src/app/models/provincias';
+import { EliminarCuentaPage } from '../eliminar-cuenta/eliminar-cuenta.page';
  
 interface LocalFile {
   fileName: string;
@@ -437,5 +438,16 @@ if(this.usuario.Cod_Provincia && this.usuario.Cod_Canton){
   }
 
 
+ async eliminarCuenta(){
+
+    let modal = await this.modalCtrl.create({
+      component:EliminarCuentaPage,
+      cssClass:'medium-modal',
+    })
+
+
+
+    return await modal.present();
+  }
   
 }

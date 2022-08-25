@@ -14,7 +14,7 @@ import { GoogleAdsService } from '../../services/google-ads.service';
   styleUrls: ['./mis-reservaciones.page.scss'],
 })
 export class MisReservacionesPage implements OnInit {
-  categories = ['Confirmados', 'Actuales','Recibidos','Enviados','Historial'];
+  categories = ['Confirmados', 'Actuales','Recibidos','Enviados','Historial','Revisión'];
   @ViewChild(IonSlides) slider: IonSlides;
   segment = 0;
   activeCategory = 0;
@@ -201,20 +201,24 @@ if(this.segment <= this.categories.length -1){
    
       case 0:
         this.gestionReservacionesService.syncRetosConfirmados(this.usuariosService.usuarioActual.Cod_Usuario)
-      break;
-      case 1:
-  this.gestionReservacionesService.retos = [];
-     break;
+        break;
+        case 1:
+          this.gestionReservacionesService.syncRetosActuales(this.usuariosService.usuarioActual.Cod_Usuario)
+       break;
       case 2:
-        this.gestionReservacionesService.syncRetosRecibidos(this.usuariosService.usuarioActual.Cod_Usuario)
-      break;
-      
+
+  this.gestionReservacionesService.syncRetosRecibidos(this.usuariosService.usuarioActual.Cod_Usuario)
+     break;
       case 3:
         this.gestionReservacionesService.syncRetosEnviados(this.usuariosService.usuarioActual.Cod_Usuario)
       break;
       
       case 4:
         this.gestionReservacionesService.syncRetosHistorial(this.usuariosService.usuarioActual.Cod_Usuario)
+      break;
+      
+      case 5:
+        this.gestionReservacionesService.syncRetosRevision(this.usuariosService.usuarioActual.Cod_Usuario)
       break;
     
       default:

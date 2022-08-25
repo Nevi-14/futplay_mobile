@@ -48,142 +48,45 @@
 
         <ion-slides (ionSlideDidChange)="slideChanged()" class="word-slides">
       
-          <ion-slide>
-            <ion-list  *ngIf="gestionReservacionesService.retos.length == 0">
-              <ion-item lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"  >
-                <img   src="assets/exclamation-mark.svg" alt="">
-                <ion-label>
-            
-                  <h2> 0  {{categories[activeCategory]}}</h2>
-            
-                </ion-label>
+          <ion-slide *ngFor="let cat of categories; let i = index;" >
+            <ion-list class="ion-padding"  *ngIf="gestionReservacionesService.retos.length == 0">
+              <ion-item lines="none" class="transparent  animate__animated animate__fadeIn" >
+        
+                <ion-avatar slot="start"  style="height:6rem;width: 6rem;" >
+                 <img style="height: 5rem;width: 5rem;"   src="assets/logo.png" alt="">
+                </ion-avatar>
                
-            
-              </ion-item>
-            </ion-list>
-            
-                    <ion-list *ngIf="gestionReservacionesService.retos.length > 0">
-              
-                      <ion-item  (click)="detalleReto(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of gestionReservacionesService.retos | filtro: textoBuscar:'Titulo' ; let odd = odd; let i = index;" >
-                        <img  src="assets/soccerfield.jpg"onerror="this.src='assets/soccerfield.jpg'"   alt="">
-                  
-                        <ion-label>
-                          <h2> {{reto.Titulo}} </h2>
-                          <p> Fecha : <ion-badge color="warning" mode="ios"> {{reto.Fecha | date:'shortDate'}} </ion-badge> </p>
-                          <p   >
-                               
-                            Cancha : {{reto.Nombre_Cancha}}
-                      
-                          </p>
-                          <p>Hora: {{reto.Hora_Inicio | date:'shortTime' }} - {{reto.Hora_Fin | date:'shortTime'}}.</p>
-                        </ion-label>
-                  
-                      </ion-item>
-                    </ion-list>
-          </ion-slide>
-          <ion-slide>
-            <h1>Awesome Slide Content</h1>
-          </ion-slide>
-          <ion-slide>
-            <ion-list  *ngIf="gestionReservacionesService.retos.length == 0">
-              <ion-item lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"   >
-                <img  src="assets/exclamation-mark.svg" alt="">
-                <ion-label>
-            
-                  <h2> 0  {{categories[activeCategory]}}</h2>
-            
-                </ion-label>
-               
-            
-              </ion-item>
-            </ion-list>
-            
-                    <ion-list *ngIf="gestionReservacionesService.retos.length > 0">
-              
-                      <ion-item  (click)="detalleReto(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of gestionReservacionesService.retos | filtro: textoBuscar:'Titulo' ; let odd = odd; let i = index;" >
-                        <img  src="assets/soccerfield.jpg"onerror="this.src='assets/soccerfield.jpg'"   alt="">
-                  
-                        <ion-label>
-                          <h2> {{reto.Titulo}} </h2>
-                          <p> Fecha : <ion-badge color="warning" mode="ios"> {{reto.Fecha | date:'shortDate'}} </ion-badge> </p>
-                          <p   >
-                               
-                            Cancha : {{reto.Nombre_Cancha}}
-                      
-                          </p>
-                          <p>Hora: {{reto.Hora_Inicio | date:'shortTime' }} - {{reto.Hora_Fin | date:'shortTime'}}.</p>
-                        </ion-label>
-                  
-                      </ion-item>
-                    </ion-list>
-          </ion-slide>
-          <ion-slide>
-            <ion-list  *ngIf="gestionReservacionesService.retos.length == 0">
-              <ion-item lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"   >
-                <img  src="assets/exclamation-mark.svg" alt="">
-                <ion-label>
-            
-                  <h2> 0  {{categories[activeCategory]}}</h2>
-            
-                </ion-label>
-               
-            
-              </ion-item>
-            </ion-list>
-            
-                    <ion-list *ngIf="gestionReservacionesService.retos.length > 0">
-              
-                      <ion-item  (click)="detalleReto(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of gestionReservacionesService.retos | filtro: textoBuscar:'Titulo' ; let odd = odd; let i = index;" >
-                        <img  src="assets/soccerfield.jpg"onerror="this.src='assets/soccerfield.jpg'"   alt="">
-                  
-                        <ion-label>
-                          <h2> {{reto.Titulo}} </h2>
-                          <p> Fecha : <ion-badge color="warning" mode="ios"> {{reto.Fecha | date:'shortDate'}} </ion-badge> </p>
-                          <p   >
-                               
-                            Cancha : {{reto.Nombre_Cancha}}
-                      
-                          </p>
-                          <p>Hora: {{reto.Hora_Inicio | date:'shortTime' }} - {{reto.Hora_Fin | date:'shortTime'}}.</p>
-                        </ion-label>
-                  
-                      </ion-item>
-                    </ion-list>
-          </ion-slide>
-          <ion-slide>
-            <ion-list  *ngIf="gestionReservacionesService.retos.length == 0">
-              <ion-item lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"   >
-                <img  src="assets/exclamation-mark.svg" alt="">
-                <ion-label>
-            
-                  <h2> 0  {{categories[activeCategory]}}</h2>
-            
-                </ion-label>
-               
-            
-              </ion-item>
-            </ion-list>
-            
-                    <ion-list *ngIf="gestionReservacionesService.retos.length > 0">
-              
-                      <ion-item  (click)="detalleReto(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of gestionReservacionesService.retos | filtro: textoBuscar:'Titulo' ; let odd = odd; let i = index;" >
-                        <img  src="assets/soccerfield.jpg"onerror="this.src='assets/soccerfield.jpg'"   alt="">
-                  
-                        <ion-label>
-                          <h2> {{reto.Titulo}} </h2>
-                          <p> Fecha : <ion-badge color="warning" mode="ios"> {{reto.Fecha | date:'shortDate'}} </ion-badge> </p>
-                          <p   >
-                               
-                            Cancha : {{reto.Nombre_Cancha}}
-                      
-                          </p>
-                          <p>Hora: {{reto.Hora_Inicio | date:'shortTime' }} - {{reto.Hora_Fin | date:'shortTime'}}.</p>
-                        </ion-label>
-                  
-                      </ion-item>
-                    </ion-list>
-          </ion-slide>
          
+                 <ion-label>
+            
+                   <h2>MENSAJE FUTPLAY </h2>
+            <p class="ion-text-wrap">   No se encontraron resultados </p>
+          
+                 </ion-label>
+        
+               </ion-item>
+            </ion-list>
+            
+                    <ion-list *ngIf="gestionReservacionesService.retos.length > 0">
+              
+                      <ion-item  (click)="detalleReto(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of gestionReservacionesService.retos | filtro: textoBuscar:'Titulo' ; let odd = odd; let i = index;" >
+                        <img  src="assets/soccerfield.jpg"onerror="this.src='assets/soccerfield.jpg'"   alt="">
+                  
+                        <ion-label>
+                          <h2> {{reto.Titulo}} </h2>
+                          <p> Fecha : <ion-badge color="warning" mode="ios"> {{reto.Fecha | date:'shortDate'}} </ion-badge> </p>
+                          <p   >
+                               
+                            Cancha : {{reto.Nombre_Cancha}}
+                      
+                          </p>
+                          <p>Hora: {{reto.Hora_Inicio | date:'shortTime' }} - {{reto.Hora_Fin | date:'shortTime'}}.</p>
+                        </ion-label>
+                  
+                      </ion-item>
+                    </ion-list>
+          </ion-slide>
+ 
         </ion-slides>
  
 

@@ -103,6 +103,8 @@ horaFin:'&Hora_Fin=',
  otrosEquiposURL:'otros-equipos/',
  misCanchasURL:'mis-canchas/',
  reservacionesRecibidasUrl:'reservaciones-recibidas',
+ reservacionesRevisionUrl:'reservaciones-revision',
+ reservacionesActualesUrl:'reservaciones-actuales',
  reservacionesEnviadasUrl:'reservaciones-enviadas',
  reservacionesConfirmadasUrl:'reservaciones-confirmadas',
  reservacionesHistorialUrl:'reservaciones-historial',
@@ -131,6 +133,8 @@ partidosJugadorURL:'partidos-jugados/',
 jugadorFutplayURL:'jugador-futplay/',
 jugadorDelPartidoURL:'jugador-partido',
 clasificacionURL:'clasificacion',
+eliminarEquipo :'borrar/equipo/reservaciones/?Cod_Equipo=',
+eliminarUsuario:'usuarios?Cod_Usuario='
 };
 /*
  * For easier debugging in development mode, you can import the following file

@@ -440,4 +440,28 @@ validarCorreo(email) {
     return  this.postUsuario(usuario).toPromise();
 
     }
+
+    private borrarUsuario(Cod_Usuario: number) {
+
+      let URL = this.getURL(environment.eliminarUsuario);
+      URL = URL + Cod_Usuario
+    
+      const options = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        }
+    
+      };
+    
+      return this.http.delete(URL, options);
+    
+    }
+    
+    syncDeleteUsuarioToPromise(Cod_Usuario: number) {
+    
+      return this.borrarUsuario(Cod_Usuario).toPromise();
+    }
+    
 }

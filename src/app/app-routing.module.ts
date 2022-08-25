@@ -195,7 +195,19 @@ const routes: Routes = [
   {
     path: 'crear-unirse-equipo',
     loadChildren: () => import('./pages/crear-unirse-equipo/crear-unirse-equipo.module').then( m => m.CrearUnirseEquipoPageModule)
+  },  {
+    path: 'eliminar-cuenta',
+    loadChildren: () => import('./pages/eliminar-cuenta/eliminar-cuenta.module').then( m => m.EliminarCuentaPageModule)
   },
+  {
+    path: 'eliminar-equipo',
+    loadChildren: () => import('./pages/eliminar-equipo/eliminar-equipo.module').then( m => m.EliminarEquipoPageModule)
+  },
+  {
+    path: 'eliminar-reto',
+    loadChildren: () => import('./pages/eliminar-reto/eliminar-reto.module').then( m => m.EliminarRetoPageModule)
+  },
+
 
 
 

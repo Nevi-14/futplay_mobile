@@ -19,7 +19,7 @@ export class CrearUnirseEquipoPage implements OnInit {
   }
 
   cerrarModal(){
-    this.modalCtrl.dismiss();
+    this.modalCtrl.dismiss(null,null,'create-join-modal');
   }
 
   async crearEquipo(){
@@ -34,9 +34,7 @@ export class CrearUnirseEquipoPage implements OnInit {
  
     if(data !== undefined ){
       console.log(data,'data')
-      this.modalCtrl.dismiss({
-        'data':data
-      })
+      this.cerrarModal();
     }
 
   }

@@ -31,7 +31,7 @@ export class MisEquiposPage implements OnInit {
     console.log(this.equiposService.userclubs ,'owner');
     console.log(this.equiposService.playerClubs , 'player');
     console.log(this.equiposService.misEquipos,'equiposService.misEquipo')
-    this.otrosEquipos();
+    this.misEquipos();
   }
 
 
@@ -64,8 +64,8 @@ console.log('resp', resp)
  
     if(data !== undefined ){
       console.log(data,'data')
-      this.modalCtrl.dismiss(data, null, "create");
-    
+
+    this.misEquipos();
     }
 
   }
@@ -126,7 +126,7 @@ seleccionarEquipo(equipo){
 
      await modal.present();
 
-     const { data } = await modal.onWillDismiss();
+     const { data } = await modal.onDidDismiss();
 if(data != undefined){
   
 }

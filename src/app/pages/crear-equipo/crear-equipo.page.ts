@@ -15,6 +15,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { SolicitudesService } from '../../services/solicitudes.service';
 import { GoogleAdsService } from 'src/app/services/google-ads.service';
 import { VideoScreenPage } from '../video-screen/video-screen.page';
+import { Router } from '@angular/router';
 declare const window: any;  
 
 @Component({
@@ -47,7 +48,8 @@ imageURL =  null
           public gestorImagenesService: GestorImagenesService,
            public alertasService: AlertasService,
            public solicitudes: SolicitudesService,
-           public googleAdsService: GoogleAdsService
+           public googleAdsService: GoogleAdsService,
+           public router: Router
            
            ) { }
 
@@ -223,10 +225,20 @@ this.equiposService.nuevoEquipo(this.equipo).then((resp:Equipos) =>{
       this.equiposService.misEquipos = resp.slice(0);
       this.equiposService.perfilEquipo = this.equiposService.misEquipos[0];
       this.alertasService.loadingDissmiss();
+   
       this.modalCtrl.dismiss({
         'equipo':this.equipo
       },null,'create-modal')
    
+      this.equiposService.misEquipos = [];
+ 
+      this.equiposService.SyncMisEquipos(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
+        this.equiposService.misEquipos = resp.slice(0);
+        this.equiposService.perfilEquipo = null;
+        this.equiposService.perfilEquipo = this.equiposService.misEquipos[0];
+        console.log('mis equipos', this.equiposService.misEquipos)
+      })
+      this.router.navigate(['/futplay/perfil-equipo']);
     }, error =>{
       this.alertasService.loadingDissmiss();
       this.alertasService.message('FUTLAY', 'Error cargando datos...');

@@ -17,6 +17,7 @@ import { FacturacionService } from 'src/app/services/facturacion.service';
 import { FacturaDetaleReservaciones } from '../../models/facturaDetalleReservaciones';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { GestionReservacionesService } from 'src/app/services/gestion-reservaciones.service';
+import { EliminarRetoPage } from '../eliminar-reto/eliminar-reto.page';
 
 @Component({
   selector: 'app-aceptar-reto',
@@ -122,15 +123,29 @@ console.log('factura', factura)
    await actionSheet.present();
 }
 
-isLessThan24HourAgo(date) {
-  // 👇️                    hour  min  sec  milliseconds
-  const twentyFourHrInMs = 24 * 60 * 60 * 1000;
 
-  const twentyFourHoursAgo = Date.now() - twentyFourHrInMs;
-
-  return date > twentyFourHoursAgo && date <= Date.now();
+padTo2Digits(num) {
+  return num.toString().padStart(2, '0');
 }
+convertMsToHM(milliseconds) {
+  let seconds = Math.floor(milliseconds / 1000);
+  let minutes = Math.floor(seconds / 60);
+  let hours = Math.floor(minutes / 60);
 
+  seconds = seconds % 60;
+  // 👇️ if seconds are greater than 30, round minutes up (optional)
+  minutes = seconds >= 30 ? minutes + 1 : minutes;
+
+  minutes = minutes % 60;
+
+  // 👇️ If you don't want to roll hours over, e.g. 24 to 00
+  // 👇️ comment (or remove) the line below
+  // commenting next line gets you `24:00:00` instead of `00:00:00`
+  // or `36:15:31` instead of `12:15:31`, etc.
+  hours = hours % 24;
+
+  return `${this.padTo2Digits(hours)}:${this.padTo2Digits(minutes)}`;
+}
 
 
 async  efectuarPago(factura:FacturaDetaleReservaciones){
@@ -414,15 +429,36 @@ if(!this.partido[0].Verificacion_QR || !this.partido[1].Verificacion_QR){
   }
   eliminar(){
 
-if(this.isLessThan24HourAgo(new Date(this.reto.Hora_Fin).getTime())){
+/**
+ * if(this.isLessThan24HourAgo(new Date(this.reto.Hora_Inicio).getTime())){
+    this.gestionReservacionesService.syncDeleteConfirmacionReservacion(this.reto).then(resp =>{
+      this.modalCtrl.dismiss();
+  console.log(this.reto)
 this.alertasService.message('FUTPLAY', 'Las reservaciones se deben de cancelar 24 horas antes.')
   return
 }
-
+ */
+return
     this.gestionReservacionesService.syncDeleteConfirmacionReservacion(this.reto).then(resp =>{
       this.modalCtrl.dismiss();
     });
 
 
+  }
+
+
+  async eliminarReto(){
+
+    let modal = await this.modalCtrl.create({
+      component:EliminarRetoPage,
+      cssClass:'medium-modal',
+      componentProps:{
+        reto:this.reto
+      }
+    })
+  
+  
+  
+    return await modal.present();
   }
 }

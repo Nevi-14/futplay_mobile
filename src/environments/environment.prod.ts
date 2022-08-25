@@ -99,6 +99,8 @@ horaFin:'&Hora_Fin=',
  perfilEquipoURL:'perfil-equipo/',
  misEquiposURL:'mis-equipos/',
  misCanchasURL:'mis-canchas/',
+ reservacionesRevisionUrl:'reservaciones-revision',
+ reservacionesActualesUrl:'reservaciones-actuales',
  reservacionesRecibidasUrl:'reservaciones-recibidas',
  reservacionesEnviadasUrl:'reservaciones-enviadas',
  reservacionesConfirmadasUrl:'reservaciones-confirmadas',
@@ -128,5 +130,6 @@ partidosJugadorURL:'partidos-jugados/',
 jugadorFutplayURL:'jugador-futplay/',
 jugadorDelPartidoURL:'jugador-partido',
 clasificacionURL:'clasificacion',
-
+eliminarEquipo :'borrar/equipo/reservaciones/?Cod_Equipo=',
+eliminarUsuario:'usuarios?Cod_Usuario='
 };
