@@ -215,6 +215,28 @@
           
           
               </ion-col>
+              
+          <ion-col size="12" size-md="6">
+  
+            <ion-label>Pais</ion-label>
+            <ion-item  lines="none" class="ion-margin-bottom ion-margin-top">
+              <img slot="start" style="width:30px;height:30px;" src="{{usuario.Extranjero ? 'assets/usa.svg' : 'assets/cr.svg'}}" />
+              <ion-select  name="Pais"  [(ngModel)]="usuario.Pais" (ionChange)="pais($event)"   placeholder="Seleccionar Pais">
+                <ion-select-option value="CR">Costa Rica</ion-select-option>
+                <ion-select-option value="USA">USA</ion-select-option>
+              </ion-select>
+       
+            </ion-item>
+          </ion-col>
+  
+          <ion-col size="12" size-md="6">
+  
+            <ion-label>Telefono</ion-label>
+            <ion-item  lines="none" class="ion-margin-bottom ion-margin-top">
+              <ion-badge slot="start" color="dark" mode="ios">{{usuario.Extranjero ? '+1' : '+506'}}</ion-badge>
+            <ion-input name="Telefono" [(ngModel)]="usuario.Telefono"   type="tel" placeholder="Telefono" required></ion-input>
+            </ion-item>
+          </ion-col>
               <ion-col size="12" size-md="6">
               
                 <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
@@ -244,51 +266,7 @@
           
               </ion-col>
           
-              <ion-col size="12" size-md="6" *ngIf="showProvicia">
-          
-             
-                <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
-                  <ion-label>Provincia</ion-label>
-                      <ion-select placeholder="Provincia" required [(ngModel)]="usuario.Cod_Provincia" (ionChange)="onChangeProvincias($event)"   name="Cod_Provincia">
-                        <ion-select-option [value]="provincia.Cod_Provincia" *ngFor="let provincia of provinciasService.provincias">
-                          {{provincia.Provincia}}
-                        </ion-select-option>
-                        
-                        </ion-select>
-                  </ion-item>
               
-          
-              </ion-col>
-          
-              <ion-col size="12" size-md="6" *ngIf="showCanton">
-           
-                  <ion-item *ngIf="showCanton" class="ion-margin-bottom ion-margin-top" lines="none">
-                    <ion-label *ngIf="showCanton">Cantón</ion-label>
-                      <ion-select placeholder="Canton"  required [(ngModel)]="usuario.Cod_Canton"  (ionChange)="onChangeCantones($event)"   name="Cod_Canton" >
-                        <ion-select-option [value]="canton.Cod_Canton" *ngFor="let canton of cantonesService.cantones">
-                          {{canton.Canton}}
-                        </ion-select-option>
-                        
-                        </ion-select>
-                  </ion-item>
-              
-          
-              </ion-col>
-          
-              <ion-col size="12" size-md="6" *ngIf="showDistrito">
-          
-                <ion-item *ngIf="showDistrito"  class="ion-margin-bottom ion-margin-top" lines="none">
-                  <ion-label *ngIf="showDistrito">Distrito</ion-label>
-                    <ion-select placeholder="Distrito" required   [(ngModel)]="usuario.Cod_Distrito"   (ionChange)="onChangeDistritos($event)" name="Cod_Distrito">
-                      <ion-select-option [value]="distrito.Cod_Distrito" *ngFor="let distrito of distritosService.distritos">
-                        {{distrito.Distrito}}
-                      </ion-select-option>
-                
-                    </ion-select>
-                </ion-item>
-      
-          
-              </ion-col>
           
         
               

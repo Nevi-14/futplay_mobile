@@ -1,12 +1,16 @@
-
-<ion-content class="ion-padding">
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Seleccionar Fecha</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content  >
 
 <ion-grid  >
   <ion-row style="display: flex;justify-content:center;align-items:center">
     <ion-col size="10" size-md="4">
 
-      <ion-item  >
-     <ion-label>Dia</ion-label>
+      <ion-item  lines="none">
+     <ion-label><ion-badge color="dark" mode="ios">Dia</ion-badge></ion-label>
           <ion-select  required [(ngModel)]="dateObjectReturn.date" (ionChange)="obtenerDia($event)"   name="dia">
             <ion-select-option [value]="dia" *ngFor="let dia of dias">
              {{dia}} 
@@ -17,8 +21,8 @@
     </ion-col>
     <ion-col size="10" size-md="4">
      
-    <ion-item  >
-  <ion-label>Mes</ion-label>
+    <ion-item  lines="none" >
+      <ion-label><ion-badge color="dark" mode="ios">Mes</ion-badge></ion-label>
         <ion-select required [(ngModel)]="dateObjectReturn.month" (ionChange)="obtenerMes($event)"   name="mes">
           <ion-select-option [value]="mes" *ngFor="let mes of meses" class="ion-text-capitalized">
             {{mes}}
@@ -32,8 +36,8 @@
       
 
     
-    <ion-item  >
-<ion-label>Año</ion-label>
+    <ion-item   lines="none">
+      <ion-label><ion-badge color="dark" mode="ios">Año</ion-badge></ion-label>
         <ion-select   required [(ngModel)]="dateObjectReturn.year" (ionChange)="obtenerAno($event)"   name="ano">
           <ion-select-option [value]="ano" *ngFor="let ano of anos">
             {{ano}}
@@ -42,13 +46,15 @@
           </ion-select>
     </ion-item>
     </ion-col>
+    <ion-col size="12"  >
+      <ion-button (click)="continuar()" expand="block" color="dark">
+        <ion-label> Seleccionar</ion-label>
+        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+         </ion-button>
+    </ion-col>
   </ion-row>
 </ion-grid>
-<ion-toolbar>
-  <ion-button (click)="continuar()" expand="block" color="dark">
- <ion-label> Seleccionar</ion-label>
-  </ion-button>
-   </ion-toolbar>
+
 
 
 </ion-content>

@@ -16,6 +16,7 @@ export class MisEquiposPage implements OnInit {
   img =  'assets/main/my-clubs.svg';
   btn1 = true;
   btn2 = false;
+  textoBuscar ='';
   constructor(
     public equiposService: EquiposService,
      public modalCtrl: ModalController, 
@@ -35,6 +36,10 @@ export class MisEquiposPage implements OnInit {
   }
 
 
+  onSearchChange(event){
+
+    this.textoBuscar = event.detail.value;
+      }
   misEquipos(){
     this.btn1 = true;
     this.btn2 = false;

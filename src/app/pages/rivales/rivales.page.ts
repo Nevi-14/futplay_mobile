@@ -28,6 +28,7 @@ export class RivalesPage implements OnInit {
     Cod_Distrito:null,
   }
   activeCategory = 0;
+  textoBuscar = '';
   constructor(
     
     public listaEquiposService: ListaEquiposService,
@@ -153,17 +154,6 @@ this.alertasService.loadingDissmiss();
          }
         
         },
- {   
- //   text: canchaFavoritos ? 'Remover Favorito' : 'Favorito',
-   // icon: canchaFavoritos ? 'heart' : 'heart-outline',
-   text: 'Agregar a favoritos',
-   icon:'heart-outline',
-    handler: () =>{
-     
-    }
-   
-   },
- 
          {   
           text: 'Enviar Reto',
           icon:'paper-plane-outline',
@@ -200,7 +190,10 @@ this.alertasService.loadingDissmiss();
   
     }
 
-    
+    onSearchChange(event){
+
+      this.textoBuscar = event.detail.value;
+        }
    async rivalReservacion(rival){
 
   

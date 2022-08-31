@@ -3,7 +3,7 @@
     
 <ion-toolbar class="ion-padding">
 
-  <ion-searchbar  mode="ios" placeholder="buscar equipo" inputmode="text"  debounce="250" ></ion-searchbar> 
+  <ion-searchbar (ionChange)="onSearchChange($event)"  mode="ios" placeholder="Buscar Equipo" inputmode="text"  debounce="250" ></ion-searchbar> 
   <ion-buttons slot="end">
     <ion-button class="ion-button"    (click)="filtroUbicacion()"  >
       <ion-icon color="light" size="large"  name="options-outline" ></ion-icon>
@@ -48,7 +48,7 @@
        </ion-item>
 
 
-      <ion-item (click)="onOpenMenu(equipo)" lines="none" class="employeeItem  animate__animated animate__fadeIn"   *ngFor="let equipo of equiposService.equipos">
+      <ion-item (click)="onOpenMenu(equipo)" lines="none" class="employeeItem  animate__animated animate__fadeIn"   *ngFor="let equipo of equiposService.equipos  | filtro: textoBuscar:'Abreviacion' ">
     
 
           <ion-avatar slot="start"  >

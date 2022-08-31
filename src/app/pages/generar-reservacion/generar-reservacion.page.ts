@@ -495,8 +495,9 @@ async agregarCancha() {
     this.emailService.notificarUsuarios(this.rival.Cod_Usuario, subject, body).then(resp =>{
 
 
+      console.log('email 1', resp)
       this.emailService.notificarUsuarios(this.retador.Cod_Usuario, subject, body).then(resp =>{
-
+        console.log('email 2', resp)
       });
 
       

@@ -177,10 +177,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/recuperar-contrasena/recuperar-contrasena.module').then( m => m.RecuperarContrasenaPageModule)
   },
   {
-    path: 'metodos-pago',
-    loadChildren: () => import('./pages/metodos-pago/metodos-pago.module').then( m => m.MetodosPagoPageModule)
-  },
-  {
     path: 'verificacion-qr',
     loadChildren: () => import('./pages/verificacion-qr/verificacion-qr.module').then( m => m.VerificacionQrPageModule)
   },
@@ -195,7 +191,8 @@ const routes: Routes = [
   {
     path: 'crear-unirse-equipo',
     loadChildren: () => import('./pages/crear-unirse-equipo/crear-unirse-equipo.module').then( m => m.CrearUnirseEquipoPageModule)
-  },  {
+  },
+  {
     path: 'eliminar-cuenta',
     loadChildren: () => import('./pages/eliminar-cuenta/eliminar-cuenta.module').then( m => m.EliminarCuentaPageModule)
   },

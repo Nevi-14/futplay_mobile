@@ -263,6 +263,22 @@ this.Contrasena = alertData.nueva_contrasena;
           
           },
           {   
+            text: 'Modo Claro',
+            icon:'sunny-outline',
+            handler: () =>{
+  
+            }
+           
+           },
+           {   
+            text: 'Modo Oscuro',
+            icon:'moon-outline',
+            handler: () =>{
+   
+            }
+           
+           },
+          {   
             text: 'Gestionar Contraseñas',
             icon:'lock-closed-outline',
             handler: () =>{
@@ -271,6 +287,13 @@ this.Contrasena = alertData.nueva_contrasena;
             }
            
            },
+           {   
+            text: 'Metodos de Pago',
+            icon:'card-outline',
+            handler: () =>{
+    //    this.gestionarMetodosDePago();
+            }
+          },
           {   
             text: 'Cerrar Sesión',
             icon:'log-out-outline',

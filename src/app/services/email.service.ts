@@ -41,6 +41,8 @@ export class EmailService {
       }
     };
 
+
+    console.log('email', URL)
     return this.http.post(URL, JSON.stringify(email), options);
   }
 
@@ -66,7 +68,7 @@ export class EmailService {
 
         console.log('emailPost  sent', emailPost)
       }, error => {
-        console.log('emailPost  error', emailPost)
+        console.log('emailPost  error', error)
       })
     });
   }

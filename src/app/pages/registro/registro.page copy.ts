@@ -35,9 +35,9 @@ selectedDay:number;
 previousDay:number;
 usuario: Usuarios = {
   Cod_Usuario:0,
-  Pais: 'CR',
-  Cod_Pais : null,
-  Extranjero : null,
+  Cod_Provincia: null,
+  Cod_Canton : null,
+  Cod_Distrito : null,
   Cod_Posicion: 1,
   Cod_Role: 2,
   Modo_Customizado: false,
@@ -101,18 +101,6 @@ emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
     this.limpiarDatos()
   
 }
-
-pais($event){
-  this.usuario.Pais = $event.detail.value;
-  if($event.detail.value == 'USA'){
-    this.usuario.Extranjero = true;
-    this.usuario.Cod_Pais = '+1';
-  }else{
-    this.usuario.Extranjero = false;
-    this.usuario.Cod_Pais = '+506';
-  }
-  
-  }
 limpiarDatos(){
   this.provinciasService.provincias = [];
   this.provinciasService.syncProvinciasPromise().then(provincias =>{
@@ -121,9 +109,9 @@ limpiarDatos(){
 console.log(provincias)
     this.usuario = {
       Cod_Usuario:0,
-      Pais: 'CR',
-      Cod_Pais : null,
-      Extranjero : null,
+      Cod_Provincia: null,
+      Cod_Canton : null,
+      Cod_Distrito : null,
       Cod_Posicion: 1,
       Cod_Role: 2,
       Modo_Customizado: false,
@@ -223,6 +211,63 @@ return;
   
       return await modal.present();
     }
+
+  onChangeProvincias($event){
+    this.alertasService.presentaLoading('Cargando datos...')
+    this.usuario.Cod_Provincia = $event.target.value;
+    this.usuario.Cod_Canton = null;
+    this.usuario.Cod_Distrito = null;
+    this.cantonesService.cantones = [];
+    this.distritosService.distritos = [];
+ if(this.usuario.Cod_Provincia){
+  this.cantonesService.syncCantones(this.usuario.Cod_Provincia).then(resp =>{
+this.showCanton = true;
+this.showDistrito = null;
+this.cantonesService.cantones = resp.slice(0);
+this.alertasService.loadingDissmiss();
+  })
+ }else{
+  this.alertasService.loadingDissmiss();
+ }
+  }
+  onChangeCantones($event){
+    this.alertasService.presentaLoading('Cargando datos...')
+    this.usuario.Cod_Canton = $event.target.value;
+    this.usuario.Cod_Distrito = null;
+    this.distritosService.distritos = [];
+if(this.usuario.Cod_Provincia && this.usuario.Cod_Canton){
+  this.distritosService.syncDistritos(this.usuario.Cod_Provincia,this.usuario.Cod_Canton).then(resp =>{
+    this.distritosService.distritos = resp.slice(0);
+    this.showDistrito = true;
+    this.alertasService.loadingDissmiss();
+    
+  })
+}else{
+  this.alertasService.loadingDissmiss();
+}
+
+  }
+
+  onChangeDistritos($event){
+
+    this.usuario.Cod_Distrito = $event.target.value;
+
+  }
+
+  onChange($event , provincia, canton, distrito){
+    if(provincia){
+  
+   this.cantonesService.syncCantones($event.target.value);
+    }else if(canton){
+  
+      this.distritosService.syncDistritos(this.usuario.Cod_Provincia, $event.target.value);
+  
+    }else{
+      
+    }
+    console.log($event.target.value);
+    }
+
 
 
 

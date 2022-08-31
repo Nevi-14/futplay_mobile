@@ -20,11 +20,14 @@ export class PerfilUsuario {
     public Partidos_Jugador_Futplay: number,
     public Partidos_Jugador_Del_Partido : number,
     public Compartir_Datos : boolean,
-    public Pais: string,
+    public Cod_Provincia: number,
     public Estado: boolean,
     public Descripcion_Estado: string,
-    public Cod_Pais: string,
-    public Extranjero:boolean,
+    public Provincia: string,
+    public Cod_Canton: number,
+    public Canton: string,
+    public Cod_Distrito:number,
+    public Distrito:string,
     public Avatar: boolean
     ){}
     

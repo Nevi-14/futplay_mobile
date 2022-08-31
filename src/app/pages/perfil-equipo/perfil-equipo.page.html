@@ -69,15 +69,14 @@
    
   </ion-item>
 
-  <ion-item lines="none" class="ion-margin-top ion-margin-bottom ion-text-center">
+  <ion-item lines="none">
 
-    <ion-label  >Dureza :  </ion-label>
-    <ion-avatar    style="margin: 0.5rem;"  >
+    <ion-label  slot="start">Dureza :  </ion-label>
+    <ion-avatar slot="start"    >
       <img      src="assets/emojis/{{dureza[equiposService.perfilEquipo.Dureza]['image']}}">
      
     </ion-avatar>
 
-    <ion-label   class="ion-text-wrap"><strong>{{dureza[equiposService.perfilEquipo.Dureza].titulo}}</strong></ion-label>
 
   </ion-item>
 
@@ -89,9 +88,7 @@
   <ion-badge color="primary" style="margin-left:10px">{{solicitudesService.solicitudesEquiposArray.length}}</ion-badge>
 </ion-button>
   
-<ion-fab-button slot="end" size="small"  class="no-shadow" color="dark"   >
-  <ion-icon name="share-social-outline"></ion-icon>
-</ion-fab-button>
+
 </ion-item>
 
 

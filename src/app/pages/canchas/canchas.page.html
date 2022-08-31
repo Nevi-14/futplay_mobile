@@ -2,7 +2,7 @@
 
 <ion-toolbar class="ion-padding">
 
-  <ion-searchbar  mode="ios" placeholder="buscar canchas" inputmode="text"  debounce="250" ></ion-searchbar> 
+  <ion-searchbar (ionChange)="onSearchChange($event)"  mode="ios" placeholder="Buscar Canchas" inputmode="text"  debounce="250" ></ion-searchbar> 
   <ion-buttons slot="end">
     <ion-button class="ion-button"    (click)="filtroUbicacion()"  >
       <ion-icon color="light" size="large"  name="options-outline" ></ion-icon>
@@ -32,7 +32,7 @@
 
      </ion-item>
 
-    <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"    (click)="onOpenMenu(cancha)" *ngFor="let cancha of canchasService.canchas" >
+    <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"    (click)="onOpenMenu(cancha)" *ngFor="let cancha of canchasService.canchas  | filtro: textoBuscar:'Nombre'" >
 
       <ion-avatar slot="start">
         <img  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilCanchaUploads/'+cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">

@@ -21,7 +21,7 @@ export class CanchasPage implements OnInit {
     Cod_Distrito: null,
     Cod_Categoria: null
   }
-  textoBuscar ='';
+
   calendar = '../assets/icons/calendar.svg';
   message = '../assets/icons/message.svg';
   location = '../assets/icons/map.svg';
@@ -83,7 +83,22 @@ dateF(){
        }
     
       ]
-
+  const favoritos : ActionSheetButton =  {   
+ //   text: canchaFavoritos ? 'Remover Favorito' : 'Favorito',
+   // icon: canchaFavoritos ? 'heart' : 'heart-outline',
+   text: 'Agregar a favoritos',
+   icon:'heart-outline',
+    handler: () =>{
+      this.onToggleFavorite(cancha);
+    }
+   
+   }
+  
+   const number = 1;
+  
+  if( number >= 1){
+    normalBtns.unshift(favoritos);
+  }
 
   const actionSheet = await this.actionSheetCtrl.create({
     header:'Opciones',
@@ -100,11 +115,6 @@ await actionSheet.present();
 
 
   }
-
-  onSearchChange(event){
-
-    this.textoBuscar = event.detail.value;
-      }
   async filtroUbicacion(){
 
   

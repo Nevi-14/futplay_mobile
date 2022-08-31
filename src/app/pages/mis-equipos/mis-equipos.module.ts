@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { MisEquiposPageRoutingModule } from './mis-equipos-routing.module';
 
 import { MisEquiposPage } from './mis-equipos.page';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MisEquiposPageRoutingModule
+    MisEquiposPageRoutingModule,
+    PipesModule
   ],
   declarations: [MisEquiposPage]
 })
