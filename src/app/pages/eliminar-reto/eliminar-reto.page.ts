@@ -36,14 +36,19 @@ export class EliminarRetoPage implements OnInit {
         const year = 365;
         let today = new Date();
         let newDate = new Date(this.reto.Hora_Inicio);
-        let difference = today.getTime() - newDate.getTime() ;
+        let difference =  newDate.getTime() - today.getTime() ;
         let TotalHours = Math.ceil(difference / (1000 * 3600));
         let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
-        
+        console.log('difference',difference)
         if(TotalHours >= 24){
         
-          this.gestionReservacionesService.syncDeleteConfirmacionReservacion(this.reto).then(resp =>{
-            this.modalCtrl.dismiss();
+          this.gestionReservacionesService.syncDeleteReservacion(this.reto.Cod_Reservacion).then(resp =>{
+            this.alertasService.message('FUTPLAY', 'La reservación se elimino con exito')
+            this.modalCtrl.dismiss({data:true});
+          }, error =>{
+            console.log(error, 'error')
+            this.modalCtrl.dismiss({data:true});
+            this.alertasService.message('FUTPLAY', 'Lo sentimos, no se pudo eliminar la reservación. El equipo FUTPLAY revisara el detalle y te notificara, por favor verificar el estado en la sección de retos / revisión.')
           })
           return
         }

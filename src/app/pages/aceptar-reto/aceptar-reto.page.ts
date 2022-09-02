@@ -350,7 +350,7 @@ this.notificarUsuarios();
   
     }
   cerrarModal(){
-    this.modalCtrl.dismiss();
+    this.modalCtrl.dismiss(null,null,'detalle-reto');
   }
 
   async videoScreen(id){
@@ -459,6 +459,12 @@ return
   
   
   
-    return await modal.present();
+     await modal.present();
+
+     const { data } = await modal.onDidDismiss();
+     console.log('data eli', data)
+     if(data != undefined){
+      this.modalCtrl.dismiss(null,null,'detalle-reto');
+     }
   }
 }

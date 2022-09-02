@@ -105,7 +105,8 @@ this.gestionReservacionesService.syncRetosConfirmados(this.usuariosService.usuar
             cancha: cancha,
             retador: retador,
             rival:rival
-          }
+          },
+          id:'detalle-reto'
         });
     
          await modal.present();
