@@ -2,6 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { GestionReservacionesService } from 'src/app/services/gestion-reservaciones.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+import { environment } from 'src/environments/environment';
+import { GestionRetos } from 'src/app/models/gestionRetos';
+import { ListaCanchas } from '../../models/listaCanchas';
+import { EmailService } from 'src/app/services/email.service';
 
 @Component({
   selector: 'app-eliminar-reto',
@@ -9,14 +14,25 @@ import { GestionReservacionesService } from 'src/app/services/gestion-reservacio
   styleUrls: ['./eliminar-reto.page.scss'],
 })
 export class EliminarRetoPage implements OnInit {
-@Input() reto;
+@Input() reto:GestionRetos;
+@Input() cancha:ListaCanchas;
+
+futplay_email = environment.futplayEmail;
+subject = null;
+body = null;
   constructor(
     public modalCtrl: ModalController,
     public gestionReservacionesService: GestionReservacionesService,
-    public alertasService: AlertasService
+    public alertasService: AlertasService,
+    public usuariosSerice:UsuariosService,
+    public emailService: EmailService
   ) { }
 
   ngOnInit() {
+    this.subject = 'Reservación cancelada ' +  this.reto.Titulo;
+    this.body =  'Estimado usuario, se ha cancelado el reto en la cancha' + ' '+this.reto.Nombre_Cancha;
+    console.log('futplay', this.futplay_email)
+
   }
   cerrarModal(){
 
@@ -41,12 +57,15 @@ export class EliminarRetoPage implements OnInit {
         let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
         console.log('difference',difference)
         if(TotalHours >= 24){
-        
+          this.enviarCorreos();
           this.gestionReservacionesService.syncDeleteReservacion(this.reto.Cod_Reservacion).then(resp =>{
             this.alertasService.message('FUTPLAY', 'La reservación se elimino con exito')
             this.modalCtrl.dismiss({data:true});
+
+                 
           }, error =>{
             console.log(error, 'error')
+            this.enviarCorreos();
             this.modalCtrl.dismiss({data:true});
             this.alertasService.message('FUTPLAY', 'Lo sentimos, no se pudo eliminar la reservación. El equipo FUTPLAY revisara el detalle y te notificara, por favor verificar el estado en la sección de retos / revisión.')
           })
@@ -58,5 +77,24 @@ export class EliminarRetoPage implements OnInit {
         return
         
         
+        }
+
+
+        enviarCorreos(){
+          this.emailService.notificarUsuarios(this.reto.Cod_Usuario,this.subject,this.body).then(retador =>{
+            console.log('retador sent')
+                })
+            
+                this.emailService.notificarUsuarios(this.reto.Cod_Usuario_Rival,this.subject,this.body).then(rival =>{
+                  console.log('rival sent')
+                })
+                this.emailService.notificarUsuarios(this.cancha.Cod_Usuario,this.subject,this.body).then(cancha =>{
+                  console.log('cancha sent')
+                })
+                 /**
+                   * this.emailService.notificarUsuarios(36,this.subject,this.body).then(cancha =>{
+                    console.log('xavi sent')
+                  })
+                   */
         }
 }

@@ -453,7 +453,8 @@ return
       component:EliminarRetoPage,
       cssClass:'medium-modal',
       componentProps:{
-        reto:this.reto
+        reto:this.reto,
+        cancha:this.cancha,
       }
     })
   

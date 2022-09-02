@@ -131,5 +131,6 @@ jugadorFutplayURL:'jugador-futplay/',
 jugadorDelPartidoURL:'jugador-partido',
 clasificacionURL:'clasificacion',
 eliminarEquipo :'borrar/equipo/reservaciones/?Cod_Equipo=',
-eliminarUsuario:'usuarios?Cod_Usuario='
+eliminarUsuario:'usuarios?Cod_Usuario=',
+futplayEmail :'facturaelectronica@futplaycompany.com'
 };

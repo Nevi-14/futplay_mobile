@@ -134,7 +134,8 @@ jugadorFutplayURL:'jugador-futplay/',
 jugadorDelPartidoURL:'jugador-partido',
 clasificacionURL:'clasificacion',
 eliminarEquipo :'borrar/equipo/reservaciones/?Cod_Equipo=',
-eliminarUsuario:'usuarios?Cod_Usuario='
+eliminarUsuario:'usuarios?Cod_Usuario=',
+futplayEmail :'facturaelectronica@futplaycompany.com'
 };
 /*
  * For easier debugging in development mode, you can import the following file
