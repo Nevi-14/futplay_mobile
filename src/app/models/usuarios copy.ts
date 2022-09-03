@@ -2,9 +2,9 @@
 export class Usuarios {
     constructor(
         public Cod_Usuario: number,
-        public Cod_Provincia: number,
-        public Cod_Canton : number,
-        public Cod_Distrito : number,
+        public Pais: string,
+        public Cod_Pais : string,
+        public Extranjero : boolean,
         public Cod_Posicion: number,
         public Cod_Role: number,
         public Modo_Customizado: boolean,

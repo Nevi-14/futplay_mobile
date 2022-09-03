@@ -31,7 +31,7 @@ showProvicia = false;
 showCanton = false;
 showDistrito = false;
   private modalOpen:boolean = false;
-  userPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+ this.userService.usuarioActual.Foto +'?'+ this.dateF();
+  userPic = 'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+ this.userService.usuarioActual.Foto +'?'+ this.dateF();
   areaUnit =1;
     userPic1 = this.gestorImagenesService.images.length > 0 ? this.gestorImagenesService.images[0].data : 'assets/user.svg';
     usuario = {
@@ -39,9 +39,9 @@ showDistrito = false;
       Cod_Role: 2,
       Avatar:this.usuarioService.usuarioActual.Avatar,
       Compartir_Datos:this.usuarioService.usuarioActual.Compartir_Datos,
-      Pais: this.usuarioService.usuarioActual.Pais,
-      Cod_Pais:this.usuarioService.usuarioActual.Cod_Pais,
-      Extranjero: this.usuarioService.usuarioActual.Extranjero,
+      Cod_Provincia: this.usuarioService.usuarioActual.Cod_Provincia,
+      Cod_Canton:null,
+      Cod_Distrito: this.usuarioService.usuarioActual.Cod_Distrito,
       Cod_Posicion:this.usuarioService.usuarioActual.Cod_Posicion,
       Modo_Customizado: false,
       Foto: this.userService.usuarioActual.Foto,
@@ -169,8 +169,52 @@ compareWith : any ;
 
    });
 
-  }
 
+   this.provinciasService.provincias = [];
+      this.provinciasService.syncProvinciasPromise().then(resp =>{
+        this.provinciasService.provincias = resp
+this.showProvicia = true;
+this.usuario.Cod_Provincia = this.usuarioService.usuarioActual.Cod_Provincia
+      })
+  
+      this.usuario.Cod_Provincia = this.usuarioService.usuarioActual.Cod_Provincia
+
+
+      if(this.usuario.Cod_Provincia){
+        this.cantonesService.syncCantones(this.usuario.Cod_Provincia).then(resp =>{
+      this.showCanton = true;
+      this.showDistrito = null;
+      this.cantonesService.cantones = resp.slice(0);
+      this.alertasService.loadingDissmiss();
+      this.usuario.Cod_Canton = this.usuarioService.usuarioActual.Cod_Canton
+
+      if(this.usuario.Cod_Provincia && this.usuario.Cod_Canton){
+        this.distritosService.syncDistritos(this.usuario.Cod_Provincia,this.usuario.Cod_Canton).then(resp =>{
+          this.distritosService.distritos = resp.slice(0);
+          this.showDistrito = true;
+          this.alertasService.loadingDissmiss();
+          this.usuario.Cod_Distrito = this.usuarioService.usuarioActual.Cod_Distrito
+        });
+      
+        }
+
+
+      
+        })
+
+
+  
+
+
+       }else{
+        this.alertasService.loadingDissmiss();
+       }
+
+  }
+   ///// In functions definitions
+   onSelectChange(selectedValue: any) {
+    this.usuario.Cod_Provincia = selectedValue.detail.value ;
+  }
   compareFn(e1, e2): boolean {
     return e1 && e2 ? e1 === e2 : e1 === e2;
   }
@@ -249,8 +293,8 @@ this.usuario.Foto = resp
 console.log(this.usuario, 'edit')
 this.usuario.Avatar = false;
 this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.usuario.Avatar, this.usuario.Foto);    
-this.userPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+ this.userService.usuarioActual.Foto +'?'+ this.dateF();
-//this.gestorImagenesService.reset();
+     
+
 
 
        })
@@ -349,7 +393,51 @@ this.userPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUpload
   
     
   }
- async eliminarCuenta(){
+
+
+  onChangeProvincias($event){
+    this.alertasService.presentaLoading('Cargando datos...')
+    this.usuario.Cod_Provincia = $event.target.value;
+    this.usuario.Cod_Canton = null;
+    this.usuario.Cod_Distrito = null;
+    this.cantonesService.cantones = [];
+    this.distritosService.distritos = [];
+ if(this.usuario.Cod_Provincia){
+  this.cantonesService.syncCantones(this.usuario.Cod_Provincia).then(resp =>{
+this.showCanton = true;
+this.showDistrito = null;
+this.cantonesService.cantones = resp.slice(0);
+this.alertasService.loadingDissmiss();
+  })
+ }else{
+  this.alertasService.loadingDissmiss();
+ }
+  }
+  onChangeCantones($event){
+    this.alertasService.presentaLoading('Cargando datos...')
+    this.usuario.Cod_Canton = $event.target.value;
+    this.usuario.Cod_Distrito = null;
+    this.distritosService.distritos = [];
+if(this.usuario.Cod_Provincia && this.usuario.Cod_Canton){
+  this.distritosService.syncDistritos(this.usuario.Cod_Provincia,this.usuario.Cod_Canton).then(resp =>{
+    this.distritosService.distritos = resp.slice(0);
+    this.showDistrito = true;
+    this.alertasService.loadingDissmiss();
+    
+  })
+}else{
+  this.alertasService.loadingDissmiss();
+}
+
+  }
+
+  onChangeDistritos($event){
+
+    this.usuario.Cod_Distrito = $event.target.value;
+
+  }
+
+  async eliminarCuenta(){
 
     let modal = await this.modalCtrl.create({
       component:EliminarCuentaPage,
@@ -360,15 +448,5 @@ this.userPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUpload
 
     return await modal.present();
   }
-  pais($event){
-    this.usuario.Pais = $event.detail.value;
-    if($event.detail.value == 'USA'){
-      this.usuario.Extranjero = true;
-      this.usuario.Cod_Pais = '+1';
-    }else{
-      this.usuario.Extranjero = false;
-      this.usuario.Cod_Pais = '+506';
-    }
-    
-    }
+  
 }

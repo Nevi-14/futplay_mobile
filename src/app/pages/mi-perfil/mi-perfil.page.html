@@ -27,8 +27,6 @@
     </ion-toolbar>
 
 <ion-content class="ion-text-center" *ngIf="userService.usuarioActual">
-
-<div class="content">
   <ion-avatar  style="height: 12rem;width:12rem;margin:0 auto;">
 
     <img *ngIf="!userService.usuarioActual.Avatar" [src]="userPic" onerror="this.src='assets/user.svg'"    alt="">
@@ -42,36 +40,26 @@
   <ion-list lines="none">
     
 
-    <ion-item *ngIf="userService.usuarioActual.Apodo" >
+    <ion-item *ngIf="userService.usuarioActual.Apodo">
         <ion-label>Apodo : {{userService.usuarioActual.Apodo}}</ion-label>
     </ion-item>
-             
-    <ion-col size="12" size-md="6">
-
-      <ion-item  lines="none" class="ion-margin-bottom ion-margin-top " >
-        <ion-label  style="display: flex;justify-content:start;align-items: center;">Región : 
-          <img  style="width:30px;height:30px;margin-right: 0.5rem;margin-left: 1rem;" src="{{userService.usuarioActual.Extranjero ? 'assets/usa.svg' : 'assets/cr.svg'}}" />
-          {{userService.usuarioActual.Pais == 'CR' ? 'Costa Rica' : 'USA'}}
-        </ion-label>
- 
-
-      </ion-item>
-    </ion-col>
-
-    <ion-item  lines="none">
+    <ion-item>
+        <ion-label >Región :  {{userService.usuarioActual.Canton}}, {{userService.usuarioActual.Provincia}}  </ion-label>
+    </ion-item>
+    <ion-item  >
         <ion-label>Posición: <ion-badge color="dark" mode="ios">{{userService.usuarioActual.Posicion}}</ion-badge> </ion-label>
     </ion-item>
-    <ion-item lines="none">
-        <ion-label>Edad : {{calcularFecha(userService.usuarioActual.Fecha_Nacimiento)}} años</ion-label>
+    <ion-item>
+        <ion-label>Edad : {{calcularEdad(userService.usuarioActual.Fecha_Nacimiento)}} años</ion-label>
     </ion-item>
 
 
-<ion-item  >
+<ion-item lines="none">
   <h5 class="ion-text-uppercase"> <strong>Estadisticas Personales</strong></h5>
 
 
 </ion-item>
-<ion-item   class="animate__animated animate__fadeIn"  >
+<ion-item  lines="none" class="employeeItem  animate__animated animate__fadeIn"  >
 
   <ion-label>
     Partidos Jugados
@@ -79,7 +67,7 @@
   </ion-label>
   <ion-badge slot="end" color="dark" mode="ios">{{userService.usuarioActual.Partidos_Jugados}}</ion-badge>
 </ion-item>
-<ion-item  class="animate__animated animate__fadeIn"  >
+<ion-item  lines="none" class="employeeItem  animate__animated animate__fadeIn"  >
 
   <ion-label>
     Jugador del partido
@@ -87,7 +75,7 @@
   </ion-label>
   <ion-badge slot="end" color="dark" mode="ios">{{userService.usuarioActual.Partidos_Jugador_Del_Partido }}</ion-badge>
 </ion-item>
-<ion-item    class="animate__animated animate__fadeIn"  >
+<ion-item  lines="none" class="employeeItem  animate__animated animate__fadeIn"  >
 
   <ion-label>
     Jugador FutPlay
@@ -97,5 +85,4 @@
 
 
   </ion-list>
-</div>
 </ion-content>
