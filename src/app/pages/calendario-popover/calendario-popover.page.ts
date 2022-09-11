@@ -18,6 +18,12 @@ export class CalendarioPopoverPage implements OnInit {
 console.log('test', this.fecha)
 
   }
+
+  getDate(value: any) {
+    
+    console.log('value', value)
+  }
+
   formatDate(value: string) {
 
 

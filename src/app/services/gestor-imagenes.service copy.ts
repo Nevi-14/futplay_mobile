@@ -96,14 +96,7 @@ imageURL =  "https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/Nelso
           this.usuariosService.syncDatosToPromise(Cod_Usuario).then(resp =>{
 
 this.usuariosService.usuarioActual = resp[0];
-
-if(!this.usuariosService.usuarioActual.Avatar){
-  this.usuariosService.userPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/' + this.usuariosService.usuarioActual.Foto +'?'+new Date().getTime();
-console.log('pic' ,  this.usuariosService.userPic)
-}else{
-  this.usuariosService.userPic = 'assets/user.svg';
-  console.log('no pic' ,  this.usuariosService.userPic)
-}
+this.getImage();
          
           })
        
@@ -355,4 +348,20 @@ async deleteImage(file: LocalFile) {
 
 
 
+getImage(){
+
+  console.log(this.usuariosService.usuarioActual, 'usuario actual')
+  console.log('foto', this.usuariosService.usuarioActual.Foto)
+  let url = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/';
+  
+      if(!this.usuariosService.usuarioActual.Avatar ){
+  
+        this.usuariosService.userPic =   url+this.usuariosService.usuarioActual.Foto+"?"+ new Date().getTime();
+      }else{
+  
+        this.usuariosService.userPic =   'assets/profile/avatars/' + this.usuariosService.usuarioActual.Foto;
+      }
+  
+  
+    }
 }

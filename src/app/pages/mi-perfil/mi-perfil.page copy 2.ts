@@ -12,8 +12,6 @@ import { StorageService } from 'src/app/services/storage-service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { EditarPerfilUsuarioPage } from '../editar-perfil-usuario/editar-perfil-usuario.page';
 import { SolicitudesJugadoresPage } from '../solicitudes-jugadores/solicitudes-jugadores.page';
-import { CambiarContrasenaPage } from '../cambiar-contrasena/cambiar-contrasena.page';
-import { CodigoSeguridadPage } from '../codigo-seguridad/codigo-seguridad.page';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -30,7 +28,6 @@ export class MiPerfilPage  {
   verificarCodigo:boolean = false;
   codigo = '';
   Contrasena = '';
-
 
   constructor(
     public popoverCtrl: PopoverController,
@@ -53,82 +50,91 @@ export class MiPerfilPage  {
 
    
   ionViewWillEnter(){
-    console.log(this.userService.usuarioActual, 'user');
-    this.cdr.detectChanges();
-    this.getImage();
-    this.solicitudesService.syncGetSolicitudesJugadores(this.userService.usuarioActual.Cod_Usuario, false,true, true)
+
+   // this.solicitudesService.syncGetSolicitudesJugadores(this.userService.usuarioActual.Cod_Usuario, false,true, true)
   }  
-  AfterViewInit(){
-    this.getImage();
-    this.cdr.detectChanges();
-  }
-  async cambiarContrasena() {
-    const modal = await this.modalCtrl.create({
-      component: CambiarContrasenaPage,
-      breakpoints: [0, 0.5, 0.5, 0.8],
-      initialBreakpoint: 0.5
-    });
-    await modal.present();
 
-    const {data } = await modal.onDidDismiss();
 
-    if(data != undefined){
 
-      this.Contrasena = data.contrasena;
+  async presentAlertPrompt() {
+    const alert2 = await this.alertCTrl.create({
+      cssClass: 'alertCancel',
+      mode:'ios',
+      header: 'Cambiar Contraseña',
+      message:'Gestion de contraseña',
+      inputs: [
 
-      let codigo = String(new Date().getHours()) + String(new Date().getMinutes()) +String(new Date().getMilliseconds());
-      this.email.Body =  this.email.Body + codigo;
-      this.alertasService.presentaLoading('Validando datos')
-      
-      this.emailService.syncToPromiseSendEmail(this.email).then(resp =>{
-      this.alertasService.loadingDissmiss();
-      this.autenticacionservice.actulizarTokenPromise(this.userService.usuarioActual.Cod_Usuario, codigo, new Date().getHours()).then(resp =>{
-      this.securityCode();
-      
-      })
-      
-      
+        {
+          name: 'nueva_contrasena',
+          type: 'password',
+          id: 'nueva_contrasena-id',
+          placeholder: 'nueva contraseña',
+          value:''
+        },
+        // multiline input.
+        {
+          name: 'confirmar_contrasena',
+          id: 'confirmar_contrasena',
+          type: 'password',
+          placeholder: 'confirmar contraseña',
+          value:''
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (alertData) => {
+            console.log('Confirm Cancel');
+          
+          }
+        }, {
+          text: 'Confirmar',
+          handler: (alertData) => {
+
+            if(alertData.nueva_contrasena == "" || alertData.confirmar_contrasena == ""){
+             
+
+              return this.presentAlertPrompt();
+            }
+
+
+
+this.Contrasena = alertData.nueva_contrasena;
+
+            let codigo = String(new Date().getHours()) + String(new Date().getMinutes()) +String(new Date().getMilliseconds());
+            this.email.Body =  this.email.Body + codigo;
+        this.alertasService.presentaLoading('Validando datos')
         
-      }, error =>{
-        this.alertasService.loadingDissmiss();
-        this.alertasService.message('Futplay','Lo sentimos algo salio mal!');
-      
-      })
-      
+            this.emailService.syncToPromiseSendEmail(this.email).then(resp =>{
+           this.alertasService.loadingDissmiss();
+           this.autenticacionservice.actulizarTokenPromise(resp, codigo, new Date().getHours()).then(resp =>{
+            this.validarCodigo();
+          
+          })
+  
+        
+              
+            }, error =>{
+              this.alertasService.loadingDissmiss();
+              this.alertasService.message('Futplay','Lo sentimos algo salio mal!');
+        
+            })
 
-    }
 
-  }
 
-  async securityCode() {
-    const modal = await this.modalCtrl.create({
-      component: CodigoSeguridadPage,
-      breakpoints: [0, 0.5, 0.5, 0.8],
-      initialBreakpoint: 0.5
+
+
+
+            console.log(alertData);
+          }
+        }
+      ]
     });
-    await modal.present();
 
-    const {data } = await modal.onDidDismiss();
-
-    if(data != undefined){
-
-      this.codigo = data.codigo;
-      this.autenticacionservice.actualizarContrasenaPromise(data.codigo, this.userService.hashPassword(this.Contrasena)).then(resp =>{
-        this.codigo = '';
-        this.Contrasena = '';
-
-        console.log('passwrd change', resp)
-
-      this.alertasService.message('FUTPLAY', 'La contraseña se cambio con exito!.')
-      
-      
-        })
-
-
-    }
-
+    await alert2.present();
   }
-
 
   calcularFecha(fecha){
     var dob = new Date(fecha);
@@ -146,6 +152,60 @@ export class MiPerfilPage  {
     return age;
   }
 
+  async validarCodigo() {
+    const alert2 = await this.alertCTrl.create({
+      cssClass: 'my-custom-class',
+      mode:'ios',
+      header: 'Codigo de verificación',
+      subHeader:'Se envio un codigo a su correo',
+      message: 'Revisa tu correo',
+      inputs: [
+
+        {
+          name: 'codigo',
+          type: 'text',
+          id:   'codigo-id',
+          placeholder: 'codigo verificacion',
+          value:''
+        },
+       
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (alertData) => {
+            console.log('Confirm Cancel');
+          
+          }
+        }, {
+          text: 'Confirmar',
+          handler: (alertData) => {
+            if(alertData.codigo == ""){
+             
+
+              return this.validarCodigo();
+            }
+
+            this.autenticacionservice.actualizarContrasenaPromise(alertData.codigo, this.userService.hashPassword(this.Contrasena)).then(resp =>{
+              this.codigo = '';
+              this.Contrasena = '';
+
+              console.log('passwrd change', resp)
+     
+            this.alertasService.message('FUTPLAY', 'Contrasena cambiada')
+            
+            
+              })
+            console.log(alertData);
+          }
+        }
+      ]
+    });
+
+    await alert2.present();
+  }
 
 
 
@@ -190,16 +250,7 @@ export class MiPerfilPage  {
             icon:'lock-closed-outline',
             handler: () =>{
         // this.gestionarContrasena();
-        this.cambiarContrasena();
-            }
-           
-           },
-           {   
-            text: 'Validar Codigo De Seguridad',
-            icon:'arrow-forward-outline',
-            handler: () =>{
-        // this.gestionarContrasena();
-        this.securityCode();
+        this.presentAlertPrompt();
             }
            
            },
@@ -253,7 +304,7 @@ export class MiPerfilPage  {
     modal.present();
     const { data } = await modal.onWillDismiss();
     console.log(data)
-    this.getImage();
+    this.gestorImagenesService.getImage();
     }
 
 
@@ -271,21 +322,7 @@ export class MiPerfilPage  {
 return age;
 
     }
-    getImage(){
 
-      console.log(this.userService.usuarioActual, 'usuario actual')
-      console.log('foto', this.userService.usuarioActual.Foto)
-      let url = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/';
-      
-          if(!this.userService.usuarioActual.Avatar ){
-      
-            this.userService.userPic =   url+this.userService.usuarioActual.Foto+"?"+ new Date().getTime();
-          }else{
-      
-            this.userService.userPic =   'assets/profile/avatars/' + this.userService.usuarioActual.Foto;
-          }
-      
-      
-        }
+        
 
 }

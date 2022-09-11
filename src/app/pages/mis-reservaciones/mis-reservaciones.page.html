@@ -25,7 +25,7 @@
           <ion-button size="small" fill="clear"  *ngIf="segment < categories.length-1" slot="end" (click)="next()">
             <ion-icon  color="light"  name="arrow-forward-outline"></ion-icon>
           </ion-button>
-          <ion-segment scrollable mode="md" (ionChange)="segmentChanged(segment)" [(ngModel)]="segment" >
+          <ion-segment scrollable mode="md" (ionChange)="segmentChanged()" [(ngModel)]="segment" >
             <ion-segment-button mode="md" id="seg-{{i}}"  [value]="i" *ngFor="let cat of categories; let i = index;"  (click)="selectCategory(i)">
               <ion-label [class.active-category]="activeCategory == i">{{cat}}</ion-label>
             </ion-segment-button>

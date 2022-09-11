@@ -15,7 +15,8 @@ export class SolicitudesJugadoresPage implements OnInit {
   @Input() showReceiveInput;
   @Input()showSendInput;
 title = 'Recibidas'
-activeCategory = 1;
+activeCategory = 0;
+segment = 0 ;
 categories = ['enviadas', 'recibidas'];
 showReceive = true;
 showSend = false;
@@ -41,7 +42,7 @@ this.send();
 
   selectCategory(index){
     this.activeCategory = index;
-   
+    this.segment = index;
     switch(index){
    
      case 0:

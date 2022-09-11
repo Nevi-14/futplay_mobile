@@ -4,6 +4,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import {filter,map,take} from 'rxjs/operators';
 import { UsuariosService } from '../services/usuarios.service';
 import { StorageService } from '../services/storage-service';
+import { GestorImagenesService } from '../services/gestor-imagenes.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,26 +14,27 @@ export class AutoLoginGuard implements CanLoad {
     private authenticationService:AuthenticationService,
     private router:Router,
     private usersService: UsuariosService,
-    public storageService: StorageService
+    public storageService: StorageService,
+    public gestormagenesService: GestorImagenesService
   ){}
   canLoad(): any{
-
+ 
     if(this.router.url == '/'){
       this.storageService.get('Cod_Usuario').then(Cod_Usuario =>{
-
-        console.log(Cod_Usuario,'usuario Cod_Usuario')
-   
+     
         if(Cod_Usuario !=null){
           this.usersService.syncDatosToPromise(Cod_Usuario).then( usuario =>{
 
-         
-      this.authenticationService.loadToken(true)
             this.usersService.usuarioActual = usuario[0];
-            this.usersService.userPic =   this.usersService.usuarioActual.Foto ? 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/' + this.usersService.usuarioActual.Foto +'?': 'assets/user.svg';
+            this.gestormagenesService.getImage();
+      this.authenticationService.loadToken(true)
+
             this.router.navigateByUrl('/futplay/mi-perfil');
         return true
           });
-        } 
+        } else{
+          this.usersService.usuarioActual = null;
+        }
         
       
       })
@@ -45,5 +47,4 @@ export class AutoLoginGuard implements CanLoad {
 
   }
 
-  
 }

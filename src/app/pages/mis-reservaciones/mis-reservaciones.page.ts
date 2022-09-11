@@ -112,8 +112,9 @@ this.gestionReservacionesService.syncRetosConfirmados(this.usuariosService.usuar
          await modal.present();
 
         let {data} = await modal.onDidDismiss();
-      
+       
         this.selectCategory(this.segment)
+        this.segmentChanged();
       }
     
   async slideTo(value) {
@@ -124,7 +125,7 @@ this.gestionReservacionesService.syncRetosConfirmados(this.usuariosService.usuar
   refresh(){
     this.selectCategory(this.segment)
   }
-  async segmentChanged(event) {
+  async segmentChanged() {
     await this.slider.slideTo(this.segment);
     this.slider.update();
   }

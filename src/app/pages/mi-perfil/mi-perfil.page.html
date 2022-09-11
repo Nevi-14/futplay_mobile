@@ -27,11 +27,11 @@
     </ion-toolbar>
 
 <ion-content class="ion-text-center" *ngIf="userService.usuarioActual">
-  <ion-avatar  style="height: 12rem;width:12rem;margin:0 auto;">
+  <ion-avatar  style="height: 12rem;width:12rem;margin:0 auto;" *ngIf="userService.userPic">
 
-    <img *ngIf="!userService.usuarioActual.Avatar" [src]="userPic" onerror="this.src='assets/user.svg'"    alt="">
+    <img  class="logo" data-src="{{userService.userPic}}"   >
 
-    <img *ngIf="userService.usuarioActual.Avatar"src="assets/profile/avatars/{{userService.usuarioActual.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+
 
   </ion-avatar>
  <h5 class="ion-text-uppercase"> <strong>{{userService.usuarioActual.Nombre}} {{userService.usuarioActual.Primer_Apellido}} {{userService.usuarioActual.Segundo_Apellido}}</strong></h5>

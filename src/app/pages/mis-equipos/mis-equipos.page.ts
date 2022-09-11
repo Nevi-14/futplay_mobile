@@ -6,6 +6,7 @@ import { SolicitudesService } from 'src/app/services/solicitudes.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { BuscarEquiposPage } from '../buscar-equipos/buscar-equipos.page';
 import { CrearEquipoPage } from '../crear-equipo/crear-equipo.page';
+import { CrearUnirseEquipoPage } from '../crear-unirse-equipo/crear-unirse-equipo.page';
 
 @Component({
   selector: 'app-mis-equipos',
@@ -57,11 +58,11 @@ console.log('resp', resp)
       this.equiposService.otrosEquipos = resp;
     })
   }
-  async crearEquipo(){
+  async crearUniserseEquipo(){
     let modal = await this.modalCtrl.create({
-      component:CrearEquipoPage,
+      component:CrearUnirseEquipoPage,
       cssClass:'my-custom-class',
-      id:'create-modal'
+      id:'create-join-modal'
     });
 
     await modal.present();
@@ -70,7 +71,8 @@ console.log('resp', resp)
     if(data !== undefined ){
       console.log(data,'data')
 
-    this.misEquipos();
+
+      
     }
 
   }

@@ -247,15 +247,19 @@ this.cerrarModal();
   
             let subject =  ' Nueva Reservación confirmada ' +  this.reto.Titulo;
             let body =  'Estimado usuario, se ha aceptado el reto en la cancha' + ' '+this.reto.Nombre_Cancha;
-     /**
-      *        this.emailService.notificarUsuarios(this.cancha.Cod_Usuario, subject, body).then(resp =>{
+           
+           this.emailService.notificarUsuarios(68, subject, body).then(futplay =>{
+console.log('email futplay')
+           });
+            this.emailService.notificarUsuarios(this.cancha.Cod_Usuario, subject, body).then(resp =>{
         
-        
-              this.aceptarReto();
-              
-        
-            });
-      */
+              console.log('email soccer-field')
+ 
+         
+      
+          });
+
+          
              }
           }
         ]
@@ -466,6 +470,7 @@ return
      console.log('data eli', data)
      if(data != undefined){
       this.modalCtrl.dismiss(null,null,'detalle-reto');
+      
      }
   }
 }

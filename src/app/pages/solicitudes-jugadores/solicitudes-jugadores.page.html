@@ -2,35 +2,23 @@
   <ion-header class="custom-header">
 
     <ion-toolbar class="custom-toolbar"  mode="ios">
-<ion-row>
-  <ion-col size="12">
-    <ion-button fill="clear" (click)="cerrarModal()">
-      <ion-icon color="light" slot="start" name="chevron-back"></ion-icon>
-      &nbsp;
-      <ion-label color="light" slot="start">Solicitudes Equipos</ion-label>
-    </ion-button>
-  </ion-col>
-  <ion-col size="12">
-
-    <ion-segment     mode="md"    value="1"   scrollable >
-      <ion-segment-button [value]="i" *ngFor="let cat of categories; let i = index;" 
-      (click)="selectCategory(i)">
-        <ion-label color="light" [class.active-category]="activeCategory == i">{{cat}}</ion-label>
-      </ion-segment-button>
-    
-    </ion-segment>
-
-
-  </ion-col>
-  <ion-col size="12" >
-
-    <ion-searchbar  style="display: block;"  mode="ios" placeholder="buscar solicitud" inputmode="text"  debounce="250" ></ion-searchbar> 
-
-  </ion-col>
-</ion-row>
-
+      <ion-button fill="clear" (click)="cerrarModal()" slot="start">
+        <ion-icon color="light" slot="start" name="chevron-back"></ion-icon>
+        &nbsp;
+      
+      </ion-button>
+      <ion-title>Solicitudes Equipos</ion-title>
 
   </ion-toolbar>
+
+  <ion-segment     mode="md"    value="1"   scrollable >
+
+    <ion-segment-button mode="md" id="seg-{{i}}"  [value]="i" *ngFor="let cat of categories; let i = index;"  (click)="selectCategory(i)">
+      <ion-label [class.active-category]="activeCategory == i">{{cat}}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+    <ion-searchbar  style="display: block;"  mode="ios" placeholder="buscar solicitud" inputmode="text"  debounce="250" ></ion-searchbar> 
+
     </ion-header>
 
 
@@ -41,7 +29,7 @@
 
       <ion-list class="ion-margin-top">
 
-        <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngIf="solicitudesService.solicitudesJugadoresArray.length == 0" >
+        <ion-item lines="none" class="custom-item  animate__animated animate__fadeIn"  *ngIf="solicitudesService.solicitudesJugadoresArray.length == 0" >
         
          <ion-avatar>
           <img   src="assets/logo.png" alt="">
@@ -56,7 +44,7 @@
           </ion-label>
  
         </ion-item>
-        <ion-item  (click)="onOpenMenu(solicitud)"   class="employeeItem  animate__animated animate__fadeIn" *ngFor="let solicitud of solicitudesService.solicitudesJugadoresArray">
+        <ion-item  (click)="onOpenMenu(solicitud)"   class="custom-item  animate__animated animate__fadeIn" *ngFor="let solicitud of solicitudesService.solicitudesJugadoresArray">
           <ion-avatar slot="start"  >
         
             <img    src="assets/soccer-shields-svg/{{solicitud.Equipo_Foto}}" onerror="this.src='assets/team.png'"    alt="">

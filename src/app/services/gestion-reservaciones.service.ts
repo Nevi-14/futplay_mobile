@@ -540,15 +540,15 @@ async compararFechas(date1,date2){
     }
   
     syncRetosEnviados(Cod_Usuario){
-  this.retos = [];
+ 
   
  
       this.getRetosEnviados(Cod_Usuario).subscribe(
         resp =>{
-  
+          this.retos = [];
           console.log(resp)
           this.retos = resp.slice(0);
-
+console.log('retoosidjjd', this.retos)
         }, error =>{
   
           if(error){

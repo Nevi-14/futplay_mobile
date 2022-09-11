@@ -5,12 +5,20 @@ import { format } from 'date-fns';
 import { ProvinciasService } from 'src/app/services/provincias.service';
 import { CantonesService } from 'src/app/services/cantones.service';
 import { DistritosService } from 'src/app/services/distritos.service';
+import { NgForm } from '@angular/forms';
 import { PosicionesService } from 'src/app/services/posiciones.service';
 import { SeleccionarFechaPage } from '../seleccionar-fecha/seleccionar-fecha.page';
 import { GestorImagenesService } from 'src/app/services/gestor-imagenes.service';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { ChangeDetectorRef } from '@angular/core'
+import { Provincias } from 'src/app/models/provincias';
 import { EliminarCuentaPage } from '../eliminar-cuenta/eliminar-cuenta.page';
+ 
+interface LocalFile {
+  fileName: string;
+  path: string;
+  data: string;
+}
 @Component({
   selector: 'app-editar-perfil-usuario',
   templateUrl: './editar-perfil-usuario.page.html',
@@ -23,8 +31,9 @@ showProvicia = false;
 showCanton = false;
 showDistrito = false;
   private modalOpen:boolean = false;
+  userPic = 'https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+ this.userService.usuarioActual.Foto +'?'+ this.dateF();
   areaUnit =1;
-
+    userPic1 = this.gestorImagenesService.images.length > 0 ? this.gestorImagenesService.images[0].data : 'assets/user.svg';
     usuario = {
       Cod_Usuario: this.usuarioService.usuarioActual.Cod_Usuario,
       Cod_Role: 2,
@@ -66,6 +75,7 @@ showDistrito = false;
       Solicitudes_Jugadores_Equipos: []
   }
 isVisible = false;
+compareWith : any ;
   image = this.gestorImagenesService.images.length >0 ? this.gestorImagenesService.images[0].data : 'assets/user.svg'
   ///// In functions declaration zone
   @ViewChild(IonSlides) slides: IonSlides;
@@ -144,16 +154,18 @@ isVisible = false;
 
 
 
+      this.compareWith = this.compareWithFn;
      }
    
 
     ngOnInit() {
+      this.cdr.detectChanges();
 
-  this.posicionesService.posiciones = [];
+      this.posicionesService.posiciones = [];
    this.posicionesService.syncPosicionesToPromise().then(resp =>{
-  this.showPosicion = true;
- this.usuario.Cod_Posicion = this.usuarioService.usuarioActual.Cod_Posicion;
-this.posicionesService.posiciones  = resp;
+     this.showPosicion = true;
+     this.usuario.Cod_Posicion = this.usuarioService.usuarioActual.Cod_Posicion;
+    this.posicionesService.posiciones  = resp;
 
    });
 
@@ -199,12 +211,25 @@ this.usuario.Cod_Provincia = this.usuarioService.usuarioActual.Cod_Provincia
        }
 
   }
-
+   ///// In functions definitions
+   onSelectChange(selectedValue: any) {
+    this.usuario.Cod_Provincia = selectedValue.detail.value ;
+  }
+  compareFn(e1, e2): boolean {
+    return e1 && e2 ? e1 === e2 : e1 === e2;
+  }
+  onSelectChange2(selectedValue: any) {
+    this.Cod_Canton = selectedValue.detail.value ;
+  }
   avatar(){
     this.avatars = !this.avatars
 
   }
 
+  compareWithFn(o1, o2) {
+    alert( o1 === o2)
+    return o1 === o2;
+  };
 
 
 
@@ -226,6 +251,30 @@ this.usuario.Cod_Provincia = this.usuarioService.usuarioActual.Cod_Provincia
   }
 
 
+  slideChange2(event){
+    let currentIndex = this.slides.getActiveIndex().then(resp =>{
+      this.imgs.forEach(av => av.seleccionado = false);
+      this.imgs[resp].seleccionado = true;
+      this.image = this.imgs[resp].img
+      this.usuario.Foto = this.imgs[resp].img;
+      console.log(resp,'resp')
+      this.usuario.Avatar = true;
+      this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.usuario.Avatar, this.usuario.Foto);    
+    })
+ 
+  }
+  ionViewDidLoad (){
+
+  }  
+  formatDate(event) {
+    //  this.usuario.Fecha_Nacimiento = $event.detail.value;
+    this.usuario.Fecha_Nacimiento = event.detail.value;
+    this.modalCtrl.dismiss();
+  
+  }
+  dateF(){
+    return new Date().getTime() 
+  }
   updateUser(){
     
   //  if(fActualizar.invalid) {return;}
@@ -237,13 +286,14 @@ this.usuario.Cod_Provincia = this.usuarioService.usuarioActual.Cod_Provincia
   }
   imageUpload(source:string){
    
-    let fileName = this.userService.usuarioActual.Foto
+    let   fileName = this.userService.usuarioActual.Foto
     let location = 'perfil-usuario';
        this.gestorImagenesService.selectImage(source,fileName,location, false).then(resp =>{
 this.usuario.Foto = resp
+console.log(this.usuario, 'edit')
 this.usuario.Avatar = false;
 this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.usuario.Avatar, this.usuario.Foto);    
-     this.cdr.detectChanges();
+     
 
 
 
@@ -271,12 +321,46 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
 
 
 
+  seleccionarAvatar2(img){
+
+    this.imgs.forEach(av => av.seleccionado = false);
+    img.seleccionado = true;
+    this.image = img.img
+    this.usuario.Foto =  img.img;
+
+      console.log(this.image,'this.image')
+    }
+
+
+
+/**
+ *   onChange($event , provincia, canton, distrito){
+    if(provincia){
+  
+   this.cantonesService.syncCantones($event.target.value);
+    }else if(canton){
+  
+      this.distritosService.syncDistritos(this.usuario.Cod_Provincia, $event.target.value);
+  
+    }else{
+      
+    }
+    console.log($event.target.value);
+    }
+ */
+  
 
   cerrarModal(){
 
     this.modalCtrl.dismiss(null, null, 'perfil-usuario')
   }
-
+  changeQuantity($event){
+    //manually launch change detection
+    this.cdr.detectChanges();
+    console.log('$event.detail.value', $event.detail.value)
+    const value:any =  Number($event.detail.value).toFixed(2);
+    this.usuario.Estatura = value;
+ }
   async SelectDate(){
     if (!this.modalOpen){
       this.modalOpen = true;

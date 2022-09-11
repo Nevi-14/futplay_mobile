@@ -2,15 +2,6 @@
   .custom-header {
 
     background-color: #5a55ca;
-}
-
-.custom-toolbar {
-
-    --border-style: none;
-    --background: #5a55ca;
-    --color: white;
-
-    // --stripe: #645fd1;
     --stripe: #5a55ca;
     --bg: #645fd1;
     --background: transparent;
@@ -20,14 +11,18 @@
     linear-gradient(45deg, var(--bg) 25%, transparent 25%);
     background-size: 100px 100px;
     background-color: var(--stripe);
+}
 
+.custom-toolbar {
+    --border-style: none;
+    --color: white;
+    --background: transparent;
     ion-button {
 
         font-size: 1.2rem;
         font-weight: 800;
     }
 }
-
 ion-content {
 
     --background: #5a55ca;
@@ -94,7 +89,7 @@ ion-searchbar {
 ion-avatar{
   height: 5rem; width: 5rem;
 }
-.employeeItem {
+.custom-item {
 
     --border-radius: 10px;
     --padding-start: 1rem;

@@ -274,6 +274,9 @@ this.alertasService.message('FUTPLAY', 'No se puede eliminar el usuario por defe
 
     await modal.present();
     const { data } = await modal.onWillDismiss();
+
+
+    this.getImage();
     if(data != undefined){
 
 
@@ -282,8 +285,7 @@ this.alertasService.message('FUTPLAY', 'No se puede eliminar el usuario por defe
       this.equiposService.perfilEquipo = data.equipo;
       this.equiposService.perfilEquipo.Foto = data.equipo.Foto;
       this.cdr.detectChanges();
-      this.teamPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+ this.equiposService.perfilEquipo.Foto +'?'+ this.dateF();
-      console.log(this.equiposService.perfilEquipo,'this.equiposService.perfilEquipo')
+
       this.jugadoresEquipo();
 
 
@@ -293,6 +295,24 @@ this.alertasService.message('FUTPLAY', 'No se puede eliminar el usuario por defe
    
    }
 
+  }
+
+  getImage(){
+    this.equiposService.syncEquipo( this.equiposService.perfilEquipo.Cod_Equipo).then(equipo=>{
+      this.equiposService.perfilEquipo = equipo[0];
+      
+      
+      if(! this.equiposService.perfilEquipo.Avatar){
+        this.teamPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/' + this.equiposService.perfilEquipo.Foto+'?'+ this.dateF();
+        
+      }else{
+        this.teamPic = 'assets/profile/soccer-shields-svg/' + this.equiposService.perfilEquipo.Foto;
+        
+      
+      }
+      
+      
+            });
   }
 
 

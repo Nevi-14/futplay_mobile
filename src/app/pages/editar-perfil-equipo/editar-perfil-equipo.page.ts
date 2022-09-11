@@ -167,15 +167,27 @@ if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
       let location = 'perfil-equipo';
          this.gestorImagenesService.selectImage(source,fileName,location, false).then(resp =>{
           this.equipo.Foto = resp;
-          this.equiposService.perfilEquipo.Foto = resp;
           this.equipo.Avatar = false;
-          this.equiposService.perfilEquipo.Avatar = false;
     console.log(resp, this.equipo,  this.equipo.Foto, 'respppppppppppppppppggggg')
     this.equiposService.actualizarEquipoToPromise(this.equipo, this.usuariosService.usuarioActual.Cod_Usuario).then((equipo:Equipos) =>{
+      this.equiposService.syncEquipo(this.equipo.Cod_Equipo).then(equipo=>{
+this.equipo = equipo[0];
+
+
+if(!this.equipo.Avatar){
+  this.teamPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/' + this.equiposService.perfilEquipo.Foto+'?'+ this.dateF();
+  
+}else{
+  this.teamPic = 'assets/profile/soccer-shields-svg/' + this.equiposService.perfilEquipo.Foto;
+  
+
+}
+
+
+      });
       this.equiposService.perfilEquipo.Foto = equipo.Foto;
       this.gestorImagenesService.images = [];
-      this.teamPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/' + this.equiposService.perfilEquipo.Foto+'?'+ this.dateF();;
-  
+     
     })
 
          })

@@ -255,23 +255,23 @@ console.log('feril actualziado' , resp , this.usuarioActual ,  resp[0])
   }
 
   syncLogin(elementoEntrada: string, contrasena:string){
-
+    this.usuarioActual = null;
     this.alertasService.presentaLoading('Verificando Datos')
     this.loginURL(elementoEntrada, contrasena).subscribe(
       (resp: PerfilUsuario[]) =>{
        
 console.log('respresp', resp, resp.length)
         if(resp.length > 0){
-
+    this.usuarioActual = resp[0];
           if(this.comparePassword(contrasena, resp[0].Contrasena )){
           this.alertasService.loadingDissmiss();
           this.usuarioActual = resp[0];
-        this.userPic =   this.usuarioActual.Foto ? 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/' + this.usuarioActual.Foto +'?': 'assets/user.svg';
- 
+
           this.storageService.delete('Cod_Usuario')
           this.storageService.set('Cod_Usuario',  resp[0].Cod_Usuario)
    
           this.authenticationService.loadToken(true);
+          this.authenticationService.syncImage();
           this.route.navigateByUrl('/futplay/mi-perfil',{replaceUrl:true});
           this.solicitudesService.syncGetSolicitudesJugadores(this.usuarioActual.Cod_Usuario, false,true, true)
 

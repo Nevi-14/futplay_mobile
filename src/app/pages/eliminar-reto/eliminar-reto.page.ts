@@ -81,6 +81,9 @@ body = null;
 
 
         enviarCorreos(){
+          this.emailService.notificarUsuarios(68, this.subject,this.body).then(futplay =>{
+            console.log('email futplay')
+                       });
           this.emailService.notificarUsuarios(this.reto.Cod_Usuario,this.subject,this.body).then(retador =>{
             console.log('retador sent')
                 })
@@ -91,10 +94,6 @@ body = null;
                 this.emailService.notificarUsuarios(this.cancha.Cod_Usuario,this.subject,this.body).then(cancha =>{
                   console.log('cancha sent')
                 })
-                 /**
-                   * this.emailService.notificarUsuarios(36,this.subject,this.body).then(cancha =>{
-                    console.log('xavi sent')
-                  })
-                   */
+          
         }
 }

@@ -61,6 +61,7 @@ usuario: Usuarios = {
   Avatar: true
 
 };
+contrasena ='';
 confirmarContrasena ='';
 showPass = false;
 showPassConfirm = false;
@@ -142,6 +143,7 @@ console.log(provincias)
     this.showPassConfirm = false;
     this.showCanton = null;
   this.showDistrito = null;
+
   
   })
   
@@ -152,7 +154,7 @@ console.log(provincias)
 
     
   registro(fRegistro: NgForm){
-    if(fRegistro.invalid || this.confirmarContrasena != this.usuario.Contrasena) {
+    if(fRegistro.invalid || this.confirmarContrasena != this.contrasena) {
 
 this.alertasService.message('FUTPLAY','Verifica que ambas contraseñas sean las mismas!')
 return;
@@ -161,7 +163,7 @@ return;
     console.log(fRegistro.valid);
     console.log(this.usuario)
     
-    this.usuario.Contrasena = bcrypt.hashSync(this.usuario.Contrasena, 10);
+    this.usuario.Contrasena = bcrypt.hashSync(this.contrasena, 10);
     this.usuariosServicio.registroToPromise(this.usuario).then((resp:PerfilUsuario) =>{
 
       if(resp != null || resp != undefined ){
