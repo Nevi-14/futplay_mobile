@@ -68,7 +68,29 @@
                       </ion-label>
                       <p slot="end">₡ {{factura.Monto_Total  + factura.Monto_FP }}</p>
                     </ion-item>
-               
+                    <ion-item >
+                      <ion-label>
+                    
+                        <h2 class="ion-text-wrap">Monto a pagar para  completar reservación (10%)</h2>
+                      
+                      
+                      
+                      </ion-label>
+                      <p  slot="end" >
+
+                        <span  style="display: block" [ngClass]="factura.Descuento  ? 'discount' : ''">
+
+                          ₡ {{factura.Monto_FP}}
+                        </span>
+                        <span style="display: block">
+                          ₡ {{factura.Monto_FP - factura.Monto_Descuento}}
+                        </span>
+          
+                      </p>
+                    
+                
+          
+                    </ion-item>
 
               
                     <ion-item >

@@ -10,6 +10,7 @@ import { GestionRetos } from '../models/gestionRetos';
 import { VideoScreenPage } from '../pages/video-screen/video-screen.page';
 import { MisReservacionesPage } from '../pages/mis-reservaciones/mis-reservaciones.page';
 import { ModalController } from '@ionic/angular';
+import { Reservaciones } from '../models/reservaciones';
 interface objetoFecha{
   id:number,
   year: number,
@@ -507,6 +508,13 @@ async compararFechas(date1,date2){
       return this.http.get<GestionRetos[]>( URL );
     }
 
+    private getDisponibilidadCancha( cod_cancha,fecha,hora_inicio,hora_fin){
+
+      let URL = this.getURL( environment.consultarDisponibilidadURL);
+      URL = URL + environment.codCanchaParam+cod_cancha+ environment.fechaSecondParam+fecha+ environment.horaInicio+hora_inicio+ environment.horaFin+hora_fin;
+      console.log(URL);
+      return this.http.get<Reservaciones[]>( URL );
+    }
 
     private getRetosConfirmadas( Cod_Usuario){
       var today = new Date();
@@ -539,6 +547,11 @@ async compararFechas(date1,date2){
           return this.http.get<GestionRetos>( URL );
     }
   
+
+    syncGetDisponibilidadCancha(cod_cancha,fecha,hora_inicio,hora_fin){
+
+      return this.getDisponibilidadCancha(cod_cancha,fecha,hora_inicio,hora_fin).toPromise();
+    }
     syncRetosEnviados(Cod_Usuario){
  
   

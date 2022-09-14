@@ -204,7 +204,14 @@ console.log(resp, 'resssp')
       return this.http.get<Usuarios>( URL );
     }
   
+    private getUser( valor:any){
+      let URL = this.getURL( environment.getUser);
 
+      URL = URL  + valor
+      console.log(URL)
+      return this.http.get<PerfilUsuario>( URL );
+    }
+  
 
   getLoginURL( api: string,elementoEntrada: string, contrasena:string ){
     let test: string = ''
@@ -242,6 +249,12 @@ console.log('feril actualziado' , resp , this.usuarioActual ,  resp[0])
 
     );
   }
+
+  syncGetUserToPromise(valor){
+
+    return this.getUser(valor).toPromise();
+
+  }
   syncDatosToPromise(Cod_Usuario:number){
 
 
@@ -266,8 +279,14 @@ console.log('respresp', resp, resp.length)
           if(this.comparePassword(contrasena, resp[0].Contrasena )){
           this.alertasService.loadingDissmiss();
           this.usuarioActual = resp[0];
-        this.userPic =   this.usuarioActual.Foto ? 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/' + this.usuarioActual.Foto +'?': 'assets/user.svg';
+          if(this.usuarioActual.Avatar){
+            this.userPic = 'assets/profile/avatars/' + this.usuarioActual.Foto;
  
+          }else{
+            this.userPic =   'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/' + this.usuarioActual.Foto;
+ 
+          }
+      
           this.storageService.delete('Cod_Usuario')
           this.storageService.set('Cod_Usuario',  resp[0].Cod_Usuario)
    

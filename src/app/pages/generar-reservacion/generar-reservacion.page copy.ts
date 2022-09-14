@@ -502,7 +502,7 @@ async agregarCancha() {
     const alert = await this.alertCtrl.create({
       header: 'FUTPLAY',
       subHeader:'Proceso De Reservación',
-      message:'¿Desea  generar la reservación?',
+      message:'Estimado usuario, recuerda que para poder completar la reservación se debera de efectuar el pago adelantado del 10% del costo total de la reservación, una vez que se haya aceptado el reto, recibiras una notificación para poder efectuar el pago y finalizar la reservación.',
       
       buttons: [
         {

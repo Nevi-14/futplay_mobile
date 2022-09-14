@@ -5,6 +5,7 @@ import { HorarioCanchasService } from '../../services/horario-canchas.service';
 import { ListaCanchas } from '../../models/listaCanchas';
 import { ConfiguracionHorarioService } from 'src/app/services/configuracion-horario.service';
 import { GenerarReservacionPage } from '../generar-reservacion/generar-reservacion.page';
+import { HorarioCachaPage } from '../horario-cacha/horario-cacha.page';
 
 @Component({
   selector: 'app-cancha-detalle',
@@ -59,6 +60,19 @@ this.modalCtrl.dismiss();
   reservarCancha(){
     
   }
+
+  
+
+  async schedule(){
+
+
+    
+   const modal  = await this.modalCtrl.create({
+     component: HorarioCachaPage,
+    cssClass: 'my-custom-class'
+  });
+  await modal .present();
+}
 
   async canchaReservacion(cancha){
 

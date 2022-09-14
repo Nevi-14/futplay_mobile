@@ -203,14 +203,19 @@ const routes: Routes = [
   {
     path: 'eliminar-reto',
     loadChildren: () => import('./pages/eliminar-reto/eliminar-reto.module').then( m => m.EliminarRetoPageModule)
-  },  {
+  },
+  {
     path: 'cambiar-contrasena',
     loadChildren: () => import('./pages/cambiar-contrasena/cambiar-contrasena.module').then( m => m.CambiarContrasenaPageModule)
   },
   {
     path: 'codigo-seguridad',
     loadChildren: () => import('./pages/codigo-seguridad/codigo-seguridad.module').then( m => m.CodigoSeguridadPageModule)
+  },  {
+    path: 'horario-cacha',
+    loadChildren: () => import('./pages/horario-cacha/horario-cacha.module').then( m => m.HorarioCachaPageModule)
   },
+
 
 
 

@@ -28,8 +28,19 @@
             <ion-row >
         
     
-
-
+              <ion-col size="12">
+                <img class="gfg" src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilCanchaUploads/'+cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">  
+      
+              </ion-col>
+        
+              
+              <ion-col size="12">
+                <ion-label >Categoria: <ion-badge color="warning" mode="ios">{{cancha.Categoria}}</ion-badge></ion-label>
+              </ion-col>
+              <ion-col size="12">
+                <ion-label >Precio Hora: <ion-badge color="warning" mode="ios">{{cancha.Precio_Hora}}</ion-badge></ion-label>
+              </ion-col>
+              
         
               <ion-col size="12" class="ion-margin-top ion-margin-bottom">
                 <ion-label >{{cancha.Nombre_Provincia}},  {{cancha.Nombre_Canton}}</ion-label>
@@ -46,65 +57,15 @@
                 </ion-button>
               </ion-col>
 
-
               <ion-col size="12">
-                <img class="gfg" src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilCanchaUploads/'+cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">  
-      
+                <ion-button class="ion-margin ion-text-center" (click)="schedule()" expand="block"  color="dark">
+                 <ion-icon  name="location-outline" style="margin-right:0.2rem"></ion-icon> Mostrar Horario
+                </ion-button>
               </ion-col>
-        
-              
-        
-              <ion-col size="12">
-                <ion-label >Precio Hora: <ion-badge color="warning" mode="ios">{{cancha.Precio_Hora}}</ion-badge></ion-label>
-              </ion-col>
-        
-        <ion-col size="4"class="header-row">
-          <ion-label>Dia</ion-label>
-        </ion-col>
-        
-        
-        <ion-col size="8"class="header-row">
-          <ion-label>Horario de la cancha</ion-label>
-        </ion-col>
 
-        <ion-col size="12">
-          <ion-grid >
-            <ion-row>
-              <ion-col size="12" *ngFor="let dia of configuracionHorarioService.horarioCancha; let i = index;">
-          
-          <span style="display: flex; justify-content: space-between;" class="ion-padding">
-            <ion-label><ion-badge color="dark" mode="ios">{{configuracionHorarioService.diaNombre(i)}}</ion-badge></ion-label>
-            <ion-label>{{dia.Estado ? 'Activo' : 'Inactivo'}} <ion-checkbox slot="end"   [(ngModel)]="dia.Estado"  [disabled]="true"></ion-checkbox> </ion-label>
-            
-          </span>
-          
-          <ion-row>
-            <ion-col size="6">
-              <ion-label>Apertura</ion-label>
-              <ion-item class="ion-margin-bottom ion-margin-top">
-    <ion-label>{{retornaHoraAmPm(dia.Hora_Inicio)}}</ion-label>
-          
-          </ion-item>
-              
-          
-            </ion-col>
-            <ion-col size="6">
-              <ion-label>Cierre</ion-label>
-              <ion-item  class="ion-margin-bottom ion-margin-top">
-             <ion-label>{{retornaHoraAmPm(dia.Hora_Fin)}}</ion-label>
-          </ion-item>
-          
-              
-          
-            </ion-col>
-          </ion-row>
-          
-              </ion-col>
-          
-            </ion-row>
-          </ion-grid>
-        </ion-col>
 
+           
+   
         
         
             </ion-row>

@@ -13,6 +13,7 @@ import { SeleccionarFechaPage } from '../seleccionar-fecha/seleccionar-fecha.pag
 import * as bcrypt from 'bcryptjs';  // npm install bcryptjs --save  &&  npm install @types/bcrypt --save-dev
 import { PerfilUsuario } from '../../models/perfilUsuario';
 import { VideoScreenPage } from '../video-screen/video-screen.page';
+import { StorageService } from 'src/app/services/storage-service';
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
@@ -83,7 +84,8 @@ emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
     public distritosService: DistritosService,
     public modalCrtl: ModalController,
     public alertasService: AlertasService,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public storageService: StorageService
   ) { }
 
   ngOnInit() {
@@ -172,8 +174,18 @@ return;
         this.usuariosServicio.syncDatosToPromise(resp.Cod_Usuario).then(usuario =>{
 
           this.usuariosServicio.usuarioActual = usuario[0];
+          if(this.usuariosServicio.usuarioActual.Avatar){
+            this.usuariosServicio.userPic = 'assets/profile/avatars/' + this.usuariosServicio.usuarioActual.Foto;
+ 
+          }else{
+            this.usuariosServicio.userPic =   'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/' + this.usuariosServicio.usuarioActual.Foto;
+ 
+          }
+        this.usuariosServicio.userPic = 'assets/user.svg';
+        this.storageService.delete('Cod_Usuario')
+        this.storageService.set('Cod_Usuario', usuario[0].Cod_Usuario)
+ 
 
-          console.log(resp, 'rekmm')
           this.alertasService.loadingDissmiss();
        
           this.videoScreen(7)

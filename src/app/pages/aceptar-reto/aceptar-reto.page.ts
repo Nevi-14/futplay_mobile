@@ -223,7 +223,7 @@ this.cerrarModal();
       const alert = await this.alertCtrl.create({
         header: 'FUTPLAY',
         subHeader:'Proceso De Reservación',
-        message:'Estimado usuario, recuerda que para poder completar la reservación se debera de efectuar el pago adelantado del 10% del costo total de la reservación, por favor completar el pago para poder finalizar el proceso.',
+        message:'¿Desea aceptar el reto?.',
         
         buttons: [
           {
@@ -240,24 +240,11 @@ this.cerrarModal();
             text: 'Continuar',
             role: 'confirm',
             handler: () => {
-              
+              alert.dismiss();
               console.log(this.reto, 'reservacion')
               this.aceptarReto();
               
-  
-            let subject =  ' Nueva Reservación confirmada ' +  this.reto.Titulo;
-            let body =  'Estimado usuario, se ha aceptado el reto en la cancha' + ' '+this.reto.Nombre_Cancha;
-           
-           this.emailService.notificarUsuarios(68, subject, body).then(futplay =>{
-console.log('email futplay')
-           });
-            this.emailService.notificarUsuarios(this.cancha.Cod_Usuario, subject, body).then(resp =>{
-        
-              console.log('email soccer-field')
- 
-         
-      
-          });
+
 
           
              }
@@ -338,13 +325,28 @@ this.notificarUsuarios();
      }
      notificarUsuarios(){
 
+
       let subject =  ' Nueva Reservación confirmada ' +  this.reto.Titulo;
-      let body =  'Estimado usuario, se ha aceptado el reto '+ this.reto.Titulo + ' queda pendiente el pago del 10% por adelantado para poder finalizar el proceso de reservación, puedes encontrar mas detalles en la bandeja de retos de la aplicación FUTPLAY';
+      let body =  'Estimado usuario, se ha aceptado el reto en la cancha' + ' '+this.reto.Nombre_Cancha;
+     
+     this.emailService.notificarUsuarios(68, subject, body).then(futplay =>{
+console.log('email futplay')
+     });
+      this.emailService.notificarUsuarios(this.cancha.Cod_Usuario, subject, body).then(resp =>{
+  
+        console.log('email soccer-field confirmed')
+
+   
+
+    });
+
+
       this.emailService.notificarUsuarios(this.rival.Cod_Usuario, subject, body).then(resp =>{
   
-  
+        console.log('rival email confirmed')
+
         this.emailService.notificarUsuarios(this.retador.Cod_Usuario, subject, body).then(resp =>{
-  
+          console.log('retador email confirmed')
         });
   
         
