@@ -16,26 +16,26 @@
     <ion-row>
 
       <ion-col size="12" size-md="6">
-        <ion-item>
+        <ion-item  class="ion-margin-top ion-margin-bottom" lines="none">
           <ion-label position="floating">Contraseña  anterior</ion-label>
           <ion-input type="password" name="password" [(ngModel)]="credentials.password"   placeholder="Contraseña anterior"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="12" size-md="6">
-        <ion-item>
+        <ion-item  class="ion-margin-top ion-margin-bottom" lines="none">
           <ion-label position="floating">Nueva Contraseña</ion-label>
           <ion-input type="password" name="new" [(ngModel)]="credentials.new"   placeholder="Nueva contraseña"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="12" size-md="6">
-        <ion-item>
+        <ion-item  class="ion-margin-top ion-margin-bottom" lines="none">
           <ion-label position="floating">Confirmar Contraseña</ion-label>
           <ion-input type="password" name="confirm" [(ngModel)]="credentials.confirm"   placeholder="Confirmar contraseña"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="12">
         <div align="center ">
-          <ion-button   shape="round" type="submit" color="dark" class="ion-margin-vertical">Cambiar</ion-button>
+          <ion-button expand="block"  shape="round" type="submit" color="dark">Cambiar</ion-button>
         </div>
       </ion-col>
     </ion-row>
