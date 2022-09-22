@@ -29,7 +29,9 @@ export class GestionRetos{
         public  Precio_Hora: number,
         public Precio_Luz: number,
         public confirmacion_Estado: number,
-        public Cod_Estado: number
+        public Cod_Estado: number,
+        public Retador_Avatar:boolean,
+        public Rival_Avatar:boolean,
     ){
 
     }

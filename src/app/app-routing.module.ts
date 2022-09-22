@@ -211,7 +211,8 @@ const routes: Routes = [
   {
     path: 'codigo-seguridad',
     loadChildren: () => import('./pages/codigo-seguridad/codigo-seguridad.module').then( m => m.CodigoSeguridadPageModule)
-  },  {
+  },
+  {
     path: 'horario-cacha',
     loadChildren: () => import('./pages/horario-cacha/horario-cacha.module').then( m => m.HorarioCachaPageModule)
   },

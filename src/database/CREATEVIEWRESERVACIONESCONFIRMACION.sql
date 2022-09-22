@@ -1,9 +1,7 @@
-
-
 CREATE VIEW RESERVACIONES_CONFIRMACIONES AS
 
 SELECT 
-cancha.Nombre as Nombre_Cancha, cancha.Foto as Foto_Cancha, rival.Abreviacion,estados.Cod_Estado, reservacion.Cod_Reservacion,reservacion.Cod_Usuario,
+cancha.Nombre as Nombre_Cancha, cancha.Foto as Foto_Cancha, rival.Abreviacion,rival.Avatar as Rival_Avatar,retador.Avatar as Retador_Avatar,  estados.Cod_Estado, reservacion.Cod_Reservacion,reservacion.Cod_Usuario,
 cancha.Latitud, usuario.Avatar, cancha.Longitud, usuario.Cod_Usuario as Cod_Usuario_Rival,rival.Nombre as Nombre_Rival, rival.Foto as Foto_Rival, retador.Foto as Foto_Retador, retador.Nombre as Nombre_Retador, reservacion.Cod_Cancha, reservacion.Titulo, reservacion.Fecha, reservacion.Hora_Inicio, reservacion.Hora_Fin,  confirmacion.Cod_Estado  as confirmacion_Estado, confirmacion.Cod_Retador, confirmacion.Cod_Rival
 FROM
 estados estados,

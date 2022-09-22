@@ -89,9 +89,7 @@ export class PuntajePartidoService {
     }
 
     if (this.rival.Cod_Equipo === winner.Cod_Equipo) {
-      let goles_favor = this.Historia_Partido.Goles_Rival - this.Historia_Partido.Goles_Retador
-      winner.Goles_Favor += goles_favor;
-      
+      winner.Goles_Favor += this.Historia_Partido.Goles_Rival;
 
       let winnerHigher = Math.max(winner.Goles_Encontra, this.Historia_Partido.Goles_Rival);
       let winnerLess = Math.min(winner.Goles_Encontra, this.Historia_Partido.Goles_Rival);
@@ -102,7 +100,7 @@ export class PuntajePartidoService {
       let golesEncontraW =winnerHigher - winnerLess;
       let golesEncontraL = loserHigher - loserLess;
 if(winner.Goles_Encontra > 0){
-  winner.Goles_Encontra += golesEncontraW
+  winner.Goles_Encontra = golesEncontraW
 }
 
       loser.Goles_Encontra = golesEncontraL
@@ -118,10 +116,10 @@ if(winner.Goles_Encontra > 0){
       let golesEncontraL = loserHigher - loserLess;
 
 
-      let goles_favor = this.Historia_Partido.Goles_Retador - this.Historia_Partido.Goles_Rival
-      winner.Goles_Favor += goles_favor;
+
+      winner.Goles_Favor += this.Historia_Partido.Goles_Retador;
       if(winner.Goles_Encontra > 0){
-        winner.Goles_Encontra += golesEncontraW
+        winner.Goles_Encontra = golesEncontraW
       }
 
       loser.Goles_Encontra = golesEncontraL;

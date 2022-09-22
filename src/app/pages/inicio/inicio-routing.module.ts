@@ -19,7 +19,7 @@ const routes: Routes = [
     children:[
       {
         path:'sobre-nosotros',
-        loadChildren: () => import('../sobre-nosotros/sobre-nosotros.module').then( m => m.SobreNosotrosPageModule)
+        loadChildren: () => import('../sobre-nosotros/sobre-nosotros.module').then( m => m.SobreNosotrosPageModule) ,canLoad:[AuthGuard]
       },
       {
         path:'inicio-sesion',
@@ -28,7 +28,7 @@ const routes: Routes = [
       },
       {
         path:'registro',
-        loadChildren: () => import('../registro/registro.module').then( m => m.RegistroPageModule)
+        loadChildren: () => import('../registro/registro.module').then( m => m.RegistroPageModule) ,canLoad:[AuthGuard]
       }
     ]
   }

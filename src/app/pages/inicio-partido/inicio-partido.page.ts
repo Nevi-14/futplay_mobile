@@ -14,6 +14,7 @@ import { AlertasService } from 'src/app/services/alertas.service';
 import { GoogleAdsService } from 'src/app/services/google-ads.service';
 import { VideoScreenPage } from '../video-screen/video-screen.page';
 import { HttpClient } from '@angular/common/http';
+import { StorageService } from 'src/app/services/storage-service';
 
 @Component({
   selector: 'app-inicio-partido',
@@ -39,24 +40,46 @@ public  gestionReservacionesService: GestionReservacionesService,
 public alertasService: AlertasService,
 private cd: ChangeDetectorRef,
 public googleAdsService: GoogleAdsService,
-public http: HttpClient
+public http: HttpClient,
+public storageService: StorageService
 
 
   ) { }
 
   ngOnInit() {
-console.log(this.reto)
-this.index = this.partido.findIndex(p => p.Cod_Equipo == this.equipo.Cod_Equipo );
-this.index2= this.partido.findIndex(p => p.Cod_Equipo != this.equipo.Cod_Equipo );
+    let video_screen = String(this.usuariosSerice.usuarioActual.Cod_Usuario)+String(this.reto.Cod_Cancha);
+    let day = new Date().toISOString();
+    video_screen = String(video_screen);
+    console.log(this.reto)
+    
+    this.index = this.partido.findIndex(p => p.Cod_Equipo == this.equipo.Cod_Equipo );
+    this.index2= this.partido.findIndex(p => p.Cod_Equipo != this.equipo.Cod_Equipo );
     this.puntajeService.Historia_Partido = this.partido[this.index];
     this.puntajeService.Historia_Partido2 = this.partido[this.index2];
 
 
-   this.videoScreen(5);
-
-   
+    this.storageService.get(video_screen).then(video =>{
     
-  }
+      if(!video){
+        
+    this.storageService.set(video_screen,{id:video_screen,day:day,video:true});
+    this.videoScreen(5);
+return
+      }
+      if(video.day == day && !video.video){
+        this.storageService.set(video_screen,video_screen);
+        this.videoScreen(5);
+      }
+ 
+    
+       })
+
+
+
+
+        
+      }
+
 
 
    consultarequipo(){

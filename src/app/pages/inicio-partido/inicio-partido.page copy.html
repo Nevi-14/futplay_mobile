@@ -45,7 +45,15 @@
             <ion-row class="ion-margin-top">
       
 
+              <ion-col size="12">
+                
+      <img  *ngIf="reto.Retador_Avatar" src="assets/profile/avatars/{{reto.Foto_Retador}" alt="">
+      <img  *ngIf="!reto.Retador_Avatar" src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+reto.Foto_Retador}}" alt="">
+      <img  *ngIf="!reto.Rival_Avatar" src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+reto.Foto_Rival}}" alt="">
+      <img  *ngIf="reto.Rival_Avatar" src="assets/profile/avatars/{{reto.Foto_Rival}}" alt="">
+     
 
+              </ion-col>
               <ion-col size="12" >
 
 
@@ -54,50 +62,26 @@
   <ion-item class="transparent">
     <ion-label><strong>Marcador Rival</strong></ion-label>
 
-    <ion-avatar *ngIf="reto.Retador_Avatar" slot="end">
-      <img   src="{{'assets/soccer-shields-svg/'+reto.Foto_Retador}}" alt="">
+
+    <ion-avatar slot="end">
+      <img src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+reto.Foto_Retador}}"   onerror="this.src='assets/img/icon/FP.svg'"     />
     </ion-avatar>
-
-    <ion-avatar *ngIf="!reto.Retador_Avatar" slot="end">
-      <img   src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+reto.Foto_Retador}}" alt="">
-    </ion-avatar>
-
-
     <ion-label slot="end">{{puntajeService.Historia_Partido2.Goles_Retador}}</ion-label>
+    <ion-avatar slot="end">
+      <img src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+reto.Foto_Rival}}"  onerror="this.src='assets/img/icon/FP.svg'"    />
 
-    <ion-avatar *ngIf="!reto.Rival_Avatar" slot="end">
-      <img   src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+reto.Foto_Rival}}" alt="">
+      
     </ion-avatar>
-
-
-    <ion-avatar *ngIf="reto.Rival_Avatar" slot="end">
-      <img   src="{{'assets/soccer-shields-svg/'+reto.Foto_Rival}}" alt="">
-
-    </ion-avatar>
-    
     <ion-label slot="end">{{puntajeService.Historia_Partido2.Goles_Rival}}</ion-label>
    </ion-item>
    <ion-item class="transparent ion-margin-bottom">
     <ion-label><strong>Mi Marcador</strong></ion-label>
-
-    <ion-avatar *ngIf="reto.Retador_Avatar" slot="end">
-      <img   src="{{'assets/soccer-shields-svg/'+reto.Foto_Retador}}" alt="">
+    <ion-avatar slot="end">
+      <img src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+reto.Foto_Retador}}"  onerror="this.src='assets/img/icon/FP.svg'"  alt="assets/img/icon/FP.svg"    />
     </ion-avatar>
-
-    <ion-avatar *ngIf="!reto.Retador_Avatar" slot="end">
-      <img   src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+reto.Foto_Retador}}" alt="">
-    </ion-avatar>
-
-
     <ion-label slot="end">{{puntajeService.Historia_Partido.Goles_Retador}}</ion-label>
-     <ion-avatar *ngIf="!reto.Rival_Avatar" slot="end">
-      <img   src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+reto.Foto_Rival}}" alt="">
-    </ion-avatar>
-
-
-    <ion-avatar *ngIf="reto.Rival_Avatar" slot="end">
-      <img   src="{{'assets/soccer-shields-svg/'+reto.Foto_Rival}}" alt="">
-
+    <ion-avatar slot="end">
+      <img src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+reto.Foto_Rival}}"  onerror="this.src='assets/img/icon/FP.svg'"   />
     </ion-avatar>
     <ion-label slot="end">{{puntajeService.Historia_Partido.Goles_Rival}}</ion-label>
    </ion-item>
@@ -107,15 +91,11 @@
               <hr>
               <ion-col size="6" style="display: grid;place-content: center;">
       
-                <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="reto.Retador_Avatar" [ngClass]="equipo.Cod_Equipo == reto.Cod_Rival ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
-                  <img  style="height: 6rem; width: 6rem;"  src="{{'assets/soccer-shields-svg/'+reto.Foto_Retador}}" alt="">
-                </ion-avatar>
-            
-                <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="!reto.Retador_Avatar" [ngClass]="equipo.Cod_Equipo == reto.Cod_Rival ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
-                  <img  style="height: 6rem; width: 6rem;"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+reto.Foto_Retador}}" alt="">
-                </ion-avatar>
-            
-           
+      
+                <ion-avatar   [ngClass]="equipo.Cod_Equipo == reto.Cod_Retador ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
+                  
+                  <img  style="height: 6rem; width:6rem;"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+reto.Foto_Retador}}"  onerror="this.src='assets/img/icon/FP.svg'"    />
+                  </ion-avatar>
                
                   <ion-label    class="ion-text-wrap ion-text-center ion-margin ion-text-uppercase" style="font-size: 1.2rem; font-weight: 500;"> {{reto.Nombre_Retador}}   </ion-label>
               </ion-col>
@@ -156,21 +136,16 @@
             </ion-row>
       <hr>
           
-  
       
       <ion-row >
       
         <ion-col  size="6" style="display: grid;place-content: center;">
 
-          <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="reto.Retador_Avatar" [ngClass]="equipo.Cod_Equipo == reto.Cod_Rival ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
-            <img  style="height: 6rem; width: 6rem;"  src="{{'assets/soccer-shields-svg/'+reto.Foto_Rival}}" alt="">
-          </ion-avatar>
-      
-          <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="!reto.Retador_Avatar" [ngClass]="equipo.Cod_Equipo == reto.Cod_Rival ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
-            <img  style="height: 6rem; width: 6rem;"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+reto.Foto_Rival}}" alt="">
-          </ion-avatar>
-      
-     
+
+          <ion-avatar   [ngClass]="equipo.Cod_Equipo == reto.Cod_Rival ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
+            <img  style="height: 6rem; width: 6rem;"   src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+reto.Foto_Rival}}"  onerror="this.src='assets/img/icon/FP.svg'">
+            
+            </ion-avatar>
          
             <ion-label    class="ion-text-wrap ion-text-center ion-margin ion-text-uppercase" style="font-size: 1.2rem; font-weight: 500;"> {{reto.Nombre_Rival}}   </ion-label>
         </ion-col>
