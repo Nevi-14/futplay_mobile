@@ -24,40 +24,19 @@
           <ion-grid >
             
   <ion-row>
-    <ion-col size="12"  *ngIf="avatars">
-                
-                   
-            
-        
-      <ion-slides mode="ios"    (ionSlideDidChange)="slideChange($event)"  [options]="avatarSlide">
-        <ion-slide  *ngFor="let img of imgs; let i = index;">
-            <ion-img class="pick-avatar" 
-                    src="assets/profile/avatars/{{img.img}}"
-                    [ngClass]="{'pick-avatar-seleccionado': img.seleccionado}" (click)="seleccionarAvatar(img, i)"></ion-img>
-      
-      
-    
-      
-        </ion-slide>
-        </ion-slides>
-
-    
-    </ion-col>
+ 
     <ion-col size="12" size-md="7" size-lg="7" class="ion-text-center"  >
 
-      <ion-avatar *ngIf="this.gestorImagenesService.images.length === 0"   style="height: 12rem;width:12rem;margin:0 auto;">
+      <ion-avatar    style="height: 12rem;width:12rem;margin:0 auto;">
        
-        <img *ngIf="!userService.usuarioActual.Avatar" data-src="{{usuarioService.userPic}}" onerror="this.src='assets/user.svg'"    alt="">
-
-        <img *ngIf="userService.usuarioActual.Avatar"src="assets/profile/avatars/{{userService.usuarioActual.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+        <img  data-src="{{'https://futplaycompany.com/api_test/'+usuario.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+ 
       </ion-avatar>
 
- 
 
 
 
-
-      <h3 class="ion-text-center">{{usuario.Nombre}} {{usuario.Primer_Apellido}} {{usuario.Segundo_Apellido}}</h3>
+      <h3 class="ion-text-center">{{usuario.usuario.Nombre}} {{usuario.usuario.Primer_Apellido}} {{usuario.usuario.Segundo_Apellido}}</h3>
 
       
 
@@ -98,7 +77,7 @@
       <p class="ion-text-wrap">¿Desea que FUTPLAY comparta su número de telefono con otros usuarios de la aplicación?</p>
 <ion-item lines="none" >
 <ion-label>Deseo que comparta mis datos</ion-label>
-  <ion-checkbox [(ngModel)]="usuario.Compartir_Datos"   name="Compartir_Datos"  ></ion-checkbox>
+  <ion-checkbox [(ngModel)]="usuario.usuario.Compartir_Datos"   name="Compartir_Datos"  ></ion-checkbox>
 </ion-item>
     </ion-col>
   </ion-row>
@@ -110,7 +89,7 @@
                   Nombre</ion-label>
         <ion-item  lines="none">
     
-                    <ion-input required  name="nombre"  [(ngModel)]="usuario.Nombre"  placeholder="Nombre" 
+                    <ion-input required  name="nombre"  [(ngModel)]="usuario.usuario.Nombre"  placeholder="Nombre" 
                     type="text"
                     ></ion-input>
                  
@@ -128,7 +107,7 @@
                 <ion-item  lines="none">
             
                 
-                  <ion-input type="text" placeholder="Primer Apellido" name="Primer_Apellido" [(ngModel)]="usuario.Primer_Apellido"   name="Primer Apellido"  autocomplete="off"></ion-input>
+                  <ion-input type="text" placeholder="Primer Apellido" name="Primer_Apellido" [(ngModel)]="usuario.usuario.Primer_Apellido"   name="Primer Apellido"  autocomplete="off"></ion-input>
                 </ion-item>
           
           
@@ -138,7 +117,7 @@
                   Apodo</ion-label>
                 <ion-item  lines="none">
              
-                    <ion-input required  [(ngModel)]="usuario.Apodo"  placeholder="Apodo" name="apodo"
+                    <ion-input required  [(ngModel)]="usuario.usuario.Apodo"  placeholder="Apodo" name="apodo"
                     type="text"
                     ></ion-input>
                  
@@ -154,7 +133,7 @@
               
                 <ion-item  lines="none" lines="none">
                 
-                    <ion-select required [(ngModel)]="usuario.Cod_Posicion"   name="Cod_Posicion">
+                    <ion-select required [(ngModel)]="usuario.usuario.Cod_Posicion"   name="Cod_Posicion">
                       <ion-select-option [value]="posicion.Cod_Posicion" *ngFor="let posicion of posicionesService.posiciones">
                         {{posicion.Posicion}} 
                       </ion-select-option>
@@ -171,7 +150,7 @@
                   Estatura</ion-label>
                 <ion-item  lines="none">
                 
-                    <ion-input required  [(ngModel)]="usuario.Estatura "  placeholder="Estatura" name="estatura"
+                    <ion-input required  [(ngModel)]="usuario.usuario.Estatura "  placeholder="Estatura" name="estatura"
                     type="text"    
                     ></ion-input>
                  
@@ -186,7 +165,7 @@
                   Peso</ion-label>
                 <ion-item  lines="none">
             
-                    <ion-input required  [(ngModel)]="usuario.Peso"  placeholder="Peso" name="peso"
+                    <ion-input required  [(ngModel)]="usuario.usuario.Peso"  placeholder="Peso" name="peso"
                     type="number"
                     ></ion-input>
                     <ion-badge slot="end" color="dark" mode="ios">KG</ion-badge>
@@ -204,7 +183,7 @@
                   Correo</ion-label>
                 <ion-item  lines="none">
               
-                  <ion-input type="email" placeholder="Correo" name="Correo"  [(ngModel)]="usuario.Correo"   autocomplete="off"></ion-input>
+                  <ion-input type="email" placeholder="Correo" name="Correo"  [(ngModel)]="usuario.usuario.Correo"   autocomplete="off"></ion-input>
                 
                 </ion-item>
           
@@ -216,7 +195,7 @@
                   Telefono</ion-label>
                 <ion-item  lines="none">
                   <ion-badge slot="start"  color="dark" mode="ios">+506</ion-badge>
-                  <ion-input type="tel" placeholder="Telefono"  name="Telefono"   [(ngModel)]="usuario.Telefono"   autocomplete="off"></ion-input>
+                  <ion-input type="tel" placeholder="Telefono"  name="Telefono"   [(ngModel)]="usuario.usuario.Telefono"   autocomplete="off"></ion-input>
   
                 </ion-item>
           
@@ -229,7 +208,7 @@
                   Cumpleaños</ion-label>
                 <ion-item  (click)="SelectDate()" lines="none">
            
-                  <ion-input  readonly  name="Fecha_Nacimiento"  type="text"  [value]="usuario.Fecha_Nacimiento  | date :'longDate'" placeholder="Fecha Nacimiento"></ion-input>            
+                  <ion-input  readonly  name="Fecha_Nacimiento"  type="text"  [value]="usuario.usuario.Fecha_Nacimiento  | date :'longDate'" placeholder="Fecha Nacimiento"></ion-input>            
                                               
                 </ion-item>
              
@@ -244,7 +223,7 @@
              
                 <ion-item  lines="none">
          
-                      <ion-select placeholder="Provincia" required [(ngModel)]="usuario.Cod_Provincia" (ionChange)="onChangeProvincias($event)"   name="Cod_Provincia">
+                      <ion-select placeholder="Provincia" required [(ngModel)]="usuario.usuario.Cod_Provincia" (ionChange)="onChangeProvincias($event)"   name="Cod_Provincia">
                         <ion-select-option [value]="provincia.Cod_Provincia" *ngFor="let provincia of provinciasService.provincias">
                           {{provincia.Provincia}}
                         </ion-select-option>
@@ -259,7 +238,7 @@
                 <ion-label *ngIf="showCanton" >Cantón</ion-label>
                   <ion-item *ngIf="showCanton"  lines="none">
       
-                      <ion-select placeholder="Canton"  required [(ngModel)]="usuario.Cod_Canton"  (ionChange)="onChangeCantones($event)"   name="Cod_Canton" >
+                      <ion-select placeholder="Canton"  required [(ngModel)]="usuario.usuario.Cod_Canton"  (ionChange)="onChangeCantones($event)"   name="Cod_Canton" >
                         <ion-select-option [value]="canton.Cod_Canton" *ngFor="let canton of cantonesService.cantones">
                           {{canton.Canton}}
                         </ion-select-option>
@@ -274,7 +253,7 @@
                 <ion-label   *ngIf="showDistrito">Distrito</ion-label>
                 <ion-item *ngIf="showDistrito" lines="none">
                  
-                    <ion-select placeholder="Distrito" required   [(ngModel)]="usuario.Cod_Distrito"   (ionChange)="onChangeDistritos($event)" name="Cod_Distrito">
+                    <ion-select placeholder="Distrito" required   [(ngModel)]="usuario.usuario.Cod_Distrito"   (ionChange)="onChangeDistritos($event)" name="Cod_Distrito">
                       <ion-select-option [value]="distrito.Cod_Distrito" *ngFor="let distrito of distritosService.distritos">
                         {{distrito.Distrito}}
                       </ion-select-option>

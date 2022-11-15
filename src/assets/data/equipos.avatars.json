@@ -1,0 +1,122 @@
+[
+    {
+        "seleccionado": true,
+        "img": "001-barcelona.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "002-chelsea.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "003-borussia-monchengladach.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "004-borussia-dortmund.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "005-bayern-leverkusen.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "006-atletico-de-madrid.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "007-villarreal.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "008-roman.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "009-valencia.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "010-sampdoria.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "011-tottenham-hotspur.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "012-lazio.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "013-napoli.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "014-sevilla.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "015-real-madrid.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "016-leipzig.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "017-paris-saint-germain.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "018-olympique-lyonnais.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "019-monaco.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "020-olympique-de-marseille.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "021-nice.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "022-manchester-united.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "023-manchester-city.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "024-liverpool.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "025-juventus.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "026-internazionale-milano.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "027-schalke-04.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "028-nantes.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "029-bayern-munchen.svg"
+    },
+    {
+        "seleccionado": false,
+        "img": "030-arsenal.svg"
+    }
+]

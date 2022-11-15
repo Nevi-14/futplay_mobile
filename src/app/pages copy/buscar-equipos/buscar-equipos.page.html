@@ -1,0 +1,63 @@
+
+  <ion-header class="custom-header">
+
+    <ion-toolbar class="custom-toolbar"  mode="ios">
+<ion-row>
+  <ion-col size="12">
+    <ion-button fill="clear" (click)="cerrarModal()">
+      <ion-icon color="light" slot="start" name="chevron-back"></ion-icon>
+      &nbsp;
+      <ion-label color="light" slot="start">Unirse  a un Equipo</ion-label>
+    </ion-button>
+  </ion-col>
+
+
+  <ion-col size="10">
+
+    <ion-searchbar  style="display: block;"  mode="ios" placeholder="buscar solicitud" inputmode="text"  debounce="250" ></ion-searchbar> 
+
+  </ion-col>
+  <ion-col size="2">
+    <ion-buttons >
+      <ion-button class="custom-bottom"    (click)="filtroUbicacion()"  >
+        <ion-icon color="light" size="large"  name="options-outline" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-col>
+</ion-row>
+
+
+  </ion-toolbar>
+    </ion-header>
+
+
+    <ion-content fullscreen>
+
+      <div class="mainContent">
+
+
+      <ion-list class="ion-margin-top">
+        <ion-item lines="none"  (click)="onOpenMenu(equipo)"  class="employeeItem animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'Nombre'">
+          <ion-avatar slot="start"  >
+            <img *ngIf="!equipo.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+            <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+   
+          </ion-avatar>
+          
+          <ion-label>
+            {{equipo.Nombre}}
+            <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
+            
+              <ion-icon style="size: 10px;" name="star"></ion-icon>
+              <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+              <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+              <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+              <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            </p>
+          </ion-label>
+
+        </ion-item>
+      
+      </ion-list>
+      </div>
+    </ion-content>

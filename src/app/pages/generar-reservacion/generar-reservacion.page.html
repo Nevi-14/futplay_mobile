@@ -32,14 +32,14 @@
 
                               <ion-item  *ngIf="rival"   lines="none" class="equipo  animate__animated animate__fadeIn employeeItem"  >
                                 <ion-avatar    >
-                                  <img *ngIf="!rival.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+rival.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-                                  <img  *ngIf="rival.Avatar"  src="assets/soccer-shields-svg/{{rival.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+                                  <img *ngIf="!rival.equipo.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+rival.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+                                  <img  *ngIf="rival.equipo.Avatar"  src="assets/soccer-shields-svg/{{rival.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
                          
                                 </ion-avatar>
                                 
                            
                                 <ion-label class="ion-text-wrap">
-                                  {{rival.Abreviacion}} <ion-badge color="warning" mode="ios">Rival </ion-badge>
+                                  {{rival.equipo.Abreviacion}} <ion-badge color="warning" mode="ios">Rival </ion-badge>
                                   <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
                                   
                                     <ion-icon style="size: 10px;" name="star"></ion-icon>
@@ -57,15 +57,15 @@
 
                               <ion-item  *ngIf="retador"    lines="none" class="equipo  animate__animated animate__fadeIn employeeItem"  >
                                 <ion-avatar    >
-                                  <img *ngIf="!retador.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+retador.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-                                  <img  *ngIf="retador.Avatar"  src="assets/soccer-shields-svg/{{retador.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+                                  <img *ngIf="!retador.equipo.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+retador.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+                                  <img  *ngIf="retador.equipo.Avatar"  src="assets/soccer-shields-svg/{{retador.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
                          
                                 </ion-avatar>
                                 
                                 
                              
                                 <ion-label class="ion-text-wrap">
-                                  {{retador.Abreviacion}} <ion-badge color="warning" mode="ios">Retador </ion-badge>
+                                  {{retador.equipo.Abreviacion}} <ion-badge color="warning" mode="ios">Retador </ion-badge>
                                   <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
                                   
                                     <ion-icon style="size: 10px;" name="star"></ion-icon>
@@ -84,18 +84,21 @@
                                
                               <ion-item  *ngIf="cancha" lines="none" class="employeeItem  animate__animated animate__fadeIn"  >
                                 <ion-avatar slot="start">
-                                  <img  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilCanchaUploads/'+cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">
+                                  <img  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilCanchaUploads/'+cancha.cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">
                           
                                  </ion-avatar>
                                 
                                 <ion-label class="ion-text-wrap">
-                                  <h2>{{cancha.Nombre}}  <ion-badge color="dark" mode="ios">₡{{cancha.Precio_Hora}}</ion-badge></h2>
+                                  <h2>{{cancha.cancha.Nombre}}  <ion-badge color="dark" mode="ios">₡{{cancha.cancha.Precio_Hora}}</ion-badge></h2>
+
+                                
+                                   <p   >
                                   <p   >
                                        
-                                    Categoria <ion-badge color="warning" mode="ios">{{cancha.Categoria}} </ion-badge>
+                                    Categoria <ion-badge color="warning" mode="ios">{{cancha.categoria}} </ion-badge>
                               
                                   </p>
-                                  <p>{{cancha.Nombre_Provincia}}, {{cancha.Nombre_Canton}}...</p>
+                  
                                 
                                 </ion-label>
                                 <ion-fab-button size="small"  (click)="agregarCancha()"  slot="end">
@@ -128,27 +131,15 @@
 <ion-row>
   <ion-col size="12" >
     <ion-item lines="none">
-      <ion-label slot="start" style="text-transform: uppercase;font-weight: 500; font-size: 1rem;" class="ion-text-wrap">Cancha {{cancha.Nombre}}</ion-label>
+      <ion-label slot="start" style="text-transform: uppercase;font-weight: 500; font-size: 1rem;" class="ion-text-wrap">Cancha {{cancha.cancha.Nombre}}</ion-label>
     </ion-item>
     <ion-item>
-<ion-label *ngIf="horario">
-  <h2>
-    Dia {{configuracionHorarioService.diaNombre(horario.Cod_Dia)}}
-  </h2>
-  <p *ngIf="horario.Estado">  
-    {{retornaHoraAmPm(horario.Hora_Inicio)}}
-    </p>
-    <p *ngIf="horario.Estado">  
-
-    {{retornaHoraAmPm(horario.Hora_Fin)}}</p>
-    <p *ngIf="!horario.Estado">  
-      Cerrado
-    </p>
+<ion-label  >
+  <ion-badge color="primary" mode="ios">  {{habilitarHoras ? 'Disponible' : 'No Disponible'}}</ion-badge> 
+                                  <p class="ion-text-wrap">{{horario}}</p>
 </ion-label>
 
-      <ion-button slot="end"  (click)="schedule()" expand="block"  color="dark">
-        <ion-icon  name="timer-outline" style="margin-right:0.2rem"></ion-icon>Horario
-       </ion-button>
+ 
     </ion-item>
   
 
@@ -171,15 +162,23 @@
   (onCurrentDateChanged)="onCurrentDateChanged($event)"
   [startHour]="0"
   [endHour]="24"
-  [lockSwipes]="lockSwipes"
-  [showEventDetail] = "false"  
+ 
+  [showEventDetail]="false"
+  [lockSwipes]="lockSwipes" 
   
   ></calendar>
+ 
+<ion-grid *ngIf="!habilitarHoras">
+  <ion-row>
+    <ion-col size="12">
+      <ion-item lines="none" color="danger">
+        <ion-label class="ion-text-wrap">Lo sentimos ya no se puede reservar por el dia de hoy..</ion-label>
+      </ion-item>
+    </ion-col>
 
-<ion-list>
-
-</ion-list>
-  <ion-grid  style="margin-top: 2rem;"  *ngIf="add">
+  </ion-row>
+</ion-grid>
+  <ion-grid  style="margin-top: 2rem;"  *ngIf="add && habilitarHoras">
     <ion-row >
       <ion-col size="12">
         <ion-label >Hora Inicio</ion-label>
@@ -217,7 +216,7 @@
 
     <ion-footer>
   
-     <ion-button (click)="alertaReservacion()" expand="block" *ngIf="retador && rival && cancha != null && nuevaReservacion.Hora_Inicio != null && nuevaReservacion.Hora_Fin != null">
+     <ion-button (click)="crearReservacion()" expand="block" *ngIf="retador && rival && cancha != null && nuevaReservacion.Hora_Inicio != null && nuevaReservacion.Hora_Fin != null">
       Guardar Reto
      </ion-button>
       

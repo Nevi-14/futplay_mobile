@@ -7,14 +7,14 @@ import { EquiposService } from 'src/app/services/equipos.service';
   styleUrls: ['./clasificacion.page.scss'],
 })
 export class ClasificacionPage implements OnInit {
-titulo="Power Rankings"
+
   constructor(
-    public equiposService: EquiposService
+public equiposService:EquiposService
   ) { }
 
   ngOnInit() {
 
-    console.log(this.equiposService.switchClub)
+  
   }
 
 }

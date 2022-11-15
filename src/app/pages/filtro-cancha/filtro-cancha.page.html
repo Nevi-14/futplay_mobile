@@ -6,12 +6,7 @@
       <ion-col size="12" size-md="6">
         <ion-item   lines="none">
      <ion-label>Categoria</ion-label>
-          <ion-select placeholder="Categoria"   [(ngModel)]="filtro.Cod_Categoria"    name="categoria">
-              <ion-select-option [value]="categoria.Cod_Categoria" *ngFor="let categoria of categoriaCanchasService.categoria_canchas">
-                {{categoria.Nombre}}
-              </ion-select-option>
-              
-              </ion-select>
+     
         </ion-item>
       </ion-col>
       <ion-col size="12" size-md="6">

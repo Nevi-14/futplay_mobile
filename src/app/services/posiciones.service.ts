@@ -22,7 +22,7 @@ export class PosicionesService {
 
   }
   private getPosiciones( ){
-    let URL = this.getURL( environment.posicionesURL);
+    let URL = this.getURL(environment.getPosicionesURL);
   console.log(URL,'URL POS')
       return this.http.get<Posiciones[]>( URL );
     }

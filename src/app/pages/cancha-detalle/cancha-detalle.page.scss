@@ -263,8 +263,7 @@ background-color: #fff;
 height: 100%;
 width: 100%;
 overflow: scroll !important;
-border-top-left-radius: 30px;
-border-top-right-radius: 30px;
+
 
 }
 ion-searchbar {
@@ -276,6 +275,13 @@ min-height: 5rem;
 
 
 }
+
+img {
+  height: 250px;
+        width: 100vw;
+  
+        object-fit:cover;
+    }
 .employeeItem {
 
   --border-radius: 10px;

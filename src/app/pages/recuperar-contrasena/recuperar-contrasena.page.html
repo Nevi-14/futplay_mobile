@@ -1,31 +1,136 @@
+
+
+
 <ion-header class="ion-no-border">
-  <ion-toolbar mode="ios">
+ 
+  
+  <ion-toolbar>
+    <ion-button  slot="start"  (click)="cerrarModal()" expand="block" fill="clear" shape="round">
+      <ion-icon color="dark" size="large" name="arrow-back-outline"></ion-icon>
+        </ion-button>
 
-    <ion-title>Recuperar Contraseña</ion-title>
-
+        <ion-title>  <strong >Recuperar Contraseña</strong></ion-title>
   </ion-toolbar>
-</ion-header>
-<ion-content class="ion-padding" class="ion-text-center">
-
-  <ion-grid >
-    <ion-list lines="none" > 
+  <ion-toolbar>
     <ion-row>
-      <ion-col size="12">
-        <ion-label >
-Correo o número de telefono asociado a su cuenta.
-        </ion-label>
-        <ion-item  class="ion-margin-top ion-margin-bottom" lines="none">
-          <ion-input type="text" placeholder="correo - telefono" [(ngModel)]="correo" name="correo"></ion-input>
-        </ion-item>
-      </ion-col>
-      <ion-col size="12" class="ion-text-center">
-        <ion-button expand="block"  fill="clear"  class="ion-button"   (click)="confirmar()" [strong]="true">Enviar</ion-button>
 
+      <ion-col size="12" class=" ion-text-right">
+        <ion-label class="ion-margin"><ion-badge color="warning" mode="ios">Verificar Código</ion-badge></ion-label>
+        <ion-checkbox   [(ngModel)]="verificarCodigo" (ionChange)="verificar()"   mode="ios"></ion-checkbox>
+      
       </ion-col>
     </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" >
 
-</ion-list>
-</ion-grid>
+  <ion-grid fixed>
+
+    <ion-row  *ngIf="!verificarCodigo && !cambiarContrasena"> 
+   
+
+
+
+
+      <ion-col size="12" >
+        <ion-label>
+ 
+     <strong>     En caso de que su cuenta exista enviaremos un codigo de verificacion para validar el proceso de cambio de contrasena, de lo contrario selecciona validar código.</strong>
+
+        </ion-label>
+      </ion-col>
+      <ion-col size="12"    class="ion-padding">
+        <ion-label  class="ion-text-left">
+          Correo - Telefono
+       </ion-label>
+
+      <ion-item lines="none" class="ion-margin-bottom ion-margin-top">
+        <ion-input  [(ngModel)]="correo" name="Correo"  type="text" placeholder="Correo - Telefono"></ion-input>
+        </ion-item>
+
+      </ion-col>
+ 
+
+    </ion-row>
+    <ion-row *ngIf="verificarCodigo && !cambiarContrasena">
+  
+      
+      <ion-col size="12"    >
+        <ion-label>
+ 
+          <strong>Ingresar código enviado a su correo</strong>
+
+        </ion-label>
+      </ion-col>
+
+
+      <ion-col size="12">
+        <ion-label  class="ion-text-left">
+          Correo
+        </ion-label>
+        <ion-item lines="none">
+          <ion-input type="text" placeholder="correo" [(ngModel)]="correo" name="email"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <ion-label  class="ion-text-left">
+          Codigo
+        </ion-label>
+        <ion-item lines="none">
+          <ion-input type="text" placeholder="codigo" [(ngModel)]="codigo" name="codigo"></ion-input>
+        </ion-item>
+      </ion-col>
+   
+    </ion-row>
+
+
+    <ion-row *ngIf="cambiarContrasena">
+  
+      
+      <ion-col size="12"    >
+        <ion-label>
+ 
+          <strong>Cambiar Contraseña</strong>
+
+        </ion-label>
+      </ion-col>
+      <ion-col size="12">
+      
+        <ion-label>Contraseña</ion-label>
+            <ion-item lines="none" class="ion-item">
+        <ion-input name="password" [(ngModel)]="contrasena"     type="{{showPass ? 'text' : 'password'}}" placeholder="contraseña"></ion-input>
+        <ion-icon slot="end"  item-right name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+      
+        <ion-label>    Confirmar Contraseña</ion-label>
+            <ion-item lines="none" class="ion-item">
+        <ion-input name="password" [(ngModel)]="confirmarContrasena"     type="{{confirmPass ? 'text' : 'password'}}" placeholder="contraseña"></ion-input>
+        <ion-icon slot="end"  item-right name="{{confirmPass ? 'eye' : 'eye-off'}}" (click)="confirmPass=!confirmPass"></ion-icon>
+        </ion-item>
+      </ion-col>
+
+      
+ 
+   
+    </ion-row>
+  </ion-grid>
 
 
 </ion-content>
+
+<ion-footer class="ion-no-border ion-text-center ion-padding" >
+  <ion-button  *ngIf="verificarCodigo && !cambiarContrasena" class="ion-margin" (click)="verificarCodigos()"    expand="block"  color="dark">
+    Verificar Codigo
+    
+     </ion-button>
+     <ion-button *ngIf="!verificarCodigo && !cambiarContrasena" class="ion-margin" (click)="recuperar()"    expand="block"  color="dark">
+      Enviar Codigo
+      
+       </ion-button>
+     <ion-button *ngIf="cambiarContrasena" class="ion-margin" (click)="cambiarContra()"    expand="block"  color="dark">
+  Cambiar Contraseña
+      
+       </ion-button>
+</ion-footer>

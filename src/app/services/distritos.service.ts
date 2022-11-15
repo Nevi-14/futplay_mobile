@@ -10,33 +10,32 @@ import { AlertasService } from './alertas.service';
 })
 export class DistritosService {
 
-  distritos: Distritos[] = [];
-
+  distritos: Distritos[]=[];
   constructor(
-
     private http: HttpClient,
     public aslertasService: AlertasService
+    
+    ) { }
 
-  ) { }
-
-
-  getURL(api: string, provincia: string, canton: string) {
+  getURL( api: string ){
     let test: string = ''
-    if (!environment.prdMode) {
+    if ( !environment.prdMode ) {
       test = environment.TestURL;
     }
 
-    const URL = environment.preURL + test + environment.postURL + api + environment.Cod_Provincia + provincia + environment.Cod_Canton_Param + canton
-    console.log(URL);
+    const URL = environment.preURL  + test +  environment.postURL + api 
+
     return URL;
   }
-  private getDistritos(provincia, canton) {
-    const URL = this.getURL(environment.distritosURL, provincia, canton);
-    return this.http.get<Distritos[]>(URL);
+  private getDistritos(canton ){
+    let URL = this.getURL( environment.getDistritosURL);
+    URL = URL + canton;
+    console.log(URL, 'URL')
+    return this.http.get<Distritos[]>( URL );
   }
 
-  syncDistritos(provincia, canton) {
+  syncDistritos(canton){
 
-    return this.getDistritos(provincia, canton).toPromise();
+    return this.getDistritos(canton).toPromise();
   }
 }

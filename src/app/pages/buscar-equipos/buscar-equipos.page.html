@@ -39,13 +39,13 @@
       <ion-list class="ion-margin-top">
         <ion-item lines="none"  (click)="onOpenMenu(equipo)"  class="employeeItem animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'Nombre'">
           <ion-avatar slot="start"  >
-            <img *ngIf="!equipo.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-            <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+            <img *ngIf="!equipo.equipo.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+            <img  *ngIf="equipo.equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
    
           </ion-avatar>
           
           <ion-label>
-            {{equipo.Nombre}}
+            {{equipo.equipo.Nombre}}
             <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
             
               <ion-icon style="size: 10px;" name="star"></ion-icon>

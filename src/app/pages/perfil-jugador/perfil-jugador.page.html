@@ -17,33 +17,36 @@
     <ion-content fullscreen class="ion-text-center">
       <div class="mainContent">
 
-        <ion-avatar  style="height: 12rem;width:12rem;margin:0 auto;">
-          <img *ngIf="!perfil.Avatar" [src]="userPic" onerror="this.src='assets/user.svg'"    alt="">
+        <ion-avatar  style="height: 12rem;width:12rem;margin:0 auto;margin-bottom: 1rem;">
+          <img *ngIf="!perfil.usuario.Avatar" [src]="userPic" onerror="this.src='assets/user.svg'"    alt="">
 
-          <img *ngIf="perfil.Avatar"src="assets/profile/avatars/{{perfil.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+          <img *ngIf="perfil.usuario.Avatar"src="assets/profile/avatars/{{perfil.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
       
         </ion-avatar>
 
-        <h3 class="ion-text-uppercase"> {{perfil.Nombre}} {{perfil.Primer_Apellido}} {{perfil.Segundo_Apellido}}</h3>
-            
-            
+      
     
       <ion-list lines="none">
+        <ion-item >
+ 
+            <ion-label  class="ion-text-capitalize ion-text-center" style="font-size: 2rem;"> <strong>{{perfil.usuario.Nombre}} {{perfil.usuario.Primer_Apellido}} </strong></ion-label>
+           
+        </ion-item>
         
     
-        <ion-item *ngIf="perfil.Apodo">
-            <ion-label>Apodo : {{perfil.Apodo}}</ion-label>
+        <ion-item *ngIf="perfil.usuario.Apodo">
+            <ion-label>Apodo : {{perfil.usuario.Apodo}} </ion-label>
         </ion-item>
 
         <ion-item  >
-            <ion-label>Posición: <ion-badge color="dark" mode="ios">{{perfil.Posicion}}</ion-badge> </ion-label>
+            <ion-label>Posición: <ion-badge color="warning" mode="ios">{{perfil.posicion}}</ion-badge></ion-label>
         </ion-item>
 
-        <ion-item *ngIf="perfil.Compartir_Datos">
+        <ion-item *ngIf="perfil.usuario.Compartir_Datos">
           <ion-label>Telefono : 
             
-            <a href="https://wa.me/{{perfil.Telefono}}"  target="blank">
-              {{perfil.Telefono}}
+            <a href="https://wa.me/{{perfil.usuario.Telefono}}"  target="blank">
+              {{perfil.usuario.Telefono}}
             </a></ion-label>
 
 
@@ -62,7 +65,7 @@
         Partidos Jugados
     
       </ion-label>
-      <ion-badge slot="end" color="dark" mode="ios">{{perfil.Partidos_Jugados}}</ion-badge>
+      <ion-badge slot="end" color="dark" mode="ios">{{perfil.usuario.Partidos_Jugados}}</ion-badge>
     </ion-item>
     <ion-item  lines="none" class="employeeItem  animate__animated animate__fadeIn"  >
     
@@ -70,14 +73,14 @@
         Jugador del partido
     
       </ion-label>
-      <ion-badge slot="end" color="dark" mode="ios">{{perfil.Partidos_Jugador_Del_Partido }}</ion-badge>
+      <ion-badge slot="end" color="dark" mode="ios">{{perfil.usuario.Partidos_Jugador_Del_Partido }}</ion-badge>
     </ion-item>
     <ion-item  lines="none" class="employeeItem  animate__animated animate__fadeIn"  >
     
       <ion-label>
         Jugador FutPlay
       </ion-label>
-    <ion-badge slot="end" color="dark" mode="ios">{{perfil.Partidos_Jugador_Futplay}}</ion-badge>
+    <ion-badge slot="end" color="dark" mode="ios">{{perfil.usuario.Partidos_Jugador_Futplay}}</ion-badge>
     </ion-item>
     
     

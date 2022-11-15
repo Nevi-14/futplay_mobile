@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './guards/auth.guard';
+import { AutoLoginGuard } from './guards/auto-login.guard';
 
 const routes: Routes = [
 
@@ -157,8 +157,7 @@ const routes: Routes = [
   },
   {
     path: 'futplay',
-    loadChildren: () => import('./pages/futplay/futplay.module').then( m => m.FutplayPageModule),
-    canLoad:[AuthGuard]
+    loadChildren: () => import('./pages/futplay/futplay.module').then( m => m.FutplayPageModule), canLoad:[AutoLoginGuard]
   },
   {
     path: 'mis-equipos',
@@ -208,17 +207,7 @@ const routes: Routes = [
     path: 'cambiar-contrasena',
     loadChildren: () => import('./pages/cambiar-contrasena/cambiar-contrasena.module').then( m => m.CambiarContrasenaPageModule)
   },
-  {
-    path: 'codigo-seguridad',
-    loadChildren: () => import('./pages/codigo-seguridad/codigo-seguridad.module').then( m => m.CodigoSeguridadPageModule)
-  },
-  {
-    path: 'horario-cacha',
-    loadChildren: () => import('./pages/horario-cacha/horario-cacha.module').then( m => m.HorarioCachaPageModule)
-  },
-
-
-
+  
 
 
 

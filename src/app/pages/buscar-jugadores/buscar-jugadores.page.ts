@@ -2,15 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { ActionSheetButton, ModalController, ActionSheetController } from '@ionic/angular';
 import { UsuariosService } from '../../services/usuarios.service';
 import { EquiposService } from '../../services/equipos.service';
-import { SolicitudesService } from '../../services/solicitudes.service';
-import { SolicitudesJugadoresEquipos } from '../../models/solicitudesJugadoresEquipos';
+ 
+
 import { PerfilUsuario } from '../../models/perfilUsuario';
 import { FiltroJugadorPage } from '../filtro-jugador/filtro-jugador.page';
 import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
 import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
 import { SolicitudesEquiposPage } from '../solicitudes-equipos/solicitudes-equipos.page';
-import { GoogleAdsService } from 'src/app/services/google-ads.service';
+ 
 import { VideoScreenPage } from '../video-screen/video-screen.page';
+import { Solicitudes } from '../../models/solicitudes';
+import { SolicitudesService } from '../../services/solicitudes.service';
 
 @Component({
   selector: 'app-buscar-jugadores',
@@ -21,40 +23,40 @@ export class BuscarJugadoresPage implements OnInit {
   filtro ={
     Cod_Provincia: null,
     Cod_Canton: null,
-    Cod_Distrito:null,
+    Cod_Distrito:null
   }
   textoBuscar = '';
   stadiumProfile =  'assets/main/game-match.svg';
-  solicitudJugadorEquipo:SolicitudesJugadoresEquipos = {
+  solicitud:Solicitudes = {
 
     Cod_Solicitud : null,
     Cod_Usuario : null,
-    Cod_Equipo :this.equiposService.perfilEquipo.Cod_Equipo,
+    Cod_Equipo :this.equiposService.equipo.equipo.Cod_Equipo,
     Confirmacion_Usuario:false,
     Confirmacion_Equipo:true,
-    Fecha: new Date(),
-    Estado: true,
-    Usuarios: null,
-    Equipos: null
-  
+    Estado:true
   }
     constructor(
       public modalCtrl: ModalController,
       public equiposService: EquiposService,
       public usuariosService:UsuariosService,
-      public solicitudesService:SolicitudesService,
       public actionSheetCtrl: ActionSheetController,
-      public googleAdsService: GoogleAdsService
+      public solicitudesService:SolicitudesService
     ) { }
   
     ngOnInit() {
-  this.usuariosService.syncUsusarios(this.usuariosService.usuarioActual.Cod_Usuario);
-      this.equiposService.SyncEquipos(this.usuariosService.usuarioActual.Cod_Usuario);
+  this.usuariosService.syncListaUsuariosToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(usuarios=>{
+    this.usuariosService.usuarios = usuarios;
+
+
+  })
+
+ 
     }
     jugadorEquipoSolicitud(usuario: PerfilUsuario){
-      this.solicitudJugadorEquipo.Cod_Usuario = usuario.Cod_Usuario
+      this.solicitud.Cod_Usuario = usuario.usuario.Cod_Usuario
   
-      this.solicitudesService.generarSolicitud(this.solicitudJugadorEquipo);
+     this.solicitudesService.generarSolicitud(this.solicitud);
 
      
     }
@@ -92,7 +94,7 @@ export class BuscarJugadoresPage implements OnInit {
                 text: 'Enviar Solicitud',
                 icon:'paper-plane-outline',
                 handler: () =>{
-                  this.videoScreen(3);
+                 // this.videoScreen(3);
                  this.jugadorEquipoSolicitud(jugador)
                 }
                

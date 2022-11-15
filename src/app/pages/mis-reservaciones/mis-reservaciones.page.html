@@ -25,7 +25,7 @@
           <ion-button size="small" fill="clear"  *ngIf="segment < categories.length-1" slot="end" (click)="next()">
             <ion-icon  color="light"  name="arrow-forward-outline"></ion-icon>
           </ion-button>
-          <ion-segment scrollable mode="md" (ionChange)="segmentChanged()" [(ngModel)]="segment" >
+          <ion-segment scrollable mode="md" (ionChange)="segmentChanged($event)" [(ngModel)]="segment" >
             <ion-segment-button mode="md" id="seg-{{i}}"  [value]="i" *ngFor="let cat of categories; let i = index;"  (click)="selectCategory(i)">
               <ion-label [class.active-category]="activeCategory == i">{{cat}}</ion-label>
             </ion-segment-button>
@@ -49,7 +49,7 @@
         <ion-slides (ionSlideDidChange)="slideChanged()" class="word-slides">
       
           <ion-slide *ngFor="let cat of categories; let i = index;" >
-            <ion-list class="ion-padding"  *ngIf="gestionReservacionesService.retos.length == 0">
+            <ion-list class="ion-padding"  *ngIf="reservaciones.length == 0">
               <ion-item lines="none" class="transparent  animate__animated animate__fadeIn" >
         
                 <ion-avatar slot="start"  style="height:6rem;width: 6rem;" >
@@ -67,20 +67,20 @@
                </ion-item>
             </ion-list>
             
-                    <ion-list *ngIf="gestionReservacionesService.retos.length > 0">
+                    <ion-list *ngIf="reservaciones.length > 0">
               
-                      <ion-item  (click)="detalleReto(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of gestionReservacionesService.retos | filtro: textoBuscar:'Titulo' ; let odd = odd; let i = index;" >
-                        <img  src="assets/soccerfield.jpg"onerror="this.src='assets/soccerfield.jpg'"   alt="">
+                      <ion-item  (click)="detalleReto(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of reservaciones | filtro: textoBuscar:'Titulo' ; let odd = odd; let i = index;" >
+                        <img  src="{{'https://futplaycompany.com/api_test/'+reto.cancha.Foto }}"  onerror="this.src='assets/soccerfield.jpg'"   alt="">
                   
                         <ion-label>
-                          <h2> {{reto.Titulo}} </h2>
-                          <p> Fecha : <ion-badge color="warning" mode="ios"> {{reto.Fecha | date:'shortDate'}} </ion-badge> </p>
+                          <h2> {{reto.reservacion.Titulo}} </h2>
+                          <p> Fecha : <ion-badge color="warning" mode="ios"> {{reto.reservacion.Fecha | date:'shortDate'}} </ion-badge> </p>
                           <p   >
                                
-                            Cancha : {{reto.Nombre_Cancha}}
+                            Cancha : {{reto.cancha.Nombre}}
                       
                           </p>
-                          <p>Hora: {{reto.Hora_Inicio | date:'shortTime' }} - {{reto.Hora_Fin | date:'shortTime'}}.</p>
+                          <p>Hora: {{reto.reservacion.Hora_Inicio | date:'shortTime' }} - {{reto.reservacion.Hora_Fin | date:'shortTime'}}.</p>
                         </ion-label>
                   
                       </ion-item>

@@ -42,7 +42,7 @@
     
         <ion-col size="12" size-md="7" size-lg="7" class="ion-text-center" >
 
-          <ion-avatar *ngIf="equipo.Avatar || this.gestorImagenesService.images.length == 0"   style="height: 12rem;width:12rem;margin:0 auto;">
+          <ion-avatar  style="height: 12rem;width:12rem;margin:0 auto;">
                  
 
            
@@ -50,9 +50,7 @@
             <img class="picture-img"   src="assets/soccer-shields-svg/{{image}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
                     </ion-avatar>
     
-                    <ion-avatar *ngIf="this.gestorImagenesService.images.length > 0 && !avatars"  style="height: 12rem;width:12rem;margin:0 auto;">
-                      <img src="{{this.gestorImagenesService.images[0].data}}" alt="">
-                    </ion-avatar>
+           
           
        
                     

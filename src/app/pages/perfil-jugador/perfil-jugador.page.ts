@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { PerfilUsuario } from 'src/app/models/perfilUsuario';
+import { PerfilJugador } from '../../models/perfilJugador';
 
 @Component({
   selector: 'app-perfil-jugador',
@@ -8,14 +9,14 @@ import { PerfilUsuario } from 'src/app/models/perfilUsuario';
   styleUrls: ['./perfil-jugador.page.scss'],
 })
 export class PerfilJugadorPage implements OnInit {
-@Input() perfil:PerfilUsuario;
+@Input() perfil:PerfilJugador;
 userPic = null;
   constructor(
     public modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
-    this.userPic = this.perfil.Foto ?  'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/' + this.perfil.Foto +'?'+ this.dateF() : 'assets/user.svg';;
+    this.userPic = this.perfil.usuario.Foto ?  'https://futplaycompany.com/api_test/' + this.perfil.usuario.Foto  : 'assets/user.svg';;
     console.log(this.perfil, 'perfil')
   }
 

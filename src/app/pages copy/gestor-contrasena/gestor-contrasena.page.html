@@ -1,0 +1,46 @@
+
+      <ion-toolbar>
+        <ion-title slot="start" class="ion-text-uppercase" style="font-size: 14px;font-weight: 600;">Gestionar contraseña</ion-title>
+
+        <ion-buttons slot="end">
+          <ion-button (click)="cerrarModal()" color="dark"> 
+            <ion-icon  name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+
+
+<div class="inner-content">
+  <ion-grid class="ion-padding">
+    <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)">
+    <ion-row>
+
+      <ion-col size="12" size-md="6">
+        <ion-item  class="ion-margin-top ion-margin-bottom" lines="none">
+          <ion-label position="floating">Contraseña  anterior</ion-label>
+          <ion-input type="password" name="password" [(ngModel)]="credentials.password"   placeholder="Contraseña anterior"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" size-md="6">
+        <ion-item  class="ion-margin-top ion-margin-bottom" lines="none">
+          <ion-label position="floating">Nueva Contraseña</ion-label>
+          <ion-input type="password" name="new" [(ngModel)]="credentials.new"   placeholder="Nueva contraseña"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" size-md="6">
+        <ion-item  class="ion-margin-top ion-margin-bottom" lines="none">
+          <ion-label position="floating">Confirmar Contraseña</ion-label>
+          <ion-input type="password" name="confirm" [(ngModel)]="credentials.confirm"   placeholder="Confirmar contraseña"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <div align="center ">
+          <ion-button expand="block"  shape="round" type="submit" color="dark">Cambiar</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+   </form>
+  </ion-grid>
+
+
+</div>

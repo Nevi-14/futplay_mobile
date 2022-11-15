@@ -1,12 +1,10 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { IonSlides, ModalController } from '@ionic/angular';
-import { CanchasService } from 'src/app/services/canchas.service';
-import { EquiposService } from 'src/app/services/equipos.service';
-import { GestionReservacionesService } from 'src/app/services/gestion-reservaciones.service';
-import { UsuariosService } from 'src/app/services/usuarios.service';
+import { PerfilReservaciones } from 'src/app/models/perfilReservaciones';
+import { ReservacionesService } from 'src/app/services/reservaciones.service';
+import { UsuariosService } from '../../services/usuarios.service';
 import { AceptarRetoPage } from '../aceptar-reto/aceptar-reto.page';
 import { GenerarReservacionPage } from '../generar-reservacion/generar-reservacion.page';
-import { GoogleAdsService } from '../../services/google-ads.service';
 
 @Component({
   selector: 'app-mis-reservaciones',
@@ -15,6 +13,7 @@ import { GoogleAdsService } from '../../services/google-ads.service';
 })
 export class MisReservacionesPage implements OnInit {
   categories = ['Confirmados','Recibidos','Enviados','Historial','Revisión'];
+  reservaciones:PerfilReservaciones[]=[]
   @ViewChild(IonSlides) slider: IonSlides;
   segment = 0;
   activeCategory = 0;
@@ -24,128 +23,42 @@ Titulo = '';
 show = false;
 rival = null;
 textoBuscar = '';
-
   constructor(
-public gestionReservacionesService: GestionReservacionesService,
-public usuariosService: UsuariosService,
-public canchasService: CanchasService,
-public equiposService: EquiposService,
-public modalCtrl: ModalController,
-public googleAdsService: GoogleAdsService
+public reservacionesService:ReservacionesService,
+public usuariosService:UsuariosService,
+public modalCtrl: ModalController
   ) {
 
-    this.googleAdsService.initialize();
-
+     
   }
   ngOnInit() {
-//alert(this.categories.length)
-this.gestionReservacionesService.syncRetosConfirmados(this.usuariosService.usuarioActual.Cod_Usuario)
-  }
-  cerrarModal(){
-    this.modalCtrl.dismiss();
-  }
 
-  onSearchChange(event){
-
-    this.textoBuscar = event.detail.value;
-      }
-  async detalleReto(reto) {
-    let mostrarModal = false;
-    
-    
-    console.log(reto, 'ksjskskks')
-     this.canchasService.syncCodCancha(reto.Cod_Cancha).then(resp =>{
-          console.log(resp, 'canaaaaa')
-    this.cancha = resp[0]
-    console.log(this.cancha,'caaa',resp)
-    const consultarRetador = this.equiposService.syncEquipo(reto.Cod_Retador);
-    
-    consultarRetador.then(resp =>{
-    
-    this.retador = resp[0];
-    
-    console.log(this.retador,'rival')
-    
-    const consultarRival = this.equiposService.syncEquipo(reto.Cod_Rival);
-    
-    
-    consultarRival.then(resp =>{
-      this.rival = resp[0];
-    
-      mostrarModal = true;
-    if(mostrarModal){
-      console.log(reto,this.cancha,this.retador,null,resp,'reto,cancha,rival,null,resp')
-    
-    }
-    
-    this.detalleRetoModal(reto,this.cancha,this.retador,this.rival)
+    this.reservacionesService.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+this.reservaciones = reservaciones;
+console.log('reservaciones', this.reservaciones)
     })
-    
-    
-    })
-    
-    
-        })
-    
-        
-    
-      
-    
-    
-    
-      
-      }
+  }
 
-      async detalleRetoModal(reto,cancha,retador,rival){
-        const modal = await this.modalCtrl.create({
-          component: AceptarRetoPage,
-          cssClass: 'my-custom-class',
-          componentProps: {
-            reto: reto,
-            cancha: cancha,
-            retador: retador,
-            rival:rival
-          },
-          id:'detalle-reto'
-        });
-    
-         await modal.present();
-
-        let {data} = await modal.onDidDismiss();
-       
-        this.selectCategory(this.segment)
-        this.segmentChanged();
-      }
-    
-  async slideTo(value) {
-  
-    await this.slider.slideTo(value);
-    this.slider.update();
-  }
-  refresh(){
-    this.selectCategory(this.segment)
-  }
-  async segmentChanged() {
-    await this.slider.slideTo(this.segment);
-    this.slider.update();
-  }
-  async slideChanged() {
- //   this.segment =  await this.slider.getActiveIndex();
- this.segment =  await this.slider.getActiveIndex();
-    this.focusSegment(this.segment);
-   
-    
-  }
-  
-  focusSegment(segmentId) {
-    document.getElementById('seg-'+segmentId).scrollIntoView({ 
-      behavior: 'smooth',
-      block: 'center',
-      inline: 'center'
+  async detalleReto(reto:PerfilReservaciones) {
+    const modal = await this.modalCtrl.create({
+      component: AceptarRetoPage,
+      cssClass: 'my-custom-class',
+      componentProps: {
+        reto: reto
+      },
+      id:'detalle-reto'
     });
+
+     await modal.present();
+
+    let {data} = await modal.onDidDismiss();
+  
     this.selectCategory(this.segment)
   }
+  cerrarModal (){
 
+    this.modalCtrl.dismiss()
+  }
   async nuevaReservacion(){
 
   
@@ -162,75 +75,120 @@ this.gestionReservacionesService.syncRetosConfirmados(this.usuariosService.usuar
    });
    await modal .present();
  }
-
-async next(){
-   this.segment =  Number(this.segment) +1;
-if(this.segment <= this.categories.length -1){
-
-  await this.slider.slideTo(this.segment);
-  this.slider.update();
-  if(this.segment == this.categories.length -1){
- 
-    this.segment = this.categories.length-1;
-   this.slider.update();
-  }
-  this.selectCategory(this.segment)
-}
-  }
-  async prev(){
-    this.segment = Number(this.segment)  -1;
-
-    if(this.segment >= 0 && this.segment <= this.categories.length){
-      //alert(this.segment)
-    
-      await this.slider.slideTo(this.segment);
-      this.slider.update();
-    }else{
-
-      this.segment =  Number(this.segment) -1;
-      this.slider.update();
-    }
-    this.selectCategory(this.segment)
-
-   }
-
- async   selectCategory(index){
- 
-  this.segment = index;
-  this.activeCategory = index;
-
-    switch(index){
-   
-      case 0:
-        this.gestionReservacionesService.syncRetosConfirmados(this.usuariosService.usuarioActual.Cod_Usuario)
-        break;
-
-      case 1:
-
-  this.gestionReservacionesService.syncRetosRecibidos(this.usuariosService.usuarioActual.Cod_Usuario)
-     break;
-      case 2:
-        this.gestionReservacionesService.syncRetosEnviados(this.usuariosService.usuarioActual.Cod_Usuario)
-      break;
-      
-      case 3:
-        this.gestionReservacionesService.syncRetosHistorial(this.usuariosService.usuarioActual.Cod_Usuario)
-      break;
-      
-      case 4:
-        this.gestionReservacionesService.syncRetosRevision(this.usuariosService.usuarioActual.Cod_Usuario)
-      break;
-    
-      default:
-        
-        break;
-    }
-  
-    
+  async segmentChanged(event) {
     await this.slider.slideTo(this.segment);
     this.slider.update();
-  
-  
+  }
+  async slideChanged() {
+ //   this.segment =  await this.slider.getActiveIndex();
+ this.segment =  await this.slider.getActiveIndex();
+    this.focusSegment(this.segment);
+   
+    
+  }
 
-       }
+  
+  onSearchChange(event){
+
+    this.textoBuscar = event.detail.value;
+      }
+  focusSegment(segmentId) {
+    document.getElementById('seg-'+segmentId).scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center'
+    });
+    this.selectCategory(this.segment)
+  }
+
+  async next(){
+    this.segment =  Number(this.segment) +1;
+ if(this.segment <= this.categories.length -1){
+ 
+   await this.slider.slideTo(this.segment);
+   this.slider.update();
+   if(this.segment == this.categories.length -1){
+  
+     this.segment = this.categories.length-1;
+    this.slider.update();
+   }
+   this.selectCategory(this.segment)
+ }
+   }
+   async prev(){
+     this.segment = Number(this.segment)  -1;
+ 
+     if(this.segment >= 0 && this.segment <= this.categories.length){
+       //alert(this.segment)
+     
+       await this.slider.slideTo(this.segment);
+       this.slider.update();
+     }else{
+ 
+       this.segment =  Number(this.segment) -1;
+       this.slider.update();
+     }
+     this.selectCategory(this.segment)
+ 
+    }
+ 
+  async   selectCategory(index){
+  
+   this.segment = index;
+   this.activeCategory = index;
+ 
+     switch(index){
+    
+       case 0:
+        // confirmados
+
+        this.reservacionesService.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+          this.reservaciones = reservaciones;
+          console.log('reservaciones', this.reservaciones)
+
+        })
+         break;
+ 
+       case 1:
+ 
+  // recibidos
+  this.reservacionesService.syncgGtReservacionesRecibidas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+    this.reservaciones = reservaciones;
+    console.log('reservaciones', this.reservaciones)
+
+  })
+      break;
+       case 2:
+    // enviados
+    this.reservacionesService.syncgGtReservacionesEnviadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+      this.reservaciones = reservaciones;
+    
+      console.log('reservaciones', this.reservaciones)
+    })
+       break;
+       
+       case 3:
+     //hisyotial
+     this.reservaciones = []
+       break;
+       
+       case 4:
+//revision
+this.reservaciones = []
+       break;
+     
+       default:
+        this.reservaciones = []
+         break;
+     }
+   
+     
+     await this.slider.slideTo(this.segment);
+     this.slider.update();
+   
+   
+ 
+        }
+
+      
 }

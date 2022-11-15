@@ -1,23 +1,26 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController, ActionSheetController, AlertController } from '@ionic/angular';
-import { ListaCanchas } from 'src/app/models/listaCanchas';
+
 import { CanchasService } from 'src/app/services/canchas.service';
-import { GestionRetos } from '../../models/gestionRetos';
+
 import { UsuariosService } from 'src/app/services/usuarios.service';
-import { HistorialPartidoService } from 'src/app/services/historial-partido.service';
-import { HistorialPartido } from 'src/app/models/historialPartido';
+
 import { InicioPartidoPage } from '../inicio-partido/inicio-partido.page';
-import { vistaEquipos } from '../../models/vistaEquipos';
+
 import { VerificacionQrPage } from '../verificacion-qr/verificacion-qr.page';
-import { GoogleAdsService } from 'src/app/services/google-ads.service';
+
 import { VideoScreenPage } from '../video-screen/video-screen.page';
-import { EmailService } from 'src/app/services/email.service';
-import { Canchas } from '../../models/canchas';
-import { FacturacionService } from 'src/app/services/facturacion.service';
-import { FacturaDetaleReservaciones } from '../../models/facturaDetalleReservaciones';
+
 import { AlertasService } from 'src/app/services/alertas.service';
-import { GestionReservacionesService } from 'src/app/services/gestion-reservaciones.service';
 import { EliminarRetoPage } from '../eliminar-reto/eliminar-reto.page';
+import { Canchas } from '../../models/canchas';
+import { Equipos } from 'src/app/models/equipos';
+import { Reservaciones } from '../../models/reservaciones';
+import { PerfilReservaciones } from '../../models/perfilReservaciones';
+import { ReservacionesService } from 'src/app/services/reservaciones.service';
+import { PartidoService } from '../../services/partido.service';
+import { partidos } from '../../models/partidos';
+import { ProvinciasService } from '../../services/provincias.service';
 
 @Component({
   selector: 'app-aceptar-reto',
@@ -25,14 +28,11 @@ import { EliminarRetoPage } from '../eliminar-reto/eliminar-reto.page';
   styleUrls: ['./aceptar-reto.page.scss'],
 })
 export class AceptarRetoPage implements OnInit {
-@Input() reto: GestionRetos
-@Input() cancha : ListaCanchas
-@Input() retador;
-@Input() rival;
-factura:FacturaDetaleReservaciones;
-equipo : vistaEquipos
+@Input() reto:PerfilReservaciones
 
-partido : HistorialPartido[]=[];
+partido:partidos[]=[]
+
+
 soccer= 'assets/icon/soccer.svg';
 img = 'assets/main/team-profile.svg';
 allowDelete = false;
@@ -41,24 +41,23 @@ allowDelete = false;
     public canchasService: CanchasService,
     public actionCtrl: ActionSheetController,
     public usuariosService: UsuariosService,
-    public historialPartidoService:HistorialPartidoService,
-    public googleAdsService: GoogleAdsService,
-    public emailService: EmailService,
+    public provinciasService:ProvinciasService,
+
+
+
     public alertCtrl: AlertController,
-    public facturacionService:FacturacionService,
+
     public alertasService: AlertasService,
-    public gestionReservacionesService: GestionReservacionesService
+    public reservacionesService:ReservacionesService,
+    public partidosService:PartidoService
+    
   ) { }
 
   async ngOnInit() {
 
 
-console.log('reto', this.reto, 'retador', this.retador, this.rival, this.cancha)
-this.facturacionService.syncConsultarFacturaGet(this.reto.Cod_Reservacion).then(factura =>{
-  this.factura = factura[0];
-console.log('factura', factura)
+console.log('reto', this.reto, 'retador', this.reto.retador, this.reto.rival, this.reto.cancha)
 
-})
   }
   filledStars(stars:number){
 
@@ -72,8 +71,8 @@ console.log('factura', factura)
   async navigate() {
      
     //Kuala Lumpur City Center coordinates
-    let toLat= this.cancha.Latitud;
-    let toLong= this.cancha.Longitud;
+    let toLat= this.reto.cancha.Latitud;
+    let toLong= this.reto.cancha.Longitud;
 
     
     let destination = toLat + ',' + toLong;
@@ -148,29 +147,7 @@ convertMsToHM(milliseconds) {
 }
 
 
-async  efectuarPago(factura:FacturaDetaleReservaciones){
-  const alert = await this.alertCtrl.create({
-    header: 'FUTPLAY',
-    subHeader:'Mensaje Futplay',
-    message:'Estimado usuario,nos encontramos trabajando en esta caracteristica!.',
-    
-    buttons: [
- 
-      {
-        text: 'Entendido',
-        role: 'confirm',
-        handler: () => {
-          
-this.alertCtrl.dismiss();
-         }
-      }
-    ]
-  });
 
-  await alert.present();
-
-  const { role } = await alert.onDidDismiss();
-}
 
   async qrVerification(){
     
@@ -182,12 +159,9 @@ this.cerrarModal();
      component: VerificacionQrPage,
      cssClass:'large-modal',
      componentProps:{
-       reto:this.reto,
-       cancha:this.cancha,
-       retador:this.retador,
-       rival:this.rival,
-       equipo: this.equipo,
-       partido: this.partido
+    reto:this.reto,
+    partido:this.partido
+       
      }
  
     });
@@ -208,11 +182,7 @@ this.cerrarModal();
         cssClass: 'my-custom-class',
         componentProps:{
           reto:this.reto,
-          cancha:this.cancha,
-          retador:this.retador,
-          rival:this.rival,
-          partido: this.partido,
-          equipo: this.equipo
+          partido:this.partido
         }
       });
     
@@ -223,7 +193,7 @@ this.cerrarModal();
       const alert = await this.alertCtrl.create({
         header: 'FUTPLAY',
         subHeader:'Proceso De Reservación',
-        message:'¿Desea aceptar el reto?.',
+        message:'Estimado usuario, recuerda que para poder completar la reservación se debera de efectuar el pago adelantado del 10% del costo total de la reservación, por favor completar el pago para poder finalizar el proceso.',
         
         buttons: [
           {
@@ -232,7 +202,7 @@ this.cerrarModal();
             handler: () => {
     
               console.log(this.reto, 'reservacion')
-  
+
   
             }
           },
@@ -240,13 +210,34 @@ this.cerrarModal();
             text: 'Continuar',
             role: 'confirm',
             handler: () => {
-              alert.dismiss();
+              
               console.log(this.reto, 'reservacion')
+        
+  this.reto.detalle.Confirmacion_Rival = true;
+  this.reservacionesService.syncPutDetalleReservaion(this.reto.detalle).then(resp =>{
+this.alertasService.message('FUTPLAY','EL Reto se acepto con exito');
+
+
+this.cerrarModal();
+
+
+    console.log('reto aceptado', resp)
+  }, error =>{
+    console.log('reto error', error)
+  })
+              
+  
+            let subject =  ' Nueva Reservación confirmada ' +  this.reto.reservacion.Titulo;
+            let body =  'Estimado usuario, se ha aceptado el reto en la cancha' + ' '+this.reto.reservacion.Titulo;
+     /**
+      *        this.emailService.notificarUsuarios(this.cancha.Cod_Usuario, subject, body).then(resp =>{
+        
+        
               this.aceptarReto();
               
-
-
-          
+        
+            });
+      */
              }
           }
         ]
@@ -260,101 +251,7 @@ this.cerrarModal();
 
     
 
-
-     aceptarReto(){
-       
- 
-
-       let confirmacion = {
-        Cod_Reservacion: this.reto.Cod_Reservacion,
-        Cod_Retador : this.reto.Cod_Retador,
-        Cod_Rival : this.reto.Cod_Rival,
-        Confirmacion_Retador: true,
-        Confirmacion_Rival : true,
-        Cod_Estado : 4,
-             }
-
-
-      this.gestionReservacionesService.actualizarReservacionToPromise(confirmacion, this.reto.Cod_Usuario, this.reto.Cod_Reservacion).then(reto =>{
-this.gestionReservacionesService.syncGetReservacionToPromise(this.reto.Cod_Reservacion).then(resp =>{
-  console.log('resp',resp)
-  this.reto  = resp[0];
-
-  const Historia_PartidosRival = {
-                Cod_Partido : null,
-                Cod_Reservacion:  this.reto.Cod_Reservacion,
-                Cod_Equipo  :  this.reto.Cod_Rival,
-                Verificacion_QR  : false,
-                Goles_Retador : 0,
-                Goles_Rival : 0,
-                Estado : false,
-                Evaluacion : false
-
-              }
-              const Historia_PartidosRetador= {
-                Cod_Partido : null,
-                Cod_Reservacion:  this.reto.Cod_Reservacion,
-                Cod_Equipo  :  this.reto.Cod_Retador,
-                Verificacion_QR  : false,
-                Goles_Retador : 0,
-                Goles_Rival : 0,
-                Estado : false,
-                Evaluacion : false
-
-              }
-         console.log('reservacion actualizada', resp)
-console.log('historuak 1', Historia_PartidosRival)
-console.log('historuak 2', Historia_PartidosRetador)
-         this.historialPartidoService.iniciarPartido(Historia_PartidosRival)
-         this.historialPartidoService.iniciarPartido(Historia_PartidosRetador)
-
-         this.videoScreen(2);
-this.notificarUsuarios();
-   this.gestionReservacionesService.syncRetosRecibidos(this.usuariosService.usuarioActual.Cod_Usuario)
-   this.gestionReservacionesService.syncRetosEnviados(this.usuariosService.usuarioActual.Cod_Usuario)
-      this.gestionReservacionesService.syncRetosConfirmados(this.usuariosService.usuarioActual.Cod_Usuario)
-   //   this.modalCtrl.dismiss();
   
-})
-      
-
-
-
-      })
-
-     }
-     notificarUsuarios(){
-
-
-      let subject =  ' Nueva Reservación confirmada ' +  this.reto.Titulo;
-      let body =  'Estimado usuario, se ha aceptado el reto en la cancha' + ' '+this.reto.Nombre_Cancha;
-     
-     this.emailService.notificarUsuarios(68, subject, body).then(futplay =>{
-console.log('email futplay')
-     });
-      this.emailService.notificarUsuarios(this.cancha.Cod_Usuario, subject, body).then(resp =>{
-  
-        console.log('email soccer-field confirmed')
-
-   
-
-    });
-
-
-      this.emailService.notificarUsuarios(this.rival.Cod_Usuario, subject, body).then(resp =>{
-  
-        console.log('rival email confirmed')
-
-        this.emailService.notificarUsuarios(this.retador.Cod_Usuario, subject, body).then(resp =>{
-          console.log('retador email confirmed')
-        });
-  
-        
-  
-      });
-  
-  
-    }
   cerrarModal(){
     this.modalCtrl.dismiss(null,null,'detalle-reto');
   }
@@ -373,39 +270,7 @@ console.log('email futplay')
 
     return await modal.present();
   }
-  iniciarPartido(){
-
-    if(    this.usuariosService.usuarioActual.Cod_Usuario == this.retador.Cod_Usuario
-      ){
-    
-     this.equipo =  this.retador
-      }else{
-     this.equipo =  this.rival
-    
-      }
-
-      
-
-    this.historialPartidoService.syncPartidoActual(this.reto.Cod_Reservacion).then(
-       resp =>{
-this.partido = resp;
-
-if(!this.partido[0].Verificacion_QR || !this.partido[1].Verificacion_QR){
-
-  this.qrVerification();
-}else{
-
-  this.partidoActual();
-}
-
-  
-
-
-    })
-
-
-
-  }
+ 
   async doYouWantToDelete() {
     const alert = await this.alertCtrl.create({
       header: 'FUTPLAY',
@@ -422,7 +287,7 @@ if(!this.partido[0].Verificacion_QR || !this.partido[1].Verificacion_QR){
           text: 'OK',
           role: 'Continuar',
           handler: () => {
-             this.eliminar();
+          
           },
         },
       ],
@@ -433,24 +298,7 @@ if(!this.partido[0].Verificacion_QR || !this.partido[1].Verificacion_QR){
     const { role } = await alert.onDidDismiss();
     
   }
-  eliminar(){
-
-/**
- * if(this.isLessThan24HourAgo(new Date(this.reto.Hora_Inicio).getTime())){
-    this.gestionReservacionesService.syncDeleteConfirmacionReservacion(this.reto).then(resp =>{
-      this.modalCtrl.dismiss();
-  console.log(this.reto)
-this.alertasService.message('FUTPLAY', 'Las reservaciones se deben de cancelar 24 horas antes.')
-  return
-}
- */
-return
-    this.gestionReservacionesService.syncDeleteConfirmacionReservacion(this.reto).then(resp =>{
-      this.modalCtrl.dismiss();
-    });
-
-
-  }
+ 
 
 
   async eliminarReto(){
@@ -459,8 +307,7 @@ return
       component:EliminarRetoPage,
       cssClass:'medium-modal',
       componentProps:{
-        reto:this.reto,
-        cancha:this.cancha,
+        reto:this.reto
       }
     })
   
@@ -472,7 +319,27 @@ return
      console.log('data eli', data)
      if(data != undefined){
       this.modalCtrl.dismiss(null,null,'detalle-reto');
-      
      }
   }
+
+  iniciarPartido(){
+
+    this.partidosService.syncGetPartidoReservacion(this.reto.reservacion.Cod_Reservacion).then(partido =>{
+this.partido = partido;
+      console.log('partido', partido)
+      if(!partido[0].Verificacion_QR || !partido[1].Verificacion_QR){
+
+        this.qrVerification();
+      }else{
+      
+        this.partidoActual();
+      }
+    })
+
+   
+
+  }
+
+
+
 }

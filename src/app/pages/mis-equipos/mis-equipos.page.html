@@ -1,13 +1,11 @@
 
   <ion-header class="custom-header">
 <ion-toolbar class="custom-toolbar">
-  <ion-button fill="clear" (click)="cerrarModal()">
+  <ion-button slot="start" fill="clear" (click)="cerrarModal()">
     <ion-icon color="light" slot="start" name="chevron-back"></ion-icon>
   </ion-button>
   <ion-title>Mis Equipos</ion-title>
-  <ion-button slot="end" (click)="crearUniserseEquipo()" expand="block" fill="clear" shape="round">
-  <ion-icon style="color:#fff;" slot="icon-only" size="large" name="options"></ion-icon>
-  </ion-button>
+ 
 </ion-toolbar>
 <ion-searchbar  (ionChange)="onSearchChange($event)"   mode="ios" placeholder="Buscar Equipo" inputmode="text"  debounce="250" ></ion-searchbar> 
     </ion-header>
@@ -17,7 +15,7 @@
       <div class="mainContent">
       <ion-list class="ion-margin-top"   >
 
-        <ion-item lines="none" class="custom-item   animate__animated animate__fadeIn"  *ngIf="equiposService.misEquipos.length == 0" >
+        <ion-item *ngIf="equiposService.misEquipos.length == 0" lines="none" class="custom-item   animate__animated animate__fadeIn"    >
         
           <ion-avatar>
            <img   src="assets/logo.png" alt="">
@@ -36,27 +34,38 @@
 
         <ion-item (click)="seleccionarEquipo(equipo)"   class="custom-item   animate__animated animate__fadeIn" lines="none"  *ngFor="let equipo of equiposService.misEquipos | filtro: textoBuscar:'Nombre'; let i = index;">
           <ion-avatar slot="start"  >
-            <img *ngIf="!equipo.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-            <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-   
+            <img *ngIf="!equipo.equipo.Avatar"  src="{{'https://futplaycompany.com/api_test/'+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+            <img  *ngIf="equipo.equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+          
+
           </ion-avatar>
           
           <ion-label>
-            {{equipo.Nombre}}
+            {{equipo.equipo.Nombre}}
             <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
             
-              <ng-template ngFor let-hero [ngForOf]="filledStars(equipo.Estrellas)"
+              <ng-template ngFor let-hero [ngForOf]="filledStars(equipo.equipo.Estrellas)"
               let-i="index" let-odd="odd"  >
               <ion-icon style="size: 10px;" name="star"></ion-icon>
             </ng-template>
-            <ng-template ngFor let-hero [ngForOf]="emptyStars(equipo.Estrellas)"
+            <ng-template ngFor let-hero [ngForOf]="emptyStars(equipo.equipo.Estrellas)"
             let-i="index" let-odd="odd"  >
             <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
           </ng-template>
             </p>
           </ion-label>
 
+     
+
         </ion-item>
       </ion-list>
       </div>
     </ion-content>
+<ion-footer>
+  <ion-toolbar>
+       
+    <ion-button expand="block"  (click)="crearUniserseEquipo()" class="ion-text-center" >
+      <ion-label>  Crear Equipo</ion-label>
+            </ion-button>
+  </ion-toolbar>
+</ion-footer>

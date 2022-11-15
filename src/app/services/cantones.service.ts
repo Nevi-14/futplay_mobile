@@ -8,35 +8,34 @@ import { AlertasService } from './alertas.service';
   providedIn: 'root'
 })
 export class CantonesService {
-
-  cantones: Cantones[] = [];
-
+  cantones: Cantones[]=[];
 
   constructor(
-
     private http: HttpClient,
     public aslertasService: AlertasService
+    
+    ) { }
 
-  ) { }
-
-  getURL(api: string, provincia: string) {
+  getURL( api: string  ){
     let test: string = ''
-    if (!environment.prdMode) {
+    if ( !environment.prdMode ) {
       test = environment.TestURL;
     }
 
-    const URL = environment.preURL + test + environment.postURL + api + environment.Cod_Provincia + provincia;
-    console.log(URL);
+    const URL = environment.preURL  + test +  environment.postURL + api ;
+
     return URL;
   }
-  private getCantones(provincia) {
-    const URL = this.getURL(environment.cantonesURL, provincia);
-    return this.http.get<Cantones[]>(URL);
+  private getCantones( provincia){
+    let URL = this.getURL( environment.getCantonesURL);
+    URL = URL + provincia;
+    console.log(URL, 'URL')
+    return this.http.get<Cantones[]>( URL );
   }
 
-  syncCantones(provincia) {
+  syncCantones(provincia){
 
     return this.getCantones(provincia).toPromise();
   }
-
+  
 }

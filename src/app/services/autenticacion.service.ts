@@ -1,77 +1,88 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+//import { StorageService } from './storage-service';
 
+
+import { AlertasService } from './alertas.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+import { ModalController } from '@ionic/angular';
+const TOKEN_KEY = 'my-token';
 @Injectable({
   providedIn: 'root'
 })
-export class AutenticacionService {
+export class AuthenticationService {
+isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+token = ''; 
 
   constructor(
+//private storageService:StorageService,
+private http: HttpClient,
+private router: Router,
+public alertasService:AlertasService,
+public userService:UsuariosService,
+public modalCtrl:ModalController
 
-    public http: HttpClient
+  ) {
+this.loadToken(false);
 
-  ) { }
 
-  getURL(api: string) {
-
-    let test: string = ''
-
-    if (!environment.prdMode) {
-
-      test = environment.TestURL;
-
+   }
+   async loadToken(token){
+    if(token){
+      this.isAuthenticated.next(true);
+    }else{
+      this.isAuthenticated.next(false);
+      
+      
     }
 
-    const URL = environment.preURL + test + environment.postURL + api
+   }
 
-    return URL;
-  }
+   login(){
 
-  private actualizarToken(Cod_Usuario, Codigo_Token, Expiracion_Token) {
+    this.isAuthenticated.next(true);
 
-    let URL = this.getURL(environment.actualizarTokenURL);
-    URL = URL + environment.codUsuarioParam + Cod_Usuario + environment.Codigo_TokenParam + Codigo_Token + environment.Expiracion_TokenParam + Expiracion_Token;
+   }
 
-    console.log(URL, ' PUT TOKEN')
-    const options = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
-    };
+   logout(){
+    this.isAuthenticated.next(false);
+    this.router.navigateByUrl('/inicio-sesion')
+/**
+ *     this.storageService.delete(TOKEN_KEY).then(item =>{
+      console.log('logged out')
+    
+          })
+ */
+    
+   }
 
-    return this.http.put(URL, options);
-  }
+   deleteAccount(){
 
-  actulizarTokenPromise(Cod_Usuario, Codigo_Token, Expiracion_Token) {
+    
+    this.userService.syncDeleteUserToPromise(this.userService.usuarioActual.usuario.Correo).then(user=>{
+      this.userService.usuarioActual = null;
+      this.modalCtrl.dismiss();
+      this.alertasService.message('FUTPLAY', 'La cuenta se elimino con éxito!.')
+      this.router.navigateByUrl('/inicio-sesion')
+    })
 
-    return this.actualizarToken(Cod_Usuario, Codigo_Token, Expiracion_Token).toPromise();
 
-  }
 
-  private actualizarContrasena(Codigo_Token, Contrasena) {
+    this.isAuthenticated.next(false);
+/**
+ *     this.storageService.delete('has-seen').then(item =>{
+      console.log('deleted')
 
-    let URL = this.getURL(environment.actuzalizarContrasenaURL);
-    URL = URL + environment.Codigo_Token + Codigo_Token + environment.contrasenaPatam + Contrasena;
+    this.storageService.delete(TOKEN_KEY).then(item =>{
+      console.log('deleted')
+          })
+      
+          })
+ */
+          this.router.navigateByUrl('/inicio/inicio-sesion',{replaceUrl:true})
+         
 
-    console.log(URL, 'actualizar')
-    const options = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
-    };
-
-    return this.http.put(URL, options);
-  }
-
-  actualizarContrasenaPromise(Codigo_Token, Contrasena) {
-
-    return this.actualizarContrasena(Codigo_Token, Contrasena).toPromise();
-
-  }
-
+   }
 }

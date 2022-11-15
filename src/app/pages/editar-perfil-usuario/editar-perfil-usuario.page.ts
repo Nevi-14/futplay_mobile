@@ -7,7 +7,7 @@ import { CantonesService } from 'src/app/services/cantones.service';
 import { DistritosService } from 'src/app/services/distritos.service';
 import { PosicionesService } from 'src/app/services/posiciones.service';
 import { SeleccionarFechaPage } from '../seleccionar-fecha/seleccionar-fecha.page';
-import { GestorImagenesService } from 'src/app/services/gestor-imagenes.service';
+ 
 import { AlertasService } from 'src/app/services/alertas.service';
 import { ChangeDetectorRef } from '@angular/core'
 import { EliminarCuentaPage } from '../eliminar-cuenta/eliminar-cuenta.page';
@@ -25,48 +25,9 @@ showDistrito = false;
   private modalOpen:boolean = false;
   areaUnit =1;
 
-    usuario = {
-      Cod_Usuario: this.usuarioService.usuarioActual.Cod_Usuario,
-      Cod_Role: 2,
-      Avatar:this.usuarioService.usuarioActual.Avatar,
-      Compartir_Datos:this.usuarioService.usuarioActual.Compartir_Datos,
-      Cod_Provincia: this.usuarioService.usuarioActual.Cod_Provincia,
-      Cod_Canton:null,
-      Cod_Distrito: this.usuarioService.usuarioActual.Cod_Distrito,
-      Cod_Posicion:this.usuarioService.usuarioActual.Cod_Posicion,
-      Modo_Customizado: false,
-      Foto: this.userService.usuarioActual.Foto,
-      Nombre: this.usuarioService.usuarioActual.Nombre,
-    Primer_Apellido:this.usuarioService.usuarioActual.Primer_Apellido,
-      Segundo_Apellido: this.usuarioService.usuarioActual.Segundo_Apellido,
-      Fecha_Nacimiento:  format(new Date(this.usuarioService.usuarioActual.Fecha_Nacimiento), 'yyyy-MM-dd'),
-      Telefono: this.usuarioService.usuarioActual.Telefono,
-      Correo: this.usuarioService.usuarioActual.Correo,
-      Contrasena: this.usuarioService.usuarioActual.Contrasena,
-      Fecha: this.usuarioService.usuarioActual.Fecha_Nacimiento,
-      Intentos: 0,
-      Estatura:this.usuarioService.usuarioActual.Estatura,
-      Peso: this.usuarioService.usuarioActual.Peso,
-      Apodo: this.usuarioService.usuarioActual.Apodo,
-      Partidos_Jugados: 0,
-      Partidos_Jugador_Futplay: 0,
-      Estado: null,
-      Descripcion_Estado: null,
-      Canchas: [],
-      Canchas_Favoritos: [],
-      Cantones: null,
-      Distritos: null,
-      Equipos: [],
-      Jugadores_Equipos: [],
-      Jugadores_Favoritos: [],
-      Posiciones: null,
-      Provincias: null,
-      Reservaciones: [],
-      Roles: null,
-      Solicitudes_Jugadores_Equipos: []
-  }
+    usuario = this.usuarioService.usuarioActual;
 isVisible = false;
-  image = this.gestorImagenesService.images.length >0 ? this.gestorImagenesService.images[0].data : 'assets/user.svg'
+  image = 'assets/user.svg'
   ///// In functions declaration zone
   @ViewChild(IonSlides) slides: IonSlides;
   avatarSlide = {
@@ -137,7 +98,6 @@ isVisible = false;
     public distritosService: DistritosService,
     public posicionesService: PosicionesService,
     public userService: UsuariosService,
-    public gestorImagenesService: GestorImagenesService,
     public alertasService: AlertasService,
     public cdr: ChangeDetectorRef
     ) {
@@ -152,7 +112,7 @@ isVisible = false;
   this.posicionesService.posiciones = [];
    this.posicionesService.syncPosicionesToPromise().then(resp =>{
   this.showPosicion = true;
- this.usuario.Cod_Posicion = this.usuarioService.usuarioActual.Cod_Posicion;
+ this.usuario.usuario.Cod_Posicion = this.usuarioService.usuarioActual.usuario.Cod_Posicion;
 this.posicionesService.posiciones  = resp;
 
    });
@@ -162,26 +122,26 @@ this.posicionesService.posiciones  = resp;
       this.provinciasService.syncProvinciasPromise().then(resp =>{
         this.provinciasService.provincias = resp
 this.showProvicia = true;
-this.usuario.Cod_Provincia = this.usuarioService.usuarioActual.Cod_Provincia
+this.usuario.usuario.Cod_Provincia = this.usuarioService.usuarioActual.usuario.Cod_Provincia
       })
   
-      this.usuario.Cod_Provincia = this.usuarioService.usuarioActual.Cod_Provincia
+      this.usuario.usuario.Cod_Provincia = this.usuarioService.usuarioActual.usuario.Cod_Provincia
 
 
-      if(this.usuario.Cod_Provincia){
-        this.cantonesService.syncCantones(this.usuario.Cod_Provincia).then(resp =>{
+      if(this.usuario.usuario.Cod_Provincia){
+        this.cantonesService.syncCantones(this.usuario.usuario.Cod_Provincia).then(resp =>{
       this.showCanton = true;
       this.showDistrito = null;
       this.cantonesService.cantones = resp.slice(0);
       this.alertasService.loadingDissmiss();
-      this.usuario.Cod_Canton = this.usuarioService.usuarioActual.Cod_Canton
+      this.usuario.usuario.Cod_Canton = this.usuarioService.usuarioActual.usuario.Cod_Canton
 
-      if(this.usuario.Cod_Provincia && this.usuario.Cod_Canton){
-        this.distritosService.syncDistritos(this.usuario.Cod_Provincia,this.usuario.Cod_Canton).then(resp =>{
+      if(this.usuario.usuario.Cod_Provincia && this.usuario.usuario.Cod_Canton){
+        this.distritosService.syncDistritos(this.usuario.usuario.Cod_Canton).then(resp =>{
           this.distritosService.distritos = resp.slice(0);
           this.showDistrito = true;
           this.alertasService.loadingDissmiss();
-          this.usuario.Cod_Distrito = this.usuarioService.usuarioActual.Cod_Distrito
+          this.usuario.usuario.Cod_Distrito = this.usuarioService.usuarioActual.usuario.Cod_Distrito
         });
       
         }
@@ -213,12 +173,12 @@ this.usuario.Cod_Provincia = this.usuarioService.usuarioActual.Cod_Provincia
       this.imgs.forEach(av => av.seleccionado = false);
       this.imgs[resp].seleccionado = true;
       this.image = this.imgs[resp].img
-      this.usuario.Foto = this.imgs[resp].img;
-      this.usuario.Avatar = true;
-      this.usuarioService.usuarioActual.Avatar = true;
-      this.usuarioService.usuarioActual.Foto =  this.imgs[resp].img;
+      this.usuario.usuario.Foto = this.imgs[resp].img;
+      this.usuario.usuario.Avatar = true;
+      this.usuarioService.usuarioActual.usuario.Avatar = true;
+      this.usuarioService.usuarioActual.usuario.Foto =  this.imgs[resp].img;
 
-      this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.usuario.Avatar, this.usuario.Foto); 
+//      this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.usuario.Avatar, this.usuario.Foto); 
 
   
     })
@@ -231,15 +191,16 @@ this.usuario.Cod_Provincia = this.usuarioService.usuarioActual.Cod_Provincia
   //  if(fActualizar.invalid) {return;}
  
     this.modalCtrl.dismiss({'data':true}, null, 'perfil-usuario')
-    console.log(this.usuario, this.usuario.Cod_Posicion, 'Cod_Posicion')
-    this.usuarioService.actualizarUsuario(this.usuario, this.usuario.Cod_Usuario)
+    console.log(this.usuario, this.usuario.usuario.Cod_Posicion, 'Cod_Posicion')
+    this.usuarioService.actualizarUsuario(this.usuario.usuario, this.usuario.usuario.Cod_Usuario)
 
   }
   imageUpload(source:string){
    
-    let fileName = this.userService.usuarioActual.Foto
+    let fileName = this.userService.usuarioActual.usuario.Foto
     let location = 'perfil-usuario';
-       this.gestorImagenesService.selectImage(source,fileName,location, false).then(resp =>{
+/**
+ *        this.gestorImagenesService.selectImage(source,fileName,location, false).then(resp =>{
 this.usuario.Foto = resp
 this.usuario.Avatar = false;
 this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.usuario.Avatar, this.usuario.Foto);    
@@ -248,6 +209,7 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
 
 
        })
+ */
       
   }
   syncProvincias(){
@@ -260,12 +222,12 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
     this.imgs.forEach(av => av.seleccionado = false);
     img.seleccionado = true;
     this.image = this.imgs[i].img;
-    this.usuario.Foto =  this.imgs[i].img;
-    this.usuario.Avatar = true;
-    this.usuarioService.usuarioActual.Avatar = true;
-    this.usuarioService.usuarioActual.Foto =   this.image;
+    this.usuario.usuario.Foto =  this.imgs[i].img;
+    this.usuario.usuario.Avatar = true;
+    this.usuarioService.usuarioActual.usuario.Avatar = true;
+    this.usuarioService.usuarioActual.usuario.Foto =   this.image;
 
-    this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.usuario.Avatar, this.usuario.Foto); 
+   // this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.usuario.Avatar, this.usuario.Foto); 
  
     }
 
@@ -288,7 +250,7 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
         componentProps:{
           title:'Fecha de nacimiento',
           id: 'seleccionar-fecha',
-          fecha: new Date(this.usuarioService.usuarioActual.Fecha_Nacimiento)
+          fecha: new Date(this.usuarioService.usuarioActual.usuario.Fecha_Nacimiento)
         },
         id: 'seleccionar-fecha'
       })
@@ -298,7 +260,7 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
    
       if(data !== undefined ){
         console.log(data,'data')
-       this.usuario.Fecha_Nacimiento = data.date
+       this.usuario.usuario.Fecha_Nacimiento = data.date
             this.modalOpen = false;
       }else{
    
@@ -313,13 +275,13 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
 
   onChangeProvincias($event){
     this.alertasService.presentaLoading('Cargando datos...')
-    this.usuario.Cod_Provincia = $event.target.value;
-    this.usuario.Cod_Canton = null;
-    this.usuario.Cod_Distrito = null;
+    this.usuario.usuario.Cod_Provincia = $event.target.value;
+    this.usuario.usuario.Cod_Canton = null;
+    this.usuario.usuario.Cod_Distrito = null;
     this.cantonesService.cantones = [];
     this.distritosService.distritos = [];
- if(this.usuario.Cod_Provincia){
-  this.cantonesService.syncCantones(this.usuario.Cod_Provincia).then(resp =>{
+ if(this.usuario.usuario.Cod_Provincia){
+  this.cantonesService.syncCantones(this.usuario.usuario.Cod_Provincia).then(resp =>{
 this.showCanton = true;
 this.showDistrito = null;
 this.cantonesService.cantones = resp.slice(0);
@@ -331,11 +293,11 @@ this.alertasService.loadingDissmiss();
   }
   onChangeCantones($event){
     this.alertasService.presentaLoading('Cargando datos...')
-    this.usuario.Cod_Canton = $event.target.value;
-    this.usuario.Cod_Distrito = null;
+    this.usuario.usuario.Cod_Canton = $event.target.value;
+    this.usuario.usuario.Cod_Distrito = null;
     this.distritosService.distritos = [];
-if(this.usuario.Cod_Provincia && this.usuario.Cod_Canton){
-  this.distritosService.syncDistritos(this.usuario.Cod_Provincia,this.usuario.Cod_Canton).then(resp =>{
+if(this.usuario.usuario.Cod_Provincia && this.usuario.usuario.Cod_Canton){
+  this.distritosService.syncDistritos(this.usuario.usuario.Cod_Canton).then(resp =>{
     this.distritosService.distritos = resp.slice(0);
     this.showDistrito = true;
     this.alertasService.loadingDissmiss();
@@ -349,7 +311,7 @@ if(this.usuario.Cod_Provincia && this.usuario.Cod_Canton){
 
   onChangeDistritos($event){
 
-    this.usuario.Cod_Distrito = $event.target.value;
+    this.usuario.usuario.Cod_Distrito = $event.target.value;
 
   }
 

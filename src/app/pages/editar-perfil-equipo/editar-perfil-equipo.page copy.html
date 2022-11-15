@@ -1,0 +1,209 @@
+
+  <ion-header class="custom-header">
+
+    <ion-toolbar class="custom-toolbar"  mode="ios">
+      <ion-button fill="clear" (click)="cerrarModal()" slot="start">
+        <ion-icon color="light" slot="start" name="chevron-back"></ion-icon>
+        &nbsp;
+      
+      </ion-button>
+      <ion-title>Editar Perfil</ion-title>
+
+  </ion-toolbar>
+
+    </ion-header>
+
+
+
+    <ion-content fullscreen>
+
+      <div class="mainContent">
+
+        <form id="form"   #fActualizar="ngForm"  style="height: 100%; margin: 0 auto;">
+    
+          <ion-grid >
+            <ion-row>
+              
+              <ion-col size="12" *ngIf="avatars" class="ion-padding">
+                
+                
+        
+        
+              <ion-slides  mode="ios"   (ionSlideDidChange)="slideChange($event)"  [options]="avatarSlide">
+                <ion-slide  *ngFor="let img of imgs; let i = index;">
+          
+              <ion-img class="pick-avatar" 
+                            src="assets/soccer-shields-svg/{{img.img}}"
+                            [ngClass]="{'pick-avatar-seleccionado': img.seleccionado}" (click)="seleccionarAvatar(img, i)"></ion-img>
+              
+              
+            
+                  
+    
+              
+                </ion-slide>
+                </ion-slides>
+              
+              </ion-col>
+        
+        
+              <ion-col size="12" size-md="7" size-lg="7" class="ion-text-center"  >
+  
+                <ion-avatar *ngIf="this.gestorImagenesService.images.length === 0"   style="height: 12rem;width:12rem;margin:0 auto;">
+                 
+  
+        <img class="picture-img" *ngIf="!equiposService.perfilEquipo.Avatar" src="{{teamPic}}"  onerror="this.src='assets/img/icon/FP.svg'" alt="">
+  
+        <img class="picture-img"  *ngIf="equiposService.perfilEquipo.Avatar"  src="assets/soccer-shields-svg/{{equiposService.perfilEquipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+                </ion-avatar>
+  
+                <ion-avatar *ngIf="this.gestorImagenesService.images.length > 0 "  style="height: 12rem;width:12rem;margin:0 auto;">
+                  <img src="{{this.gestorImagenesService.images[0].data}}" alt="">
+                </ion-avatar>
+      
+       
+        
+        
+        
+                <h3>{{equipo.Nombre}}</h3>
+        
+                
+        
+              </ion-col>
+              <ion-col size="12" style="display: flex;justify-content: end;">
+                <ion-buttons  >
+                  <ion-button  (click)="avatar()" size="large"      color="dark"  >
+                     
+                    <ion-icon  size="large" slot="icon-only" name="{{avatars ? 'close-outline' : 'albums-outline'}}" ></ion-icon>
+                  
+          
+                   
+                  </ion-button>
+         
+  
+                  <ion-button  (click)="imageUpload('camera')" size="large"  *ngIf="!avatars"    color="dark"  >
+                     
+                    <ion-icon  size="large" slot="icon-only" name="camera-outline" ></ion-icon>
+          
+          
+                   
+                  </ion-button>
+                  <ion-button (click)="imageUpload('photos')" size="large"   *ngIf="!avatars"  color="dark">
+                   
+                    <ion-icon  size="large" slot="icon-only" name="image-outline"></ion-icon>
+                  
+                  </ion-button>
+                  <ion-button (click)="eliminarEquipos()"  size="large"     color="danger"  >
+           
+                    <ion-label>Eliminar Equipo</ion-label>
+                  
+                  </ion-button>
+                </ion-buttons>
+              </ion-col>
+            
+              <ion-col size="12" size-md="6">
+                <ion-label >
+                  Nombre </ion-label>  
+        <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
+          
+          <ion-input required  [(ngModel)]="equipo.Nombre"  placeholder="Nombre" name="nombre"
+          type="text"
+          ></ion-input>
+                 
+                
+                </ion-item>
+          
+          
+              </ion-col>
+          
+          
+              <ion-col size="12" size-md="6">
+                <ion-label >
+           
+                  Abreviación</ion-label>
+                <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
+                 
+                 
+                  <ion-input maxlength="3" type="text" placeholder="Abreviacion" name="Abreviacion" [(ngModel)]="equipo.Abreviacion"   name="Abreviacion"  autocomplete="off"></ion-input>
+                </ion-item>
+              </ion-col>
+        
+        
+        
+             
+              <ion-col size="12" size-md="6" *ngIf="showProvincia">
+          
+                <ion-label>Provincia</ion-label>
+                <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
+                 
+                      <ion-select placeholder="Provincia" required [(ngModel)]="equipo.Cod_Provincia" (ionChange)="onChangeProvincias($event)"   name="Cod_Provincia">
+                        <ion-select-option [value]="provincia.Cod_Provincia" *ngFor="let provincia of provinciasService.provincias">
+                          {{provincia.Provincia}}
+                        </ion-select-option>
+                        
+                        </ion-select>
+                  </ion-item>
+              
+          
+              </ion-col>
+          
+              <ion-col size="12" size-md="6" *ngIf="showCanton">
+                <ion-label  >Cantón</ion-label>
+                  <ion-item *ngIf="showCanton" class="ion-margin-bottom ion-margin-top" lines="none">
+                   
+                      <ion-select placeholder="Canton"  required [(ngModel)]="equipo.Cod_Canton"  (ionChange)="onChangeCantones($event)"   name="Cod_Canton" >
+                        <ion-select-option [value]="canton.Cod_Canton" *ngFor="let canton of cantonesService.cantones">
+                          {{canton.Canton}}
+                        </ion-select-option>
+                        
+                        </ion-select>
+                  </ion-item>
+              
+          
+              </ion-col>
+          
+              <ion-col size="12" size-md="6" *ngIf="showDistrito">
+                <ion-label  >Distrito</ion-label>
+                <ion-item *ngIf="showDistrito"  class="ion-margin-bottom ion-margin-top" lines="none">
+                
+                    <ion-select placeholder="Distrito" required   [(ngModel)]="equipo.Cod_Distrito"   (ionChange)="onChangeDistritos($event)" name="Cod_Distrito">
+                      <ion-select-option [value]="distrito.Cod_Distrito" *ngFor="let distrito of distritosService.distritos">
+                        {{distrito.Distrito}}
+                      </ion-select-option>
+                
+                    </ion-select>
+                </ion-item>
+      
+          
+              </ion-col>
+          
+              
+         
+          
+          
+          
+        
+          
+          
+          
+          
+          
+          
+            </ion-row>
+          </ion-grid>
+            
+          
+        
+          </form>
+      </div>
+    </ion-content>
+    <ion-footer>
+        
+      <ion-button (click)="updateTeam()"  class="ion-margin-bottom"   expand="block" >
+       <ion-label>Actualizar Perfil </ion-label>
+             </ion-button>
+             
+
+                      
+        
+   </ion-footer>

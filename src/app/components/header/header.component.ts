@@ -1,10 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, PopoverController } from '@ionic/angular';
-import { EquiposService } from '../../services/equipos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { MisReservacionesPage } from '../../pages/mis-reservaciones/mis-reservaciones.page';
-import { GestionReservacionesService } from '../../services/gestion-reservaciones.service';
 
 
 @Component({
@@ -26,16 +24,15 @@ export class HeaderComponent implements OnInit {
   invalidURL = ['/home/clubs','/test '];
   valid : boolean;
 
-  constructor(public popoverCtrl: PopoverController, public route: Router, public modalCtrl: ModalController, public clubs: EquiposService, public router: Router,
-    
-    public gestionRestosService: GestionReservacionesService,
+  constructor(public popoverCtrl: PopoverController, public route: Router, public modalCtrl: ModalController, public router: Router,
+
     public usuariosService: UsuariosService
     ) { }
 
 
   ngOnInit() {
 
-    this.gestionRestosService.syncRetosRecibidos(this.usuariosService.usuarioActual.Cod_Usuario)
+  
   }
 
 

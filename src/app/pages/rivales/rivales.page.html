@@ -52,23 +52,23 @@
     
 
           <ion-avatar slot="start"  >
-            <img *ngIf="!equipo.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-            <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+            <img *ngIf="!equipo.equipo.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+            <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
    
           </ion-avatar>
           
       
         <ion-label>
-          <h2>{{equipo.Abreviacion}} </h2>
-          <p>Puntaje : {{equipo.Puntaje_Actual ?  equipo.Puntaje_Actual : 0}} </p>
+          <h2>{{equipo.equipo.Abreviacion}} </h2>
+          <p>Puntaje : {{equipo.equipo.Puntaje_Actual ?  equipo.equipo.Puntaje_Actual : 0}} </p>
           <p  style="display:block;" >
                  
                
-            <ng-template ngFor let-hero [ngForOf]="filledStars(equipo.Estrellas)"
+            <ng-template ngFor let-hero [ngForOf]="filledStars(equipo.equipo.Estrellas)"
             let-i="index" let-odd="odd"  >
             <ion-icon style="size: 10px;" name="star"></ion-icon>
           </ng-template>
-          <ng-template ngFor let-hero [ngForOf]="emptyStars(equipo.Estrellas)"
+          <ng-template ngFor let-hero [ngForOf]="emptyStars(equipo.equipo.Estrellas)"
           let-i="index" let-odd="odd"  >
           <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
         </ng-template>

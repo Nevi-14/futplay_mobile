@@ -29,7 +29,7 @@ console.log(URL);
     return URL;
   }
   private getProvincias( ){
-    const URL = this.getURL( environment.provinciasURL,'');
+    const URL = this.getURL( environment.getProvinciasURL,'');
     return this.http.get<Provincias[]>( URL );
   }
 
@@ -55,8 +55,8 @@ console.log('prinvicias')
     );
   }
 
-  syncProvinciasPromise(){
-    console.log('prinvicias')
+  async syncProvinciasPromise(){
+    
     
     return    this.getProvincias().toPromise();
       }

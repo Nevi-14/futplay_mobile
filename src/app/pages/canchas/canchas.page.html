@@ -16,39 +16,54 @@
 
   <div class="mainContent">
   
-    <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngIf="canchasService.canchas.length == 0" >
-        
-      <ion-avatar slot="start">
-       <img   src="assets/img/icon/FP.svg" alt="">
-      </ion-avatar>
-     
 
-       <ion-label>
+
+    <ion-list *ngIf="canchasService.canchas.length == 0">
+      <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"   >
   
-         <h2>MENSAJE FUTPLAY </h2>
-  <p class="ion-text-wrap">   No se encontraron resultados</p>
-
-       </ion-label>
-
-     </ion-item>
-
-    <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"    (click)="onOpenMenu(cancha)" *ngFor="let cancha of canchasService.canchas  | filtro: textoBuscar:'Nombre'" >
-
-      <ion-avatar slot="start">
-        <img  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilCanchaUploads/'+cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">
-       </ion-avatar>
-      
-      <ion-label>
-        <h2>{{cancha.Nombre}} <ion-badge color="dark" mode="ios">₡ {{cancha.Precio_Hora}}</ion-badge></h2>
-        <p   >
-             
-          Categoria <ion-badge color="warning" mode="ios">{{cancha.Categoria}}</ion-badge>
+        <ion-avatar slot="start">
+         <img   src="assets/img/icon/FP.svg" alt="">
+        </ion-avatar>
+       
+  
+         <ion-label>
     
-        </p>
-        <p>{{cancha.Nombre_Provincia}},       {{cancha.Nombre_Canton}} ...</p>
-      </ion-label>
+           <h2>MENSAJE FUTPLAY </h2>
+    <p class="ion-text-wrap">   No se encontraron resultados</p>
+  
+         </ion-label>
+  
+       </ion-item>
 
-    </ion-item>
+    </ion-list>
+<ion-list *ngIf="canchasService.canchas.length > 0">
+
+
+
+<ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"    (click)="onOpenMenu(cancha)" *ngFor="let cancha of canchasService.canchas" >
+
+  <ion-avatar slot="start">
+    <img src="{{'https://futplaycompany.com/api_test/'+cancha.cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">
+
+   </ion-avatar>
+  
+
+
+
+  <ion-label>
+    <h2>{{cancha.cancha.Nombre}} <ion-badge color="dark" mode="ios">₡ {{cancha.cancha.Precio_Hora}}</ion-badge></h2>
+    <ion-badge color="primary" mode="ios">  {{disponibilidadCancha(cancha)}}</ion-badge> 
+   <p class="ion-text-wrap">{{horarioCancha(cancha)}}</p>
+    <p   >
+         
+      Categoria <ion-badge color="warning" mode="ios">{{cancha.categoria}}</ion-badge>
+
+    </p>
+    <p>{{cancha.provincia}},       {{cancha.canton}} ...</p>
+  </ion-label>
+
+</ion-item>
+</ion-list>
   
   </div>
   

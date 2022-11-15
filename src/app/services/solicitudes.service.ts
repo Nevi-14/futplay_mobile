@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { SolicitudesJugadoresEquiposVista } from '../models/solicitudesJugadoresEquiposVista';
 import { AlertasService } from './alertas.service';
+import { Solicitudes } from '../models/solicitudes';
+import { PerfilSolicitud } from '../models/perfilSolicitud';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SolicitudesService {
-  solicitudesJugadoresArray:SolicitudesJugadoresEquiposVista[]=[]
-solicitudesEquiposArray:SolicitudesJugadoresEquiposVista[]=[]
+  solicitudesJugadoresArray:PerfilSolicitud[]=[]
+solicitudesEquiposArray:PerfilSolicitud[]=[]
   constructor(
 private http: HttpClient,
 public alertasService: AlertasService
@@ -33,71 +34,36 @@ getURL(api:string){
   return URL;
 
 }
-
-private getSolicitudesJugadores(Cod_Usuario, Confirmacion_Usuario,Confirmacion_Equipo,Estado){
-
-  let URL = this.getURL(environment.SolicitudesJugadoresURL);
-
-  URL = URL + environment.codUsuarioParam + Cod_Usuario + environment.codConfirmacionUsuarioParam + Confirmacion_Usuario + environment.codConfirmacionEquipoParam + Confirmacion_Equipo + environment.codEstadoParam + Estado
-  console.log(URL)
-  return this.http.get<SolicitudesJugadoresEquiposVista[]>(URL);
-
-
-}
-private getSolicitudesEquipos(Cod_Equipo, Confirmacion_Usuario,Confirmacion_Equipo,Estado){
-  let URL = this.getURL(environment.SolicitudesEquiposURL);
-
-  URL = URL + environment.codEquipoParam + Cod_Equipo + environment.codConfirmacionUsuarioParam + Confirmacion_Usuario + environment.codConfirmacionEquipoParam + Confirmacion_Equipo + environment.codEstadoParam + Estado
-
-  console.log(URL)
-
-
-  return this.http.get<SolicitudesJugadoresEquiposVista[]>(URL);
-
+private getSolicitudesRecibidasEquipo(Cod_Equipo ){
+  let URL = this.getURL( environment.getSolicitudesRecibidasEquipoURL);
+  URL = URL + Cod_Equipo;
+  console.log('URL', URL)
+  return this.http.get<PerfilSolicitud[]>( URL );
 }
 
-syncGetSolicitudesJugadores(Cod_Usuario, Confirmacion_Usuario,Confirmacion_Equipo,Estado){
-
-  this.solicitudesJugadoresArray = [];
-
-  this.getSolicitudesJugadores(Cod_Usuario, Confirmacion_Usuario,Confirmacion_Equipo,Estado).subscribe(
-    resp =>{
-this.solicitudesJugadoresArray = resp.splice(0);
-
-console.log(this.solicitudesJugadoresArray, 'this.solicitudesJugadoresArray')
-    }, error =>{
-
-      console.log(error, 'this.solicitudesJugadoresArray')
-    }
-  )
-
+private getSolicitudesRecibidasUsuario(Cod_Equipo ){
+  let URL = this.getURL( environment.getSolicitudesRecibidasUsuarioURL);
+  URL = URL + Cod_Equipo;
+  console.log('URL', URL)
+  return this.http.get<PerfilSolicitud[]>( URL );
 }
-syncGetSolicitudesEquipos(Cod_Equipo, Confirmacion_Usuario,Confirmacion_Equipo,Estado){
-
-  this.solicitudesEquiposArray = [];
-
-  this.getSolicitudesEquipos(Cod_Equipo, Confirmacion_Usuario,Confirmacion_Equipo,Estado).subscribe(
-
-    resp =>{
-
-this.solicitudesEquiposArray = resp.splice(0);
-
-console.log(this.solicitudesEquiposArray, 'this.solicitudesEquiposArray')
-
-    }, error =>{
-
-      console.log(error, 'this.solicitudesEquiposArray')
-
-
-    }
-  )
-  
+private getSolicitudesEnviadasEquipo(Cod_Equipo ){
+  let URL = this.getURL( environment.getSolicitudesEnviadasEquipoURL);
+  URL = URL + Cod_Equipo;
+  console.log('URL', URL)
+  return this.http.get<PerfilSolicitud[]>( URL );
 }
 
 
-private postSolicitud(solicitud){
-  let URL = this.getURL(environment.SolicitudesJugadoresEquiposPutURL);
-
+private getSolicitudesEnviadasUsuario(Cod_Usuario ){
+  let URL = this.getURL( environment.getSolicitudesEnviadasUsuarioURL);
+  URL = URL + Cod_Usuario;
+  console.log('URL', URL)
+  return this.http.get<PerfilSolicitud[]>( URL );
+}
+private postSolicitud(solicitud:Solicitudes){
+  let URL = this.getURL(environment.postSolicitudesURL);
+  URL = URL +  solicitud.Cod_Equipo
   const options = {
 
     headers: {
@@ -111,9 +77,13 @@ private postSolicitud(solicitud){
 
 
 }
-private postJugadorEquipo(JugadorEquipo){
-  let URL = this.getURL(environment.jugadoresEquiposPostURL);
+private putSolicitud(solicitud:Solicitudes){
+  let URL = this.getURL(environment.putSolicitudURL);
+  URL = URL +  solicitud.Cod_Solicitud
 
+
+  console.log('URL', URL)
+  console.log('solicitud', solicitud)
   const options = {
 
     headers: {
@@ -123,186 +93,47 @@ private postJugadorEquipo(JugadorEquipo){
     }
   };
 
-  return this.http.post(URL, JSON.stringify(JugadorEquipo),options);
+  return this.http.put(URL, JSON.stringify(solicitud),options);
 
 
 }
+
+syncPutSolicitudToProimise(solicitud:Solicitudes){
+
+  return this.putSolicitud(solicitud).toPromise();
+  
+  
+  }
+
 generarSolicitud(solicitud){
 
 return this.postSolicitud(solicitud).toPromise();
 
+
 }
-
-private   deleteJugador(Cod_Usuario ){
-  
-
-  let URL = this.getURL( environment.jugadoresEquiposPostURL);
-      URL = URL + environment.codUsuarioParam + Cod_Usuario;
-
-      console.log('del', URL)
-  const options = {
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-    }
-
-    
-  };
  
+syncGetSolicitudesRecibidasEquipoToPromise(Cod_Equipo){
 
-  return this.http.delete( URL, options );
-}
-    
-syncDeleteJugador(Cod_Usuario  ){
- return this.deleteJugador( Cod_Usuario ).toPromise();
-}
-
-
-generarJugadorEquipo(JugadorEquipo){
-
-
-  this.postJugadorEquipo(JugadorEquipo).subscribe(
+  return this.getSolicitudesRecibidasEquipo(Cod_Equipo).toPromise();
   
-    resp =>{
-    //  this.syncGetSolicitudesJugadores(JugadorEquipo.Cod_Usuario)
-      //this.syncGetSolicitudesEquipos(JugadorEquipo.Cod_Equipo)
-      this.alertasService.message('FUTPLAY',' solicitud aceptada')
-      console.log(resp, 'post JugadorEquipo completed', JugadorEquipo)
+  
+  }
+  syncGetSolicitudesRecibidasUsuarioToPromise(Cod_Usuario){
+
+    return this.getSolicitudesRecibidasUsuario(Cod_Usuario).toPromise();
+    
+    
+    }
+    syncGetSolicitudesEnviadasEquipoToPromise(Cod_Equipo){
+
+      return this.getSolicitudesEnviadasEquipo(Cod_Equipo).toPromise();
       
-  
-    }, error =>{
-      console.log(error, 'post JugadorEquipo error', JugadorEquipo)
-  
-  
-  
-  
-    }
-  )
-  
-  }
-  agregarJugador(JugadorEquipo){
-
-
-    this.postJugadorEquipo(JugadorEquipo).subscribe(
+      
+      }
+      syncGetSolicitudesEnviadasUsuarioToPromise(Cod_Usuario){
     
-      resp =>{
-      //  this.syncGetSolicitudesJugadores(JugadorEquipo.Cod_Usuario)
-        //this.syncGetSolicitudesEquipos(JugadorEquipo.Cod_Equipo)
-  
-        console.log(resp, 'post JugadorEquipo completed', JugadorEquipo)
+        return this.getSolicitudesEnviadasUsuario(Cod_Usuario).toPromise();
         
-    
-      }, error =>{
-        console.log(error, 'post JugadorEquipo error', JugadorEquipo)
-    
-    
-    
-    
-      }
-    )
-    
-    }
-private putSolicitud(Solicitud,Cod_Solicitud, Cod_Usuario){
-
-let URL = this.getURL(environment.SolicitudesJugadoresEquiposPutURL);
-
-URL = URL + environment.codSolicitudParam + Cod_Solicitud + environment.codUsuarioSecondParam + Cod_Usuario;
-
-const options = {
-
-  headers: {
-
-    'Content-Type':'application/json',
-    'Accept':'application/json',
-    'Access-Control-Allow-Origin':'*'
-  }
-
-  
-};
-
-return this.http.put(URL, JSON.stringify(Solicitud),options)
-
-}
-
-
-actualizarSolicitud(Solicitud,Cod_Solicitud,Cod_Usuario){
-
-
-
-  this.putSolicitud(Solicitud,Cod_Solicitud,Cod_Usuario).subscribe(
-
-    resp =>{
-
-      this.deleteSolicitud(Solicitud.Cod_Solicitud);
-    this.syncGetSolicitudesJugadores(Solicitud.Cod_Usuario, false,true, true)
-
-
-    this.syncGetSolicitudesEquipos(Solicitud.Cod_Equipo, true,false, true)
-
-
-      const jugador = {
-
-        Cod_Jugador :null,
-        Cod_Usuario: Solicitud.Cod_Usuario,
-        Cod_Equipo: Solicitud.Cod_Equipo,
-        Fecha: new Date(),
-        Favorito: false,
-        Administrador_Equipo: false
-
-      }
-      console.log(resp, 'solicitud actualizada', Solicitud)
-  if(Solicitud.Confirmacion_Usuario && Solicitud.Confirmacion_Equipo && Solicitud.Estado){
-    this.generarJugadorEquipo(jugador);
-  } else{
-    this.alertasService.message('FUTPLAY', 'Solicitud Rechazada')
-  }
-
-
-    }, error => {
-
-      console.log(error, 'solicitud actualizada error', Solicitud)
-
-    }
-  )
-
-}
-
-
-private deleteSolicitudes(Cod_Solicitud){
-
-let URL = this.getURL(environment.SolicitudesJugadoresEquiposDeleteURL);
-
-URL = URL + environment.codSolicitudParam + Cod_Solicitud  ;
-
-const options = {
-
-  headers:{
-
-    'Content-Type':'application/json',
-    'Accept':'application/json',
-    'Access-Control-Allow-Origin':'*'
-  }
-}
-
-return this.http.delete(URL,options);
-
-}
-
-deleteSolicitud(Cod_Solicitud){
-
-  this.deleteSolicitudes(Cod_Solicitud).subscribe(
-
-    resp =>{
-      console.log('reservacion eliminada', resp)
-
-    }, error =>{
-      console.log('reservacion no eliminada error', error)
-
-    }
-  )
-
-
-}
-
+        
+        }
 }

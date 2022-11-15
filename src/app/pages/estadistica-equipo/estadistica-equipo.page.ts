@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { ModalController } from '@ionic/angular';
-import { vistaEquipos } from 'src/app/models/vistaEquipos';
-import { JugadoresEquipos } from 'src/app/models/jugadoresEquipos';
+ 
 
 
 @Component({
@@ -11,7 +10,7 @@ import { JugadoresEquipos } from 'src/app/models/jugadoresEquipos';
   styleUrls: ['./estadistica-equipo.page.scss'],
 })
 export class EstadisticaEquipoPage implements OnInit {
-@Input() equipo: vistaEquipos
+@Input() equipo: any
 estatura = 0;
 peso = 0;
   constructor(
@@ -22,7 +21,8 @@ public equiposService: EquiposService,
 
   ngOnInit() {
 console.log('equipo', this.equipo)
-this.equiposService.SyncJugadoresEquipos(this.equipo.Cod_Equipo).then(jugadores =>{
+/**
+ * this.equiposService.SyncJugadoresEquipos(this.equipo.Cod_Equipo).then(jugadores =>{
 
   for (let i = 0 ; i < jugadores.length; i++){
     this.peso  += jugadores[i].Peso;
@@ -38,13 +38,14 @@ this.equiposService.SyncJugadoresEquipos(this.equipo.Cod_Equipo).then(jugadores 
 
 
 });
+ */
   }
   
   cerrarModal(){
     this.modalCtrl.dismiss();
   }
 
-  moda(array:JugadoresEquipos[], column){
+  moda(array:any[], column){
     let moda=0;
     let Rep=0;
   

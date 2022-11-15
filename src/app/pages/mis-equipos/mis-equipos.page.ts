@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { EquiposService } from 'src/app/services/equipos.service';
-import { SolicitudesService } from 'src/app/services/solicitudes.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { BuscarEquiposPage } from '../buscar-equipos/buscar-equipos.page';
 import { CrearEquipoPage } from '../crear-equipo/crear-equipo.page';
 import { CrearUnirseEquipoPage } from '../crear-unirse-equipo/crear-unirse-equipo.page';
+import { JugadoresService } from '../../services/jugadores.service';
 
 @Component({
   selector: 'app-mis-equipos',
@@ -23,16 +23,13 @@ export class MisEquiposPage implements OnInit {
      public modalCtrl: ModalController, 
      public popOverCtrl: PopoverController,
       public user: UsuariosService,
-       public solicitudesService:SolicitudesService,
-        public router: Router
+        public router: Router,
+        public jugadoresService:JugadoresService
         ) { }
 
   ngOnInit() {
 
-  
-    console.log(this.equiposService.userclubs ,'owner');
-    console.log(this.equiposService.playerClubs , 'player');
-    console.log(this.equiposService.misEquipos,'equiposService.misEquipo')
+
     this.misEquipos();
   }
 
@@ -42,21 +39,30 @@ export class MisEquiposPage implements OnInit {
     this.textoBuscar = event.detail.value;
       }
   misEquipos(){
+
+ 
     this.btn1 = true;
     this.btn2 = false;
-    this.equiposService.SyncMisEquipos(this.user.usuarioActual.Cod_Usuario).then(resp=>{
-this.equiposService.otrosEquipos = [];
-      this.equiposService.misEquipos = resp;
-    })
+    this.equiposService.syncMisEquiposToPromise(this.user.usuarioActual.usuario.Cod_Usuario).then(resp=>{
+
+      if(this.equiposService.misEquipos.length < resp.length){
+        this.equiposService.misEquipos = [];
+        this.equiposService.misEquipos = resp;
+
+      }
+
+          })
   }
   otrosEquipos(){
     this.btn1 = false;
     this.btn2 = true;
-    this.equiposService.misEquipos = [];
-    this.equiposService.SyncOtrosEquipos(this.user.usuarioActual.Cod_Usuario).then(resp=>{
+    this.equiposService.equipos = [];
+ /**
+  *    this.equiposService.SyncOtrosEquipos(this.user.usuarioActual.Cod_Usuario).then(resp=>{
 console.log('resp', resp)
       this.equiposService.otrosEquipos = resp;
     })
+  */
   }
   async crearUniserseEquipo(){
     let modal = await this.modalCtrl.create({
@@ -107,18 +113,19 @@ console.log('resp', resp)
     return await modal.present();
   }
 seleccionarEquipo(equipo){
-  this.equiposService.perfilEquipo = equipo
+  this.equiposService.equipo = equipo
 
-  this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, true, true,true);
-  this.equiposService.SyncJugadoresEquipos( equipo.Cod_Equipo).then( jugadores =>{
-    this.equiposService.jugadoresPerfilEquipo = []
-    this.equiposService.jugadoresPerfilEquipo = jugadores;
+ 
+  this.jugadoresService.syncJugadoresEquipos( equipo.Cod_Equipo).then( jugadores =>{
+    this.jugadoresService.jugadores = []
+    this.jugadoresService.jugadores = jugadores;
 
     this.modalCtrl.dismiss({
       equipo:equipo
     });
     
   })
+  
 
 }
   cerrarModal(){

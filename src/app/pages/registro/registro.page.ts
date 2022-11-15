@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { IonSlides, ModalController } from '@ionic/angular';
 import { format } from 'date-fns';
 import { Usuarios } from 'src/app/models/usuarios';
 import { AlertasService } from 'src/app/services/alertas.service';
@@ -10,10 +10,7 @@ import { DistritosService } from 'src/app/services/distritos.service';
 import { ProvinciasService } from 'src/app/services/provincias.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { SeleccionarFechaPage } from '../seleccionar-fecha/seleccionar-fecha.page';
-import * as bcrypt from 'bcryptjs';  // npm install bcryptjs --save  &&  npm install @types/bcrypt --save-dev
-import { PerfilUsuario } from '../../models/perfilUsuario';
-import { VideoScreenPage } from '../video-screen/video-screen.page';
-import { StorageService } from 'src/app/services/storage-service';
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
@@ -22,20 +19,15 @@ import { StorageService } from 'src/app/services/storage-service';
 export class RegistroPage implements OnInit {
 
   private modalOpen:boolean = false;
-  public tipos  =[{nombre:'1',valor:'general'},{nombre:'2',valor:'cumpleanos'},{nombre:'3',valor:'seguridad'}];
-  public selectedType: string ='general';
-
 // MONTHS ARE ALWAYS THE SAME
+@ViewChild('mySlider', { static: true }) slides: IonSlides;
 
-  months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-days = [];
-years = [];
 selectedYear = new Date().getFullYear();
 selectedMonth: string;
 selectedDay:number;
 previousDay:number;
 usuario: Usuarios = {
-  Cod_Usuario:0,
+  Cod_Usuario:null,
   Cod_Provincia: null,
   Cod_Canton : null,
   Cod_Distrito : null,
@@ -50,10 +42,9 @@ usuario: Usuarios = {
   Telefono: '',
   Correo: '',
   Contrasena: '',
-  FechaRegistro : new Date(),
   Intentos:0,
-  Estatura: 0,
   Peso: 0,
+  Estatura: 0,
   Apodo: '',
   Partidos_Jugados: 0,
   Partidos_Jugador_Futplay: 0,
@@ -61,8 +52,10 @@ usuario: Usuarios = {
   Compartir_Datos : false,
   Avatar: true
 
+
+
 };
-contrasena ='';
+ingresarContrasena ='';
 confirmarContrasena ='';
 showPass = false;
 showPassConfirm = false;
@@ -71,10 +64,8 @@ canton: null;
 distrito: null;
 showCanton = null;
 showDistrito = null;
-emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
-  protected isModalIsOpen:boolean=false;
 
-
+ 
 
   constructor(
     private route: Router,
@@ -83,13 +74,12 @@ emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
     public cantonesService: CantonesService,
     public distritosService: DistritosService,
     public modalCrtl: ModalController,
-    public alertasService: AlertasService,
-    public modalCtrl: ModalController,
-    public storageService: StorageService
+    public alertasService: AlertasService
   ) { }
 
   ngOnInit() {
 
+  
   
   }
   formatDate(value: string) {
@@ -105,50 +95,42 @@ emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   
 }
 limpiarDatos(){
-  this.provinciasService.provincias = [];
-  this.provinciasService.syncProvinciasPromise().then(provincias =>{
-   
-    this.provinciasService.provincias = provincias
-console.log(provincias)
-    this.usuario = {
-      Cod_Usuario:0,
-      Cod_Provincia: null,
-      Cod_Canton : null,
-      Cod_Distrito : null,
-      Cod_Posicion: 1,
-      Cod_Role: 2,
-      Modo_Customizado: false,
-      Foto: 'user.svg',
-      Nombre: '',
-      Primer_Apellido: '',
-      Segundo_Apellido: '',
-      Fecha_Nacimiento: new Date(),
-      Telefono: '',
-      Correo: '',
-      Contrasena: '',
-      FechaRegistro : new Date(),
-      Intentos:0,
-      Estatura: 0,
-      Peso: 0,
-      Apodo: '',
-       Partidos_Jugados: 0,
-       Partidos_Jugador_Futplay: 0,
-       Partidos_Jugador_Del_Partido : 0,
-       Compartir_Datos : false,
-      Avatar: true,
-   
+  this.provinciasService.syncProvincias();
+  this.usuario = {
+    Cod_Usuario:null,
+    Cod_Provincia: null,
+    Cod_Canton : null,
+    Cod_Distrito : null,
+    Cod_Posicion: 1,
+    Cod_Role: 2,
+    Modo_Customizado: false,
+    Foto: 'user.svg',
+    Nombre: '',
+    Primer_Apellido: '',
+    Segundo_Apellido: '',
+    Fecha_Nacimiento: new Date(),
+    Telefono: '',
+    Correo: '',
+    Contrasena: '',
+    Intentos:0,
+    Peso: 0,
+    Estatura: 0,
+    Apodo: '',
+    Partidos_Jugados: 0,
+    Partidos_Jugador_Futplay: 0,
+    Partidos_Jugador_Del_Partido : 0,
+    Compartir_Datos : false,
+    Avatar: true
   
-    
-    };
-    this.confirmarContrasena ='';
-    this.showPass = false;
-    this.showPassConfirm = false;
-    this.showCanton = null;
-  this.showDistrito = null;
 
   
-  })
-  
+  };
+  this.confirmarContrasena ='';
+  this.showPass = false;
+  this.showPassConfirm = false;
+  this.showCanton = null;
+this.showDistrito = null;
+
 
 
 }
@@ -156,75 +138,24 @@ console.log(provincias)
 
     
   registro(fRegistro: NgForm){
-    if(fRegistro.invalid || this.confirmarContrasena != this.contrasena) {
 
+ 
+    if(fRegistro.invalid ) {
+    
 this.alertasService.message('FUTPLAY','Verifica que ambas contraseñas sean las mismas!')
 return;
 
     }
-    console.log(fRegistro.valid);
-    console.log(this.usuario)
-    
-    this.usuario.Contrasena = bcrypt.hashSync(this.contrasena, 10);
-    this.usuariosServicio.registroToPromise(this.usuario).then((resp:PerfilUsuario) =>{
-
-      if(resp != null || resp != undefined ){
-        this.usuariosServicio.usuarioActual = null;
-  
-        this.usuariosServicio.syncDatosToPromise(resp.Cod_Usuario).then(usuario =>{
-
-          this.usuariosServicio.usuarioActual = usuario[0];
-          if(this.usuariosServicio.usuarioActual.Avatar){
-            this.usuariosServicio.userPic = 'assets/profile/avatars/' + this.usuariosServicio.usuarioActual.Foto;
- 
-          }else{
-            this.usuariosServicio.userPic =   'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/' + this.usuariosServicio.usuarioActual.Foto;
- 
-          }
-        this.usuariosServicio.userPic = 'assets/user.svg';
-        this.storageService.delete('Cod_Usuario')
-        this.storageService.set('Cod_Usuario', usuario[0].Cod_Usuario)
- 
-
-          this.alertasService.loadingDissmiss();
-       
-          this.videoScreen(7)
-          this.route.navigate(['/futplay/mi-perfil']);
-
-
-        })
- 
-      }else{
-        this.alertasService.loadingDissmiss();
-        this.alertasService.message('FUTPLAY', 'Error creando el usuario, verifica que el usuario no exista!.')
-      }
-         
-  }, error =>{
-    this.usuario.Contrasena = '';
-    this.alertasService.loadingDissmiss();
-    this.alertasService.message('FUTPLAY', 'Error creando el usuario, verifica que el usuario no exista!.')
-  });
-
-
-    
+ this.usuario.Contrasena = this.ingresarContrasena;    
+   console.log('fRegistro', fRegistro)
+   console.log('user', this.usuario)
+   console.log('this.usuario.Contrasena ',this.usuario.Contrasena )
+   console.log('this.confirmarContrasena',this.confirmarContrasena)
+    this.usuariosServicio.registro(this.usuario)
     
     }
     
 
-    async videoScreen(id){
-      const modal = await this.modalCtrl.create({
-        component:VideoScreenPage,
-        cssClass:'modal-view',
-        id:'video-screen-modal',
-        mode:'ios',
-        backdropDismiss:false,
-        componentProps:{
-          index:id
-        }
-      });
-  
-      return await modal.present();
-    }
 
   onChangeProvincias($event){
     this.alertasService.presentaLoading('Cargando datos...')
@@ -250,7 +181,7 @@ this.alertasService.loadingDissmiss();
     this.usuario.Cod_Distrito = null;
     this.distritosService.distritos = [];
 if(this.usuario.Cod_Provincia && this.usuario.Cod_Canton){
-  this.distritosService.syncDistritos(this.usuario.Cod_Provincia,this.usuario.Cod_Canton).then(resp =>{
+  this.distritosService.syncDistritos( this.usuario.Cod_Canton).then(resp =>{
     this.distritosService.distritos = resp.slice(0);
     this.showDistrito = true;
     this.alertasService.loadingDissmiss();
@@ -268,20 +199,7 @@ if(this.usuario.Cod_Provincia && this.usuario.Cod_Canton){
 
   }
 
-  onChange($event , provincia, canton, distrito){
-    if(provincia){
-  
-   this.cantonesService.syncCantones($event.target.value);
-    }else if(canton){
-  
-      this.distritosService.syncDistritos(this.usuario.Cod_Provincia, $event.target.value);
-  
-    }else{
-      
-    }
-    console.log($event.target.value);
-    }
-
+ 
 
 
 
@@ -293,13 +211,12 @@ async SelectDate(){
       component:SeleccionarFechaPage,
       cssClass:'medium-modal',
       mode:'ios',
-      breakpoints: [0, 0.3, 0.5, 0.8],
-      initialBreakpoint: 0.5,
       componentProps:{
         title:'Fecha de nacimiento',
         id: 'seleccionar-fecha',
-        fecha:this.usuario.Fecha_Nacimiento
-      }
+        fecha:new Date(this.usuario.Fecha_Nacimiento)
+      },
+      
     })
   
     await modal.present();
@@ -307,7 +224,7 @@ async SelectDate(){
  
     if(data !== undefined ){
       console.log(data,'data')
-     this.usuario.Fecha_Nacimiento = data.date
+     this.usuario.Fecha_Nacimiento =  data.date
           this.modalOpen = false;
     }else{
  
@@ -322,11 +239,7 @@ async SelectDate(){
 
 
 
-  segmentChanged(event:any){
-    console.log(event)
-    
-    this.selectedType = event.detail.value;
-      }
+
 
 
       regresar(){

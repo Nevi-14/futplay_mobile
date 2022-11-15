@@ -1,0 +1,88 @@
+
+
+  <app-header  titulo="Mi Perfil" >
+  </app-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" >
+      <ion-button (click)="soliitudes()"     color="dark">
+        <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
+      </ion-button>
+      <ion-badge  color="dark" mode="ios">{{solicitudesService.solicitudesJugadoresArray.length}}</ion-badge>
+    </ion-buttons>
+  
+  
+    <ion-buttons slot="end" >
+    
+      <ion-button  color="dark" (click)="onOpenMenu()">
+        <ion-icon   slot="icon-only" name="settings-outline"></ion-icon>
+      </ion-button>
+  
+  
+      
+    </ion-buttons>
+  
+  
+  
+      
+    </ion-toolbar>
+
+<ion-content class="ion-text-center" *ngIf="userService.usuarioActual">
+  <ion-avatar  style="height: 12rem;width:12rem;margin:0 auto;" *ngIf="userService.userPic">
+
+    <img  class="logo" data-src="{{userService.userPic}}"   >
+
+
+
+  </ion-avatar>
+ <h5 class="ion-text-uppercase"> <strong>{{userService.usuarioActual.Nombre}} {{userService.usuarioActual.Primer_Apellido}} {{userService.usuarioActual.Segundo_Apellido}}</strong></h5>
+      
+
+  <ion-list lines="none">
+    
+
+    <ion-item *ngIf="userService.usuarioActual.Apodo">
+        <ion-label>Apodo : {{userService.usuarioActual.Apodo}}</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label >Región :  {{userService.usuarioActual.Canton}}, {{userService.usuarioActual.Provincia}}  </ion-label>
+    </ion-item>
+    <ion-item  >
+        <ion-label>Posición: <ion-badge color="dark" mode="ios">{{userService.usuarioActual.Posicion}}</ion-badge> </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>Edad : {{calcularEdad(userService.usuarioActual.Fecha_Nacimiento)}} años</ion-label>
+    </ion-item>
+
+
+<ion-item lines="none">
+  <h5 class="ion-text-uppercase"> <strong>Estadisticas Personales</strong></h5>
+
+
+</ion-item>
+<ion-item  lines="none" class="employeeItem  animate__animated animate__fadeIn"  >
+
+  <ion-label>
+    Partidos Jugados
+
+  </ion-label>
+  <ion-badge slot="end" color="dark" mode="ios">{{userService.usuarioActual.Partidos_Jugados}}</ion-badge>
+</ion-item>
+<ion-item  lines="none" class="employeeItem  animate__animated animate__fadeIn"  >
+
+  <ion-label>
+    Jugador del partido
+
+  </ion-label>
+  <ion-badge slot="end" color="dark" mode="ios">{{userService.usuarioActual.Partidos_Jugador_Del_Partido }}</ion-badge>
+</ion-item>
+<ion-item  lines="none" class="employeeItem  animate__animated animate__fadeIn"  >
+
+  <ion-label>
+    Jugador FutPlay
+  </ion-label>
+<ion-badge slot="end" color="dark" mode="ios">{{userService.usuarioActual.Partidos_Jugador_Futplay}}</ion-badge>
+</ion-item>
+
+
+  </ion-list>
+</ion-content>

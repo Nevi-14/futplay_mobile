@@ -5,6 +5,8 @@ import { SolicitudesService } from 'src/app/services/solicitudes.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { BuscarEquiposPage } from '../buscar-equipos/buscar-equipos.page';
 import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-modal.page';
+import { Solicitudes } from '../../models/solicitudes';
+import { PerfilSolicitud } from '../../models/perfilSolicitud';
 
 @Component({
   selector: 'app-solicitudes-jugadores',
@@ -17,23 +19,29 @@ export class SolicitudesJugadoresPage implements OnInit {
 title = 'Recibidas'
 activeCategory = 0;
 segment = 0 ;
-categories = ['enviadas', 'recibidas'];
+categories = [ 'recibidas','enviadas'];
 showReceive = true;
 showSend = false;
 selected:string = '';
   constructor(
     public modalCtrl:ModalController,
-    public solicitudesService:SolicitudesService,
     public equiposService: EquiposService,
     public usuariosService:UsuariosService,
-    public actionSheetCtrl: ActionSheetController
+    public actionSheetCtrl: ActionSheetController,
+    public solicitudesService:SolicitudesService
   ) { }
 
   ngOnInit() {
-   this.showReceive =  this.showReceiveInput;
-   this.showSend = this.showSendInput;
+   this.showReceive =  true
+   this.showSend = false
+
+
+
+
+
+
     if(this.showReceive){
-this.receive();
+this.selectCategory(0)
     }else{
 this.send();
     }
@@ -46,11 +54,12 @@ this.send();
     switch(index){
    
      case 0:
-       this.send();
+      this.receive();
+
      break;
      
      case 1:
-      this.receive();
+      this.send();
      break;
 
      break;
@@ -66,81 +75,7 @@ this.send();
    
    
        }
-  async onOpenMenu(solicitud){
 
-    let equipo  = null;
-
-    this.equiposService.equipos = [];
-
-this.equiposService.SyncEquipos(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
-  this.equiposService.equipos  = resp;
-
- let i = this.equiposService.equipos.findIndex(equi => equi.Cod_Equipo == solicitud.Cod_Equipo);
-
- if(i >=0){
-  equipo = this.equiposService.equipos[i];
- }
-
-});
-
-    const normalBtns : ActionSheetButton[] = [
-      {   
-         text: 'Detalle',
-         icon:'eye-outline',
-         handler: () =>{
-           this.detalleEquipo(equipo)
-          console.log(solicitud,'solicitud')
-         
-         }
-        
-        },
- {   
- //   text: canchaFavoritos ? 'Remover Favorito' : 'Favorito',
-   // icon: canchaFavoritos ? 'heart' : 'heart-outline',
-   text: 'Aceptar',
-   icon:'checkmark-outline',
-    handler: () =>{
-     this.aceptar(solicitud)
-    }
-   
-   },
- 
-         {   
-          text: 'Eliminar',
-          icon:'trash-outline',
-          handler: () =>{
-          this.rechazar(solicitud)
-       
-          }
-         
-         },
-
-         {   
-          text: 'Cancelar',
-          icon:'close-outline',
-         role:'cancel',
-         
-         }
-      
-        ]
-
-  
-    const actionSheet = await this.actionSheetCtrl.create({
-      header:  'Opiones Solicitud'+' '+  solicitud.Nombre_Equipo,
-      cssClass: 'left-align-buttons',
-      buttons:normalBtns,
-      mode:'ios'
-    });
-  
-  
-  
-  
-  
-  await actionSheet.present();
-  
-  
-    }
-  
     async detalleEquipo(equipo){
 
   
@@ -169,7 +104,17 @@ this.receive();
     this.showReceive = false;
     this.showSend = true;
     this.title = 'Enviadas'
-    this.solicitudesService.syncGetSolicitudesJugadores(this.usuariosService.usuarioActual.Cod_Usuario, true,false, true)
+  /**
+   *   this.solicitudesService.syncGetSolicitudesJugadores(this.usuariosService.usuarioActual.Cod_Usuario, true,false, true)
+   */
+   this.solicitudesService.syncGetSolicitudesEnviadasUsuarioToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(solicitudes =>{
+    console.log('solicitudes', solicitudes)
+        this.solicitudesService.solicitudesJugadoresArray = solicitudes;
+      })
+    
+
+
+  
   }
 
   receive(){
@@ -178,8 +123,14 @@ this.receive();
     this.showSend = false;
     
     this.title = 'Recibidas'
-    this.solicitudesService.syncGetSolicitudesJugadores(this.usuariosService.usuarioActual.Cod_Usuario, false,true, true)
-
+/**
+ *     this.solicitudesService.syncGetSolicitudesJugadores(this.usuariosService.usuarioActual.Cod_Usuario, false,true, true)
+ */
+ this.solicitudesService.syncGetSolicitudesRecibidasUsuarioToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(solicitudes =>{
+  console.log('solicitudes', solicitudes)
+      this.solicitudesService.solicitudesJugadoresArray = solicitudes;
+    })
+  
 
   }
   cerrarModal(){
@@ -197,30 +148,95 @@ this.receive();
 
      const { data } = await modal.onWillDismiss();
 if(data != undefined){
-  this.solicitudesService.syncGetSolicitudesJugadores(this.usuariosService.usuarioActual.Cod_Usuario, true,false, true)
+/**
+ *   this.solicitudesService.syncGetSolicitudesJugadores(this.usuariosService.usuarioActual.Cod_Usuario, true,false, true)
+ */
 
   
 }
   }
-  aceptar(solicitud){
+  aceptar(solicitud:PerfilSolicitud){
 
-    const solicitudActualizar = {
+    const solicitudActualizar:Solicitudes = {
   
-      Cod_Solicitud : solicitud.Cod_Solicitud,
-      Cod_Usuario : solicitud.Cod_Usuario,
-      Cod_Equipo :solicitud.Cod_Equipo,
+      Cod_Solicitud : solicitud.solicitud.Cod_Solicitud,
+      Cod_Usuario : solicitud.solicitud.Cod_Usuario,
+      Cod_Equipo :solicitud.solicitud.Cod_Equipo,
       Confirmacion_Usuario:true,
       Confirmacion_Equipo:true,
-      Fecha: solicitud.Fecha,
-      Estado: true,
-      Usuarios: null,
-      Equipos: null
+      Estado:true,
+
     
     };
   
-    this.solicitudesService.actualizarSolicitud(solicitudActualizar,solicitud.Cod_Solicitud,solicitud.Cod_Usuario);
+    this.solicitudesService.syncPutSolicitudToProimise(solicitudActualizar).then(resp =>{
+
+      alert('updated')
+    }, error =>{
+
+      alert('error')
+    })
+     
 
   
+  }
+  async onOpenMenu(solicitud){
+
+    let equipo  = null;
+
+    this.equiposService.equipos = [];
+
+;
+
+    const normalBtns : ActionSheetButton[] = [
+      {   
+         text: 'Detalle',
+         icon:'eye-outline',
+         handler: () =>{
+           this.detalleEquipo(equipo)
+          console.log(solicitud,'solicitud')
+         
+         }
+        
+        },
+ {   
+ //   text: canchaFavoritos ? 'Remover Favorito' : 'Favorito',
+   // icon: canchaFavoritos ? 'heart' : 'heart-outline',
+   text: 'Aceptar',
+   icon:'checkmark-outline',
+    handler: () =>{
+     this.aceptar(solicitud)
+    }
+   
+   },
+ 
+         {   
+          text: 'Eliminar',
+          icon:'trash-outline',
+          handler: () =>{
+         // this.rechazar(solicitud)
+       
+          }
+         
+         },
+
+         {   
+          text: 'Cancelar',
+          icon:'close-outline',
+         role:'cancel',
+         
+         }
+      
+        ]
+
+  
+    const actionSheet = await this.actionSheetCtrl.create({
+      header:  'Opiones Solicitud'+' '+  solicitud.Nombre_Equipo,
+      cssClass: 'left-align-buttons',
+      buttons:normalBtns,
+      mode:'ios'
+    });
+    await actionSheet.present();
   }
   
   rechazar(solicitud){
@@ -239,7 +255,9 @@ if(data != undefined){
     
     };
   
-    this.solicitudesService.actualizarSolicitud(solicitudActualizar,solicitud.Cod_Solicitud,solicitud.Cod_Usuario);
+/**
+ *     this.solicitudesService.actualizarSolicitud(solicitudActualizar,solicitud.Cod_Solicitud,solicitud.Cod_Usuario);
+ */
 
   }
 

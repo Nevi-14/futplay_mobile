@@ -1,0 +1,124 @@
+
+
+.circle-image {
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 16rem;
+    height: 16rem;
+  
+  }
+  
+  .circle-image img{
+  
+    width: 100%;
+    height: 100%;
+    object-fit: cover ;
+  }
+  
+  ion-card-subtitle {
+  
+      padding-left: 1.2rem;
+      margin-top: 1.9rem;
+      padding-bottom: 0.3rem;
+      --color: white;
+  }
+  
+  
+  
+  ion-list {
+  
+      background-color: #e7edfb;
+  }
+  
+  ion-footer {
+  
+      background-color: #e7edfb;
+      padding: 1rem;
+  
+      ion-button {
+  
+          --background: #5a55ca;
+          --background-focused: #6f6bbb;
+          --background-activated: #6f6bbb;
+          --padding-top: 1rem;
+          --padding-bottom: 1rem;
+          --padding-start: 0.75rem;
+          --padding-end: 0.75rem;
+          height: 3.5rem;
+          font-weight: 700;
+      }
+  }
+  
+  .transparent{
+  --background: transparent!important;
+  }
+  .mainContent {
+  
+  
+  background-color: #e7edfb;
+  height: 100%;
+  width: 100%;
+  overflow: scroll !important;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  }
+  ion-searchbar {
+  
+    --border-radius: 10px;
+    --background: white;
+    --color: black;
+    min-height: 5rem;
+    padding: 1rem;
+    padding-top: 0;
+    margin-top: -1rem;
+  }
+  .employeeItem {
+  
+      --border-radius: 10px;
+      --padding-start: 1rem;
+      --padding-end: 1rem;
+      --padding-top: 1rem;
+      --padding-bottom: 1rem;
+      padding: 1rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      ion-avatar{
+        height: 5rem; width: 5rem;
+      }
+          
+    
+      
+      ion-label {
+        font-size: 14px!important;
+        text-transform: uppercase;
+      
+          padding-left: 1.2rem;
+      
+          h2 {
+      
+              font-weight: 600;
+              letter-spacing: -0.02rem;
+          }
+      
+          p {
+      
+              letter-spacing: -0.03rem;
+          }
+      }
+      
+  
+      }
+      
+      ion-button {
+      
+        --background: #5a55ca;
+        --background-focused: #6f6bbb;
+        --background-activated: #6f6bbb;
+        --padding-top: 1rem;
+        --padding-bottom: 1rem;
+        --padding-start: 0.75rem;
+        --padding-end: 0.75rem;
+        color: #fff;
+        margin-top: -0.2rem;
+    }

@@ -1,118 +1,193 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { Canchas } from '../models/canchas';
-import { ListaCanchas } from '../models/listaCanchas';
-import { AlertasService } from './alertas.service';
+import { PerfilCancha } from '../models/perfilCancha';
 
+import { AlertasService } from './alertas.service';
+import { ActionSheetController } from '@ionic/angular';
+
+ interface  dia {
+  Code:number,
+  Day : string
+ }
 @Injectable({
   providedIn: 'root'
 })
 export class CanchasService {
-
-  canchas: ListaCanchas[] = [];
-  canchasFavoritas: Canchas[] = [];
+canchas:PerfilCancha[]=[];
+cancha:PerfilCancha;
+semana = [
+  { Code: 0, Day: 'Domingo' },
+  { Code: 1, Day: 'Lunes' },
+  { Code: 2, Day: 'Martes' },
+  { Code: 3, Day: 'Miercoles' },
+  { Code: 4, Day: 'Jueves' },
+  { Code: 5, Day: 'Viernes' },
+  { Code: 6, Day: 'Sabado' }]
+  dia:dia = null;
 
   constructor(
-
     private http: HttpClient,
-    public alertasService: AlertasService
-
+    private router: Router,
+    public alertasService: AlertasService,
+    public actionCtrl: ActionSheetController
   ) { }
+  reload:boolean = false;
+// GET  METHODS
 
+  getURL( api: string ){
 
-
-
-
-  getURL(api: string) {
     let test: string = ''
-    if (!environment.prdMode) {
+    if ( !environment.prdMode ) {
       test = environment.TestURL;
+      
     }
-    const URL = environment.preURL + test + environment.postURL + api
-    console.log(URL)
+  const URL = environment.preURL  + test +  environment.postURL + api;
+
+
     return URL;
   }
-  private getCodCancha(Cod_Cancha) {
 
-    let URL = this.getURL(environment.perfilCancha);
-    let test: string = ''
-    if (!environment.prdMode) {
-      test = environment.TestURL;
-    }
-    URL = URL + environment.codCanchaParam + Cod_Cancha
-    console.log(URL, 'URL')
-    return this.http.get<ListaCanchas[]>(URL);
-  }
+ 
 
-  syncCodCancha(Cod_Cancha) {
+  private getListaCanchas( ){
+    let URL = this.getURL( environment.getListaCanchasURL);
 
-
-
-    return this.getCodCancha(Cod_Cancha).toPromise();
-
+        console.log(URL, 'URL')
+    return this.http.get<PerfilCancha[]>( URL );
   }
 
 
 
+  syncListaCanchasToPromise(){
 
-  private getCanchas() {
-    const URL = this.getURL(environment.canchasURL);
+  return this.getListaCanchas().toPromise();
 
-    console.log(URL, 'canchasss')
-    return this.http.get<ListaCanchas[]>(URL);
+  
   }
 
-  syncCanchas() {
+     diaSemana(index) {
+          return this.semana[index]
+        }
+        diaNombre(index) {
+          return this.semana[index].Day
+        }
+        disponibilidadCancha(cancha:PerfilCancha) {
+     let filtro = cancha.horario[new Date().getDay()];
 
-    this.canchas = [];
+console.log('Hora_Fin',filtro.Hora_Fin )
+console.log('current time', new Date().getHours())
+if(filtro.Hora_Fin   <= new Date().getHours()+1){
 
-    // this.alertasService.presentaLoading('Cargando lista de canchas')
-    this.getCanchas().subscribe(
-      resp => {
-        //   this.alertasService.loadingDissmiss();
-
-        this.canchas = resp.slice(0);
-
-        console.log(this.canchas, 'canchas')
-
-
-      }, error => {
-        this.alertasService.message('FUTPLAY', 'Error cargando canchas..')
-        // this.alertasService.loadingDissmiss();
-      }
-
-    );
-  }
-
-
-  private filtrarCanchas(Cod_Provincia: number, Cod_Canton: number, Cod_Distrito: number, Cod_Categoria: number) {
-
-    let URL = this.getURL(environment.fitrarCanchas);
-    let params = environment.Cod_Provincia + Cod_Provincia + environment.Cod_Canton_Param + Cod_Canton +
-      environment.Cod_Distrito_Param + Cod_Distrito + environment.Cod_Categoria_Param + Cod_Categoria
-    URL = URL + params
-
-    console.log(URL, 'filtro Usuarios ')
-
-    return this.http.get<ListaCanchas[]>(URL);
-  }
-
-  syncfiltrarCanchas(Cod_Provincia: number, Cod_Canton: number, Cod_Distrito: number, Cod_Categoria: number) {
-
-    this.filtrarCanchas(Cod_Provincia, Cod_Canton, Cod_Distrito, Cod_Categoria).subscribe(
-
-      resp => {
-        this.canchas = [];
-        this.canchas = resp.slice(0);
-
-        console.log(this.canchas, 'canchas')
-
-
-      }
-
-    );
-  }
-
-
+  return 'Cerrada'
 }
+          if(filtro.Estado){
+        
+            return 'Disponible'
+  
+          }else{
+            return 'Cerrada'
+          }
+          
+        }
+        disponibidadReservacion(cancha:PerfilCancha) {
+          let filtro = cancha.horario[new Date().getDay()];
+                    if(filtro[0].Estado){
+                  
+                      return true
+            
+                    }else{
+                      return false
+                    }
+                    
+                  }
+        horarioCancha(cancha:PerfilCancha){
+
+
+          let filtro = cancha.horario[new Date().getDay()];
+          if(!filtro.Estado){
+           
+            return 'El dia ' + this.dia.Day + ' la cancha se encuentra cerrada.'
+                      }
+          let inicio  = filtro.Hora_Inicio;
+          let fin  = filtro.Hora_Fin;
+         
+          return this.retornaHoraAmPm(inicio)  + ' - ' +this.retornaHoraAmPm(fin);
+
+        }
+
+        retornaHoraAmPm(hours){
+
+
+          let minutes = null;
+          const ampm = hours >= 12 ? 'PM' : 'AM';
+          hours = hours % 12;
+          hours = hours ? hours : 12; // the hour '0' should be '12'
+          hours = hours < 10 ? '0' + hours : hours;
+          // appending zero in the start if hours less than 10
+          minutes = minutes < 10 ? '0' + minutes : minutes;
+          
+          let hourValue = hours +':'+'00'+':'+'00'+' ' + ampm;
+          
+          
+          return hourValue;
+          
+          }
+          async navigate() {
+     
+            //Kuala Lumpur City Center coordinates
+            let toLat= this.cancha.cancha.Latitud;
+            let toLong= this.cancha.cancha.Longitud;
+        
+            
+            let destination = toLat + ',' + toLong;
+        
+        
+            //1. Declaring an empty array
+            let actionLinks=[];
+        
+            //2. Populating the empty array
+        
+             //2A. Add Google Maps App
+            actionLinks.push({
+              text: 'Google Maps App',
+              icon: 'navigate',
+              handler: () => {
+                window.open("https://www.google.com/maps/search/?api=1&query="+destination)
+              }
+            })
+        
+           
+             //2B. Add Waze App
+            actionLinks.push({
+              text: 'Waze App',
+              icon: 'navigate',
+              handler: () => {
+                window.open("https://waze.com/ul?ll="+destination+"&navigate=yes&z=10");
+              }
+            });
+        
+           //2C. Add a cancel button, you know, just to close down the action sheet controller if the user can't make up his/her mind
+            actionLinks.push({
+              text: 'Cancel',
+              icon: 'close',
+              role: 'cancel',
+              handler: () => {
+                // console.log('Cancel clicked');
+              }
+            })
+            
+        
+            
+        
+             const actionSheet = await this.actionCtrl.create({
+             header: 'Navigate',
+             buttons: actionLinks
+           });
+           await actionSheet.present();
+        }
+        
+
+      }
+        

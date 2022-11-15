@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { CanchasService } from 'src/app/services/canchas.service';
 import { EquiposService } from 'src/app/services/equipos.service';
+import { JugadoresService } from 'src/app/services/jugadores.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { CrearEquipoPage } from '../crear-equipo/crear-equipo.page';
 import { CrearUnirseEquipoPage } from '../crear-unirse-equipo/crear-unirse-equipo.page';
@@ -20,7 +21,8 @@ export class FutplayPage implements OnInit {
     public usuariosService:UsuariosService,
     public canchasService: CanchasService,
     public router: Router,
-    public alertasService: AlertasService
+    public alertasService: AlertasService,
+    public jugadoresService:JugadoresService
     
     
     
@@ -32,28 +34,29 @@ export class FutplayPage implements OnInit {
   profile(){
     //   this.equiposService.new = true;
    //this.equiposService.perfilEquipo = null;
-     this.usuariosService.syncDatos(this.usuariosService.usuarioActual.Cod_Usuario)
+   
    
      }
 
      misEquipos(){
       this.equiposService.misEquipos = [];
  
-      this.equiposService.SyncMisEquipos(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
-        this.equiposService.misEquipos = resp.slice(0);
-        this.equiposService.perfilEquipo = null;
-        this.equiposService.perfilEquipo = this.equiposService.misEquipos[0];
-        console.log('mis equipos', this.equiposService.misEquipos)
-   
+      this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp =>{
+     
+
     if(resp.length == 0 ){
       this.crearEquipo();
 
     }else{
-console.log('this.equiposService.perfilEquipo ',this.equiposService.perfilEquipo )
+      this.equiposService.misEquipos = resp.slice(0);
+      this.equiposService.equipo = resp[0];
+
+      this.jugadoresService.syncJugadoresEquipos(this.equiposService.equipo.equipo.Cod_Equipo).then(jugadores =>{
+        this.jugadoresService.jugadores = jugadores
+        
+      })
       this.router.navigate(['/futplay/perfil-equipo']);
-    
-
-
+  
 
     }
 
@@ -86,11 +89,11 @@ console.log('this.equiposService.perfilEquipo ',this.equiposService.perfilEquipo
      }
 
 equipos(){
-  this.equiposService.equipos  = [];
+  this.equiposService.misEquipos  = [];
 
-  this.equiposService.SyncEquipos(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
+  this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp =>{
 
-    this.equiposService.equipos = resp.slice(0);
+    this.equiposService.misEquipos = resp.slice(0);
   }, error =>{
  
     this.alertasService.message('FUTLAY', 'Error cargando datos...');
@@ -98,7 +101,15 @@ equipos(){
     
   }
   canchas(){
- this.canchasService.syncCanchas();
+    this.canchasService.canchas = [];
+ this.canchasService.syncListaCanchasToPromise().then(canchas =>{
+
+this.canchasService.canchas = canchas;
+console.log('this.canchasService.canchas',this.canchasService.canchas)
+ }, error =>{
+ 
+  this.alertasService.message('FUTLAY', 'Error cargando datos...');
+})
    
     
   }

@@ -1,0 +1,22 @@
+<ion-toolbar>
+  <ion-title class="soccer-league-subtitle ion-text-center animate__animated animate__fadeIn">Sobre Nosotros</ion-title>
+</ion-toolbar>
+
+<ion-content>
+
+  <ion-slides pager="ios" class="slide-full" >
+    <ion-slide *ngFor="let slide of slides">
+    <ion-card mode="ios">
+      <img [src]="slide.img" class="slide-image" alt="">
+
+      <ion-card-content>
+ <ion-label class="ion-text-uppercase"> {{slide.desc}}</ion-label>
+       
+      </ion-card-content>
+
+    </ion-card>
+    </ion-slide>
+
+
+  </ion-slides>
+</ion-content>

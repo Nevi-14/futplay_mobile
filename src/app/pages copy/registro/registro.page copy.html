@@ -1,0 +1,164 @@
+
+  <ion-content class="ion-padding">
+    <div id="header">
+  
+     <form id="form" (ngSubmit)="registro(fRegistro)" #fRegistro="ngForm"  >
+    
+  
+      <ion-grid  >
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <h1>Formulario de Registro</h1>
+          </ion-col>
+          <ion-col size="12" size-md="6" >
+            <ion-label>Nombre</ion-label>
+            <ion-item lines="none" class="ion-margin-bottom ion-margin-top">
+              <ion-input  [(ngModel)]="usuario.Nombre" name="Nombre"  type="text" placeholder="Nombre" required></ion-input>
+              </ion-item>
+          
+             
+              
+            
+          
+          </ion-col>
+  
+          <ion-col size="12" size-md="6">
+            <ion-label>Apellido</ion-label>
+            <ion-item lines="none"  class="ion-margin-bottom ion-margin-top">
+            <ion-input name="apellido" [(ngModel)]="usuario.Primer_Apellido"   type="text" placeholder="Apellido" required></ion-input>
+            </ion-item>
+          </ion-col>
+  
+          <ion-col size="12" size-md="6">
+            <ion-label>Correo</ion-label>
+            <ion-item lines="none"  class="ion-margin-bottom ion-margin-top">
+    
+              <ion-input   [(ngModel)]="usuario.Correo" name="Correo"  type="email" placeholder="Correo" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"  required></ion-input>
+              </ion-item>
+          
+          </ion-col>
+  
+          <ion-col size="12" size-md="6">
+  
+            <ion-label>Telefono</ion-label>
+            <ion-item  lines="none" class="ion-margin-bottom ion-margin-top">
+            <ion-input name="Telefono" [(ngModel)]="usuario.Telefono"   type="tel" placeholder="Telefono" required></ion-input>
+            </ion-item>
+          </ion-col>
+  
+          <ion-col size="12" size-md="6">
+            <ion-label>Fecha de nacimiento</ion-label>
+        
+            <ion-item lines="none"  class="ion-margin-bottom ion-margin-top"(click)="SelectDate()">
+              <ion-input  readonly  name="Fecha_Nacimiento"  type="text"  [value]="usuario.Fecha_Nacimiento  | date :'longDate'" placeholder="Fecha Nacimiento" required></ion-input>
+              </ion-item>
+          </ion-col>
+          <ion-col size="12" size-md="6">
+            <ion-label>Provincia</ion-label>
+            <ion-item lines="none"   class="ion-margin-bottom ion-margin-top">
+        
+                  <ion-select placeholder="Provincia" required [(ngModel)]="usuario.Cod_Provincia" (ionChange)="onChangeProvincias($event)"   name="Cod_Provincia">
+                    <ion-select-option [value]="provincia.Cod_Provincia" *ngFor="let provincia of provinciasService.provincias">
+                      {{provincia.Provincia}}
+                    </ion-select-option>
+                    
+                    </ion-select>
+              </ion-item>
+          </ion-col>
+  
+          <ion-col size="12" size-md="6" *ngIf="showCanton">
+  
+          
+            <ion-label >Cantón</ion-label>
+            <ion-item  lines="none"  class="ion-margin-bottom ion-margin-top">
+      
+                <ion-select placeholder="Canton"  required [(ngModel)]="usuario.Cod_Canton"  (ionChange)="onChangeCantones($event)"   name="Cod_Canton" >
+                  <ion-select-option [value]="canton.Cod_Canton" *ngFor="let canton of cantonesService.cantones">
+                    {{canton.Canton}}
+                  </ion-select-option>
+                  
+                  </ion-select>
+            </ion-item>
+          </ion-col>
+  
+  
+  
+  
+  
+          <ion-col size="12" size-md="6" *ngIf="showDistrito">
+  
+          
+      
+            <ion-label >Distrito</ion-label>
+            <ion-item  lines="none"   class="ion-margin-bottom ion-margin-top">
+      
+                <ion-select placeholder="Distrito" required   [(ngModel)]="usuario.Cod_Distrito"   (ionChange)="onChangeDistritos($event)" name="Cod_Distrito">
+                  <ion-select-option [value]="distrito.Cod_Distrito" *ngFor="let distrito of distritosService.distritos">
+                    {{distrito.Distrito}}
+                  </ion-select-option>
+            
+                </ion-select>
+            </ion-item>
+    
+          </ion-col>
+  
+  
+  
+  
+  
+          <ion-col size="12" size-md="6">
+      
+            
+      
+            <ion-label>Contraseña</ion-label>
+            <ion-item  lines="none"  class="ion-margin-bottom ion-margin-top">
+              <ion-input name="password" [(ngModel)]="usuario.Contrasena"    type="{{showPass ? 'text' : 'password'}}"placeholder="contraseña" required></ion-input>
+              <ion-icon slot="end"  item-right name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>
+              </ion-item>
+          </ion-col>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+          <ion-col size="12" size-md="6">
+      
+       
+  
+  
+          
+                <ion-label>Contraseña</ion-label>
+                <ion-item lines="none"  class="ion-margin-bottom ion-margin-top">
+                  <ion-input name="password" [(ngModel)]="confirmarContrasena"    type="{{showPassConfirm ? 'text' : 'password'}}" placeholder="confirmar contraseña" ></ion-input>
+                  <ion-icon slot="end"  item-right name="{{showPassConfirm ? 'eye' : 'eye-off'}}" (click)="showPassConfirm=!showPassConfirm" ></ion-icon>
+                  </ion-item>
+              
+      
+      
+      
+          </ion-col>
+          <ion-col size="12" class="ion-text-center">
+            
+                    <ion-button class="custom-button" type="submit" color="dark"  shape="round"  [disabled]="fRegistro.invalid" >
+                        Completar Registro
+                        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+                      </ion-button>
+       
+          </ion-col>
+       
+        </ion-row>
+      </ion-grid>
+     </form>
+    
+    </div>
+    
+  </ion-content>
+  

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetButton, ActionSheetController, ModalController } from '@ionic/angular';
-import { EquiposService } from 'src/app/services/equipos.service';
-import { SolicitudesService } from 'src/app/services/solicitudes.service';
-import { BuscarJugadoresPage } from '../buscar-jugadores/buscar-jugadores.page';
+
 import { UsuariosService } from 'src/app/services/usuarios.service';
-import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
-import { GoogleAdsService } from 'src/app/services/google-ads.service';
+
 import { VideoScreenPage } from '../video-screen/video-screen.page';
+import { SolicitudesService } from '../../services/solicitudes.service';
+import { EquiposService } from 'src/app/services/equipos.service';
+import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
+import { PerfilSolicitud } from '../../models/perfilSolicitud';
 
 @Component({
   selector: 'app-solicitudes-equipos',
@@ -22,16 +23,32 @@ export class SolicitudesEquiposPage implements OnInit {
   showSend = false;
   constructor(
     public modalCtrl:ModalController,
-    public solicitudesService:SolicitudesService,
-    public equiposService: EquiposService,
     public actionSheetCtrl: ActionSheetController,
     public usuariosService: UsuariosService,
-    public googleAdsService: GoogleAdsService
+    public solicitudesService:SolicitudesService,
+    public equiposService:EquiposService
+
   ) { }
 
   ngOnInit() {
-  
-    this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, true,false, true)
+ this.receive();
+  }
+
+  receive(){
+    this.solicitudesService.syncGetSolicitudesRecibidasEquipoToPromise(this.equiposService.equipo.equipo.Cod_Equipo).then(solicitudes =>{
+
+      this.solicitudesService.solicitudesEquiposArray = solicitudes;
+    })
+
+
+  }
+
+  send(){
+
+    this.solicitudesService.syncGetSolicitudesEnviadasEquipoToPromise(this.equiposService.equipo.equipo.Cod_Equipo).then(solicitudes =>{
+
+      this.solicitudesService.solicitudesEquiposArray = solicitudes;
+    })
 
   }
 
@@ -46,11 +63,11 @@ export class SolicitudesEquiposPage implements OnInit {
     return await modal.present();
   }
 
-  async onOpenMenu(solicitud){
+  async onOpenMenu(solicitud:PerfilSolicitud){
 
 if(this.usuariosService.usuarios.length == 0){
   
-  this.usuariosService.syncUsusarios(this.usuariosService.usuarioActual.Cod_Usuario);
+ // this.usuariosService.syncUsusarios(this.usuariosService.usuarioActual.Cod_Usuario);
 
 }
 
@@ -60,13 +77,8 @@ if(this.usuariosService.usuarios.length == 0){
          icon:'eye-outline',
          handler: () =>{
 let usuario = null;
-           let i = this.usuariosService.usuarios.findIndex(usu => usu.Cod_Usuario == solicitud.Cod_Usuario)
-
-           if(i >=0){
-            usuario = this.usuariosService.usuarios[i];
-            this.perfilJugador(usuario);
-
-           }
+usuario = solicitud.usuario;
+this.perfilJugador(usuario);
           console.log(solicitud,'solicitud')
          
          }
@@ -79,7 +91,7 @@ let usuario = null;
    icon:'checkmark-outline',
     handler: () =>{
       this.videoScreen(4);
-     this.aceptar(solicitud)
+   //  this.aceptar(solicitud)
     }
    
    },
@@ -88,7 +100,7 @@ let usuario = null;
           text: 'Eliminar',
           icon:'trash-outline',
           handler: () =>{
-          this.rechazar(solicitud)
+         // this.rechazar(solicitud)
        
           }
          
@@ -105,7 +117,7 @@ let usuario = null;
 
   
     const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Opiones Solicitud'+' '+  solicitud.Nombre_Jugador +' ' + solicitud.Primer_Apellido,
+      header: 'Opiones Solicitud'+' '+  solicitud.usuario.Nombre +' ' + solicitud.usuario.Primer_Apellido,
       cssClass: 'left-align-buttons',
       buttons:normalBtns,
       mode:'ios'
@@ -134,111 +146,10 @@ let usuario = null;
       return await modal.present();
       
         }
-  send(){
-    this.showSend = true;
-    this.showReceive = false;
 
-    this.title = 'enviadas'
-    this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, false,true, true)
-  }
+        cerrarModal(){
 
-  receive(){
-    this.showReceive = true;
-    this.showSend = false;
-    this.title = 'recibidas'
-    this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, true,false, true)
-
-
-  }
-  
-  segmentChanged(event:any){
-    console.log(event)
-    
-
-    this.selectedType = event.detail.value;
-    console.log(event.detail.value)
-  
-        //    SOLICITUDES ENVIADAS
-   // Cod_Equipo ,  CONFIRMACION_USUARIO = false, CONFIRMACION_EQUIPO = true, ESTADO = TRUE
-    // SOLICITUDES RECIVIDAS
-   // Cod_Equipo ,  CONFIRMACION_USUARIO = True, CONFIRMACION_EQUIPO = false, ESTADO = TRUE
-
-   if(this.selectedType == 'recibidos'){
-    this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, true,false, true)
-    
-       }else{
-    
-        this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, false,true, true)
-       }
-
-  }
-
-  cerrarModal(){
-
-    this.modalCtrl.dismiss({
-      'dismissed': true
-    });
-  }
-  async buscarJugadores(){
-
-    const modal = await this.modalCtrl.create({
-      component:BuscarJugadoresPage,
-      cssClass:'my-cutom-class'
-    });
-
-     await modal.present();
-
-     const { data } = await modal.onWillDismiss();
-     if( data == undefined || data != undefined){
-      this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, false,true, true)
-       this.selectedType = this.tipos[1]
-       
-     }
-  }
-
-
-aceptar(solicitud){
-
-  const solicitudActualizar = {
-
-    Cod_Solicitud : solicitud.Cod_Solicitud,
-    Cod_Usuario : solicitud.Cod_Usuario,
-    Cod_Equipo :solicitud.Cod_Equipo,
-    Confirmacion_Usuario:true,
-    Confirmacion_Equipo:true,
-    Fecha: solicitud.Fecha,
-    Estado: true,
-    Usuarios: null,
-    Equipos: null
-  
-  };
-
-  this.solicitudesService.actualizarSolicitud(solicitudActualizar,solicitud.Cod_Solicitud,solicitud.Cod_Usuario);
-  this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, true,false, true)
-  this.selectedType = this.tipos[0]
-
-
-  
-}
-
-rechazar(solicitud){
-
-  const solicitudActualizar = {
-
-    Cod_Solicitud : solicitud.Cod_Solicitud,
-    Cod_Usuario : solicitud.Cod_Usuario,
-    Cod_Equipo :solicitud.Cod_Equipo,
-    Confirmacion_Usuario:true,
-    Confirmacion_Equipo:false,
-    Fecha: solicitud.Fecha,
-    Estado: false,
-    Usuarios: null,
-    Equipos: null
-  
-  };
-
-  this.solicitudesService.actualizarSolicitud(solicitudActualizar,solicitud.Cod_Solicitud,solicitud.Cod_Usuario);
-  this.selectedType = this.tipos[0]
-}
+          this.modalCtrl.dismiss()
+        }
 
 }

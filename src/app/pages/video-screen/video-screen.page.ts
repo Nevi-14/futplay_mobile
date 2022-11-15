@@ -2,8 +2,8 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Email } from 'src/app/models/email';
 import { AlertasService } from 'src/app/services/alertas.service';
-import { EmailService } from 'src/app/services/email.service';
-import { GoogleAdsService } from 'src/app/services/google-ads.service';
+
+
 
 @Component({
   selector: 'app-video-screen',
@@ -35,8 +35,6 @@ export class VideoScreenPage implements OnInit {
   close = false;
   constructor(
     public modalCtrl: ModalController,
-    public googleAddService: GoogleAdsService,
-    public emailService: EmailService,
     public alertasService:AlertasService
   ) { }
 
@@ -46,70 +44,5 @@ export class VideoScreenPage implements OnInit {
   }
 
 
-  ionViewWillEnter() {
-
-//this.close = true;
-    setTimeout(()=>{
-
-      this.pauseVideo();
-      switch (this.index) {
-
-
-        case 0:
-          this.googleAddService.showInterstitial();
-       
-          break;
-        case 1:
-          this.googleAddService.showInterstitial();
-         
-          break;
-        case 2:
-          this.googleAddService.showInterstitial();
-       
-          break;
-        case 3:
-          this.googleAddService.showInterstitial();
-        
-          break;
-        case 4:
-          this.googleAddService.showInterstitial();
-        
-          break;
-        case 5:
-          this.googleAddService.showInterstitial();
-      
-          break;
-        case 6:
-          this.googleAddService.showInterstitial();
-          
-          break;
-          case 7:
-            this.cerrarModal();
-         //   this.close = true;
-            break;
-        default:
-      console.log('default')
-          break;
-
-
-
-      }
-    }, 3000);
-    
-
-
-
-  }
-
-  cerrarModal() {
-   // this.googleAddService.hideBanner();
-    this.modalCtrl.dismiss();
-
-  }
-
-  pauseVideo(){
-    this.videoElement = this.video.nativeElement;
-    //  this.videoElement.play();
-    this.videoElement.pause();
-  }
+ 
 }

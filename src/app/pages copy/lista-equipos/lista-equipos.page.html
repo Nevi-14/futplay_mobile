@@ -1,0 +1,74 @@
+
+  <ion-header >
+
+    <ion-toolbar>
+      <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
+        <ion-buttons slot="start">
+          <ion-button color="light" (click)="cerrarModal()">
+            <ion-icon slot="start" name="chevron-back"></ion-icon>
+            &nbsp;Lista de  {{rival ? 'Rivales' : 'Retadores'}}
+          </ion-button>
+        </ion-buttons>
+   
+      </ion-item>
+  
+    </ion-toolbar>
+    </ion-header>
+   
+
+      <ion-content fullscreen>
+        <div class="mainContent">
+    
+          <ion-list *ngIf="!rival">
+            
+            <ion-item    (click)="retornarEquipo(equipo)" lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.misEquipos | filtro : textoBuscar:'Nombre'">
+              <ion-avatar slot="start"  >
+                <img *ngIf="!equipo.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+                <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+       
+              </ion-avatar>
+              
+              <ion-label>
+                {{equipo.Nombre}}
+                <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
+                
+        
+      <ng-template ngFor let-hero [ngForOf]="filledStars(equipo.Estrellas)"
+      let-i="index" let-odd="odd"  >
+      <ion-icon style="size: 10px;" name="star"></ion-icon>
+    </ng-template>
+    <ng-template ngFor let-hero [ngForOf]="emptyStars(equipo.Estrellas)"
+    let-i="index" let-odd="odd"  >
+    <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+  </ng-template>
+                </p>
+              </ion-label>
+    
+            </ion-item>
+          
+          </ion-list>
+          <ion-list *ngIf="rival" >
+            <ion-item   (click)="retornarEquipo(equipo)" lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'Nombre'">
+              <ion-avatar slot="start"  >
+                <img *ngIf="!equipo.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+                <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+       
+              </ion-avatar>
+              
+              <ion-label>
+                {{equipo.Nombre}}
+                <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
+                
+                  <ion-icon style="size: 10px;" name="star"></ion-icon>
+                  <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                  <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                  <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                  <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                </p>
+              </ion-label>
+    
+            </ion-item>
+          </ion-list>
+      </div>
+    </ion-content>
+

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { IonContent, ModalController } from '@ionic/angular';
+import { PerfilEquipos } from 'src/app/models/perfilEquipos';
 import { AlertasService } from 'src/app/services/alertas.service';
-import { ListaEquiposService } from 'src/app/services/lista-equipos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { EquiposService } from '../../services/equipos.service';
 import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
@@ -13,13 +13,12 @@ import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
 })
 export class ListaEquiposPage implements OnInit {
 
-  @Input() club: any;
+  @Input() club: PerfilEquipos;
   @Input() rival: boolean;
 
   textoBuscar = '';
   @ViewChild(IonContent, { static: false }) content: IonContent;
   constructor(
-public listaEquiposService: ListaEquiposService,
 public modalCtrl:ModalController,
 public equiposService:EquiposService,
 public usuariosService:UsuariosService,
@@ -32,7 +31,7 @@ private cd: ChangeDetectorRef
     if(this.rival){
       this.equiposService.equipos = [];
       this.alertasService.presentaLoading('Cargando datos...');
-      this.equiposService.SyncEquipos(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
+      this.equiposService.syncListaEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp =>{
         this.equiposService.equipos = resp.slice(0);
         this.alertasService.loadingDissmiss();
         this.cd.markForCheck();
@@ -44,10 +43,10 @@ private cd: ChangeDetectorRef
       console.log('equipos')
 
     }else{
-      this.equiposService.misEquipos = [];
+      this.equiposService.equipos = [];
       this.alertasService.presentaLoading('Cargando datos...');
-      this.equiposService.SyncMisEquipos(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
-        this.equiposService.misEquipos = resp.slice(0);
+      this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp =>{
+        this.equiposService.equipos = resp.slice(0);
         this.alertasService.loadingDissmiss();
         this.cd.markForCheck();
         this.cd.detectChanges();  this.cd.markForCheck();
@@ -61,11 +60,11 @@ private cd: ChangeDetectorRef
     }
  
  
-console.log(this.listaEquiposService.equipos, 'kdkd')
+console.log(this.equiposService.equipos, 'kdkd')
 
   }
   detalleEquipo(equipo){
-    this.listaEquiposService.detalleEquipo(equipo)
+    //this.equiposService.detalleEquipo(equipo)
   }
   onSearchChange(event){
     this.textoBuscar = event.detail.value;
@@ -90,7 +89,7 @@ console.log(this.listaEquiposService.equipos, 'kdkd')
    });
    await modal .present();
  }
-  retornarEquipo(equipo){
+  retornarEquipo(equipo:PerfilEquipos){
 
     this.modalCtrl.dismiss({
 

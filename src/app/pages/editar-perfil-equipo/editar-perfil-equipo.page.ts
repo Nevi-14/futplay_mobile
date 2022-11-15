@@ -7,7 +7,6 @@ import { EquiposService } from 'src/app/services/equipos.service';
 import { ProvinciasService } from 'src/app/services/provincias.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { GestorImagenesService } from 'src/app/services/gestor-imagenes.service';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { Equipos } from '../../models/equipos';
 import { Router } from '@angular/router';
@@ -29,7 +28,7 @@ export class EditarPerfilEquipoPage implements OnInit {
   showProvincia = false;
   showCanton = false;
   showDistrito = false;
-  teamPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/' + this.equiposService.perfilEquipo.Foto;
+  teamPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/' + this.equiposService.equipo.equipo.Foto;
   
   imgs = [
     
@@ -69,20 +68,19 @@ export class EditarPerfilEquipoPage implements OnInit {
     ]
     avatars = false;
     equipo = {
-      Cod_Equipo: this.equiposService.perfilEquipo.Cod_Equipo ,
-      Avatar: this.equiposService.perfilEquipo.Avatar,
-      Cod_Usuario:  this.usuariosService.usuarioActual.Cod_Usuario,
-      Cod_Provincia: this.equiposService.perfilEquipo.Cod_Provincia,
-      Cod_Canton:  this.equiposService.perfilEquipo.Cod_Canton,
-      Cod_Distrito:  this.equiposService.perfilEquipo.Cod_Distrito,
-      Foto:  this.equiposService.perfilEquipo.Foto,
-      Nombre:  this.equiposService.perfilEquipo.Nombre,
-      Abreviacion:  this.equiposService.perfilEquipo.Abreviacion,
-      Fecha:  this.equiposService.perfilEquipo.Fecha,
-      Estrellas:  this.equiposService.perfilEquipo.Estrellas,
-      Dureza:  this.equiposService.perfilEquipo.Dureza,
-      Estado:  this.equiposService.perfilEquipo.Estado,
-      Descripcion_Estado:  this.equiposService.perfilEquipo.Descripcion_Estado,
+      Cod_Equipo: this.equiposService.equipo.equipo.Cod_Equipo ,
+      Avatar: this.equiposService.equipo.equipo.Avatar,
+      Cod_Usuario: this.equiposService.equipo.equipo.Cod_Usuario,
+      Cod_Provincia: this.equiposService.equipo.equipo.Cod_Provincia,
+      Cod_Canton:  this.equiposService.equipo.equipo.Cod_Canton,
+      Cod_Distrito:  this.equiposService.equipo.equipo.Cod_Distrito,
+      Foto:  this.equiposService.equipo.equipo.Foto,
+      Nombre:  this.equiposService.equipo.equipo.Nombre,
+      Abreviacion:  this.equiposService.equipo.equipo.Abreviacion,
+      Estrellas:  this.equiposService.equipo.equipo.Estrellas,
+      Dureza:  this.equiposService.equipo.equipo.Dureza,
+      Estado: this.equiposService.equipo.equipo.Estado,
+      Descripcion_Estado:  this.equiposService.equipo.equipo.Descripcion_Estado,
    }
     constructor(
       public modalCtrl: ModalController,
@@ -92,7 +90,6 @@ export class EditarPerfilEquipoPage implements OnInit {
       public usuariosService: UsuariosService,
       public equiposService: EquiposService,
       public camera: Camera,
-      public gestorImagenesService: GestorImagenesService,
       public alertasService: AlertasService,
       public router: Router,
       public alertCtrl: AlertController
@@ -101,7 +98,7 @@ export class EditarPerfilEquipoPage implements OnInit {
     ngOnInit() {
 
 
-      this. imageURL = "assets/soccer-shields-svg/"+this.equiposService.perfilEquipo.Foto
+ 
       
       const i = this.imgs.findIndex(image => image.img == this.equipo.Foto)
 
@@ -120,7 +117,7 @@ this.provinciasService.provincias = [];
       this.provinciasService.syncProvinciasPromise().then(resp =>{
 this.showProvincia = true;
 this.provinciasService.provincias = resp;
-this.equipo.Cod_Provincia = this.equiposService.perfilEquipo.Cod_Provincia 
+this.equipo.Cod_Provincia = this.equiposService.equipo.equipo.Cod_Provincia 
 
 
 if(this.equipo.Cod_Provincia){
@@ -129,14 +126,14 @@ this.showCanton = true;
 this.showDistrito = null;
 this.cantonesService.cantones = resp.slice(0);
 this.alertasService.loadingDissmiss();
-this.equipo.Cod_Canton = this.equiposService.perfilEquipo.Cod_Canton
+this.equipo.Cod_Canton = this.equiposService.equipo.equipo.Cod_Canton
 
 if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
-  this.distritosService.syncDistritos(this.equipo.Cod_Provincia,this.equipo.Cod_Canton).then(resp =>{
+  this.distritosService.syncDistritos(this.equipo.Cod_Canton).then(resp =>{
     this.distritosService.distritos = resp.slice(0);
     this.showDistrito = true;
     this.alertasService.loadingDissmiss();
-    this.equipo.Cod_Distrito = this.equiposService.perfilEquipo.Cod_Distrito
+    this.equipo.Cod_Distrito = this.equiposService.equipo.equipo.Cod_Distrito
   });
 
   }
@@ -161,39 +158,7 @@ if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
     avatar(){
       this.avatars = !this.avatars
     }
-    imageUpload(source:string){
-   
-      let   fileName =this.equiposService.perfilEquipo.Nombre+'-'+this.equiposService.perfilEquipo.Cod_Equipo;
-      let location = 'perfil-equipo';
-         this.gestorImagenesService.selectImage(source,fileName,location, false).then(resp =>{
-          this.equipo.Foto = resp;
-          this.equipo.Avatar = false;
-    console.log(resp, this.equipo,  this.equipo.Foto, 'respppppppppppppppppggggg')
-    this.equiposService.actualizarEquipoToPromise(this.equipo, this.usuariosService.usuarioActual.Cod_Usuario).then((equipo:Equipos) =>{
-      this.equiposService.syncEquipo(this.equipo.Cod_Equipo).then(equipo=>{
-this.equipo = equipo[0];
 
-
-if(!this.equipo.Avatar){
-  this.teamPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/' + this.equiposService.perfilEquipo.Foto+'?'+ this.dateF();
-  
-}else{
-  this.teamPic = 'assets/profile/soccer-shields-svg/' + this.equiposService.perfilEquipo.Foto;
-  
-
-}
-
-
-      });
-      this.equiposService.perfilEquipo.Foto = equipo.Foto;
-      this.gestorImagenesService.images = [];
-     
-    })
-
-         })
-     
-       //  
-    }
     dateF(){
       return new Date().getTime() 
     }
@@ -216,7 +181,7 @@ if(!this.equipo.Avatar){
       this.equipo.Cod_Distrito = null;
       this.distritosService.distritos = [];
        if(this.equipo.Cod_Canton){
-        this.distritosService.syncDistritos(this.equipo.Cod_Provincia, $event.target.value);
+        this.distritosService.syncDistritos( $event.target.value);
        }
       break;
       
@@ -234,8 +199,9 @@ if(!this.equipo.Avatar){
     img.seleccionado = true;
     this.image = this.imgs[i].img;
     this.equipo.Foto =  this.imgs[i].img;
-    this.equipo.Avatar = true;
-    this.equiposService.perfilEquipo.Avatar = true;
+  
+/**
+ *     this.equiposService.perfilEquipo.Avatar = true;
     this.gestorImagenesService.actualizaFotoEquipo(this.equipo.Cod_Equipo, this.equipo.Avatar, this.equipo.Foto); 
 
     this.equiposService.syncEquipo(this.equipo.Cod_Equipo).then(resp =>{
@@ -243,6 +209,7 @@ if(!this.equipo.Avatar){
       this.equiposService.perfilEquipo.Foto =  this.image;
 
     })
+ */
 
     }
 
@@ -253,7 +220,8 @@ if(!this.equipo.Avatar){
       this.imgs[resp].seleccionado = true;
       this.image = this.imgs[resp].img
       this.equipo.Foto = this.imgs[resp].img;
-      this.equipo.Avatar = true;
+/**
+ *       this.equipo.Avatar = true;
       this.equiposService.perfilEquipo.Avatar = true;
       this.equiposService.perfilEquipo.Foto =  this.imgs[resp].img;
 
@@ -262,8 +230,10 @@ if(!this.equipo.Avatar){
       this.equiposService.syncEquipo(this.equipo.Cod_Equipo).then(resp =>{
 
         this.equiposService.perfilEquipo.Foto =  this.image;
+          })
+ */
 
-      })
+    
   
     })
  
@@ -288,10 +258,31 @@ if(!this.equipo.Avatar){
 
   updateTeam(){
     
- //   if(fActualizar.invalid) {return;}
+ 
  console.log(this.equipo,'this.equipo')
-    this.equiposService.actualizarEquipo(this.equipo, this.usuariosService.usuarioActual.Cod_Usuario)
+    this.equiposService.putEquipoToPromise(this.equipo, this.usuariosService.usuarioActual.usuario.Cod_Usuario).then((resp:any) =>{
+console.log('equipo update', resp)
+
+if(resp.action){
+ // this.equiposService.equipo.equipo = resp.equipo;
+  this.alertasService.message('FUTPLAY', resp.message)
+  this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(equipos =>{
+
+    this.equiposService.equipos = equipos;
     
+  let i = this.equiposService.equipos.findIndex(equipo => equipo.equipo.Cod_Equipo == resp.equipo.Cod_Equipo)
+  if(i >=0){
+    this.equiposService.equipo = this.equiposService.equipos[i];
+  }else{
+    this.equiposService.equipo = this.equiposService.equipos[0];
+  }
+  })
+}else{
+  this.alertasService.message('FUTPLAY', resp.message)
+}
+     
+    })
+
 
   }
 
@@ -319,7 +310,7 @@ this.alertasService.loadingDissmiss();
     this.equipo.Cod_Distrito = null;
     this.distritosService.distritos = [];
 if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
-  this.distritosService.syncDistritos(this.equipo.Cod_Provincia,this.equipo.Cod_Canton).then(resp =>{
+  this.distritosService.syncDistritos(this.equipo.Cod_Canton).then(resp =>{
     this.distritosService.distritos = resp.slice(0);
     this.showDistrito = true;
     this.alertasService.loadingDissmiss();
@@ -338,7 +329,8 @@ if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
   }
 
 eliminarEquipo(){
-  this.equiposService.syncDeleteEquipoToPromise(this.equipo.Cod_Equipo).then (resp =>{
+/**
+ *   this.equiposService.syncDeleteEquipoToPromise(this.equipo.Cod_Equipo).then (resp =>{
 
     this.equiposService.SyncMisEquipos(this.usuariosService.usuarioActual.Cod_Usuario).then(equipos =>{
       this.equiposService.misEquipos = equipos;
@@ -346,7 +338,7 @@ eliminarEquipo(){
       if(equipos.length == 0 ){
         this.router.navigate(['/futplay/mi-perfil']);
       }else{
-        this.equiposService.perfilEquipo = equipos[0];
+       // this.equiposService.perfilEquipo = equipos[0];
       
   
   
@@ -357,6 +349,7 @@ eliminarEquipo(){
   }, error =>{
     this.alertasService.message('FUTPLAY', 'Lo sentimos no se pudo eliminar el equipo, aun se encuentran reservaciones activas las cuales deben de ser verificadas, revisa el historial de reservaciones en revisión para mas detalles')
   })
+ */
 }
 async alertaEliminar() {
   const alert = await this.alertCtrl.create({
@@ -403,4 +396,11 @@ if(data.data != undefined){
 
 }
 }
+
+imageUpload(filter){
+
+
+}
+
+
 }

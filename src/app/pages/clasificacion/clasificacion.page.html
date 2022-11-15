@@ -12,12 +12,12 @@
     <ion-list>
       <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"   *ngFor="let equipo of equiposService.equipos">
         <ion-avatar slot="start"  >
-          <img *ngIf="!equipo.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-          <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+          <img   src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+         
  
         </ion-avatar>
         <ion-label>
-          <h2>{{equipo.Nombre}}</h2>
+          <h2>{{equipo.equipo.Nombre}}</h2>
           <p  style="display:block; margin-top: 0.5rem;" >
                
              
