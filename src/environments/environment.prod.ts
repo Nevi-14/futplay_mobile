@@ -55,6 +55,7 @@ export const environment = {
   putDetalleReservacionURL:'put/detalle/reservacion/',
   deleteJugadoresEquiposURL:'delete/jugadores/equipo/',
   putCanchaURL:'put/canchas/',
+  putPartidoURL:'put/partido/',
   putUsuarioURL:'put/usuario/',
   putHorarioCanchaURL:'put/horario/cancha/',
   putCanchaEstadoURL:'put/estado/cancha/',

@@ -131,11 +131,8 @@
           </ion-col>
   
         
-          <ion-col    size="4" style="display: grid;place-content: center;" *ngIf="retador">
+          <ion-col    size="4" style="display: grid;place-content: center;">
             <ion-label style="font-weight: 500; font-size: 2rem;">  {{partido[0].Goles_Retador}}</ion-label>
-          </ion-col>
-          <ion-col    size="4" style="display: grid;place-content: center;" *ngIf="!retador">
-            <ion-label style="font-weight: 500; font-size: 2rem;">  {{partido[1].Goles_Retador}}</ion-label>
           </ion-col>
 
   
@@ -186,13 +183,10 @@
     </ion-col>
   
 
-    <ion-col    size="4" style="display: grid;place-content: center;" *ngIf="retador">
-      <ion-label style="font-weight: 500; font-size: 2rem;">  {{partido[0].Goles_Rival}}</ion-label>
-    </ion-col>
-
-    <ion-col    size="4" style="display: grid;place-content: center;" *ngIf="!retador">
+    <ion-col    size="4" style="display: grid;place-content: center;">
       <ion-label style="font-weight: 500; font-size: 2rem;">  {{partido[1].Goles_Rival}}</ion-label>
     </ion-col>
+
 
     <ion-col  size="4" style="display: grid;place-content: center;">
       <ion-fab-button size="small" color="dark"   class="custom-button" (click)="sumarMarcadorRival()" >
@@ -218,19 +212,10 @@
   
 
        
-      <ion-button  *ngIf="retador && !partido[0].Evaluacion"  (click)="finalizarPartido()"  expand="block">
+      <ion-button   (click)="verificarPuntos()"  expand="block">
         Finalizar Partido
        </ion-button>
-
-       <ion-button  *ngIf="!retador && !partido[1].Evaluacion"  (click)="finalizarPartido()"  expand="block">
-        Finalizar Partido
-       </ion-button>
-
-       <ion-button *ngIf="retador && partido[0].Evaluacion" (click)="evaluacionIndividual()"  expand="block">
-        Evaluacion Partido
-       </ion-button>
-
-       <ion-button *ngIf="!retador && partido[1].Evaluacion" (click)="evaluacionIndividual()"  expand="block">
+       <ion-button *ngIf="!partido[1].Evaluacion" (click)="evaluacionIndividual()"  expand="block">
         Evaluacion Partido
        </ion-button>
   </ion-footer>

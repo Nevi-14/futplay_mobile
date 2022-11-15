@@ -45,7 +45,21 @@ public http: HttpClient
  
     return this.http.put( URL, partido, options );
   }
+  private    putPartido(partido:partidos){
 
+    let URL = this.getURL( environment.putPartidoURL);
+     URL = URL +partido.Cod_Reservacion  ;
+    const options = {
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+      }
+    };
+   
+ 
+    return this.http.put( URL, partido, options );
+  }
   syncGetPartidoReservacion(Cod_Reservacion){
 
     return this.getPartidoReservacion(Cod_Reservacion).toPromise();
@@ -55,4 +69,8 @@ public http: HttpClient
     return this.putPartidoCodigoQR(partido).toPromise();
   }
 
+  syncPutPartido(partido:partidos){
+
+    return this.putPartido(partido).toPromise();
+  }
 }
