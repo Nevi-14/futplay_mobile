@@ -52,7 +52,8 @@
 
   <ion-label>
     <h2>{{cancha.cancha.Nombre}} <ion-badge color="dark" mode="ios">₡ {{cancha.cancha.Precio_Hora}}</ion-badge></h2>
-    
+    <ion-badge color="primary" mode="ios">  {{disponibilidadCancha(cancha)}}</ion-badge> 
+   <p class="ion-text-wrap">{{horarioCancha(cancha)}}</p>
     <p   >
          
       Categoria <ion-badge color="warning" mode="ios">{{cancha.categoria}}</ion-badge>
