@@ -60,6 +60,8 @@
     "cordova-plugin-filechooser": "^1.2.0",
     "cordova-plugin-x-socialsharing": "^6.0.3",
     "cordova-sqlite-storage": "^6.0.0",
+    "crypto-browserify": "^3.12.0",
+    "crypto-js": "^4.1.1",
     "date-fns": "^2.28.0",
     "font-awesome": "^4.7.0",
     "ionic2-calendar": "^0.6.9",

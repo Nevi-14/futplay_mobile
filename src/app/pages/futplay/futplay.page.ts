@@ -35,6 +35,9 @@ export class FutplayPage implements OnInit {
     //   this.equiposService.new = true;
    //this.equiposService.perfilEquipo = null;
    
+   if(this.usuariosService.usuarioActual){
+    this.router.navigate(['/futplay/mi-perfil']);
+   }
    
      }
 
@@ -91,9 +94,11 @@ export class FutplayPage implements OnInit {
 equipos(){
   this.equiposService.misEquipos  = [];
 
-  this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp =>{
+  this.equiposService.syncListaEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp =>{
 
-    this.equiposService.misEquipos = resp.slice(0);
+    this.equiposService.equipos = resp.slice(0);
+
+    this.router.navigate(['/futplay/rivales']);
   }, error =>{
  
     this.alertasService.message('FUTLAY', 'Error cargando datos...');
@@ -106,6 +111,7 @@ equipos(){
 
 this.canchasService.canchas = canchas;
 console.log('this.canchasService.canchas',this.canchasService.canchas)
+this.router.navigate(['/futplay/canchas']);
  }, error =>{
  
   this.alertasService.message('FUTLAY', 'Error cargando datos...');

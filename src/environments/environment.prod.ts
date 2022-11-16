@@ -55,12 +55,12 @@ export const environment = {
   putDetalleReservacionURL:'put/detalle/reservacion/',
   deleteJugadoresEquiposURL:'delete/jugadores/equipo/',
   putCanchaURL:'put/canchas/',
-  putPartidoURL:'put/partido/',
   putUsuarioURL:'put/usuario/',
   putHorarioCanchaURL:'put/horario/cancha/',
   putCanchaEstadoURL:'put/estado/cancha/',
   deleteReservacionesURL:'delete/reservacion/',
   mapboxKey:'pk.eyJ1IjoibWhlcnJhIiwiYSI6ImNrcWxhdXk4eTByMDUyd28xNnZ2b2hoMjMifQ.IrIAxPGO4oFiRVR8U5sqkA',
   deleteUser:'delete/usuario/',
+  putPartidoURL:'put/partido/',
   prdMode: false
 };
