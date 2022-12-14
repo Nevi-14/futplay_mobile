@@ -1,7 +1,7 @@
 <app-header titulo="{{categories[activeCategory]}}"></app-header>
 
     
-<ion-toolbar class="ion-padding">
+<ion-toolbar class="ion-padding" *ngIf="activeCategory == 0">
 
   <ion-searchbar (ionChange)="onSearchChange($event)"  mode="ios" placeholder="Buscar Equipo" inputmode="text"  debounce="250" ></ion-searchbar> 
   <ion-buttons slot="end">
@@ -35,6 +35,8 @@
       <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngIf="equiposService.equipos.length == 0" >
         <ion-avatar slot="start">
          <img   src="assets/img/icon/FP.svg" alt="">
+
+         
         </ion-avatar>
        
  
@@ -48,18 +50,19 @@
        </ion-item>
 
 
-      <ion-item (click)="onOpenMenu(equipo)" lines="none" class="employeeItem  animate__animated animate__fadeIn"   *ngFor="let equipo of equiposService.equipos  | filtro: textoBuscar:'Abreviacion' ">
+      <ion-item (click)="onOpenMenu(equipo)" lines="none" class="employeeItem  animate__animated animate__fadeIn"   *ngFor="let equipo of equiposService.equipos  | filtro: textoBuscar:'nombre' ">
     
 
           <ion-avatar slot="start"  >
-            <img *ngIf="!equipo.equipo.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-            <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-   
+      
+            <img *ngIf="!equipo.equipo.Avatar" class="logo" data-src="{{'https://futplaycompany.com/api_test/'+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   >
+            <img *ngIf="equipo.equipo.Avatar" src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"    alt="">
           </ion-avatar>
           
       
         <ion-label>
-          <h2>{{equipo.equipo.Abreviacion}} </h2>
+          <h2>{{equipo.nombre}} </h2>
+          <p>{{equipo.provincia}},       {{equipo.canton}} ...</p>
           <p>Puntaje : {{equipo.equipo.Puntaje_Actual ?  equipo.equipo.Puntaje_Actual : 0}} </p>
           <p  style="display:block;" >
                  

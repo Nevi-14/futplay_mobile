@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { ModalController } from '@ionic/angular';
- 
+import { JugadoresService } from 'src/app/services/jugadores.service';
 
 
 @Component({
@@ -16,17 +16,19 @@ peso = 0;
   constructor(
     public modalCtrl:ModalController,
 public equiposService: EquiposService,
+public jugadoresService:JugadoresService
 
   ) { }
 
   ngOnInit() {
 console.log('equipo', this.equipo)
-/**
- * this.equiposService.SyncJugadoresEquipos(this.equipo.Cod_Equipo).then(jugadores =>{
+ this.jugadoresService.syncJugadoresEquipos(this.equipo.Cod_Equipo).then(jugadores =>{
+
+  console.log('jugadores', jugadores)
 
   for (let i = 0 ; i < jugadores.length; i++){
-    this.peso  += jugadores[i].Peso;
-    this.estatura  +=  jugadores[i].Estatura;
+    this.peso  += jugadores[i].usuario.Peso;
+    this.estatura  +=  jugadores[i].usuario.Estatura;
 
     if(i == jugadores.length -1){
     
@@ -38,7 +40,7 @@ console.log('equipo', this.equipo)
 
 
 });
- */
+
   }
   
   cerrarModal(){

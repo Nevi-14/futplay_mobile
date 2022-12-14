@@ -49,7 +49,7 @@
         <ion-slides (ionSlideDidChange)="slideChanged()" class="word-slides">
       
           <ion-slide *ngFor="let cat of categories; let i = index;" >
-            <ion-list class="ion-padding"  *ngIf="reservaciones.length == 0">
+            <ion-list class="ion-padding"  *ngIf="reservacionesService.reservaciones.length == 0">
               <ion-item lines="none" class="transparent  animate__animated animate__fadeIn" >
         
                 <ion-avatar slot="start"  style="height:6rem;width: 6rem;" >
@@ -67,9 +67,9 @@
                </ion-item>
             </ion-list>
             
-                    <ion-list *ngIf="reservaciones.length > 0">
+                    <ion-list *ngIf="reservacionesService.reservaciones.length > 0">
               
-                      <ion-item  (click)="detalleReto(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of reservaciones | filtro: textoBuscar:'Titulo' ; let odd = odd; let i = index;" >
+                      <ion-item  (click)="detalleReto(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of reservacionesService.reservaciones | filtro: textoBuscar:'Titulo' ; let odd = odd; let i = index;" >
                         <img  src="{{'https://futplaycompany.com/api_test/'+reto.cancha.Foto }}"  onerror="this.src='assets/soccerfield.jpg'"   alt="">
                   
                         <ion-label>
@@ -80,7 +80,7 @@
                             Cancha : {{reto.cancha.Nombre}}
                       
                           </p>
-                          <p>Hora: {{reto.reservacion.Hora_Inicio | date:'shortTime' }} - {{reto.reservacion.Hora_Fin | date:'shortTime'}}.</p>
+                          <p>Hora:  {{reto.reservacion.Hora_Inicio | date:'shortTime'}}    -   {{reto.reservacion.Hora_Fin | date:'shortTime'}}   </p>
                         </ion-label>
                   
                       </ion-item>

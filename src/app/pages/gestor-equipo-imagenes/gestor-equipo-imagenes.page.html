@@ -1,0 +1,130 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-button  slot="start"  (click)="cerrarModal()" expand="block" fill="clear" shape="round">
+  <ion-icon color="dark" size="large" name="chevron-back"></ion-icon>
+  
+    </ion-button>
+    <ion-title>Imagenes del Perfil</ion-title>
+
+
+  </ion-toolbar>
+
+</ion-header>
+
+ 
+<ion-content   >
+<ion-grid >
+  <ion-row>      
+   
+
+    <ion-col size="{{avatars ? 12 : 12}}" class="ion-text-center">
+      <ion-slides *ngIf="avatars" mode="ios"    (ionSlideDidChange)="slideChange()"  [options]="avatarSlide" >
+      <ion-slide  *ngFor="let img of imgs; let i = index;">
+      <ion-img  class="pick-avatar" 
+              src="assets/soccer-shields-svg/{{img.img}}"
+              [ngClass]="{'pick-avatar-seleccionado': img.seleccionado}" (click)="seleccionarAvatar(img, i)"></ion-img>
+      
+      
+      
+      
+      </ion-slide>
+      </ion-slides>
+
+   
+      <img *ngIf="!equipo.Avatar && !avatars && gestorEquiposImagenesService.images.length == 0 && !gestorEquiposImagenesService.avatarActual " class="logo"  data-src= "{{'https://futplaycompany.com/api_test/'+equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"    alt="">
+
+
+
+      <img  *ngIf="equipo.Avatar && !avatars && gestorEquiposImagenesService.images.length == 0 && !gestorEquiposImagenesService.avatarActual" src="{{'assets/soccer-shields-svg/'+equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"    alt="">
+
+
+
+      <img *ngIf="gestorEquiposImagenesService.images.length > 0 "  src="{{gestorEquiposImagenesService.images[0].data}}" onerror="this.src='assets/img/icon/FP.svg'"    alt="">
+  
+ 
+      <img *ngIf="gestorEquiposImagenesService.avatarActual"  src="{{'assets/soccer-shields-svg/'+gestorEquiposImagenesService.avatar}}"  onerror="this.src='assets/img/icon/FP.svgg'"    alt="">
+
+
+      </ion-col>
+      
+      <ion-col *ngIf="avatars"    size="6"  style="display:flex;justify-content:center;align-items:center;">
+        <ion-fab-button size="small"  (click)="slidePrev()" color="dark" *ngIf="gestorEquiposImagenesService.index > 0">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-fab-button>
+      
+         
+      </ion-col>
+      
+      <ion-col *ngIf="avatars"   size="6"  style="display:flex;justify-content:center;align-items:center;">
+                     
+          <ion-fab-button size="small"  *ngIf="gestorEquiposImagenesService.index < imgs.length -3"  (click)="slideNext()" color="dark">
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+          </ion-fab-button>
+              </ion-col>
+      
+<ion-col size="12" *ngIf="!avatars && !gestorEquiposImagenesService.avatarActual">
+<ion-list lines="none">
+  <ion-list-header>
+    <ion-label>Formato Permitido de Imagenes</ion-label>
+    
+  </ion-list-header>
+
+<ion-item>
+  <ion-label><strong>.png</strong></ion-label>
+</ion-item>
+
+<ion-item>
+  <ion-label><strong>.jpg</strong></ion-label>
+</ion-item>
+<ion-item>
+  <ion-label><strong>.jpeg</strong></ion-label>
+</ion-item>
+<ion-item>
+  <ion-label><strong>.svg</strong></ion-label>
+</ion-item>
+</ion-list>
+ 
+</ion-col>
+
+  </ion-row>
+</ion-grid>
+<ion-fab vertical="top" horizontal="end" slot="fixed" >
+
+
+
+  <ion-fab-button *ngIf="!file"  (click)="adjuntarImagen()"  color="dark" style="margin-bottom: 1rem;" >
+    <label for="input" style="font-size: 20pt; padding: 30px">
+      <ion-icon   size="large"   name="image-outline" ></ion-icon>
+    </label>
+    
+
+
+  
+  </ion-fab-button>
+  <ion-fab-button style="margin-bottom: 1rem;" *ngIf="!avatars && !file && gestorEquiposImagenesService.images.length == 0"   (click)="habilitarAvatars()"   color="dark" >
+    <ion-icon name="albums-outline"></ion-icon>
+  </ion-fab-button>
+
+  
+ 
+
+  <ion-fab-button style="margin-bottom: 1rem;" *ngIf="gestorEquiposImagenesService.images.length > 0"   (click)="borrarImagen()"   color="dark" >
+    <ion-icon name="close-outline"></ion-icon>
+  </ion-fab-button>
+
+  <ion-fab-button style="margin-bottom: 1rem;" *ngIf="gestorEquiposImagenesService.images.length > 0 || gestorEquiposImagenesService.avatarActual "   (click)="limpiarDatos()"   color="dark" >
+    <ion-icon name="refresh-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+
+ 
+</ion-content>
+
+<ion-footer *ngIf="!new" class="ion-no-border ion-text-center ion-padding" >
+  <ion-button  color="dark" expand="block" (click)="guardarCambios()">SALVAR</ion-button>
+</ion-footer>
+
+
+

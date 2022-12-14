@@ -11,6 +11,8 @@ import { Jugador } from '../../models/jugador';
 import { JugadoresService } from 'src/app/services/jugadores.service';
 import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { GestorEquipoImagenesPage } from '../gestor-equipo-imagenes/gestor-equipo-imagenes.page';
+import { GestorEquipoImagenesService } from 'src/app/services/gestor-equipo-imagenes.service';
 @Component({
   selector: 'app-crear-equipo',
   templateUrl: './crear-equipo.page.html',
@@ -27,6 +29,7 @@ export class CrearEquipoPage implements OnInit {
     Dureza: 0,
     Avatar: true,
     Nombre: null,
+    Estrellas:1,
     Abreviacion: null,
     Cod_Equipo: null
   }
@@ -51,7 +54,8 @@ export class CrearEquipoPage implements OnInit {
     public distritosService: DistritosService,
     public equiposService: EquiposService,
     public usuariosService: UsuariosService,
-    public jugadoresService: JugadoresService
+    public jugadoresService: JugadoresService,
+    public gestorEquiposImagenesService: GestorEquipoImagenesService
 
   ) { }
 
@@ -108,6 +112,11 @@ export class CrearEquipoPage implements OnInit {
 
   crearRegistro() {
 
+    if(this.gestorEquiposImagenesService.avatarActual){
+
+      this.equipo.Avatar = true;
+      this.equipo.Foto = this.gestorEquiposImagenesService.avatar
+    }
     this.alertasService.presentaLoading('Guardando Equipo');
     this.equiposService.syncPostEquipoToPromise(this.equipo).then((resp: Equipos) => {
       this.alertasService.loadingDissmiss();
@@ -119,7 +128,21 @@ export class CrearEquipoPage implements OnInit {
 
           if (equipos.length > 0) {
             this.equiposService.equipo = equipos[equipos.length -1];
-            this.equiposService.equipos = equipos;
+            this.equiposService.misEquipos = equipos;
+            this.jugadoresService.syncJugadoresEquipos(this.equiposService.equipo.equipo.Cod_Equipo).then(resp =>{
+
+              this.jugadoresService.jugadores = resp;
+           
+
+              if(this.gestorEquiposImagenesService.images.length > 0){
+
+                this.gestorEquiposImagenesService.startUpload();
+
+              }else{
+
+                this.gestorEquiposImagenesService.reset();
+              }
+            })
             console.log('equipos', equipos)
           }
 
@@ -175,5 +198,29 @@ export class CrearEquipoPage implements OnInit {
     imageUpload(filter){
 
 
+  }
+
+  async  gestorPerfilImagenes(){
+
+    const modal = await this.modalCtrl.create({
+      component: GestorEquipoImagenesPage,
+      cssClass:'alert-modal',
+      swipeToClose: false,
+      mode:'ios',
+      componentProps:{
+        equipo:this.equipo,
+        new:true
+      }
+    });
+  
+    
+     await modal.present();
+     const { data } = await modal.onWillDismiss();
+       console.log(data)
+         if(data !== undefined ){
+
+      
+         }
+        // this.equipo  =   this.equiposService.equipo =
   }
 }

@@ -11,6 +11,8 @@ import { SeleccionarFechaPage } from '../seleccionar-fecha/seleccionar-fecha.pag
 import { AlertasService } from 'src/app/services/alertas.service';
 import { ChangeDetectorRef } from '@angular/core'
 import { EliminarCuentaPage } from '../eliminar-cuenta/eliminar-cuenta.page';
+import { GestorPerfilImagenesPage } from '../gestor-perfil-imagenes/gestor-perfil-imagenes.page';
+import { GestorImagenesService } from '../../services/gestor-imagenes.service';
 @Component({
   selector: 'app-editar-perfil-usuario',
   templateUrl: './editar-perfil-usuario.page.html',
@@ -99,7 +101,8 @@ isVisible = false;
     public posicionesService: PosicionesService,
     public userService: UsuariosService,
     public alertasService: AlertasService,
-    public cdr: ChangeDetectorRef
+    public cdr: ChangeDetectorRef,
+    public gestorImagenesService: GestorImagenesService
     ) {
 
 
@@ -166,6 +169,23 @@ this.usuario.usuario.Cod_Provincia = this.usuarioService.usuarioActual.usuario.C
   }
 
 
+  async  gestorPerfilImagenes(){
+
+    const modal = await this.modalCtrl.create({
+      component: GestorPerfilImagenesPage,
+      cssClass:'alert-modal',
+      swipeToClose: false,
+      mode:'ios',
+    });
+  
+    
+     await modal.present();
+     const { data } = await modal.onWillDismiss();
+  
+     
+    
+   this.cdr.detectChanges();
+  }
 
 
   slideChange(event){
@@ -195,7 +215,7 @@ this.usuario.usuario.Cod_Provincia = this.usuarioService.usuarioActual.usuario.C
     this.usuarioService.actualizarUsuario(this.usuario.usuario, this.usuario.usuario.Cod_Usuario)
 
   }
-  imageUpload(source:string){
+  imageUpload2(source:string){
    
     let fileName = this.userService.usuarioActual.usuario.Foto
     let location = 'perfil-usuario';
@@ -250,7 +270,7 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
         componentProps:{
           title:'Fecha de nacimiento',
           id: 'seleccionar-fecha',
-          fecha: new Date(this.usuarioService.usuarioActual.usuario.Fecha_Nacimiento)
+          fecha: new Date(this.usuarioService.usuarioActual.usuario.Fecha_Nacimiento.replace('-','/'))
         },
         id: 'seleccionar-fecha'
       })
@@ -260,7 +280,7 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
    
       if(data !== undefined ){
         console.log(data,'data')
-       this.usuario.usuario.Fecha_Nacimiento = data.date
+        this.usuario.usuario.Fecha_Nacimiento = format(data.date,'yyyy/MM/dd')
             this.modalOpen = false;
       }else{
    

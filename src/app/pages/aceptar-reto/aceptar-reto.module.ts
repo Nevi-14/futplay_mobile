@@ -8,6 +8,7 @@ import { AceptarRetoPageRoutingModule } from './aceptar-reto-routing.module';
 
 import { AceptarRetoPage } from './aceptar-reto.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { PipesModule } from '../../pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     IonicModule,
     AceptarRetoPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    PipesModule
   ],
   declarations: [AceptarRetoPage]
 })

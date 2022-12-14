@@ -13,7 +13,7 @@
    
     <ion-toolbar class="custom-toolbar ion-padding">
 
-      <ion-title>Dia {{dia}}</ion-title>
+ 
       <ion-searchbar  mode="ios" placeholder="buscar cancha" inputmode="text"  debounce="250" ></ion-searchbar> 
       <ion-buttons slot="end">
         <ion-button class="ion-button"    (click)="filtroUbicacion()"  >
@@ -50,7 +50,7 @@
 
  
 
-      <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"    (click)="onOpenMenu(cancha.cancha)" *ngFor="let cancha of canchasService.canchas" >
+      <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"    (click)="retornarCancha(cancha)" *ngFor="let cancha of canchasService.canchas | filtro: textoBuscar:'nombre'" >
 
         <ion-avatar slot="start">
           <img  src="{{'https://futplaycompany.com/api_test/'+cancha.cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">

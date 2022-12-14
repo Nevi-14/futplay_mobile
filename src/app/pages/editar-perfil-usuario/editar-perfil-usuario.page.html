@@ -29,7 +29,10 @@
 
       <ion-avatar    style="height: 12rem;width:12rem;margin:0 auto;">
        
-        <img  data-src="{{'https://futplaycompany.com/api_test/'+usuario.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+        <img *ngIf="!userService.usuarioActual.usuario.Avatar" class="logo" data-src="{{'https://futplaycompany.com/api_test/'+userService.usuarioActual.usuario.Foto}}" onerror="this.src='assets/user.svg'"   >
+        <img *ngIf="userService.usuarioActual.usuario.Avatar" src="{{'assets/profile/avatars/'+userService.usuarioActual.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+    
+    
  
       </ion-avatar>
 
@@ -46,25 +49,15 @@
   
     <ion-col size="12" style="display: flex;justify-content: end;">
       <ion-buttons  >
-        <ion-button  (click)="avatar()" size="large"      color="dark"  >
+       
+        <ion-button  (click)="gestorPerfilImagenes()" size="large"      color="dark"  *ngIf="!avatars">
            
-          <ion-icon  size="large" slot="icon-only" name="{{avatars ? 'close-outline' : 'albums-outline'}}" ></ion-icon>
+          <ion-icon  size="large" slot="icon-only" name="images-outline" ></ion-icon>
 
 
          
         </ion-button>
-        <ion-button  (click)="imageUpload('camera')" size="large"      color="dark"  *ngIf="!avatars">
-           
-          <ion-icon  size="large" slot="icon-only" name="camera-outline" ></ion-icon>
-
-
-         
-        </ion-button>
-        <ion-button (click)="imageUpload('photos')" size="large"     color="dark" *ngIf="!avatars">
-         
-          <ion-icon  size="large" slot="icon-only" name="image-outline"></ion-icon>
         
-        </ion-button>
         <ion-button (click)="eliminarCuenta()"  size="large"     color="danger"  >
          
           <ion-label>Eliminar Cuenta</ion-label>

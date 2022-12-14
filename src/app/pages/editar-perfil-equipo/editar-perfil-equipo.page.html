@@ -24,27 +24,7 @@
           <ion-grid >
             <ion-row>
               
-              <ion-col size="12" *ngIf="avatars" class="ion-padding">
-                
-                
-        
-        
-              <ion-slides  mode="ios"   (ionSlideDidChange)="slideChange($event)"  [options]="avatarSlide">
-                <ion-slide  *ngFor="let img of imgs; let i = index;">
-          
-              <ion-img class="pick-avatar" 
-                            src="assets/soccer-shields-svg/{{img.img}}"
-                            [ngClass]="{'pick-avatar-seleccionado': img.seleccionado}" (click)="seleccionarAvatar(img, i)"></ion-img>
-              
-              
-            
-                  
-    
-              
-                </ion-slide>
-                </ion-slides>
-              
-              </ion-col>
+
         
         
               <ion-col size="12" size-md="7" size-lg="7" class="ion-text-center"  >
@@ -52,7 +32,15 @@
                 <ion-avatar    style="height: 12rem;width:12rem;margin:0 auto;">
                  
  
-        <img class="picture-img"   src="assets/soccer-shields-svg/{{equiposService.equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+    
+
+        <img *ngIf="!equiposService.equipo.equipo.Avatar" class="logo" data-src="{{'https://futplaycompany.com/api_test/'+equiposService.equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"  >
+        <img *ngIf="equiposService.equipo.equipo.Avatar" src="assets/soccer-shields-svg/{{equiposService.equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+    
+    
+
+
+
                 </ion-avatar>
   
        
@@ -67,27 +55,16 @@
               </ion-col>
               <ion-col size="12" style="display: flex;justify-content: end;">
                 <ion-buttons  >
-                  <ion-button  (click)="avatar()" size="large"      color="dark"  >
-                     
-                    <ion-icon  size="large" slot="icon-only" name="{{avatars ? 'close-outline' : 'albums-outline'}}" ></ion-icon>
-                  
-          
-                   
-                  </ion-button>
-         
+                
   
-                  <ion-button  (click)="imageUpload('camera')" size="large"  *ngIf="!avatars"    color="dark"  >
+                  <ion-button  (click)="gestorPerfilImagenes()" size="large"  *ngIf="!avatars"    color="dark"  >
                      
-                    <ion-icon  size="large" slot="icon-only" name="camera-outline" ></ion-icon>
+                    <ion-icon  size="large" slot="icon-only" name="images-outline" ></ion-icon>
           
           
                    
                   </ion-button>
-                  <ion-button (click)="imageUpload('photos')" size="large"   *ngIf="!avatars"  color="dark">
-                   
-                    <ion-icon  size="large" slot="icon-only" name="image-outline"></ion-icon>
-                  
-                  </ion-button>
+               
                   <ion-button (click)="eliminarEquipos()"  size="large"     color="danger"  >
            
                     <ion-label>Eliminar Equipo</ion-label>

@@ -57,9 +57,20 @@ semana = [
         console.log(URL, 'URL')
     return this.http.get<PerfilCancha[]>( URL );
   }
+  private getFiltroListaCanchas(filtro:any ){
+    let URL = this.getURL( environment.getFiltroCanchasURL);
+ URL = URL+filtro.Cod_Provincia+'/'+filtro.Cod_Canton+'/'+filtro.Cod_Distrito+'/'+filtro.Cod_Categoria
+        console.log(URL, 'URL')
+    return this.http.get<PerfilCancha[]>( URL );
+  }
 
 
+  syncFintroListaCanchasToPromise(filtro:any){
 
+    return this.getFiltroListaCanchas(filtro).toPromise();
+  
+    
+    }
   syncListaCanchasToPromise(){
 
   return this.getListaCanchas().toPromise();

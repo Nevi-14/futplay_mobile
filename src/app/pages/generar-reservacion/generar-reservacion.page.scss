@@ -18,7 +18,7 @@ ion-list{
     background-color: #5a55ca;
 }
 
-ion-toolbar {
+.ion-toolbar {
 
     --border-style: none;
     --background: #5a55ca;
@@ -242,4 +242,13 @@ ion-content {
           margin-bottom: 1rem;
           border: 0;
           border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .StyledReceipt {
+background-color: #fff;
+          padding: 1rem 1rem 2rem;
+          --mask: conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/30px 100%;
+          -webkit-mask: var(--mask);
+                  mask: var(--mask);
+               
         }

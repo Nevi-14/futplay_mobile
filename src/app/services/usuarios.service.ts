@@ -10,6 +10,10 @@ import * as bcrypt from 'bcryptjs';  // npm install bcryptjs --save  &&  npm ins
 
 import { format } from 'date-fns';
 import { PerfilUsuario } from '../models/perfilUsuario';
+import { SolicitudesService } from './solicitudes.service';
+import { ReservacionesService } from './reservaciones.service';
+import { StorageService } from './storage-service';
+
 
 
 
@@ -39,6 +43,9 @@ export class UsuariosService {
     private route: Router,
     public alertasService: AlertasService,
     public actionSheetCtrl: ActionSheetController,
+    public solicitudesService:SolicitudesService,
+    public reservacionesService:ReservacionesService,
+    public storageService:StorageService
   
     ) {
 
@@ -72,7 +79,33 @@ export class UsuariosService {
 
       return this.postForgotPassword(data).toPromise();
     }
+    private putAvatar(avatars){
 
+
+      let URL = this.getURL(environment.putUsuarioAvatarURL);
+       URL = URL + avatars.Cod_Usuario
+      const options   = {
+        headers: {
+          'enctype': 'multipart/form-data;',
+          'Accept': 'plain/text',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT',
+          'Access-Control-Allow-Headers': 'Authorization, Origin, Content-Type, X-CSRF-Token',
+          
+        }
+      };
+    
+    console.log('URL',URL,avatars, 'put avatars', JSON.stringify(avatars))
+    
+      return this.http.put(URL,avatars, options);
+    
+    
+    }
+
+    syncAvatarToPromise(avatars){
+
+      return this.putAvatar(avatars).toPromise();
+     }
     private postTokenVerification(data) {
 
       const URL = this.getURL(environment.postTokenVerification);
@@ -113,7 +146,37 @@ export class UsuariosService {
       return this.putUserPassword($data).toPromise();
   
     }
+    private putJugadorFutplay(Cod_Usuario) {
 
+      let URL = this.getURL(environment.putJugadorFutplayURL);
+      URL = URL  + Cod_Usuario;
+      const options = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        }
+      };
+      console.log(URL)
+      console.log(Cod_Usuario)
+      return this.http.put(URL, JSON.stringify(Cod_Usuario), options);
+    }
+
+    private putJugadorDelPartido(Cod_Usuario) {
+
+      let URL = this.getURL(environment.putJugadorDelPartidoURL);
+      URL = URL  +Cod_Usuario;
+      const options = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        }
+      };
+      console.log(URL)
+      console.log(Cod_Usuario)
+      return this.http.put(URL, JSON.stringify(Cod_Usuario), options);
+    }
     private imagePost(data, Cod_Usuario){
 
 
@@ -147,8 +210,10 @@ syncImagePost(data, Cod_Usuario){
 
 
     cerrarSession(){
-      this.usuarioActual = null;
+
+      this.storageService.delete('usuario')
       this.route.navigate([ '/inicio/inicio-sesion']);
+      this.usuarioActual = null;
     }
   
   
@@ -230,7 +295,20 @@ syncImagePost(data, Cod_Usuario){
     }
 
 
-  
+    private getFiltroUsuarios(filtro:any ){
+      let URL = this.getURL( environment.getFiltroUsuariosURL);
+    URL = URL+filtro.Cod_Provincia+'/'+filtro.Cod_Canton+'/'+filtro.Cod_Distrito+'/'+filtro.Cod_Posicion
+          console.log(URL, 'URL')
+      return this.http.get<PerfilUsuario[]>( URL );
+    }
+    
+    
+    syncfiltrarUsuarios(filtro:any){
+    
+      return this.getFiltroUsuarios(filtro).toPromise();
+    
+      
+      }
 
 
   private loginURL( entrada: string){
@@ -252,6 +330,20 @@ syncImagePost(data, Cod_Usuario){
 
    return this.getListaUsuarios(Cod_Usuario).toPromise();
   }
+
+
+
+  syncJugadorFutplay(Cod_Usuario){
+
+    return this.putJugadorFutplay(Cod_Usuario).toPromise();
+   }
+
+
+
+   syncJugadorDelPartido(Cod_Usuario){
+
+    return this.putJugadorDelPartido(Cod_Usuario).toPromise();
+   }
   syncLogin(entrada: string, contrasena:string){
 
 
@@ -266,9 +358,29 @@ console.log('resp', resp)
 
   if(this.comparePassword(contrasena, resp.usuario.Contrasena )){
     this.usuarioActual = resp;       
+    this.storageService.set('usuario',  this.usuarioActual)
 
     console.log('login user', resp)
-    this.route.navigateByUrl('/futplay/mi-perfil',{replaceUrl:true});
+
+    this.solicitudesService.syncGetSolicitudesRecibidasUsuarioToPromise(this.usuarioActual.usuario.Cod_Usuario).then(solicitudes =>{
+      console.log('solicitudes', solicitudes)
+          this.solicitudesService.solicitudesJugadoresArray = solicitudes;
+
+          this.reservacionesService.syncgGtReservacionesRecibidas(this.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+            this.reservacionesService.reservaciones = reservaciones;
+        
+         
+            this.route.navigateByUrl('/futplay/mi-perfil',{replaceUrl:true});
+        
+          })
+
+
+
+          
+        })
+
+
+
    }
   
    else{

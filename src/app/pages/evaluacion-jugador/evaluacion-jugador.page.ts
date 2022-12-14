@@ -6,6 +6,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { PartidoService } from 'src/app/services/partido.service';
 import { JugadoresService } from 'src/app/services/jugadores.service';
 import { PerfilJugador } from '../../models/perfilJugador';
+import { PerfilReservaciones } from '../../models/perfilReservaciones';
 
 @Component({
   selector: 'app-evaluacion-jugador',
@@ -15,6 +16,7 @@ import { PerfilJugador } from '../../models/perfilJugador';
 export class EvaluacionJugadorPage implements OnInit {
 @Input() equipo:any
 @Input() partido : any
+@Input() reto:PerfilReservaciones
 @ViewChild(IonSlides) slides: IonSlides;
 jugadores:PerfilJugador[]
 evaluacionJugador:any = {
@@ -64,41 +66,45 @@ console.log(this.partido,'patidooo')
       cssClass: 'my-custom-class',
       componentProps:{
         equipo:this.equipo,
-        partido:this.partido
-      }
+        partido:this.partido,
+        reto:this.reto
+      },
+      id:'evaluacion-equipo'
     });
 
-   return await modal.present();
+    await modal.present();
+    let {data} = await modal.onDidDismiss();
 
-this.slideNext();
+
+ this.cerrarModal();
+
+//this.slideNext();
   }
 
   cerrarModal(){
-    this.modalCtrl.dismiss();
+    this.modalCtrl.dismiss(null,null,'evaluacion-individual')
   }
   agregarJFP(value){
+    console.log(value.detail,'agregarJFP');
     console.log(value.detail.value.Cod_Usuario,'agregarJFP');
-    this.evaluacionJugador.Jugador_Futplay = value.detail.value.Cod_Usuario
+    this.evaluacionJugador.Jugador_Futplay = value.detail.value.jugador.Cod_Usuario
     console.log('final eva', this.evaluacionJugador)
     this.evaluacionJugador.Cod_Partido = this.partido.Cod_Partido
-/**
- *     this.usuariosSerice.syncJugadorFutplay(this.evaluacionJugador.Jugador_Futplay).then(resp=>{
+    this.usuariosSerice.syncJugadorFutplay(this.evaluacionJugador.Jugador_Futplay).then(resp=>{
       this.usuariosSerice.syncJugadorDelPartido(this.evaluacionJugador.Jugador_Del_Partido).then(resp =>{
-        console.log('completed')
-        this.cerrarModal();
         this.continuar();
       });
  
     })
- */
+
     
    // this.historialPartido.evaluacionJugador(this.evaluacionJugador);
-   this.modalCtrl.dismiss();
-   this.continuar();
+
+
   }
   agregarJDP(value){
-    console.log(value.detail.value.Cod_Usuario,'agregarJDP');
-    this.evaluacionJugador.Jugador_Del_Partido = value.detail.value.Cod_Usuario
+    console.log(value.detail,'agregarJDP');
+    this.evaluacionJugador.Jugador_Del_Partido = value.detail.value.jugador.Cod_Usuario
     this.slideNext();
 
   }

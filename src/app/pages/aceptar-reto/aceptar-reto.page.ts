@@ -21,6 +21,7 @@ import { ReservacionesService } from 'src/app/services/reservaciones.service';
 import { PartidoService } from '../../services/partido.service';
 import { partidos } from '../../models/partidos';
 import { ProvinciasService } from '../../services/provincias.service';
+import { EmailService } from '../../services/email.service';
 
 @Component({
   selector: 'app-aceptar-reto',
@@ -29,10 +30,8 @@ import { ProvinciasService } from '../../services/provincias.service';
 })
 export class AceptarRetoPage implements OnInit {
 @Input() reto:PerfilReservaciones
-
-partido:partidos[]=[]
-
-
+@Input() partido:partidos[]
+ 
 soccer= 'assets/icon/soccer.svg';
 img = 'assets/main/team-profile.svg';
 allowDelete = false;
@@ -49,7 +48,8 @@ allowDelete = false;
 
     public alertasService: AlertasService,
     public reservacionesService:ReservacionesService,
-    public partidosService:PartidoService
+    public partidosService:PartidoService,
+    public emailService:EmailService
     
   ) { }
 
@@ -175,7 +175,7 @@ this.cerrarModal();
      async partidoActual() {
 
       
-      this.modalCtrl.dismiss();
+    
 
       const modal = await this.modalCtrl.create({
         component:InicioPartidoPage,
@@ -183,17 +183,22 @@ this.cerrarModal();
         componentProps:{
           reto:this.reto,
           partido:this.partido
-        }
+        },
+        id:'inicio-partido'
       });
     
-      return await modal.present();
+      await modal.present();
+      let {data} = await modal.onDidDismiss();
+
+
+     this.cerrarModal()
     }
 
     async alertaReservacion() {
       const alert = await this.alertCtrl.create({
         header: 'FUTPLAY',
         subHeader:'Proceso De Reservación',
-        message:'Estimado usuario, recuerda que para poder completar la reservación se debera de efectuar el pago adelantado del 10% del costo total de la reservación, por favor completar el pago para poder finalizar el proceso.',
+        message:'¿Desea aceptar esta reservación? Recuerda que las reservaciones se pueden cancelar unicamente 24 horas antes de ser confirmadas.',
         
         buttons: [
           {
@@ -215,13 +220,36 @@ this.cerrarModal();
         
   this.reto.detalle.Confirmacion_Rival = true;
   this.reservacionesService.syncPutDetalleReservaion(this.reto.detalle).then(resp =>{
-this.alertasService.message('FUTPLAY','EL Reto se acepto con exito');
+
+this.alertasService.presentaLoading('Gestionando cambios..')
+
+this.emailService.enviarCorreoReservaciones(2, this.reto.usuario_rival.Correo, this.reto.reservacion.Fecha, this.reto.reservacion.Hora_Inicio, this.reto.cancha.Nombre, this.reto.rival.Nombre, this.reto.retador.Nombre).then(resp =>{
+  this.emailService.enviarCorreoReservaciones(2, this.reto.usuario_retador.Correo, this.reto.reservacion.Fecha, this.reto.reservacion.Hora_Inicio, this.reto.cancha.Nombre, this.reto.rival.Nombre, this.reto.retador.Nombre).then(resp =>{
+
+    this.emailService.enviarCorreoReservaciones(2, this.reto.correo, this.reto.reservacion.Fecha, this.reto.reservacion.Hora_Inicio, this.reto.cancha.Nombre, this.reto.rival.Nombre, this.reto.retador.Nombre).then(resp =>{
+      this.alertasService.loadingDissmiss();
+      this.alertasService.message('FUTPLAY', 'La reservación se confirmo con éxito ')
+      this.cerrarModal();
+ 
+      
+          console.log('reto aceptado', resp)
+
+    }, error =>{
+      this.alertasService.loadingDissmiss();
+      this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
+    })
+
+  }, error =>{
+    this.alertasService.loadingDissmiss();
+    this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
+  })
 
 
-this.cerrarModal();
+}, error =>{
+  this.alertasService.loadingDissmiss();
+  this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
+})
 
-
-    console.log('reto aceptado', resp)
   }, error =>{
     console.log('reto error', error)
   })
@@ -253,7 +281,7 @@ this.cerrarModal();
 
   
   cerrarModal(){
-    this.modalCtrl.dismiss(null,null,'detalle-reto');
+    this.modalCtrl.dismiss(null,null,'aceptar-reto')
   }
 
   async videoScreen(id){
@@ -318,7 +346,7 @@ this.cerrarModal();
      const { data } = await modal.onDidDismiss();
      console.log('data eli', data)
      if(data != undefined){
-      this.modalCtrl.dismiss(null,null,'detalle-reto');
+      this.modalCtrl.dismiss(null,null,'aceptar-reto');
      }
   }
 

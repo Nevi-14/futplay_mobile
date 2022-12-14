@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Equipos } from '../models/equipos';
 import { PerfilEquipos } from '../models/perfilEquipos';
 import { AlertasService } from './alertas.service';
+import { HistorialPartidoEquipos } from '../models/historialPartidoEquipo';
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +52,33 @@ equipo:PerfilEquipos;
   }
 
 
+  private putAvatar(avatars){
+
+
+    let URL = this.getURL(environment.putEquiposAvatarURL);
+     URL = URL + avatars.Cod_Equipo
+    const options   = {
+      headers: {
+        'enctype': 'multipart/form-data;',
+        'Accept': 'plain/text',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT',
+        'Access-Control-Allow-Headers': 'Authorization, Origin, Content-Type, X-CSRF-Token',
+        
+      }
+    };
   
+  console.log('URL',URL,avatars, 'put avatars', JSON.stringify(avatars))
+  
+    return this.http.put(URL,avatars, options);
+  
+  
+  }
+
+  syncAvatarToPromise(avatars){
+
+    return this.putAvatar(avatars).toPromise();
+   }
 
   private getClasificacionEquipos(){
     let URL = this.getURL( environment.getClasificacionEquiposURL);
@@ -103,6 +130,45 @@ private postEquipo (equipo){
   console.log(URL, 'URL')
   return this.http.post( URL, JSON.stringify(equipo), options );
 }
+
+private postDurezaEquipo (historialPartido:HistorialPartidoEquipos){
+  
+  let URL = this.getURL( environment.postDurezaEquipoURL );
+  URL = URL + historialPartido.Cod_Equipo
+  const options = {
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+    }
+  };
+  console.log(URL, 'URL')
+  return this.http.post( URL, JSON.stringify(historialPartido), options );
+}
+
+
+
+private getFiltroEquipos(filtro:any ){
+  let URL = this.getURL( environment.getFiltroEquiposURL);
+URL = URL+filtro.Cod_Provincia+'/'+filtro.Cod_Canton+'/'+filtro.Cod_Distrito
+      console.log(URL, 'URL')
+  return this.http.get<PerfilEquipos[]>( URL );
+}
+
+
+syncfiltrarEquipos(filtro:any){
+
+  return this.getFiltroEquipos(filtro).toPromise();
+
+  
+  }
+
+syncPostDurezaEquipo(historialPartido:HistorialPartidoEquipos){
+  console.log('historialPartido', historialPartido)
+   return  this.postDurezaEquipo(historialPartido).toPromise();
+  
+  }
+  
 
 syncPostEquipoToPromise(equipo:Equipos){
 console.log('equipo', equipo)

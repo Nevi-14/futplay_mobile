@@ -9,7 +9,7 @@ import { PerfilJugador } from '../../models/perfilJugador';
   styleUrls: ['./perfil-jugador.page.scss'],
 })
 export class PerfilJugadorPage implements OnInit {
-@Input() perfil:PerfilJugador;
+@Input() perfil:any;
 userPic = null;
   constructor(
     public modalCtrl: ModalController

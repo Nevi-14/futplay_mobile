@@ -60,9 +60,31 @@ public http: HttpClient
  
     return this.http.put( URL, partido, options );
   }
+
+  private    putFinalizarPartido(partido:partidos){
+
+    let URL = this.getURL( environment.finalizarPartidoURL);
+     URL = URL +partido.Cod_Reservacion  ;
+    const options = {
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+      }
+    };
+   
+ console.log('URL', URL)
+ console.log('partido', partido)
+    return this.http.put( URL, partido, options );
+  }
   syncGetPartidoReservacion(Cod_Reservacion){
 
     return this.getPartidoReservacion(Cod_Reservacion).toPromise();
+  }
+
+  syncPutFinalizarPartido(partido:partidos){
+
+    return this.putFinalizarPartido(partido).toPromise();
   }
   syncPutPartidoCodigoQR(partido:partidos){
 

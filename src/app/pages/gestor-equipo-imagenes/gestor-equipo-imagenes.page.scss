@@ -1,0 +1,46 @@
+ion-toolbar{
+    --background:#fff;
+  }
+  ion-content{
+    --background:#fff;
+    
+  }
+  
+  .title{
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 16px;
+    color: #010101;
+  }
+  .pick-avatar {
+   
+    opacity: 0.3;
+  }
+  .pick-avatar-seleccionado {
+    transition: opacity 0.5s linear;
+    opacity: 1 !important;
+  }
+  ion-img {
+
+    width: 200px;
+  height: 200px;
+  }
+  img {
+
+    width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  border-radius: 50%;
+  object-fit: cover;
+  }
+
+ 
+ 
+ 
+  .hideInput{
+    position: absolute;
+    bottom: 0px;
+    display: none;
+  }
+  
+   

@@ -11,6 +11,7 @@ import { AlertasService } from 'src/app/services/alertas.service';
 import { Equipos } from '../../models/equipos';
 import { Router } from '@angular/router';
 import { EliminarEquipoPage } from '../eliminar-equipo/eliminar-equipo.page';
+import { GestorEquipoImagenesPage } from '../gestor-equipo-imagenes/gestor-equipo-imagenes.page';
 declare const window: any; 
 @Component({
   selector: 'app-editar-perfil-equipo',
@@ -155,6 +156,32 @@ if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
 
 
     }
+
+    async  gestorPerfilImagenes(){
+
+      const modal = await this.modalCtrl.create({
+        component: GestorEquipoImagenesPage,
+        cssClass:'alert-modal',
+        swipeToClose: false,
+        mode:'ios',
+        componentProps:{
+          equipo:this.equiposService.equipo.equipo
+        }
+      });
+    
+      
+       await modal.present();
+       const { data } = await modal.onWillDismiss();
+         console.log(data)
+           if(data !== undefined ){
+  
+        
+           }
+           this.equipo  =   this.equiposService.equipo.equipo 
+    }
+
+
+
     avatar(){
       this.avatars = !this.avatars
     }

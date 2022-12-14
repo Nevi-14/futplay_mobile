@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
-import { ActionSheetButton, ActionSheetController, ModalController } from '@ionic/angular';
+import { ActionSheetButton, ActionSheetController, ModalController, AlertController } from '@ionic/angular';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { JugadoresService } from '../../services/jugadores.service';
 import { EditarPerfilEquipoPage } from '../editar-perfil-equipo/editar-perfil-equipo.page';
@@ -7,6 +7,9 @@ import { EstadisticaEquipoPage } from '../estadistica-equipo/estadistica-equipo.
 import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
 import { MisEquiposPage } from '../mis-equipos/mis-equipos.page';
 import { BuscarJugadoresPage } from '../buscar-jugadores/buscar-jugadores.page';
+import { SolicitudesEquiposPage } from '../solicitudes-equipos/solicitudes-equipos.page';
+import { SolicitudesService } from '../../services/solicitudes.service';
+import { AlertasService } from '../../services/alertas.service';
 @Component({
   selector: 'app-perfil-equipo',
   templateUrl: './perfil-equipo.page.html',
@@ -28,11 +31,30 @@ constructor(
   public equiposService: EquiposService,
   public jugadoresService: JugadoresService,
   public actionSheetCtrl: ActionSheetController,
-  public modalCtrl:ModalController
+  public modalCtrl:ModalController,
+  public solicitudesService: SolicitudesService,
+  public alertasService: AlertasService,
+  public alertCtrl: AlertController
 ) {
   
 }
 
+
+ionViewWillEnter(){
+
+  this.solicitudesService.syncGetSolicitudesRecibidasEquipoToPromise(this.equiposService.equipo.equipo.Cod_Equipo).then(solicitudes =>{
+
+    this.solicitudesService.solicitudesEquiposArray = solicitudes;
+
+       
+  this.jugadoresService.syncJugadoresEquipos(this.equiposService.equipo.equipo.Cod_Equipo).then(jugadores => {
+    this.jugadoresService.jugadores = jugadores;
+ 
+
+  })
+
+  })
+}
 filledStars(stars:number){
 
   return new Array(stars)
@@ -111,26 +133,10 @@ async onOpenMenu(jugador){
           
           },
           {   
-            text: 'Convertir Administrador',
-            icon:'settings-outline',
-            handler: () =>{
-  
-            }
-           
-           },
-           {   
-            text: 'Convertir jugador regular',
-            icon:'person-outline',
-            handler: () =>{
-   
-            }
-           
-           },
-          {   
             text: 'Remover Jugador',
             icon:'lock-closed-outline',
             handler: () =>{
-           //   this.confirmDelete(jugador);
+             this.confirmDelete(jugador);
 
    
             }
@@ -166,18 +172,23 @@ async onOpenMenu(jugador){
       }
 
       jugadoresEquipo(){
+        this.solicitudesService.syncGetSolicitudesRecibidasEquipoToPromise(this.equiposService.equipo.equipo.Cod_Equipo).then(solicitudes =>{
 
-        this.jugadoresService.syncJugadoresEquipos( this.equiposService.equipo.equipo.Cod_Equipo).then( jugadores =>{
+          this.solicitudesService.solicitudesEquiposArray = solicitudes;
+
+          this.jugadoresService.syncJugadoresEquipos( this.equiposService.equipo.equipo.Cod_Equipo).then( jugadores =>{
         
-         this.jugadoresService.jugadores = []
-         this.jugadoresService.jugadores = jugadores;
-         //this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, true,false, true)
-             
-           }, error =>{
-       
-            // this.alertasService.loadingDissmiss();
-             //this.alertasService.message('FUTPLAY', 'Error cargando lista de jugadores...')
-           })
+            this.jugadoresService.jugadores = []
+            this.jugadoresService.jugadores = jugadores;
+            //this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, true,false, true)
+                
+              }, error =>{
+          
+               // this.alertasService.loadingDissmiss();
+                //this.alertasService.message('FUTPLAY', 'Error cargando lista de jugadores...')
+              })
+        })
+      
          }
 
          async presentModal(equipo) {
@@ -203,16 +214,58 @@ async onOpenMenu(jugador){
     }
     async solicitudesEquipos() {
       const modal = await this.modalCtrl.create({
-        component:BuscarJugadoresPage,
+        component:SolicitudesEquiposPage,
         cssClass:'my-custom-modal'
       });
        await modal.present();
   
        const { data } = await modal.onWillDismiss();
-       if(data != undefined){
-         
-        this.jugadoresEquipo();
-         
-       }
+       this.jugadoresEquipo();
     }
+
+    async confirmDelete(jugador) {
+ 
+console.log(jugador)
+
+   
+      if(jugador.usuario.Cod_Usuario == this.equiposService.equipo.equipo.Cod_Usuario){
+  this.alertasService.message('FUTPLAY', 'No se puede eliminar el usuario por defecto')
+        return
+      }
+      const alert = await this.alertCtrl.create({
+        cssClass: 'my-custom-class',
+        header: 'FUTPLAY',
+        message: '¿Desea eliminar el jugador del equipo?',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            cssClass: 'secondary',
+            id: 'cancel-button',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            }
+          }, {
+            text: 'Aceptar',
+            id: 'confirm-button',
+            handler: () => {
+              this.alertasService.presentaLoading('Eliminando jugador..')
+              this.jugadoresService.syncDeleteJugadorEquipo(jugador.jugador.Cod_Jugador).then(resp =>{
+           this.alertasService.loadingDissmiss();
+                                this.jugadoresEquipo();
+                                this.alertasService.message('FUTPLAY', 'Jugador Eliminado')
+                              }, error =>{
+  
+                                this.alertasService.loadingDissmiss();
+                                this.alertasService.message('FUTPLAY', 'Error eliminando jugador.')
+                              })
+            }
+          }
+        ]
+      });
+  
+      await alert.present();
+    }
+
+
 }

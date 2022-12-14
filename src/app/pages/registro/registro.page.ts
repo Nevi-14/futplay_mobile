@@ -32,7 +32,7 @@ usuario: Usuarios = {
   Cod_Canton : null,
   Cod_Distrito : null,
   Cod_Posicion: 1,
-  Cod_Role: 2,
+  Cod_Role: 3,
   Modo_Customizado: false,
   Foto: 'user.svg',
   Nombre: '',
@@ -102,7 +102,7 @@ limpiarDatos(){
     Cod_Canton : null,
     Cod_Distrito : null,
     Cod_Posicion: 1,
-    Cod_Role: 2,
+    Cod_Role: 3,
     Modo_Customizado: false,
     Foto: 'user.svg',
     Nombre: '',
@@ -209,6 +209,8 @@ async SelectDate(){
     this.modalOpen = true;
     const modal = await this.modalCrtl.create({
       component:SeleccionarFechaPage,
+      breakpoints: [0, 0.3, 0.5, 0.8],
+      initialBreakpoint: 0.5,
       cssClass:'medium-modal',
       mode:'ios',
       componentProps:{

@@ -3,7 +3,10 @@ import { AlertasService } from 'src/app/services/alertas.service';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { UsuariosService } from '../../services/usuarios.service';
 import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
-import { ModalController } from '@ionic/angular';
+import { ActionSheetButton, ModalController, ActionSheetController } from '@ionic/angular';
+import { GenerarReservacionPage } from '../generar-reservacion/generar-reservacion.page';
+import { PerfilEquipoPage } from '../perfil-equipo/perfil-equipo.page';
+import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-modal.page';
 '@ionic/angular';
 
 
@@ -32,7 +35,8 @@ export class RivalesPage implements OnInit {
     public alertasService: AlertasService,
     public modalCtrl: ModalController,
     public equiposService:EquiposService,
-    public usuariosService: UsuariosService
+    public usuariosService: UsuariosService,
+    public actionSheetCtrl: ActionSheetController
 
     
     
@@ -120,10 +124,129 @@ this.alertasService.loadingDissmiss();
  }
  onSearchChange($event){
 
-
+  this.textoBuscar = $event.detail.value;
  }
 
- onOpenMenu(equipo){
   
- }
+ async onOpenMenu(equipo){
+  console.log(equipo)
+
+  if(this.activeCategory == 0){
+
+    const normalBtns : ActionSheetButton[] = [
+      {   
+        text: 'Detalle Equipo',
+        icon:'person-outline',
+        handler: () =>{ 
+this.equipoDetalle(equipo)
+          console.log('equipo',equipo)
+        }
+       
+       },
+    
+      {   
+        text: 'Enviar reto',
+        icon:'paper-plane-outline',
+        handler: () =>{
+         // this.videoScreen(3);
+      this.enviarReto(equipo)
+        }
+       
+       },
+      
+       {   
+        text: 'Cancelar',
+        icon:'close-outline',
+       role:'cancel',
+       
+       }
+    
+      ]
+
+
+
+
+  const actionSheet = await this.actionSheetCtrl.create({
+    header:'Opciones',
+    cssClass: 'left-align-buttons',
+    buttons:normalBtns,
+    mode:'ios'
+  });
+
+
+
+
+
+await actionSheet.present();
+
+  }else{
+    const normalBtns : ActionSheetButton[] = [
+      {   
+        text: 'Detalle Equipo',
+        icon:'person-outline',
+        handler: () =>{ 
+this.equipoDetalle(equipo)
+          console.log('equipo',equipo)
+        }
+       
+       },
+    
+      
+       {   
+        text: 'Cancelar',
+        icon:'close-outline',
+       role:'cancel',
+       
+       }
+    
+      ]
+
+
+
+
+  const actionSheet = await this.actionSheetCtrl.create({
+    header:'Opciones',
+    cssClass: 'left-align-buttons',
+    buttons:normalBtns,
+    mode:'ios'
+  });
+
+
+
+
+
+await actionSheet.present();
+  }
+  
+   
+    
+      }
+      async equipoDetalle(equipo){
+     
+        const modal  = await this.modalCtrl.create({
+          component: EquipoDetalleModalPage,
+         cssClass: 'my-custom-class',
+         componentProps:{
+          equipo:equipo
+      
+         },
+         id:'my-modal-id'
+       });
+       await modal .present();
+       }
+      async enviarReto(equipo){
+     
+        const modal  = await this.modalCtrl.create({
+          component: GenerarReservacionPage,
+         cssClass: 'my-custom-class',
+         componentProps:{
+          rival:equipo,
+          retador:null,
+          cancha:null
+      
+         },
+         id:'my-modal-id'
+       });
+       await modal .present();
+       }
 }

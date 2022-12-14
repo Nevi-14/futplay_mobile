@@ -5,7 +5,13 @@ import { AlertasService } from '../../services/alertas.service';
 import { Equipos } from '../../models/equipos';
 import { partidos } from 'src/app/models/partidos';
 import { PartidoService } from '../../services/partido.service';
-
+import { HistorialPartidoEquipos } from '../../models/historialPartidoEquipo';
+import { StorageService } from '../../services/storage-service';
+import { UsuariosService } from '../../services/usuarios.service';
+import { PerfilReservaciones } from '../../models/perfilReservaciones';
+import { VideoScreenPage } from '../video-screen/video-screen.page';
+import { ReservacionesService } from 'src/app/services/reservaciones.service';
+ 
 @Component({
   selector: 'app-evaluacion-equipo',
   templateUrl: './evaluacion-equipo.page.html',
@@ -26,11 +32,11 @@ export class EvaluacionEquipoPage implements OnInit {
   indexD = 0;
   @Input() equipo:Equipos
   @Input() partido:partidos
-evaluacionEquipo:any = {
-  Cod_Historial_Equipo:null,
-  Cod_Equipo: 0,
-  Dureza: '',
-  Puntaje: 0
+  @Input() reto: PerfilReservaciones
+evaluacionEquipo:HistorialPartidoEquipos = {
+  Cod_Historial:null,
+  Cod_Equipo: null,
+  Dureza: null
 
 }
 
@@ -39,7 +45,10 @@ stadiumProfile =  'assets/main/team-profile.svg';
     public historialPartidosService:PartidoService,
     public modalCtrl:ModalController,
     public equiposservice: EquiposService,
-    public alertasService: AlertasService
+    public alertasService: AlertasService,
+    public storageService:StorageService,
+    public usuariosService: UsuariosService,
+    public reservacionesService: ReservacionesService
   ) { }
 
   ngOnInit() {
@@ -60,7 +69,31 @@ this.finalizar();
     this.modalCtrl.dismiss();
   }
   finalizar(){
-this.modalCtrl.dismiss();
+
+
+
+    this.equiposservice.syncPostDurezaEquipo(this.evaluacionEquipo).then(resp =>{
+      let stringID = this.reto.reservacion.Cod_Reservacion + "-" + this.usuariosService.usuarioActual.usuario.Cod_Usuario+ "-" +this.reto.reservacion.Fecha
+  
+      this.storageService.delete(stringID).then(codigo =>{
+        this.modalCtrl.dismiss();
+       // this.alertasService.message('FUTPLAY', 'Gracias por preferirnos!.')
+
+       this.reservacionesService.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+        this.reservacionesService.reservaciones = reservaciones;
+        console.log('reservaciones', this.reservacionesService.reservaciones)
+        this.videoScreen(6);
+
+      })
+
+      
+  
+      })
+
+
+    })
+
+
 /**
  *     this.historialPartidosService.evaluacionEquipo(this.evaluacionEquipo);
     this.partido.Evaluacion = true;
@@ -92,7 +125,20 @@ if(evaluaciones.length > 0 ){
    // this.googleAdsService.showRewardVideo();
     
   }
-
+  async videoScreen(id){
+    const modal = await this.modalCtrl.create({
+      component:VideoScreenPage,
+      cssClass:'modal-view',
+      id:'video-screen-modal',
+      mode:'ios',
+      backdropDismiss:false,
+      componentProps:{
+        index:id
+      }
+    });
+    return await modal.present();
+    
+      }
   mode(array, column)
 {
  

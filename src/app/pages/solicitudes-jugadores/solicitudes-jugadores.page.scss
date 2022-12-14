@@ -1,7 +1,16 @@
 
-  .custom-header {
+  ion-header {
 
     background-color: #5a55ca;
+}
+
+ion-toolbar {
+
+    --border-style: none;
+    --background: #5a55ca;
+    --color: white;
+
+    // --stripe: #645fd1;
     --stripe: #5a55ca;
     --bg: #645fd1;
     --background: transparent;
@@ -11,12 +20,7 @@
     linear-gradient(45deg, var(--bg) 25%, transparent 25%);
     background-size: 100px 100px;
     background-color: var(--stripe);
-}
 
-.custom-toolbar {
-    --border-style: none;
-    --color: white;
-    --background: transparent;
     ion-button {
 
         font-size: 1.2rem;
@@ -31,6 +35,22 @@ ion-content {
 }
 
 
+
+.circle-image {
+  display: inline-block;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 16rem;
+  height: 16rem;
+
+}
+
+.circle-image img{
+
+  width: 100%;
+  height: 100%;
+  object-fit: cover ;
+}
 
 ion-card-subtitle {
 
@@ -80,12 +100,13 @@ border-top-left-radius: 30px;
 border-top-right-radius: 30px;
 }
 ion-searchbar {
+
   --border-radius: 10px;
   --background: white;
   --color: black;
-}
-ion-avatar{
-  height: 5rem; width: 5rem;
+  min-height: 5rem;
+
+
 }
 .custom-item {
 
@@ -97,7 +118,14 @@ ion-avatar{
     padding: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
- 
+    ion-avatar , .ion-avatar  img {
+      height: 5rem;
+            width: 5rem;
+    
+        }
+        
+  
+    
     ion-label {
       font-size: 14px!important;
       text-transform: uppercase;
@@ -119,11 +147,8 @@ ion-avatar{
 
     }
     
-    ion-buttons {
-      align-self: start;
-    }
-    .ion-button {
-      
+    ion-button {
+    
       --background: #5a55ca;
       --background-focused: #6f6bbb;
       --background-activated: #6f6bbb;
@@ -131,26 +156,26 @@ ion-avatar{
       --padding-bottom: 1rem;
       --padding-start: 0.75rem;
       --padding-end: 0.75rem;
-      color: #fff;
-      margin-right: 0.5rem;
-  }
+      margin-top: -0.2rem;
+    }
 
-  ion-segment{
-    background-color: transparent!important;
+  
+    ion-segment{
+      background-color: transparent!important;
+      
+    }
     
-  }
-  
-  ion-segment-button{
-  color:#fff;
-  font-size: 0.8rem;
-  --indicator-color: transparent !important;
-  --indicator-color-checked: transparent !important;
-  }
-  
-  .active-category{
-    color: #fff;
-    padding: 10px;
-     border-radius: 30px;
-     background-color: #383a3e;
-   }
-  
+    ion-segment-button{
+    color:#fff;
+    font-size: 0.8rem;
+    --indicator-color: transparent !important;
+    --indicator-color-checked: transparent !important;
+    }
+    
+    .active-category{
+      color: #fff;
+      padding: 10px;
+       border-radius: 30px;
+       background-color: #383a3e;
+     }
+    

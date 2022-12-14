@@ -1,6 +1,6 @@
 export class PerfilCancha {
     constructor(
- 
+public nombre:string, 
 public cancha : {
     Cod_Cancha: number,
     Cod_Usuario: number,

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { MisReservacionesPage } from '../../pages/mis-reservaciones/mis-reservaciones.page';
+import { ReservacionesService } from '../../services/reservaciones.service';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(public popoverCtrl: PopoverController, public route: Router, public modalCtrl: ModalController, public router: Router,
 
-    public usuariosService: UsuariosService
+    public usuariosService: UsuariosService,
+    public reservacionesService:ReservacionesService
     ) { }
 
 

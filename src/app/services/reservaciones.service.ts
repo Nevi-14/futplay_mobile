@@ -22,6 +22,11 @@ interface objetoFecha{
   meridiem: string,
   date: Date
 }
+interface horaA {
+
+  Hora_Inicio: number,
+  Hora_Fin: number
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -30,7 +35,7 @@ horaInicioArray:objetoFecha[] = [];
 horaFinArray:objetoFecha[] = [];
 horario:HorarioCanchas[];
 diaActual:HorarioCanchas;
-
+reservaciones:PerfilReservaciones[]=[]
 constructor(
 
 public http: HttpClient,
@@ -103,7 +108,35 @@ console.log('PerfilReservaciones',URL)
     return this.http.get<PerfilReservaciones[]>( URL );
 
   }
+  private getReservacionesResvision(Cod_Usuario){
 
+    let URL = this.getURL( environment.getReservacionesRevisionURL);
+         URL = URL + Cod_Usuario;
+console.log('PerfilReservaciones',URL)
+    return this.http.get<PerfilReservaciones[]>( URL );
+
+  }
+  private getReservacionesCanceladas(Cod_Usuario){
+
+    let URL = this.getURL(environment.getReservacionesCanceladasURL);
+         URL = URL + Cod_Usuario;
+console.log('PerfilReservaciones',URL)
+    return this.http.get<PerfilReservaciones[]>( URL );
+
+  }
+
+  
+
+
+  private getReservacionesHistorial(Cod_Usuario){
+
+    let URL = this.getURL( environment.getReservacionesHistorialURL);
+         URL = URL + Cod_Usuario;
+console.log('PerfilReservaciones',URL)
+    return this.http.get<PerfilReservaciones[]>( URL );
+
+  }
+  
   private getReservacionesRecibidas(Cod_Usuario){
 
     let URL = this.getURL( environment.getReservacionesRecibidassURL);
@@ -177,6 +210,22 @@ syncPutDetalleReservaion(detalle:DetalleReservaciones){
 
 
 }
+syncGetReservacionesResvision(Cod_Usuario){
+
+  return     this.getReservacionesResvision(Cod_Usuario).toPromise();
+
+
+
+}
+
+syncGetReservacionesCanceladas(Cod_Usuario){
+
+  return     this.getReservacionesCanceladas(Cod_Usuario).toPromise();
+
+
+
+}
+
 
 
   insertarReservacionToPromise(reservacion){
@@ -202,6 +251,15 @@ syncPutDetalleReservaion(detalle:DetalleReservaciones){
 
   }
 
+  syncgGtReservacionesHistorial(Cod_Usuario){
+
+    return     this.getReservacionesHistorial(Cod_Usuario).toPromise();
+
+
+
+  }
+
+  
   syncgGtReservacionesRecibidas(Cod_Usuario){
 
     return     this.getReservacionesRecibidas(Cod_Usuario).toPromise();
@@ -356,89 +414,90 @@ console.log('horaActual',horaActual,'apertura',apertura,'cierre',cierre)
       // CALCULAR HORAS
 
 
-       calHoraInicio(Cod_Cancha, date:Date){
+    // CALCULAR HORAS
 
 
-        
-        this.horaInicioArray = [];
-        let indexDiaActual =date.getDay();
-        this.diaActual =  this.horario[indexDiaActual];
+    calHoraInicio(Cod_Cancha, date: Date) {
 
-        let apertura = this.horario[indexDiaActual].Hora_Inicio;
-        let cierre = this.horario[indexDiaActual].Hora_Fin;
-        let today =  new Date()
-        let formatedDareFromCalendar = format(date,'yyyy/MM/dd');
-        let todayDateFormated  = format(today,'yyyy/MM/dd');
-        
-        let horaInicial, horaFin,fecha = null;
-        horaFin =  cierre
+      let indexDiaActual = date.getDay();
+      this.diaActual = this.horario[indexDiaActual];
   
-        if(formatedDareFromCalendar == todayDateFormated){
-          
-          // comparar hora actual con hora de apertura
-          
-          if(today.getHours() > apertura){
-            let hours = today.getHours();
-            let minutes = today.getMinutes();
-            let seconds = today.getSeconds();
-            let milliseconds = today.getMilliseconds();
-
-           horaInicial = hours;
-           date.setHours(hours);
-           date.setMinutes(minutes);
-           date.setSeconds(seconds)
-           date.setMilliseconds(milliseconds);
-           fecha = date;
-
-          } else{
-
-           horaInicial = apertura;       
-           date.setHours(apertura);
-           date.setMinutes(0);
-           date.setSeconds(0)
-           date.setMilliseconds(0);
-           fecha = date;
-
-
-          }
-
-
-            }else{
-
-
-              let hours = date.getHours();
-              let minutes = 0;
-              let seconds =0;
-              let milliseconds = 0;
-          
-              if(hours > apertura){
-                horaInicial = hours;
-              }else{
+      let apertura = this.horario[indexDiaActual].Hora_Inicio;
+      let cierre = this.horario[indexDiaActual].Hora_Fin;
+      let today = new Date()
+      let formatedDareFromCalendar = format(date, 'yyyy/MM/dd');
+      let todayDateFormated = format(today, 'yyyy/MM/dd');
   
-                horaInicial = apertura;
-              }
-              date.setHours(hours);
-              date.setMinutes(minutes);
-              date.setSeconds(seconds)
-              date.setMilliseconds(milliseconds);
-              fecha = date;
-
-           
-
-              console.log('horaInicial', horaInicial)
-              console.log('horaFin',horaFin )
-            
-              console.log('fecha', fecha)
-         
-          }
-
-          this.rellenarArreglo(Cod_Cancha,horaInicial, cierre,fecha,'Hora_Inicio').then(resp =>{   
-            console.log('this.horaInicioArray', resp)    
-           return  this.horaInicioArray = resp;
-        })
-   
-
+      let horaInicial, horaFin, fecha = null;
+      horaFin = cierre
+  
+      if (formatedDareFromCalendar == todayDateFormated) {
+  
+        // comparar hora actual con hora de apertura
+  
+        if (today.getHours() > apertura) {
+          let hours = today.getHours();
+          let minutes = today.getMinutes();
+          let seconds = today.getSeconds();
+          let milliseconds = today.getMilliseconds();
+  
+          horaInicial = hours;
+          date.setHours(hours);
+          date.setMinutes(minutes);
+          date.setSeconds(seconds)
+          date.setMilliseconds(milliseconds);
+          fecha = date;
+  
+        } else {
+  
+          horaInicial = apertura;
+          date.setHours(apertura);
+          date.setMinutes(0);
+          date.setSeconds(0)
+          date.setMilliseconds(0);;
+          fecha = date;
+  
+  
+        }
+  
+  
+      } else {
+  
+  
+        let hours = date.getHours();
+        let minutes = 0;
+        let seconds = 0;
+        let milliseconds = 0;
+  
+        if (hours > apertura) {
+          horaInicial = hours;
+        } else {
+  
+          horaInicial = apertura;
+        }
+        date.setHours(hours);
+        date.setMinutes(minutes);
+        date.setSeconds(seconds)
+        date.setMilliseconds(milliseconds);
+        fecha = date;
+  
+  
+  
+        console.log('horaInicial', horaInicial)
+        console.log('horaFin', horaFin)
+  
+        console.log('fecha', fecha)
+  
       }
+  
+      this.rellenarArreglo(Cod_Cancha, horaInicial, cierre, fecha, 'Hora_Inicio').then(resp => {
+        console.log('this.horaInicioArray', resp)
+        return this.horaInicioArray = resp;
+      })
+  
+  
+    }
+  
       
 
       
@@ -489,7 +548,7 @@ this.rellenarArreglo(Cod_Cancha,apertura, cierre,Fecha,'Hora_Fin').then(resp =>{
     let time12 =   hours%12 == 0 ? 12 : hours%12;
     let meridiem =  i < 12 ? 'AM': 'PM';
 
-    let fecha = new Date(format(new Date(date),'yyyy/MM/dd'));
+    let fecha = new Date(format(date,'yyyy/MM/dd'));
     fecha.setHours(hours)
     console.log('fecha', fecha)
     
@@ -567,75 +626,34 @@ this.rellenarArreglo(Cod_Cancha,apertura, cierre,Fecha,'Hora_Fin').then(resp =>{
       return this.syncreservacionesFiltrarFecha(Cod_Cancha ,format(date, 'yyyy-MM-dd')).then(resp =>{
      let reservacionesDia = resp;
   
-     let horasArray:any[] =[];
-        
+  let horas:horaA[] = [];
+  if(reservacionesDia.length == 0){
   
-     let year,month,day,hour,minutes,seconds,milliseconds = null;
-     // DATA THAT DOES NOT CHANGE
-       console.log('hora inicio', date)
-     year = date.getFullYear();
-       month = date.getMonth();
-       day = date.getDate();
-       hour = date.getHours();
-       minutes = 0;
-       seconds = 0;
-       milliseconds = 0;
-     hour =  hour%12 == 0 ? 0 : hour
-     
- 
-      for (var i = start; i < end; ++i) {
-        
-     let id = i;
-     let hours = i;
-     let time12 =   hours%12 == 0 ? 12 : hours%12;
-     let meridiem =  i < 12 ? 'AM': 'PM';
- 
-     let fecha = new Date(format(new Date(date),'yyyy/MM/dd'));
-     fecha.setHours(hours)
-     console.log('fecha', fecha)
-     
-     let element = {
-       id:id,
-           year: year,
-           month: month,
-           day: day,
-           hours: hours,
-           minutes: minutes,
-           seconds: seconds,
-           milliseconds: milliseconds,
-           time12: time12,
-           meridiem: meridiem,
-           date:  fecha 
-         }
-     
-     horasArray.push(element)
-     
-      if(i == end -1){
-     
-     
-       if(reservacionesDia.length == 0){
-         return horasArray;
-       }
-       for( let j = 0; j < reservacionesDia.length; j++){
-     
-        let index  = horasArray.findIndex (h => h.hours ==  new Date(reservacionesDia[j][column]).getHours());
-     
-        if(index >=0){
-        horasArray.splice(index,1);
-         console.log('reservacionesDia',new Date(reservacionesDia[j][column]).getHours())
+    return this.TimeArrayFunction(reservacionesDia,horas,date,start,end,column);
+  }
+  
+     for(let i =0; i < reservacionesDia.length; i++){
+  
+      console.log('reservacionesDia', reservacionesDia[i])
+      let inicio = new Date( reservacionesDia[i].Hora_Inicio).getHours();
+      let fin = new Date( reservacionesDia[i].Hora_Fin).getHours();
+      for(let j = inicio; j < fin; j++){
+  
+        let hora = {
+          Hora_Inicio: j,
+          Hora_Fin: j+1
         }
-     
-         if(j == reservacionesDia.length -1){
-           return horasArray;
-         }
-         }
-     
-     
-     
-     
+  
+        horas.push(hora)
+        
       }
+  
+      if(i == reservacionesDia.length -1){
+  console.log('horas, init', horas)
+        return this.TimeArrayFunction(reservacionesDia,horas,date,start,end,column);
       }
-      
+     }
+  
      
      
       })
@@ -644,7 +662,7 @@ this.rellenarArreglo(Cod_Cancha,apertura, cierre,Fecha,'Hora_Fin').then(resp =>{
      
      
      }
-     
+  
 
 async compararFechas(date1,date2){
   
@@ -670,5 +688,81 @@ async compararFechas(date1,date2){
   
   }
     }
+    async TimeArrayFunction(reservacionesDia, horas: horaA[], date, start, end, column) {
 
+      let horasArray: any[] = [];
+      let year, month, day, hour, minutes, seconds, milliseconds = null;
+  
+      year = date.getFullYear();
+      month = date.getMonth();
+  
+      hour = new Date().getHours() == date.getHours() ? date.getHours() + 1 : date.getHours();
+  
+      minutes = 0;
+      seconds = 0;
+      milliseconds = 0;
+      hour = hour % 12 == 0 ? 0 : hour
+  
+      for (var a = start == new Date().getHours() ? start + 1 : start; a < end; ++a) {
+  
+        let id = a;
+        let hours = a;
+        let time12 = hours % 12 == 0 ? 12 : hours % 12;
+        let meridiem = a < 12 ? 'AM' : 'PM';
+        let fecha = new Date(format(new Date(date), 'yyyy/MM/dd'));
+        fecha.setHours(hours)
+  
+        let element = {
+          id: id,
+          year: year,
+          month: month,
+          day: day,
+          hours: hours,
+          minutes: minutes,
+          seconds: seconds,
+          milliseconds: milliseconds,
+          time12: time12,
+          meridiem: meridiem,
+          date: fecha
+        }
+  
+        horasArray.push(element)
+  
+        if (a == end - 1) {
+  
+  
+          if (reservacionesDia.length == 0) {
+  
+            return horasArray;
+  
+          }
+  
+  
+          for (let j = 0; j < horas.length; j++) {
+  
+            let index = horasArray.findIndex(h => h.hours == horas[j][column]);
+  
+            if (index >= 0) {
+  
+              horasArray.splice(index, 1);
+  
+            }
+  
+            if (j == horas.length - 1) {
+  
+              return horasArray;
+  
+            }
+  
+          }
+  
+  
+  
+  
+        }
+      }
+  
+  
+  
+    }
 }

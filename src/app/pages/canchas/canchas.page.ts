@@ -21,6 +21,7 @@ export class CanchasPage implements OnInit {
     Cod_Distrito: null,
     Cod_Categoria: null
   }
+  textoBuscar = '';
   constructor(
 public canchasService: CanchasService,
 public actionSheetCtrl: ActionSheetController,
@@ -200,8 +201,8 @@ public modalCtrl: ModalController
             
              }
 
-             onSearchChange($event){
+             onSearchChange(event){
 
-              
-             }
+              this.textoBuscar = event.detail.value;
+                }
 }

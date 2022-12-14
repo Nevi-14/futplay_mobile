@@ -22,10 +22,9 @@
           <ion-list *ngIf="!rival">
             
             <ion-item    (click)="retornarEquipo(equipo)" lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'Nombre'">
-              <ion-avatar slot="start"  >
-                <img *ngIf="!equipo.equipo.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+              <ion-avatar  slot="end">
+                <img *ngIf="!equipo.equipo.Avatar"  src="{{'https://futplaycompany.com/api_test/'+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
                 <img  *ngIf="equipo.equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-       
               </ion-avatar>
               
               <ion-label>
@@ -49,10 +48,9 @@
           </ion-list>
           <ion-list *ngIf="rival" >
             <ion-item   (click)="retornarEquipo(equipo)" lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'Nombre'">
-              <ion-avatar slot="start"  >
-                <img *ngIf="!equipo.equipo.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+              <ion-avatar  slot="end">
+                <img *ngIf="!equipo.equipo.Avatar"  src="{{'https://futplaycompany.com/api_test/'+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
                 <img  *ngIf="equipo.equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-       
               </ion-avatar>
               
               <ion-label>

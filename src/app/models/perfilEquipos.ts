@@ -1,13 +1,14 @@
 
 export class PerfilEquipos {
     constructor(
+        public nombre:string, 
      public equipo : {
             Cod_Equipo: number,
             Cod_Usuario: number,
             Cod_Provincia: number,
             Cod_Canton: number,
             Cod_Distrito: number,
-            Avatar: number,
+            Avatar: boolean,
             Foto:string,
             Nombre: string,
             Abreviacion: string,

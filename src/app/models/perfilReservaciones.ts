@@ -13,7 +13,12 @@ export class PerfilReservaciones {
        public  rival : Equipos,
        public  usuario_rival: Usuarios,
        public  retador: Equipos,
-       public  usuario_retador: Usuarios
+       public  usuario_retador: Usuarios,
+       public provincia:string,
+       public correo:string,
+public canton:string,
+public distrito:string,
+public categoria:string,
         
     ){}
 }

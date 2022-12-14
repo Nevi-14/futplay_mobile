@@ -27,9 +27,13 @@
 
         <ion-avatar   style="height: 12rem;width:12rem;margin:0 auto;">
             
-        <img  *ngIf="!equiposService.equipo.equipo.Avatar" src="{{teamPic}}"  onerror="this.src='assets/img/icon/FP.svg'" alt="">
+      
+     
+        <img *ngIf="!equiposService.equipo.equipo.Avatar" class="logo" data-src="{{'https://futplaycompany.com/api_test/'+equiposService.equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   >
+        <img *ngIf="equiposService.equipo.equipo.Avatar" src="assets/soccer-shields-svg/{{equiposService.equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"    alt="">
+    
+    
 
-        <img *ngIf="equiposService.equipo.equipo.Avatar"  src="assets/soccer-shields-svg/{{equiposService.equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">     
         </ion-avatar>
 
     <h3 class="ion-text-uppercase"> 
@@ -85,7 +89,7 @@
 
 <ion-button    (click)="solicitudesEquipos()"   fill="outline" shape="round" color="dark">
   <ion-label style="margin: 0.5rem;" class="ion-text-uppercase">Transferencias</ion-label>
-  <ion-badge color="primary" style="margin-left:10px">0</ion-badge>
+  <ion-badge color="primary" style="margin-left:10px">{{solicitudesService.solicitudesEquiposArray.length}}</ion-badge>
 </ion-button>
   
 

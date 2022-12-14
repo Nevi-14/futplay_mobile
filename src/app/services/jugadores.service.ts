@@ -129,7 +129,7 @@ console.log('jugador', jugador)
           'Access-Control-Allow-Origin': '*'
       } 
     };
- 
+ console.log('URL', URL)
     return this.http.delete( URL, options );
   }
 

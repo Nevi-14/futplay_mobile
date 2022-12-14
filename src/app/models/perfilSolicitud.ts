@@ -15,7 +15,7 @@ export class PerfilSolicitud {
        public  provincia:string,
        public  canton:string,
        public   distrito:string,
-       public  posicicion:string
+       public  posicion:string
       
         
     ){}

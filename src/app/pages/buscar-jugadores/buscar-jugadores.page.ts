@@ -5,7 +5,6 @@ import { EquiposService } from '../../services/equipos.service';
  
 
 import { PerfilUsuario } from '../../models/perfilUsuario';
-import { FiltroJugadorPage } from '../filtro-jugador/filtro-jugador.page';
 import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
 import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
 import { SolicitudesEquiposPage } from '../solicitudes-equipos/solicitudes-equipos.page';
@@ -13,6 +12,8 @@ import { SolicitudesEquiposPage } from '../solicitudes-equipos/solicitudes-equip
 import { VideoScreenPage } from '../video-screen/video-screen.page';
 import { Solicitudes } from '../../models/solicitudes';
 import { SolicitudesService } from '../../services/solicitudes.service';
+import { FiltroUsuariosPage } from '../filtro-usuarios/filtro-usuarios.page';
+import { AlertasService } from '../../services/alertas.service';
 
 @Component({
   selector: 'app-buscar-jugadores',
@@ -41,7 +42,8 @@ export class BuscarJugadoresPage implements OnInit {
       public equiposService: EquiposService,
       public usuariosService:UsuariosService,
       public actionSheetCtrl: ActionSheetController,
-      public solicitudesService:SolicitudesService
+      public solicitudesService:SolicitudesService,
+      public alertasService: AlertasService
     ) { }
   
     ngOnInit() {
@@ -56,9 +58,10 @@ export class BuscarJugadoresPage implements OnInit {
     jugadorEquipoSolicitud(usuario: PerfilUsuario){
       this.solicitud.Cod_Usuario = usuario.usuario.Cod_Usuario
   
-     this.solicitudesService.generarSolicitud(this.solicitud);
+     this.solicitudesService.generarSolicitud(this.solicitud).then(resp =>{
 
-     
+      this.alertasService.message('FUTPLAY', 'Solicitud Enviada')
+     })
     }
   
     cerrarModal(){
@@ -154,7 +157,7 @@ export class BuscarJugadoresPage implements OnInit {
   
      
             const modal  = await this.modalCtrl.create({
-             component: FiltroUbicacionPage,
+             component: FiltroUsuariosPage,
              breakpoints: [0, 0.3, 0.5, 0.8],
              initialBreakpoint: 0.5,
              componentProps : {
@@ -177,20 +180,7 @@ export class BuscarJugadoresPage implements OnInit {
         
            }
          }
-         async solicitudes() {
-          const modal = await this.modalCtrl.create({
-            component:SolicitudesEquiposPage,
-            cssClass:'my-custom-modal'
-          });
-           await modal.present();
-      
-           const { data } = await modal.onWillDismiss();
-           if(data != undefined){
-             
-           
-             
-           }
-        }
+
       
 
     async filtroJugador(){
@@ -198,7 +188,7 @@ export class BuscarJugadoresPage implements OnInit {
     
        
       const modal  = await this.modalCtrl.create({
-       component: FiltroJugadorPage,
+       component: FiltroUsuariosPage,
        cssClass: 'my-custom-class',
        id:'my-modal-id'
      });

@@ -49,12 +49,18 @@
               </ion-label>
 
             </ion-item>
-            <ion-item>
+            <ion-item *ngIf="cancha.cancha.Techo">
               <ion-label>Incluye Techo</ion-label>
+             <ion-badge color="primary" mode="ios">SI</ion-badge>
             </ion-item>
-            <ion-item>
-              <ion-label>Incluye Luz</ion-label>
-              <p>La luz se cobra a partir de..</p>
+            <ion-item  *ngIf="cancha.cancha.Luz">
+              <ion-label>Incluye Luz
+                <p class="ion-text-wrap">La tiene un costo adicional de  {{cancha.cancha.Precio_Luz}}</p>
+
+              </ion-label>
+
+              <ion-badge color="primary" mode="ios">SI</ion-badge>
+          
             </ion-item>
 
           </ion-list>

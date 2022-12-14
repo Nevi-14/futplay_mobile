@@ -5,15 +5,18 @@ import { ReservacionesService } from 'src/app/services/reservaciones.service';
 import { UsuariosService } from '../../services/usuarios.service';
 import { AceptarRetoPage } from '../aceptar-reto/aceptar-reto.page';
 import { GenerarReservacionPage } from '../generar-reservacion/generar-reservacion.page';
-
+import { CanchasService } from '../../services/canchas.service';
+import { PartidoService } from 'src/app/services/partido.service';
+import { partidos } from 'src/app/models/partidos';
+ 
 @Component({
   selector: 'app-mis-reservaciones',
   templateUrl: './mis-reservaciones.page.html',
   styleUrls: ['./mis-reservaciones.page.scss'],
 })
 export class MisReservacionesPage implements OnInit {
-  categories = ['Confirmados','Recibidos','Enviados','Historial','Revisión'];
-  reservaciones:PerfilReservaciones[]=[]
+  categories = ['Confirmados','Recibidos','Enviados','Historial','Revisión','Canceladas'];
+
   @ViewChild(IonSlides) slider: IonSlides;
   segment = 0;
   activeCategory = 0;
@@ -23,10 +26,13 @@ Titulo = '';
 show = false;
 rival = null;
 textoBuscar = '';
+partido:partidos[]=[]
   constructor(
 public reservacionesService:ReservacionesService,
 public usuariosService:UsuariosService,
-public modalCtrl: ModalController
+public modalCtrl: ModalController,
+public canchasService:CanchasService,
+public partidosService:PartidoService
   ) {
 
      
@@ -34,30 +40,48 @@ public modalCtrl: ModalController
   ngOnInit() {
 
     this.reservacionesService.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
-this.reservaciones = reservaciones;
-console.log('reservaciones', this.reservaciones)
+this.reservacionesService.reservaciones = reservaciones;
+console.log('reservaciones', this.reservacionesService.reservaciones)
     })
   }
 
   async detalleReto(reto:PerfilReservaciones) {
+
+
+    
+if(reto.reservacion.Cod_Estado == 7){
+  await   this.partidosService.syncGetPartidoReservacion(reto.reservacion.Cod_Reservacion).then(partido =>{
+    this.partido = partido;
+
+
+    console.log('partido', partido)
+    
+    
+            })
+
+}
+
+
+
     const modal = await this.modalCtrl.create({
       component: AceptarRetoPage,
       cssClass: 'my-custom-class',
       componentProps: {
-        reto: reto
+        reto: reto,
+        partido:this.partido
       },
-      id:'detalle-reto'
+      id:'aceptar-reto'
     });
 
      await modal.present();
 
     let {data} = await modal.onDidDismiss();
-  
+    this.modalCtrl.dismiss(null,null,'aceptar-reto')
     this.selectCategory(this.segment)
   }
   cerrarModal (){
 
-    this.modalCtrl.dismiss()
+ this.modalCtrl.dismiss();
   }
   async nuevaReservacion(){
 
@@ -143,8 +167,8 @@ console.log('reservaciones', this.reservaciones)
         // confirmados
 
         this.reservacionesService.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
-          this.reservaciones = reservaciones;
-          console.log('reservaciones', this.reservaciones)
+          this.reservacionesService.reservaciones = reservaciones;
+          console.log('reservaciones', this.reservacionesService.reservaciones)
 
         })
          break;
@@ -153,32 +177,47 @@ console.log('reservaciones', this.reservaciones)
  
   // recibidos
   this.reservacionesService.syncgGtReservacionesRecibidas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
-    this.reservaciones = reservaciones;
-    console.log('reservaciones', this.reservaciones)
+    this.reservacionesService.reservaciones = reservaciones;
+    console.log('reservaciones', this.reservacionesService.reservaciones)
 
   })
       break;
        case 2:
     // enviados
     this.reservacionesService.syncgGtReservacionesEnviadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
-      this.reservaciones = reservaciones;
+      this.reservacionesService.reservaciones = reservaciones;
     
-      console.log('reservaciones', this.reservaciones)
+      console.log('reservaciones', this.reservacionesService.reservaciones)
     })
        break;
        
        case 3:
      //hisyotial
-     this.reservaciones = []
+     this.reservacionesService.syncgGtReservacionesHistorial(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+      this.reservacionesService.reservaciones = reservaciones;
+    
+      console.log('reservaciones', this.reservacionesService.reservaciones)
+    })
        break;
        
        case 4:
-//revision
-this.reservaciones = []
+        this.reservacionesService.syncGetReservacionesResvision(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+          this.reservacionesService.reservaciones = reservaciones;
+        
+          console.log('reservaciones', this.reservacionesService.reservaciones)
+        })
+
        break;
-     
+       case 5:
+        this.reservacionesService.syncGetReservacionesCanceladas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+          this.reservacionesService.reservaciones = reservaciones;
+        
+          console.log('reservaciones', this.reservacionesService.reservaciones)
+        })
+
+       break;
        default:
-        this.reservaciones = []
+        this.reservacionesService.reservaciones = []
          break;
      }
    

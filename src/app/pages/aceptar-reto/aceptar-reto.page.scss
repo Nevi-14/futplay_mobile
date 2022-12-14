@@ -86,7 +86,7 @@ ion-card-subtitle {
 
 
 
-ion-list {
+.ion-list {
 
   background-color: #e7edfb;
 }
@@ -182,4 +182,12 @@ height: 5rem; width: 5rem;
     --padding-end: 0.75rem;
     color: #fff;
     margin-right: 0.5rem;
+}
+.StyledReceipt {
+
+  padding: 1rem 1rem 2rem;
+  --mask: conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/30px 100%;
+  -webkit-mask: var(--mask);
+          mask: var(--mask);
+       
 }

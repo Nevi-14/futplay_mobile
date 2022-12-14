@@ -160,3 +160,22 @@ ion-searchbar {
     }
 
   
+    ion-segment{
+      background-color: transparent!important;
+      
+    }
+    
+    ion-segment-button{
+    color:#fff;
+    font-size: 0.8rem;
+    --indicator-color: transparent !important;
+    --indicator-color-checked: transparent !important;
+    }
+    
+    .active-category{
+      color: #fff;
+      padding: 10px;
+       border-radius: 30px;
+       background-color: #383a3e;
+     }
+    

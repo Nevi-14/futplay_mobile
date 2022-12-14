@@ -12,7 +12,8 @@ const routes: Routes = [
   
   {
     path: 'inicio',
-    loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
+    loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule),
+    canLoad:[AutoLoginGuard]
   },
 
 
@@ -110,10 +111,6 @@ const routes: Routes = [
   },
 
   {
-    path: 'filtro-jugador',
-    loadChildren: () => import('./pages/filtro-jugador/filtro-jugador.module').then( m => m.FiltroJugadorPageModule)
-  },
-  {
     path: 'filtro-cancha',
     loadChildren: () => import('./pages/filtro-cancha/filtro-cancha.module').then( m => m.FiltroCanchaPageModule)
   },
@@ -207,6 +204,19 @@ const routes: Routes = [
     path: 'cambiar-contrasena',
     loadChildren: () => import('./pages/cambiar-contrasena/cambiar-contrasena.module').then( m => m.CambiarContrasenaPageModule)
   },
+  {
+    path: 'filtro-usuarios',
+    loadChildren: () => import('./pages/filtro-usuarios/filtro-usuarios.module').then( m => m.FiltroUsuariosPageModule)
+  },
+  {
+    path: 'gestor-perfil-imagenes',
+    loadChildren: () => import('./pages/gestor-perfil-imagenes/gestor-perfil-imagenes.module').then( m => m.GestorPerfilImagenesPageModule)
+  },
+  {
+    path: 'gestor-equipo-imagenes',
+    loadChildren: () => import('./pages/gestor-equipo-imagenes/gestor-equipo-imagenes.module').then( m => m.GestorEquipoImagenesPageModule)
+  }
+
   
 
 

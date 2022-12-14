@@ -10,7 +10,10 @@
           </ion-button>
         </ion-buttons>
         <ion-avatar slot="end">
-          <img    src="assets/soccer-shields-svg/{{equipo.Foto}}"  onerror="this.src='assets/img/icon/FP.svg'">
+       
+
+          <img *ngIf="!equipo.Avatar"  src="{{'https://futplaycompany.com/api_test/'+equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+          <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
         </ion-avatar>
    
       </ion-item>
@@ -50,11 +53,12 @@
             <ion-radio-group (ionChange)="agregarJDP($event)">
               <ion-item  lines="full" class="employeeItem  animate__animated animate__fadeIn"   *ngFor="let jugador of  jugadores">
                 <ion-avatar slot="start">
-                  <img *ngIf="!jugador.usuario.Avatar" src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
-                
+               
+                      <img *ngIf="!jugador.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+      
                       <img *ngIf="jugador.usuario.Avatar"src="assets/profile/avatars/{{jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
-                
-                
+
+                      
                 </ion-avatar>
                       <ion-label>
                         <h2>{{jugador.usuario.Nombre}} {{jugador.usuario.Primer_Apellido}}  </h2>
@@ -91,7 +95,7 @@
       
               <ion-item  lines="full" class="employeeItem  animate__animated animate__fadeIn"    *ngFor="let jugador of  jugadores">
                 <ion-avatar slot="start">
-                    <img *ngIf="!jugador.usuario.Avatar" src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/'+jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+                    <img *ngIf="!jugador.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
                   
                         <img *ngIf="jugador.usuario.Avatar"src="assets/profile/avatars/{{jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
                   

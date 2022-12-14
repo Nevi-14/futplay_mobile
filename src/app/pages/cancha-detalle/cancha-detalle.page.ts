@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CanchasService } from 'src/app/services/canchas.service';
 import { PerfilCancha } from '../../models/perfilCancha';
 import { ModalController } from '@ionic/angular';
+import { GenerarReservacionPage } from '../generar-reservacion/generar-reservacion.page';
 
 @Component({
   selector: 'app-cancha-detalle',
@@ -48,7 +49,22 @@ public modalCtrl: ModalController
   this.modalCtrl.dismiss();
  }
 
-canchaReservacion(cancha){
+async canchaReservacion(cancha){
+  this.cerrarModal()
+  const modal  = await this.modalCtrl.create({
+    component: GenerarReservacionPage,
+   cssClass: 'my-custom-class',
+   componentProps:{
+    rival:null,
+    retador:null,
+    cancha:cancha
 
+   },
+   id:'my-modal-id'
+ });
+ await modal .present();
  }
+
+ 
+  
 }

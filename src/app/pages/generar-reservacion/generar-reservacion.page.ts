@@ -15,6 +15,7 @@ import { CalendarComponent } from 'ionic2-calendar';
 import { DetalleReservaciones } from 'src/app/models/detalleReservaciones';
 import { format } from 'date-fns';
 import { CanchasService } from '../../services/canchas.service';
+import { EmailService } from 'src/app/services/email.service';
 interface objetoFecha{
   id:number,
   year: number,
@@ -28,6 +29,7 @@ interface objetoFecha{
   meridiem: string,
   date: Date
 }
+
 @Component({
   selector: 'app-generar-reservacion',
   templateUrl: './generar-reservacion.page.html',
@@ -37,20 +39,18 @@ interface objetoFecha{
 })
 export class GenerarReservacionPage  {
   @ViewChild(IonDatetime, { static: true }) datetime: IonDatetime;
-  @Input() fecha: Date;
+ 
   @Input() cancha:PerfilCancha;
   @Input() diaCompleto 
   @Input()rival : PerfilEquipos;
   @Input()retador : PerfilEquipos;
   diaActual: HorarioCanchas
   horario:any = null;
-  dateValue = '';
-  dateValue2 = null;
-  show = false;
+ 
   nuevaReservacion = {
     Cod_Cancha:  null,
     Cod_Usuario:  this.usuariosService.usuarioActual.usuario.Cod_Usuario,
-    Reservacion_Externa: true,
+    Reservacion_Externa: false,
     Titulo: '',
     Cod_Estado: 2,
     Fecha:  null,
@@ -96,43 +96,12 @@ export class GenerarReservacionPage  {
    eventSource = [];
 
    add:boolean = false;
-   large:boolean;
-   medium:boolean;
-   BlockAddReservation:boolean = false;;
-   small:boolean;
-   alertChange:boolean = false;
    isToday:boolean;
    calendar = {
        mode: 'month' as CalendarMode,
        step: 30 as Step,
-       currentDate: new Date(),
-       Date: new Date(),
-       dateFormatter: {
-           formatMonthViewDay: function(date:Date) {
-               return date.getDate().toString();
-           },
-           formatMonthViewDayHeader: function(date:Date) {
-               return 'MonMH';
-           },
-           formatMonthViewTitle: function(date:Date) {
-               return 'testMT';
-           },
-           formatWeekViewDayHeader: function(date:Date) {
-               return 'MonWH';
-           },
-           formatWeekViewTitle: function(date:Date) {
-               return 'testWT';
-           },
-           formatWeekViewHourColumn: function(date:Date) {
-               return 'testWH';
-           },
-           formatDayViewHourColumn: function(date:Date) {
-               return 'testDH';
-           },
-           formatDayViewTitle: function(date:Date) {
-               return 'testDT';
-           }
-       }
+       currentDate:new Date(),
+       Date: new Date()
    };
  
  
@@ -144,33 +113,33 @@ export class GenerarReservacionPage  {
     private cd: ChangeDetectorRef,
     public gestionReservacionesService: ReservacionesService,
     public alertasService: AlertasService,
-    public canchasService: CanchasService
+    public canchasService: CanchasService,
+    public emailService:EmailService
   ) { }
   
 
 
 
-  convertDate(dateValue) {
-    var date = new Date(dateValue);
-    let day =  date.getDate();
-    let month = date.getMonth()+1;
-    let year = date.getFullYear();
-  
-    return   year+'-'+month+'-'+day;
-  
-   
-  }
+ limpiarDatos(){
+ 
+  this.nuevaReservacion.Fecha = this.calendar.Date.toISOString().split('T')[0] 
+  this.Hora_Inicio = null;
+this.Hora_Fin = null;
+this.nuevaReservacion.Hora_Inicio = null;
+ this.nuevaReservacion.Hora_Fin = null;
+this.gestionReservacionesService.horaInicioArray = [];
+this.gestionReservacionesService.horaFinArray = [];
+
+ }
 
   ionViewWillEnter(){
-
-    this.fecha ? this.fecha = this.fecha :  this.fecha = new Date ();
-    
-console.log(this.fecha, 'fecha')
-    this.nuevaReservacion.Cod_Cancha = this.cancha.cancha.Cod_Cancha;
-    this.nuevaReservacion.Fecha = this.fecha.toISOString().split('T')[0];
-
-    console.log('fecha',this.nuevaReservacion.Fecha)
-    this.horarioCanchasService.horarioCancha = [];
+this.limpiarDatos();
+ 
+    if(this.cancha){
+ 
+      this.nuevaReservacion.Cod_Cancha = this.cancha.cancha.Cod_Cancha;
+      this.horarioCanchasService.horarioCancha = [];
+    }
 
     
  
@@ -179,21 +148,17 @@ console.log(this.fecha, 'fecha')
 
 consultarHoras(cancha:PerfilCancha){
 
-this.Hora_Inicio = null;
-this.Hora_Fin = null;
-this.nuevaReservacion.Hora_Inicio = null;
- this.nuevaReservacion.Hora_Fin = null;
-this.gestionReservacionesService.horaInicioArray = [];
-this.gestionReservacionesService.horaFinArray = [];
+  this.limpiarDatos();
+ 
 this.horarioCanchasService.syncGetHorarioCanchaToPromise(cancha.cancha.Cod_Cancha).then(resp =>{
 
   let  horario:HorarioCanchas[] = resp;
   this.gestionReservacionesService.horario = horario;
-  let {continuar, diaActual} =  this.gestionReservacionesService.consultarHoras(horario,this.fecha)
+  let {continuar, diaActual} =  this.gestionReservacionesService.consultarHoras(horario,this.calendar.Date)
   this.diaActual = diaActual;
   this.horario = this.hora(this.diaActual.Hora_Inicio, this.diaActual.Hora_Fin)
   if(continuar){
-    this.gestionReservacionesService.calHoraInicio(this.cancha,this.fecha);
+    this.gestionReservacionesService.calHoraInicio(this.cancha.cancha.Cod_Cancha,new Date(format(this.calendar.Date, 'yyy/MM/dd')));
   }
  
 this.habilitarHoras = continuar
@@ -206,6 +171,18 @@ this.cd.detectChanges()
 
   
 }
+
+swipeBack(){
+  //this.lockSwipes = false;
+  this.myCal.slidePrev();
+  //  this.lockSwipes = true;
+}
+swipeNext(){
+//   this.lockSwipes = false;
+  this.myCal.slideNext();
+ // this.lockSwipes = true;
+}
+
    isBeforeToday(date) {
     const today = new Date();
   
@@ -239,38 +216,13 @@ this.cd.detectChanges()
 
   onViewTitleChanged(title) {
     this.viewTitle = title;
+
+ 
+    this.cd.detectChanges();
     this.eventSource = [];
   
     }
-    slidePrev() {
-      this.lockSwipes = false;
-      this.cd.markForCheck();
-      this.cd.detectChanges();
-      this.myCal.slidePrev();
-      setTimeout(() => {
-     
-        this.lockSwipes = true;
-        this.cd.markForCheck();
-        this.cd.detectChanges();
-      
-          }, 1000)
-      
-     
-    }
-    slideNext() {
-      this.lockSwipes = false;
-      this.cd.markForCheck();
-      this.cd.detectChanges();
-      this.myCal.slideNext();
-      setTimeout(() => {
-       
-       this.lockSwipes = true;
-       this.cd.markForCheck();
-       this.cd.detectChanges();
-          },1000)
-    
-    
-    }
+
     
     changeMode(mode) {
     this.calendar.mode = mode;
@@ -278,15 +230,20 @@ this.cd.detectChanges()
     
     onCurrentDateChanged(event:Date) {
 
+ 
       var today = new Date();
       today.setHours(0, 0, 0, 0);
       event.setHours(0, 0, 0, 0);
-      this.isToday = today.getTime() === event.getTime();
-  this.calendar.Date = event
-  this.calendar.currentDate = event
+
+  this.isToday = today.getTime() === event.getTime();
+ this.calendar.Date = event
+ // this.calendar.currentDate = event.toISOString().split('T')[0]
+  this.nuevaReservacion.Fecha = event.toISOString().split('T')[0]
+  this.cd.markForCheck();
+  this.cd.detectChanges(); 
   this.checkAdd();
-      this.reservacionesDia();
-   
+  this.reservacionesDia();
+
   }
   
   disponibilidadCancha(cancha:PerfilCancha) {
@@ -304,10 +261,7 @@ this.cd.detectChanges()
    }
   
     reservacionesDia(){
-      var date = new Date(this.calendar.currentDate);
-      this.fecha = date;
-      var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().slice(0,10);
-      var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().slice(0,10);
+ 
       this.consultarHoras(this.cancha);
      
     
@@ -335,10 +289,10 @@ this.cd.detectChanges()
 
              if(this.cancha != null && this.cancha != undefined){
               this.nuevaReservacion.Cod_Cancha = this.cancha.cancha.Cod_Cancha;
-              this.cd.detectChanges();
+   
               //this.horarioCancha();
             }
-
+            this.cd.detectChanges();
             
          }
 
@@ -368,9 +322,10 @@ console.log('this.retador', this.retador)
 
              if(this.cancha != null && this.cancha != undefined){
               this.nuevaReservacion.Cod_Cancha = this.cancha.cancha.Cod_Cancha;
-              this.cd.detectChanges();
+             
              // this.horarioCancha();
             }
+            this.cd.detectChanges();
              
          }
   }
@@ -394,15 +349,18 @@ const modal = await this.modalCtrl.create({
       this.cancha = data.cancha;
       this.nuevaReservacion.Cod_Cancha = this.cancha.cancha.Cod_Cancha;
 //      this.horarioCancha();
-
+this.cd.detectChanges();
          this.modalCtrl.dismiss();
      }
+
+     
 }
 
 
  horaInicio($event){
   const value:objetoFecha = $event.detail.value;
 if(value){
+ 
   this.nuevaReservacion.Hora_Inicio = value.date;
   this.Hora_Inicio = value;
   this.Hora_Fin = null;
@@ -423,12 +381,12 @@ horaFin($event){
   console.log('this.detalle', this.detalleReservacion)
   if(this.nuevaReservacion.Hora_Inicio && this.nuevaReservacion.Hora_Fin){
 
- 
-  
+    console.log('this.nuevaReservacion', this.nuevaReservacion)
+     
    this.gestionReservacionesService.syncGetDisponibilidadReservaciones(
       this.nuevaReservacion.Cod_Cancha,
-      this.nuevaReservacion.Hora_Inicio.toISOString().split('T')[0]+' '+ this.nuevaReservacion.Hora_Inicio.toTimeString().split(' ')[0],
-      this.nuevaReservacion.Hora_Fin.toISOString().split('T')[0]+' '+ this.nuevaReservacion.Hora_Fin.toTimeString().split(' ')[0],
+      format( this.nuevaReservacion.Hora_Inicio,'yyy-MM-dd')+" "+this.nuevaReservacion.Hora_Inicio.toTimeString().split(' ')[0] ,
+      format( this.nuevaReservacion.Hora_Fin,'yyy-MM-dd')+" "+this.nuevaReservacion.Hora_Fin.toTimeString().split(' ')[0],
     ).then(reservaciones =>{
   
       console.log('reservacionessss' , reservaciones)
@@ -446,6 +404,7 @@ horaFin($event){
   }
 
   this.detalleReservacion.Total_Horas = this.nuevaReservacion.Hora_Fin.getHours() - this.nuevaReservacion.Hora_Inicio.getHours();
+  this.actualizarDetalle()
 
 
     })
@@ -461,32 +420,30 @@ crearReservacion(){
 this.nuevaReservacion.Titulo = this.retador.equipo.Nombre +' VS '+this.rival.equipo.Nombre;
 
   if(!this.nuevaReservacion.Dia_Completo){
-    
-    this.nuevaReservacion.Hora_Inicio = new Date(this.nuevaReservacion.Hora_Inicio).toISOString().split('T')[0]+' '+ this.nuevaReservacion.Hora_Inicio.toTimeString().split(' ')[0];
-    this.nuevaReservacion.Hora_Fin = new Date( this.nuevaReservacion.Hora_Fin).toISOString().split('T')[0]+' '+ this.nuevaReservacion.Hora_Fin.toTimeString().split(' ')[0];
+    console.log( this.nuevaReservacion.Hora_Inicio.toISOString())
+   this.nuevaReservacion.Hora_Inicio = format( this.nuevaReservacion.Hora_Inicio,'yyy-MM-dd')+" "+this.nuevaReservacion.Hora_Inicio.toTimeString().split(' ')[0] 
+  this.nuevaReservacion.Hora_Fin =  format( this.nuevaReservacion.Hora_Fin,'yyy-MM-dd')+" "+this.nuevaReservacion.Hora_Fin.toTimeString().split(' ')[0] 
   
   }
+ 
   console.log(' this.nuevaReservacion',  this.nuevaReservacion)
 
     this.gestionReservacionesService.insertarReservacionToPromise(this.nuevaReservacion).then((resp:any) =>{
     console.log(' this.nuevaReservacion resp', resp)
 
-     
-      this.detalleReservacion.Monto_Sub_Total = this.detalleReservacion.Total_Horas * this.cancha.cancha.Precio_Hora;
-      this.detalleReservacion.Monto_Total = this.detalleReservacion.Monto_Sub_Total
-      // Discount = bill * discount / 100
-      this.detalleReservacion.Monto_Descuento = this.detalleReservacion.Monto_Sub_Total * this.detalleReservacion.Porcentaje_Descuento / 100 
-      this.detalleReservacion.Monto_Impuesto = this.detalleReservacion.Monto_Sub_Total * this.detalleReservacion.Porcentaje_Impuesto  / 100 
-      this.detalleReservacion.Monto_FP = this.detalleReservacion.Monto_Sub_Total * this.detalleReservacion.Porcentaje_FP  / 100 
-      this.detalleReservacion.Precio_Hora = this.cancha.cancha.Precio_Hora;
-      this.detalleReservacion.Cod_Retador =  this.retador.equipo.Cod_Equipo;
-      this.detalleReservacion.Cod_Rival = this.rival.equipo.Cod_Equipo;
-      this.detalleReservacion.Monto_Equipo =  this.detalleReservacion.Monto_Total / 2
-      this.detalleReservacion.Cod_Reservacion = resp.reservacion.Cod_Reservacion;
+    this.detalleReservacion.Cod_Reservacion = resp.reservacion.Cod_Reservacion;
+this.actualizarDetalle()
 
       this.gestionReservacionesService.insertarDetalleReservacionToPromise(this.detalleReservacion).then(resp =>{
 this.cerrarModal();
-        this.alertasService.message('FUTPLAY', 'La reservación se efectuo con excito ')
+this.emailService.enviarCorreoReservaciones(1, this.rival.correo, this.nuevaReservacion.Fecha, this.nuevaReservacion.Hora_Inicio, this.cancha.nombre, this.rival.nombre, this.retador.nombre).then(resp =>{
+
+  this.alertasService.message('FUTPLAY', 'El reto  se efectuo con éxito ')
+
+}, error =>{
+  this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
+})
+      
       }, error =>{
         this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
       })
@@ -500,6 +457,21 @@ this.cerrarModal();
   }
 cerrarModal(){
   this.modalCtrl.dismiss();
+}
+
+actualizarDetalle(){
+this.alertasService.presentaLoading('Actualizando Factura')
+  this.detalleReservacion.Monto_Sub_Total = this.detalleReservacion.Total_Horas * this.cancha.cancha.Precio_Hora;
+  this.detalleReservacion.Monto_Total = this.detalleReservacion.Monto_Sub_Total
+  // Discount = bill * discount / 100
+  this.detalleReservacion.Monto_Descuento = this.detalleReservacion.Monto_Sub_Total * this.detalleReservacion.Porcentaje_Descuento / 100 
+  this.detalleReservacion.Monto_Impuesto = this.detalleReservacion.Monto_Sub_Total * this.detalleReservacion.Porcentaje_Impuesto  / 100 
+  this.detalleReservacion.Monto_FP = this.detalleReservacion.Monto_Sub_Total * this.detalleReservacion.Porcentaje_FP  / 100 
+  this.detalleReservacion.Precio_Hora = this.cancha.cancha.Precio_Hora;
+  this.detalleReservacion.Cod_Retador =  this.retador.equipo.Cod_Equipo;
+  this.detalleReservacion.Cod_Rival = this.rival.equipo.Cod_Equipo;
+  this.detalleReservacion.Monto_Equipo =  this.detalleReservacion.Monto_Total / 2
+this.alertasService.loadingDissmiss();
 }
 
 }

@@ -4,6 +4,7 @@ import { Equipos } from './equipos';
 
 export class PerfilJugador {
     constructor(
+        public nombre:string, 
         public jugador: Jugador,
         public usuario:Usuarios,
         public equipo: Equipos,

@@ -1,0 +1,85 @@
+
+<ion-content class="ion-padding">
+
+  <ion-grid  >
+    <ion-row style="display: flex;justify-content:center;align-items:center">
+      <ion-col size="12" size-md="6">
+    
+        <ion-item  lines="none">
+          <ion-label >
+       
+            Provincia</ion-label>
+            <ion-select placeholder="Provincia" required [(ngModel)]="filtro.Cod_Provincia" (ionChange)="onChangeProvincias($event)"   name="Cod_Provincia">
+              <ion-select-option [value]="provincia.Cod_Provincia" *ngFor="let provincia of provinciasService.provincias">
+                {{provincia.Provincia}}
+              </ion-select-option>
+              
+              </ion-select>
+        </ion-item>
+  
+  
+      </ion-col>
+  
+      <ion-col size="12" size-md="6">
+    
+          <ion-item  lines="none">
+            <ion-label>
+      
+              Cantón</ion-label>
+              <ion-select placeholder="Canton"  required [(ngModel)]="filtro.Cod_Canton"  (ionChange)="onChangeCantones($event)"   name="Cod_Canton" >
+                <ion-select-option [value]="canton.Cod_Canton" *ngFor="let canton of cantonesService.cantones">
+                  {{canton.Canton}}
+                </ion-select-option>
+                
+                </ion-select>
+        </ion-item>
+  
+  
+      </ion-col>
+  
+      <ion-col size="12" size-md="6">
+
+          <ion-item lines="none">
+            <ion-label>
+
+              Distrito</ion-label>
+
+              <ion-select placeholder="Distrito" required   [(ngModel)]="filtro.Cod_Distrito"   (ionChange)="onChangeDistritos($event)" name="Cod_Distrito">
+                <ion-select-option [value]="distrito.Cod_Distrito" *ngFor="let distrito of distritosService.distritos">
+                  {{distrito.Distrito}}
+                </ion-select-option>
+          
+              </ion-select>
+        </ion-item>
+  
+  
+      </ion-col>
+  
+
+    </ion-row>
+
+    
+    <ion-row>
+
+      <ion-col size="6">
+        <ion-button (click)="limpiarDatos()"  expand="block"  color="dark">
+          <ion-label>Cancelar</ion-label>
+           </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button (click)="submit()" expand="block"  color="dark">
+          <ion-label>Seleccionar</ion-label>
+           </ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+
+
+</ion-content>
+
+
+
+
+

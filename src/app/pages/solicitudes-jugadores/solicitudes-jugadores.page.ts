@@ -7,6 +7,7 @@ import { BuscarEquiposPage } from '../buscar-equipos/buscar-equipos.page';
 import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-modal.page';
 import { Solicitudes } from '../../models/solicitudes';
 import { PerfilSolicitud } from '../../models/perfilSolicitud';
+import { AlertasService } from '../../services/alertas.service';
 
 @Component({
   selector: 'app-solicitudes-jugadores',
@@ -28,23 +29,19 @@ selected:string = '';
     public equiposService: EquiposService,
     public usuariosService:UsuariosService,
     public actionSheetCtrl: ActionSheetController,
-    public solicitudesService:SolicitudesService
+    public solicitudesService:SolicitudesService,
+    public alertasService: AlertasService
   ) { }
 
   ngOnInit() {
    this.showReceive =  true
    this.showSend = false
+   this.activeCategory = 0
 
 
+   this.receive();
 
-
-
-
-    if(this.showReceive){
-this.selectCategory(0)
-    }else{
-this.send();
-    }
+ 
   
   }
 
@@ -155,13 +152,13 @@ if(data != undefined){
   
 }
   }
-  aceptar(solicitud:PerfilSolicitud){
-
+  aceptar(solicitud){
+console.log('solicitud', solicitud)
     const solicitudActualizar:Solicitudes = {
   
-      Cod_Solicitud : solicitud.solicitud.Cod_Solicitud,
-      Cod_Usuario : solicitud.solicitud.Cod_Usuario,
-      Cod_Equipo :solicitud.solicitud.Cod_Equipo,
+      Cod_Solicitud : solicitud.Cod_Solicitud,
+      Cod_Usuario : solicitud.Cod_Usuario,
+      Cod_Equipo :solicitud.Cod_Equipo,
       Confirmacion_Usuario:true,
       Confirmacion_Equipo:true,
       Estado:true,
@@ -170,8 +167,18 @@ if(data != undefined){
     };
   
     this.solicitudesService.syncPutSolicitudToProimise(solicitudActualizar).then(resp =>{
-
-      alert('updated')
+      this.solicitudesService.syncPutSolicitudToProimise(solicitudActualizar).then(resp =>{
+        this.solicitudesService.syncGetSolicitudesRecibidasUsuarioToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp=>{
+          this.solicitudesService.solicitudesJugadoresArray = resp;
+        })
+      
+     this.alertasService.message('FUTPLAY', 'Solicitud aceptada')
+      }, error =>{
+  
+        alert('Lo sentimos algo salio mal')
+      })
+       
+  
     }, error =>{
 
       alert('error')
@@ -183,64 +190,97 @@ if(data != undefined){
   async onOpenMenu(solicitud){
 
     let equipo  = null;
-
+    console.log('solicitud',solicitud)
     this.equiposService.equipos = [];
 
-;
+if(this.activeCategory == 0){
 
-    const normalBtns : ActionSheetButton[] = [
-      {   
-         text: 'Detalle',
-         icon:'eye-outline',
-         handler: () =>{
-           this.detalleEquipo(equipo)
-          console.log(solicitud,'solicitud')
-         
-         }
-        
-        },
- {   
- //   text: canchaFavoritos ? 'Remover Favorito' : 'Favorito',
-   // icon: canchaFavoritos ? 'heart' : 'heart-outline',
-   text: 'Aceptar',
-   icon:'checkmark-outline',
-    handler: () =>{
-     this.aceptar(solicitud)
-    }
-   
-   },
+  const normalBtns : ActionSheetButton[] = [
  
-         {   
-          text: 'Eliminar',
-          icon:'trash-outline',
-          handler: () =>{
-         // this.rechazar(solicitud)
-       
-          }
-         
-         },
-
-         {   
-          text: 'Cancelar',
-          icon:'close-outline',
-         role:'cancel',
-         
-         }
+    {  
+     
+   
+    //   text: canchaFavoritos ? 'Remover Favorito' : 'Favorito',
+      // icon: canchaFavoritos ? 'heart' : 'heart-outline',
+      text: 'Aceptar',
+      icon:'checkmark-outline',
+       handler: () =>{
+        this.aceptar(solicitud)
+       }
       
-        ]
+      },
+    
+            {   
+             text: 'Eliminar',
+             icon:'trash-outline',
+             handler: () =>{
+             this.rechazar(solicitud)
+          
+             }
+            
+            },
+   
+            {   
+             text: 'Cancelar',
+             icon:'close-outline',
+            role:'cancel',
+            
+            }
+         
+           ]
+   
+     
+       const actionSheet = await this.actionSheetCtrl.create({
+         header:  'Opiones Solicitud',
+         cssClass: 'left-align-buttons',
+         buttons:normalBtns,
+         mode:'ios'
+       });
+       await actionSheet.present();
 
   
-    const actionSheet = await this.actionSheetCtrl.create({
-      header:  'Opiones Solicitud'+' '+  solicitud.Nombre_Equipo,
-      cssClass: 'left-align-buttons',
-      buttons:normalBtns,
-      mode:'ios'
-    });
-    await actionSheet.present();
+}
+else{
+
+  const normalBtns : ActionSheetButton[] = [
+  
+  
+    
+            {   
+             text: 'Eliminar',
+             icon:'trash-outline',
+             handler: () =>{
+             this.rechazar(solicitud)
+          
+             }
+            
+            },
+   
+            {   
+             text: 'Cancelar',
+             icon:'close-outline',
+            role:'cancel',
+            
+            }
+         
+           ]
+   
+     
+       const actionSheet = await this.actionSheetCtrl.create({
+         header:  'Opiones Solicitud'+' '+  solicitud.Nombre_Equipo,
+         cssClass: 'left-align-buttons',
+         buttons:normalBtns,
+         mode:'ios'
+       });
+       await actionSheet.present();
+
+}
+
   }
   
   rechazar(solicitud){
   
+    
     const solicitudActualizar = {
   
       Cod_Solicitud : solicitud.Cod_Solicitud,
@@ -255,11 +295,34 @@ if(data != undefined){
     
     };
   
-/**
- *     this.solicitudesService.actualizarSolicitud(solicitudActualizar,solicitud.Cod_Solicitud,solicitud.Cod_Usuario);
- */
+    this.solicitudesService.syncPutSolicitudToProimise(solicitudActualizar).then(resp =>{
+
+      this.alertasService.message('FUTPLAY','Solicitud cancelada')
+    }, error =>{
+      this.alertasService.message('FUTPLAY','Lo sentimos algo salio mal')
+    })
+
+    this.solicitudesService.syncPutSolicitudToProimise(solicitudActualizar).then(resp =>{
+      
+      this.solicitudesService.syncGetSolicitudesEnviadasUsuarioToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp=>{
+        this.solicitudesService.solicitudesJugadoresArray = resp;
+      })
+   
+
+    }, error =>{
+
+      alert('Lo sentimos algo salio mal')
+    })
+  
 
   }
+  filledStars(stars:number){
 
+    return new Array(stars)
+  }
+  emptyStars(stars:number){
+    let value = 5 - stars;
+    return new Array(value)
+  }
 
 }

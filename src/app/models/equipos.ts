@@ -7,6 +7,7 @@ export class Equipos {
         public Cod_Distrito: number,
         public Foto: string,
         public Dureza: number,
+        public Estrellas: number,
         public Nombre: string,
         public Avatar: boolean,
         public Abreviacion: string,

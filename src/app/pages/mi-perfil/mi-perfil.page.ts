@@ -1,23 +1,26 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActionSheetButton, ActionSheetController, ModalController, PopoverController, AlertController } from '@ionic/angular';
 import { Email } from 'src/app/models/email';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { EditarPerfilUsuarioPage } from '../editar-perfil-usuario/editar-perfil-usuario.page';
 import { SolicitudesJugadoresPage } from '../solicitudes-jugadores/solicitudes-jugadores.page';
+import { GestorContrasenaPage } from '../gestor-contrasena/gestor-contrasena.page';
+import { SolicitudesService } from '../../services/solicitudes.service';
 
 @Component({
   selector: 'app-mi-perfil',
   templateUrl: './mi-perfil.page.html',
   styleUrls: ['./mi-perfil.page.scss'],
 })
-export class MiPerfilPage  {
+export class MiPerfilPage implements OnInit {
   
   constructor(
 public usuariosService:UsuariosService,
 public modalCtrl: ModalController,
-public actionSheetCtrl: ActionSheetController
+public actionSheetCtrl: ActionSheetController,
+public solicitudesService:SolicitudesService
 
   ) { }
   calcularEdad(fechaNacimiento:Date){
@@ -43,9 +46,20 @@ public actionSheetCtrl: ActionSheetController
  */
 return age;
 
+
+
   }
 
- 
+  
+  ngOnInit() {
+
+   
+   
+  }
+
+
+
+
 
   calcularFecha(fecha){
     var dob = new Date(fecha);
@@ -106,17 +120,7 @@ return age;
             text: 'Gestionar Contraseñas',
             icon:'lock-closed-outline',
             handler: () =>{
-        // this.gestionarContrasena();
-       // this.cambiarContrasena();
-            }
-           
-           },
-           {   
-            text: 'Validar Codigo De Seguridad',
-            icon:'arrow-forward-outline',
-            handler: () =>{
-        // this.gestionarContrasena();
-      //  this.securityCode();
+        this.gestionarContrasena();
             }
            
            },
@@ -172,7 +176,22 @@ return age;
  
     }
 
+    async  gestionarContrasena(){
 
+      const modal = await this.modalCtrl.create({
+        component:GestorContrasenaPage,
+        componentProps:{
+          usuario:this.usuariosService.usuarioActual
+        },
+        cssClass:'my-custom-modal',
+        id:'perfil-usuario'
+      });
+  
+      modal.present();
+      const { data } = await modal.onWillDismiss();
+      console.log(data)
+   
+      }
     dateF(){
       return new Date().getTime() 
     }
