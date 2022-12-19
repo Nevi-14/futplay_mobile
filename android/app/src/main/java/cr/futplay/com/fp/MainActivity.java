@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package cr.futplay.com.fp;
 
 import com.getcapacitor.BridgeActivity;
 

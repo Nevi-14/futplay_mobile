@@ -42,7 +42,14 @@ jugador:PerfilJugador;
   }
 
 
- 
+  private getJugador( Cod_Usuario, Cod_Equipo){
+    let URL = this.getURL( environment.getJugadorURL);
+        URL = URL + Cod_Usuario + '/'+Cod_Equipo
+
+        console.log(URL, 'URL ')
+    return this.http.get<any[]>( URL );
+  }
+
 
 
   syncJugadoresEquipos(Cod_Equipo){
@@ -52,7 +59,12 @@ jugador:PerfilJugador;
   
   }
 
+  syncGetJugador(Cod_Usuario, Cod_Equipo){
 
+    return this.getJugador(Cod_Usuario, Cod_Equipo).toPromise();
+  
+    
+    }
  
 
 

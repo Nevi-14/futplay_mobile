@@ -265,7 +265,7 @@ syncimagePost(data, Cod_Equipo){
 
   private   deleteEquipo(Cod_Equipo ){
 
-    let URL = this.getURL( environment.deleteCanchaURL);
+    let URL = this.getURL( environment.deleteEquipoURL);
         URL = URL  + Cod_Equipo;
     const options = {
       headers: {
@@ -278,7 +278,7 @@ syncimagePost(data, Cod_Equipo){
     return this.http.delete( URL, options );
   }
 
-  syncDeleteCancha(Cod_Equipo, Cod_Usuario){
+  syncDeleteEquipo(Cod_Equipo){
 
     return this.deleteEquipo(Cod_Equipo).toPromise();
 

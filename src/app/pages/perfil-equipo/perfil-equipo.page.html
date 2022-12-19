@@ -12,7 +12,7 @@
       </ion-buttons>
   
     
-      <ion-buttons slot="end" >
+      <ion-buttons slot="end"  *ngIf="equiposService.equipo.equipo.Cod_Usuario == usuariosService.usuarioActual.usuario.Cod_Usuario ">
         <ion-button (click)="gestionarPerfil()"  size="large"  color="dark" >
           <ion-icon   size="large" slot="icon-only"  name="settings-outline"></ion-icon>
         </ion-button>
@@ -85,7 +85,7 @@
   </ion-item>
 
 
-<ion-item lines="none">
+<ion-item lines="none"   *ngIf="equiposService.equipo.equipo.Cod_Usuario == usuariosService.usuarioActual.usuario.Cod_Usuario ">
 
 <ion-button    (click)="solicitudesEquipos()"   fill="outline" shape="round" color="dark">
   <ion-label style="margin: 0.5rem;" class="ion-text-uppercase">Transferencias</ion-label>

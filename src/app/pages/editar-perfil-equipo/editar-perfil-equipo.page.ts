@@ -419,8 +419,8 @@ async eliminarEquipos(){
    const { data } = await modal.onDidDismiss();
 
    console.log(data, 'deleted')
-if(data.data != undefined){
-
+if(data != undefined){
+this.cerrarModal()
 }
 }
 

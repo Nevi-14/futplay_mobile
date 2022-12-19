@@ -344,7 +344,14 @@ if(this.usuario.usuario.Cod_Provincia && this.usuario.usuario.Cod_Canton){
 
 
 
-    return await modal.present();
+     await modal.present();
+
+     const { data } = await modal.onWillDismiss();
+   
+     if(data !== undefined ){
+
+      this.cerrarModal();
+     }
   }
   
 }

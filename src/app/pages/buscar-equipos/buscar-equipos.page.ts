@@ -5,6 +5,7 @@ import { ActionSheetButton, ModalController, ActionSheetController } from '@ioni
 import { Solicitudes } from 'src/app/models/solicitudes';
 import { SolicitudesService } from '../../services/solicitudes.service';
 import { AlertasService } from '../../services/alertas.service';
+import { JugadoresService } from '../../services/jugadores.service';
 
 @Component({
   selector: 'app-buscar-equipos',
@@ -28,7 +29,8 @@ public usuariosService:UsuariosService,
 public modalCtrl:ModalController,
 public actionSheetCtrl: ActionSheetController,
 public solicitudesService: SolicitudesService,
-public alertasService:AlertasService
+public alertasService:AlertasService,
+public jugadoresService: JugadoresService
   ) { }
 
   ngOnInit() {
@@ -51,12 +53,21 @@ public alertasService:AlertasService
 
       }
       EquipoSolicitud(equipo){
-        this.solicitud.Cod_Equipo = equipo.equipo.Cod_Equipo
-    
-       this.solicitudesService.generarSolicitud(this.solicitud).then(resp =>{
 
-        this.alertasService.message('FUTPLAY', 'Solicitud Enviada')
-       })
+        this.jugadoresService.syncGetJugador(this.usuariosService.usuarioActual.usuario.Cod_Usuario,equipo.equipo.Cod_Equipo).then(resp =>{
+
+          if(resp.length > 0){
+
+return     this.alertasService.message('FUTPLAY', 'Lo sentimos no se puede enviar la solicitud, verifica que no seas parte del equipo o que no hayas enviado una solicitud.')
+          }
+          this.solicitud.Cod_Equipo = equipo.equipo.Cod_Equipo
+    
+          this.solicitudesService.generarSolicitud(this.solicitud).then(resp =>{
+   
+           this.alertasService.message('FUTPLAY', 'Solicitud Enviada')
+          })
+        })
+     
   
        
       }

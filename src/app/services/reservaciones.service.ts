@@ -136,6 +136,14 @@ console.log('PerfilReservaciones',URL)
     return this.http.get<PerfilReservaciones[]>( URL );
 
   }
+  private getReservcionesFuturas(Cod_Equipo, Fecha){
+
+    let URL = this.getURL( environment.getReservacionesFuturas);
+         URL = URL + Cod_Equipo + '/' + Fecha;
+console.log('PerfilReservaciones',URL)
+    return this.http.get<PerfilReservaciones[]>( URL );
+
+  }
   
   private getReservacionesRecibidas(Cod_Usuario){
 
@@ -203,6 +211,17 @@ console.log('PerfilReservaciones',URL)
   return this.http.put( URL, JSON.stringify(detalle), options );
 }
 
+
+ 
+
+
+syncGetReservcionesFuturas(Cod_Equipo, Fecha){
+
+  return     this.getReservcionesFuturas(Cod_Equipo, Fecha).toPromise();
+
+
+
+}
 syncPutDetalleReservaion(detalle:DetalleReservaciones){
 
   return     this.putDetalleReservacion(detalle).toPromise();

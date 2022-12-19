@@ -10,262 +10,288 @@ import { BuscarJugadoresPage } from '../buscar-jugadores/buscar-jugadores.page';
 import { SolicitudesEquiposPage } from '../solicitudes-equipos/solicitudes-equipos.page';
 import { SolicitudesService } from '../../services/solicitudes.service';
 import { AlertasService } from '../../services/alertas.service';
+import { UsuariosService } from '../../services/usuarios.service';
 @Component({
   selector: 'app-perfil-equipo',
   templateUrl: './perfil-equipo.page.html',
   styleUrls: ['./perfil-equipo.page.scss'],
 })
-export class PerfilEquipoPage  {
+export class PerfilEquipoPage {
   dureza = [
 
-    {id:0,titulo:'Equipo Neutral',image:'equipo-neutral.svg'},
-    {id:1,titulo:'Juego Molesto',image:'juego-molesto.svg'},
-    {id:2,titulo:'Agresividad Irresponsable',image:'agresividad-irresponsable.svg'},
-    {id:3,titulo:'Caracter Revelde',image:'caracter-revelde.svg'},
-    {id:4,titulo:'Mas Que Un Club',image:'mas-que-un-club.svg'},
-    {id:5,titulo:'Clase Mundia FairPlay',image:'clase-mundial-fairplay.svg'}
-  
+    { id: 0, titulo: 'Equipo Neutral', image: 'equipo-neutral.svg' },
+    { id: 1, titulo: 'Juego Molesto', image: 'juego-molesto.svg' },
+    { id: 2, titulo: 'Agresividad Irresponsable', image: 'agresividad-irresponsable.svg' },
+    { id: 3, titulo: 'Caracter Revelde', image: 'caracter-revelde.svg' },
+    { id: 4, titulo: 'Mas Que Un Club', image: 'mas-que-un-club.svg' },
+    { id: 5, titulo: 'Clase Mundia FairPlay', image: 'clase-mundial-fairplay.svg' }
+
   ]
   teamPic = null
-constructor(
-  public equiposService: EquiposService,
-  public jugadoresService: JugadoresService,
-  public actionSheetCtrl: ActionSheetController,
-  public modalCtrl:ModalController,
-  public solicitudesService: SolicitudesService,
-  public alertasService: AlertasService,
-  public alertCtrl: AlertController
-) {
-  
-}
+  constructor(
+    public equiposService: EquiposService,
+    public jugadoresService: JugadoresService,
+    public actionSheetCtrl: ActionSheetController,
+    public modalCtrl: ModalController,
+    public solicitudesService: SolicitudesService,
+    public alertasService: AlertasService,
+    public alertCtrl: AlertController,
+    public usuariosService: UsuariosService
+  ) {
+
+  }
 
 
-ionViewWillEnter(){
-
-  this.solicitudesService.syncGetSolicitudesRecibidasEquipoToPromise(this.equiposService.equipo.equipo.Cod_Equipo).then(solicitudes =>{
-
-    this.solicitudesService.solicitudesEquiposArray = solicitudes;
-
-       
-  this.jugadoresService.syncJugadoresEquipos(this.equiposService.equipo.equipo.Cod_Equipo).then(jugadores => {
-    this.jugadoresService.jugadores = jugadores;
- 
-
-  })
-
-  })
-}
-filledStars(stars:number){
-
-  return new Array(stars)
-}
-emptyStars(stars:number){
-  let value = 5 - stars;
-  return new Array(value)
-}
+  ionViewWillEnter() {
 
 
+    this.solicitudesService.syncGetSolicitudesRecibidasEquipoToPromise(this.equiposService.equipo.equipo.Cod_Equipo).then(solicitudes => {
 
-durezaEquipo(value){
-console.log(value.detail.value)
-alert(value)
- 
-}
+      this.solicitudesService.solicitudesEquiposArray = solicitudes;
 
-async  gestionarPerfil(){
 
-  const modal = await this.modalCtrl.create({
-    component:EditarPerfilEquipoPage,
-    componentProps:{
-      equipo:this.equiposService.equipo.equipo
-    },
-    id:'perfil-equipo',
-    cssClass:'my-custom-modal'
-  });
+      this.jugadoresService.syncJugadoresEquipos(this.equiposService.equipo.equipo.Cod_Equipo).then(jugadores => {
+        this.jugadoresService.jugadores = jugadores;
 
-  modal.present();
-  const { data } = await modal.onWillDismiss();
-  console.log(data)
- 
+
+      })
+
+    })
+  }
+  filledStars(stars: number) {
+
+    return new Array(stars)
+  }
+  emptyStars(stars: number) {
+    let value = 5 - stars;
+    return new Array(value)
+  }
+
+
+
+  durezaEquipo(value) {
+    console.log(value.detail.value)
+    alert(value)
+
+  }
+
+  async gestionarPerfil() {
+
+    const modal = await this.modalCtrl.create({
+      component: EditarPerfilEquipoPage,
+      componentProps: {
+        equipo: this.equiposService.equipo.equipo
+      },
+      id: 'perfil-equipo',
+      cssClass: 'my-custom-modal'
+    });
+
+    modal.present();
+    const { data } = await modal.onWillDismiss();
+    console.log(data)
+
 
 
   }
 
-  async myClubsMenu(){
+  async myClubsMenu() {
 
     const modal = await this.modalCtrl.create({
       component: MisEquiposPage,
-      cssClass:'my-custom-modal',
-      id:'my-clubs'
+      cssClass: 'my-custom-modal',
+      id: 'my-clubs'
     });
 
     await modal.present();
     const { data } = await modal.onWillDismiss();
 
- 
-    if(data != undefined){
+
+    if (data != undefined) {
 
 
- 
+
       this.jugadoresEquipo();
 
 
 
 
- 
-   
-   }
+
+
+    }
 
   }
 
 
 
-async onOpenMenu(jugador){
-  console.log(jugador)
-  
-      const normalBtns : ActionSheetButton[] = [
-        {   
-           text: 'Detalle Jugador',
-           icon:'person-outline',
-           handler: () =>{
-   this.perfilJugador(jugador);
-           }
-          
-          },
-          {   
-            text: 'Remover Jugador',
-            icon:'lock-closed-outline',
-            handler: () =>{
-             this.confirmDelete(jugador);
+  async onOpenMenu(jugador) {
+    console.log(jugador)
+    let normalBtns: ActionSheetButton[];
 
-   
-            }
-           
-           },
-          
-           {   
-            text: 'Cancelar',
-            icon:'close-outline',
-           role:'cancel',
-           
-           }
-        
-          ]
-    
-    
-    
-    
-      const actionSheet = await this.actionSheetCtrl.create({
-        header:'Opciones',
-        cssClass: 'left-align-buttons',
-        buttons:normalBtns,
-        mode:'ios'
-      });
-    
-    
-    
-    
-    
-    await actionSheet.present();
-    
-    
-      }
-
-      jugadoresEquipo(){
-        this.solicitudesService.syncGetSolicitudesRecibidasEquipoToPromise(this.equiposService.equipo.equipo.Cod_Equipo).then(solicitudes =>{
-
-          this.solicitudesService.solicitudesEquiposArray = solicitudes;
-
-          this.jugadoresService.syncJugadoresEquipos( this.equiposService.equipo.equipo.Cod_Equipo).then( jugadores =>{
-        
-            this.jugadoresService.jugadores = []
-            this.jugadoresService.jugadores = jugadores;
-            //this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, true,false, true)
-                
-              }, error =>{
-          
-               // this.alertasService.loadingDissmiss();
-                //this.alertasService.message('FUTPLAY', 'Error cargando lista de jugadores...')
-              })
-        })
-      
-         }
-
-         async presentModal(equipo) {
-          const modal = await this.modalCtrl.create({
-            component: EstadisticaEquipoPage,
-      
-            cssClass:'my-custom-css',
-            componentProps:{
-              equipo:equipo
-            }
-          });
-          return await modal.present();
-        }
-    async perfilJugador(jugador) {
-      const modal = await this.modalCtrl.create({
-        component:PerfilJugadorPage,
-        cssClass: 'my-custom-class',
-        componentProps:{
-          perfil: jugador
-        }
-      });
-      return await modal.present();
-    }
-    async solicitudesEquipos() {
-      const modal = await this.modalCtrl.create({
-        component:SolicitudesEquiposPage,
-        cssClass:'my-custom-modal'
-      });
-       await modal.present();
-  
-       const { data } = await modal.onWillDismiss();
-       this.jugadoresEquipo();
-    }
-
-    async confirmDelete(jugador) {
- 
-console.log(jugador)
-
-   
-      if(jugador.usuario.Cod_Usuario == this.equiposService.equipo.equipo.Cod_Usuario){
-  this.alertasService.message('FUTPLAY', 'No se puede eliminar el usuario por defecto')
-        return
-      }
-      const alert = await this.alertCtrl.create({
-        cssClass: 'my-custom-class',
-        header: 'FUTPLAY',
-        message: '¿Desea eliminar el jugador del equipo?',
-        buttons: [
-          {
-            text: 'Cancelar',
-            role: 'cancel',
-            cssClass: 'secondary',
-            id: 'cancel-button',
-            handler: (blah) => {
-              console.log('Confirm Cancel: blah');
-            }
-          }, {
-            text: 'Aceptar',
-            id: 'confirm-button',
-            handler: () => {
-              this.alertasService.presentaLoading('Eliminando jugador..')
-              this.jugadoresService.syncDeleteJugadorEquipo(jugador.jugador.Cod_Jugador).then(resp =>{
-           this.alertasService.loadingDissmiss();
-                                this.jugadoresEquipo();
-                                this.alertasService.message('FUTPLAY', 'Jugador Eliminado')
-                              }, error =>{
-  
-                                this.alertasService.loadingDissmiss();
-                                this.alertasService.message('FUTPLAY', 'Error eliminando jugador.')
-                              })
-            }
+    if (this.usuariosService.usuarioActual.usuario.Cod_Usuario == this.equiposService.equipo.equipo.Cod_Usuario) {
+      normalBtns = [
+        {
+          text: 'Detalle Jugador',
+          icon: 'person-outline',
+          handler: () => {
+            this.perfilJugador(jugador);
           }
-        ]
-      });
-  
-      await alert.present();
+
+        },
+        {
+          text: 'Remover Jugador',
+          icon: 'lock-closed-outline',
+          handler: () => {
+            this.confirmDelete(jugador);
+
+
+          }
+
+        },
+
+        {
+          text: 'Cancelar',
+          icon: 'close-outline',
+          role: 'cancel',
+
+        }
+
+      ]
+
+
+    } else {
+      normalBtns = [
+        {
+          text: 'Detalle Jugador',
+          icon: 'person-outline',
+          handler: () => {
+            this.perfilJugador(jugador);
+          }
+
+        },
+
+        {
+          text: 'Cancelar',
+          icon: 'close-outline',
+          role: 'cancel',
+
+        }
+
+      ]
+
+
     }
+
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Opciones',
+      cssClass: 'left-align-buttons',
+      buttons: normalBtns,
+      mode: 'ios'
+    });
+
+
+
+
+
+    await actionSheet.present();
+
+
+  }
+
+  jugadoresEquipo() {
+    this.solicitudesService.syncGetSolicitudesRecibidasEquipoToPromise(this.equiposService.equipo.equipo.Cod_Equipo).then(solicitudes => {
+
+      this.solicitudesService.solicitudesEquiposArray = solicitudes;
+
+      this.jugadoresService.syncJugadoresEquipos(this.equiposService.equipo.equipo.Cod_Equipo).then(jugadores => {
+
+        this.jugadoresService.jugadores = []
+        this.jugadoresService.jugadores = jugadores;
+        //this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, true,false, true)
+
+      }, error => {
+
+        // this.alertasService.loadingDissmiss();
+        //this.alertasService.message('FUTPLAY', 'Error cargando lista de jugadores...')
+      })
+    })
+
+  }
+
+  async presentModal(equipo) {
+    const modal = await this.modalCtrl.create({
+      component: EstadisticaEquipoPage,
+
+      cssClass: 'my-custom-css',
+      componentProps: {
+        equipo: equipo
+      }
+    });
+    return await modal.present();
+  }
+  async perfilJugador(jugador) {
+    const modal = await this.modalCtrl.create({
+      component: PerfilJugadorPage,
+      cssClass: 'my-custom-class',
+      componentProps: {
+        perfil: jugador
+      }
+    });
+    return await modal.present();
+  }
+  async solicitudesEquipos() {
+    const modal = await this.modalCtrl.create({
+      component: SolicitudesEquiposPage,
+      cssClass: 'my-custom-modal'
+    });
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+    this.jugadoresEquipo();
+  }
+
+  async confirmDelete(jugador) {
+
+    console.log(jugador)
+
+
+    if (jugador.usuario.Cod_Usuario == this.equiposService.equipo.equipo.Cod_Usuario) {
+      this.alertasService.message('FUTPLAY', 'No se puede eliminar el usuario por defecto')
+      return
+    }
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'FUTPLAY',
+      message: '¿Desea eliminar el jugador del equipo?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Aceptar',
+          id: 'confirm-button',
+          handler: () => {
+            this.alertasService.presentaLoading('Eliminando jugador..')
+            this.jugadoresService.syncDeleteJugadorEquipo(jugador.jugador.Cod_Jugador).then(resp => {
+              this.alertasService.loadingDissmiss();
+              this.jugadoresEquipo();
+              this.alertasService.message('FUTPLAY', 'Jugador Eliminado')
+            }, error => {
+
+              this.alertasService.loadingDissmiss();
+              this.alertasService.message('FUTPLAY', 'Error eliminando jugador.')
+            })
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 
 
 }

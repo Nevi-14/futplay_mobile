@@ -15,7 +15,7 @@
 
 
 
-    <ion-content fullscreen>
+    <ion-content fullscreen *ngIf="userService.usuarioActual">
 
       <div class="mainContent">
 
@@ -176,7 +176,7 @@
                   Correo</ion-label>
                 <ion-item  lines="none">
               
-                  <ion-input type="email" placeholder="Correo" name="Correo"  [(ngModel)]="usuario.usuario.Correo"   autocomplete="off"></ion-input>
+                  <ion-input readonly type="email" placeholder="Correo" name="Correo"  [(ngModel)]="usuario.usuario.Correo"   autocomplete="off"></ion-input>
                 
                 </ion-item>
           
