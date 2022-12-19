@@ -17,12 +17,11 @@ import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 import { IonicStorageModule } from '@ionic/storage-angular';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FullCalendarModule,HttpClientModule,FontAwesomeModule, CommonModule,IonicStorageModule.forRoot()],
-  providers: [BarcodeScanner,Camera,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },SocialSharing],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    declarations: [AppComponent],
+    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FullCalendarModule, HttpClientModule, FontAwesomeModule, CommonModule, IonicStorageModule.forRoot()],
+    providers: [BarcodeScanner, Camera, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, SocialSharing],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {
 
