@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -10,6 +10,7 @@ import { GenerarReservacionPage } from './generar-reservacion.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { NgCalendarModule } from 'ionic2-calendar';
 
+ 
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +20,7 @@ import { NgCalendarModule } from 'ionic2-calendar';
     NgCalendarModule,
     PipesModule
   ],
-  declarations: [GenerarReservacionPage]
+  declarations: [GenerarReservacionPage],
+  providers: [{ provide: LOCALE_ID, useValue: 'es' }]
 })
 export class GenerarReservacionPageModule {}

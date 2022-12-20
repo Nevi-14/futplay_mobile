@@ -39,7 +39,7 @@ interface objetoFecha{
 })
 export class GenerarReservacionPage  {
   @ViewChild(IonDatetime, { static: true }) datetime: IonDatetime;
- 
+  @ViewChild(CalendarComponent) myCal: CalendarComponent
   @Input() cancha:PerfilCancha;
   @Input() diaCompleto 
   @Input()rival : PerfilEquipos;
@@ -89,7 +89,6 @@ export class GenerarReservacionPage  {
    viewTitle: string
    calendarMode: any = 'month'
    lockSwipes = false;
-   @ViewChild(CalendarComponent) myCal: CalendarComponent
    column = 6;
    habilitarHoras = false;
    dayEventSource = [];
@@ -285,7 +284,7 @@ swipeNext(){
        
           this.rival = data.equipo;
           console.log('this.rival', this.rival)
-             this.modalCtrl.dismiss();
+             //this.modalCtrl.dismiss();
 
              if(this.cancha != null && this.cancha != undefined){
               this.nuevaReservacion.Cod_Cancha = this.cancha.cancha.Cod_Cancha;
@@ -318,7 +317,7 @@ swipeNext(){
          
           this.retador = data.equipo;
 console.log('this.retador', this.retador)
-             this.modalCtrl.dismiss();
+            // this.modalCtrl.dismiss();
 
              if(this.cancha != null && this.cancha != undefined){
               this.nuevaReservacion.Cod_Cancha = this.cancha.cancha.Cod_Cancha;
@@ -350,7 +349,7 @@ const modal = await this.modalCtrl.create({
       this.nuevaReservacion.Cod_Cancha = this.cancha.cancha.Cod_Cancha;
 //      this.horarioCancha();
 this.cd.detectChanges();
-         this.modalCtrl.dismiss();
+     //    this.modalCtrl.dismiss();
      }
 
      
