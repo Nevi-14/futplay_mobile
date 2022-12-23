@@ -133,7 +133,7 @@ this.avatarActual =  this.imgs[i].img
 
 
    this.usuarioService.syncAvatarToPromise(data).then((resp:any) =>{
-    this.usuarioService.usuarioActual.usuario = resp.usuario;
+    this.usuarioService.usuarioActual.usuario = resp.usuario[0];
     this.alertasService.message('FUTPLAY', resp.message)
    console.log('imagen actualizada  ' , resp)
  

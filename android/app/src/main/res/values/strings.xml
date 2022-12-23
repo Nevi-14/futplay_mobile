@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">FUTPLAY</string>
     <string name="title_activity_main">FUTPLAY</string>
-    <string name="package_name">cr.futplay.com.fp</string>
-    <string name="custom_url_scheme">cr.futplay.com.fp</string>
+    <string name="package_name">io.ionic.starter</string>
+    <string name="custom_url_scheme">io.ionic.starter</string>
+
+        <string name="admob_app_id">ca-app-pub-9127656840662825~1341877306</string>
 </resources>

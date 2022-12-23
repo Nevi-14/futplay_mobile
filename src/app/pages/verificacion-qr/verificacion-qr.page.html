@@ -74,11 +74,14 @@
 
 
         <ion-avatar slot="start">
-          <img *ngIf="!reto.rival.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+reto.rival.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-          <img  *ngIf="reto.rival.Avatar"  src="assets/soccer-shields-svg/{{reto.rival.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
- 
-        </ion-avatar>
+   
 
+          <img *ngIf="reto.rival.Avatar"    src="{{'assets/soccer-shields-svg/'+reto.rival.Foto}}" alt="" onerror="this.src='assets/img/icon/FP.svg'">
+          <img *ngIf="!reto.rival.Avatar"  src="{{'https://futplaycompany.com/api_test/'+reto.rival.Foto}}" alt="" onerror="this.src='assets/img/icon/FP.svg'">
+        </ion-avatar>
+ 
+    
+    
 
    
         <span style="display:block;">
@@ -101,9 +104,10 @@
  
 
         <ion-avatar  slot="start">
-          <img  *ngIf="!reto.retador.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+reto.retador.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-          <img  *ngIf="reto.retador.Avatar"  src="assets/soccer-shields-svg/{{reto.rival.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
- 
+      
+
+          <img *ngIf="reto.retador.Avatar"    src="{{'assets/soccer-shields-svg/'+reto.retador.Foto}}" alt="" onerror="this.src='assets/img/icon/FP.svg'">
+          <img *ngIf="!reto.retador.Avatar"  src="{{'https://futplaycompany.com/api_test/'+reto.retador.Foto}}" alt="" onerror="this.src='assets/img/icon/FP.svg'">
         </ion-avatar>
         
         <span style="display:block;">

@@ -105,7 +105,7 @@ imageURL =  "https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/Nelso
         text: 'Galeria',
         icon:'images-outline',
         handler: () =>{
-          this.selectImage('photos','camera', false);
+          this.selectImage('photos','photos', false);
         }
        
        },
@@ -147,7 +147,7 @@ imageURL =  "https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/Nelso
     this.newElement = false;
     this.newElement = newElement;
   
-    this.reset();
+   this.reset();
    this.loadFiles()
 
 
@@ -171,6 +171,7 @@ imageURL =  "https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/Nelso
            break;
            
           }
+
     const image = await Camera.getPhoto({
         quality: 90,
         allowEditing: false,
