@@ -34,7 +34,7 @@
         </provider>
     </application>
 
-    
+
 <!-- Required only if your app needs to access images or photos
      that other apps created. -->
 <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
@@ -50,9 +50,11 @@
 <!-- If your app doesn't need to access media files that other apps created,
      set the "maxSdkVersion" attribute to "28" instead. -->
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-                 android:maxSdkVersion="32" />
+                />
 
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-                 android:maxSdkVersion="29" />
+                />
+ 
+
 
 </manifest>

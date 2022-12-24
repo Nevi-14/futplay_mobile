@@ -181,7 +181,7 @@ imageURL =  "https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/Nelso
  
     if (image) {
   
-
+ 
     
         this.saveImage(image)
     }
