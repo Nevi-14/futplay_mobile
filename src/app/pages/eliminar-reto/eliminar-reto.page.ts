@@ -47,7 +47,7 @@ this.modalCtrl.dismiss(true);
     let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
     console.log('difference',difference)
 
-    if(TotalHours >= 24){
+    if(TotalHours >= 24 || this.reto.reservacion.Cod_Estado ==2){
 
       this.reservacionesService.syncDeleteReservacion(this.reto.reservacion.Cod_Reservacion).then((resp:any) =>{
 

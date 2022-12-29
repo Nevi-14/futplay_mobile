@@ -51,38 +51,30 @@ export class FutplayPage implements OnInit {
   }
 
   misEquipos() {
-    this.reservacionesService.syncgGtReservacionesRecibidas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones => {
-      this.reservacionesService.reservaciones = reservaciones;
-
-      this.equiposService.misEquipos = [];
-
-      this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp => {
+    this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp => {
 
 
-        if (resp.length == 0) {
-          this.crearEquipo();
+      if (resp.length == 0) {
+        this.crearEquipo();
 
-        } else {
+      } else {
 
-          this.equiposService.misEquipos = resp.slice(0);
-          this.equiposService.equipo = resp[0];
+        this.equiposService.misEquipos = resp.slice(0);
+        this.equiposService.equipo = resp[0];
 
-          this.router.navigate(['/futplay/perfil-equipo']);
+        this.router.navigate(['/futplay/perfil-equipo']);
+  
+
     
-
-      
-     
+   
 
 
-        }
+      }
 
 
-      }, error => {
+    }, error => {
 
-        this.alertasService.message('FUTLAY', 'Error cargando datos...');
-
-      })
-
+      this.alertasService.message('FUTLAY', 'Error cargando datos...');
 
     })
 
@@ -111,34 +103,23 @@ export class FutplayPage implements OnInit {
   }
 
   equipos() {
+    this.equiposService.equipos = [];
+    this.equiposService.syncListaEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp => {
 
-    this.reservacionesService.syncgGtReservacionesRecibidas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones => {
-      this.reservacionesService.reservaciones = reservaciones;
+      this.equiposService.equipos = resp.slice(0);
 
+      this.router.navigate(['/futplay/rivales']);
+    }, error => {
 
-      this.equiposService.misEquipos = [];
-
-      this.equiposService.syncListaEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp => {
-
-        this.equiposService.equipos = resp.slice(0);
-
-        this.router.navigate(['/futplay/rivales']);
-      }, error => {
-
-        this.alertasService.message('FUTLAY', 'Error cargando datos...');
-      })
+      this.alertasService.message('FUTLAY', 'Error cargando datos...');
     })
-
 
 
 
   }
   canchas() {
 
-
-    this.reservacionesService.syncgGtReservacionesRecibidas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones => {
-      this.reservacionesService.reservaciones = reservaciones;
-      this.canchasService.canchas = [];
+    this.canchasService.canchas = [];
       this.canchasService.syncListaCanchasToPromise().then(canchas => {
 
         this.canchasService.canchas = canchas;
@@ -148,8 +129,6 @@ export class FutplayPage implements OnInit {
 
         this.alertasService.message('FUTLAY', 'Error cargando datos...');
       })
-
-    })
 
 
 

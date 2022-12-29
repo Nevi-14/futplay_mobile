@@ -49,13 +49,9 @@ export class RivalesPage implements OnInit {
    
   }
 
-  selectCategory(index){
-    this.activeCategory = index;
-   console.log('index', index)
-    switch(index){
-   
-     case 0:
-      this.equiposService.equipos  = [];
+  cargarEquipos(){
+
+       this.equiposService.equipos  = [];
       this.alertasService.presentaLoading('Cargando datos...');
       this.equiposService.syncListaEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp =>{
         this.alertasService.loadingDissmiss();
@@ -64,6 +60,15 @@ export class RivalesPage implements OnInit {
         this.alertasService.loadingDissmiss();
         this.alertasService.message('FUTLAY', 'Error cargando datos...');
       })
+  }
+
+  selectCategory(index){
+    this.activeCategory = index;
+   console.log('index', index)
+    switch(index){
+   
+     case 0:
+   this.cargarEquipos();
         
      break;
      case 1:
@@ -247,6 +252,9 @@ await actionSheet.present();
          },
          id:'my-modal-id'
        });
-       await modal .present();
+
+       await     modal.present();
+       const { data } = await modal.onWillDismiss();
+       this.cargarEquipos();
        }
 }
