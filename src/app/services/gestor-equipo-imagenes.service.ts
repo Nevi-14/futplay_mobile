@@ -152,7 +152,8 @@ imageURL =  "https://dev-coding.com/FUTPLAY_APIS_HOST/PerfilUsuarioUploads/Nelso
     this.newElement = false;
     this.newElement = newElement;
   
- await   this.reset();
+    this.reset();
+    this.loadFiles()
 
 
 
