@@ -236,7 +236,7 @@ async  evaluacionModal(){
     cssClass:'my-custom-class',
     componentProps:{
       jugadores:[],
-      equipo: this.retador ? this.reto.retador : this.reto.rival,
+      equipo: this.retador ? this.reto.rival : this.reto.retador,
       partido:  this.retador ? this.partido[0] : this.partido[1],
       reto:this.reto
     },

@@ -297,6 +297,12 @@ this.loading();
   
     }
 
+    this.partidosService.syncGetPartidoReservacion(this.reto.reservacion.Cod_Reservacion).then(partido =>{
+      this.partido = partido;
+if(this.partido[0].Verificacion_QR && this.partido[1].Verificacion_QR){
+  this.cerrarModal();
+}
+    });
 
 
   }

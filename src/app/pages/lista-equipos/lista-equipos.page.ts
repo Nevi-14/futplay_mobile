@@ -16,6 +16,11 @@ export class ListaEquiposPage implements OnInit {
   @Input() club: PerfilEquipos;
   @Input() rival: boolean;
 
+  filtro ={
+    Cod_Provincia: null,
+    Cod_Canton: null,
+    Cod_Distrito:null,
+  }
   textoBuscar = '';
   @ViewChild(IonContent, { static: false }) content: IonContent;
   constructor(
@@ -25,6 +30,10 @@ public usuariosService:UsuariosService,
 public alertasService: AlertasService,
 private cd: ChangeDetectorRef
   ) { }
+
+
+ 
+
 
   ngOnInit() {
 
@@ -85,9 +94,28 @@ console.log(this.equiposService.equipos, 'kdkd')
     const modal  = await this.modalCtrl.create({
      component: FiltroUbicacionPage,
      cssClass: 'my-custom-class',
+     breakpoints: [0, 0.3, 0.5, 0.8],
+     initialBreakpoint: 0.5,
+     componentProps : {
+      'Cod_Provincia': this.filtro.Cod_Provincia,
+      'Cod_Canton': this.filtro.Cod_Canton,
+      'Cod_Distrito': this.filtro.Cod_Distrito
+     },
+     
      id:'my-modal-id'
    });
+
    await modal .present();
+
+   const { data } = await modal.onWillDismiss();
+ console.log(data)
+   if(data !== undefined ){
+
+    this.filtro.Cod_Provincia = data.Cod_Provincia;
+    this.filtro.Cod_Canton = data.Cod_Canton;
+    this.filtro.Cod_Distrito = data.Cod_Distrito;
+
+   }
  }
   retornarEquipo(equipo:PerfilEquipos){
 

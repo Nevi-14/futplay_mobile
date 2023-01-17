@@ -42,7 +42,7 @@ public jugadoresService:JugadoresService
 
   ngOnInit() {
 
-    this.jugadoresService.syncJugadoresEquipos(this.equipo.Cod_Equipo).then(jugadores =>{
+    this.jugadoresService.syncJugadoresEquipos(this.equipo.Cod_Equipo == this.reto.retador.Cod_Equipo ?  this.reto.retador.Cod_Equipo : this.reto.rival.Cod_Equipo).then(jugadores =>{
 console.log('jugadores', jugadores)
       this.jugadores = jugadores;
     })

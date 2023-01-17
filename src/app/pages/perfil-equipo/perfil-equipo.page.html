@@ -83,17 +83,26 @@
 
 
   </ion-item>
+  <ion-item lines="none"   *ngIf="equiposService.equipo.equipo.Cod_Usuario == usuariosService.usuarioActual.usuario.Cod_Usuario ">
+
+    <ion-button    (click)="solicitudesEquipos()"   fill="outline" shape="round" color="dark">
+      <ion-label style="margin: 0.5rem;" class="ion-text-uppercase">Transferencias</ion-label>
+      <ion-badge color="primary" style="margin-left:10px">{{solicitudesService.solicitudesEquiposArray.length}}</ion-badge>
+    </ion-button>
+      
+    
+    </ion-item>
+  <ion-item *ngIf="jugadoresService.jugadores.length > 0" lines="none"    >
+<ion-icon slot="start" name="call-outline"></ion-icon>
+<ion-label slot="start" class="ion-text-wrap">
+ 
+  <a target="_blank" href="https://wa.me/+506{{jugadoresService.jugadores[0].usuario.Telefono}}?text=Hola%20{{jugadoresService.jugadores[0].usuario.Nombre}} {{jugadoresService.jugadores[0].usuario.Primer_Apellido}}"> Cápitan +506{{jugadoresService.jugadores[0].usuario.Telefono}}</a>
 
 
-<ion-item lines="none"   *ngIf="equiposService.equipo.equipo.Cod_Usuario == usuariosService.usuarioActual.usuario.Cod_Usuario ">
 
-<ion-button    (click)="solicitudesEquipos()"   fill="outline" shape="round" color="dark">
-  <ion-label style="margin: 0.5rem;" class="ion-text-uppercase">Transferencias</ion-label>
-  <ion-badge color="primary" style="margin-left:10px">{{solicitudesService.solicitudesEquiposArray.length}}</ion-badge>
-</ion-button>
-  
-
+</ion-label>
 </ion-item>
+
 
 
 <ion-item lines="none" >
