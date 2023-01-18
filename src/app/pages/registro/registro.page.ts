@@ -50,7 +50,9 @@ usuario: Usuarios = {
   Partidos_Jugador_Futplay: 0,
   Partidos_Jugador_Del_Partido : 0,
   Compartir_Datos : false,
-  Avatar: true
+  Avatar: true,
+  Pais:'CR',
+  Cod_Pais:'+506'
 
 
 
@@ -120,8 +122,9 @@ limpiarDatos(){
     Partidos_Jugador_Futplay: 0,
     Partidos_Jugador_Del_Partido : 0,
     Compartir_Datos : false,
-    Avatar: true
-  
+    Avatar: true,
+    Pais:'CR',
+    Cod_Pais:'+506'
 
   
   };
@@ -147,6 +150,7 @@ return;
 
     }
  this.usuario.Contrasena = this.ingresarContrasena;    
+ this.usuario.Cod_Pais = this.usuario.Pais == 'CR' ? '+506' : '+1';
    console.log('fRegistro', fRegistro)
    console.log('user', this.usuario)
    console.log('this.usuario.Contrasena ',this.usuario.Contrasena )

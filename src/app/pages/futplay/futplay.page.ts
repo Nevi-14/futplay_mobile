@@ -6,7 +6,6 @@ import { CanchasService } from 'src/app/services/canchas.service';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { JugadoresService } from 'src/app/services/jugadores.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
-import { CrearEquipoPage } from '../crear-equipo/crear-equipo.page';
 import { CrearUnirseEquipoPage } from '../crear-unirse-equipo/crear-unirse-equipo.page';
 import { ReservacionesService } from '../../services/reservaciones.service';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
@@ -36,10 +35,9 @@ export class FutplayPage implements OnInit {
 
   }
   profile() {
-    //   this.equiposService.new = true;
-    //this.equiposService.perfilEquipo = null;
 
     if (this.usuariosService.usuarioActual) {
+      
       this.reservacionesService.syncgGtReservacionesRecibidas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones => {
         this.reservacionesService.reservaciones = reservaciones;
         this.router.navigate(['/futplay/mi-perfil']);
@@ -119,9 +117,10 @@ export class FutplayPage implements OnInit {
   }
   canchas() {
 
+  //  this.alertasService.presentaLoading('cargando canchas...')
     this.canchasService.canchas = [];
       this.canchasService.syncListaCanchasToPromise().then(canchas => {
-
+//this.alertasService.loadingDissmiss();
         this.canchasService.canchas = canchas;
         console.log('this.canchasService.canchas', this.canchasService.canchas)
         this.router.navigate(['/futplay/canchas']);

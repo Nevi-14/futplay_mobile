@@ -212,6 +212,7 @@ this.usuario.usuario.Cod_Provincia = this.usuarioService.usuarioActual.usuario.C
  
     this.modalCtrl.dismiss({'data':true}, null, 'perfil-usuario')
     console.log(this.usuario, this.usuario.usuario.Cod_Posicion, 'Cod_Posicion')
+    this.usuario.usuario.Cod_Pais = this.usuario.usuario.Pais == 'CR' ? '+506' : '+1';
     this.usuarioService.actualizarUsuario(this.usuario.usuario, this.usuario.usuario.Cod_Usuario)
 
   }

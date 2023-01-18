@@ -61,8 +61,8 @@
             <ion-label>
               <h2>{{jugador.nombre}}  </h2>
               <p>{{jugador.provincia}},       {{jugador.canton}} ...</p>
-              <p>Posicion : <ion-badge color="warning" mode="ios">{{jugador.posicion}}</ion-badge> </p>
-              <p>Apodo: {{jugador.usuario.Apodo}}</p>
+              <p class="ion-text-wrap">Posicion : <ion-badge color="warning" mode="ios">{{jugador.posicion}}</ion-badge> </p>
+              <p *ngIf="jugador.usuario.Apodo">Apodo: {{jugador.usuario.Apodo}}</p>
              
         
             </ion-label>

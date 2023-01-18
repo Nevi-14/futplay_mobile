@@ -19,6 +19,7 @@ export class PerfilReservaciones {
 public canton:string,
 public distrito:string,
 public categoria:string,
+public titulo:string
         
     ){}
 }

@@ -6,6 +6,7 @@ import { Solicitudes } from 'src/app/models/solicitudes';
 import { SolicitudesService } from '../../services/solicitudes.service';
 import { AlertasService } from '../../services/alertas.service';
 import { JugadoresService } from '../../services/jugadores.service';
+import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
 
 @Component({
   selector: 'app-buscar-equipos',
@@ -22,6 +23,12 @@ export class BuscarEquiposPage implements OnInit {
     Confirmacion_Usuario:true,
     Confirmacion_Equipo:false,
     Estado:true
+  }
+  
+  filtro ={
+    Cod_Provincia: null,
+    Cod_Canton: null,
+    Cod_Distrito:null,
   }
   constructor(
 public equiposService:EquiposService,
@@ -47,11 +54,40 @@ public jugadoresService: JugadoresService
         this.modalCtrl.dismiss()
       }
 
-      filtroUbicacion(){
+      async filtroUbicacion(){
 
-
-
-      }
+  
+     
+        const modal  = await this.modalCtrl.create({
+         component: FiltroUbicacionPage,
+         cssClass: 'my-custom-class',
+         breakpoints: [0, 0.3, 0.5, 0.8],
+         initialBreakpoint: 0.5,
+         componentProps : {
+          'Cod_Provincia': this.filtro.Cod_Provincia,
+          'Cod_Canton': this.filtro.Cod_Canton,
+          'Cod_Distrito': this.filtro.Cod_Distrito
+         },
+         
+         id:'my-modal-id'
+       });
+    
+       await modal .present();
+    
+       const { data } = await modal.onWillDismiss();
+     console.log(data)
+       if(data !== undefined ){
+    
+        this.filtro.Cod_Provincia = data.Cod_Provincia;
+        this.filtro.Cod_Canton = data.Cod_Canton;
+        this.filtro.Cod_Distrito = data.Cod_Distrito;
+    
+       }
+     }
+     onSearchChange(event){
+      this.textoBuscar = event.detail.value;
+  
+    }
       EquipoSolicitud(equipo){
 
         this.jugadoresService.syncGetJugador(this.usuariosService.usuarioActual.usuario.Cod_Usuario,equipo.equipo.Cod_Equipo).then(resp =>{

@@ -32,7 +32,7 @@
          </ion-item>
 
 
-        <ion-item (click)="seleccionarEquipo(equipo)"   class="custom-item   animate__animated animate__fadeIn" lines="none"  *ngFor="let equipo of equiposService.misEquipos | filtro: textoBuscar:'Nombre'; let i = index;">
+        <ion-item (click)="seleccionarEquipo(equipo)"   class="custom-item   animate__animated animate__fadeIn" lines="none"  *ngFor="let equipo of equiposService.misEquipos | filtro: textoBuscar:'nombre'; let i = index;">
           <ion-avatar slot="start"  >
             <img *ngIf="!equipo.equipo.Avatar"  src="{{'https://futplaycompany.com/api_test/'+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
             <img  *ngIf="equipo.equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
@@ -41,7 +41,7 @@
           </ion-avatar>
           
           <ion-label>
-            {{equipo.equipo.Nombre}}
+            {{equipo.nombre}}
             <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
             
               <ng-template ngFor let-hero [ngForOf]="filledStars(equipo.equipo.Estrellas)"

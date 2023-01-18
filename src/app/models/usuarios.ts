@@ -24,6 +24,8 @@ export class Usuarios {
         public Partidos_Jugador_Futplay: number,
         public Partidos_Jugador_Del_Partido : number,
         public Compartir_Datos : boolean,
-        public Avatar: boolean
+        public Avatar: boolean,
+        public Pais: string,
+        public Cod_Pais: string
     ){}
 }

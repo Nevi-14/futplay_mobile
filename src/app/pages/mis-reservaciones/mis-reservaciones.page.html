@@ -69,11 +69,11 @@
             
                     <ion-list *ngIf="reservacionesService.reservaciones.length > 0">
               
-                      <ion-item  (click)="detalleReto(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of reservacionesService.reservaciones | filtro: textoBuscar:'Titulo' ; let odd = odd; let i = index;" >
+                      <ion-item  (click)="detalleReto(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of reservacionesService.reservaciones | filtro: textoBuscar:'titulo' ; let odd = odd; let i = index;" >
                         <img  src="{{'https://futplaycompany.com/api_test/'+reto.cancha.Foto }}"  onerror="this.src='assets/soccerfield.jpg'"   alt="">
                   
                         <ion-label>
-                          <h2> {{reto.reservacion.Titulo}} </h2>
+                          <h2> {{reto.titulo}} </h2>
                           <p> Fecha : <ion-badge color="warning" mode="ios"> {{reto.reservacion.Fecha | date:'shortDate'}} </ion-badge> </p>
                           <p   >
                                

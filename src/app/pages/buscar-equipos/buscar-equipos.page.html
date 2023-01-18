@@ -14,7 +14,7 @@
 
   <ion-col size="10">
 
-    <ion-searchbar  style="display: block;"  mode="ios" placeholder="buscar solicitud" inputmode="text"  debounce="250" ></ion-searchbar> 
+    <ion-searchbar (ionChange)="onSearchChange($event)"  mode="ios" placeholder="Buscar Equipo" inputmode="text"  debounce="250" ></ion-searchbar> 
 
   </ion-col>
   <ion-col size="2">
@@ -37,15 +37,17 @@
 
 
       <ion-list class="ion-margin-top">
-        <ion-item lines="none"  (click)="onOpenMenu(equipo)"  class="employeeItem animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'Nombre'">
+        <ion-item lines="none"  (click)="onOpenMenu(equipo)"  class="employeeItem animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.equipos  | filtro : textoBuscar:'nombre'">
           <ion-avatar slot="start"  >
-            <img *ngIf="!equipo.equipo.Avatar"  src="{{'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/'+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+            <img *ngIf="!equipo.equipo.Avatar"  src="{{'https://futplaycompany.com/api_test/'+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
             <img  *ngIf="equipo.equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
    
           </ion-avatar>
           
           <ion-label>
-            {{equipo.equipo.Nombre}}
+            {{equipo.nombre}}
+            <p>{{equipo.provincia}},       {{equipo.canton}} ...</p>
+            <p>Puntaje : {{equipo.equipo.Puntaje_Actual ?  equipo.equipo.Puntaje_Actual : 0}} </p>
             <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
             
               <ion-icon style="size: 10px;" name="star"></ion-icon>

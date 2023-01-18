@@ -182,12 +182,31 @@
           
           
               </ion-col>
+
+              <ion-col size="12" >
+  
+                <ion-label>País</ion-label>
+                <ion-item  lines="none" class="ion-margin-bottom ion-margin-top">
+             
+       <ion-avatar slot="start">
+        <img src="assets/{{usuario.usuario.Pais =='CR' ? 'cr.svg' : 'usa.svg'}}" />
+       </ion-avatar>
+                  <ion-select [(ngModel)]="usuario.usuario.Pais" name="pais"  placeholder="Seleccionar País">
+                    <ion-select-option value="CR">Costa Rica</ion-select-option>
+                    <ion-select-option value="US">Estados Unidos</ion-select-option>
+                  </ion-select>
+               
+               
+                </ion-item>
+              </ion-col>
+
+
               <ion-col size="12" size-md="6">
                 <ion-label >
         
                   Telefono</ion-label>
                 <ion-item  lines="none">
-                  <ion-badge slot="start"  color="dark" mode="ios">+506</ion-badge>
+                  <ion-badge slot="start"  color="dark" mode="ios">{{usuario.usuario.Pais =='CR' ? '+506' : '+1'}}</ion-badge>
                   <ion-input type="tel" placeholder="Telefono"  name="Telefono"   [(ngModel)]="usuario.usuario.Telefono"   autocomplete="off"></ion-input>
   
                 </ion-item>
