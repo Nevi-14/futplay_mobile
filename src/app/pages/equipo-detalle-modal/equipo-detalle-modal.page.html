@@ -72,7 +72,16 @@
 
   </ion-item>
 
-
+  <ion-item *ngIf="jugadores.length > 0" lines="none"    >
+    <ion-icon slot="start" name="call-outline"></ion-icon>
+    <ion-label slot="start" class="ion-text-wrap">
+     
+      <a target="_blank" href="https://wa.me/{{jugadores[0].usuario.Cod_Pais}}{{jugadores[0].usuario.Telefono}}?text=Hola%20{{jugadores[0].usuario.Nombre}} {{jugadores[0].usuario.Primer_Apellido}}"> Capitán {{jugadores[0].usuario.Cod_Pais}}{{jugadores[0].usuario.Telefono}}</a>
+    
+    
+    
+    </ion-label>
+    </ion-item>
 
 
 <ion-item lines="none" >
