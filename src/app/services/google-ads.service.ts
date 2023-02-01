@@ -69,7 +69,7 @@ ready: boolean = false;
         async showInterstitial(){
           
         const options: AdOptions ={
-          adId:'ca-app-pub-3191879076705982/3246336240',
+          adId:'ca-app-pub-3191879076705982/3638052631',
           isTesting:false,
              //npa: true
         };
@@ -87,7 +87,7 @@ ready: boolean = false;
     
         async showRewardVideo(){
           const options: RewardAdOptions ={
-            adId:'ca-app-pub-3191879076705982/3246336240',
+            adId:'ca-app-pub-3191879076705982/3638052631',
             isTesting:true,
                //npa: true
                   //SSV: { ... }

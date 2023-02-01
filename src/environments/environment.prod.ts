@@ -80,5 +80,9 @@ export const environment = {
   deleteUser:'delete/usuario/',
   putPartidoURL:'put/partido/',
   finalizarPartidoURL:'put/finalizar/partido/',
-  prdMode: false
+  prdMode: false,
+  iosSDK:'ca-app-pub-3191879076705982~3698122494',
+  iosInterstitial:'ca-app-pub-3191879076705982/3638052631',   
+  androidSDK:'ca-app-pub-3191879076705982~8866688691',
+  androidInterstitial:'ca-app-pub-3191879076705982/3246336240'
 };
