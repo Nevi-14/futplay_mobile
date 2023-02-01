@@ -115,18 +115,21 @@
 
 
                  
-                             <ion-button (click)="agregarCancha()" *ngIf="retador && rival && !cancha"   expand="block"  class="ion-margin"  >
+                             <ion-button (click)="agregarCancha()" *ngIf="retador && rival && !cancha && detalleReservacion.Reservacion_Grupal ||  !cancha &&  !detalleReservacion.Reservacion_Grupal"   expand="block"  class="ion-margin"  >
                               <ion-label>Agregar Cancha</ion-label>
                                    </ion-button>
-                                   <ion-button *ngIf="!rival" (click)="agregarRival()"  expand="block"  class="ion-margin"  >
+                                   <ion-button   (click)="reservacionIndividual()" *ngIf="detalleReservacion.Reservacion_Grupal && !retador"  expand="block"  class="ion-margin" >
+                                    <ion-label>Reservación Individual</ion-label>
+                                         </ion-button>
+                                   <ion-button *ngIf="!rival && detalleReservacion.Reservacion_Grupal" (click)="agregarRival()"  expand="block"  class="ion-margin"  >
                                     <ion-label>Agregar Rival</ion-label>
                                          </ion-button>
-                                         <ion-button   (click)="agregarRetador()" *ngIf="!retador"  expand="block"  class="ion-margin" >
+                                         <ion-button   (click)="agregarRetador()" *ngIf="!retador && detalleReservacion.Reservacion_Grupal"  expand="block"  class="ion-margin" >
                                           <ion-label>Agregar Retador</ion-label>
                                                </ion-button>
                               
 
-                                               <ion-list mode="ios" *ngIf="retador && rival && cancha != null" class="ion-margin">
+                                               <ion-list mode="ios" *ngIf="retador && rival && cancha != null || cancha != null &&  !detalleReservacion.Reservacion_Grupal  && retador" class="ion-margin">
                                                 <ion-item lines="none">
                                                   <ion-label class="ion-text-capitalize"><strong>Horario Cancha</strong></ion-label>
                                                 </ion-item>
@@ -145,7 +148,7 @@
                                                       </ion-item>
                                                      
                                                     </ion-list>
-<ion-card  *ngIf="retador && rival && cancha != null ">
+<ion-card  *ngIf="retador && rival && cancha != null || cancha != null &&  !detalleReservacion.Reservacion_Grupal && retador" >
 <ion-row>
   <ion-col size="12" >
 <ion-toolbar>
@@ -190,7 +193,7 @@
   <ion-row>
     <ion-col size="12">
       <ion-item lines="none" color="danger">
-        <ion-label class="ion-text-wrap">Lo sentimos no se puede efectuar la reservacion, intenta con otro dia.</ion-label>
+        <ion-label class="ion-text-wrap">Lo sentimos no se puede efectuar la reservación, intenta con otro día.</ion-label>
       </ion-item>
     </ion-col>
 
@@ -258,7 +261,7 @@
     <ion-label>Total Horas</ion-label>
     {{detalleReservacion.Total_Horas }}
   </ion-item>
-  <ion-item>
+  <ion-item  *ngIf="detalleReservacion.Reservacion_Grupal">
     <ion-label>Monto por Equipo</ion-label>
   {{detalleReservacion.Monto_Equipo  | colones : 2 : '.' : ',' :  '₡' }}
   </ion-item>
@@ -278,7 +281,7 @@
 
     <ion-footer>
   
-     <ion-button (click)="crearReservacion()" expand="block" *ngIf="retador && rival && cancha != null && nuevaReservacion.Hora_Inicio != null && nuevaReservacion.Hora_Fin != null">
+     <ion-button (click)="crearReservacion()" expand="block" *ngIf="retador && rival && cancha != null && nuevaReservacion.Hora_Inicio != null && nuevaReservacion.Hora_Fin != null || retador && !detalleReservacion.Reservacion_Grupal && cancha != null && nuevaReservacion.Hora_Inicio != null && nuevaReservacion.Hora_Fin ">
       Guardar Reto
      </ion-button>
       

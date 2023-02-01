@@ -38,7 +38,7 @@ private cd: ChangeDetectorRef
   ngOnInit() {
 
     if(this.rival){
-      this.equiposService.equipos = [];
+    
       this.alertasService.presentaLoading('Cargando datos...');
       this.equiposService.syncListaEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp =>{
         this.equiposService.equipos = resp.slice(0);
@@ -52,7 +52,7 @@ private cd: ChangeDetectorRef
       console.log('equipos')
 
     }else{
-      this.equiposService.equipos = [];
+
       this.alertasService.presentaLoading('Cargando datos...');
       this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp =>{
         this.equiposService.equipos = resp.slice(0);

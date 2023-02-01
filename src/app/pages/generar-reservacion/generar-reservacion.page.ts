@@ -16,6 +16,7 @@ import { DetalleReservaciones } from 'src/app/models/detalleReservaciones';
 import { format } from 'date-fns';
 import { CanchasService } from '../../services/canchas.service';
 import { EmailService } from 'src/app/services/email.service';
+import { EquiposService } from '../../services/equipos.service';
 interface objetoFecha{
   id:number,
   year: number,
@@ -46,6 +47,7 @@ export class GenerarReservacionPage  {
   @Input()retador : PerfilEquipos;
   diaActual: HorarioCanchas
   horario:any = null;
+
  
   nuevaReservacion = {
     Cod_Cancha:  null,
@@ -60,6 +62,7 @@ export class GenerarReservacionPage  {
     Dia_Completo:  false
    }
    detalleReservacion:DetalleReservaciones = {
+    Reservacion_Grupal: true,
     Cod_Detalle:null,
     Cod_Reservacion:  null,
     Cod_Estado:  3,
@@ -113,7 +116,8 @@ export class GenerarReservacionPage  {
     public gestionReservacionesService: ReservacionesService,
     public alertasService: AlertasService,
     public canchasService: CanchasService,
-    public emailService:EmailService
+    public emailService:EmailService,
+    public equiposService: EquiposService
   ) { }
   
 
@@ -143,6 +147,12 @@ this.limpiarDatos();
     
  
 
+   }
+
+   reservacionIndividual(){
+    this.rival = null;
+    this.detalleReservacion.Reservacion_Grupal = false;
+    this.agregarRetador();
    }
 
 consultarHoras(cancha:PerfilCancha){
@@ -268,6 +278,7 @@ swipeNext(){
 
 
    async agregarRival() {
+    this.equiposService.equipos = [];
     const modal = await this.modalCtrl.create({
       component: ListaEquiposPage,
       cssClass: 'my-custom-modal',
@@ -300,6 +311,7 @@ swipeNext(){
 
 
   async agregarRetador() {
+ 
     const modal = await this.modalCtrl.create({
       component: ListaEquiposPage,
       cssClass: 'my-custom-modal',
@@ -343,7 +355,7 @@ const modal = await this.modalCtrl.create({
  await modal.present();
  const { data } = await modal.onDidDismiss();
  
-     if(data.cancha !== undefined){
+     if(data !== undefined){
      
       this.cancha = data.cancha;
       this.nuevaReservacion.Cod_Cancha = this.cancha.cancha.Cod_Cancha;
@@ -416,8 +428,9 @@ horaFin($event){
 crearReservacion(){
 
 
-this.nuevaReservacion.Titulo = this.retador.equipo.Nombre +' VS '+this.rival.equipo.Nombre;
+this.nuevaReservacion.Titulo = this.detalleReservacion.Reservacion_Grupal ? this.retador.equipo.Nombre +' VS '+this.rival.equipo.Nombre : 'Reservación Individual cancha ' + this.cancha.nombre;
 
+if(!this.detalleReservacion.Reservacion_Grupal) this.nuevaReservacion.Cod_Estado = 4;
   if(!this.nuevaReservacion.Dia_Completo){
     console.log( this.nuevaReservacion.Hora_Inicio.toISOString())
    this.nuevaReservacion.Hora_Inicio = format( this.nuevaReservacion.Hora_Inicio,'yyy-MM-dd')+" "+this.nuevaReservacion.Hora_Inicio.toTimeString().split(' ')[0] 
@@ -435,13 +448,49 @@ this.actualizarDetalle()
 
       this.gestionReservacionesService.insertarDetalleReservacionToPromise(this.detalleReservacion).then(resp =>{
 this.cerrarModal();
-this.emailService.enviarCorreoReservaciones(1, this.rival.correo, this.nuevaReservacion.Fecha, this.nuevaReservacion.Hora_Inicio, this.cancha.nombre, this.rival.nombre, this.retador.nombre).then(resp =>{
 
-  this.alertasService.message('FUTPLAY', 'El reto  se efectuo con éxito ')
 
-}, error =>{
-  this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
+if(this.detalleReservacion.Reservacion_Grupal){
+
+  this.emailService.enviarCorreoReservaciones(1, this.rival.correo, this.nuevaReservacion.Fecha, this.nuevaReservacion.Hora_Inicio, this.cancha.nombre, this.rival.nombre, this.retador.nombre).then(resp =>{
+
+    this.alertasService.message('FUTPLAY', 'El reto  se efectuo con éxito ')
+  
+  }, error =>{
+    this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
+  })
+
+}else{
+  let body = {
+    body: {
+    email:  null,
+    body: "Se ha confirmado un reto para el día " +  this.nuevaReservacion.Fecha +" en  la cancha " +  this.cancha.nombre + " Hora : " +this.tConvert(this.nuevaReservacion.Hora_Inicio.split(" ")[1]) + ". Reservación Individual "+this.usuariosService.usuarioActual.nombre+ ".",
+    footer: "¡Hay un reto esperándote!"
+}
+
+  }
+
+  body.body.email = this.usuariosService.usuarioActual.usuario.Correo;
+
+this.emailService.syncPostReservacionEmail(body).then(resp =>{
+  body.body.email = this.cancha.correo;
+  this.emailService.syncPostReservacionEmail(body).then(resp =>{
+    this.alertasService.message('FUTPLAY', 'El reto  se efectuo con éxito ')
+  
+  })
+
+
+ 
+
 })
+
+   
+
+
+}
+
+
+
       
       }, error =>{
         this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
@@ -468,9 +517,16 @@ this.alertasService.presentaLoading('Actualizando Factura')
   this.detalleReservacion.Monto_FP = this.detalleReservacion.Monto_Sub_Total * this.detalleReservacion.Porcentaje_FP  / 100 
   this.detalleReservacion.Precio_Hora = this.cancha.cancha.Precio_Hora;
   this.detalleReservacion.Cod_Retador =  this.retador.equipo.Cod_Equipo;
-  this.detalleReservacion.Cod_Rival = this.rival.equipo.Cod_Equipo;
+  this.detalleReservacion.Cod_Rival = this.rival ? this.rival.equipo.Cod_Equipo  : this.retador.equipo.Cod_Equipo;
   this.detalleReservacion.Monto_Equipo =  this.detalleReservacion.Monto_Total / 2
 this.alertasService.loadingDissmiss();
+}
+
+tConvert (timeString) {
+  const [hourString, minute] = timeString.split(":");
+  const hour = +hourString % 24;
+  return (hour % 12 || 12) + ":" + minute + (hour < 12 ? "AM" : "PM");
+
 }
 
 }

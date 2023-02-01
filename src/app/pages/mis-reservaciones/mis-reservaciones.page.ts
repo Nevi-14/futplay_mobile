@@ -76,7 +76,7 @@ if(reto.reservacion.Cod_Estado == 7){
      await modal.present();
 
     let {data} = await modal.onDidDismiss();
-    this.modalCtrl.dismiss(null,null,'aceptar-reto')
+
     this.selectCategory(this.segment)
   }
   cerrarModal (){

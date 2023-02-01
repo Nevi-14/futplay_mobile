@@ -72,25 +72,36 @@ this.modalCtrl.dismiss(true);
           this.alertasService.presentaLoading('Gestionando cambios..')
       
           this.emailService.enviarCorreoReservaciones(3, this.reto.usuario_rival.Correo, this.reto.reservacion.Fecha, this.reto.reservacion.Hora_Inicio, this.reto.cancha.Nombre, this.reto.rival.Nombre, this.reto.retador.Nombre).then(resp =>{
-            this.emailService.enviarCorreoReservaciones(3, this.reto.usuario_retador.Correo, this.reto.reservacion.Fecha, this.reto.reservacion.Hora_Inicio, this.reto.cancha.Nombre, this.reto.rival.Nombre, this.reto.retador.Nombre).then(resp =>{
-          
-              this.emailService.enviarCorreoReservaciones(3, this.reto.correo, this.reto.reservacion.Fecha, this.reto.reservacion.Hora_Inicio, this.reto.cancha.Nombre, this.reto.rival.Nombre, this.reto.retador.Nombre).then(resp =>{
-                this.alertasService.loadingDissmiss();
-                this.alertasService.message('FUTPLAY', mensaje)
-                this.cerrarModal();
+
+
+            this.emailService.enviarCorreoReservaciones(3, this.reto.correo, this.reto.reservacion.Fecha, this.reto.reservacion.Hora_Inicio, this.reto.cancha.Nombre, this.reto.rival.Nombre, this.reto.retador.Nombre).then(resp =>{
            
-                
-                    console.log('reto aceptado', mensaje)
+
+              if(this.reto.detalle.Reservacion_Grupal){
+
+                this.emailService.enviarCorreoReservaciones(3, this.reto.usuario_retador.Correo, this.reto.reservacion.Fecha, this.reto.reservacion.Hora_Inicio, this.reto.cancha.Nombre, this.reto.rival.Nombre, this.reto.retador.Nombre).then(resp =>{
           
-              }, error =>{
-                this.alertasService.loadingDissmiss();
-                this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
-              })
           
+                }, error =>{
+                  this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
+                })
+
+              }
+              
+              this.alertasService.loadingDissmiss();
+              this.cerrarModal();
+         
+              
+        
             }, error =>{
               this.alertasService.loadingDissmiss();
               this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
             })
+
+
+
+
+     
           
           
           }, error =>{

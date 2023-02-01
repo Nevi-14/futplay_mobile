@@ -34,19 +34,15 @@ public alertasService: AlertasService
   ) { }
 
   ngOnInit() {
- if(this.canchasService.canchas.length ==0){
-this.alertasService.presentaLoading('Cargando datos..')
-  this.canchasService.syncListaCanchasToPromise().then(resp =>{
-    this.canchasService.canchas = resp;
-this.alertasService.loadingDissmiss();
-  }, error =>{
-
-    this.alertasService.loadingDissmiss();
-    this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal')
-  })
-     
-
- }
+    this.alertasService.presentaLoading('Cargando datos..')
+    this.canchasService.syncListaCanchasToPromise().then(resp =>{
+      this.canchasService.canchas = resp;
+  this.alertasService.loadingDissmiss();
+    }, error =>{
+  
+      this.alertasService.loadingDissmiss();
+      this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal')
+    })
 
   }
 

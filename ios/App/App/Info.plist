@@ -32,11 +32,11 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>To capture images</string>
+	<string>To upload teams and users profile pictures.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>To add images</string>
+	<string>To add teams and users profile pictures.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>To store images</string>
+	<string>To store teams and users profile pictures.</string>
 
 	<key>SKAdNetworkItems</key>
 	<array>

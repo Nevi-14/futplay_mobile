@@ -14,7 +14,7 @@
     <ion-content fullscreen *ngIf="reto">
       <div class="mainContent">
 
-        <ion-list *ngIf="partido.length > 0" class="ion-margin">
+        <ion-list *ngIf="partido.length > 0 && reto.detalle.Reservacion_Grupal" class="ion-margin">
           
           <ion-col size="12" >
 
@@ -166,7 +166,7 @@
         </ion-item>
 
 
-        <ion-item  *ngIf="partido.length == 0"   lines="none" class="employeeItem  animate__animated animate__fadeIn" >
+        <ion-item  *ngIf="partido.length == 0  && reto.detalle.Reservacion_Grupal"   lines="none" class="employeeItem  animate__animated animate__fadeIn" >
     
 
           <ion-avatar slot="start"  >
@@ -225,7 +225,7 @@
             <ion-label>Hora Inicio</ion-label>
             {{reto.reservacion.Hora_Inicio | date:'shortTime'}} 
           </ion-item>
-
+         
           <ion-item>
             <ion-label>Hora Fin</ion-label>
             {{reto.reservacion.Hora_Fin | date:'shortTime'}}   
@@ -239,7 +239,7 @@
             <ion-label>Total Horas</ion-label>
             {{reto.detalle.Total_Horas }}
           </ion-item>
-          <ion-item>
+          <ion-item  *ngIf="reto.detalle.Reservacion_Grupal">
             <ion-label>Monto por Equipo</ion-label>
           {{reto.detalle.Monto_Equipo  | colones : 2 : '.' : ',' :  '₡' }}
           </ion-item>
@@ -270,6 +270,9 @@
                           <ion-label>Eliminar Reto </ion-label>
                                 </ion-button>
                           
+                        <ion-button class="ion-margin-top" *ngIf="!reto.detalle.Reservacion_Grupal"  color="dark"  (click)="finalizarReservacionIndividual()"   expand="block" >
+                          <ion-label>Finalizar Reservación </ion-label>
+                                </ion-button>
             
        </ion-footer>
      

@@ -158,6 +158,7 @@ this.equipoDetalle(equipo)
         }
        
        },
+       
       
        {   
         text: 'Cancelar',

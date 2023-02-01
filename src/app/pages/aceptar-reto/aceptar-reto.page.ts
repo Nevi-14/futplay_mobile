@@ -194,6 +194,22 @@ this.cerrarModal();
      this.cerrarModal()
     }
 
+
+
+    finalizarReservacionIndividual(){
+      this.alertasService.presentaLoading('Guardando cambios..')
+      this.reto.detalle.Cod_Estado = 6;
+      this.reservacionesService.syncPutDetalleReservaion(this.reto.detalle).then(resp =>{
+        this.alertasService.loadingDissmiss();
+        this.cerrarModal();
+        this.alertasService.message('FUTPLAY', 'La reservación se completo con éxito ')
+      }, error =>{
+        this.alertasService.loadingDissmiss();
+        this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal.')
+      })
+
+
+    }
     async alertaReservacion() {
       const alert = await this.alertCtrl.create({
         header: 'FUTPLAY',
