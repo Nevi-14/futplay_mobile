@@ -1,13 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ViewChild } from '@angular/core';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { NgForm } from '@angular/forms';
 import { IonSlides, ModalController } from '@ionic/angular';
 import { ProvinciasService } from '../../services/provincias.service';
 import { CantonesService } from '../../services/cantones.service';
 import { DistritosService } from '../../services/distritos.service';
-
-import { format, parseISO } from 'date-fns';
 import { RecuperarContrasenaPage } from '../recuperar-contrasena/recuperar-contrasena.page';
 @Component({
   selector: 'app-inicio-sesion',
@@ -17,59 +14,33 @@ import { RecuperarContrasenaPage } from '../recuperar-contrasena/recuperar-contr
 export class InicioSesionPage   {
   @ViewChild('slidePrincipal') slides: IonSlides;
   @ViewChild('fLogin') loginForm: NgForm
-
-
-
-  showPass = false;
-
-
+showPass = false;
 loginUser = {
 email: '',
 password: ''
-
 }
-
-
   constructor(
-    public provinciasService: ProvinciasService,
-    public cantonesService: CantonesService,
-    public distritosService: DistritosService,
-public router: Router,
+public provinciasService: ProvinciasService,
+public cantonesService: CantonesService,
+public distritosService: DistritosService,
 public usuariosServicio: UsuariosService,
 public modalCtrl: ModalController,
-
-
   ) { }
 
-  formatDate(value: string) {
-    return format(parseISO(value), 'MMM dd yyyy');
+  ionViewWillEnter(){  
+    this.limpiarDatos()
+}
+
+  limpiarDatos(){
+    this.loginUser.email =  null;
+    this.loginUser.password = null;
   }
-
-  
-
- 
-  ionViewWillEnter() {
-
-    this.loginUser = {
-      email: '',
-      password: ''
-      
-      }
-
-
-
-  }
-
 
 login(fLogin: NgForm){
-
-  if(fLogin.invalid) {return;}
-console.log(fLogin.valid);
-
+ if(fLogin.invalid) {return;}
 this.usuariosServicio.syncLogin(this.loginUser.email, this.loginUser.password);
-
-
 }
+
 async recuperarContrasena(){
 const modal = await this.modalCtrl.create({
 component:RecuperarContrasenaPage,
@@ -78,7 +49,6 @@ cssClass:'alert-modal',
 mode:'ios'
 });
 return await modal.present();
-
 }
 
 }

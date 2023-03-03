@@ -25,7 +25,12 @@
         <div class="mainContent ion-text-center">
 
 
-
+          <ion-button   (click)="reservacionGrupal()" *ngIf="!detalleReservacion.Reservacion_Grupal"  expand="block"  class="ion-margin" >
+            <ion-label>Reservación Grupal</ion-label>
+                 </ion-button>
+           <ion-button   (click)="reservacionIndividual()" *ngIf="detalleReservacion.Reservacion_Grupal"  expand="block"  class="ion-margin" >
+            <ion-label>Reservación Individual</ion-label>
+                 </ion-button>
 
 
                              <ion-list>
@@ -118,9 +123,7 @@
                              <ion-button (click)="agregarCancha()" *ngIf="retador && rival && !cancha && detalleReservacion.Reservacion_Grupal ||  !cancha &&  !detalleReservacion.Reservacion_Grupal"   expand="block"  class="ion-margin"  >
                               <ion-label>Agregar Cancha</ion-label>
                                    </ion-button>
-                                   <ion-button   (click)="reservacionIndividual()" *ngIf="detalleReservacion.Reservacion_Grupal && !retador"  expand="block"  class="ion-margin" >
-                                    <ion-label>Reservación Individual</ion-label>
-                                         </ion-button>
+                        
                                    <ion-button *ngIf="!rival && detalleReservacion.Reservacion_Grupal" (click)="agregarRival()"  expand="block"  class="ion-margin"  >
                                     <ion-label>Agregar Rival</ion-label>
                                          </ion-button>

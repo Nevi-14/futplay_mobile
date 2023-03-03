@@ -148,7 +148,12 @@ this.limpiarDatos();
  
 
    }
-
+   reservacionGrupal(){
+    this.rival = null;
+    this.retador = null;
+    this.detalleReservacion.Reservacion_Grupal = true;
+    this.agregarRival();
+   }
    reservacionIndividual(){
     this.rival = null;
     this.detalleReservacion.Reservacion_Grupal = false;

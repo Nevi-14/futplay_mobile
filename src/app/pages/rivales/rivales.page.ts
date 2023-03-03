@@ -23,7 +23,7 @@ export class RivalesPage implements OnInit {
     slidesOffsetBefore:30,
     slidesOffsetAfter:100
   }
-
+  categoryIndex = 0;
   filtro ={
     Cod_Provincia: null,
     Cod_Canton: null,

@@ -13,17 +13,15 @@
 
 
 
-<ion-toolbar>
-      
-  <ion-slides   [options]="opts">
-    <ion-slide *ngFor="let cat of categories; let i = index;">
-      <ion-button class="button" size="small"  fill="clear" [class.active-category]="activeCategory == i"
+<ion-toolbar class="ion-text-center">
+  
+      <ion-button *ngFor="let cat of categories; let i = index;" class="button" size="small"  fill="clear" [class.active-category]="activeCategory == i"
       (click)="selectCategory(i)">
    <ion-label style="font-size: 1rem; font-weight:600"  >  {{cat}}</ion-label>
       </ion-button>
-       </ion-slide>
 
-  </ion-slides>
+
+ 
 </ion-toolbar>
 
 <ion-content>

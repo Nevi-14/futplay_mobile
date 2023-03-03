@@ -39,23 +39,20 @@ public usuariosService:UsuariosService,
 public alertasService: AlertasService,
 public gestionReservacionesService:ReservacionesService,
 public partidosService:PartidoService,
-public alertCtrl:AlertController,
-public reservacionesService: ReservacionesService
+public alertCtrl:AlertController
   ) { }
 
   ngOnInit() {
-if(this.partido.length > 0){
 
-  if(this.usuariosService.usuarioActual.usuario.Cod_Usuario == this.reto.retador.Cod_Usuario && this.partido[0].Verificacion_QR && !this.partido[1].Verificacion_QR){
-    this.alertasService.presentaLoading('Esperando Equipo..');
-    this.loading();
-  }else if( this.usuariosService.usuarioActual.usuario.Cod_Usuario == this.reto.rival.Cod_Usuario && this.partido[1].Verificacion_QR && !this.partido[0].Verificacion_QR){
-    this.alertasService.presentaLoading('Esperando Equipo..');
-    this.loading();  
-  }
-  
-}
- 
+    if(this.usuariosService.usuarioActual.usuario.Cod_Usuario == this.reto.retador.Cod_Usuario && this.partido[0].Verificacion_QR){
+      this.alertasService.presentaLoading('Esperando Equipo..');
+      this.loading();
+    }else{
+      if(this.partido[1].Verificacion_QR){
+        this.alertasService.presentaLoading('Esperando Equipo..');
+        this.loading();  
+      }
+    }
 
   }
 
@@ -80,32 +77,7 @@ if(this.partido.length > 0){
               console.log('Barcode data', barcodeData);
           
           if(!barcodeData.cancelled){
-
-            if(this.partido.length > 0){
-              this.actualizarQR();
-            }else{
-
-              this.reto.detalle.Cod_Estado = 6;
-              this.reservacionesService.syncPutDetalleReservaion(this.reto.detalle).then(resp =>{
-                this.alertasService.loadingDissmiss();
-           
-
-                this.reservacionesService.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
-                  this.reservacionesService.reservaciones = reservaciones;
-                  this.cerrarModal();
-                  this.alertasService.message('FUTPLAY', 'El partido se inicio con éxito ')
-        
-                })
-
-
-            
-              }, error =>{
-                this.alertasService.loadingDissmiss();
-                this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal.')
-              })
-              
-            }
-       
+            this.actualizarQR();
           }        
              }).catch(err => {
                  console.log('Error', err);

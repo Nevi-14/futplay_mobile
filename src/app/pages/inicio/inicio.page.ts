@@ -9,11 +9,7 @@ import { IonSegment } from '@ionic/angular';
 export class InicioPage {
   @ViewChild(IonSegment) segment: IonSegment;
   opcionesMenu =[{tab:'sobre-nosotros',name:'Futplay', icon:'futbol'},{tab:'inicio-sesion',name:'Iniciar', icon:'user-alt'},{tab:'registro',name:'Registro', icon:'user-plus'}];
-
-  number = 0;
   constructor() { }
 
-
- 
 
 }

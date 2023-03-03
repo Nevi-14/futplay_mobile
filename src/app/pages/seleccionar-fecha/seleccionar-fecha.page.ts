@@ -16,7 +16,6 @@ export class SeleccionarFechaPage implements OnInit {
     month: null,
     year: null
   }
-
   meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   dias = []
   anos = []
@@ -52,10 +51,7 @@ export class SeleccionarFechaPage implements OnInit {
 
       }
       this.today = this.fecha;
-      console.log('dateObjectReturn', this.dateObjectReturn)
     } else {
-
-      let month = this.today.getMonth();
       let day = this.today.getDate();
       let year = this.today.getFullYear();
       let monthName = this.capitalizeFirstLetter(this.today.toLocaleString('es-ES', { month: 'long' }))
@@ -66,17 +62,12 @@ export class SeleccionarFechaPage implements OnInit {
 
       }
 
-      console.log('dateObjectReturn', this.dateObjectReturn)
-
     }
 
     this.populateYears();
 
   }
 
-  onChange() {
-
-  }
 
   obtenerAno(event?) {
     if (event) {
@@ -86,45 +77,30 @@ export class SeleccionarFechaPage implements OnInit {
       this.dateObjectReturn.year = this.dateObjectReturn.year;
     }
     this.obtenerMes(null);
-    //this.populateYears()
 
   }
   obtenerMes(event?) {
-    console.log('Obtiene mes');
-
     if (event) {
       let mes = event.detail.value;
       this.dateObjectReturn.month = mes;
     } else {
-      let monthValue = this.capitalizeFirstLetter(this.today.toLocaleString('es-ES', { month: 'long' }))
       this.dateObjectReturn.month = this.dateObjectReturn.month;
     }
-
-    console.log('this.dateObjectReturn', this.dateObjectReturn)
     this.populateDays();
 
   }
   obtenerDia(event?) {
-
     if (event) {
-
       let dia = event.detail.value;
       this.dateObjectReturn.date = dia;
     } else {
       this.dateObjectReturn.date = this.dateObjectReturn.date;
     }
-
-    //this.populateDays();
   }
   populateDays() {
     this.dias = [];
     let monthValue = this.dateObjectReturn.month;
-
-
-    console.log('monthValue', monthValue)
     let numeroDias = 0;
-
-
 
     if (monthValue === 'Enero' || monthValue === 'Mayo' || monthValue === 'Marzo' || monthValue === 'Julio' || monthValue === 'Agosto' || monthValue === 'Octubre' || monthValue === 'Diciembre') {
       numeroDias = 31;
@@ -147,10 +123,6 @@ export class SeleccionarFechaPage implements OnInit {
 
     }
 
-
-
-
-    //  INSERT THE CORRECT DAY INTO the dropdown
     this.dias = [];
 
     for (let i = 1; i <= numeroDias; i++) {
@@ -234,8 +206,6 @@ export class SeleccionarFechaPage implements OnInit {
     let month = this.dateObjectReturn.month;
     let year = this.dateObjectReturn.year
     let completeDate = new Date(year, this.meses.indexOf(month), day)
-   
- 
     this.modalCtrl.dismiss({
       'date': completeDate
     });

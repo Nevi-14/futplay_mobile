@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { isPlatform, ModalController } from '@ionic/angular';
+import { isPlatform, ModalController, Platform } from '@ionic/angular';
 
 import {
   AdMob,
@@ -23,7 +23,8 @@ ready: boolean = false;
   constructor(
 
     public modalCtrl: ModalController,
-    public alertasService:AlertasService
+    public alertasService:AlertasService,
+    public platform:Platform
   ) { }
 
 
@@ -56,7 +57,7 @@ ready: boolean = false;
     
         // the default behavuior of the google mbile ads SDK is to serve personalized ads.
         // set this to true to request Non-Persobalized Ads
-        //npa: true
+        npa: false
     
     await AdMob.showBanner(options);
         }
@@ -69,9 +70,9 @@ ready: boolean = false;
         async showInterstitial(){
           
         const options: AdOptions ={
-          adId:'ca-app-pub-3191879076705982/3638052631',
+          adId: isPlatform('ios') ? 'ca-app-pub-3191879076705982/3638052631' :'ca-app-pub-3191879076705982/3246336240',
           isTesting:false,
-             //npa: true
+          npa: false
         };
         await AdMob.prepareInterstitial(options);
         await AdMob.showInterstitial();
@@ -89,7 +90,7 @@ ready: boolean = false;
           const options: RewardAdOptions ={
             adId:'ca-app-pub-3191879076705982/3638052631',
             isTesting:true,
-               //npa: true
+            npa: false
                   //SSV: { ... }
           };
           await AdMob.prepareRewardVideoAd(options);

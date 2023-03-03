@@ -35,12 +35,12 @@
       <ion-col size="12" >
         <ion-label>
  
-     <strong>     En caso de que su cuenta exista enviaremos un codigo de verificacion para validar el proceso de cambio de contrasena, de lo contrario selecciona validar código.</strong>
+     <strong>En caso de que su cuenta exista enviaremos un codigo de verificacion para validar el proceso de cambio de contrasena, de lo contrario selecciona validar código.</strong>
 
         </ion-label>
       </ion-col>
-      <ion-col size="12"    class="ion-padding">
-        <ion-label  class="ion-text-left">
+      <ion-col size="12"    class="ion-margin">
+        <ion-label  class="ion-text-left ion-margin">
           Correo - Telefono
        </ion-label>
 
@@ -65,7 +65,7 @@
 
 
       <ion-col size="12">
-        <ion-label  class="ion-text-left">
+        <ion-label  class="ion-text-left ion-margin">
           Correo
         </ion-label>
         <ion-item lines="none">
@@ -73,7 +73,7 @@
         </ion-item>
       </ion-col>
       <ion-col size="12">
-        <ion-label  class="ion-text-left">
+        <ion-label  class="ion-text-left ion-margin">
           Codigo
         </ion-label>
         <ion-item lines="none">
@@ -111,26 +111,28 @@
         </ion-item>
       </ion-col>
 
-      
  
    
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button  *ngIf="verificarCodigo && !cambiarContrasena" class="custom-button" (click)="verificarCodigos()"    expand="block" shape="round" >
+          Verificar Codigo
+          
+           </ion-button>
+           <ion-button *ngIf="!verificarCodigo && !cambiarContrasena" class="custom-button" (click)="recuperar()"    expand="block" shape="round"  >
+            Enviar Codigo
+            
+             </ion-button>
+           <ion-button *ngIf="cambiarContrasena" class="custom-button" (click)="cambiarContra()"    expand="block" shape="round" >
+        Cambiar Contraseña
+            
+             </ion-button>
+      </ion-col>
+            
     </ion-row>
   </ion-grid>
 
 
 </ion-content>
-
-<ion-footer class="ion-no-border ion-text-center ion-padding" >
-  <ion-button  *ngIf="verificarCodigo && !cambiarContrasena" class="ion-margin" (click)="verificarCodigos()"    expand="block"  color="dark">
-    Verificar Codigo
-    
-     </ion-button>
-     <ion-button *ngIf="!verificarCodigo && !cambiarContrasena" class="ion-margin" (click)="recuperar()"    expand="block"  color="dark">
-      Enviar Codigo
-      
-       </ion-button>
-     <ion-button *ngIf="cambiarContrasena" class="ion-margin" (click)="cambiarContra()"    expand="block"  color="dark">
-  Cambiar Contraseña
-      
-       </ion-button>
-</ion-footer>
+ 

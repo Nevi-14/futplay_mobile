@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-sobre-nosotros',
   templateUrl: './sobre-nosotros.page.html',
   styleUrls: ['./sobre-nosotros.page.scss'],
 })
-export class SobreNosotrosPage implements OnInit {
+export class SobreNosotrosPage  {
   slides: { img: string; titulo: string; desc: string }[] = [
     {
       img: '/assets/slides/football-field.svg',
@@ -34,8 +34,5 @@ export class SobreNosotrosPage implements OnInit {
   ];
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }
