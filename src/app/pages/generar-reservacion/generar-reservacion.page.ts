@@ -380,6 +380,7 @@ this.emailService.syncPostReservacionEmail(body).then(resp =>{
   body.body.email = this.cancha.correo;
   this.emailService.syncPostReservacionEmail(body).then(resp =>{
     this.cerrarModal();
+    this.alertasService.loadingDissmiss();
     this.alertasService.message('FUTPLAY', 'El reto  se efectuo con éxito ')
   
   })

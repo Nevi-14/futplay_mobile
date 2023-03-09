@@ -224,9 +224,19 @@ this.alertasService.message('FUTPLAY','Lo sentimos ambos marcadores deben de coi
 return
 }
 
+this.partidosService.syncGetPartidoReservacion(this.reto.reservacion.Cod_Reservacion).then(resp =>{
+  if(!resp[0].Estado && !resp[1].Estado){
+    this.alertasService.message('FUTPLAY','Lo sentimos el partido ya fue finalizado!.');
+  }else{
+    this.continuar();
+  }
 
 
-this.continuar();
+}, error =>{
+  this.alertasService.message('FUTPLAY','Lo sentimos algo salio mal!.');
+})
+
+
  
 
  }

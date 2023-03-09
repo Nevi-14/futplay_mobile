@@ -12,6 +12,8 @@ import { format } from 'date-fns';
 import { PartidoService } from '../../services/partido.service';
 import { partidos } from '../../models/partidos';
 import { AceptarRetoPage } from '../aceptar-reto/aceptar-reto.page';
+import { PerfilJugador } from 'src/app/models/perfilJugador';
+import { JugadoresService } from 'src/app/services/jugadores.service';
 
 
 @Component({
@@ -20,17 +22,19 @@ import { AceptarRetoPage } from '../aceptar-reto/aceptar-reto.page';
   styleUrls: ['./verificacion-qr.page.scss'],
 })
 export class VerificacionQrPage implements OnInit {
-
+  jugadoresPermitidosRetador:PerfilJugador[]=[]
+  jugadoresPermitidosRival:PerfilJugador[]=[]
   @Input() reto: PerfilReservaciones
   @Input() partido: partidos[]
   rivalIndex = null;
-  retadorIndex  = null;
+  retadorIndex:boolean = false;
   swiperOpts = {
     allowSlidePrev:false,
     allowSlideNext:false
   };
   count:number = 0;
 verificar = false;
+allowUser = false;
   constructor(
 public modalCtrl: ModalController,
 public barcodeScanner: BarcodeScanner,
@@ -40,19 +44,35 @@ public alertasService: AlertasService,
 public gestionReservacionesService:ReservacionesService,
 public partidosService:PartidoService,
 public alertCtrl:AlertController,
-public reservacionesService: ReservacionesService
+public reservacionesService: ReservacionesService,
+public jugadoresService: JugadoresService
   ) { }
 
-  ngOnInit() {
-if(this.partido.length > 0){
+  async ngOnInit() {
+    this.jugadoresPermitidosRetador = await this.jugadoresService.syncJugadoresEquipos(this.reto.retador.Cod_Equipo);
+    this.jugadoresPermitidosRival = await this.jugadoresService.syncJugadoresEquipos(this.reto.rival.Cod_Equipo);
+    let indexRetador = this.jugadoresPermitidosRetador.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario);
+    let indexRival = this.jugadoresPermitidosRival.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario);
 
-  if(this.usuariosService.usuarioActual.usuario.Cod_Usuario == this.reto.retador.Cod_Usuario && this.partido[0].Verificacion_QR && !this.partido[1].Verificacion_QR){
+    if(indexRetador >=0){
+      this.retadorIndex = true;
+    }
+
+if(this.partido.length > 0){
+  if(indexRetador >=0){
+    if(this.partido[0].Verificacion_QR && !this.partido[1].Verificacion_QR ){
+      this.alertasService.presentaLoading('Esperando Equipo..');
+      this.loading();
+    }else{
+      this.allowUser = true;
+    }
+  }else if( indexRetador < 0 && this.partido[1].Verificacion_QR && !this.partido[0].Verificacion_QR){
     this.alertasService.presentaLoading('Esperando Equipo..');
     this.loading();
-  }else if( this.usuariosService.usuarioActual.usuario.Cod_Usuario == this.reto.rival.Cod_Usuario && this.partido[1].Verificacion_QR && !this.partido[0].Verificacion_QR){
-    this.alertasService.presentaLoading('Esperando Equipo..');
-    this.loading();  
+  }else{
+    this.allowUser = true;
   }
+   
   
 }
  
@@ -232,14 +252,17 @@ loading(){
 
   actualizarQR(){
 
+    if(this.retadorIndex){
 
-    if(this.usuariosService.usuarioActual.usuario.Cod_Usuario == this.reto.retador.Cod_Usuario){
+
+    
       this.partido[0].Verificacion_QR = true;
       this.partidosService.syncPutPartidoCodigoQR(this.partido[0]).then((resp:any) =>{
         this.partido = resp;
         if(this.partido[0].Verificacion_QR && this.partido[1].Verificacion_QR){
           this.cerrarModal();
-          this.partidoActual()      
+          this.partidoActual();
+          
         }else{
           this.alertasService.presentaLoading('Esperando Equipo..');
           this.loading();
@@ -249,13 +272,16 @@ loading(){
         
       })       
     }else{
+
+
       this.partido[1].Verificacion_QR = true;
       this.partidosService.syncPutPartidoCodigoQR(this.partido[1]).then((resp:any) =>{
 console.log('actualizado', resp)
 this.partido = resp;
 if(this.partido[0].Verificacion_QR && this.partido[1].Verificacion_QR){
   this.cerrarModal();
-  this.detalleReto(this.reto)
+  this.partidoActual();
+      
  
 }else{
   this.alertasService.presentaLoading('Esperando Equipo..');

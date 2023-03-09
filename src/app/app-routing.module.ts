@@ -215,12 +215,7 @@ const routes: Routes = [
   {
     path: 'gestor-equipo-imagenes',
     loadChildren: () => import('./pages/gestor-equipo-imagenes/gestor-equipo-imagenes.module').then( m => m.GestorEquipoImagenesPageModule)
-  },  {
-    path: 'calendario-cancha',
-    loadChildren: () => import('./pages/calendario-cancha/calendario-cancha.module').then( m => m.CalendarioCanchaPageModule)
   }
-
-
   
 
 

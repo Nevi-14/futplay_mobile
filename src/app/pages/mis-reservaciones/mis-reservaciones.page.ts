@@ -34,7 +34,7 @@ public actionSheetCtrl: ActionSheetController
      
   }
   ngOnInit() {
-
+    this.reservacionesService.segment = 0;
     this.reservacionesService.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
 this.reservacionesService.reservaciones = reservaciones;
 console.log('reservaciones', this.reservacionesService.reservaciones)

@@ -68,9 +68,9 @@ ready: boolean = false;
         }
     
         async showInterstitial(){
-          
+          // IOS ca-app-pub-3191879076705982/3638052631  // Android  ca-app-pub-3191879076705982/3246336240
         const options: AdOptions ={
-          adId:'ca-app-pub-3191879076705982/3246336240',
+          adId:'ca-app-pub-3191879076705982/3638052631',
           isTesting:false,
           npa: false
         };

@@ -256,7 +256,7 @@
  
         <ion-footer>
         
-          <ion-button *ngIf="reto.rival.Cod_Usuario ==  usuariosService.usuarioActual.usuario.Cod_Usuario && reto.reservacion.Cod_Estado == 2" class="ion-margin-bottom"  (click)="alertaReservacion()"  expand="block" >
+          <ion-button *ngIf="allowUser && reto.reservacion.Cod_Estado == 2" class="ion-margin-bottom"  (click)="alertaReservacion()"  expand="block" >
            <ion-label>Aceptar Reto </ion-label>
                  </ion-button>
                  
