@@ -1,0 +1,131 @@
+
+  <ion-header >
+
+    <ion-toolbar>
+      <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
+        <ion-buttons slot="start">
+          <ion-button color="light" (click)="cerrarModal()">
+            <ion-icon slot="start" name="chevron-back"></ion-icon>
+            &nbsp;  Evaluacion {{equipo.Nombre}}
+          </ion-button>
+        </ion-buttons>
+        <ion-avatar slot="end">
+       
+
+          <img *ngIf="!equipo.Avatar"  src="{{'https://futplaycompany.com/api_test/'+equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+          <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+        </ion-avatar>
+   
+      </ion-item>
+
+
+  
+    </ion-toolbar>
+
+    </ion-header>
+   
+
+      <ion-content fullscreen>
+
+        <div class="mainContent">
+      <ion-grid >
+      
+  <ion-row  style="margin-top: 50px;">
+
+
+    <ion-col size="12" class="ion-margin-top ion-margin-bottom">
+      <ion-label class="soccer-league-subtitle">Evaluacion Individual</ion-label>
+    </ion-col>
+    
+     
+
+
+    <ion-col size="12">
+      <ion-slides  [options]="slideOpts">
+        <ion-slide>
+     
+          <ion-list style="width: 100%;">
+      <ion-item class="transparent ion-margin-top ion-margin-bottom">
+        <ion-label  class="soccer-league-subtitle">
+          Jugador del Partido
+         </ion-label>
+      </ion-item>
+            <ion-radio-group (ionChange)="agregarJDP($event)">
+              <ion-item  lines="full" class="employeeItem  animate__animated animate__fadeIn"   *ngFor="let jugador of  jugadores">
+                <ion-avatar style="height: 5rem; width: 5rem;"  slot="start">
+               
+                      <img  style="height: 5rem; width: 5rem;" *ngIf="!jugador.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+      
+                      <img  style="height: 5rem; width: 5rem;" *ngIf="jugador.usuario.Avatar"src="assets/profile/avatars/{{jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+
+                      
+                </ion-avatar>
+                      <ion-label>
+                        <h2>{{jugador.usuario.Nombre}} {{jugador.usuario.Primer_Apellido}}  </h2>
+                        <p><ion-badge color="warning" mode="ios">{{jugador.posicion}}</ion-badge></p>
+                       
+                  
+                      </ion-label>
+                      <ion-radio [value]="jugador" ></ion-radio>
+                    </ion-item>
+          
+       
+      
+            </ion-radio-group>
+          </ion-list>
+    
+    
+    
+    
+        </ion-slide>
+    
+            
+ 
+        <ion-slide>
+
+          <ion-list style="width: 100%;">
+ 
+            <ion-item class="transparent ion-margin-top ion-margin-bottom">
+              <ion-label  class="soccer-league-subtitle">
+                Jugador Futplay
+               </ion-label>
+            </ion-item>
+    
+            <ion-radio-group (ionChange)="agregarJFP($event)">
+      
+              <ion-item  lines="full" class="employeeItem  animate__animated animate__fadeIn"    *ngFor="let jugador of  jugadores">
+                <ion-avatar style="height: 5rem; width: 5rem;"  slot="start">
+                    <img  style="height: 5rem; width: 5rem;" *ngIf="!jugador.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+                  
+                        <img style="height: 5rem; width: 5rem;"  *ngIf="jugador.usuario.Avatar"src="assets/profile/avatars/{{jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+                  
+                  
+                  </ion-avatar>
+                        <ion-label>
+                          <h2>{{jugador.usuario.Nombre}} {{jugador.usuario.Primer_Apellido}}  </h2>
+                          <p><ion-badge color="warning" mode="ios">{{jugador.posicion}}</ion-badge></p>
+                         
+                    
+                        </ion-label>
+                        <ion-radio [value]="jugador" ></ion-radio>
+                    </ion-item>
+          
+     
+            </ion-radio-group>
+          </ion-list>
+    
+    
+    
+    
+        </ion-slide>
+    
+    
+      </ion-slides>
+    
+    </ion-col>
+    
+    </ion-row>
+      </ion-grid>
+      </div>
+    </ion-content>
+

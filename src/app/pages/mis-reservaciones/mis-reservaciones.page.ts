@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { IonSlides, ModalController } from '@ionic/angular';
+import { IonSlides, ModalController, ActionSheetController, ActionSheetButton } from '@ionic/angular';
 import { PerfilReservaciones } from 'src/app/models/perfilReservaciones';
 import { ReservacionesService } from 'src/app/services/reservaciones.service';
 import { UsuariosService } from '../../services/usuarios.service';
@@ -8,6 +8,9 @@ import { GenerarReservacionPage } from '../generar-reservacion/generar-reservaci
 import { CanchasService } from '../../services/canchas.service';
 import { PartidoService } from 'src/app/services/partido.service';
 import { partidos } from 'src/app/models/partidos';
+import { VerificacionQrPage } from '../verificacion-qr/verificacion-qr.page';
+import { InicioPartidoPage } from '../inicio-partido/inicio-partido.page';
+import { EliminarRetoPage } from '../eliminar-reto/eliminar-reto.page';
  
 @Component({
   selector: 'app-mis-reservaciones',
@@ -16,15 +19,7 @@ import { partidos } from 'src/app/models/partidos';
 })
 export class MisReservacionesPage implements OnInit {
   categories = ['Confirmados','Recibidos','Enviados','Historial','Revisión','Canceladas'];
-
   @ViewChild(IonSlides) slider: IonSlides;
-  segment = 0;
-  activeCategory = 0;
-  cancha = null;
-retador = null;
-Titulo = '';
-show = false;
-rival = null;
 textoBuscar = '';
 partido:partidos[]=[]
   constructor(
@@ -32,7 +27,8 @@ public reservacionesService:ReservacionesService,
 public usuariosService:UsuariosService,
 public modalCtrl: ModalController,
 public canchasService:CanchasService,
-public partidosService:PartidoService
+public partidosService:PartidoService,
+public actionSheetCtrl: ActionSheetController
   ) {
 
      
@@ -76,8 +72,7 @@ if(reto.reservacion.Cod_Estado == 7){
      await modal.present();
 
     let {data} = await modal.onDidDismiss();
-
-    this.selectCategory(this.segment)
+    this.reservacionesService.selectCategory();
   }
   cerrarModal (){
 
@@ -99,18 +94,27 @@ if(reto.reservacion.Cod_Estado == 7){
    });
    await modal .present();
  }
-  async segmentChanged(event) {
-    await this.slider.slideTo(this.segment);
-    this.slider.update();
+  async segmentChanged() {
+
+    if(this.slider){
+      await this.slider.slideTo(this.reservacionesService.segment);
+      this.slider.update();
+    }
+
   }
   async slideChanged() {
  //   this.segment =  await this.slider.getActiveIndex();
- this.segment =  await this.slider.getActiveIndex();
-    this.focusSegment(this.segment);
+ this.reservacionesService.segment =  await this.slider.getActiveIndex();
+    this.focusSegment(this.reservacionesService.segment);
    
     
   }
 
+  selectCategory(i){
+    this.reservacionesService.segment = i;
+    this.reservacionesService.selectCategory()
+
+  }
   
   onSearchChange(event){
 
@@ -122,112 +126,208 @@ if(reto.reservacion.Cod_Estado == 7){
       block: 'center',
       inline: 'center'
     });
-    this.selectCategory(this.segment)
+    this.reservacionesService.selectCategory()
   }
 
   async next(){
-    this.segment =  Number(this.segment) +1;
- if(this.segment <= this.categories.length -1){
+    this.reservacionesService.segment =  Number(this.reservacionesService.segment) +1;
+ if(this.reservacionesService.segment <= this.categories.length -1){
  
-   await this.slider.slideTo(this.segment);
+   await this.slider.slideTo(this.reservacionesService.segment);
    this.slider.update();
-   if(this.segment == this.categories.length -1){
+   if(this.reservacionesService.segment == this.categories.length -1){
   
-     this.segment = this.categories.length-1;
+    this.reservacionesService.segment = this.categories.length-1;
     this.slider.update();
    }
-   this.selectCategory(this.segment)
+   this.reservacionesService.selectCategory()
  }
    }
    async prev(){
-     this.segment = Number(this.segment)  -1;
+    this.reservacionesService.segment = Number(this.reservacionesService.segment)  -1;
  
-     if(this.segment >= 0 && this.segment <= this.categories.length){
+     if(this.reservacionesService.segment >= 0 && this.reservacionesService.segment <= this.categories.length){
        //alert(this.segment)
      
-       await this.slider.slideTo(this.segment);
+       await this.slider.slideTo(this.reservacionesService.segment);
        this.slider.update();
      }else{
  
-       this.segment =  Number(this.segment) -1;
+      this.reservacionesService.segment =  Number(this.reservacionesService.segment) -1;
        this.slider.update();
      }
-     this.selectCategory(this.segment)
+     this.reservacionesService.selectCategory()
  
     }
  
-  async   selectCategory(index){
-  
-   this.segment = index;
-   this.activeCategory = index;
- 
-     switch(index){
-    
-       case 0:
-        // confirmados
 
-        this.reservacionesService.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
-          this.reservacionesService.reservaciones = reservaciones;
-          console.log('reservaciones', this.reservacionesService.reservaciones)
 
-        })
-         break;
- 
-       case 1:
- 
-  // recibidos
-  this.reservacionesService.syncgGtReservacionesRecibidas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
-    this.reservacionesService.reservaciones = reservaciones;
-    console.log('reservaciones', this.reservacionesService.reservaciones)
-
-  })
-      break;
-       case 2:
-    // enviados
-    this.reservacionesService.syncgGtReservacionesEnviadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
-      this.reservacionesService.reservaciones = reservaciones;
-    
-      console.log('reservaciones', this.reservacionesService.reservaciones)
-    })
-       break;
-       
-       case 3:
-     //hisyotial
-     this.reservacionesService.syncgGtReservacionesHistorial(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
-      this.reservacionesService.reservaciones = reservaciones;
-    
-      console.log('reservaciones', this.reservacionesService.reservaciones)
-    })
-       break;
-       
-       case 4:
-        this.reservacionesService.syncGetReservacionesResvision(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
-          this.reservacionesService.reservaciones = reservaciones;
-        
-          console.log('reservaciones', this.reservacionesService.reservaciones)
-        })
-
-       break;
-       case 5:
-        this.reservacionesService.syncGetReservacionesCanceladas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
-          this.reservacionesService.reservaciones = reservaciones;
-        
-          console.log('reservaciones', this.reservacionesService.reservaciones)
-        })
-
-       break;
-       default:
-        this.reservacionesService.reservaciones = []
-         break;
-     }
-   
-     
-     await this.slider.slideTo(this.segment);
-     this.slider.update();
-   
-   
- 
-        }
-
+        async onOpenMenu(reto:PerfilReservaciones){
+          console.log('reto', reto)
       
+            let btnData = [
+              {   
+                text: 'Detalle Reto',
+                icon:'person-outline',
+                handler: () =>{ 
+this.detalleReto(reto);
+                }
+               
+               },
+            
+              {   
+                text: 'Eliminar Reto',
+                icon:'trash-outline',
+                handler: () =>{
+                 // this.videoScreen(3);
+    
+                 this.eliminarReto(reto);
+                }
+               
+               },       
+              
+               {   
+                text: 'Cancelar',
+                icon:'close-outline',
+               role:'cancel',
+               
+               }
+            
+              ]
+            const normalBtns : ActionSheetButton[] = []
+            if(reto.reservacion.Cod_Estado == 5 || reto.reservacion.Cod_Estado == 4){      
+let btnIniciarPartido = {   
+  text: reto.reservacion.Cod_Estado == 4 ? 'Iniciar Partido' : 'Continuar Partido',
+  icon:'paper-plane-outline',
+  handler: () =>{
+this.iniciarPartido(reto)
+  }
+ 
+ }
+normalBtns.push(btnIniciarPartido)
+            }
+
+
+            for(let i =0; i < btnData.length; i++){
+              normalBtns.push(btnData[i])
+              if( i == btnData.length -1){
+                const actionSheet = await this.actionSheetCtrl.create({
+                  header:'Opciones',
+                  cssClass: 'left-align-buttons',
+                  buttons:normalBtns,
+                  mode:'ios'
+                });
+              
+              
+              
+              
+              
+              await actionSheet.present();
+
+              }
+
+
+            }
+        
+        
+        
+  
+        
+     
+           
+            
+              }
+              
+
+         async     iniciarPartido(reto:PerfilReservaciones){
+
+          let partido =   await  this.partidosService.syncGetPartidoReservacion(reto.reservacion.Cod_Reservacion);
+                 
+                 if(partido.length == 0){
+                  this.qrVerification(reto);
+                 }else  if(!partido[0].Verificacion_QR || !partido[1].Verificacion_QR){
+            
+                    this.qrVerification(reto);
+                  }else{
+                  
+                    this.partidoActual(reto);
+                  }
+             
+            
+              }
+
+              async qrVerification(reto:PerfilReservaciones){
+    
+                let partido =   await  this.partidosService.syncGetPartidoReservacion(reto.reservacion.Cod_Reservacion);
+                this.cerrarModal();
+                
+                    const modal = await this.modalCtrl.create({
+                     component: VerificacionQrPage,
+                     cssClass:'large-modal',
+                     componentProps:{
+                    reto:reto,
+                    partido:partido
+                       
+                     }
+                 
+                    });
+                
+                    
+                 
+                 return await modal.present();
+                
+                
+                     }
+
+                     async partidoActual(reto:PerfilReservaciones) {
+
+                      let partido =   await  this.partidosService.syncGetPartidoReservacion(reto.reservacion.Cod_Reservacion);
+    
+
+                      const modal = await this.modalCtrl.create({
+                        component:InicioPartidoPage,
+                        cssClass: 'my-custom-class',
+                        componentProps:{
+                          reto:reto,
+                          partido:partido
+                        },
+                        id:'inicio-partido'
+                      });
+                    
+                      await modal.present();
+                      let {data} = await modal.onDidDismiss();
+                
+                
+                      this.reservacionesService.selectCategory();
+
+                      if(data != undefined){
+
+                        
+                       }
+                    }
+
+
+                    async eliminarReto(reto:PerfilReservaciones){
+
+                      let modal = await this.modalCtrl.create({
+                        component:EliminarRetoPage,
+                        cssClass:'medium-modal',
+                        componentProps:{
+                          reto:reto
+                        }
+                      })
+                    
+                    
+                    
+                       await modal.present();
+                  
+                       const { data } = await modal.onDidDismiss();
+                       console.log('data eli', data)
+                       this.reservacionesService.selectCategory();
+                       if(data != undefined){
+                        //this.modalCtrl.dismiss(null,null,'aceptar-reto');
+                        
+                       }
+                    }
+                
 }

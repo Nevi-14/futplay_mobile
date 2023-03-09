@@ -2,9 +2,15 @@
 <ion-content>
 
   <div class="container">
-    <video  poster="null" playsinline #video loop muted autoplay oncanplay="this.play()" onloadedmetadata="this.muted = true" >
-      <source [src]="videos[index].video" type='video/mp4' allow='autoplay'>
+ 
+    <video #video 
+        (canplay)="video.play()"
+        (loadedmetadata)="video.muted = true"
+        poster="null" playsinline
+        >
+        <source [src]="videos[index].video" type='video/mp4'>
     </video>
+    
     </div>  
 
 </ion-content>

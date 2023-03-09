@@ -6,9 +6,9 @@ import { Reservaciones } from '../models/reservaciones';
 import { format } from 'date-fns';
 import { HorarioCanchasService } from './horario-canchas.service';
 import { HorarioCanchas } from '../models/horarioCanchas';
-import { PerfilCancha } from '../models/perfilCancha';
 import { DetalleReservaciones } from '../models/detalleReservaciones';
 import { PerfilReservaciones } from '../models/perfilReservaciones';
+import { UsuariosService } from './usuarios.service';
 interface objetoFecha{
   id:number,
   year: number,
@@ -36,11 +36,13 @@ horaFinArray:objetoFecha[] = [];
 horario:HorarioCanchas[];
 diaActual:HorarioCanchas;
 reservaciones:PerfilReservaciones[]=[]
+segment = 0;
 constructor(
 
 public http: HttpClient,
 public alertasService: AlertasService,
-public horarioCanchasService: HorarioCanchasService
+public horarioCanchasService: HorarioCanchasService,
+public usuariosService: UsuariosService
 
 
   ) { }
@@ -511,7 +513,8 @@ console.log('horaActual',horaActual,'apertura',apertura,'cierre',cierre)
   
       this.rellenarArreglo(Cod_Cancha, horaInicial, cierre, fecha, 'Hora_Inicio').then(resp => {
         console.log('this.horaInicioArray', resp)
-        return this.horaInicioArray = resp;
+        this.horaInicioArray = resp;
+        return 
       })
   
   
@@ -784,4 +787,78 @@ async compararFechas(date1,date2){
   
   
     }
+
+
+
+
+    // reservaciones
+
+    async   selectCategory(){
+  
+  
+        switch(this.segment){
+       
+          case 0:
+           // confirmados
+   
+           this.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+             this.reservaciones = reservaciones;
+             console.log('reservaciones', this.reservaciones)
+   
+           })
+            break;
+    
+          case 1:
+    
+     // recibidos
+     this.syncgGtReservacionesRecibidas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+       this.reservaciones = reservaciones;
+       console.log('reservaciones', this.reservaciones)
+   
+     })
+         break;
+          case 2:
+       // enviados
+       this.syncgGtReservacionesEnviadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+         this.reservaciones = reservaciones;
+       
+         console.log('reservaciones', this.reservaciones)
+       })
+          break;
+          
+          case 3:
+        //hisyotial
+        this.syncgGtReservacionesHistorial(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+         this.reservaciones = reservaciones;
+       
+         console.log('reservaciones', this.reservaciones)
+       })
+          break;
+          
+          case 4:
+           this.syncGetReservacionesResvision(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+             this.reservaciones = reservaciones;
+           
+             console.log('reservaciones', this.reservaciones)
+           })
+   
+          break;
+          case 5:
+           this.syncGetReservacionesCanceladas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+             this.reservaciones = reservaciones;
+           
+             console.log('reservaciones', this.reservaciones)
+           })
+   
+          break;
+          default:
+           this.reservaciones = []
+            break;
+        }
+      
+        
+
+      
+    
+           }
 }

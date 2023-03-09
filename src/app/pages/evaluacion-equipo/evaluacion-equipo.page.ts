@@ -70,15 +70,17 @@ this.finalizar();
   }
   finalizar(){
 
-
+  /**
+   *   this.modalCtrl.dismiss();
+    this.videoScreen(6);
+    return
+   */
 
     this.equiposservice.syncPostDurezaEquipo(this.evaluacionEquipo).then(resp =>{
       let stringID = this.reto.reservacion.Cod_Reservacion + "-" + this.usuariosService.usuarioActual.usuario.Cod_Usuario+ "-" +this.reto.reservacion.Fecha
   
       this.storageService.delete(stringID).then(codigo =>{
         this.modalCtrl.dismiss();
-       // this.alertasService.message('FUTPLAY', 'Gracias por preferirnos!.')
-
        this.reservacionesService.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
         this.reservacionesService.reservaciones = reservaciones;
         console.log('reservaciones', this.reservacionesService.reservaciones)

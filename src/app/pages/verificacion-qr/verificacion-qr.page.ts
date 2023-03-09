@@ -211,7 +211,8 @@ loading(){
     }, 1000)
   }
 
-  async partidoActual() {
+/**
+ *   async partidoActual() {
     const modal = await this.modalCtrl.create({
       component:InicioPartidoPage,
       cssClass: 'my-custom-class',
@@ -227,8 +228,10 @@ loading(){
    this.cerrarModal()
   }
 
+ */
 
   actualizarQR(){
+
 
     if(this.usuariosService.usuarioActual.usuario.Cod_Usuario == this.reto.retador.Cod_Usuario){
       this.partido[0].Verificacion_QR = true;
@@ -268,6 +271,30 @@ this.loading();
 
 
 
+  }
+  async partidoActual() {
+
+    let partido =   await  this.partidosService.syncGetPartidoReservacion(this.reto.reservacion.Cod_Reservacion);
+    const modal = await this.modalCtrl.create({
+      component:InicioPartidoPage,
+      cssClass: 'my-custom-class',
+      componentProps:{
+        reto:this.reto,
+        partido:partido
+      },
+      id:'inicio-partido'
+    });
+  
+    await modal.present();
+    let {data} = await modal.onDidDismiss();
+
+
+    this.reservacionesService.selectCategory();
+
+    if(data != undefined){
+
+      
+     }
   }
 
   async iniciar() {

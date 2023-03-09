@@ -42,12 +42,12 @@ public jugadoresService:JugadoresService
   ) { }
 
   ngOnInit() {
-    
+    this.equipo.Cod_Equipo == this.reto.retador.Cod_Equipo ?  this.reto.rival.Cod_Equipo : this.reto.retador.Cod_Equipo
 
-    this.jugadoresService.syncJugadoresEquipos(this.equipo.Cod_Equipo == this.reto.retador.Cod_Equipo ?  this.reto.retador.Cod_Equipo : this.reto.rival.Cod_Equipo).then(jugadores =>{
+    this.jugadoresService.syncJugadoresEquipos(this.reto.retador.Cod_Equipo).then(jugadores =>{
 console.log('jugadores', jugadores)
       this.jugadoresRetadores = jugadores;
-      this.jugadoresService.syncJugadoresEquipos(this.equipo.Cod_Equipo == this.reto.retador.Cod_Equipo ?  this.reto.rival.Cod_Equipo : this.reto.retador.Cod_Equipo).then(jugadores =>{
+      this.jugadoresService.syncJugadoresEquipos(this.reto.rival.Cod_Equipo).then(jugadores =>{
         console.log('jugadores', jugadores)
               this.jugadoresRivales = jugadores;
             })
@@ -71,7 +71,7 @@ console.log(this.partido,'patidooo')
       component: EvaluacionEquipoPage,
       cssClass: 'my-custom-class',
       componentProps:{
-        equipo:this.equipo.Cod_Equipo == this.reto.retador.Cod_Equipo ?  this.reto.rival : this.reto.retador,
+        equipo:this.equipo,
         partido:this.partido,
         reto:this.reto
       },

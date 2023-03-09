@@ -70,7 +70,7 @@ ready: boolean = false;
         async showInterstitial(){
           
         const options: AdOptions ={
-          adId: isPlatform('ios') ? 'ca-app-pub-3191879076705982/3638052631' :'ca-app-pub-3191879076705982/3246336240',
+          adId:'ca-app-pub-3191879076705982/3246336240',
           isTesting:false,
           npa: false
         };

@@ -149,50 +149,6 @@ convertMsToHM(milliseconds) {
 
 
 
-  async qrVerification(){
-    
-
-
-this.cerrarModal();
-
-    const modal = await this.modalCtrl.create({
-     component: VerificacionQrPage,
-     cssClass:'large-modal',
-     componentProps:{
-    reto:this.reto,
-    partido:this.partido
-       
-     }
- 
-    });
-
-    
- 
- return await modal.present();
-
-
-     }
-     async partidoActual() {
-
-      
-    
-
-      const modal = await this.modalCtrl.create({
-        component:InicioPartidoPage,
-        cssClass: 'my-custom-class',
-        componentProps:{
-          reto:this.reto,
-          partido:this.partido
-        },
-        id:'inicio-partido'
-      });
-    
-      await modal.present();
-      let {data} = await modal.onDidDismiss();
-
-
-     this.cerrarModal()
-    }
 
 
 
@@ -332,46 +288,9 @@ this.emailService.enviarCorreoReservaciones(2, this.reto.usuario_rival.Correo, t
  
 
 
-  async eliminarReto(){
 
-    let modal = await this.modalCtrl.create({
-      component:EliminarRetoPage,
-      cssClass:'medium-modal',
-      componentProps:{
-        reto:this.reto
-      }
-    })
-  
-  
-  
-     await modal.present();
 
-     const { data } = await modal.onDidDismiss();
-     console.log('data eli', data)
-     if(data != undefined){
-      this.modalCtrl.dismiss(null,null,'aceptar-reto');
-     }
-  }
 
-  iniciarPartido(){
-
-    this.partidosService.syncGetPartidoReservacion(this.reto.reservacion.Cod_Reservacion).then(partido =>{
-this.partido = partido;
- 
-     if(partido.length == 0){
-      this.qrVerification();
-     }else  if(!partido[0].Verificacion_QR || !partido[1].Verificacion_QR){
-
-        this.qrVerification();
-      }else{
-      
-        this.partidoActual();
-      }
-    })
-
-   
-
-  }
 
 
 

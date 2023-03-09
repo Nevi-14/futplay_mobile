@@ -11,6 +11,7 @@ import * as bcrypt from 'bcryptjs';  // npm install bcryptjs --save  &&  npm ins
 import { format } from 'date-fns';
 import { PerfilUsuario } from '../models/perfilUsuario';
 import { SolicitudesService } from './solicitudes.service';
+import { ReservacionesService } from './reservaciones.service';
 import { StorageService } from './storage-service';
 
 
@@ -43,6 +44,7 @@ export class UsuariosService {
     public alertasService: AlertasService,
     public actionSheetCtrl: ActionSheetController,
     public solicitudesService:SolicitudesService,
+    public reservacionesService:ReservacionesService,
     public storageService:StorageService
   
     ) {
@@ -360,7 +362,22 @@ console.log('resp', resp)
 
     console.log('login user', resp)
 
-    this.route.navigateByUrl('/futplay/mi-perfil',{replaceUrl:true});
+    this.solicitudesService.syncGetSolicitudesRecibidasUsuarioToPromise(this.usuarioActual.usuario.Cod_Usuario).then(solicitudes =>{
+      console.log('solicitudes', solicitudes)
+          this.solicitudesService.solicitudesJugadoresArray = solicitudes;
+
+          this.reservacionesService.syncgGtReservacionesRecibidas(this.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+            this.reservacionesService.reservaciones = reservaciones;
+        
+         
+            this.route.navigateByUrl('/futplay/mi-perfil',{replaceUrl:true});
+        
+          })
+
+
+
+          
+        })
 
 
 

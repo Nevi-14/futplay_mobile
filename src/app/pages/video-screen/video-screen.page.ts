@@ -9,6 +9,11 @@ import { GoogleAdsService } from 'src/app/services/google-ads.service';
   selector: 'app-video-screen',
   templateUrl: './video-screen.page.html',
   styleUrls: ['./video-screen.page.scss'],
+   host: {
+        'autoplay': '',
+        'oncanplay': 'this.play()',
+        'onloadedmetadata': 'this.muted = true'
+    }
 })
 export class VideoScreenPage implements OnInit {
   @Input() index: number;
@@ -42,63 +47,61 @@ export class VideoScreenPage implements OnInit {
 
   ngOnInit() {
    // this.googleAddService.showBanner()
+  
+   console.log('index vide to play', this.index)
+
+
+   setTimeout(()=>{ 
+    this.googleAdd();
+  }, 2000);
+
+   setTimeout(()=>{ 
+    this.pauseVideo();
+  }, 3200);
 
   }
 
+  googleAdd(){
+    switch (this.index) {
 
-  ionViewWillEnter() {
-
-//this.close = true;
-    setTimeout(()=>{
-
-      this.pauseVideo();
-      switch (this.index) {
-
-
-        case 0:
-          this.googleAddService.showInterstitial();
+      case 0:
+        this.googleAddService.showInterstitial();
+     
+        break;
+      case 1:
+        this.googleAddService.showInterstitial();
        
-          break;
-        case 1:
-          this.googleAddService.showInterstitial();
-         
-          break;
-        case 2:
-          this.googleAddService.showInterstitial();
-       
-          break;
-        case 3:
-          this.googleAddService.showInterstitial();
-        
-          break;
-        case 4:
-          this.googleAddService.showInterstitial();
-        
-          break;
-        case 5:
-          this.googleAddService.showInterstitial();
+        break;
+      case 2:
+        this.googleAddService.showInterstitial();
+     
+        break;
+      case 3:
+        this.googleAddService.showInterstitial();
       
-          break;
-        case 6:
-          this.googleAddService.showInterstitial();
-          
-          break;
-          case 7:
-            this.cerrarModal();
-         //   this.close = true;
-            break;
-        default:
-      console.log('default')
-          break;
-
-
-
-      }
-    }, 3000);
+        break;
+      case 4:
+        this.googleAddService.showInterstitial();
+      
+        break;
+      case 5:
+        this.googleAddService.showInterstitial();
     
+        break;
+      case 6:
+        this.googleAddService.showInterstitial();
+        
+        break;
+        case 7:
+          this.cerrarModal();
+          break;
+      default:
+this.alertasService.message('FUTPLAY','Lo sentimos algo salio mal!.')
+        break;
 
 
 
+    }
   }
 
   cerrarModal() {

@@ -64,7 +64,7 @@ public http: HttpClient
   private    putFinalizarPartido(partido:partidos){
 
     let URL = this.getURL( environment.finalizarPartidoURL);
-     URL = URL +partido.Cod_Reservacion  ;
+     URL = URL +partido.Cod_Reservacion;
     const options = {
       headers: {
           'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ public http: HttpClient
       }
     };
    
- console.log('URL', URL)
+ console.log('URL PUT PARTIDO', URL)
  console.log('partido', partido)
     return this.http.put( URL, partido, options );
   }

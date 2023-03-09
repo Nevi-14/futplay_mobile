@@ -14,11 +14,10 @@
     </ion-header>
    
 
-      <ion-content  [fullscreen]="true"    [scrollEvents]="true" #IonContent>
+      <ion-content fullscreen>
 
         
         <div class="mainContent ion-text-center">
-          
 
 
 
@@ -153,88 +152,22 @@
                                
                     
                  
-                          
+                              <ion-item>
+                                <ion-label>Date</ion-label>
+                                <ion-datetime displayFormat="hh:mm A" [(ngModel)]="myDate"></ion-datetime>
+                              </ion-item>
+                              
+                              <button ion-button (click)="click(myDate)">Click</button>
+                    
+<ion-datetime  *ngIf="cancha && retador && !reservacionGrupal || cancha && rival && retador && reservacionGrupal"    presentation="date"></ion-datetime>         
+<ion-datetime *ngIf="cancha && retador && !reservacionGrupal || cancha && rival && retador && reservacionGrupal"   presentation="time" [preferWheel]="true"></ion-datetime>
+<ion-item    class="custom-item">
+  <ion-select [(ngModel)]="Hora_Inicio"  (ionChange)="horaInicio($event)"    placeholder="Seleccionar hora" name="Hora_Inicio">
+    <ion-select-option  [value]="hora" *ngFor="let hora of gestionReservacionesService.horaInicioArray">{{hora.time12}} {{':00'}} {{hora.meridiem}}</ion-select-option>
+  </ion-select>
+</ion-item>
 
 
-
-<ion-grid >
-  <ion-row *ngIf="cancha && retador && !reservacionGrupal || cancha && rival && retador && reservacionGrupal" >
-
-    <ion-col size="12">
-                          
-<ion-datetime (ionChange)="cambiarFecha($event)"  *ngIf="cancha && retador && !reservacionGrupal || cancha && rival && retador && reservacionGrupal"    presentation="date" [(ngModel)]="fecha"></ion-datetime>         
-    </ion-col>
-    <ion-col size="12"  class="ion-text-left" *ngIf="habilitarHoras">
-      <ion-label  style="margin-left: 1rem;" ><strong>Hora Inicio</strong></ion-label>
-      <ion-item        class="custom-item" lines="none">
-        <ion-select [(ngModel)]="Hora_Inicio"  (ionChange)="horaInicio($event)"    placeholder="Seleccionar hora" name="Hora_Inicio">
-          <ion-select-option  [value]="hora" *ngFor="let hora of gestionReservacionesService.horaInicioArray">{{hora.time12}} {{':00'}} {{hora.meridiem}}</ion-select-option>
-        </ion-select>
-      </ion-item>
-
-    </ion-col>
-    <ion-col size="12" class="ion-text-left" *ngIf="Hora_Inicio">
-      <ion-label 
-      style="margin-left: 1rem;"   ><strong>Hora Fin</strong></ion-label>
-      <ion-item  
-        class="custom-item"  lines="none">
-        <ion-select [(ngModel)]="Hora_Fin"  (ionChange)="horaFin($event)"    placeholder="Seleccionar hora" name="Hora_Inicio">
-          <ion-select-option  [value]="hora" *ngFor="let hora of gestionReservacionesService.horaFinArray">{{hora.time12}} {{':00'}} {{hora.meridiem}}</ion-select-option>
-        </ion-select>
-      </ion-item>
-      
-
-      
-    </ion-col>
-
-    <ion-col size="12">
-      
-     
-<ion-list class="ion-margin StyledReceipt" *ngIf="cancha && retador && !reservacionGrupal && nuevaReservacion.Hora_Inicio != null && nuevaReservacion.Hora_Fin != null || cancha && rival && retador && reservacionGrupal  && nuevaReservacion.Hora_Inicio != null && nuevaReservacion.Hora_Fin != null">
-<ion-toolbar class="ion-text-uppercase">
-  <ion-title *ngIf="reservacionGrupal">{{retador.equipo.Abreviacion}} vs {{rival.equipo.Abreviacion}}</ion-title>
-  <ion-title *ngIf="!reservacionGrupal">Reto Individual</ion-title>
-</ion-toolbar>
-  <ion-item>
-    <ion-label>Fecha</ion-label>
-    {{nuevaReservacion.Fecha | date:'mediumDate'}}
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Hora Inicio</ion-label>
-    {{formatoAmPM(nuevaReservacion.Hora_Inicio)}}   
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Hora Fin</ion-label>
-    {{formatoAmPM(nuevaReservacion.Hora_Fin)}}   
-  </ion-item>
-  <ion-item>
-    <ion-label>Precio Hora</ion-label>
-   {{detalleReservacion.Precio_Hora | colones : 2 : '.' : ',' :  '₡' }}
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Total Horas</ion-label>
-    {{detalleReservacion.Total_Horas }}
-  </ion-item>
-  <ion-item  *ngIf="detalleReservacion.Reservacion_Grupal">
-    <ion-label>Monto por Equipo</ion-label>
-  {{detalleReservacion.Monto_Equipo  | colones : 2 : '.' : ',' :  '₡' }}
-  </ion-item>
-  <ion-item>
-    <ion-label>Subtotal</ion-label>
-    {{detalleReservacion.Monto_Sub_Total | colones : 2 : '.' : ',' :'₡'}}
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Total</ion-label>
-    {{detalleReservacion.Monto_Total  | colones : 2 : '.' : ',' :  '₡' }}
-  </ion-item>
-</ion-list>
-    </ion-col>
-  </ion-row>
-</ion-grid>
                              </ion-list>
 
 
@@ -246,9 +179,9 @@
 
     </ion-content>
 
-    <ion-footer class="ion-no-border" *ngIf="cancha && retador && !reservacionGrupal && nuevaReservacion.Hora_Inicio != null && nuevaReservacion.Hora_Fin != null || cancha && rival && retador && reservacionGrupal  && nuevaReservacion.Hora_Inicio != null && nuevaReservacion.Hora_Fin != null">
+    <ion-footer class="ion-no-border" >
   
-     <ion-button (click)="enviarReto()" expand="block" >
+     <ion-button expand="block" >
       Enviar Reto
      </ion-button>
       

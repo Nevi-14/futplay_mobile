@@ -7,6 +7,7 @@ import { ActionSheetButton, ModalController, ActionSheetController } from '@ioni
 import { GenerarReservacionPage } from '../generar-reservacion/generar-reservacion.page';
 import { PerfilEquipoPage } from '../perfil-equipo/perfil-equipo.page';
 import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-modal.page';
+import { PerfilEquipos } from 'src/app/models/perfilEquipos';
 '@ionic/angular';
 
 
@@ -133,7 +134,7 @@ this.alertasService.loadingDissmiss();
  }
 
   
- async onOpenMenu(equipo){
+ async onOpenMenu(equipo :PerfilEquipos){
   console.log(equipo)
 
   if(this.activeCategory == 0){
@@ -227,7 +228,7 @@ await actionSheet.present();
    
     
       }
-      async equipoDetalle(equipo){
+      async equipoDetalle(equipo:PerfilEquipos){
      
         const modal  = await this.modalCtrl.create({
           component: EquipoDetalleModalPage,
@@ -240,7 +241,7 @@ await actionSheet.present();
        });
        await modal .present();
        }
-      async enviarReto(equipo){
+      async enviarReto(equipo:PerfilEquipos){
      
         const modal  = await this.modalCtrl.create({
           component: GenerarReservacionPage,

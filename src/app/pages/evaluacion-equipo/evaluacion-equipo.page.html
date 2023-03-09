@@ -1,26 +1,24 @@
+ 
 
-  <ion-header >
+    <ion-header class="ion-no-border">
 
-    <ion-toolbar>
-      <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
-        <ion-buttons slot="start">
-          <ion-button color="light" (click)="cerrarModal()">
-            <ion-icon slot="start" name="chevron-back"></ion-icon>
-            &nbsp;  Evaluacion {{equipo.Nombre}}
-          </ion-button>
-        </ion-buttons>
-        <ion-avatar  slot="end">
-          <img *ngIf="!equipo.Avatar"  src="{{'https://futplaycompany.com/api_test/'+equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-          <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-        </ion-avatar>
-      </ion-item>
-
-
-  
-    </ion-toolbar>
-
-    </ion-header>
-   
+      <ion-toolbar class="ion-toolbar">
+    
+    
+            <ion-button  slot="start"  fill="clear" (click)="cerrarModal()">
+              <ion-icon style="color:#fff"  name="chevron-back"></ion-icon>    
+            </ion-button>
+      
+     
+    <ion-title>Evaluacion {{equipo.Nombre}}</ion-title>
+    <ion-avatar  slot="end">
+      <img *ngIf="!equipo.Avatar"  src="{{'https://futplaycompany.com/api_test/'+equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+      <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+    </ion-avatar>
+      </ion-toolbar>
+    
+      </ion-header>
+     
 
       <ion-content fullscreen>
 
@@ -37,7 +35,9 @@
               
             <ion-list style="margin-top: 2rem;">
             <ion-item  lines="none" class="ion-margin-top ion-margin-bottom">
-              <ion-label   class="soccer-league-subtitle">Dureza Del Equipo</ion-label>
+          <h3>
+            Dureza Del Equipo
+          </h3>
              
             </ion-item>
         

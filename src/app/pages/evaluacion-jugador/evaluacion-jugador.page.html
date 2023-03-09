@@ -1,28 +1,20 @@
 
-  <ion-header >
+<ion-header class="ion-no-border">
 
-    <ion-toolbar>
-      <ion-item class="transparent ion-margin-bottom ion-margin-top" lines="none">
-        <ion-buttons slot="start">
-          <ion-button color="light" (click)="cerrarModal()">
-            <ion-icon slot="start" name="chevron-back"></ion-icon>
-            &nbsp;  Evaluacion {{equipo.Nombre}}
-          </ion-button>
-        </ion-buttons>
-        <ion-avatar slot="end">
-       
-
-          <img *ngIf="!equipo.Avatar"  src="{{'https://futplaycompany.com/api_test/'+equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-          <img  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-        </ion-avatar>
-   
-      </ion-item>
+  <ion-toolbar class="ion-toolbar">
 
 
+        <ion-button  slot="start"  fill="clear" (click)="cerrarModal()">
+          <ion-icon style="color:#fff"  name="chevron-back"></ion-icon>    
+        </ion-button>
   
-    </ion-toolbar>
+ 
+<ion-title>{{titulo}}</ion-title>
 
-    </ion-header>
+  </ion-toolbar>
+
+  </ion-header>
+ 
    
 
       <ion-content fullscreen>
@@ -33,30 +25,38 @@
   <ion-row  style="margin-top: 50px;">
 
 
-    <ion-col size="12" class="ion-margin-top ion-margin-bottom">
-      <ion-label class="soccer-league-subtitle">Evaluacion Individual</ion-label>
-    </ion-col>
-    
-     
-
 
     <ion-col size="12">
       <ion-slides  [options]="slideOpts">
         <ion-slide>
      
           <ion-list style="width: 100%;">
-      <ion-item class="transparent ion-margin-top ion-margin-bottom">
-        <ion-label  class="soccer-league-subtitle">
-          Jugador del Partido
-         </ion-label>
+      <ion-item class="transparent ion-margin-top ion-margin-bottom" lines="none"  *ngIf="equipo.Cod_Equipo == this.reto.retador.Cod_Equipo">
+<h3>Equipo  {{reto.retador.Abreviacion}}</h3>
+         <ion-avatar slot="end"  style="height: 3rem; width: 3rem;">
+       
+
+          <img *ngIf="!reto.retador.Avatar"  style="height: 3rem; width: 3rem;"  src="{{'https://futplaycompany.com/api_test/'+reto.retador.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+          <img  *ngIf="reto.retador.Avatar"  style="height: 3rem; width: 3rem;"  src="assets/soccer-shields-svg/{{reto.retador.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+        </ion-avatar>
       </ion-item>
-            <ion-radio-group (ionChange)="agregarJDP($event)">
-              <ion-item  lines="full" class="employeeItem  animate__animated animate__fadeIn"   *ngFor="let jugador of  jugadores">
-                <ion-avatar slot="start">
+
+      <ion-item class="transparent ion-margin-top ion-margin-bottom" lines="none"  *ngIf="equipo.Cod_Equipo == this.reto.rival.Cod_Equipo">
+        <h3>Equipo  {{reto.rival.Abreviacion}}</h3>
+                 <ion-avatar slot="end"  style="height: 3rem; width: 3rem;">
                
-                      <img *ngIf="!jugador.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+        
+                  <img *ngIf="!reto.rival.Avatar"  style="height: 3rem; width: 3rem;"  src="{{'https://futplaycompany.com/api_test/'+reto.rival.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+                  <img  *ngIf="reto.rival.Avatar"  style="height: 3rem; width: 3rem;"  src="assets/soccer-shields-svg/{{reto.rival.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+                </ion-avatar>
+              </ion-item>
+            <ion-radio-group (ionChange)="agregarJDP($event)">
+              <ion-item  lines="full" class="employeeItem  animate__animated animate__fadeIn"   *ngFor="let jugador of  jugadoresRetadores">
+                <ion-avatar style="height: 5rem; width: 5rem;"  slot="start">
+               
+                      <img  style="height: 5rem; width: 5rem;" *ngIf="!jugador.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
       
-                      <img *ngIf="jugador.usuario.Avatar"src="assets/profile/avatars/{{jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+                      <img  style="height: 5rem; width: 5rem;" *ngIf="jugador.usuario.Avatar"src="assets/profile/avatars/{{jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
 
                       
                 </ion-avatar>
@@ -85,19 +85,31 @@
 
           <ion-list style="width: 100%;">
  
-            <ion-item class="transparent ion-margin-top ion-margin-bottom">
-              <ion-label  class="soccer-league-subtitle">
-                Jugador Futplay
-               </ion-label>
+            <ion-item class="transparent ion-margin-top ion-margin-bottom" lines="none" *ngIf="equipo.Cod_Equipo == this.reto.rival.Cod_Equipo">
+              <h3>Equipo  {{reto.retador.Abreviacion}}</h3>
+               <ion-avatar slot="end" style="height: 3rem; width: 3rem;">
+       
+
+                <img *ngIf="!reto.retador.Avatar" style="height: 3rem; width: 3rem;"  src="{{'https://futplaycompany.com/api_test/'+reto.retador.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+                <img  *ngIf="reto.retador.Avatar"  style="height: 3rem; width: 3rem;"  src="assets/soccer-shields-svg/{{reto.retador.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+              </ion-avatar>
             </ion-item>
-    
+            <ion-item class="transparent ion-margin-top ion-margin-bottom" lines="none"  *ngIf="equipo.Cod_Equipo == this.reto.retador.Cod_Equipo">
+              <h3>Equipo  {{reto.rival.Abreviacion}}</h3>
+               <ion-avatar slot="end" style="height: 3rem; width: 3rem;">
+       
+
+                <img *ngIf="!reto.rival.Avatar" style="height: 3rem; width: 3rem;"  src="{{'https://futplaycompany.com/api_test/'+reto.rival.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+                <img  *ngIf="reto.rival.Avatar"  style="height: 3rem; width: 3rem;"  src="assets/soccer-shields-svg/{{reto.rival.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+              </ion-avatar>
+            </ion-item>
             <ion-radio-group (ionChange)="agregarJFP($event)">
       
-              <ion-item  lines="full" class="employeeItem  animate__animated animate__fadeIn"    *ngFor="let jugador of  jugadores">
-                <ion-avatar slot="start">
-                    <img *ngIf="!jugador.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+              <ion-item  lines="full" class="employeeItem  animate__animated animate__fadeIn"    *ngFor="let jugador of  jugadoresRivales">
+                <ion-avatar style="height: 5rem; width: 5rem;"  slot="start">
+                    <img  style="height: 5rem; width: 5rem;" *ngIf="!jugador.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
                   
-                        <img *ngIf="jugador.usuario.Avatar"src="assets/profile/avatars/{{jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+                        <img style="height: 5rem; width: 5rem;"  *ngIf="jugador.usuario.Avatar"src="assets/profile/avatars/{{jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
                   
                   
                   </ion-avatar>

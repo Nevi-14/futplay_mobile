@@ -75,11 +75,12 @@ this.retador = true;
               text: 'Si, continuar',
               role: 'confirm',
               handler: () => {
+
                 this.partidosService.syncPutFinalizarPartido(this.retador ? this.partido[0] : this.partido[1]).then((resp:any) =>{
 
                   this.partido = resp.partido
-                this.evaluacionModal()
-                   //this.alertasService.message('FUTPLAY', resp.message)
+                  this.cerrarModal();
+                this.evaluacionModal();
                     })
               },
             },
@@ -110,8 +111,9 @@ this.retador = true;
                 this.partidosService.syncPutFinalizarPartido(this.retador ? this.partido[0] : this.partido[1]).then((resp:any) =>{
 
                   this.partido = resp.partido
+                  this.cerrarModal();
                   this.evaluacionModal();
-                   //this.alertasService.message('FUTPLAY', resp.message)
+
                     })
               },
             },
@@ -140,11 +142,14 @@ this.retador = true;
               text: 'OK',
               role: 'confirm',
               handler: () => {
+              //  this.evaluacionModal();
+            //    return
                 this.partidosService.syncPutFinalizarPartido(this.retador ? this.partido[0] : this.partido[1]).then((resp:any) =>{
 
                   this.partido = resp.partido
+                  this.cerrarModal();
                   this.evaluacionModal();
-                  // this.alertasService.message('FUTPLAY', resp.message)
+    
                     })
               },
             },
@@ -236,7 +241,7 @@ async  evaluacionModal(){
     cssClass:'my-custom-class',
     componentProps:{
       jugadores:[],
-      equipo: this.retador ? this.reto.rival : this.reto.retador,
+      equipo: this.retador ? this.reto.retador : this.reto.rival,
       partido:  this.retador ? this.partido[0] : this.partido[1],
       reto:this.reto
     },

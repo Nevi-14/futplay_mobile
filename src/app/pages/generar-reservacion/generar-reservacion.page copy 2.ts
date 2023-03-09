@@ -3,6 +3,7 @@ import { IonContent, IonDatetime, ModalController, PopoverController, } from '@i
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { HorarioCanchas } from 'src/app/models/horarioCanchas';
 import { HorarioCanchasService } from 'src/app/services/horario-canchas.service';
+ 
 import { AlertasService } from 'src/app/services/alertas.service';
 import { ReservacionesService } from '../../services/reservaciones.service';
 import { ListaCanchasPage } from '../lista-canchas/lista-canchas.page';
@@ -14,6 +15,7 @@ import { DetalleReservaciones } from 'src/app/models/detalleReservaciones';
 import { CanchasService } from '../../services/canchas.service';
 import { EmailService } from 'src/app/services/email.service';
 import { EquiposService } from '../../services/equipos.service';
+import { CalendarioCanchaPage } from '../calendario-cancha/calendario-cancha.page';
 import { format } from 'date-fns';
  
 
@@ -47,6 +49,8 @@ export class GenerarReservacionPage  {
   @Input()retador : PerfilEquipos;
   @ViewChild(IonContent, { static: false }) content: IonContent;
   reservacionGrupal:boolean=true;
+  myDate:any;
+  lockSwipes = false;
   nuevaReservacion = {
     Cod_Cancha:  null,
     Cod_Usuario:  this.usuariosService.usuarioActual.usuario.Cod_Usuario,
@@ -84,13 +88,13 @@ export class GenerarReservacionPage  {
     Pendiente:  0,
     Notas_Estado:  'Confirmacion Pendiente'
    }
+
    Hora_Inicio: any;
    Hora_Fin: any;
+   fecha = new Date().toISOString();
    diaActual: HorarioCanchas;
    horario:any = null;
    habilitarHoras = false;
-   isModalOpen:boolean = false;
-   fecha = new Date().toISOString();
   constructor(
     public modalCtrl: ModalController,
     public usuariosService: UsuariosService,
@@ -105,86 +109,93 @@ export class GenerarReservacionPage  {
   ) { }
   
 
-  resetearHoras(){
-    this.Hora_Inicio = null;
-    this.Hora_Fin = null;
-    this.nuevaReservacion.Hora_Inicio = null;
-    this.nuevaReservacion.Hora_Fin = null;
-    this.gestionReservacionesService.horaInicioArray = [];
-    this.gestionReservacionesService.horaFinArray = [];
-  }
 
-  formatoAmPM (date:Date) {
-    // hour: 'numeric', minute: 'numeric', hour12: true
-    return date.toLocaleString('en-US', { hour: '2-digit',minute: '2-digit', hour12: true })
-  }
+
+ limpiarDatos(){
+ 
+
+
+ }
 
   ionViewWillEnter(){
-    console.log('rival', this.rival)
+this.limpiarDatos();
+ 
     if(this.cancha){
-      this.resetearHoras();
+ 
       this.nuevaReservacion.Cod_Cancha = this.cancha.cancha.Cod_Cancha;
       this.horarioCanchasService.horarioCancha = [];
-      this.consultarHoras();
     }
-  
+
+    
+ 
+
    }
 
    reservacionIndividual($event){
-let value = $event.detail.checked;
-this.resetearHoras();
-this.detalleReservacion.Reservacion_Grupal = value;
-if(!this.reservacionGrupal){
-  this.rival = null
-}
-this.cd.detectChanges();
-    if(this.cancha){
-      this.consultarHoras();
-    }
+    let value = $event.detail.checked;
+    console.log(value);
+    this.rival = null;
+    this.detalleReservacion.Reservacion_Grupal = value;
+
    }
+
+
+
+
 
 
 
    async agregarRival() {
-    if(!this.isModalOpen){
-      this.isModalOpen = true;
-      this.equiposService.equipos = [];
-      const modal = await this.modalCtrl.create({
-        component: ListaEquiposPage,
-        cssClass: 'my-custom-modal',
-        mode:'ios',
-        componentProps:{
-          rival:true
-        }
-      });
-       await modal.present();
-          const { data } = await modal.onDidDismiss();
-          this.isModalOpen = false;
+    this.equiposService.equipos = [];
+    const modal = await this.modalCtrl.create({
+      component: ListaEquiposPage,
+      cssClass: 'my-custom-modal',
+      mode:'ios',
+      componentProps:{
+        rival:true
+      }
+    });
+
+     await modal.present();
+        const { data } = await modal.onDidDismiss();
+     
+         if(data !== undefined){
        
-           if(data !== undefined){  
-            this.rival = data.equipo;
+          this.rival = data.equipo;
+          console.log('this.rival', this.rival)
+             //this.modalCtrl.dismiss();
+
+             if(this.cancha != null && this.cancha != undefined){
+              this.nuevaReservacion.Cod_Cancha = this.cancha.cancha.Cod_Cancha;
+   
+              //this.horarioCancha();
+            }
             this.cd.detectChanges();
-               if(this.cancha != null && this.cancha != undefined){
-                this.nuevaReservacion.Cod_Cancha = this.cancha.cancha.Cod_Cancha;
-                if(this.cancha && this.retador && !this.reservacionGrupal || this.cancha && this.rival && this.retador && this.reservacionGrupal){
-                  setTimeout(()=>{
-                    this.content.scrollToBottom(1000);
-                   }, 1000)}
-              }
             
-              
-           }
-    }
- 
+         }
 
   }
 
+  click(date){
+  	console.log('click..',date);
+  	let hoursMinutes = date.split(':');
+  	let time = this.formatAMPM(hoursMinutes);
+  	console.log('time',time);
+}
 
+formatAMPM(date) {
+	  var hours = date[0];
+	  var minutes = date[1];
+	  var ampm = hours >= 12 ? 'pm' : 'am';
+	  hours = hours % 12;
+	  hours = hours ? hours : 12;
+	  minutes = minutes < 10 ? '0'+minutes : minutes;
+	  var strTime = hours + ':' + minutes + ' ' + ampm;
+	  return strTime;
+}
 
   async agregarRetador() {
  
-    if(!this.isModalOpen){
-      this.isModalOpen = true;
     const modal = await this.modalCtrl.create({
       component: ListaEquiposPage,
       cssClass: 'my-custom-modal',
@@ -193,89 +204,130 @@ this.cd.detectChanges();
         rival:false
       }
     });
+
+
      await modal.present();
      const { data } = await modal.onDidDismiss();
-     this.isModalOpen = false;
-       if(data !== undefined){   
+       console.log(data)
+       if(data !== undefined){
+         
           this.retador = data.equipo;
+console.log('this.retador', this.retador)
+            // this.modalCtrl.dismiss();
+
              if(this.cancha != null && this.cancha != undefined){
               this.nuevaReservacion.Cod_Cancha = this.cancha.cancha.Cod_Cancha;
+             
+             // this.horarioCancha();
             }
             this.cd.detectChanges();
-            if(this.cancha && this.retador && !this.reservacionGrupal || this.cancha && this.rival && this.retador && this.reservacionGrupal){
-              setTimeout(()=>{
-                this.content.scrollToBottom(1000);
-               }, 1000)}                   
+             
          }
-        }
   }
 
 
 
+
 async agregarCancha() {
-  if(!this.isModalOpen){
-    this.isModalOpen = true;
 const modal = await this.modalCtrl.create({
   component: ListaCanchasPage,
   cssClass: 'my-custom-modal',
   mode:'ios'
 });
 
+
  await modal.present();
  const { data } = await modal.onDidDismiss();
- this.isModalOpen = false;
-     if(data !== undefined){ 
+ 
+     if(data !== undefined){
+     
       this.cancha = data.cancha;
       this.nuevaReservacion.Cod_Cancha = this.cancha.cancha.Cod_Cancha;
-      this.consultarHoras();
-      this.cd.detectChanges();
-     if(this.cancha && this.retador && !this.reservacionGrupal || this.cancha && this.rival && this.retador && this.reservacionGrupal){
-      setTimeout(()=>{
-        this.content.scrollToBottom(1000);
-       }, 1000)}
+//      this.horarioCancha();
+this.consultarHoras();
+this.cd.detectChanges();
+     //    this.modalCtrl.dismiss();
      }
-    }
 
      
 }
+
 
 cerrarModal(){
   this.modalCtrl.dismiss();
 }
 
+async calendarioCancha() {
+  this.equiposService.equipos = [];
+  const modal = await this.modalCtrl.create({
+    component: CalendarioCanchaPage,
+    cssClass: 'my-custom-modal',
+    mode:'ios',
+    componentProps:{
+      cancha:this.cancha
+    }
+  });
+
+   await modal.present();
+      const { data } = await modal.onDidDismiss();
+   
+       if(data !== undefined){
+     
+    
+          
+       }
+
+}
 horaInicio($event){
-const value:objetoFecha = $event.detail.value;
+  const value:objetoFecha = $event.detail.value;
 if(value){
+ 
   this.nuevaReservacion.Hora_Inicio = value.date;
   this.Hora_Inicio = value;
   this.Hora_Fin = null;
   this.nuevaReservacion.Hora_Fin = null;
+console.log( value)
   this.gestionReservacionesService.calHoraFin(this.cancha.cancha.Cod_Cancha,value);
-  setTimeout(()=>{
-    this.content.scrollToBottom(1000);
-   }, 1000)}
+}
+
 }
 
 horaFin($event){
   const value:objetoFecha = $event.detail.value;
   this.Hora_Fin = value;
   this.nuevaReservacion.Hora_Fin = value.date;
+
+
+
+  console.log('this.detalle', this.detalleReservacion)
   if(this.nuevaReservacion.Hora_Inicio && this.nuevaReservacion.Hora_Fin){
+
+    console.log('this.nuevaReservacion', this.nuevaReservacion)
+     
    this.gestionReservacionesService.syncGetDisponibilidadReservaciones(
       this.nuevaReservacion.Cod_Cancha,
       format( this.nuevaReservacion.Hora_Inicio,'yyy-MM-dd')+" "+this.nuevaReservacion.Hora_Inicio.toTimeString().split(' ')[0] ,
       format( this.nuevaReservacion.Hora_Fin,'yyy-MM-dd')+" "+this.nuevaReservacion.Hora_Fin.toTimeString().split(' ')[0],
     ).then(reservaciones =>{
+  
+      console.log('reservacionessss' , reservaciones)
 
   if(reservaciones.length > 0){
-    this.resetearHoras();   
+    this.Hora_Inicio = null;
+    this.Hora_Fin = null;
+    this.nuevaReservacion.Hora_Inicio = null;
+    this.nuevaReservacion.Hora_Fin = null;
     this.cd.markForCheck();
-    this.cd.detectChanges();
+      this.cd.detectChanges();
     this.alertasService.message('FUTPLAY','Lo sentimimos, no se pueden reservar a la hora solicitada, intenta  con un hora distinta.');
+
     return
   }
+
   this.detalleReservacion.Total_Horas = this.nuevaReservacion.Hora_Fin.getHours() - this.nuevaReservacion.Hora_Inicio.getHours();
-  this.actualizarDetalle();
+  this.actualizarDetalle()
+
+
     })
 
 
@@ -283,7 +335,7 @@ horaFin($event){
 
 }
 actualizarDetalle(){
-    this.alertasService.presentaLoading('Actualizando Factura')
+  this.alertasService.presentaLoading('Actualizando Factura')
     this.detalleReservacion.Monto_Sub_Total = this.detalleReservacion.Total_Horas * this.cancha.cancha.Precio_Hora;
     this.detalleReservacion.Monto_Total = this.detalleReservacion.Monto_Sub_Total
     // Discount = bill * discount / 100
@@ -294,125 +346,47 @@ actualizarDetalle(){
     this.detalleReservacion.Cod_Retador =  this.retador.equipo.Cod_Equipo;
     this.detalleReservacion.Cod_Rival = this.rival ? this.rival.equipo.Cod_Equipo  : this.retador.equipo.Cod_Equipo;
     this.detalleReservacion.Monto_Equipo =  this.detalleReservacion.Monto_Total / 2
-  if(this.cancha && this.retador && !this.reservacionGrupal || this.cancha && this.rival && this.retador && this.reservacionGrupal){
-    this.alertasService.loadingDissmiss();
-    this.content.scrollToBottom(1500);
-}
+  this.alertasService.loadingDissmiss();
+
+  this.content.scrollToBottom(1500);
   }
 consultarHoras(){
+
+  this.limpiarDatos();
+ 
 this.horarioCanchasService.syncGetHorarioCanchaToPromise(this.cancha.cancha.Cod_Cancha).then(resp =>{
+
   let  horario:HorarioCanchas[] = resp;
   this.gestionReservacionesService.horario = horario;
-  let {continuar, diaActual} =  this.gestionReservacionesService.consultarHoras(horario,new Date(format(new Date(this.nuevaReservacion.Fecha), 'yyy/MM/dd')))
+  let {continuar, diaActual} =  this.gestionReservacionesService.consultarHoras(horario,new Date(format(new Date(this.fecha), 'yyy/MM/dd')))
   this.diaActual = diaActual;
+  this.horario = this.hora(this.diaActual.Hora_Inicio, this.diaActual.Hora_Fin)
   if(continuar){
-    this.gestionReservacionesService.calHoraInicio(this.cancha.cancha.Cod_Cancha,new Date(format(new Date(this.nuevaReservacion.Fecha), 'yyy/MM/dd')));
+    this.gestionReservacionesService.calHoraInicio(this.cancha.cancha.Cod_Cancha,new Date(format(new Date(this.fecha), 'yyy/MM/dd')));
   }
+ 
 this.habilitarHoras = continuar
-this.cd.detectChanges();
+this.cd.detectChanges()
 
      
-})  
-}
-
-
-cambiarFecha($event){
-  let inputDate = $event.detail.value;
-  var today = new Date();
-  var newDate = new Date(inputDate);
-  newDate.setHours(0, 0, 0, 0);
-  today.setHours(0, 0, 0, 0);
- if (newDate.getTime() < today.getTime()) {
-this.habilitarHoras = false;
-  this.alertasService.message('FUTPLAY','Lo sentimimos, intenta con una fecha distinta!.');
-  return;
-}
-this.resetearHoras();
-this.nuevaReservacion.Fecha = newDate.toISOString();
-this.habilitarHoras = true;
-this.consultarHoras();
-this.cd.detectChanges()
-}
-
-
- enviarReto(){
-  this.alertasService.presentaLoading('Guardando reto...')
-  this.nuevaReservacion.Titulo = this.detalleReservacion.Reservacion_Grupal ? this.retador.equipo.Nombre +' VS '+this.rival.equipo.Nombre : 'Reservación Individual cancha ' + this.cancha.nombre;
-  this.nuevaReservacion.Fecha = new Date(format( new Date(this.nuevaReservacion.Fecha),'yyy-MM-dd')).toISOString().split('T')[0]
-  this.nuevaReservacion.Hora_Inicio = format( this.nuevaReservacion.Hora_Inicio,'yyy-MM-dd')+" "+this.nuevaReservacion.Hora_Inicio.toTimeString().split(' ')[0] 
-  this.nuevaReservacion.Hora_Fin =  format( this.nuevaReservacion.Hora_Fin,'yyy-MM-dd')+" "+this.nuevaReservacion.Hora_Fin.toTimeString().split(' ')[0] 
-
-  if(! this.detalleReservacion.Reservacion_Grupal) {
-    this.nuevaReservacion.Cod_Estado = 4;
-    this.detalleReservacion.Cod_Estado = 4;
-    this.detalleReservacion.Cod_Rival = this.retador.equipo.Cod_Equipo;
-    this.detalleReservacion.Confirmacion_Rival = true;
-      }
-
-  console.log('this.nuevaReservacion',this.nuevaReservacion);
-  console.log('this.detalleReservacion',this.detalleReservacion)
-this.gestionReservacionesService.insertarReservacionToPromise(this.nuevaReservacion).then((resp:any) =>{
-console.log(' this.nuevaReservacion resp', resp)
-this.detalleReservacion.Cod_Reservacion = resp.reservacion.Cod_Reservacion;
-//this.actualizarDetalle()
-this.gestionReservacionesService.insertarDetalleReservacionToPromise(this.detalleReservacion).then(resp =>{
-if(this.detalleReservacion.Reservacion_Grupal){
-  this.emailService.enviarCorreoReservaciones(1, this.rival.correo, this.nuevaReservacion.Fecha, this.nuevaReservacion.Hora_Inicio, this.cancha.nombre, this.rival.nombre, this.retador.nombre).then(resp =>{
-    this.cerrarModal();
-    this.alertasService.loadingDissmiss();
-    this.alertasService.message('FUTPLAY', 'El reto  se efectuo con éxito ');
-  }, error =>{
-    this.alertasService.loadingDissmiss();
-    this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
-  })
-}else{
-  let body = {
-    body: {
-    email:  null,
-    body: "Se ha confirmado un reto para el día " +  this.nuevaReservacion.Fecha +" en  la cancha " +  this.cancha.nombre + " Hora : " +this.formatoAmPM(this.nuevaReservacion.Hora_Inicio) + ". Reservación Individual "+this.usuariosService.usuarioActual.nombre+ ".",
-    footer: "¡Hay un reto esperándote!"
-}
-
-  }
-
-  body.body.email = this.usuariosService.usuarioActual.usuario.Correo;
-this.emailService.syncPostReservacionEmail(body).then(resp =>{
-  body.body.email = this.cancha.correo;
-  this.emailService.syncPostReservacionEmail(body).then(resp =>{
-    this.cerrarModal();
-    this.alertasService.message('FUTPLAY', 'El reto  se efectuo con éxito ')
-  
-  })
-
-
- 
-
 })
 
-   
 
 
+  
+}
+cambiarFecha($event){
+  console.log($event);
+  this.consultarHoras();
 }
 
+hora(inicio,fin){
 
-
-      
-      }, error =>{
-        this.alertasService.loadingDissmiss();
-        this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
-      })
-      
-      return
-      this.cerrarModal();
-    }, error =>{
-      this.alertasService.loadingDissmiss();
-      this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
-    })
-    
+  return this.canchasService.retornaHoraAmPm(inicio)  + ' - ' +this.canchasService.retornaHoraAmPm(fin);
  }
 
-
-
-
-
+ enviarReto(){
+  console.log('this.nuevaReservacion',this.nuevaReservacion);
+  console.log('this.detalleReservacion',this.detalleReservacion)
+ }
 }

@@ -1,8 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActionSheetButton, ActionSheetController, ModalController, PopoverController, AlertController } from '@ionic/angular';
-import { Email } from 'src/app/models/email';
-import { AlertasService } from 'src/app/services/alertas.service';
+
+import { Component, OnInit } from '@angular/core';
+import { ActionSheetButton, ActionSheetController, ModalController } from '@ionic/angular';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { EditarPerfilUsuarioPage } from '../editar-perfil-usuario/editar-perfil-usuario.page';
 import { SolicitudesJugadoresPage } from '../solicitudes-jugadores/solicitudes-jugadores.page';
@@ -20,7 +18,7 @@ export class MiPerfilPage implements OnInit {
 public usuariosService:UsuariosService,
 public modalCtrl: ModalController,
 public actionSheetCtrl: ActionSheetController,
-public solicitudesService:SolicitudesService
+public solicitudesService: SolicitudesService
 
   ) { }
   calcularEdad(fechaNacimiento:Date){
@@ -54,7 +52,6 @@ return age;
   ngOnInit() {
 
    
-   
   }
 
 
@@ -80,13 +77,8 @@ return age;
 
 
 
-
-
   async soliitudes(){
-
-
     const modal = await this.modalCtrl.create({
-
       component:SolicitudesJugadoresPage,
       cssClass:'my-custom-modal',
       componentProps:{
@@ -95,17 +87,12 @@ return age;
       }
     });
 
- 
     return await modal.present();
 
   }
 
 
-     // INICIO MENU DE OPCIONES RELACIONADAS AL PERFIL DE USUARIO
-  
-  
      async onOpenMenu(){
-  
   
       const normalBtns : ActionSheetButton[] = [
         {   
@@ -195,9 +182,6 @@ return age;
     dateF(){
       return new Date().getTime() 
     }
-
- 
-
 
 
 }
