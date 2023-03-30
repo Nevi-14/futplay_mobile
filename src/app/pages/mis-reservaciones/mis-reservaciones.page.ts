@@ -45,7 +45,7 @@ console.log('reservaciones', this.reservacionesService.reservaciones)
 
 
     
-if(reto.reservacion.Cod_Estado == 7){
+
   await   this.partidosService.syncGetPartidoReservacion(reto.reservacion.Cod_Reservacion).then(partido =>{
     this.partido = partido;
 
@@ -55,7 +55,7 @@ if(reto.reservacion.Cod_Estado == 7){
     
             })
 
-}
+
 
 
 

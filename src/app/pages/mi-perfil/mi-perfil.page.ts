@@ -6,6 +6,7 @@ import { EditarPerfilUsuarioPage } from '../editar-perfil-usuario/editar-perfil-
 import { SolicitudesJugadoresPage } from '../solicitudes-jugadores/solicitudes-jugadores.page';
 import { GestorContrasenaPage } from '../gestor-contrasena/gestor-contrasena.page';
 import { SolicitudesService } from '../../services/solicitudes.service';
+import { EfectuarPagoPage } from '../efectuar-pago/efectuar-pago.page';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -13,7 +14,7 @@ import { SolicitudesService } from '../../services/solicitudes.service';
   styleUrls: ['./mi-perfil.page.scss'],
 })
 export class MiPerfilPage implements OnInit {
-  
+  img = null;
   constructor(
 public usuariosService:UsuariosService,
 public modalCtrl: ModalController,
@@ -21,6 +22,12 @@ public actionSheetCtrl: ActionSheetController,
 public solicitudesService: SolicitudesService
 
   ) { }
+
+ async userImage(){
+ let url = await this.usuariosService.syncGetUserImage( this.usuariosService.usuarioActual.usuario.Cod_Usuario);
+  return url
+
+  }
   calcularEdad(fechaNacimiento:Date){
 
     var dob = new Date(fechaNacimiento);
@@ -51,12 +58,23 @@ return age;
   
   ngOnInit() {
 
-   
   }
 
 
 
+ async  payments(){
+    const modal = await this.modalCtrl.create({
+      component:EfectuarPagoPage,
+      cssClass:'my-custom-modal',
+      componentProps:{
+        showReceiveInput:true,
+        showSendInput:false
+      }
+    });
 
+    return await modal.present();
+
+  }
 
   calcularFecha(fecha){
     var dob = new Date(fecha);

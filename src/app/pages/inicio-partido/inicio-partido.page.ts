@@ -9,7 +9,8 @@ import { AlertasService } from '../../services/alertas.service';
 import { CanchasService } from '../../services/canchas.service';
 import { StorageService } from '../../services/storage-service';
 import { VideoScreenPage } from '../video-screen/video-screen.page';
-
+import { JugadoresService } from '../../services/jugadores.service';
+import { PerfilJugador } from 'src/app/models/perfilJugador';
 @Component({
   selector: 'app-inicio-partido',
   templateUrl: './inicio-partido.page.html',
@@ -18,7 +19,10 @@ import { VideoScreenPage } from '../video-screen/video-screen.page';
 export class InicioPartidoPage implements OnInit {
   @Input() reto: PerfilReservaciones
   @Input() partido: partidos[]
-  retador:boolean;
+  retador:boolean=null;
+  rival:boolean=null;
+  jugadoresPermitidosRetador:PerfilJugador[]=[]
+  jugadoresPermitidosRival:PerfilJugador[]=[]
   constructor(
     public usuariosService:UsuariosService,
     public modalCtrl:ModalController,
@@ -27,15 +31,48 @@ export class InicioPartidoPage implements OnInit {
     public alertCtrl:AlertController,
     public canchasService:CanchasService,
     public storageService:StorageService,
+    public jugadoresService: JugadoresService
   
 
 
   ) { }
 
-  ngOnInit() {
+  funcionRetador(){
+    this.retador = true;
+    
+  }
 
+  funcionRival(){
+    this.rival = true;
+  }
+
+
+
+  async ngOnInit() {
+
+    this.alertasService.presentaLoading('Cargando datos..')
+    this.jugadoresPermitidosRetador = await this.jugadoresService.syncJugadoresEquipos(this.reto.retador.Cod_Equipo);
+    this.jugadoresPermitidosRival = await this.jugadoresService.syncJugadoresEquipos(this.reto.rival.Cod_Equipo);
+    let indexRetador = this.jugadoresPermitidosRetador.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario);
+    let indexRival = this.jugadoresPermitidosRival.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario);
     let stringID = this.reto.reservacion.Cod_Reservacion + "-" + this.usuariosService.usuarioActual.usuario.Cod_Usuario+ "-" +this.reto.reservacion.Fecha
 
+
+    if(indexRetador >=0 && indexRival >=0){
+      if(this.jugadoresPermitidosRetador[0].usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario){
+        this.funcionRetador();
+      }else{
+        this.funcionRival();
+      }
+  
+    }else if(indexRetador >=0 &&  indexRival < 0){
+  
+  this.funcionRetador();
+    }else if (indexRival >=0  &&  indexRetador < 0){
+  
+   this.funcionRival();
+    } 
+    this.alertasService.loadingDissmiss();
     this.storageService.get(stringID).then(codigo =>{
 
       if(this.partido[0].Estado && this.partido[1].Estado && !codigo){
@@ -48,13 +85,7 @@ export class InicioPartidoPage implements OnInit {
 
     })
  
-
- if(this.usuariosService.usuarioActual.usuario.Cod_Usuario == this.reto.usuario_retador.Cod_Usuario){
-this.retador = true;
- }else{
-  this.retador = false;
-
- }
+ 
  
       }
 

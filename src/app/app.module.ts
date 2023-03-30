@@ -15,12 +15,14 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import {InAppPurchase2 } from '@ionic-native/in-app-purchase-2/ngx'
 
 
 @NgModule({
     declarations: [AppComponent],
     imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, FontAwesomeModule, CommonModule, IonicStorageModule.forRoot()],
-    providers: [BarcodeScanner, Camera, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, SocialSharing],
+    providers: [BarcodeScanner, Camera, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, SocialSharing,
+    InAppPurchase2],
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

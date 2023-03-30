@@ -70,7 +70,7 @@ ready: boolean = false;
         async showInterstitial(){
           // IOS ca-app-pub-3191879076705982/3638052631  // Android  ca-app-pub-3191879076705982/3246336240
         const options: AdOptions ={
-          adId:'ca-app-pub-3191879076705982/3638052631',
+          adId:'ca-app-pub-3191879076705982/3246336240',
           isTesting:false,
           npa: false
         };
@@ -88,7 +88,7 @@ ready: boolean = false;
     
         async showRewardVideo(){
           const options: RewardAdOptions ={
-            adId:'ca-app-pub-3191879076705982/3638052631',
+            adId:'ca-app-pub-3191879076705982/3246336240',
             isTesting:true,
             npa: false
                   //SSV: { ... }

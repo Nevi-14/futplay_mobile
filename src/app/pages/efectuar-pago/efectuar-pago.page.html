@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>efectuar-pago</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let p of products" (click)="purchase(p)" details ="false">
+
+      <ion-label class="ion-text-warp">
+        {{p.title}}
+      
+      <p>{{p.description}}</p>
+      </ion-label>
+
+      <ion-button  slot="end">
+   {{p.price}}  {{p.currency}}
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-button (click)="restore()" expand="full"  >
+   Restore
+  </ion-button>
+
+  <ion-item>
+    <ion-label>Gems : {{gems }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>Is Pro : {{isPro }}</ion-label>
+  </ion-item>
+</ion-content>

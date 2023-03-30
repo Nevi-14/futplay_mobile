@@ -52,8 +52,8 @@
          </p>
          
       </ion-card-content>
-      <ion-card-content class="ion-text-center" *ngIf="reto.reservacion.Cod_Estado == 4 &&  partido.length == 0 || allowUser || !allowUser && !this.partido[1].Verificacion_QR  ">
-             
+      <ion-card-content class="ion-text-center" *ngIf="!reto.detalle.Reservacion_Grupal || actualizarRetador || actualizarRival">
+        
         <ion-button  fill="outline"   shape="round" (click)="scan()">
           Escanear Codigo
         </ion-button>

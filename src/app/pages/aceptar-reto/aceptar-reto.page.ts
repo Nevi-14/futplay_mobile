@@ -40,6 +40,8 @@ soccer= 'assets/icon/soccer.svg';
 img = 'assets/main/team-profile.svg';
 allowDelete = false;
 allowUser = false;
+ indexRetador:number = null;
+ indexRival:number = null;
   constructor(
     public modalCtrl:ModalController,
     public canchasService: CanchasService,
@@ -62,16 +64,17 @@ allowUser = false;
 
 
   async ngOnInit() {
-  
+ 
+
+    console.log('this.partido', this.partido)
       this.jugadoresPermitidosRetador = await this.jugadoresService.syncJugadoresEquipos(this.reto.retador.Cod_Equipo);
       this.jugadoresPermitidosRival = await this.jugadoresService.syncJugadoresEquipos(this.reto.rival.Cod_Equipo);
-      let indexRetador = this.jugadoresPermitidosRetador.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario);
-      let indexRival = this.jugadoresPermitidosRival.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario); 
-      console.log('indexRetador', indexRetador);
-      console.log('indexRival', indexRival);
-      if(indexRival >=0){
+      this.indexRetador = this.jugadoresPermitidosRetador.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario);
+      this.indexRival = this.jugadoresPermitidosRival.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario); 
+ 
+      if( this.indexRival >=0){
         this.allowUser = true;
-      }else if( indexRetador >= 0){
+      }else if(  this.indexRetador >= 0){
        // this.allowUser = true;  
       }     
       

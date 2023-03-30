@@ -14,7 +14,7 @@
     <ion-content fullscreen *ngIf="reto">
       <div class="mainContent">
 
-        <ion-list *ngIf="partido.length > 0 && reto.detalle.Reservacion_Grupal" class="ion-margin">
+        <ion-list *ngIf="partido.length > 0 && reto.detalle.Reservacion_Grupal  && reto.reservacion.Cod_Estado != 2 && reto.reservacion.Cod_Estado != 7 && reto.reservacion.Cod_Estado != 8 && reto.reservacion.Cod_Estado != 9" class="ion-margin">
           
           <ion-col size="12" >
 
@@ -256,7 +256,7 @@
  
         <ion-footer>
         
-          <ion-button *ngIf="allowUser && reto.reservacion.Cod_Estado == 2" class="ion-margin-bottom"  (click)="alertaReservacion()"  expand="block" >
+          <ion-button *ngIf="allowUser && reservacionesService.segment == 1 &&  reto.reservacion.Cod_Estado == 2" class="ion-margin-bottom"  (click)="alertaReservacion()"  expand="block" >
            <ion-label>Aceptar Reto </ion-label>
                  </ion-button>
                  

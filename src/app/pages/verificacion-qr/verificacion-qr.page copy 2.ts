@@ -26,14 +26,15 @@ export class VerificacionQrPage implements OnInit {
   jugadoresPermitidosRival:PerfilJugador[]=[]
   @Input() reto: PerfilReservaciones
   @Input() partido: partidos[]
-  rivalIndex:boolean = false;
+  rivalIndex = null;
   retadorIndex:boolean = false;
+  swiperOpts = {
+    allowSlidePrev:false,
+    allowSlideNext:false
+  };
   count:number = 0;
-  verificar = false;
-  allowUser = false;
-  actualizarRival:boolean = false;
-  actualizarRetador:boolean =false;
-
+verificar = false;
+allowUser = false;
   constructor(
 public modalCtrl: ModalController,
 public barcodeScanner: BarcodeScanner,
@@ -47,60 +48,42 @@ public reservacionesService: ReservacionesService,
 public jugadoresService: JugadoresService
   ) { }
 
-
-
-  funcionRetador(){
- 
-    if(this.partido[0].Verificacion_QR && !this.partido[1].Verificacion_QR){
-      this.alertasService.presentaLoading('Esperando Equipo..');
-      this.loading();
-      return
-    }
-    this.actualizarRetador = true;
-    this.allowUser = true;
-  }
-
-  funcionRival(){
-    if(this.partido[1].Verificacion_QR && !this.partido[0].Verificacion_QR){
-      this.alertasService.presentaLoading('Esperando Equipo..');
-      this.loading();
-      return
-    }
-    this.actualizarRival = true;
-    this.allowUser = true;
-
-  }
   async ngOnInit() {
     this.jugadoresPermitidosRetador = await this.jugadoresService.syncJugadoresEquipos(this.reto.retador.Cod_Equipo);
     this.jugadoresPermitidosRival = await this.jugadoresService.syncJugadoresEquipos(this.reto.rival.Cod_Equipo);
     let indexRetador = this.jugadoresPermitidosRetador.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario);
     let indexRival = this.jugadoresPermitidosRival.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario);
+
     if(indexRetador >=0){
       this.retadorIndex = true;
     }
+
 if(this.partido.length > 0){
 
-// IN CASE IS PARTH OF BOTH TEAMS
 
   if(indexRetador >=0 && indexRival >=0){
-    if(this.jugadoresPermitidosRetador[0].usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario){
-      this.funcionRetador();
+
+
+    if(this.partido[0].Verificacion_QR && !this.partido[1].Verificacion_QR ){
+      this.alertasService.presentaLoading('Esperando Equipo..');
+      this.loading();
     }else{
-      this.funcionRival();
+      this.allowUser = true;
     }
 
-  }else if(indexRetador >=0){
 
-this.funcionRetador();
-  }else if (indexRival >=0 ){
 
- this.funcionRival();
+  }else if( indexRetador < 0 && this.partido[1].Verificacion_QR && !this.partido[0].Verificacion_QR){
+    this.alertasService.presentaLoading('Esperando Equipo..');
+    this.loading();
   }else{
     this.allowUser = true;
-  }  
+  }
+   
   
 }
  
+
   }
 
 
@@ -112,16 +95,7 @@ this.funcionRetador();
   scan(){
     let today = format(new Date(), 'yyyy-MM-dd');
     let date = String( this.reto.reservacion.Fecha);
-
-
     if(today === date){
-
-      let currentHour = new Date().getHours();
-      let reservationStartTime = new Date(this.reto.reservacion.Hora_Inicio).getHours();
-      if(currentHour > reservationStartTime){
-        this.alertasService.message('FUTPLAY','Lo sentimos, la reservación ya expiró!..')
-        return
-      }
       this.barcodeScanner.scan().then(barcodeData => {
         // validar el codigo del qr que sea el de la cancha
         // Vaidar Fecha, hora incio  media hora antes
@@ -285,13 +259,13 @@ loading(){
 
   actualizarQR(){
 
-    if(this.actualizarRetador){
+    if(this.retadorIndex){
+
 
     
       this.partido[0].Verificacion_QR = true;
       this.partidosService.syncPutPartidoCodigoQR(this.partido[0]).then((resp:any) =>{
         this.partido = resp;
-        this.actualizarRetador = false;
         if(this.partido[0].Verificacion_QR && this.partido[1].Verificacion_QR){
           this.cerrarModal();
           this.partidoActual();
@@ -304,14 +278,13 @@ loading(){
         this.alertasService.message(' FUTPLAY', 'error')
         
       })       
-    }else if(this.actualizarRival){
+    }else{
 
 
       this.partido[1].Verificacion_QR = true;
       this.partidosService.syncPutPartidoCodigoQR(this.partido[1]).then((resp:any) =>{
 console.log('actualizado', resp)
 this.partido = resp;
-this.actualizarRival = false;
 if(this.partido[0].Verificacion_QR && this.partido[1].Verificacion_QR){
   this.cerrarModal();
   this.partidoActual();

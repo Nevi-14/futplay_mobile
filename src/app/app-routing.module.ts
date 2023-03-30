@@ -215,7 +215,11 @@ const routes: Routes = [
   {
     path: 'gestor-equipo-imagenes',
     loadChildren: () => import('./pages/gestor-equipo-imagenes/gestor-equipo-imagenes.module').then( m => m.GestorEquipoImagenesPageModule)
+  },  {
+    path: 'efectuar-pago',
+    loadChildren: () => import('./pages/efectuar-pago/efectuar-pago.module').then( m => m.EfectuarPagoPageModule)
   }
+
   
 
 

@@ -4,6 +4,9 @@ export const environment = {
   maxCharCodigoProd: 6,
   preURL: 'https://futplaycompany.com/api_test/api/',
   preURL2: 'https://futplaycompany.com/api_test/api/',
+  imgDomain:'https://futplaycompany.com/api_test',
+  userAvatarDomain:'https://futplaycompany.com/api_test/assets/profile/avatars/',
+  teamAvatarDomain:'https://futplaycompany.com/api_test/assets/soccer-shields-svg/',
   TestURL: '',
   postURL: '',
   getProvinciasURL: 'get/provincias',
@@ -68,7 +71,7 @@ export const environment = {
   putHorarioCanchaURL:'put/horario/cancha/',
   putCanchaEstadoURL:'put/estado/cancha/',
   deleteReservacionesURL:'delete/reservacion/',
-
+  getUsuario:'get/usuarios/',
 
   getFiltroEquiposURL:'get/filtro/equipos/',
   getFiltroCanchasURL:'get/filtro/canchas/',

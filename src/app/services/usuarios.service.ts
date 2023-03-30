@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import {   ActionSheetController } from '@ionic/angular';
 import { AlertasService } from './alertas.service';
-import { environment } from 'src/environments/environment';;
+import { environment } from 'src/environments/environment';
 import { Usuarios } from '../models/usuarios';
 import * as bcrypt from 'bcryptjs';  // npm install bcryptjs --save  &&  npm install @types/bcrypt --save-dev
 
@@ -300,7 +300,38 @@ syncImagePost(data, Cod_Usuario){
       return this.http.get<PerfilUsuario[]>( URL );
     }
     
+    private getUsuario(Cod_Usuario:number){
+      let URL = this.getURL( environment.getUsuario);
+    URL = URL + Cod_Usuario;
+          console.log(URL, 'URL')
+      return this.http.get<PerfilUsuario[]>( URL );
+    }
+    private getUserImage(api:string){
+      console.log('api',api)
+   
+      return this.http.get<any>( api );
+    }
+    syncGetUsuario(Cod_Usuario:number){
+      
+    return this.getUsuario(Cod_Usuario).toPromise();    
+      }
+
+
+        async syncGetUserImage(Cod_Usuario : number){
+        let URL = this.getURL(environment.getUserIMG) + Cod_Usuario;
+     this.getUserImage(URL).subscribe(response => {
+        console.log('response',response)
+
+       }, error =>{    console.log('error',error)
+ 
+       })
+   
+   
+          }
     
+
+
+
     syncfiltrarUsuarios(filtro:any){
     
       return this.getFiltroUsuarios(filtro).toPromise();
@@ -313,7 +344,7 @@ syncImagePost(data, Cod_Usuario){
     let  URL = this.getURL( environment.getLoginURL);
          URL = URL + entrada;
     console.log(URL)
-    return this.http.get<any>( URL );
+    return this.http.get<PerfilUsuario>( URL );
   }
 
   private getListaUsuarios( Cod_Usuario){
