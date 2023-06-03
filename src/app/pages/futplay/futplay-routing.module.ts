@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { FutplayPage } from './futplay.page';
+import { AnunciosPageModule } from '../anuncios/anuncios.module';
 
 const routes: Routes = [
 
@@ -24,6 +25,21 @@ const routes: Routes = [
       {
         path:'canchas',
         loadChildren: () => import('../canchas/canchas.module').then( m => m.CanchasPageModule)
+      },
+      {
+        path:'mis-reservaciones',
+        loadChildren: () => import('../mis-reservaciones/mis-reservaciones.module').then( m => m.MisReservacionesPageModule)
+      },   {
+        path:'mis-equipos',
+        loadChildren: () => import('../mis-equipos/mis-equipos.module').then( m => m.MisEquiposPageModule)
+      },
+      {
+        path:'anuncios',
+        loadChildren: () => import('../anuncios/anuncios.module').then( m => m.AnunciosPageModule)
+      },
+      {
+        path:'configuraciones',
+        loadChildren: () => import('../configuraciones/configuraciones.module').then( m => m.ConfiguracionesPageModule)
       }
     ]
   }

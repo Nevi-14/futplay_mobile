@@ -86,10 +86,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/buscar-equipos/buscar-equipos.module').then( m => m.BuscarEquiposPageModule)
   },
   {
-    path: 'solicitudes-jugadores',
-    loadChildren: () => import('./pages/solicitudes-jugadores/solicitudes-jugadores.module').then( m => m.SolicitudesJugadoresPageModule)
-  },
-  {
     path: 'editar-perfil-usuario',
     loadChildren: () => import('./pages/editar-perfil-usuario/editar-perfil-usuario.module').then( m => m.EditarPerfilUsuarioPageModule)
   },
@@ -161,10 +157,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/mis-equipos/mis-equipos.module').then( m => m.MisEquiposPageModule)
   },
   {
-    path: 'mis-reservaciones',
-    loadChildren: () => import('./pages/mis-reservaciones/mis-reservaciones.module').then( m => m.MisReservacionesPageModule)
-  },
-  {
     path: 'gestor-contrasena',
     loadChildren: () => import('./pages/gestor-contrasena/gestor-contrasena.module').then( m => m.GestorContrasenaPageModule)
   },
@@ -215,10 +207,48 @@ const routes: Routes = [
   {
     path: 'gestor-equipo-imagenes',
     loadChildren: () => import('./pages/gestor-equipo-imagenes/gestor-equipo-imagenes.module').then( m => m.GestorEquipoImagenesPageModule)
-  },  {
+  },
+  {
     path: 'efectuar-pago',
     loadChildren: () => import('./pages/efectuar-pago/efectuar-pago.module').then( m => m.EfectuarPagoPageModule)
-  }
+  },
+  {
+    path: 'retos-abiertos',
+    loadChildren: () => import('./pages/retos-abiertos/retos-abiertos.module').then( m => m.RetosAbiertosPageModule)
+  },
+  {
+    path: 'reservaciones',
+    loadChildren: () => import('./pages/reservaciones/reservaciones.module').then( m => m.ReservacionesPageModule)
+  },
+  {
+    path: 'horario-canchas',
+    loadChildren: () => import('./pages/horario-canchas/horario-canchas.module').then( m => m.HorarioCanchasPageModule)
+  },
+  {
+    path: 'anuncios',
+    loadChildren: () => import('./pages/anuncios/anuncios.module').then( m => m.AnunciosPageModule)
+  },
+  {
+    path: 'configuraciones',
+    loadChildren: () => import('./pages/configuraciones/configuraciones.module').then( m => m.ConfiguracionesPageModule)
+  },
+  {
+    path: 'provincias',
+    loadChildren: () => import('./pages/provincias/provincias.module').then( m => m.ProvinciasPageModule)
+  },
+  {
+    path: 'cantones',
+    loadChildren: () => import('./pages/cantones/cantones.module').then( m => m.CantonesPageModule)
+  },
+  {
+    path: 'distritos',
+    loadChildren: () => import('./pages/distritos/distritos.module').then( m => m.DistritosPageModule)
+  },
+
+  {
+    path: 'solicitudes-jugadores',
+    loadChildren: () => import('./pages/solicitudes-jugadores/solicitudes-jugadores.module').then( m => m.SolicitudesJugadoresPageModule)
+  },
 
   
 

@@ -37,10 +37,16 @@ public modalCtrl: ModalController,
   }
 
 login(fLogin: NgForm){
+ 
  if(fLogin.invalid) {return;}
+ this.loginUser.email = fLogin.value.email ;
+ this.loginUser.password =  fLogin.value.password ;
+ console.log(fLogin,'login', this.loginUser)
 this.usuariosServicio.syncLogin(this.loginUser.email, this.loginUser.password);
 }
-
+login2(fLogin: NgForm){
+console.log(fLogin,'login', this.loginUser)
+}
 async recuperarContrasena(){
 const modal = await this.modalCtrl.create({
 component:RecuperarContrasenaPage,

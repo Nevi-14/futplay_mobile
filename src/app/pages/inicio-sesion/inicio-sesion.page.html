@@ -1,63 +1,16 @@
-
-
 <ion-content class="ion-padding">
-  <div id="content">
-  <div class="content-body" >
-   
-  
-   <form id="form" (ngSubmit)="login(fLogin)" #fLogin="ngForm" >
-     
-    <ion-row>
-      <ion-col size="12">
-         
-    <div  class="ion-text-center">
-      <img  src="assets/logo.png" alt="">
-      <h1 >Inicio de Sesión</h1>
-    </div>
-  
-      </ion-col>
-    </ion-row>
-  
-  <ion-row>
-    <ion-col size="12">
-        
-    <ion-label>Correo</ion-label>
-    <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
-      <ion-input name="email"   [(ngModel)]="loginUser.email"  type="text" placeholder="Correo / Número Telefono" required></ion-input>
-      </ion-item>
+  <h1>Bienvenido,</h1>
+  <h3>Inicia sesión para continuar!.</h3>
 
+  <form id="form" (ngSubmit)="login(fLogin)" #fLogin="ngForm">
+    <app-input name="email" type="text" label="Usuario"  ngModel="{{loginUser.email}}"    ></app-input>
+    <app-input  name="password"  type="password"   label="Contraseña" 
+    ngModel="{{loginUser.password}}"></app-input>
+    <a routerLink="#" class="forgot-password-link">Olvide Contraseña?</a>
 
-    </ion-col>
-  
-    <ion-col size="12">
-      
-      <ion-label>Contraseña</ion-label>
-          <ion-item class="ion-margin-bottom ion-margin-top" lines="none">
-      <ion-input name="password" [(ngModel)]="loginUser.password"     type="{{showPass ? 'text' : 'password'}}" placeholder="contraseña" required></ion-input>
-      <ion-icon slot="end"  item-right name="{{showPass ? 'eye' : 'eye-off'}}" (click)="showPass=!showPass"></ion-icon>
-      </ion-item>
-    </ion-col>
-    <ion-col  size="12" class="ion-text-left">
-      <ion-button (click)="recuperarContrasena()" fill="clear">
-  
-        Recuperar Contraseña
-      </ion-button>
+    <app-button label='Iniciar Sesión'></app-button>
+    
+  </form>
 
-     
-    </ion-col>
-    <ion-col size="12" size-md="8" style="margin: 0 auto;" class="ion-text-center">
-      
-    <ion-button   class="custom-button"  type="submit"      shape="round"  [disabled]="fLogin.invalid" >
-      Iniciar Sesión
-      <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
-    </ion-button>
-    </ion-col>
-  </ion-row>
-  
-   </form>
-  </div>
-  
-  </div>
-  
-  </ion-content>
- 
+  <p class="footer-text">Soy nuevo, <a routerLink="#">Registrarme</a></p>
+</ion-content>

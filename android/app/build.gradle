@@ -1,6 +1,19 @@
 apply plugin: 'com.android.application'
 
 android {
+        signingConfigs {
+        release {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+
+            // Optional, specify signing versions used
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
     compileSdkVersion 31
     defaultConfig {
         applicationId "cr.futplay.com.fp"
@@ -19,6 +32,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
@@ -40,8 +54,10 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
-       def billing_version = "5.1.0"
-    implementation "com.android.billingclient:billing-ktx:$billing_version"
+//def billing_version = "5.1.0"
+
+//    implementation "com.android.billingclient:billing:$billing_version"
+// implementation "com.android.billingclient:billing-ktx:$billing_version"
 }
 
 apply from: 'capacitor.build.gradle'

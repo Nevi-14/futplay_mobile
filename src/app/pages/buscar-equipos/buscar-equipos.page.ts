@@ -49,7 +49,7 @@ public jugadoresService: JugadoresService
     })
       }
 
-      cerrarModal(){
+      regresar(){
 
         this.modalCtrl.dismiss()
       }

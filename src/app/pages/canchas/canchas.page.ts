@@ -30,8 +30,14 @@ public modalCtrl: ModalController
      ) { }
 
      ngOnInit() {
- 
-      this.canchasService.dia = this.diaSemana(new Date().getDay());
+ this.canchasService.syncListaCanchasToPromise().then(resp =>{
+  console.log('resp', resp)
+  this.canchasService.canchas = resp;
+  this.canchasService.dia = this.diaSemana(new Date().getDay());
+ }, error =>{
+  console.log('error', error)
+ })
+    
       
           
         }
@@ -44,7 +50,9 @@ public modalCtrl: ModalController
           return  this.canchasService.disponibilidadCancha(cancha);
           
         }
-
+        cerrarModal(){
+          this.modalCtrl.dismiss()
+        }
         horarioCancha(cancha:PerfilCancha){
         return  this.canchasService.horarioCancha(cancha);
         }
@@ -103,6 +111,7 @@ public modalCtrl: ModalController
      
                 const modal  = await this.modalCtrl.create({
                   component: GenerarReservacionPage,
+                  mode:'ios',
                  cssClass: 'my-custom-class',
                  componentProps:{
                   rival:null,

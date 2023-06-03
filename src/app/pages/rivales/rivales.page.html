@@ -25,12 +25,10 @@
 </ion-toolbar>
 
 <ion-content>
-  <div class="mainContent">
-  
-
+ 
     <ion-list>
 
-      <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngIf="equiposService.equipos.length == 0" >
+      <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"  *ngIf="equiposService.mostrarEquipos.length == 0" >
         <ion-avatar slot="start">
          <img   src="assets/img/icon/FP.svg" alt="">
 
@@ -48,7 +46,7 @@
        </ion-item>
 
 
-      <ion-item (click)="onOpenMenu(equipo)" lines="none" class="employeeItem  animate__animated animate__fadeIn"   *ngFor="let equipo of equiposService.equipos  | filtro: textoBuscar:'nombre' ">
+      <ion-item (click)="onOpenMenu(equipo)" lines="none" class="employeeItem  animate__animated animate__fadeIn"   *ngFor="let equipo of equiposService.mostrarEquipos  | filtro: textoBuscar:'nombre' ">
     
 
           <ion-avatar slot="start"  >
@@ -79,10 +77,13 @@
         </ion-label>
 
       </ion-item>
-    </ion-list>
-  </div>
-  
 
+    </ion-list>
+
+ 
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 
 

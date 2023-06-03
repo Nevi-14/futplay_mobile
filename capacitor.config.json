@@ -4,9 +4,7 @@
 	"webDir": "www",
 	"bundledWebRuntime": false,
 	"plugins" : {
-"cordova-plugin-purchase" :{
-	"BILLING_KEY":"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqrHVDLqdGasFtj1Dp8Q4/SVUewcCuadCRstje5dfBTQ1nKyMuwE8d99tDRCZZC5YPMrOm5uoMNL6WCpFK1QL3kXV5MpbvlBeo/GosvjMH7Rw1xVEyFDhPWnv9Z85PUWeT2R5vX2aAKTARlzrQIlUncbu+i6P29vs+LZ9vxvs8HQ0t86pOjuNvn92hTki6tWBtCgz80TfWy4haGFaQk6i5liPGNTiwGLrTgt+bDnp7dGC3htlqVcTu5Hh3SdYh1o0/+vNW+8QGin6Nh808lJ3HLWkY2HRujxmWY+cwbNkjWV1GOeD6ziiqefj+hVzeEiavVon1o10yV0/0C7C43zMFQIDAQAB"
-},
+ 
 "cordova":{}
 	}
 

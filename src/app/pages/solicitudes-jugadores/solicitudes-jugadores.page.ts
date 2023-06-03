@@ -8,6 +8,7 @@ import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-m
 import { Solicitudes } from '../../models/solicitudes';
 import { PerfilSolicitud } from '../../models/perfilSolicitud';
 import { AlertasService } from '../../services/alertas.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-solicitudes-jugadores',
@@ -30,7 +31,8 @@ selected:string = '';
     public usuariosService:UsuariosService,
     public actionSheetCtrl: ActionSheetController,
     public solicitudesService:SolicitudesService,
-    public alertasService: AlertasService
+    public alertasService: AlertasService,
+    public router:Router
   ) { }
 
   ngOnInit() {
@@ -130,9 +132,9 @@ this.receive();
   
 
   }
-  cerrarModal(){
+  regresar(){
 
-    this.modalCtrl.dismiss();
+    this.router.navigateByUrl('futplay/mi-perfil',{replaceUrl:true})
   }
   async buscarJugadores(){
 

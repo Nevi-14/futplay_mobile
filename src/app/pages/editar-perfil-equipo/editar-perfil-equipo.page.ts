@@ -23,9 +23,41 @@ export class EditarPerfilEquipoPage implements OnInit {
   imageURL = null;
   image = '';
   @ViewChild(IonSlides) slides: IonSlides;
-  avatarSlide = {
-    slidesPerView: 2.5
-  }
+  sliderOpts = {
+    zoom: false,
+    slidesPerView: 4,
+    spaceBetween: 2,
+    centeredSlides: false,
+    // Responsive breakpoints
+    breakpoints: {
+      // when window width is >= 320px
+      320: {
+        slidesPerView: 3,
+        spaceBetween: 5
+      },
+      // when window width is >= 480px
+      480: {
+        slidesPerView: 2,
+        spaceBetween: 30
+      },
+      // when window width is >= 640px
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 40
+      },
+      // when window width is >= 940px
+      940: {
+        slidesPerView: 3,
+        spaceBetween: 40
+      },
+
+      // when window width is >= 1200px
+      1300: {
+        slidesPerView: 4,
+        spaceBetween: 40
+      }
+    },
+  };
   showProvincia = false;
   showCanton = false;
   showDistrito = false;
@@ -275,7 +307,7 @@ if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
     this.slides.slideNext();
   }
 
-  cerrarModal(){
+  regresar(){
     this.modalCtrl.dismiss(null,null,'perfil-equipo');
   }
 
@@ -420,7 +452,7 @@ async eliminarEquipos(){
 
    console.log(data, 'deleted')
 if(data != undefined){
-this.cerrarModal()
+this.regresar()
 }
 }
 

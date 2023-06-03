@@ -11,6 +11,8 @@ import { CrearEquipoPage } from '../crear-equipo/crear-equipo.page';
 export class CrearUnirseEquipoPage implements OnInit {
   add ='../assets/img/images/emblem.svg';
  find ='../assets/img/images/team.svg';
+
+ 
   constructor(
     public modalCtrl: ModalController
   ) { }

@@ -8,6 +8,7 @@ import { SolicitudesJugadoresPageRoutingModule } from './solicitudes-jugadores-r
 
 import { SolicitudesJugadoresPage } from './solicitudes-jugadores.page';
 import { PipesModule } from '../../pipes/pipes.module';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { PipesModule } from '../../pipes/pipes.module';
     FormsModule,
     IonicModule,
     SolicitudesJugadoresPageRoutingModule,
-    PipesModule
+    PipesModule,
+    ComponentsModule
   ],
   declarations: [SolicitudesJugadoresPage]
 })

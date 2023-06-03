@@ -1,0 +1,92 @@
+
+  <ion-header class="ion-no-border" >
+    <ion-toolbar mode="ios" class="ion-toolbar ion-text-center ion-padding">
+ 
+<ion-label class="ion-title">Gestion De Reservaciones</ion-label>
+
+
+    
+     
+    </ion-toolbar>
+    <ion-row>
+ 
+      <ion-col size="6" size-md="6">
+      <ion-button (click)="checkReservactions(0)" class="menu-button"     expand="block" >
+        Confirmadas
+      </ion-button>
+      </ion-col>
+
+           <ion-col size="6" size-md="6">
+      <ion-button (click)="checkReservactions(1)" class="menu-button"      expand="block" >
+        Recibidos
+      </ion-button>
+      </ion-col>
+
+
+           <ion-col size="6" size-md="6">
+      <ion-button  (click)="checkReservactions(2)" class="menu-button"    expand="block"  >
+        Enviados
+      </ion-button>
+      </ion-col>
+
+
+           <ion-col size="6" size-md="6">
+      <ion-button  (click)="checkReservactions(3)" class="menu-button"    expand="block"  >
+        Historial
+      </ion-button>
+      </ion-col>
+    </ion-row>
+  
+   
+
+    </ion-header>
+  
+    <ion-content>
+  
+    
+      <div class="mainContent">
+
+ 
+
+  <ion-list>
+    <ion-item  (click)="onOpenMenu(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of reservacionesService.reservaciones | filtro: textoBuscar:'titulo' ; let odd = odd; let i = index;" >
+      <img  src="{{'https://futplaycompany.com/api_test/'+reto.cancha.Foto }}"  onerror="this.src='assets/soccerfield.jpg'"   alt="">
+
+      <ion-label>
+        <h2> {{reto.titulo}} </h2>
+        <p> Fecha : <ion-badge color="warning" mode="ios"> {{reto.reservacion.Fecha | date:'shortDate'}} </ion-badge> </p>
+        <p   >
+             
+          Cancha : {{reto.cancha.Nombre}}
+    
+        </p>
+        <p>Hora:  {{reto.reservacion.Hora_Inicio | date:'shortTime'}}    -   {{reto.reservacion.Hora_Fin | date:'shortTime'}}   </p>
+      </ion-label>
+
+    </ion-item>
+  </ion-list>
+        
+
+
+
+      </div>
+    </ion-content>
+    <ion-footer class="ion-no-border ion-no-padding">
+ 
+       
+<ion-toolbar style="padding: 1rem;">
+  <ion-button slot="start"   (click)="nuevaReservacion()" class="ion-text-center" >
+    <ion-label>!Reserva una Cancha!</ion-label>
+    <ion-icon slot="end" name="add"></ion-icon>
+          </ion-button>
+<span slot="end" style="position: relative;">
+  
+  <ion-fab-button  size="small" >
+    <ion-icon name="search"></ion-icon>
+   </ion-fab-button>
+   <ion-badge style="position: absolute;top: -0.5rem;right:-0.2rem;margin-left: 0.5rem;" color="warning" mode="ios">0</ion-badge>
+</span>
+
+</ion-toolbar>
+   </ion-footer>
+ 

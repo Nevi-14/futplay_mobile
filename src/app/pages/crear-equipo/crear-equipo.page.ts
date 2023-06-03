@@ -39,6 +39,41 @@ export class CrearEquipoPage implements OnInit {
     Favorito: false,
     Administrador: true
   }
+  sliderOpts = {
+    zoom: false,
+    slidesPerView: 4,
+    spaceBetween: 2,
+    centeredSlides: false,
+    // Responsive breakpoints
+    breakpoints: {
+      // when window width is >= 320px
+      320: {
+        slidesPerView: 3,
+        spaceBetween: 5
+      },
+      // when window width is >= 480px
+      480: {
+        slidesPerView: 2,
+        spaceBetween: 30
+      },
+      // when window width is >= 640px
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 40
+      },
+      // when window width is >= 940px
+      940: {
+        slidesPerView: 3,
+        spaceBetween: 40
+      },
+
+      // when window width is >= 1200px
+      1300: {
+        slidesPerView: 4,
+        spaceBetween: 40
+      }
+    },
+  };
   showProvincia: boolean = false;
   showCanton: boolean = false;
   showDistrito: boolean = false;
@@ -176,7 +211,7 @@ export class CrearEquipoPage implements OnInit {
 
   }
 
-  cerrarModal(){
+  regresar(){
 
     this.modalCtrl.dismiss();
   }
@@ -189,6 +224,11 @@ export class CrearEquipoPage implements OnInit {
   seleccionarAvatar(img, i){
 
 
+    this.imgs.forEach(av => av.seleccionado = false);
+    img.seleccionado = true;
+    this.image = this.imgs[i].img;
+    this.equipo.Foto =  this.imgs[i].img;
+  
   }
 
   avatar(){
@@ -212,8 +252,7 @@ export class CrearEquipoPage implements OnInit {
         new:true
       }
     });
-  
-    
+ 
      await modal.present();
      const { data } = await modal.onWillDismiss();
        console.log(data)

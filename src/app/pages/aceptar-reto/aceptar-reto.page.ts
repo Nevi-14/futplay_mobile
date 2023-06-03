@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { ModalController, ActionSheetController, AlertController } from '@ionic/angular';
 
 import { CanchasService } from 'src/app/services/canchas.service';
@@ -25,6 +25,9 @@ import { EmailService } from '../../services/email.service';
 import { Jugador } from 'src/app/models/jugador';
 import { JugadoresService } from 'src/app/services/jugadores.service';
 import { PerfilJugador } from '../../models/perfilJugador';
+import { ListaEquiposPage } from '../lista-equipos/lista-equipos.page';
+import { PerfilEquipos } from 'src/app/models/perfilEquipos';
+import { EquiposService } from 'src/app/services/equipos.service';
 
 @Component({
   selector: 'app-aceptar-reto',
@@ -36,12 +39,15 @@ export class AceptarRetoPage implements OnInit {
 @Input() partido:partidos[]
 jugadoresPermitidosRetador:PerfilJugador[]=[]
 jugadoresPermitidosRival:PerfilJugador[]=[]
+rival : PerfilEquipos;
+isModalOpen:boolean=false;
 soccer= 'assets/icon/soccer.svg';
 img = 'assets/main/team-profile.svg';
 allowDelete = false;
 allowUser = false;
  indexRetador:number = null;
  indexRival:number = null;
+ unirseAlReto:boolean = false;
   constructor(
     public modalCtrl:ModalController,
     public canchasService: CanchasService,
@@ -57,15 +63,18 @@ allowUser = false;
     public reservacionesService:ReservacionesService,
     public partidosService:PartidoService,
     public emailService:EmailService,
-    public jugadoresService:JugadoresService
+    public jugadoresService:JugadoresService,
+    public equiposService: EquiposService,
+    public cd: ChangeDetectorRef
     
   ) { }
 
 
 
   async ngOnInit() {
+   
  
-
+console.log(this.reto, 'reto')
     console.log('this.partido', this.partido)
       this.jugadoresPermitidosRetador = await this.jugadoresService.syncJugadoresEquipos(this.reto.retador.Cod_Equipo);
       this.jugadoresPermitidosRival = await this.jugadoresService.syncJugadoresEquipos(this.reto.rival.Cod_Equipo);
@@ -199,11 +208,12 @@ convertMsToHM(milliseconds) {
           {
             text: 'Continuar',
             role: 'confirm',
-            handler: () => {
+            handler:async  () => {
               
               console.log(this.reto, 'reservacion')
         
   this.reto.detalle.Confirmacion_Rival = true;
+ await  this.reservacionesService.syncPutReservacione(this.reto.reservacion);
   this.reservacionesService.syncPutDetalleReservaion(this.reto.detalle).then(resp =>{
 
 this.alertasService.presentaLoading('Gestionando cambios..')
@@ -214,8 +224,7 @@ this.emailService.enviarCorreoReservaciones(2, this.reto.usuario_rival.Correo, t
     this.emailService.enviarCorreoReservaciones(2, this.reto.correo, this.reto.reservacion.Fecha, this.reto.reservacion.Hora_Inicio, this.reto.cancha.Nombre, this.reto.rival.Nombre, this.reto.retador.Nombre).then(resp =>{
       this.alertasService.loadingDissmiss();
       this.alertasService.message('FUTPLAY', 'La reservación se confirmo con éxito ')
-      this.cerrarModal();
- 
+      this.modalCtrl.dismiss(true)
       
           console.log('reto aceptado', resp)
 
@@ -270,6 +279,8 @@ this.emailService.enviarCorreoReservaciones(2, this.reto.usuario_rival.Correo, t
   }
 
   async videoScreen(id){
+   
+    
     const modal = await this.modalCtrl.create({
       component:VideoScreenPage,
       cssClass:'modal-view',
@@ -314,6 +325,36 @@ this.emailService.enviarCorreoReservaciones(2, this.reto.usuario_rival.Correo, t
  
 
 
+
+  async agregarRival() {
+    if(!this.isModalOpen){
+      this.isModalOpen = true;
+      this.equiposService.equipos = [];
+      const modal = await this.modalCtrl.create({
+        component: ListaEquiposPage,
+        cssClass: 'my-custom-modal',
+        mode:'ios',
+        componentProps:{
+          rival:false
+        }
+      });
+       await modal.present();
+          const { data } = await modal.onDidDismiss();
+          this.isModalOpen = false;
+       
+           if(data !== undefined){  
+            
+            this.rival = data.equipo;
+            this.unirseAlReto = true;
+            this.reto.detalle.Cod_Estado = 4;
+            this.cd.detectChanges();
+              this.reto.detalle.Cod_Rival = this.rival.equipo.Cod_Equipo;      
+              this.reto.reservacion.Titulo = this.reto.retador.Nombre + ' VS ' + this.rival.equipo.Nombre; 
+           }
+    }
+ 
+
+  }
 
 
 

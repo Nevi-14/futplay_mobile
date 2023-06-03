@@ -1,60 +1,46 @@
-
-ion-toolbar{
-  --background:#fff;
-}
-img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 8px solid #ffff;
-    }
-h1{
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 1rem;
-  color: #010101;
- letter-spacing: 0.1rem;  
+* {
+  margin: 0;
+  padding: 0;
 }
 
-#form {
-max-width: 600px;
-width: 100%;
-.custom-button{
---background: #5a55ca;
---background-focused: #6f6bbb;
---background-activated: #6f6bbb;
---padding-top: 1rem;
---padding-bottom: 1rem;
---padding-start: 0.75rem;
---padding-end: 0.75rem;
-font-weight: 700;
+h1 {
+  margin-bottom: 10px;
+  font-size: 32px;
+  font-weight: 700;
 }
+
+h3 {
+  color: #939fab;
+  font-weight: 600;
 }
-ion-item{
-  border-radius: 50px;
-  height: 55px;
-  box-shadow: 1px 8px 8px 0px rgba(0,0,0,0.08);
-  --highlight-height:0px;
+
+form {
+  margin-top: 6rem;
+
+  .forgot-password-link {
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    text-align: right;
+    font-weight: 600;
+    font-size: 14px;
+    color: #4a4a4a;
+  }
+
+  app-button {
+    display: block;
+    margin-top: 3rem;
+  }
 }
-ion-input{
-  font-size: 18px;
-  --padding-top:20px;
-  --padding-bottom:15px;
-  --padding-start:5px;
-}
-ion-select{
-  font-size: 18px;
-  --padding-top:20px;
-  --padding-bottom:15px;
-  --padding-start:5px;
-  width: 100%;
-}
-a{
+
+.footer-text {
+  text-align: center;
   font-size: 17px;
-  letter-spacing: 0.5px;
-  text-decoration: none;
-}
-ion-button.button-disabled {
-  --opacity: 1;
+  margin-top: 50%;
+
+  a {
+    text-decoration: none;
+    font-weight: 600;
+    color: #fa578e;
+  }
 }

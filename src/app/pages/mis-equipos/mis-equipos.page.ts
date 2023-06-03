@@ -33,7 +33,7 @@ export class MisEquiposPage implements OnInit {
     this.misEquipos();
   }
 
-
+ 
   onSearchChange(event){
 
     this.textoBuscar = event.detail.value;
@@ -83,15 +83,7 @@ console.log('resp', resp)
 
   }
 
-  async buscarEquipos(){
-    let modal = await this.modalCtrl.create({
-      component:BuscarEquiposPage,
-      cssClass:'my-custom-class'
-
-    })
-
-    return modal.present();
-  }
+ 
 
   filledStars(stars:number){
 
@@ -128,7 +120,7 @@ seleccionarEquipo(equipo){
   
 
 }
-  cerrarModal(){
+regresar(){
     this.modalCtrl.dismiss();
   }
   async buscarJugadores(){
@@ -145,5 +137,30 @@ if(data != undefined){
   
 }
   }
+  async crearEquipo(){
+    let modal = await this.modalCtrl.create({
+      component:CrearEquipoPage,
+      cssClass:'my-custom-class',
+      id:'create-modal'
+    });
 
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+ 
+    if(data !== undefined ){
+      console.log(data,'data')
+      this.regresar();
+    }
+
+  }
+
+  async buscarEquipos(){
+    let modal = await this.modalCtrl.create({
+      component:BuscarEquiposPage,
+      cssClass:'my-custom-class'
+
+    })
+
+    return modal.present();
+  }
 }

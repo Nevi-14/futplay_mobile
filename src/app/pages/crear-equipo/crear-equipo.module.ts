@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { CrearEquipoPageRoutingModule } from './crear-equipo-routing.module';
 
 import { CrearEquipoPage } from './crear-equipo.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CrearEquipoPageRoutingModule
+    CrearEquipoPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [CrearEquipoPage]
 })

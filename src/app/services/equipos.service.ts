@@ -14,6 +14,7 @@ export class EquiposService {
 misEquipos:PerfilEquipos[]=[]
 equipos:PerfilEquipos[]=[]
 equipo:PerfilEquipos;
+mostrarEquipos:PerfilEquipos[]=[]
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -283,5 +284,12 @@ syncimagePost(data, Cod_Equipo){
     return this.deleteEquipo(Cod_Equipo).toPromise();
 
   }
-
+  generateItems() {
+    const count = this.mostrarEquipos.length;
+    for (let i = count; i < this.equipos.length; i++) {
+      if(i < count + 10){
+        this.mostrarEquipos.push(this.equipos[i]);
+      }
+    }
+  }
 }

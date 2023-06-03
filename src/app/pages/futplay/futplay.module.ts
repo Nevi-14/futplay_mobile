@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { FutplayPageRoutingModule } from './futplay-routing.module';
 
 import { FutplayPage } from './futplay.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FutplayPageRoutingModule
+    FutplayPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [FutplayPage]
 })

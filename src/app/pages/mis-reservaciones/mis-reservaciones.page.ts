@@ -11,6 +11,10 @@ import { partidos } from 'src/app/models/partidos';
 import { VerificacionQrPage } from '../verificacion-qr/verificacion-qr.page';
 import { InicioPartidoPage } from '../inicio-partido/inicio-partido.page';
 import { EliminarRetoPage } from '../eliminar-reto/eliminar-reto.page';
+import { Router } from '@angular/router';
+import { RetosAbiertosPage } from '../retos-abiertos/retos-abiertos.page';
+import { ReservacionesPage } from '../reservaciones/reservaciones.page';
+import { CanchasPage } from '../canchas/canchas.page';
  
 @Component({
   selector: 'app-mis-reservaciones',
@@ -22,25 +26,37 @@ export class MisReservacionesPage implements OnInit {
   @ViewChild(IonSlides) slider: IonSlides;
 textoBuscar = '';
 partido:partidos[]=[]
+totalRetosAbiertos:PerfilReservaciones[]=[]
   constructor(
 public reservacionesService:ReservacionesService,
 public usuariosService:UsuariosService,
 public modalCtrl: ModalController,
 public canchasService:CanchasService,
 public partidosService:PartidoService,
-public actionSheetCtrl: ActionSheetController
+public actionSheetCtrl: ActionSheetController,
+public router: Router
   ) {
 
      
   }
-  ngOnInit() {
-    this.reservacionesService.segment = 0;
-    this.reservacionesService.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
-this.reservacionesService.reservaciones = reservaciones;
-console.log('reservaciones', this.reservacionesService.reservaciones)
-    })
-  }
+async  ngOnInit() {
 
+//    this.reservacionesService.selectCategory();
+  }
+  async reservaciones(i:number) {
+    this.modalCtrl.dismiss()
+  this.checkReservactions(i);
+      const modal = await this.modalCtrl.create({
+        component: ReservacionesPage,
+        cssClass: 'my-custom-class',
+        id:'aceptar-reto'
+      });
+  
+       await modal.present();
+  
+      let {data} = await modal.onDidDismiss();
+      this.reservacionesService.selectCategory();
+    }
   async detalleReto(reto:PerfilReservaciones) {
 
 
@@ -78,13 +94,16 @@ console.log('reservaciones', this.reservacionesService.reservaciones)
 
  this.modalCtrl.dismiss();
   }
+
+  
   async nuevaReservacion(){
 
   
      
     const modal  = await this.modalCtrl.create({
-      component: GenerarReservacionPage,
+      component: CanchasPage,
      cssClass: 'my-custom-class',
+     mode:'ios',
      componentProps:{
       rival:null,
       retador:null,
@@ -129,6 +148,10 @@ console.log('reservaciones', this.reservacionesService.reservaciones)
     this.reservacionesService.selectCategory()
   }
 
+  checkReservactions(index:number){
+    this.reservacionesService.segment = index;
+    this.reservacionesService.selectCategory();
+  }
   async next(){
     this.reservacionesService.segment =  Number(this.reservacionesService.segment) +1;
  if(this.reservacionesService.segment <= this.categories.length -1){
@@ -278,7 +301,9 @@ normalBtns.push(btnIniciarPartido)
                 
                 
                      }
-
+inicio(){
+  this.router.navigate(['/futplay/mi-perfil']);
+}
                      async partidoActual(reto:PerfilReservaciones) {
 
                       let partido =   await  this.partidosService.syncGetPartidoReservacion(reto.reservacion.Cod_Reservacion);
@@ -306,7 +331,27 @@ normalBtns.push(btnIniciarPartido)
                        }
                     }
 
+                    async retosAbiertos() {
 
+ 
+         
+
+                      const modal = await this.modalCtrl.create({
+                        component:RetosAbiertosPage,
+                        cssClass: 'my-custom-class',
+                      });
+                    
+                      await modal.present();
+                      let {data} = await modal.onDidDismiss();
+                
+                
+        
+
+                      if(data != undefined){
+
+                        
+                       }
+                    }
                     async eliminarReto(reto:PerfilReservaciones){
 
                       let modal = await this.modalCtrl.create({

@@ -34,52 +34,35 @@ export class FutplayPage implements OnInit {
   ngOnInit() {
 
   }
-  profile() {
 
-    if (this.usuariosService.usuarioActual) {
-      
-      this.reservacionesService.syncgGtReservacionesRecibidas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones => {
-        this.reservacionesService.reservaciones = reservaciones;
-        this.router.navigate(['/futplay/mi-perfil']);
-
-      })
-
-    }
-
-  }
-
-  misEquipos() {
-    this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp => {
-
-
-      if (resp.length == 0) {
-        this.crearEquipo();
-
-      } else {
-
-        this.equiposService.misEquipos = resp.slice(0);
-        this.equiposService.equipo = resp[0];
-
-        this.router.navigate(['/futplay/perfil-equipo']);
   
-
-    
-   
-
-
-      }
-
-
-    }, error => {
-
-      this.alertasService.message('FUTLAY', 'Error cargando datos...');
-
-    })
-
-
-
+  profile() {
+    if (this.usuariosService.usuarioActual) { 
+      this.router.navigate(['/futplay/mi-perfil']);
+    }
+  }
+  async reservaciones(){
+    this.router.navigate(['/futplay/mis-reservaciones']);
+  }
+ 
+async   misEquipos(){
+   let equipos = await this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario);
+   this.equiposService.equipo = equipos[0]
+    this.router.navigate(['/futplay/perfil-equipo']);
 
   }
+  anuncios(){
+    this.router.navigate(['/futplay/anuncios']);
+  }
+ 
+  configuraciones(){
+    this.router.navigate(['/futplay/configuraciones']);
+  }
+
+
+
+
+
 
   async crearEquipo() {
     const modal = await this.modalCtrl.create({
@@ -97,42 +80,6 @@ export class FutplayPage implements OnInit {
 
 
     }
-
-  }
-
-  equipos() {
-    this.equiposService.equipos = [];
-    this.equiposService.syncListaEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp => {
-
-      this.equiposService.equipos = resp.slice(0);
-
-      this.router.navigate(['/futplay/rivales']);
-    }, error => {
-
-      this.alertasService.message('FUTLAY', 'Error cargando datos...');
-    })
-
-
-
-  }
-  canchas() {
-
-  //  this.alertasService.presentaLoading('cargando canchas...')
-    this.canchasService.canchas = [];
-      this.canchasService.syncListaCanchasToPromise().then(canchas => {
-//this.alertasService.loadingDissmiss();
-        this.canchasService.canchas = canchas;
-        console.log('this.canchasService.canchas', this.canchasService.canchas)
-        this.router.navigate(['/futplay/canchas']);
-      }, error => {
-
-        this.alertasService.message('FUTLAY', 'Error cargando datos...');
-      })
-
-
-
-
-
 
   }
 

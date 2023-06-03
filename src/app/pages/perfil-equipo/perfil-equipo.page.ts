@@ -42,9 +42,11 @@ export class PerfilEquipoPage {
   }
 
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
 
-
+    let equipos = await this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario);
+    this.equiposService.equipo = equipos[0]
+    
     this.solicitudesService.syncGetSolicitudesRecibidasEquipoToPromise(this.equiposService.equipo.equipo.Cod_Equipo).then(solicitudes => {
 
       this.solicitudesService.solicitudesEquiposArray = solicitudes;

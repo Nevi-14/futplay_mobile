@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { EditarPerfilEquipoPageRoutingModule } from './editar-perfil-equipo-routing.module';
 
 import { EditarPerfilEquipoPage } from './editar-perfil-equipo.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EditarPerfilEquipoPageRoutingModule
+    EditarPerfilEquipoPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [EditarPerfilEquipoPage]
 })

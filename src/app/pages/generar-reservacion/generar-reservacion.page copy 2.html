@@ -1,0 +1,269 @@
+
+  <ion-header class="ion-no-border">
+ 
+    <ion-toolbar mode="ios" class="ion-toolbar ion-text-center">
+      <ion-grid >
+        <ion-row>
+          <ion-col size="12" style="display: flex;justify-content: space-between;align-items: center;">
+            <ion-button     fill="clear" color="transparent"  (click)="cerrarModal()">
+              <ion-icon style="color: white;"  name="chevron-back"></ion-icon>
+            
+            </ion-button>
+            <ion-title>Reservar Cancha</ion-title>
+      
+          </ion-col>
+          <ion-col size="12" style="display: flex;justify-content: space-between;align-items: center;">
+
+     <ion-label><strong>¿Deseas buscar un retador? {{reservacionGrupal ? 'Si' : 'No'}}</strong></ion-label>
+            <ion-toggle color="warning" (ionChange)="reservacionIndividual($event)"  size="small" [(ngModel)]="reservacionGrupal"></ion-toggle>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+ 
+
+      
+          
+           
+          </ion-toolbar>
+ 
+  </ion-header>
+
+      <ion-content  [fullscreen]="true"    [scrollEvents]="true" #IonContent>
+
+        
+        <div class="mainContent ion-text-center">
+          
+
+
+
+                             <ion-list>
+                              <ion-item color="warning" *ngIf="!reservacionGrupal" class="ion-margin ion-padding" lines="none">
+                                <ion-label class="ion-text-wrap">Reservacion indiviual te permite reservar una cancha para un solo equipo!.</ion-label>
+                              </ion-item>
+                                                 
+                                     <ion-item  *ngIf="!cancha"    lines="none" class="equipo  animate__animated animate__fadeIn employeeItem"  >
+                                      <ion-avatar    >
+                                        <img    src="assets/img/icon/FP.svg"     alt="">
+                               
+                                      </ion-avatar>
+                                      
+                                 
+              <ion-label>Cancha</ion-label>
+                                      <ion-fab-button size="small" (click)="agregarCancha()"  slot="end" color="any" >
+                                        <ion-icon name="add-outline"></ion-icon>
+                                      </ion-fab-button>
+                            
+                                    </ion-item>
+
+                                    <ion-item  *ngIf="cancha" lines="none" class="employeeItem  animate__animated animate__fadeIn"  >
+                                      <ion-avatar slot="start">
+                                        <img  src="{{'https://futplaycompany.com/api_test/'+cancha.cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">
+                                
+                                       </ion-avatar>
+                                      
+                                      <ion-label class="ion-text-wrap">
+                                       <strong> {{cancha.cancha.Nombre}} </strong> <ion-badge color="dark" mode="ios">₡{{cancha.cancha.Precio_Hora}}</ion-badge>
+      
+                                      
+                                         <p   >
+                                        <p   >
+                                             
+                                          Categoria <ion-badge color="warning" mode="ios">{{cancha.categoria}} </ion-badge>
+                                    
+                                        </p>
+                        
+                                      
+                                      </ion-label>
+                                      <ion-fab-button size="small"  (click)="agregarCancha()"  slot="end"  color="any">
+                                        <ion-icon name="reload-outline"></ion-icon>
+                                      </ion-fab-button>
+      
+                                      
+                                    </ion-item>
+      
+
+
+                              <ion-item  *ngIf="!rival && reservacionGrupal"   lines="none" class="equipo  animate__animated animate__fadeIn employeeItem"  >
+                                <ion-avatar    >
+                                  <img    src="assets/img/icon/FP.svg"     alt="">
+                         
+                                </ion-avatar>
+                                
+                           
+        <ion-label>Rival</ion-label>
+                                <ion-fab-button size="small" (click)="agregarRival()"  slot="end" color="any" >
+                                  <ion-icon name="add-outline"></ion-icon>
+                                </ion-fab-button>
+                      
+                              </ion-item>
+
+                  
+                              <ion-item  *ngIf="rival && reservacionGrupal"    lines="none" class="equipo  animate__animated animate__fadeIn employeeItem"  >
+                                <ion-avatar    >
+                                  <img *ngIf="!rival.equipo.Avatar"  src="{{'https://futplaycompany.com/api_test/'+rival.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+                                  <img  *ngIf="rival.equipo.Avatar"  src="assets/soccer-shields-svg/{{rival.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+                         
+                                </ion-avatar>
+                                
+                                
+                             
+                                <ion-label class="ion-text-wrap">
+                                  {{rival.equipo.Abreviacion}} <ion-badge color="warning" mode="ios">Rival </ion-badge>
+                                  <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
+                                  
+                                    <ion-icon style="size: 10px;" name="star"></ion-icon>
+                                    <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                                    <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                                    <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                                    <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                                  </p>
+                                </ion-label>
+                               
+                                <ion-fab-button size="small"  (click)="agregarRival()" slot="end"  color="any">
+                                  <ion-icon name="reload-outline"></ion-icon>
+                                </ion-fab-button>
+                              </ion-item>
+                           
+                              <ion-item  *ngIf="!retador"   lines="none" class="equipo  animate__animated animate__fadeIn employeeItem"  >
+                                <ion-avatar    >
+                                  <img    src="assets/img/icon/FP.svg"     alt="">
+                         
+                                </ion-avatar>              
+                           
+        <ion-label>Retador</ion-label>
+                                <ion-fab-button size="small" (click)="agregarRetador()"  slot="end"   color="any">
+                                  <ion-icon name="add-outline"></ion-icon>
+                                </ion-fab-button>
+                      
+                              </ion-item>
+
+              
+                              <ion-item  *ngIf="retador"    lines="none" class="equipo  animate__animated animate__fadeIn employeeItem"  >
+                                <ion-avatar    >
+                                  <img *ngIf="!retador.equipo.Avatar"  src="{{'https://futplaycompany.com/api_test/'+retador.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+                                  <img  *ngIf="retador.equipo.Avatar"  src="assets/soccer-shields-svg/{{retador.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+                         
+                                </ion-avatar>
+                                
+                                
+                             
+                                <ion-label class="ion-text-wrap">
+                                  {{retador.equipo.Abreviacion}} <ion-badge color="warning" mode="ios">Retador </ion-badge>
+                                  <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
+                                  
+                                    <ion-icon style="size: 10px;" name="star"></ion-icon>
+                                    <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                                    <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                                    <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+                                    <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+                                  </p>
+                                </ion-label>
+                               
+                                <ion-fab-button size="small"  (click)="agregarRetador()" slot="end"  color="any">
+                                  <ion-icon name="reload-outline"></ion-icon>
+                                </ion-fab-button>
+                              </ion-item>
+                           
+                               
+                    
+                 
+                          
+
+
+
+<ion-grid >
+  <ion-row *ngIf="cancha && retador && !reservacionGrupal || cancha && rival && retador && reservacionGrupal" >
+
+    <ion-col size="12">
+                          
+<ion-datetime (ionChange)="cambiarFecha($event)"  *ngIf="cancha && retador && !reservacionGrupal || cancha && rival && retador && reservacionGrupal"    presentation="date" [(ngModel)]="fecha"></ion-datetime>         
+    </ion-col>
+    <ion-col size="12"  class="ion-text-left" *ngIf="habilitarHoras">
+      <ion-label  style="margin-left: 1rem;" ><strong>Hora Inicio</strong></ion-label>
+      <ion-item        class="custom-item" lines="none">
+        <ion-select [(ngModel)]="Hora_Inicio"  (ionChange)="horaInicio($event)"    placeholder="Seleccionar hora" name="Hora_Inicio">
+          <ion-select-option  [value]="hora" *ngFor="let hora of gestionReservacionesService.horaInicioArray">{{hora.time12}} {{':00'}} {{hora.meridiem}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+    </ion-col>
+    <ion-col size="12" class="ion-text-left" *ngIf="Hora_Inicio">
+      <ion-label 
+      style="margin-left: 1rem;"   ><strong>Hora Fin</strong></ion-label>
+      <ion-item  
+        class="custom-item"  lines="none">
+        <ion-select [(ngModel)]="Hora_Fin"  (ionChange)="horaFin($event)"    placeholder="Seleccionar hora" name="Hora_Inicio">
+          <ion-select-option  [value]="hora" *ngFor="let hora of gestionReservacionesService.horaFinArray">{{hora.time12}} {{':00'}} {{hora.meridiem}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      
+
+      
+    </ion-col>
+
+    <ion-col size="12">
+      
+     
+<ion-list class="ion-margin StyledReceipt" *ngIf="cancha && retador && !reservacionGrupal && nuevaReservacion.Hora_Inicio != null && nuevaReservacion.Hora_Fin != null || cancha && rival && retador && reservacionGrupal  && nuevaReservacion.Hora_Inicio != null && nuevaReservacion.Hora_Fin != null">
+<ion-toolbar class="ion-text-uppercase">
+  <ion-title *ngIf="reservacionGrupal">{{retador.equipo.Abreviacion}} vs {{rival.equipo.Abreviacion}}</ion-title>
+  <ion-title *ngIf="!reservacionGrupal">Reto Individual</ion-title>
+</ion-toolbar>
+  <ion-item>
+    <ion-label>Fecha</ion-label>
+    {{nuevaReservacion.Fecha | date:'mediumDate'}}
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Hora Inicio</ion-label>
+    {{formatoAmPM(nuevaReservacion.Hora_Inicio)}}   
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Hora Fin</ion-label>
+    {{formatoAmPM(nuevaReservacion.Hora_Fin)}}   
+  </ion-item>
+  <ion-item>
+    <ion-label>Precio Hora</ion-label>
+   {{detalleReservacion.Precio_Hora | colones : 2 : '.' : ',' :  '₡' }}
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Total Horas</ion-label>
+    {{detalleReservacion.Total_Horas }}
+  </ion-item>
+  <ion-item  *ngIf="detalleReservacion.Reservacion_Grupal">
+    <ion-label>Monto por Equipo</ion-label>
+  {{detalleReservacion.Monto_Equipo  | colones : 2 : '.' : ',' :  '₡' }}
+  </ion-item>
+  <ion-item>
+    <ion-label>Subtotal</ion-label>
+    {{detalleReservacion.Monto_Sub_Total | colones : 2 : '.' : ',' :'₡'}}
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Total</ion-label>
+    {{detalleReservacion.Monto_Total  | colones : 2 : '.' : ',' :  '₡' }}
+  </ion-item>
+</ion-list>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+                             </ion-list>
+
+
+                 
+                      
+                   
+
+        </div>
+
+    </ion-content>
+
+    <ion-footer class="ion-no-border" *ngIf="cancha && retador && !reservacionGrupal && nuevaReservacion.Hora_Inicio != null && nuevaReservacion.Hora_Fin != null || cancha && rival && retador && reservacionGrupal  && nuevaReservacion.Hora_Inicio != null && nuevaReservacion.Hora_Fin != null">
+  
+     <ion-button (click)="enviarReto()" expand="block" >
+      Enviar Reto
+     </ion-button>
+      
+ </ion-footer>

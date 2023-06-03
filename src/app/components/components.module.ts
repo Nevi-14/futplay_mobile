@@ -10,14 +10,22 @@ import localeDe from '@angular/common/locales/es';
 
 import { MapaComponent } from './mapa/mapa.component';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PipesModule } from '../pipes/pipes.module';
+import { ButtonComponent } from './button/button.component';
+import { IconButtonComponent } from './icon-button/icon-button.component';
+import { InputComponent } from './input/input.component';
+import { SelectComponent } from './select/select.component';
 
 registerLocaleData(localeDe);
 @NgModule({
   declarations: [
     HeaderComponent,
-    MapaComponent
+    MapaComponent,
+    ButtonComponent,
+    IconButtonComponent,
+    SelectComponent,
+    InputComponent
 
 
  
@@ -28,11 +36,18 @@ registerLocaleData(localeDe);
     IonicModule,
     PipesModule,
     NgCalendarModule,
+    ReactiveFormsModule,
+    FormsModule
 
   ],
   exports:[
   HeaderComponent,
-  MapaComponent
+  MapaComponent,
+  ButtonComponent,
+  IconButtonComponent,
+  SelectComponent,
+  InputComponent
+
 
   ],
   providers: [{provide: LOCALE_ID, useValue: 'es'}]

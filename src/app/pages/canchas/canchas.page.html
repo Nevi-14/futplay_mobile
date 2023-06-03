@@ -1,74 +1,79 @@
-<app-header titulo="Canchas"></app-header>
+<ion-header class="ion-no-border">
+ 
+  <ion-toolbar>
 
-<ion-toolbar class="ion-padding">
-
-  <ion-searchbar (ionChange)="onSearchChange($event)"  mode="ios" placeholder="Buscar Canchas" inputmode="text"  debounce="250" ></ion-searchbar> 
-  <ion-buttons slot="end">
-    <ion-button class="ion-button"    (click)="filtroUbicacion()"  >
-      <ion-icon color="light" size="large"  name="options-outline" ></ion-icon>
-    </ion-button>
-  </ion-buttons>
-</ion-toolbar>
-
-<ion-content >
-
-  
-
-  <div class="mainContent">
-  
-
-
-    <ion-list *ngIf="canchasService.canchas.length == 0">
-      <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"   >
-  
-        <ion-avatar slot="start">
-         <img   src="assets/img/icon/FP.svg" alt="">
-        </ion-avatar>
-       
-  
-         <ion-label>
+    <ion-grid >
+      <ion-row>
+        <ion-col size="12" style="display: flex;justify-content: flex-start;align-items: center;">
+          <ion-button (click)="cerrarModal()"  fill="clear"  >
+            <ion-icon class="futplay-dark"  size="large" name="chevron-back-outline"></ion-icon>
+          </ion-button>
+          <ion-title>Lista Canchas</ion-title>
+        </ion-col>
+        <ion-col size="12" style="display: flex;justify-content: flex-start;align-items: center;">
     
-           <h2>MENSAJE FUTPLAY </h2>
-    <p class="ion-text-wrap">   No se encontraron resultados</p>
-  
-         </ion-label>
-  
-       </ion-item>
+          <ion-searchbar   (ionChange)="onSearchChange($event)"  mode="ios" placeholder="Buscar Canchas" inputmode="text"  debounce="250" ></ion-searchbar> 
+          <ion-buttons  >
+            <ion-button class="ion-button"    (click)="filtroUbicacion()"  >
+              <ion-icon color="light" size="large"  name="options-outline" ></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    </ion-toolbar>
+</ion-header>
 
-    </ion-list>
+<ion-content class="ion-padding">
+
+  
+
+
+  <ion-list *ngIf="canchasService.canchas.length == 0">
+    <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"   >
+
+      <ion-avatar slot="start">
+       <img   src="assets/img/icon/FP.svg" alt="">
+      </ion-avatar>
+     
+
+       <ion-label>
+  
+         <h2>MENSAJE FUTPLAY </h2>
+  <p class="ion-text-wrap">   No se encontraron resultados</p>
+
+       </ion-label>
+
+     </ion-item>
+
+  </ion-list>
 <ion-list *ngIf="canchasService.canchas.length > 0">
 
 
 
-<ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"    (click)="onOpenMenu(cancha)" *ngFor="let cancha of canchasService.canchas | filtro: textoBuscar:'nombre'" >
+<ion-item   class="employeeItem  animate__animated animate__fadeIn"    (click)="onOpenMenu(cancha)" *ngFor="let cancha of canchasService.canchas | filtro: textoBuscar:'nombre'" >
 
-  <ion-avatar slot="start">
-    <img src="{{'https://futplaycompany.com/api_test/'+cancha.cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">
+<ion-avatar slot="start">
+  <img src="{{'https://futplaycompany.com/api_test/'+cancha.cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">
 
-   </ion-avatar>
+ </ion-avatar>
+
+
+
+
+<ion-label>
+  <h2>{{cancha.nombre}} <ion-badge color="dark" mode="ios">₡ {{cancha.cancha.Precio_Hora}}</ion-badge></h2>
   
+  <p   >
+       
+    Categoria <ion-badge color="warning" mode="ios">{{cancha.categoria}}</ion-badge>
 
-
-
-  <ion-label>
-    <h2>{{cancha.nombre}} <ion-badge color="dark" mode="ios">₡ {{cancha.cancha.Precio_Hora}}</ion-badge></h2>
-    
-    <p   >
-         
-      Categoria <ion-badge color="warning" mode="ios">{{cancha.categoria}}</ion-badge>
-
-    </p>
-    <p>{{cancha.provincia}},       {{cancha.canton}} ...</p>
-  </ion-label>
+  </p>
+  <p>{{cancha.provincia}},       {{cancha.canton}} ...</p>
+</ion-label>
 
 </ion-item>
 </ion-list>
-  
-  </div>
-  
-
-
-
 
 </ion-content>
 

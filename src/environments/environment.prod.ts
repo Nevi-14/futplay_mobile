@@ -21,6 +21,8 @@ export const environment = {
   getListaUsuariosURL: 'get/lista/usuarios/',
   getClasificacionEquiposURL: 'get/clasificacion/equipos',
   getConsultarDisponiblidadReservacionURL:'get/disponibilidad/reservaciones/cancha/',
+  getReservacionesAbiertasURL:'get/reservaciones/abiertas',
+  putReservacionURL:'put/reservacion/',
   getHorarioCanchaURL:'get/horario/cancha/',
   getReservacionesCanchaFechaURL:'get/reservaciones/cancha/',
   getReservacionesMovilURL:'get/reservaciones/movil/',

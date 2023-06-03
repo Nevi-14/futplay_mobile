@@ -1,106 +1,156 @@
 
-  <ion-header class="ion-no-border" >
-    <ion-toolbar mode="ios" class="ion-toolbar">
-      <ion-buttons slot="start">
-        <ion-button  (click)="cerrarModal()" >
-          <ion-icon slot="start" name="chevron-back"></ion-icon>
-          &nbsp;
-        </ion-button>
-      </ion-buttons>
-<ion-title>Gestion Retos</ion-title>
+  <ion-header class="ion-no-border ion-padding" >
+    <ion-toolbar >
+      <ion-title slot="start"><strong>Gestion Retos</strong></ion-title>
+      <ion-fab-button id="open-modal" size="small" slot="end">
+        <ion-icon name="search"></ion-icon>
+      </ion-fab-button>
+      <span slot="end" style="position:relative;margin-right: 1rem;">
+        <ion-fab-button size="small" >
+          <ion-icon name="notifications"></ion-icon>
+        </ion-fab-button>
+        <ion-badge style="position: absolute;top: 0;right: -1rem;" color="primary" mode="ios">0</ion-badge>
+      </span>
+    </ion-toolbar>
+    <ion-toolbar mode="ios" class="ion-toolbar ion-text-center">
+ 
+ <app-button (click)="nuevaReservacion()"  label="Reservar Cancha"></app-button>
+ 
 
-
-    
      
     </ion-toolbar>
-    <ion-row>
-      <ion-col size="12" size-md="6">
-        <ion-searchbar mode="ios" placeholder="Buscar reto"   type="text" (ionChange)="onSearchChange($event)"></ion-searchbar>
-      </ion-col>
-      <ion-col size="12" size-md="6">
-        <ion-toolbar mode="ios">
-          <ion-button size="small" fill="clear" *ngIf="reservacionesService.segment > 0" slot="start" (click)="prev()">
-            <ion-icon color="light" name="arrow-back-outline"></ion-icon>
-          </ion-button>
-          <ion-button size="small" fill="clear"  *ngIf="reservacionesService.segment < categories.length-1" slot="end" (click)="next()">
-            <ion-icon  color="light"  name="arrow-forward-outline"></ion-icon>
-          </ion-button>
-          <ion-segment scrollable mode="md" (ionChange)="segmentChanged()" [(ngModel)]="reservacionesService.segment" >
-            <ion-segment-button mode="md" id="seg-{{i}}"  [value]="i" *ngFor="let cat of categories; let i = index;"  (click)="selectCategory(i)">
-              <ion-label [class.active-category]="reservacionesService.segment == i">{{cat}}</ion-label>
-            </ion-segment-button>
-            
-          </ion-segment>
-        
-        </ion-toolbar>
-        
-      </ion-col>
-    </ion-row>
-  
-   
 
     </ion-header>
-  
-    <ion-content fullscreen>
-  
+ 
+    <ion-content >
+      <ion-list  >
+        <ion-toolbar>
+          <ion-title><strong>Mis Retos</strong></ion-title>
+        </ion-toolbar>
+
+        <ion-toolbar>
+          <ion-title><strong>Hoy</strong></ion-title>
+        </ion-toolbar>
+
+        <ion-item *ngIf="reservacionesService.reservacionesDia.length == 0"   lines="none"
+        class="animate__animated animate__fadeIn">
+        <span slot="start">
+          <ion-avatar>
+            <img src="assets/logo.png" alt="">
+          </ion-avatar>
     
-      <div class="mainContent">
-
-        <ion-slides (ionSlideDidChange)="slideChanged()" class="word-slides">
-      
-          <ion-slide *ngFor="let cat of categories; let i = index;" >
-            <ion-list class="ion-padding"  *ngIf="reservacionesService.reservaciones.length == 0">
-              <ion-item lines="none" class="transparent  animate__animated animate__fadeIn" >
-        
-                <ion-avatar slot="start"  style="height:6rem;width: 6rem;" >
-                 <img style="height: 5rem;width: 5rem;"   src="assets/logo.png" alt="">
-                </ion-avatar>
-               
+    
+          <ion-label>
+    
+            <h6><strong>MENSAJE FUTPLAY</strong> </h6>
+            <p  > No se encontraron resultados!..</p>
+    
+          </ion-label>
+        </span>
+    
+    
+        </ion-item>
+    
          
-                 <ion-label>
-            
-                   <h2>MENSAJE FUTPLAY </h2>
-            <p class="ion-text-wrap">   No se encontraron resultados </p>
-          
-                 </ion-label>
+        <ion-item  (click)="onOpenMenu(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of reservacionesService.reservacionesDia | filtro: textoBuscar:'titulo' ; let odd = odd; let i = index;" >
+          <img  src="{{'https://futplaycompany.com/api_test/'+reto.cancha.Foto }}"  onerror="this.src='assets/soccerfield.jpg'"   alt="">
+      
+          <ion-label>
+            <h2> {{reto.titulo}} </h2>
+            <p> Fecha : <ion-badge color="warning" mode="ios"> {{reto.reservacion.Fecha | date:'shortDate'}} </ion-badge> </p>
+            <p   >
+                 
+              Cancha : {{reto.cancha.Nombre}}
         
-               </ion-item>
+            </p>
+            <p>Hora:  {{reto.reservacion.Hora_Inicio | date:'shortTime'}}    -   {{reto.reservacion.Hora_Fin | date:'shortTime'}}   </p>
+          </ion-label>
+      
+        </ion-item>
+      
+       </ion-list>
+       <ion-list  >
+        <ion-toolbar >
+          <ion-title><strong>Retos Abiertos</strong></ion-title>
+          <ion-fab-button size="small" slot="end" class="ion-margin-right">
+            <ion-icon name="options"></ion-icon>
+          </ion-fab-button>
+        </ion-toolbar>
+        <ion-item  (click)="onOpenMenu(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of reservacionesService.reservacionesAbiertas | filtro: textoBuscar:'titulo' ; let odd = odd; let i = index;" >
+          <img  src="{{'https://futplaycompany.com/api_test/'+reto.cancha.Foto }}"  onerror="this.src='assets/soccerfield.jpg'"   alt="">
+      
+          <ion-label>
+            <h2> {{reto.titulo}} </h2>
+            <p> Fecha : <ion-badge color="warning" mode="ios"> {{reto.reservacion.Fecha | date:'shortDate'}} </ion-badge> </p>
+            <p   >
+                 
+              Cancha : {{reto.cancha.Nombre}}
+        
+            </p>
+            <p>Hora:  {{reto.reservacion.Hora_Inicio | date:'shortTime'}}    -   {{reto.reservacion.Hora_Fin | date:'shortTime'}}   </p>
+          </ion-label>
+      
+        </ion-item>
+            <ion-item *ngIf="reservacionesService.reservacionesAbiertas.length == 0"   lines="none"
+        class="animate__animated animate__fadeIn">
+        <span slot="start">
+          <ion-avatar>
+            <img src="assets/logo.png" alt="">
+          </ion-avatar>
+    
+    
+          <ion-label>
+    
+            <h6><strong>MENSAJE FUTPLAY</strong> </h6>
+            <p  > No se encontraron resultados!..</p>
+    
+          </ion-label>
+        </span>
+    
+    
+        </ion-item>
+       </ion-list>
+      <ion-modal mode="ios" #modal trigger="open-modal" [initialBreakpoint]="0.45" [breakpoints]="[0, 0.25, 0.5, 0.75]">
+        <ng-template>
+          <ion-content class="ion-padding">
+
+            <ion-list>
+              <ion-item (click)="reservaciones(0)">
+<ion-avatar slot="start">
+  <img src="assets/futplay/icons/verified.svg" />
+</ion-avatar>
+                <ion-label>
+                  <h2>Reservaciones Confirmadas</h2>
+                </ion-label>
+              </ion-item>
+              <ion-item (click)="reservaciones(1)">
+                <ion-avatar slot="start">
+                  <img src="assets/futplay/icons/received.svg" />
+                </ion-avatar>
+                <ion-label>
+                  <h2>Reservaciones Recibidas</h2>
+                </ion-label>
+              </ion-item>
+              <ion-item (click)="reservaciones(2)"> 
+                <ion-avatar slot="start">
+                  <img src="assets/futplay/icons/send-mail.svg" />
+                </ion-avatar>
+                <ion-label>
+                  <h2>Reservaciones Enviadas</h2>
+                </ion-label>
+              </ion-item>
+              <ion-item (click)="reservaciones(3)">
+                <ion-avatar slot="start">
+                  <img src="assets/futplay/icons/history.svg" />
+                </ion-avatar>
+                <ion-label>
+                  <h2>Historial Reservaciones</h2>
+                </ion-label>
+              </ion-item>
             </ion-list>
-            
-                    <ion-list *ngIf="reservacionesService.reservaciones.length > 0">
-              
-                      <ion-item  (click)="onOpenMenu(reto)"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of reservacionesService.reservaciones | filtro: textoBuscar:'titulo' ; let odd = odd; let i = index;" >
-                        <img  src="{{'https://futplaycompany.com/api_test/'+reto.cancha.Foto }}"  onerror="this.src='assets/soccerfield.jpg'"   alt="">
-                  
-                        <ion-label>
-                          <h2> {{reto.titulo}} </h2>
-                          <p> Fecha : <ion-badge color="warning" mode="ios"> {{reto.reservacion.Fecha | date:'shortDate'}} </ion-badge> </p>
-                          <p   >
-                               
-                            Cancha : {{reto.cancha.Nombre}}
-                      
-                          </p>
-                          <p>Hora:  {{reto.reservacion.Hora_Inicio | date:'shortTime'}}    -   {{reto.reservacion.Hora_Fin | date:'shortTime'}}   </p>
-                        </ion-label>
-                  
-                      </ion-item>
-                    </ion-list>
-          </ion-slide>
- 
-        </ion-slides>
- 
-
-
-
-      </div>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
     </ion-content>
-    <ion-footer class="ion-no-border">
  
-       
-      <ion-button expand="block"  (click)="nuevaReservacion()" class="ion-text-center ion-margin" >
-       <ion-label>Crear Reto</ion-label>
-       <ion-icon slot="end" name="add"></ion-icon>
-             </ion-button>
-
-   </ion-footer>
  

@@ -1,30 +1,40 @@
 
 
-<ion-content>
-  
+<app-header  >
+</app-header>
 
-  <ion-tabs >
-    <ion-tab-bar slot="bottom" style="height: 4rem;">
-      <ion-tab-button  (click)="profile()">
-       <img src="/assets/futplay/icons/soccer-player.svg" alt="" style="height: 55px;">
+<ion-content>
+ 
+
+  <ion-tabs   >
+    <ion-tab-bar slot="bottom" style="overflow: auto;">
+      <ion-tab-button  tab="mi-perfil"    >
+        <ion-icon name="person"></ion-icon>
+ 
        
       </ion-tab-button>
-  
-      <ion-tab-button  (click)="misEquipos()">
-        <img src="/assets/clubs/football-club.svg" alt="" style="height: 55px;">
+
+   
+      <ion-tab-button tab="perfil-equipo"   >
+        <ion-icon name="shield"></ion-icon>
+     
+
+    
+      </ion-tab-button>
+      <ion-tab-button tab="mis-reservaciones"   >
+        <ion-icon name="football"></ion-icon>
+     
+       </ion-tab-button>
+      <ion-tab-button tab="anuncios"   >
+        <ion-icon name="megaphone"></ion-icon>
+      
        
     
       </ion-tab-button>
   
-      <ion-tab-button  (click)="equipos()">
-        <img src="/assets/futplay/icons/loupe.svg" alt="" style="height: 55px;">
-       
-    
-      </ion-tab-button>
+      <ion-tab-button tab="configuraciones"   >
+        <ion-icon name="settings"></ion-icon>
   
-      <ion-tab-button (click)="canchas()">
-        <img src="/assets/futplay/icons/stadium.svg" alt="" style="height: 55px;">
-    
       </ion-tab-button>
     </ion-tab-bar>
   </ion-tabs>

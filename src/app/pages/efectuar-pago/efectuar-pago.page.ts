@@ -2,8 +2,8 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { Platform, AlertController } from '@ionic/angular';
 import { InAppPurchase2, IAPProduct } from '@ionic-native/in-app-purchase-2/ngx';
 
-const PRODUCT_GEMS_KEY = 'cr.futplay.com.fp';
-const PRODUCT_PRO_KEY = 'cr.futplay.com.fp';
+const PRODUCT_GEMS_KEY = 'futplay.dev.coding';
+const PRODUCT_PRO_KEY = 'futplay.dev.coding';
 @Component({
   selector: 'app-efectuar-pago',
   templateUrl: './efectuar-pago.page.html',
@@ -26,6 +26,7 @@ export class EfectuarPagoPage {
       // Get the real product information
       this.store.ready(() => {
         this.products = this.store.products;
+        console.log('products', this.products)
         this.ref.detectChanges();
       });
     });

@@ -36,6 +36,8 @@ horaFinArray:objetoFecha[] = [];
 horario:HorarioCanchas[];
 diaActual:HorarioCanchas;
 reservaciones:PerfilReservaciones[]=[]
+reservacionesDia:PerfilReservaciones[]=[]
+reservacionesAbiertas:PerfilReservaciones[]=[]
 segment = 0;
 constructor(
 
@@ -127,6 +129,15 @@ console.log('PerfilReservaciones',URL)
 
   }
 
+  private getReservacionesAbiertas(){
+
+    let URL = this.getURL(environment.getReservacionesAbiertasURL);
+         URL = URL  
+console.log('PerfilReservaciones',URL)
+    return this.http.get<PerfilReservaciones[]>( URL );
+
+  }
+
   
 
 
@@ -213,13 +224,44 @@ console.log('PerfilReservaciones',URL)
   return this.http.put( URL, JSON.stringify(detalle), options );
 }
 
+private puttReservaciones (reservacion:Reservaciones){
+  let URL = this.getURL( environment.putReservacionURL );
+  URL = URL + reservacion.Cod_Reservacion
+  URL = URL + reservacion.Cod_Cancha
+  const options = {
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+    }
+  };
+ 
 
+  console.log('post', reservacion, 'URL', URL)
+  return this.http.put( URL, JSON.stringify(reservacion), options );
+}
  
 
 
 syncGetReservcionesFuturas(Cod_Equipo, Fecha){
 
   return     this.getReservcionesFuturas(Cod_Equipo, Fecha).toPromise();
+
+
+
+}
+syncGetReservacionesAbiertasToPromise(){
+
+  return  this.getReservacionesAbiertas().toPromise();
+
+
+
+}
+
+
+syncPutReservacione(reservacion:Reservaciones){
+
+  return     this.puttReservaciones(reservacion).toPromise();
 
 
 

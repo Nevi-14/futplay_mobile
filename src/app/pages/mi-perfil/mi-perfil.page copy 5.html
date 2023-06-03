@@ -1,0 +1,85 @@
+
+
+  <app-header  titulo="Mi Perfil" >
+  </app-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" >
+      <ion-button (click)="soliitudes()"     color="dark">
+        <ion-icon size="large"  name="notifications-outline"></ion-icon>
+      </ion-button>
+      <ion-badge style="position: absolute;top: 0;right: -1rem;"  color="dark" mode="ios">{{solicitudesService.solicitudesJugadoresArray.length}}</ion-badge>
+    </ion-buttons>  
+    </ion-toolbar>
+
+<ion-content  *ngIf="usuariosService.usuarioActual">
+
+  <ion-avatar   style="height: 12rem;width:12rem;margin:0 auto;">
+
+    <img *ngIf="!usuariosService.usuarioActual.usuario.Avatar" class="logo" data-src="{{'https://futplaycompany.com/api_test/'+usuariosService.usuarioActual.usuario.Foto}}" onerror="this.src='assets/user.svg'"   >
+    <img *ngIf="usuariosService.usuarioActual.usuario.Avatar" src="{{'assets/profile/avatars/'+usuariosService.usuarioActual.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+
+
+
+  </ion-avatar>
+ 
+ 
+        <ion-grid>
+    
+          <ion-row class="ion-padding">
+            <ion-col size="12">
+              <app-input style="width: 100%;" name="posicion" type="text" label="Posición"  ngModel="{{usuariosService.usuarioActual.posicion}}"    ></app-input>
+
+
+             
+            </ion-col>
+            <ion-col size="12">
+              <app-input style="width: 100%;" name="nombre" type="text" label="Nombre"  ngModel="{{usuariosService.usuarioActual.usuario.Nombre}}"    ></app-input>
+
+
+             
+            </ion-col>
+            <ion-col size="12"  *ngIf="usuariosService.usuarioActual.usuario.Apodo">
+        <ion-label>
+          Apodo
+        </ion-label>
+        {{usuariosService.usuarioActual.usuario.Apodo}}
+        
+            </ion-col>
+            <ion-col size="12">
+        <ion-label>   Región</ion-label>
+        {{usuariosService.usuarioActual.provincia}}, {{usuariosService.usuarioActual.canton}}
+            </ion-col>
+ 
+            <ion-col size="12">
+              <ion-label> Edad</ion-label>
+              {{calcularEdad(usuariosService.usuarioActual.usuario.Fecha_Nacimiento)}} años
+             
+                </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid >
+          <ion-row>
+            <ion-col size="12">
+              <h5>Estadisticas Personales</h5>
+            </ion-col>
+            <ion-col size="12">
+        <ion-label>
+          Partidos Jugados
+        </ion-label>
+        <ion-badge   color="dark" mode="ios">{{usuariosService.usuarioActual.usuario.Partidos_Jugados}}</ion-badge>
+        
+            </ion-col>
+            <ion-col size="12">
+        <ion-label>   Jugador del partido</ion-label>
+        <ion-badge   color="dark" mode="ios">{{usuariosService.usuarioActual.usuario.Partidos_Jugador_Del_Partido }}</ion-badge>
+            </ion-col>
+            <ion-col size="12">
+          <ion-label> Jugador FutPlay</ion-label>
+          <ion-badge  color="dark" mode="ios">{{usuariosService.usuarioActual.usuario.Partidos_Jugador_Futplay}}</ion-badge>
+         
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+ 
+</ion-content>

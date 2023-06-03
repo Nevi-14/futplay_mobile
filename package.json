@@ -24,6 +24,7 @@
     "@awesome-cordova-plugins/android-permissions": "^6.2.0",
     "@awesome-cordova-plugins/barcode-scanner": "^5.37.3",
     "@awesome-cordova-plugins/core": "^5.37.3",
+    "@awesome-cordova-plugins/in-app-purchase-2": "^6.3.0",
     "@capacitor-community/admob": "^3.2.0",
     "@capacitor/android": "4.6.1",
     "@capacitor/app": "1.0.2",
@@ -65,7 +66,7 @@
     "cordova-plugin-android-permissions": "^1.1.5",
     "cordova-plugin-camera": "^6.0.0",
     "cordova-plugin-filechooser": "^1.2.0",
-    "cordova-plugin-purchase": "^13.3.10",
+    "cordova-plugin-purchase": "^11.0.0",
     "cordova-plugin-x-socialsharing": "^6.0.3",
     "cordova-sqlite-storage": "^6.0.0",
     "crypto-browserify": "^3.12.0",
@@ -132,7 +133,10 @@
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
-      "cordova-plugin-ionic-keyboard": {}
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-purchase": {
+        "BILLING_KEY": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqrHVDLqdGasFtj1Dp8Q4/SVUewcCuadCRstje5dfBTQ1nKyMuwE8d99tDRCZZC5YPMrOm5uoMNL6WCpFK1QL3kXV5MpbvlBeo/GosvjMH7Rw1xVEyFDhPWnv9Z85PUWeT2R5vX2aAKTARlzrQIlUncbu+i6P29vs+LZ9vxvs8HQ0t86pOjuNvn92hTki6tWBtCgz80TfWy4haGFaQk6i5liPGNTiwGLrTgt+bDnp7dGC3htlqVcTu5Hh3SdYh1o0/+vNW+8QGin6Nh808lJ3HLWkY2HRujxmWY+cwbNkjWV1GOeD6ziiqefj+hVzeEiavVon1o10yV0/0C7C43zMFQIDAQAB"
+      }
     },
     "platforms": [
       "ios"

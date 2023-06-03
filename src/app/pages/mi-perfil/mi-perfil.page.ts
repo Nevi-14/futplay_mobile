@@ -7,6 +7,7 @@ import { SolicitudesJugadoresPage } from '../solicitudes-jugadores/solicitudes-j
 import { GestorContrasenaPage } from '../gestor-contrasena/gestor-contrasena.page';
 import { SolicitudesService } from '../../services/solicitudes.service';
 import { EfectuarPagoPage } from '../efectuar-pago/efectuar-pago.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -19,7 +20,8 @@ export class MiPerfilPage implements OnInit {
 public usuariosService:UsuariosService,
 public modalCtrl: ModalController,
 public actionSheetCtrl: ActionSheetController,
-public solicitudesService: SolicitudesService
+public solicitudesService: SolicitudesService,
+public router:Router
 
   ) { }
 
@@ -96,6 +98,9 @@ return age;
 
 
   async soliitudes(){
+
+this.router.navigateByUrl('solicitudes-jugadores',{replaceUrl:true})
+    return
     const modal = await this.modalCtrl.create({
       component:SolicitudesJugadoresPage,
       cssClass:'my-custom-modal',

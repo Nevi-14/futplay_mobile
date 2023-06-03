@@ -3,7 +3,7 @@ import { AlertasService } from 'src/app/services/alertas.service';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { UsuariosService } from '../../services/usuarios.service';
 import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
-import { ActionSheetButton, ModalController, ActionSheetController } from '@ionic/angular';
+import { ActionSheetButton, ModalController, ActionSheetController, InfiniteScrollCustomEvent } from '@ionic/angular';
 import { GenerarReservacionPage } from '../generar-reservacion/generar-reservacion.page';
 import { PerfilEquipoPage } from '../perfil-equipo/perfil-equipo.page';
 import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-modal.page';
@@ -32,6 +32,7 @@ export class RivalesPage implements OnInit {
   }
   activeCategory = 0;
   textoBuscar = '';
+
   constructor(
     public alertasService: AlertasService,
     public modalCtrl: ModalController,
@@ -45,9 +46,16 @@ export class RivalesPage implements OnInit {
    }
 
   ngOnInit() {
-  
-  //  this.listaEquiposService.SyncEquipos();
-   
+ 
+ 
+  }
+
+ 
+  onIonInfinite(ev) {
+    this.equiposService.generateItems();
+    setTimeout(() => {
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }, 500);
   }
 
   cargarEquipos(){

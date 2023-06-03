@@ -28,18 +28,12 @@
 @import url('http://fonts.cdnfonts.com/css/soccer-league');
  
 ion-content{
-
-  --ion-background-color: #ffffff;
+  --background: #fff;
 }
 a:link {
   text-decoration: none;
 }
-.futplay-title{
-  font-family: 'Soccer League'!important;
-  font-family: 'Soccer League College'!important;
-  min-height: 100vh;
- // font-size: 3rem;
-}
+ 
 
  
 .btn-circle{

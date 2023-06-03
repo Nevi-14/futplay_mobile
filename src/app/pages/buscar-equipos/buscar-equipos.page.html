@@ -1,65 +1,84 @@
-
-  <ion-header class="custom-header">
-
-    <ion-toolbar class="custom-toolbar"  mode="ios">
-<ion-row>
-  <ion-col size="12">
-    <ion-button fill="clear" (click)="cerrarModal()">
-      <ion-icon color="light" slot="start" name="chevron-back"></ion-icon>
-      &nbsp;
-      <ion-label color="light" slot="start">Unirse  a un Equipo</ion-label>
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-button slot="start" (click)="regresar()" fill="clear">
+      <ion-icon size="large" name="close-outline"></ion-icon>
     </ion-button>
-  </ion-col>
-
-
-  <ion-col size="10">
-
-    <ion-searchbar (ionChange)="onSearchChange($event)"  mode="ios" placeholder="Buscar Equipo" inputmode="text"  debounce="250" ></ion-searchbar> 
-
-  </ion-col>
-  <ion-col size="2">
-    <ion-buttons >
-      <ion-button class="custom-bottom"    (click)="filtroUbicacion()"  >
-        <ion-icon color="light" size="large"  name="options-outline" ></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-col>
-</ion-row>
-
+    <ion-title>Unirse A Un Equipo</ion-title>
 
   </ion-toolbar>
-    </ion-header>
+  <ion-row>
 
 
-    <ion-content fullscreen>
+    <ion-col size="10">
 
-      <div class="mainContent">
+      <ion-searchbar (ionChange)="onSearchChange($event)" mode="ios" placeholder="Buscar Equipo" inputmode="text"
+        debounce="250"></ion-searchbar>
+
+    </ion-col>
+    <ion-col size="2">
+      <ion-buttons>
+        <ion-button class="custom-bottom" (click)="filtroUbicacion()">
+          <ion-icon size="large" name="options-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-col>
+  </ion-row>
+
+</ion-header>
+<ion-content>
+
+  <ion-list>
+
+    <ion-item *ngIf="equiposService.equipos.length == 0" lines="none"
+    class="animate__animated animate__fadeIn">
+    <span slot="start">
+      <ion-avatar>
+        <img src="assets/logo.png" alt="">
+      </ion-avatar>
 
 
-      <ion-list class="ion-margin-top">
-        <ion-item lines="none"  (click)="onOpenMenu(equipo)"  class="employeeItem animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.equipos  | filtro : textoBuscar:'nombre'">
-          <ion-avatar slot="start"  >
-            <img *ngIf="!equipo.equipo.Avatar"  src="{{'https://futplaycompany.com/api_test/'+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-            <img  *ngIf="equipo.equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-   
-          </ion-avatar>
-          
-          <ion-label>
-            {{equipo.nombre}}
-            <p>{{equipo.provincia}},       {{equipo.canton}} ...</p>
-            <p>Puntaje : {{equipo.equipo.Puntaje_Actual ?  equipo.equipo.Puntaje_Actual : 0}} </p>
-            <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
-            
-              <ion-icon style="size: 10px;" name="star"></ion-icon>
-              <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-              <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-              <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-              <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-            </p>
-          </ion-label>
+      <ion-label>
 
-        </ion-item>
-      
-      </ion-list>
-      </div>
-    </ion-content>
+        <h6><strong>MENSAJE FUTPLAY</strong> </h6>
+        <p  > No se encontraron resultados!..</p>
+
+      </ion-label>
+    </span>
+
+
+    </ion-item>
+
+
+    <ion-item lines="full" (click)="onOpenMenu(equipo)" class="animate__animated animate__fadeIn"
+      *ngFor="let equipo of equiposService.equipos  | filtro : textoBuscar:'nombre'">
+      <span slot="start">
+
+        <ion-avatar>
+          <img *ngIf="!equipo.equipo.Avatar" src="{{'https://futplaycompany.com/api_test/'+equipo.equipo.Foto}}"
+            onerror="this.src='assets/img/icon/FP.svg'" alt="">
+          <img *ngIf="equipo.equipo.Avatar" src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}"
+            onerror="this.src='assets/img/icon/FP.svg'" alt="">
+
+        </ion-avatar>
+
+        <ion-label>
+          {{equipo.nombre}}
+          <p>{{equipo.provincia}}, {{equipo.canton}} ...</p>
+          <p>Puntaje : {{equipo.equipo.Puntaje_Actual ? equipo.equipo.Puntaje_Actual : 0}} </p>
+          <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
+
+            <ion-icon style="size: 10px;" name="star"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+          </p>
+        </ion-label>
+      </span>
+
+    </ion-item>
+  </ion-list>
+
+
+
+</ion-content>
