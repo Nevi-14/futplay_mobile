@@ -11,7 +11,11 @@ import { GenerarReservacionPage } from '../generar-reservacion/generar-reservaci
 })
 export class CanchaDetallePage implements OnInit {
 @Input() cancha :PerfilCancha
-
+@Input() reservar :boolean = true;
+slideOpts = {
+  initialSlide: 1,
+  speed: 400,
+};
   constructor(
 public canchasService:CanchasService,
 public modalCtrl: ModalController
@@ -45,12 +49,12 @@ public modalCtrl: ModalController
       navigate(){
         this.canchasService.navigate();
       }
- cerrarModal(){
+      regresar(){
   this.modalCtrl.dismiss();
  }
 
 async canchaReservacion(cancha){
-  this.cerrarModal()
+  this.regresar()
   const modal  = await this.modalCtrl.create({
     component: GenerarReservacionPage,
    cssClass: 'my-custom-class',

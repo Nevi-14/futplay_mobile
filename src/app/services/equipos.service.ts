@@ -15,6 +15,9 @@ misEquipos:PerfilEquipos[]=[]
 equipos:PerfilEquipos[]=[]
 equipo:PerfilEquipos;
 mostrarEquipos:PerfilEquipos[]=[]
+dataProvincias = [];
+dataCantones = [];
+dataDistritos = [];
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -43,8 +46,19 @@ mostrarEquipos:PerfilEquipos[]=[]
         console.log(URL, 'URL ')
     return this.http.get<PerfilEquipos[]>( URL );
   }
+  private getPerfilEquipo( codEquipo:number){
+    let URL = this.getURL( environment.getPerfilEquipo);
+        URL = URL + codEquipo
 
+        console.log(URL, 'URL ')
+    return this.http.get<PerfilEquipos[]>( URL );
+  }
+  syncGetPerfilEquipoToPromise(codEquipo:number){
 
+    return this.getPerfilEquipo(codEquipo).toPromise();
+  
+    
+    }
   private getListaEquipos(Cod_Usuario ){
     let URL = this.getURL( environment.getListaEquiposURL);
     URL= URL + Cod_Usuario;

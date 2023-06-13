@@ -37,6 +37,7 @@ horario:HorarioCanchas[];
 diaActual:HorarioCanchas;
 reservaciones:PerfilReservaciones[]=[]
 reservacionesDia:PerfilReservaciones[]=[]
+reservacionesRecibidas:PerfilReservaciones[]=[]
 reservacionesAbiertas:PerfilReservaciones[]=[]
 segment = 0;
 constructor(

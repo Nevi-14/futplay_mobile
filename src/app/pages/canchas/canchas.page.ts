@@ -50,7 +50,7 @@ public modalCtrl: ModalController
           return  this.canchasService.disponibilidadCancha(cancha);
           
         }
-        cerrarModal(){
+        regresar(){
           this.modalCtrl.dismiss()
         }
         horarioCancha(cancha:PerfilCancha){
@@ -108,7 +108,8 @@ public modalCtrl: ModalController
               async canchaReservacion(cancha){
 
   
-     
+                this.regresar();
+  
                 const modal  = await this.modalCtrl.create({
                   component: GenerarReservacionPage,
                   mode:'ios',

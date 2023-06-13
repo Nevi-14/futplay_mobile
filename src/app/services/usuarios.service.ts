@@ -12,7 +12,8 @@ import { format } from 'date-fns';
 import { PerfilUsuario } from '../models/perfilUsuario';
 import { SolicitudesService } from './solicitudes.service';
 import { StorageService } from './storage-service';
-
+import { EquiposService } from './equipos.service';
+ 
 
 
 
@@ -43,7 +44,8 @@ export class UsuariosService {
     public alertasService: AlertasService,
     public actionSheetCtrl: ActionSheetController,
     public solicitudesService:SolicitudesService,
-    public storageService:StorageService
+    public storageService:StorageService,
+    public equiposService:EquiposService
   
     ) {
 
@@ -210,7 +212,7 @@ syncImagePost(data, Cod_Usuario){
     cerrarSession(){
 
       this.storageService.delete('usuario')
-      this.route.navigate([ '/inicio/inicio-sesion']);
+      this.route.navigate([ '/inicio-sesion']);
       this.usuarioActual = null;
     }
   
@@ -304,7 +306,7 @@ syncImagePost(data, Cod_Usuario){
       let URL = this.getURL( environment.getUsuario);
     URL = URL + Cod_Usuario;
           console.log(URL, 'URL')
-      return this.http.get<PerfilUsuario[]>( URL );
+      return this.http.get<PerfilUsuario>( URL );
     }
     private getUserImage(api:string){
       console.log('api',api)
@@ -381,7 +383,7 @@ syncImagePost(data, Cod_Usuario){
     this.loginURL(entrada).subscribe(
       (resp) =>{
 console.log('resp', resp)
- if( resp ){
+ if( resp.usuario ){
 
   this.alertasService.loadingDissmiss();
 
@@ -390,8 +392,15 @@ console.log('resp', resp)
     this.storageService.set('usuario',  this.usuarioActual)
 
     console.log('login user', resp)
-
-    this.route.navigateByUrl('/futplay/mi-perfil',{replaceUrl:true});
+    this.equiposService.syncMisEquiposToPromise(this.usuarioActual.usuario.Cod_Usuario).then(resp=>{
+      this.equiposService.equipo = null;
+      this.equiposService.misEquipos = resp;
+      if(this.equiposService.misEquipos.length > 0){
+        this.equiposService.equipo = this.equiposService.misEquipos[0];
+      }
+      this.route.navigateByUrl('/futplay/mis-reservaciones',{replaceUrl:true});
+          })
+ 
 
 
 
@@ -484,10 +493,10 @@ validarCorreo(email) {
             console.log('posttt', usuario)
 
             this.usuarioActual = resp;
-
+console.log('this.usuarioActual',this.usuarioActual)
             if(this.usuarioActual){
-          
-              this.route.navigateByUrl('/futplay/mi-perfil',{replaceUrl:true});
+          this.equiposService.misEquipos = [];
+              this.route.navigateByUrl('/futplay/mis-reservaciones',{replaceUrl:true});
               return;
             } 
            

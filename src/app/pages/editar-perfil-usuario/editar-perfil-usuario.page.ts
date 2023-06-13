@@ -7,7 +7,7 @@ import { CantonesService } from 'src/app/services/cantones.service';
 import { DistritosService } from 'src/app/services/distritos.service';
 import { PosicionesService } from 'src/app/services/posiciones.service';
 import { SeleccionarFechaPage } from '../seleccionar-fecha/seleccionar-fecha.page';
- 
+import avatarArray from '../../../assets/data/avatars.json';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { ChangeDetectorRef } from '@angular/core'
 import { EliminarCuentaPage } from '../eliminar-cuenta/eliminar-cuenta.page';
@@ -24,9 +24,44 @@ showPosicion = false;
 showProvicia = false;
 showCanton = false;
 showDistrito = false;
+imgs = avatarArray;
   private modalOpen:boolean = false;
   areaUnit =1;
+  sliderOpts = {
+    zoom: false,
+    slidesPerView: 4,
+    spaceBetween: 2,
+    centeredSlides: false,
+    // Responsive breakpoints
+    breakpoints: {
+      // when window width is >= 320px
+      320: {
+        slidesPerView: 3,
+        spaceBetween: 5
+      },
+      // when window width is >= 480px
+      480: {
+        slidesPerView: 2,
+        spaceBetween: 30
+      },
+      // when window width is >= 640px
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 40
+      },
+      // when window width is >= 940px
+      940: {
+        slidesPerView: 3,
+        spaceBetween: 40
+      },
 
+      // when window width is >= 1200px
+      1300: {
+        slidesPerView: 4,
+        spaceBetween: 40
+      }
+    },
+  };
     usuario = this.usuarioService.usuarioActual;
 isVisible = false;
   image = 'assets/user.svg'
@@ -36,7 +71,7 @@ isVisible = false;
     slidesPerView: 2.5
   }
   avatars = false;
-  imgs = [
+  imgs2 = [
     {  seleccionado: false, img: '049-boy.svg'},
     {  seleccionado: false, img: '002-girl-26.svg'},
     {  seleccionado: false, img: '003-boy-14.svg'},
@@ -255,9 +290,9 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
 
 
 
-  cerrarModal(){
+    regresar(){
 
-    this.modalCtrl.dismiss(null, null, 'perfil-usuario')
+    this.modalCtrl.dismiss( )
   }
 
   async SelectDate(){
@@ -351,7 +386,7 @@ if(this.usuario.usuario.Cod_Provincia && this.usuario.usuario.Cod_Canton){
    
      if(data !== undefined ){
 
-      this.cerrarModal();
+      this.regresar();
      }
   }
   

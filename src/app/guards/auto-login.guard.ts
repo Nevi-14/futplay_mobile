@@ -29,7 +29,7 @@ export class AutoLoginGuard implements CanLoad {
       this.usuariosService.usuarioActual = usuario;
       if(this.usuariosService.usuarioActual){
         this.authenticationService.loadToken(true)
-        this.router.navigateByUrl('/futplay/mi-perfil', {replaceUrl:true});
+        this.router.navigateByUrl('/futplay/mis-reservaciones', {replaceUrl:true});
       }else{
        // this.authenticationService.googleSignOut();
         this.authenticationService.isAuthenticated.next(false);

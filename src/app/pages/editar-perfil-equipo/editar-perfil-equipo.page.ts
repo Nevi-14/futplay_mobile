@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AlertController, IonSlides, ModalController } from '@ionic/angular';
 import { CantonesService } from 'src/app/services/cantones.service';
@@ -12,6 +12,9 @@ import { Equipos } from '../../models/equipos';
 import { Router } from '@angular/router';
 import { EliminarEquipoPage } from '../eliminar-equipo/eliminar-equipo.page';
 import { GestorEquipoImagenesPage } from '../gestor-equipo-imagenes/gestor-equipo-imagenes.page';
+import { Provincias } from 'src/app/models/provincias';
+import { Distritos } from 'src/app/models/distritos';
+import { Cantones } from 'src/app/models/cantones';
 declare const window: any; 
 @Component({
   selector: 'app-editar-perfil-equipo',
@@ -23,6 +26,8 @@ export class EditarPerfilEquipoPage implements OnInit {
   imageURL = null;
   image = '';
   @ViewChild(IonSlides) slides: IonSlides;
+  @Input() equipo:Equipos
+  @ViewChild('fRegistroEquipo') fRegistroEquipo:NgForm
   sliderOpts = {
     zoom: false,
     slidesPerView: 4,
@@ -58,9 +63,13 @@ export class EditarPerfilEquipoPage implements OnInit {
       }
     },
   };
-  showProvincia = false;
-  showCanton = false;
-  showDistrito = false;
+  showCanton = null;
+  showDistrito = null;
+  modalOpen:boolean = false;
+
+  avatarSlide = null;
+
+  avatars = false;
   teamPic = 'https://futplaycompany.com/FUTPLAY_APIS_HOST/PerfilEquipoUploads/' + this.equiposService.equipo.equipo.Foto;
   
   imgs = [
@@ -99,22 +108,9 @@ export class EditarPerfilEquipoPage implements OnInit {
     
     
     ]
-    avatars = false;
-    equipo = {
-      Cod_Equipo: this.equiposService.equipo.equipo.Cod_Equipo ,
-      Avatar: this.equiposService.equipo.equipo.Avatar,
-      Cod_Usuario: this.equiposService.equipo.equipo.Cod_Usuario,
-      Cod_Provincia: this.equiposService.equipo.equipo.Cod_Provincia,
-      Cod_Canton:  this.equiposService.equipo.equipo.Cod_Canton,
-      Cod_Distrito:  this.equiposService.equipo.equipo.Cod_Distrito,
-      Foto:  this.equiposService.equipo.equipo.Foto,
-      Nombre:  this.equiposService.equipo.equipo.Nombre,
-      Abreviacion:  this.equiposService.equipo.equipo.Abreviacion,
-      Estrellas:  this.equiposService.equipo.equipo.Estrellas,
-      Dureza:  this.equiposService.equipo.equipo.Dureza,
-      Estado: this.equiposService.equipo.equipo.Estado,
-      Descripcion_Estado:  this.equiposService.equipo.equipo.Descripcion_Estado,
-   }
+  
+  
+   
     constructor(
       public modalCtrl: ModalController,
       public provinciasService: ProvinciasService,
@@ -125,14 +121,13 @@ export class EditarPerfilEquipoPage implements OnInit {
       public camera: Camera,
       public alertasService: AlertasService,
       public router: Router,
-      public alertCtrl: AlertController
+      public alertCtrl: AlertController,
+      public cd:ChangeDetectorRef
     ) { }
   
-    ngOnInit() {
-
-
+   async  ngOnInit() {
  
-      
+      console.log(this.equipo, 'equipoooo')
       const i = this.imgs.findIndex(image => image.img == this.equipo.Foto)
 
       if(i >=0){
@@ -143,50 +138,67 @@ export class EditarPerfilEquipoPage implements OnInit {
         this.imgs.unshift(selectedImage);
 
         console.log(selectedImage)
-      }
-
-this.provinciasService.provincias = [];
-
-      this.provinciasService.syncProvinciasPromise().then(resp =>{
-this.showProvincia = true;
-this.provinciasService.provincias = resp;
-this.equipo.Cod_Provincia = this.equiposService.equipo.equipo.Cod_Provincia 
-
-
-if(this.equipo.Cod_Provincia){
-  this.cantonesService.syncCantones(this.equipo.Cod_Provincia).then(resp =>{
-this.showCanton = true;
-this.showDistrito = null;
-this.cantonesService.cantones = resp.slice(0);
-this.alertasService.loadingDissmiss();
-this.equipo.Cod_Canton = this.equiposService.equipo.equipo.Cod_Canton
-
-if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
-  this.distritosService.syncDistritos(this.equipo.Cod_Canton).then(resp =>{
-    this.distritosService.distritos = resp.slice(0);
-    this.showDistrito = true;
-    this.alertasService.loadingDissmiss();
-    this.equipo.Cod_Distrito = this.equiposService.equipo.equipo.Cod_Distrito
-  });
-
-  }
-
-
-
-  })
-
-
-
-
-
- }else{
-  this.alertasService.loadingDissmiss();
- }
-      });
-  
+      } 
  
+      let provincias = await this.provinciasService.syncProvinciasPromise();
+
+      provincias.forEach(async (provincia:Provincias, index)=>{
+     
+    let data  = {
+      id : provincia.Cod_Provincia,
+      valor: provincia.Provincia
+    }
+    console.log(data,'data')
+    this.equiposService.dataProvincias.push(data)
+        if(index == provincias.length -1){
 
 
+
+            
+    let cantones = await this.cantonesService.syncCantonesToPromise(this.equipo.Cod_Provincia);
+    if(cantones.length == 0) this.alertasService.loadingDissmiss();
+      cantones.forEach((canton:Cantones, index)=>{
+     
+    let data  = {
+      id : canton.Cod_Canton,
+      valor: canton.Canton
+    }
+    console.log(data,'data')
+    this.equiposService.dataCantones.push(data)
+        if(index == cantones.length -1){
+          this.showCanton = true;
+          this.showDistrito = null;
+          this.distritosService.syncDistritos( this.equipo.Cod_Canton).then(distritos =>{
+            if(distritos.length == 0) this.alertasService.loadingDissmiss();
+            distritos.forEach((distrito:Distritos, index)=>{
+           
+              let data  = {
+                id : distrito.Cod_Distrito,
+                valor: distrito.Distrito
+              }
+              console.log(data,'data')
+              this.equiposService.dataDistritos.push(data)
+                  if(index == distritos.length -1){
+               //     this.distritosService.distritos = resp.slice(0);
+                    this.showDistrito = true;
+                    this.alertasService.loadingDissmiss();
+                  }
+                })
+          
+           
+            
+          })
+        }
+
+
+
+      })
+    
+           
+        }
+
+      })
+ 
     }
 
     async  gestorPerfilImagenes(){
@@ -315,8 +327,14 @@ if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
 
   
 
-  updateTeam(){
-    
+  updateTeam(fRegistroEquipo:NgForm){
+    let equipo = fRegistroEquipo.value;
+this.equipo.Nombre = equipo.Nombre;
+this.equipo.Abreviacion = equipo.Abreviacion;
+this.equipo.Cod_Provincia = equipo.Cod_Provincia;
+this.equipo.Cod_Canton = equipo.Cod_Canton;
+this.equipo.Cod_Distrito = equipo.Cod_Distrito;
+ 
  
  console.log(this.equipo,'this.equipo')
     this.equiposService.putEquipoToPromise(this.equipo, this.usuariosService.usuarioActual.usuario.Cod_Usuario).then((resp:any) =>{
@@ -345,47 +363,74 @@ if(resp.action){
 
   }
 
-  onChangeProvincias($event){
+  async onChangeProvincias(fRegistroEquipo:NgForm){
+    let registro = fRegistroEquipo.value;
     this.alertasService.presentaLoading('Cargando datos...')
-    this.equipo.Cod_Provincia = $event.target.value;
+    this.equiposService.dataCantones = []
     this.equipo.Cod_Canton = null;
     this.equipo.Cod_Distrito = null;
     this.cantonesService.cantones = [];
     this.distritosService.distritos = [];
- if(this.equipo.Cod_Provincia){
-  this.cantonesService.syncCantones(this.equipo.Cod_Provincia).then(resp =>{
-this.showCanton = true;
-this.showDistrito = null;
-this.cantonesService.cantones = resp.slice(0);
-this.alertasService.loadingDissmiss();
-  })
- }else{
-  this.alertasService.loadingDissmiss();
- }
+  if(registro.Cod_Provincia){
+  
+    let cantones = await this.cantonesService.syncCantonesToPromise(registro.Cod_Provincia);
+  if(cantones.length == 0) this.alertasService.loadingDissmiss();
+    cantones.forEach((canton:Cantones, index)=>{
+   
+  let data  = {
+    id : canton.Cod_Canton,
+    valor: canton.Canton
   }
-  onChangeCantones($event){
+  console.log(data,'data')
+  this.equiposService.dataCantones.push(data)
+      if(index == cantones.length -1){
+        this.showCanton = true;
+        this.showDistrito = null;
+        this.alertasService.loadingDissmiss();
+      }
+    })
+   
+  }else{
+  this.alertasService.loadingDissmiss();
+  }
+  }
+  onChangeCantones(fRegistroEquipo:NgForm){
+    let registro = fRegistroEquipo.value;
     this.alertasService.presentaLoading('Cargando datos...')
-    this.equipo.Cod_Canton = $event.target.value;
+    this.equiposService.dataDistritos = [];
     this.equipo.Cod_Distrito = null;
     this.distritosService.distritos = [];
-if(this.equipo.Cod_Provincia && this.equipo.Cod_Canton){
-  this.distritosService.syncDistritos(this.equipo.Cod_Canton).then(resp =>{
-    this.distritosService.distritos = resp.slice(0);
-    this.showDistrito = true;
-    this.alertasService.loadingDissmiss();
+  if(registro.Cod_Provincia && registro.Cod_Canton){
+  this.distritosService.syncDistritos( registro.Cod_Canton).then(distritos =>{
+    if(distritos.length == 0) this.alertasService.loadingDissmiss();
+    distritos.forEach((distrito:Distritos, index)=>{
+   
+      let data  = {
+        id : distrito.Cod_Distrito,
+        valor: distrito.Distrito
+      }
+      console.log(data,'data')
+      this.equiposService.dataDistritos.push(data)
+          if(index == distritos.length -1){
+       //     this.distritosService.distritos = resp.slice(0);
+            this.showDistrito = true;
+            this.alertasService.loadingDissmiss();
+          }
+        })
+  
+   
     
   })
-}else{
+  }else{
   this.alertasService.loadingDissmiss();
-}
-
   }
-
+  
+  }
+  
   onChangeDistritos($event){
-
-    this.equipo.Cod_Distrito = $event.target.value;
-
+  this.equipo.Cod_Distrito = $event.target.value;
   }
+  
 
 eliminarEquipo(){
 /**

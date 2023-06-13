@@ -1,16 +1,48 @@
+ <app-header></app-header>
+
 <ion-content class="ion-padding">
-  <h1>Bienvenido,</h1>
-  <h3>Inicia sesión para continuar!.</h3>
+
 
   <form id="form" (ngSubmit)="login(fLogin)" #fLogin="ngForm">
-    <app-input name="email" type="text" label="Usuario"  ngModel="{{loginUser.email}}"    ></app-input>
-    <app-input  name="password"  type="password"   label="Contraseña" 
-    ngModel="{{loginUser.password}}"></app-input>
-    <a routerLink="#" class="forgot-password-link">Olvide Contraseña?</a>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-avatar>
+            <img  src="assets/logo.png" alt="">
+          </ion-avatar>
+        </ion-col>
+        <ion-col size="12">
+          <h1>Inicio Sesión,</h1>
+          <h3>Inicia sesión para continuar!.</h3>
 
-    <app-button label='Iniciar Sesión'></app-button>
+
+        </ion-col>
+        <ion-col size="12">
+          <app-input name="email" type="text" label="Usuario"  ngModel="{{loginUser.email}}"    ></app-input>
+
+        </ion-col>
+        <ion-col size="12">
+          <app-input  name="password"  type="password"   label="Contraseña" 
+    ngModel="{{loginUser.password}}"></app-input>
+
+        </ion-col>
+        <ion-col size="12">
+          <app-button label='Iniciar Sesión'></app-button>
+        </ion-col>
+        <ion-col size="12">
+          <a routerLink="#" class="forgot-password-link">Recuperar contraseña?</a>
+        </ion-col>
     
+      </ion-row>
+    </ion-grid>
+
+
   </form>
 
-  <p class="footer-text">Soy nuevo, <a routerLink="#">Registrarme</a></p>
 </ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="ion-padding">
+    <p class="footer-text">Soy nuevo, <a routerLink="/registro">Registro</a></p> 
+  </ion-toolbar>
+</ion-footer>
+ 

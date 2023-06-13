@@ -50,7 +50,12 @@ semana = [
   }
 
  
-
+  private getPerfilCancha(codCancha:number){
+    let URL = this.getURL( environment.getPerfilCancha);
+        URL = URL +codCancha
+        console.log(URL, 'URL')
+    return this.http.get<PerfilCancha[]>( URL );
+  }
   private getListaCanchas( ){
     let URL = this.getURL( environment.getListaCanchasURL);
 
@@ -63,8 +68,13 @@ semana = [
         console.log(URL, 'URL')
     return this.http.get<PerfilCancha[]>( URL );
   }
+ 
+  syncGetPerfilCanchaToPromise(codCancha:number){
 
-
+    return this.getPerfilCancha(codCancha).toPromise();
+  
+    
+    }
   syncFintroListaCanchasToPromise(filtro:any){
 
     return this.getFiltroListaCanchas(filtro).toPromise();

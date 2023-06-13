@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -6,17 +7,18 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './seleccionar-fecha.page.html',
   styleUrls: ['./seleccionar-fecha.page.scss'],
 })
-export class SeleccionarFechaPage implements OnInit {
+export class SeleccionarFechaPage implements OnInit, AfterViewInit {
   @Input() title: string;
   @Input() id: string
   @Input() fecha: Date
+ @ViewChild('fFecha') fFecha:NgForm
   today: Date = new Date();
   dateObjectReturn = {
     date: null,
     month: null,
     year: null
   }
-  meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+  meses = [{id:"Enero", valor:"Enero"},{id:"Febrero", valor:"Febrero"}, {id:"Marzo",valor:"Marzo"}, {id:"Abril",valor:"Abril"},{ id:"Mayo", valor:"Mayo"}, {id:"Junio", valor:"Junio"}, {id:"Julio",valor:"Julio"}, {id:"Agosto",valor:"Agosto"}, {id:"Septiembre",valor:"Septiembre"}, {id:"Octubre",valor:"Octubre"}, {id:"Noviembre",valor:"Noviembre"}, {id:"Diciembre",valor:"Diciembre"}];
   dias = []
   anos = []
 
@@ -31,77 +33,56 @@ export class SeleccionarFechaPage implements OnInit {
   }
 
   constructor(
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public cd:ChangeDetectorRef
   ) { }
 
-
   ngOnInit() {
-
     if (this.fecha) {
-
-      let day = this.fecha.getDate();
-      let month = this.fecha.getMonth();
-      let year = this.fecha.getFullYear();
-      let monthName = this.capitalizeFirstLetter(this.fecha.toLocaleString('es-ES', { month: 'long' }))
-
-      this.dateObjectReturn = {
-        date: day,
-        month: monthName,
-        year: year
-
-      }
       this.today = this.fecha;
-    } else {
-      let day = this.today.getDate();
-      let year = this.today.getFullYear();
-      let monthName = this.capitalizeFirstLetter(this.today.toLocaleString('es-ES', { month: 'long' }))
-      this.dateObjectReturn = {
-        date: day,
-        month: monthName,
-        year: year
-
-      }
-
-    }
-
+    }  
+    this.dateObjectReturn.date  = this.today.getDate();
+    this.dateObjectReturn.month = this.capitalizeFirstLetter(this.today.toLocaleString('es-ES', { month: 'long' }))
+    this.dateObjectReturn.year = this.today.getFullYear();
+ 
+ 
+ 
+    console.log('this.dateObjectReturn.date', this.dateObjectReturn.date)
+    console.log('this.dateObjectReturn.month', this.dateObjectReturn.month)
+    console.log('this.dateObjectReturn.year', this.dateObjectReturn.year)
     this.populateYears();
+  }
+  ngAfterViewInit() {
+
+  
+
+ 
 
   }
 
 
-  obtenerAno(event?) {
-    if (event) {
-      let ano = event.detail.value;
-      this.dateObjectReturn.year = ano;
+  obtenerAno(fFecha:NgForm,event?) {
+    let fecha = fFecha.value;
+    if (fecha.ano) {
+ 
+      this.dateObjectReturn.year = new Date().getFullYear();
     } else {
       this.dateObjectReturn.year = this.dateObjectReturn.year;
     }
     this.obtenerMes(null);
 
   }
-  obtenerMes(event?) {
-    if (event) {
-      let mes = event.detail.value;
-      this.dateObjectReturn.month = mes;
-    } else {
-      this.dateObjectReturn.month = this.dateObjectReturn.month;
-    }
-    this.populateDays();
+  obtenerMes(fFecha:NgForm,event?) {
+    this.populateDays(fFecha,event);
 
   }
-  obtenerDia(event?) {
-    if (event) {
-      let dia = event.detail.value;
-      this.dateObjectReturn.date = dia;
-    } else {
-      this.dateObjectReturn.date = this.dateObjectReturn.date;
-    }
-  }
-  populateDays() {
+ 
+  populateDays(fFecha:NgForm,event?) {
+    console.log('fFecha',fFecha)
     this.dias = [];
-    let monthValue = this.dateObjectReturn.month;
+    let monthValue =  fFecha ? fFecha.value.mes : this.dateObjectReturn.month;
+    let year = fFecha ? fFecha.value.ano : this.dateObjectReturn.year;
     let numeroDias = 0;
-
     if (monthValue === 'Enero' || monthValue === 'Mayo' || monthValue === 'Marzo' || monthValue === 'Julio' || monthValue === 'Agosto' || monthValue === 'Octubre' || monthValue === 'Diciembre') {
       numeroDias = 31;
     } else if (monthValue === 'Abril' || monthValue === 'Junio' || monthValue === 'Septiembre' || monthValue === 'Noviembre') {
@@ -109,7 +90,7 @@ export class SeleccionarFechaPage implements OnInit {
     }
 
     // CHECK FOR A LEAP YEAR     
-    const leap = new Date(this.dateObjectReturn.year, 2, 0).getDate() === 29;
+    const leap = new Date(year, 2, 0).getDate() === 29;
 
     if (leap) {
       if (monthValue === 'Febrero') {
@@ -122,26 +103,17 @@ export class SeleccionarFechaPage implements OnInit {
       }
 
     }
-
-    this.dias = [];
+ 
 
     for (let i = 1; i <= numeroDias; i++) {
+ 
+      this.dias.push(
+        {id:String(i), valor:i}
+      );
 
-      this.dias.push(i);
-
-      if (i == numeroDias - 1) {
-        let dia = this.dias.findIndex(dia => dia == this.dateObjectReturn.date);
-
-        if (dia >= 0) {
-          this.dateObjectReturn.date = this.dias[dia]
-        } else {
-          this.dateObjectReturn.date = this.dias[0];
-        }
-
-
-
-      }
-
+ if(i == numeroDias -1){
+ 
+ }
 
     }
 
@@ -168,10 +140,14 @@ export class SeleccionarFechaPage implements OnInit {
     // make the previous 100 yars be an option
     for (let i = 0; i < 101; i++) {
 
-      this.anos.push(ano - i);
+      this.anos.push({
+        id:String(ano - i),
+        valor:ano - i
+      });
 
       if (i == 101 - 1) {
-        this.obtenerMes();
+      
+        this.obtenerMes(this.fFecha);
 
       }
 
@@ -180,7 +156,17 @@ export class SeleccionarFechaPage implements OnInit {
 
 
   }
-  getMonthDays(MonthYear, day) {
+  obtenerDia(fFecha:NgForm,event?) {
+    let fecha = fFecha.value;
+    if (fecha.dia) {
+  
+      this.dateObjectReturn.date = fecha.dia;
+    } else {
+      this.dateObjectReturn.date = this.dateObjectReturn.date;
+    }
+  }
+  getMonthDays(fFecha:NgForm,MonthYear, day) {
+    let fecha = fFecha.value;
     var months = [
       'January',
       'February',
@@ -197,15 +183,21 @@ export class SeleccionarFechaPage implements OnInit {
     ];
 
     var Value = MonthYear.split(" ");
-    var month = (months.indexOf(Value[0]) + 1);
-    return new Date(Value[1], month, day);
+    var month =  (this.meses.findIndex( e=> e.id == fecha.mes) + 1);
+    return new Date(fecha.ano, month, fecha.dia);
   }
 
-  continuar() {
+  seleccionarFecha(fFecha:NgForm) {
+
+    let fecha = fFecha.value;
+console.log('fechaaa', fecha)
+ 
     let day = this.dateObjectReturn.date;
     let month = this.dateObjectReturn.month;
     let year = this.dateObjectReturn.year
-    let completeDate = new Date(year, this.meses.indexOf(month), day)
+    console.log('this.meses.indexOf(fecha.mes)',this.meses.indexOf(fecha.mes))
+    let completeDate = new Date(fecha.ano, this.meses.findIndex( e=> e.id == fecha.mes), fecha.dia )
+    console.log('completeDate',completeDate)
     this.modalCtrl.dismiss({
       'date': completeDate
     });

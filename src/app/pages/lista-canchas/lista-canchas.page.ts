@@ -50,7 +50,7 @@ public alertasService: AlertasService
 
     this.textoBuscar = event.detail.value;
       }
-  cerrarModal(){
+      regresar(){
 this.modalCtrl.dismiss();
   }
 

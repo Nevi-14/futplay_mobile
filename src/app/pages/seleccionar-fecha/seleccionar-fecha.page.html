@@ -1,60 +1,34 @@
-<ion-header class="ion-no-border">
+<ion-header class="ion-no-border" mode="ios">
   <ion-toolbar>
-    <ion-title>Seleccionar Fecha</ion-title>
+    <h3>Seleccionar Fecha</h3>
   </ion-toolbar>
 </ion-header>
 <ion-content  >
-
-<ion-grid  id="form">
+  <form name="fFecha"  id="fFecha" (ngSubmit)="seleccionarFecha(fFecha)" #fFecha="ngForm">
+<ion-grid  >
   <ion-row style="display: flex;justify-content:center;align-items:center">
-    <ion-col size="10" size-md="4">
-
-      <ion-item  lines="none">
-     <ion-label><ion-badge color="dark" mode="ios">Dia</ion-badge></ion-label>
-          <ion-select  required [(ngModel)]="dateObjectReturn.date" (ionChange)="obtenerDia($event)"   name="dia">
-            <ion-select-option [value]="dia" *ngFor="let dia of dias">
-             {{dia}} 
-            </ion-select-option>
-            
-            </ion-select>
-      </ion-item>
-    </ion-col>
-    <ion-col size="10" size-md="4">
+    <ion-col size="12" size-md="4">
+<app-select (ionChange)="populateDays(fFecha, $event)"  name="dia" [data]="dias"  label="Dia" ngModel="{{dateObjectReturn.date}}"   ></app-select>
      
-    <ion-item  lines="none" >
-      <ion-label><ion-badge color="dark" mode="ios">Mes</ion-badge></ion-label>
-        <ion-select required [(ngModel)]="dateObjectReturn.month" (ionChange)="obtenerMes($event)"   name="mes">
-          <ion-select-option [value]="mes" *ngFor="let mes of meses" class="ion-text-capitalized">
-            {{mes}}
-          </ion-select-option>
-          
-          </ion-select>
-    </ion-item>
+    </ion-col>
+    <ion-col size="12" size-md="4">
+     
+ 
+      <app-select (ionChange)="obtenerMes(fFecha, $event)"  name="mes" [data]="meses"   label="Mes" ngModel="{{dateObjectReturn.month}}"></app-select>
+     
     </ion-col>
 
-    <ion-col size="10" size-md="4">
-      
-
-    
-    <ion-item   lines="none">
-      <ion-label><ion-badge color="dark" mode="ios">Año</ion-badge></ion-label>
-        <ion-select   required [(ngModel)]="dateObjectReturn.year" (ionChange)="obtenerAno($event)"   name="ano">
-          <ion-select-option [value]="ano" *ngFor="let ano of anos">
-            {{ano}}
-          </ion-select-option>
-          
-          </ion-select>
-    </ion-item>
+    <ion-col size="12" size-md="4">
+      <app-select  (ionChange)="obtenerAno(fFecha, $event)"  name="ano" [data]="anos"  label="Año" ngModel="{{dateObjectReturn.year}}"></app-select>
+     
     </ion-col>
     <ion-col size="12"  >
-      <ion-button class="custom-button ion-margin-top" (click)="continuar()" expand="block" shape="round">
-        <ion-label> Seleccionar</ion-label>
-        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
-         </ion-button>
+      <app-button label="Seleccionar"  ></app-button>
+ 
     </ion-col>
   </ion-row>
 </ion-grid>
-
+  </form>
 
 
 </ion-content>

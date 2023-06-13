@@ -8,6 +8,7 @@ import { EditarPerfilUsuarioPageRoutingModule } from './editar-perfil-usuario-ro
 
 import { EditarPerfilUsuarioPage } from './editar-perfil-usuario.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     FormsModule,
     IonicModule,
     EditarPerfilUsuarioPageRoutingModule,
-    PipesModule
+    PipesModule,
+    ComponentsModule
   ],
   declarations: [EditarPerfilUsuarioPage]
 })

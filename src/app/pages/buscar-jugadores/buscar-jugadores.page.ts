@@ -47,10 +47,15 @@ export class BuscarJugadoresPage implements OnInit {
     ) { }
   
     ngOnInit() {
+      this.alertasService.presentaLoading('Cargando lista de jugadores...')
   this.usuariosService.syncListaUsuariosToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(usuarios=>{
     this.usuariosService.usuarios = usuarios;
+    this.alertasService.loadingDissmiss();
 
 
+  }, error =>{
+    this.alertasService.loadingDissmiss();
+    this.alertasService.message('FUTPLAY','Lo sentimos algo salio mal!..')
   })
 
  
@@ -64,7 +69,7 @@ export class BuscarJugadoresPage implements OnInit {
      })
     }
   
-    cerrarModal(){
+    regresar(){
   
       this.modalCtrl.dismiss();
     }

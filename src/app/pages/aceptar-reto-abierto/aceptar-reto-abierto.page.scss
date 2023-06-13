@@ -1,0 +1,47 @@
+ion-header {
+
+  ion-toolbar {
+    --background: #5a55ca;
+    color: #fff;
+
+    ion-icon {
+      color: #fff;
+    }
+  }
+}
+ion-fab-button{
+  --background:#5a55ca;
+  
+}
+.slide-container {
+ height: 120px;
+}
+ion-slides {
+ height: 100%;
+
+}
+
+ion-slide {
+ width: 100% !important;
+ height: 100%;
+
+}
+
+ion-slides {
+ width: 100% !important;
+}
+
+.swiper-wrapper {
+ width: min-content !important;
+}
+ion-avatar ,ion-thumbnail{
+ height: 4rem;
+ width: 4rem;
+}
+p{
+ display:block;
+  margin-top: 0.5rem;
+}
+ion-icon{
+ size: 10px;
+}

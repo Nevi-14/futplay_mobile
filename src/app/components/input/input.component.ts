@@ -19,7 +19,7 @@ export class InputComponent  implements ControlValueAccessor{
   @Input() readonly:boolean;
   @Input() label: string = '';
   @Input() type = 'text'; // set default type be text
-public onChange!: Function;
+public onChange!: Function  | any
   constructor(){
 
   }
@@ -36,8 +36,8 @@ public onChange!: Function;
   }
 
   changeText($event:any):void{
-    
-this.onChange($event.target.value)
+    console.log('event', $event.target.value)
+    this.onChange($event.target.value)
   }
   writeValue(value: any): void {
     if(value){

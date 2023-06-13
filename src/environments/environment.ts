@@ -74,7 +74,8 @@ export const environment = {
   getFiltroEquiposURL:'get/filtro/equipos/',
   getFiltroCanchasURL:'get/filtro/canchas/',
   getFiltroUsuariosURL:'get/filtro/usuarios/',
-  getUsuario:'get/usuarios/',
+  getUsuario:'get/usuario/',
+
   putUsuarioAvatarURL:'put/avatar/usuario/',
   putEquiposAvatarURL:'put/avatar/equipo/',
   postReservacionCorreo:'post/correo/reservacion',
@@ -86,5 +87,9 @@ export const environment = {
   iosSDK:'ca-app-pub-3191879076705982~3698122494',
   iosInterstitial:'ca-app-pub-3191879076705982/3638052631',   
   androidSDK:'ca-app-pub-3191879076705982~8866688691',
-  androidInterstitial:'ca-app-pub-3191879076705982/3246336240'
+  androidInterstitial:'ca-app-pub-3191879076705982/3246336240',
+
+
+  getPerfilEquipo:'get/perfil/equipo/',
+  getPerfilCancha:'get/perfil/cancha/'
 };

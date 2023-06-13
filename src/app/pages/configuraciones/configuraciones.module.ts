@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ConfiguracionesPageRoutingModule } from './configuraciones-routing.module';
 
 import { ConfiguracionesPage } from './configuraciones.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ConfiguracionesPageRoutingModule
+    ConfiguracionesPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [ConfiguracionesPage]
 })

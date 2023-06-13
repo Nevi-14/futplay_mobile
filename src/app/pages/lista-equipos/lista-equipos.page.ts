@@ -5,6 +5,7 @@ import { AlertasService } from 'src/app/services/alertas.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { EquiposService } from '../../services/equipos.service';
 import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
+import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-modal.page';
 
 @Component({
   selector: 'app-lista-equipos',
@@ -83,7 +84,7 @@ console.log(this.equiposService.equipos, 'kdkd')
   ScrollToTop() {
     this.content.scrollToTop(1500);
   }
-  cerrarModal(){
+  regresar(){
     this.modalCtrl.dismiss();
   }
 
@@ -117,6 +118,7 @@ console.log(this.equiposService.equipos, 'kdkd')
 
    }
  }
+ 
   retornarEquipo(equipo:PerfilEquipos){
 
     this.modalCtrl.dismiss({

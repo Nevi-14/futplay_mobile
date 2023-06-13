@@ -1,0 +1,58 @@
+<ion-header class="ion-no-border ion-padding">
+  <ion-toolbar>
+<ion-card>
+  <ion-card-header>
+    <ion-card-title color="light" class="soccer-league-title">TORNEO FUTPLAY</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+<ion-label>
+  Top 64 equipos participarán en el Torneo de Invierno
+  <br>
+  Mira la clasificación y mas detalles
+</ion-label>
+  </ion-card-content>
+</ion-card>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list  >
+    <ion-toolbar >
+      <ion-label><strong>Otros Torneos</strong></ion-label>
+   
+      <ion-button   fill="clear"  slot="end">
+        <ion-icon size="large" name="options"></ion-icon>
+      </ion-button>
+    </ion-toolbar>
+    <ion-item  (click)="inscripcionTorneo()"   lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"       >
+      <img  src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8c29jY2VyJTIwZmllbGR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"   alt="">
+  
+      <ion-label>
+        <h2> Torneo X </h2>
+        <p>Liga / Eliminación Directa </p>
+        <p   >
+             
+         Equipos x/16
+    
+        </p>
+ 
+      </ion-label>
+  
+    </ion-item>
+    <ion-item  (click)="inscripcionTorneo()"  lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"       >
+      <img  src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8c29jY2VyJTIwZmllbGR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60   alt=">
+  
+      <ion-label>
+        <h2> Torneo X </h2>
+        <p>Liga / Eliminación Directa </p>
+        <p   >
+             
+         Equipos x/16
+    
+        </p>
+ 
+      </ion-label>
+  
+    </ion-item>
+   </ion-list>
+</ion-content>

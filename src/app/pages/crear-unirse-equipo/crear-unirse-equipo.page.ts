@@ -9,7 +9,7 @@ import { CrearEquipoPage } from '../crear-equipo/crear-equipo.page';
   styleUrls: ['./crear-unirse-equipo.page.scss'],
 })
 export class CrearUnirseEquipoPage implements OnInit {
-  add ='../assets/img/images/emblem.svg';
+  add ='../assets/league.svg';
  find ='../assets/img/images/team.svg';
 
  

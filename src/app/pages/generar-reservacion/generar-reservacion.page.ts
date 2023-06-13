@@ -1,5 +1,5 @@
 import { Component, ViewChild, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { AlertController, IonContent, IonDatetime, ModalController, PopoverController, } from '@ionic/angular';
+import { AlertController, IonContent, IonDatetime, ModalController, PickerController, PopoverController, } from '@ionic/angular';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { HorarioCanchas } from 'src/app/models/horarioCanchas';
 import { HorarioCanchasService } from 'src/app/services/horario-canchas.service';
@@ -16,6 +16,7 @@ import { EmailService } from 'src/app/services/email.service';
 import { EquiposService } from '../../services/equipos.service';
 import { format } from 'date-fns';
 import { HorarioCanchasPage } from '../horario-canchas/horario-canchas.page';
+import { FinalizarReservacionPage } from '../finalizar-reservacion/finalizar-reservacion.page';
  
 
 interface objetoFecha{
@@ -60,6 +61,10 @@ export class GenerarReservacionPage  {
     Estado:  true,
     Dia_Completo:  false
    }
+   slideOpts = {
+    initialSlide: 1,
+    speed: 400,
+  };
    detalleReservacion:DetalleReservaciones = {
     Reservacion_Grupal: true,
     Cod_Detalle:null,
@@ -91,7 +96,8 @@ export class GenerarReservacionPage  {
    horario:any = null;
    habilitarHoras = false;
    isModalOpen:boolean = false;
-   fecha = new Date().toISOString();
+   fecha:string = new Date().toISOString();
+   fechaMinima = new Date().toISOString();
   constructor(
     public modalCtrl: ModalController,
     public usuariosService: UsuariosService,
@@ -103,7 +109,8 @@ export class GenerarReservacionPage  {
     public canchasService: CanchasService,
     public emailService:EmailService,
     public equiposService: EquiposService,
-    public alertCtrl:AlertController
+    public alertCtrl:AlertController,
+    private pickerCtrl: PickerController
   ) { }
   
 
@@ -120,7 +127,9 @@ export class GenerarReservacionPage  {
     // hour: 'numeric', minute: 'numeric', hour12: true
     return date.toLocaleString('en-US', { hour: '2-digit',minute: '2-digit', hour12: true })
   }
-
+  regresar(){
+    this.modalCtrl.dismiss();
+  }
   ionViewWillEnter(){
     console.log('rival', this.rival)
     if(this.cancha){
@@ -207,6 +216,101 @@ this.cd.detectChanges();
   }
 
 
+  agregarHoras(h){
+    let date = new Date(this.nuevaReservacion.Fecha);
+        date.setHours(h);
+        date.setMinutes(0)
+        date.setSeconds(0)
+        date.setMilliseconds(0)
+        console.log(date,'date')
+        return date;
+  }
+  async openPicker(index:number) {
+
+    // no olvidar +1
+    let horaActual = new Date(this.nuevaReservacion.Fecha).getHours()+1;
+    let hora =  index == 1 ? horaActual :  new Date(this.nuevaReservacion.Hora_Inicio).getHours()  == 23 ? 0 :  new Date(this.nuevaReservacion.Hora_Inicio).getHours() +1;
+    let options = [];
+    let end = index == 2 && horaActual  == 23 ?   1    : 24;
+ 
+    for(let i = hora;i < end; i ++){
+     
+      let AmOrPm = i >= 12 ? 'PM' : 'AM';
+      let option =  {
+        text: `${(String(i % 12 || 12)).padStart(2, '0')} : 00 :  ${AmOrPm}`,
+        value: `${this.agregarHoras(i)}`,
+      }
+
+      options.push(option)
+       
+      console.log(i, 'i')
+    if(i == end -1  ){
+      const picker = await this.pickerCtrl.create({
+        columns: [
+          {
+            name: 'hora',
+            options: options,
+          },
+         
+        ],
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+          },
+          {
+            text: 'Confirmar',
+            handler: (value) => {
+ 
+     
+       if(index == 1){
+        this.nuevaReservacion.Hora_Fin = null;
+        this.nuevaReservacion.Hora_Inicio = value.hora.value;
+       }
+       if(index == 2){
+        this.nuevaReservacion.Hora_Fin = value.hora.value;
+        this.detalleReservacion.Total_Horas = new Date(this.nuevaReservacion.Hora_Fin).getHours() - new Date(this.nuevaReservacion.Hora_Inicio).getHours();
+       } 
+           this.cd.detectChanges();
+            },
+
+        
+          },
+        ],
+      });
+      
+    await picker.present();
+    }
+    }
+   
+
+  }
+
+  async finalizarReservacion() {
+ this.regresar()
+    if(!this.isModalOpen){
+      this.isModalOpen = true;
+    const modal = await this.modalCtrl.create({
+      component: FinalizarReservacionPage,
+      cssClass: 'my-custom-modal',
+      mode:'ios',
+      componentProps:{
+        cancha:this.cancha,
+        nuevaReservacion:this.nuevaReservacion,
+        detalleReservacion: this.detalleReservacion,
+        rival:this.rival,
+        retador:this.retador,
+        actualizar:false
+      }
+    });
+     await modal.present();
+     const { data } = await modal.onDidDismiss();
+     this.isModalOpen = false;
+       if(data !== undefined){   
+ 
+         }
+        }
+  }
   async alertaRival() {
     const alert = await this.alertCtrl.create({
       header: 'FUTPLAY',
@@ -216,14 +320,19 @@ this.cd.detectChanges();
           text: 'Reto Abierto',
           role: 'cancel',
           handler: () => {
-     this.reservacionGrupal = true;
+            this.detalleReservacion.Reservacion_Grupal= true;
+            this.rival = this.retador;
+            this.cd.detectChanges();
+            this.finalizarReservacion();
           },
         },
         {
           text: 'Agregar Rival',
           role: 'confirm',
           handler: () => {
-            this.reservacionGrupal = false;
+            this.detalleReservacion.Reservacion_Grupal = false;
+            
+            this.cd.detectChanges();
           this.agregarRival();
           },
         },
@@ -359,16 +468,16 @@ this.cd.detectChanges()
 }
 
 
- enviarReto(){
+ enviarReto2(){
 
-  this.alertasService.message('FUTPLAY','La reservación se guardo con exito!.')
+ // this.alertasService.message('FUTPLAY','La reservación se guardo con exito!.')
   if(this.reservacionGrupal) this.rival = this.retador;
   this.alertasService.presentaLoading('Guardando reto...')
-  this.nuevaReservacion.Titulo = this.detalleReservacion.Reservacion_Grupal ? this.retador.equipo.Nombre +' VS '+this.rival.equipo.Nombre : 'Reto Abierto ' + this.cancha.nombre;
+  this.nuevaReservacion.Titulo = !this.detalleReservacion.Reservacion_Grupal ? this.retador.equipo.Nombre +' VS '+this.rival.equipo.Nombre : 'Reto Abierto ' + this.cancha.nombre;
     this.nuevaReservacion.Fecha = new Date(format( new Date(this.nuevaReservacion.Fecha),'yyy-MM-dd')).toISOString().split('T')[0]
   this.nuevaReservacion.Hora_Inicio = format( this.nuevaReservacion.Hora_Inicio,'yyy-MM-dd')+" "+this.nuevaReservacion.Hora_Inicio.toTimeString().split(' ')[0] 
   this.nuevaReservacion.Hora_Fin =  format( this.nuevaReservacion.Hora_Fin,'yyy-MM-dd')+" "+this.nuevaReservacion.Hora_Fin.toTimeString().split(' ')[0] 
- 
+
 
   if(! this.detalleReservacion.Reservacion_Grupal) {
     this.nuevaReservacion.Cod_Estado = 10;

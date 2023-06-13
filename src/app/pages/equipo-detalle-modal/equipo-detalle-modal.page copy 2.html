@@ -1,0 +1,201 @@
+ 
+<ion-header    class="ion-no-border">
+  <ion-toolbar>
+   <ion-button slot="start" (click)="regresar()" fill="clear">
+     <ion-icon size="large" name="close-outline"></ion-icon>
+   </ion-button>
+   <ion-title>Detalle Equipo</ion-title>
+    
+  </ion-toolbar>
+  
+ </ion-header>
+  
+      <ion-content class="ion-text-center ion-padding">
+
+        <ion-avatar   style="height: 12rem;width:12rem;margin:0 auto;">
+            
+      
+     
+        <img *ngIf="!equipo.equipo.Avatar" class="logo" data-src="{{'https://futplaycompany.com/api_test/'+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   >
+        <img *ngIf="equipo.equipo.Avatar" src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"    alt="">
+    
+    
+
+        </ion-avatar>
+
+    <h2 class="ion-text-uppercase"> 
+      <strong>{{equipo.equipo.Nombre}}</strong>
+       <span style="display:block;margin-top: 1rem;">
+
+        <ng-template ngFor let-hero [ngForOf]="filledStars(equipo.equipo.Estrellas)" let-i="index"
+          let-odd="odd">
+          <ion-icon color="warning" style="font-size: 24px;" name="star"></ion-icon>
+        </ng-template>
+        <ng-template ngFor let-hero [ngForOf]="emptyStars(equipo.equipo.Estrellas)" let-i="index"
+          let-odd="odd">
+          <ion-icon color="warning" style="font-size: 24px;" name="star-outline"></ion-icon>
+        </ng-template>
+  
+  
+  
+      </span>
+      </h2>
+            
+
+  <ion-grid >
+    <ion-row>
+      <ion-col size="8">{{equiposService.equipo.provincia}} , {{equiposService.equipo.canton}}</ion-col>
+      <ion-col size="4">Estadísticas</ion-col>
+      <ion-col size="8">Agresividad</ion-col>
+      <ion-col size="4" *ngIf="jugadoresService.jugadores.length > 0" >
+
+        <a target="_blank"
+          href="https://wa.me/{{jugadoresService.jugadores[0].usuario.Cod_Pais}}{{jugadoresService.jugadores[0].usuario.Telefono}}?text=Hola%20{{jugadoresService.jugadores[0].usuario.Nombre}} {{jugadoresService.jugadores[0].usuario.Primer_Apellido}}">
+          Contácto</a>
+      </ion-col>
+ 
+      <ion-col size="12" expand="block"  *ngIf="equiposService.equipo.equipo.Cod_Usuario == usuariosService.usuarioActual.usuario.Cod_Usuario ">
+        <ion-button  (click)="solicitudesEquipos()"  size="small" mode="ios"  fill="outline" color="primary" shape="round">
+          Transferencias
+          <ion-badge style="margin-left: 0.5rem;" color="primary" mode="ios">0</ion-badge>
+        </ion-button>
+      </ion-col>
+ 
+
+      <ion-col size="12" class="ion-margin-top ion-margin-bottom">
+        <ion-label ><strong>Lista de jugadores</strong></ion-label>
+      </ion-col>
+      <ion-col size="12">
+
+
+        <ion-list>
+
+ 
+
+          <ion-item  *ngIf="jugadoresService.jugadores.length == 0"    lines="none"
+    class="animate__animated animate__fadeIn">
+    <span slot="start">
+      <ion-avatar>
+        <img src="assets/logo.png" alt="">
+      </ion-avatar>
+
+
+      <ion-label>
+
+        <h6><strong>MENSAJE FUTPLAY</strong> </h6>
+        <p  > No se encontraron resultados!..</p>
+
+      </ion-label>
+    </span>
+
+
+    </ion-item>
+
+
+          <ion-item (click)="onOpenMenu(jugador)" lines="full" class="employeeItem  animate__animated animate__fadeIn"
+            *ngFor="let jugador of jugadoresService.jugadores">
+            <ion-avatar slot="start" style="margin-right: 4rem;">
+              <img *ngIf="!jugador.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+jugador.usuario.Foto}}"
+                onerror="this.src='assets/user.svg'" alt="">
+
+              <img *ngIf="jugador.usuario.Avatar" src="assets/profile/avatars/{{jugador.usuario.Foto}}"
+                onerror="this.src='assets/user.svg'" alt="">
+
+
+            </ion-avatar>
+            <ion-label>
+              {{jugador.usuario.Nombre}} {{jugador.usuario.Primer_Apellido}}     
+            </ion-label>
+            <ion-badge color="warning" mode="ios">{{jugador.posicion}}</ion-badge>
+
+          </ion-item>
+
+
+        </ion-list>
+
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+  <ion-list>
+
+    <ion-item  lines="none">
+      <ion-label>Abreviación : {{equipo.equipo.Abreviacion}}</ion-label>
+  </ion-item>
+  <ion-item lines="none">
+      <ion-label >Región :  {{equipo.provincia}} , {{equipo.canton}} </ion-label>
+  </ion-item>
+  <ion-item lines="none"  (click)="presentModal(equipo.equipo)"  color="light" detail>
+    <ion-label>Estadisticas Equipo</ion-label>
+   
+  </ion-item>
+
+  <ion-item lines="none">
+
+    <ion-label  slot="start">Dureza :  </ion-label>
+    <ion-avatar slot="start"    >
+      <img      src="assets/emojis/{{dureza[equipo.equipo.Dureza]['image']}}">
+     
+    </ion-avatar>
+
+
+  </ion-item>
+
+  <ion-item *ngIf="jugadores.length > 0" lines="none"    >
+    <ion-icon slot="start" name="call-outline"></ion-icon>
+    <ion-label slot="start" class="ion-text-wrap">
+     
+      <a target="_blank" href="https://wa.me/{{jugadores[0].usuario.Cod_Pais}}{{jugadores[0].usuario.Telefono}}?text=Hola%20{{jugadores[0].usuario.Nombre}} {{jugadores[0].usuario.Primer_Apellido}}"> Capitán {{jugadores[0].usuario.Cod_Pais}}{{jugadores[0].usuario.Telefono}}</a>
+    
+    
+    
+    </ion-label>
+    </ion-item>
+
+
+<ion-item lines="none" >
+  <h2 slot="start" class="soccer-league-subtitle">Lista de Jugadores</h2>
+</ion-item>
+
+    <ion-item lines="full" class="employeeItem  animate__animated animate__fadeIn"    *ngIf="jugadores.length == 0  ">
+      <ion-avatar slot="start">
+        <img style="width: 8rem;margin: 0 auto;" src="assets/exclamation-mark.svg" alt="">
+      
+      </ion-avatar>
+            <ion-label class="ion-padding">
+              <h2>No hay Jugadores Disponibles</h2>
+  
+        
+            </ion-label>
+      
+          </ion-item>
+    <ion-item  lines="full" class="employeeItem  animate__animated animate__fadeIn"   *ngFor="let jugador of jugadores">
+<ion-avatar slot="start">
+  <img *ngIf="!jugador.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+
+      <img *ngIf="jugador.usuario.Avatar"src="assets/profile/avatars/{{jugador.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+
+
+</ion-avatar>
+      <ion-label>
+        <h2>{{jugador.usuario.Nombre}} {{jugador.usuario.Primer_Apellido}}  </h2>
+        <p>Posicion : <ion-badge color="warning" mode="ios">{{jugador.posicion}}</ion-badge> </p>
+        <p>Apodo: {{jugador.usuario.Apodo}}</p>
+       
+  
+      </ion-label>
+
+    </ion-item>
+
+
+  </ion-list>
+
+
+
+
+
+  </ion-content>
+

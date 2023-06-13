@@ -1,0 +1,45 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+   <h3>Historial Retos</h3>
+   </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item  *ngIf="reservaciones.length == 0"    lines="none"
+    class="animate__animated animate__fadeIn">
+    <span slot="start">
+      <ion-avatar>
+        <img src="assets/logo.png" alt="">
+      </ion-avatar>
+  
+  
+      <ion-label>
+  
+        <h6><strong>MENSAJE FUTPLAY</strong> </h6>
+        <p  > No se encontraron resultados!..</p>
+  
+      </ion-label>
+    </span>
+  
+  
+    </ion-item>
+    <ion-item detail (click)="detalleReto(reservacion)" *ngFor="let reservacion of reservaciones"   lines="full" class="custom-item  custom-item-img animate__animated animate__fadeIn"       >
+      <img  src="{{'https://futplaycompany.com/api_test/'+reservacion.cancha.Foto}}"   alt="">
+  
+      <ion-label>
+      {{reservacion.reservacion.Fecha | date :'fullDate'}}
+        <p>{{reservacion.reservacion.Hora_Inicio | date:'h:mm a' }} en  {{reservacion.cancha.Nombre}} </p>
+        <p   >
+             
+          {{reservacion.reservacion.Titulo  }}
+    
+        </p>
+  
+      </ion-label>
+  
+    </ion-item>
+  </ion-list>
+  
+     
+  </ion-content>
+  

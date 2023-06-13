@@ -1,6 +1,13 @@
-ion-toolbar{
-    background: #fff;
  
+ion-header{
+   
+  ion-toolbar{
+    --background:#5a55ca;
+    color: #fff;
+    ion-icon{
+        color: #fff;
+    }
+}
 }
  .futplay-color{
   color: rgba(37,13,76,255); 

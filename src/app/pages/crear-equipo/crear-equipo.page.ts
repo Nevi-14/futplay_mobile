@@ -13,6 +13,10 @@ import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { GestorEquipoImagenesPage } from '../gestor-equipo-imagenes/gestor-equipo-imagenes.page';
 import { GestorEquipoImagenesService } from 'src/app/services/gestor-equipo-imagenes.service';
+import { Provincias } from 'src/app/models/provincias';
+import { Cantones } from 'src/app/models/cantones';
+import { Distritos } from 'src/app/models/distritos';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-crear-equipo',
   templateUrl: './crear-equipo.page.html',
@@ -74,9 +78,12 @@ export class CrearEquipoPage implements OnInit {
       }
     },
   };
-  showProvincia: boolean = false;
-  showCanton: boolean = false;
-  showDistrito: boolean = false;
+  showCanton = null;
+  showDistrito = null;
+  modalOpen:boolean = false;
+   dataProvincias = [];
+   dataCantones = [];
+   dataDistritos = [];
   avatarSlide = null;
   image = ''
   avatars = false;
@@ -95,58 +102,105 @@ export class CrearEquipoPage implements OnInit {
   ) { }
 
 
-  ngOnInit() {
-    this.provinciasService.provincias = [];
-    this.provinciasService.syncProvinciasPromise().then(resp => {
-      this.showProvincia = true;
-      this.provinciasService.provincias = resp;
-    })
-  }
+ async ngOnInit() {
+    let provincias = await this.provinciasService.syncProvinciasPromise();
 
-  onChangeProvincias($event) {
+    provincias.forEach((provincia:Provincias, index)=>{
+   
+  let data  = {
+    id : provincia.Cod_Provincia,
+    valor: provincia.Provincia
+  }
+  console.log(data,'data')
+  this.dataProvincias.push(data)
+      if(index == provincias.length -1){
+  
+ 
+      
+      }
+    }) 
+  
+  
+  }
+  
+  
+  async onChangeProvincias(fRegistroEquipo:NgForm,$event){
+    let registro = fRegistroEquipo.value;
     this.alertasService.presentaLoading('Cargando datos...')
-    this.equipo.Cod_Provincia = $event.target.value;
+    this.dataCantones = []
     this.equipo.Cod_Canton = null;
     this.equipo.Cod_Distrito = null;
     this.cantonesService.cantones = [];
     this.distritosService.distritos = [];
-    if (this.equipo.Cod_Provincia) {
-      this.cantonesService.syncCantones(this.equipo.Cod_Provincia).then(resp => {
+  if(registro.Cod_Provincia){
+  
+    let cantones = await this.cantonesService.syncCantonesToPromise(registro.Cod_Provincia);
+  if(cantones.length == 0) this.alertasService.loadingDissmiss();
+    cantones.forEach((canton:Cantones, index)=>{
+   
+  let data  = {
+    id : canton.Cod_Canton,
+    valor: canton.Canton
+  }
+  console.log(data,'data')
+  this.dataCantones.push(data)
+      if(index == cantones.length -1){
         this.showCanton = true;
         this.showDistrito = null;
-        this.cantonesService.cantones = resp.slice(0);
         this.alertasService.loadingDissmiss();
-      })
-    } else {
-      this.alertasService.loadingDissmiss();
-    }
+      }
+    })
+   
+  }else{
+  this.alertasService.loadingDissmiss();
   }
-  onChangeCantones($event) {
+  }
+  onChangeCantones(fRegistroEquipo:NgForm,$event){
+    let registro = fRegistroEquipo.value;
     this.alertasService.presentaLoading('Cargando datos...')
-    this.equipo.Cod_Canton = $event.target.value;
+  this.dataDistritos = [];
     this.equipo.Cod_Distrito = null;
     this.distritosService.distritos = [];
-    if (this.equipo.Cod_Provincia && this.equipo.Cod_Canton) {
-      this.distritosService.syncDistritos(this.equipo.Cod_Canton).then(resp => {
-        this.distritosService.distritos = resp.slice(0);
-        this.showDistrito = true;
-        this.alertasService.loadingDissmiss();
-
-      })
-    } else {
-      this.alertasService.loadingDissmiss();
-    }
-
+  if(registro.Cod_Provincia && registro.Cod_Canton){
+  this.distritosService.syncDistritos( registro.Cod_Canton).then(distritos =>{
+    if(distritos.length == 0) this.alertasService.loadingDissmiss();
+    distritos.forEach((distrito:Distritos, index)=>{
+   
+      let data  = {
+        id : distrito.Cod_Distrito,
+        valor: distrito.Distrito
+      }
+      console.log(data,'data')
+      this.dataDistritos.push(data)
+          if(index == distritos.length -1){
+       //     this.distritosService.distritos = resp.slice(0);
+            this.showDistrito = true;
+            this.alertasService.loadingDissmiss();
+          }
+        })
+  
+   
+    
+  })
+  }else{
+  this.alertasService.loadingDissmiss();
   }
-
-  onChangeDistritos($event) {
-
-    this.equipo.Cod_Distrito = $event.target.value;
-
+  
   }
+  
+  onChangeDistritos($event){
+  this.equipo.Cod_Distrito = $event.target.value;
+  }
+  
 
-  crearRegistro() {
-
+  crearRegistro(fRegistroEquipo:NgForm) {
+let equipo = fRegistroEquipo.value;
+this.equipo.Nombre = equipo.Nombre;
+this.equipo.Abreviacion = equipo.Abreviacion;
+this.equipo.Cod_Provincia = equipo.Cod_Provincia;
+this.equipo.Cod_Canton = equipo.Cod_Canton;
+this.equipo.Cod_Distrito = equipo.Cod_Distrito;
+ 
     if(this.gestorEquiposImagenesService.avatarActual){
 
       this.equipo.Avatar = true;

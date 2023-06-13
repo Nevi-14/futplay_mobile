@@ -1,0 +1,130 @@
+ 
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+   <ion-button slot="start" (click)="regresar()" fill="clear">
+     <ion-icon size="large" name="close-outline"></ion-icon>
+   </ion-button>
+   <ion-title>Finalizar Reservación</ion-title>
+    
+  </ion-toolbar>
+  
+ </ion-header>
+<ion-content>
+<ion-list>
+  
+  <ion-item   lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"       >
+    <img src="{{'https://futplaycompany.com/api_test/'+cancha.cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">
+
+    <ion-label>
+     {{cancha.nombre}}   
+      <p>{{cancha.cancha.Precio_Hora}} </p>
+      <p>
+           
+       Categoria {{cancha.categoria}}
+  
+      </p>
+      <p>
+           
+        {{cancha.provincia}}  {{cancha.canton}} 
+   
+       </p>
+       <p>
+           
+       FPC vs ABC
+   
+       </p>
+    </ion-label>
+
+  </ion-item>
+  <ion-item    lines="full" class="employeeItem  animate__animated animate__fadeIn"   >
+
+    <ion-grid >
+      <ion-row>
+        <ion-col size="3">
+          <ion-avatar    >
+            <img *ngIf="!retador.equipo.Avatar"  src="{{'https://futplaycompany.com/api_test/'+retador.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+            <img  *ngIf="retador.equipo.Avatar"  src="assets/soccer-shields-svg/{{retador.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+      
+          </ion-avatar>
+        </ion-col>
+        <ion-col size="6">
+
+
+        </ion-col>
+        <ion-col size="3">
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+ 
+    
+    <ion-label class="ion-text-uppercase">
+      {{retador.equipo.Abreviacion}} 
+<p>
+<strong>Retador</strong>
+</p>
+
+      <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
+
+        <ion-icon color="warning" style="size: 10px;" name="star"></ion-icon>
+        <ion-icon color="warning" style="size: 10px;"  name="star-outline"></ion-icon>
+        <ion-icon color="warning" style="size: 10px;" name="star-outline"></ion-icon>
+        <ion-icon color="warning" style="size: 10px;"  name="star-outline"></ion-icon>
+        <ion-icon color="warning" style="size: 10px;" name="star-outline"></ion-icon>
+        </p>
+    </ion-label>
+
+  </ion-item>
+  <ion-item  (click)="agregarRival()"    lines="full" class="employeeItem  animate__animated animate__fadeIn"   >
+    <ion-avatar   slot="start">
+      <img *ngIf="!rival.equipo.Avatar"  src="{{'https://futplaycompany.com/api_test/'+rival.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+      <img  *ngIf="rival.equipo.Avatar"  src="assets/soccer-shields-svg/{{rival.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+
+    </ion-avatar>
+    
+    <ion-label class="ion-text-uppercase">
+      {{rival.equipo.Abreviacion}}
+<p>
+<strong>Rival</strong>
+</p>
+
+      <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
+
+        <ion-icon color="warning" style="size: 10px;" name="star"></ion-icon>
+        <ion-icon color="warning" style="size: 10px;"  name="star-outline"></ion-icon>
+        <ion-icon color="warning" style="size: 10px;" name="star-outline"></ion-icon>
+        <ion-icon color="warning" style="size: 10px;"  name="star-outline"></ion-icon>
+        <ion-icon color="warning" style="size: 10px;" name="star-outline"></ion-icon>
+        </p>
+    </ion-label>
+
+  </ion-item>
+  <ion-grid  class="ion-margin">
+    <ion-row>
+      <ion-col size="12">
+        Descripción : Reto {{ detalleReservacion.Reservacion_Grupal ? 'Grupal' : ' Reto Abierto'}}  
+      </ion-col>
+      <ion-col size="12">
+        Fecha    {{nuevaReservacion.Fecha | date :'fullDate'}}
+      </ion-col>
+      <ion-col size="12">
+        Seleccionar hora de inicio
+      </ion-col>
+      <ion-col size="12">
+        Seleccionar hora Fin
+      </ion-col>
+      <ion-col size="12">
+        Total horas x 1
+      </ion-col>
+      <ion-col size="12">
+        Total $$$
+      </ion-col>
+<ion-col size="12" (click)="regresar()">
+  <app-button label="Finalizar Reservación"></app-button>
+</ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-list>
+
+
+</ion-content>

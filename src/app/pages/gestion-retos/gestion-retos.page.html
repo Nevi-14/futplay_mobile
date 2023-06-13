@@ -1,0 +1,43 @@
+<ion-app>
+  
+  <ion-header class="ion-no-border">
+    <ion-toolbar class="ion-toolbar">
+      <ion-button (click)="regresar()" fill="clear" slot="start">
+        <ion-icon size="large" name="close-outline"></ion-icon>
+      </ion-button>
+
+      <ion-title>Gestion Retos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-router-outlet id="main-content">
+    </ion-router-outlet>
+  </ion-content>
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-segment mode="md" value="down">
+        <ion-segment-button (click)="redirigir('/gestion-retos/retos-recibidos')" value="down">
+          <ion-icon name="arrow-down-outline"></ion-icon>
+          <ion-label>Recibidos</ion-label>
+
+        </ion-segment-button>
+
+        <ion-segment-button (click)="redirigir('/gestion-retos/retos-enviados')" value="up">
+          <ion-icon name="arrow-up-outline"></ion-icon>
+          <ion-label>Enviados</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="redirigir('/gestion-retos/retos-confirmados')" value="checkmark">
+          <ion-icon name="checkmark-outline"></ion-icon>
+          <ion-label>Confirmado</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="calendar" (click)="redirigir('/gestion-retos/historial-retos')">
+          <ion-icon name="calendar-outline"></ion-icon>
+          <ion-label>Historial</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </ion-footer>
+
+</ion-app>

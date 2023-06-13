@@ -11,6 +11,9 @@ import { SolicitudesEquiposPage } from '../solicitudes-equipos/solicitudes-equip
 import { SolicitudesService } from '../../services/solicitudes.service';
 import { AlertasService } from '../../services/alertas.service';
 import { UsuariosService } from '../../services/usuarios.service';
+import { Router } from '@angular/router';
+import { ProvinciasService } from 'src/app/services/provincias.service';
+import { Provincias } from 'src/app/models/provincias';
 @Component({
   selector: 'app-perfil-equipo',
   templateUrl: './perfil-equipo.page.html',
@@ -36,7 +39,9 @@ export class PerfilEquipoPage {
     public solicitudesService: SolicitudesService,
     public alertasService: AlertasService,
     public alertCtrl: AlertController,
-    public usuariosService: UsuariosService
+    public usuariosService: UsuariosService,
+    public router:Router,
+    public provinciasService:ProvinciasService
   ) {
 
   }
@@ -46,7 +51,7 @@ export class PerfilEquipoPage {
 
     let equipos = await this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario);
     this.equiposService.equipo = equipos[0]
-    
+    if(equipos.length == 0) return this.router.navigateByUrl('/futplay/crear-unirse-equipo',{replaceUrl:true})
     this.solicitudesService.syncGetSolicitudesRecibidasEquipoToPromise(this.equiposService.equipo.equipo.Cod_Equipo).then(solicitudes => {
 
       this.solicitudesService.solicitudesEquiposArray = solicitudes;
@@ -79,20 +84,30 @@ export class PerfilEquipoPage {
 
   async gestionarPerfil() {
 
-    const modal = await this.modalCtrl.create({
-      component: EditarPerfilEquipoPage,
-      componentProps: {
-        equipo: this.equiposService.equipo.equipo
-      },
-      id: 'perfil-equipo',
-      cssClass: 'my-custom-modal'
-    });
 
-    modal.present();
-    const { data } = await modal.onWillDismiss();
-    console.log(data)
+    
+          const modal = await this.modalCtrl.create({
+            component: EditarPerfilEquipoPage,
+            componentProps: {
+              equipo: this.equiposService.equipo.equipo
+            },
+            id: 'perfil-equipo',
+            cssClass: 'my-custom-modal'
+          });
+      
+          modal.present();
+          const { data } = await modal.onWillDismiss();
+          console.log(data)
+      
+      
+        
+     
+      
 
 
+
+
+     
 
   }
 
@@ -198,7 +213,10 @@ export class PerfilEquipoPage {
 
 
   }
-
+  async solicitudesEquipos(){
+ 
+    this.router.navigateByUrl('transferencias',{replaceUrl:true})
+      }
   jugadoresEquipo() {
     this.solicitudesService.syncGetSolicitudesRecibidasEquipoToPromise(this.equiposService.equipo.equipo.Cod_Equipo).then(solicitudes => {
 
@@ -240,7 +258,7 @@ export class PerfilEquipoPage {
     });
     return await modal.present();
   }
-  async solicitudesEquipos() {
+  async solicitudesEquipos2() {
     const modal = await this.modalCtrl.create({
       component: SolicitudesEquiposPage,
       cssClass: 'my-custom-modal'

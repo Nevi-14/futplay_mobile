@@ -43,7 +43,7 @@ console.log('equipo', this.equipo)
 
   }
   
-  cerrarModal(){
+  regresar(){
     this.modalCtrl.dismiss();
   }
 

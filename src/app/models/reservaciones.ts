@@ -6,9 +6,10 @@ export class Reservaciones {
     public Cod_Estado:  number,
     public Reservacion_Externa:  boolean,
     public Titulo:  string,
-    public Fecha:  Date,
-    public Hora_Inicio:  string,
-    public Hora_Fin:  string,
+    public Detalle:  string,
+    public Fecha:  any,
+    public Hora_Inicio:  any,
+    public Hora_Fin:  any,
     public Dia_Completo: Boolean
 
   ){}

@@ -6,17 +6,19 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'inicio/inicio-sesion',
+    redirectTo: 'inicio-sesion',
     pathMatch: 'full'
   },
   
+
   {
-    path: 'inicio',
-    loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule),
-    canLoad:[AutoLoginGuard]
+    path: 'inicio-sesion',
+    loadChildren: () => import('./pages/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule)
   },
-
-
+  {
+    path: 'registro',
+    loadChildren: () => import('./pages/registro/registro.module').then( m => m.RegistroPageModule)
+  },
 
   {
     path: 'rivales',
@@ -176,10 +178,7 @@ const routes: Routes = [
     path: 'video-screen',
     loadChildren: () => import('./pages/video-screen/video-screen.module').then( m => m.VideoScreenPageModule)
   },
-  {
-    path: 'crear-unirse-equipo',
-    loadChildren: () => import('./pages/crear-unirse-equipo/crear-unirse-equipo.module').then( m => m.CrearUnirseEquipoPageModule)
-  },
+ 
   {
     path: 'eliminar-cuenta',
     loadChildren: () => import('./pages/eliminar-cuenta/eliminar-cuenta.module').then( m => m.EliminarCuentaPageModule)
@@ -249,6 +248,50 @@ const routes: Routes = [
     path: 'solicitudes-jugadores',
     loadChildren: () => import('./pages/solicitudes-jugadores/solicitudes-jugadores.module').then( m => m.SolicitudesJugadoresPageModule)
   },
+ 
+  {
+    path: 'inscripcion-torneo',
+    loadChildren: () => import('./pages/inscripcion-torneo/inscripcion-torneo.module').then( m => m.InscripcionTorneoPageModule)
+  },
+  {
+    path: 'transferencias',
+    loadChildren: () => import('./pages/transferencias/transferencias.module').then( m => m.TransferenciasPageModule)
+  },
+  {
+    path: 'finalizar-reservacion',
+    loadChildren: () => import('./pages/finalizar-reservacion/finalizar-reservacion.module').then( m => m.FinalizarReservacionPageModule)
+  },
+  {
+    path: 'notificaciones',
+    loadChildren: () => import('./pages/notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
+  },
+  {
+    path: 'gestion-retos',
+    loadChildren: () => import('./pages/gestion-retos/gestion-retos.module').then( m => m.GestionRetosPageModule)
+  },
+  {
+    path: 'retos-enviados',
+    loadChildren: () => import('./pages/retos-enviados/retos-enviados.module').then( m => m.RetosEnviadosPageModule)
+  },
+  {
+    path: 'retos-recibidos',
+    loadChildren: () => import('./pages/retos-recibidos/retos-recibidos.module').then( m => m.RetosRecibidosPageModule)
+  },
+  {
+    path: 'retos-confirmados',
+    loadChildren: () => import('./pages/retos-confirmados/retos-confirmados.module').then( m => m.RetosConfirmadosPageModule)
+  },
+  {
+    path: 'historial-retos',
+    loadChildren: () => import('./pages/historial-retos/historial-retos.module').then( m => m.HistorialRetosPageModule)
+  },
+  {
+    path: 'aceptar-reto-abierto',
+    loadChildren: () => import('./pages/aceptar-reto-abierto/aceptar-reto-abierto.module').then( m => m.AceptarRetoAbiertoPageModule)
+  },
+
+
+
 
   
 

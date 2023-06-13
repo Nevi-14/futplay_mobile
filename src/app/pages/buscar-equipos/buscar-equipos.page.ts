@@ -7,6 +7,8 @@ import { SolicitudesService } from '../../services/solicitudes.service';
 import { AlertasService } from '../../services/alertas.service';
 import { JugadoresService } from '../../services/jugadores.service';
 import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
+import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-modal.page';
+import { PerfilEquipos } from 'src/app/models/perfilEquipos';
 
 @Component({
   selector: 'app-buscar-equipos',
@@ -41,11 +43,14 @@ public jugadoresService: JugadoresService
   ) { }
 
   ngOnInit() {
-
+this.alertasService.presentaLoading('Cargando lista de equipos!..');
     this.equiposService.syncListaEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp =>{
       this.equiposService.equipos = resp;
+this.alertasService.loadingDissmiss();
 
-
+    }, error =>{
+      this.alertasService.loadingDissmiss();
+      this.alertasService.message('FUTPLAY','Lo sentimos algo salio mal!..')
     })
       }
 
@@ -112,7 +117,17 @@ return     this.alertasService.message('FUTPLAY', 'Lo sentimos no se puede envia
         console.log(equipo)
         
             const normalBtns : ActionSheetButton[] = [
-            
+              {   
+                text: 'Ver Equipo',
+                icon:'eye-outline',
+                handler: () =>{
+                 // this.videoScreen(3);
+                // this.jugadorEquipoSolicitud(jugador)
+
+                this.equipoDetalle(equipo);
+                }
+               
+               },
           
                 {   
                   text: 'Enviar Solicitud',
@@ -153,5 +168,21 @@ return     this.alertasService.message('FUTPLAY', 'Lo sentimos no se puede envia
           
           
             }
-
+            async equipoDetalle(perfilEquipo:PerfilEquipos){
+     
+              let equipo = await this.equiposService.syncGetPerfilEquipoToPromise(perfilEquipo.equipo.Cod_Equipo)
+              const modal = await this.modalCtrl.create({
+                component:EquipoDetalleModalPage,
+                cssClass:'modal-view',
+                id:'video-screen-modal',
+                mode:'md',
+                backdropDismiss:false,
+                componentProps:{
+                  reservar:false,
+                  equipo:equipo[0]
+                }
+              });
+            
+              return await modal.present();
+            }
           }

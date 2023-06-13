@@ -1,28 +1,24 @@
-
-  <ion-header class="custom-header">
-
-    <ion-toolbar class="custom-toolbar ion-padding">
-      <ion-buttons slot="start">
-        <ion-button color="light" (click)="cerrarModal()">
-          <ion-icon slot="start" name="chevron-back"></ion-icon>
-          &nbsp;Lista de  canchas
-        </ion-button>
-      </ion-buttons>
-  
-    </ion-toolbar>
-   
-    <ion-toolbar class="custom-toolbar ion-padding">
+ 
+ 
+    <ion-header class="ion-no-border">
+      <ion-toolbar>
+       <ion-button slot="start" (click)="regresar()" fill="clear">
+         <ion-icon size="large" name="close-outline"></ion-icon>
+       </ion-button>
+       <ion-title>Inscripción Torneo</ion-title>
+        
+      </ion-toolbar>
+      <ion-toolbar class="custom-toolbar ion-padding">
 
  
-      <ion-searchbar  mode="ios" placeholder="buscar cancha" inputmode="text"  debounce="250" ></ion-searchbar> 
-      <ion-buttons slot="end">
-        <ion-button class="ion-button"    (click)="filtroUbicacion()"  >
-          <ion-icon color="light" size="large"  name="options-outline" ></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-    </ion-header>
-
+        <ion-searchbar  mode="ios" placeholder="buscar cancha" inputmode="text"  debounce="250" ></ion-searchbar> 
+        <ion-buttons slot="end">
+          <ion-button class="ion-button"    (click)="filtroUbicacion()"  >
+            <ion-icon color="light" size="large"  name="options-outline" ></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+     </ion-header>
       <ion-content fullscreen>
 
         <div class="mainContent">

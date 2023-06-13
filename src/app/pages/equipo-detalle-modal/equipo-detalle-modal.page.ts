@@ -4,6 +4,7 @@ import { JugadoresService } from '../../services/jugadores.service';
 import { PerfilJugador } from '../../models/perfilJugador';
 import { EstadisticaEquipoPage } from '../estadistica-equipo/estadistica-equipo.page';
 import { ModalController } from '@ionic/angular';
+import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
 
 @Component({
   selector: 'app-equipo-detalle-modal',
@@ -51,16 +52,25 @@ export class EquipoDetalleModalPage implements OnInit {
     });
     return await modal.present();
   }
-  filledStars(stars:number){
+  filledStars(stars: number) {
 
     return new Array(stars)
   }
-  emptyStars(stars:number){
+  emptyStars(stars: number) {
     let value = 5 - stars;
     return new Array(value)
   }
-  
-  
+
+  async perfilJugador(jugador) {
+    const modal = await this.modalCtrl.create({
+      component: PerfilJugadorPage,
+      cssClass: 'my-custom-class',
+      componentProps: {
+        perfil: jugador
+      }
+    });
+    return await modal.present();
+  }
   
   durezaEquipo(value){
   console.log(value.detail.value)
@@ -68,7 +78,7 @@ export class EquipoDetalleModalPage implements OnInit {
    
   }
 
-  cerrarModal(){
+  regresar(){
 
     this.modalCtrl.dismiss();
   }

@@ -1,15 +1,14 @@
-.picture-img{
+ .menu-button {
+  position: fixed;
+  top: 0rem;
+  left: 0rem;
+ }
+ ion-avatar{
   height: 12rem;
-}
- 
-
-.sticky{
-  background: #f1f1f1;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  position: sticky;
-  top: 0px;
-}
+  width:12rem;
+  margin:0 auto;
+  margin-top: 2rem;
+ }
   .space-between{
     margin-bottom: 0.5rem;
     display: flex;

@@ -37,5 +37,8 @@ export class CantonesService {
 
     return this.getCantones(provincia).toPromise();
   }
-  
+  syncCantonesToPromise(provincia){
+
+    return this.getCantones(provincia).toPromise();
+  }
 }

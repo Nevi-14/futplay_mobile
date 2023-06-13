@@ -1,0 +1,18 @@
+<ion-content class="ion-padding">
+  <ion-avatar>
+    <img  src="assets/logo.png" alt="">
+  </ion-avatar>
+  <h1>Bienvenido,</h1>
+  <h3>Inicia sesión para continuar!.</h3>
+
+  <form id="form" (ngSubmit)="login(fLogin)" #fLogin="ngForm">
+    <app-input name="email" type="text" label="Usuario"  ngModel="{{loginUser.email}}"    ></app-input>
+    <app-input  name="password"  type="password"   label="Contraseña" 
+    ngModel="{{loginUser.password}}"></app-input>
+    <a  button (click)="recuperarContrasena()">Olvide Contraseña?</a>
+
+    <app-button label='Iniciar Sesión'></app-button>
+    
+  </form>
+ 
+</ion-content>

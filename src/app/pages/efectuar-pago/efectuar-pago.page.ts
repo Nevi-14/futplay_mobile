@@ -27,6 +27,8 @@ export class EfectuarPagoPage {
       this.store.ready(() => {
         this.products = this.store.products;
         console.log('products', this.products)
+
+        alert(JSON.stringify(this.products))
         this.ref.detectChanges();
       });
     });
@@ -35,7 +37,7 @@ export class EfectuarPagoPage {
   registerProducts() {
     this.store.register({
       id: PRODUCT_GEMS_KEY,
-      type: this.store.CONSUMABLE,
+      type: this.store.NON_CONSUMABLE,
     });
 
     this.store.register({

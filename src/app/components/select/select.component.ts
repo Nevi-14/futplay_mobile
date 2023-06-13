@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgModel } from '@angular/forms';
+interface data {
+ id:any,
+ valor:any, 
+}
 // https://angular.io/api/forms/ControlValueAccessor
 @Component({
   selector: 'app-select',
@@ -17,9 +21,10 @@ export class SelectComponent  implements ControlValueAccessor{
   @Input() name: any = '';
   @Input() ngModel:any = '';
   @Input() label: string = '';
-  @Input() data:any[] = [];
+  @Input() data:data[] = [];
   @Input() multiple:boolean = false;
-public onChange!: Function;
+  @Input() readonly:boolean = false;
+public onChange!: Function  | any;
   constructor(){
 
   }
@@ -36,8 +41,8 @@ public onChange!: Function;
   }
 
   changeText($event:any):void{
-    
-this.onChange($event.target.value)
+    this.onChange($event.target.value)
+ 
   }
   writeValue(value: any): void {
     if(value){

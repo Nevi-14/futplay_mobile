@@ -1,42 +1,55 @@
+ 
 
 
-<app-header  >
-</app-header>
 
+
+<ion-app>
+  
+
+ 
+  <app-header></app-header>
 <ion-content>
- 
-
-  <ion-tabs   >
-    <ion-tab-bar slot="bottom" style="overflow: auto;">
-      <ion-tab-button  tab="mi-perfil"    >
-        <ion-icon name="person"></ion-icon>
- 
-       
-      </ion-tab-button>
-
-   
-      <ion-tab-button tab="perfil-equipo"   >
-        <ion-icon name="shield"></ion-icon>
-     
-
-    
-      </ion-tab-button>
-      <ion-tab-button tab="mis-reservaciones"   >
-        <ion-icon name="football"></ion-icon>
-     
-       </ion-tab-button>
-      <ion-tab-button tab="anuncios"   >
-        <ion-icon name="megaphone"></ion-icon>
-      
-       
-    
-      </ion-tab-button>
-  
-      <ion-tab-button tab="configuraciones"   >
-        <ion-icon name="settings"></ion-icon>
-  
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-tabs>
-
+  <ion-router-outlet id="main-content"></ion-router-outlet>
 </ion-content>
+  <ion-footer>
+    <ion-toolbar  >
+  
+      <ion-segment    mode="md"   value="football">
+        <ion-segment-button   (click)="redirigir('/futplay/mis-reservaciones')" value="football" >
+          <ion-icon name="football-outline"></ion-icon>
+          <ion-label>Retos</ion-label>
+          <ion-badge color="primary" size="small"   mode="ios">{{reservacionesService.reservacionesRecibidas.length > 0 ? reservacionesService.reservacionesRecibidas.length : 0}}</ion-badge>
+        </ion-segment-button>
+      
+        <ion-segment-button   (click)="redirigir('/futplay/mi-perfil')" value="person" >
+          <ion-icon name="person-outline"></ion-icon>
+   <ion-label>Mi Perfil</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="shield" (click)="redirigir('/futplay/perfil-equipo')">
+          <ion-icon name="shield-outline"></ion-icon>
+       
+  
+          <ion-label>Equipos</ion-label>
+        
+        </ion-segment-button>
+        <ion-segment-button value="trophy" (click)="redirigir('/futplay/torneos')">
+          <ion-icon name="trophy-outline"></ion-icon>
+        
+         
+      <ion-label>Torneos</ion-label>
+        </ion-segment-button>
+   
+   
+         
+      </ion-segment>
+      
+    </ion-toolbar>
+  </ion-footer>
+ 
+ 
+ 
+
+ 
+
+
+</ion-app>

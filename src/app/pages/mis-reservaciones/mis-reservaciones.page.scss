@@ -1,119 +1,42 @@
- ion-toolbar{
-  text-align: left;
-  ion-title{
-    text-align: left;
-    margin: 0;
-    padding: 0;
-    margin-left: 1rem;
-  }
- }
-ion-fab-button {
-  --background: #5a55ca;
+ion-avatar {
+  height: 4rem;
+  width: 4rem;
+  display: block;
+  margin: 0 auto;
 }
-
+ ion-icon{
+  color: #5a55ca!important;
  
-ion-header ion-toolbar {
-  --background: #fff;
-
 }
-.menu-button{
-  --color: #5a55ca;
-  --background: #e7edfb;
-  --border-radius: 30px;
+.subtitle{
+  margin-left: 1rem;
 }
-
-
- 
-
-ion-button {
-
-    --background: #5a55ca;
-    --background-focused: #6f6bbb;
-    --background-activated: #6f6bbb;
-    --padding-top: 1rem;
-    --padding-bottom: 1rem;
-    --padding-start: 0.75rem;
-    --padding-end: 0.75rem;
-    height: 2.5rem;
-    font-weight: 700;
-}
- 
-.custom-item-img{
-  img {
-    height: 5rem;
-          width: 5rem;
-          border-radius: 10px;
-          border: 2px solid #e7edfb;
-          object-fit:cover;
-      }
-      
-}
-
-
 .custom-item {
-
-  --border-radius: 10px;
-  --padding-start: 1rem;
-  --padding-end: 1rem;
-  padding: 0.5rem;
-  
-  ion-label {
-    font-size: 14px!important;
-    text-transform: uppercase;
-  
-      padding-left: 1.2rem;
-  
-      h2 {
-  
-          font-weight: 600;
-          letter-spacing: -0.02rem;
-      }
-  
-      p {
-  
-          letter-spacing: -0.03rem;
-      }
-  }
-  
-  
-  
-  }
-
-  .ion-title{
-    font-size: 1rem;
-    font-size: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
-  }
-
-   
- 
-   
- ion-avatar{
+  img {
     height: 4rem;
     width: 4rem;
- }
+    border-radius: 10px;
+    border: 2px solid #e7edfb;
+    object-fit: cover;
+  }
+  ion-label {
+    font-size: 14px !important;
+    padding-left: 1.2rem;
 
- ion-row,ion-col{
-    padding: 0;
-    --padding:0;
-    margin: 0;
-    --margin:0;
-
- }
- ion-col{
-    display: flex;
-    justify-content: center;
-    align-items: center;
- }
-
- 
-    span{
-        margin: 0.8rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        ion-avatar{
-            margin-right: 1rem;
-        }
+    p {
+      letter-spacing: -0.03rem;
     }
+  }
+
+}
+
+span {
+  margin: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  ion-avatar {
+    margin-right: 1rem;
+  }
+}

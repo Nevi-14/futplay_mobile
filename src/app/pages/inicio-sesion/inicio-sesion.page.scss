@@ -5,17 +5,26 @@
 
 h1 {
   margin-bottom: 10px;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 700;
 }
 
 h3 {
   color: #939fab;
   font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 2rem;
 }
 
+ion-avatar{
+  height: 6rem;
+  width: 6rem;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+}
 form {
-  margin-top: 6rem;
+  margin-top: 2rem;
 
   .forgot-password-link {
     text-decoration: none;
@@ -25,6 +34,8 @@ form {
     font-weight: 600;
     font-size: 14px;
     color: #4a4a4a;
+    margin-top: 1rem;
+    margin-right: 2rem!important;
   }
 
   app-button {
@@ -36,11 +47,11 @@ form {
 .footer-text {
   text-align: center;
   font-size: 17px;
-  margin-top: 50%;
+  margin-top: 2rem;
 
   a {
     text-decoration: none;
     font-weight: 600;
-    color: #fa578e;
+    color: #5a55ca;
   }
 }
