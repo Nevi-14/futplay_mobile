@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { GestorContrasenaPageRoutingModule } from './gestor-contrasena-routing.module';
 
 import { GestorContrasenaPage } from './gestor-contrasena.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    GestorContrasenaPageRoutingModule
+    GestorContrasenaPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [GestorContrasenaPage]
 })

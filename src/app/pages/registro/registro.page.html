@@ -16,7 +16,7 @@
     <ion-row>
    
       <ion-col size="12"  size-md="6">
-        <app-input readonly="true" (click)="SelectDate()" name="Fecha_Nacimiento" label="Fecha Nacimiento" ngModel="{{usuario.Fecha_Nacimiento | date :'longDate'}}"></app-input>
+        <app-input readonly="true" (click)="seleccionarFecha()" name="Fecha_Nacimiento" label="Fecha Nacimiento" ngModel="{{usuario.Fecha_Nacimiento | date :'longDate'}}"></app-input>
   
       </ion-col>
       <ion-col size="12"  size-md="6">
@@ -28,13 +28,13 @@
         <app-input name="Primer_Apellido" label="Apellido" ngModel="{{usuario.Primer_Apellido}}"></app-input> 
       </ion-col>
       <ion-col size="12"   >
-        <app-select name="Cod_Provincia" (ionChange)="onChangeProvincias(fRegistro, $event)"   [data]="dataProvincias" label="Provincia" ngModel="{{usuario.Cod_Provincia}}"></app-select>
+        <app-select name="Cod_Provincia" (ionChange)="onChangeProvincias(fRegistro)"   [data]="dataProvincias" label="Provincia" ngModel="{{Cod_Provincia}}"></app-select>
       </ion-col>
-      <ion-col size="12" (ionChange)="onChangeCantones(fRegistro, $event)"  *ngIf="showCanton" >
-        <app-select name="Cod_Canton" [data]="dataCantones" label="Canton" ngModel="{{usuario.Cod_Canton}}"></app-select>
+      <ion-col size="12" (ionChange)="onChangeCantones(fRegistro)"  *ngIf="showCanton" >
+        <app-select name="Cod_Canton" [data]="dataCantones" label="Canton" ngModel="{{Cod_Canton}}"></app-select>
       </ion-col>
       <ion-col size="12"  *ngIf="showDistrito" >
-        <app-select name="Cod_Distrito" [data]="dataDistritos" label="Distrito" ngModel="{{usuario.Cod_Distrito}}"></app-select>
+        <app-select name="Cod_Distrito" [data]="dataDistritos" label="Distrito" ngModel="{{Cod_Distrito}}"></app-select>
       </ion-col>
   
   <ion-col size="12">

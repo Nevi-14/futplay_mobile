@@ -13,7 +13,7 @@ const routes: Routes = [
 
   {
     path: 'inicio-sesion',
-    loadChildren: () => import('./pages/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule)
+    loadChildren: () => import('./pages/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule) , canLoad:[AutoLoginGuard]
   },
   {
     path: 'registro',
@@ -131,17 +131,10 @@ const routes: Routes = [
 
   {
     path: 'inicio-sesion',
-    loadChildren: () => import('./pages/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule)
-  },
-  {
-    path: 'mi-perfil',
-    loadChildren: () => import('./pages/mi-perfil/mi-perfil.module').then( m => m.MiPerfilPageModule)
+    loadChildren: () => import('./pages/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule) , canLoad:[AutoLoginGuard]
   },
 
-  {
-    path: 'perfil-equipo',
-    loadChildren: () => import('./pages/perfil-equipo/perfil-equipo.module').then( m => m.PerfilEquipoPageModule)
-  },
+
   {
     path: 'crear-equipo',
     loadChildren: () => import('./pages/crear-equipo/crear-equipo.module').then( m => m.CrearEquipoPageModule)
@@ -152,7 +145,7 @@ const routes: Routes = [
   },
   {
     path: 'futplay',
-    loadChildren: () => import('./pages/futplay/futplay.module').then( m => m.FutplayPageModule), canLoad:[AutoLoginGuard]
+    loadChildren: () => import('./pages/futplay/futplay.module').then( m => m.FutplayPageModule)  , canLoad:[AutoLoginGuard]
   },
   {
     path: 'mis-equipos',
@@ -215,35 +208,12 @@ const routes: Routes = [
     path: 'retos-abiertos',
     loadChildren: () => import('./pages/retos-abiertos/retos-abiertos.module').then( m => m.RetosAbiertosPageModule)
   },
-  {
-    path: 'reservaciones',
-    loadChildren: () => import('./pages/reservaciones/reservaciones.module').then( m => m.ReservacionesPageModule)
-  },
+
   {
     path: 'horario-canchas',
     loadChildren: () => import('./pages/horario-canchas/horario-canchas.module').then( m => m.HorarioCanchasPageModule)
   },
-  {
-    path: 'anuncios',
-    loadChildren: () => import('./pages/anuncios/anuncios.module').then( m => m.AnunciosPageModule)
-  },
-  {
-    path: 'configuraciones',
-    loadChildren: () => import('./pages/configuraciones/configuraciones.module').then( m => m.ConfiguracionesPageModule)
-  },
-  {
-    path: 'provincias',
-    loadChildren: () => import('./pages/provincias/provincias.module').then( m => m.ProvinciasPageModule)
-  },
-  {
-    path: 'cantones',
-    loadChildren: () => import('./pages/cantones/cantones.module').then( m => m.CantonesPageModule)
-  },
-  {
-    path: 'distritos',
-    loadChildren: () => import('./pages/distritos/distritos.module').then( m => m.DistritosPageModule)
-  },
-
+ 
   {
     path: 'solicitudes-jugadores',
     loadChildren: () => import('./pages/solicitudes-jugadores/solicitudes-jugadores.module').then( m => m.SolicitudesJugadoresPageModule)

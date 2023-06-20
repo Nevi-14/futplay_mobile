@@ -50,6 +50,8 @@ export class InicioPartidoPage implements OnInit {
 
   async ngOnInit() {
 
+    console.log('partooo', this.partido)
+
     this.alertasService.presentaLoading('Cargando datos..')
     this.jugadoresPermitidosRetador = await this.jugadoresService.syncJugadoresEquipos(this.reto.retador.Cod_Equipo);
     this.jugadoresPermitidosRival = await this.jugadoresService.syncJugadoresEquipos(this.reto.rival.Cod_Equipo);
@@ -80,17 +82,19 @@ export class InicioPartidoPage implements OnInit {
       this.storageService.set(stringID,this.reto.reservacion.Cod_Reservacion);
       
       // Show Video
-      this.videoScreen(5);
+    //  this.videoScreen(5);
       }
 
     })
  
- 
+  
  
       }
 
 
       async empate() {
+
+         
         const alert = await this.alertCtrl.create({
           header: 'FUTPLAY!',
           subHeader:'El marcador del partido es 0. ¿Esta seguro que desea continuar? No podras revertir el proceso..',
@@ -110,7 +114,7 @@ export class InicioPartidoPage implements OnInit {
                 this.partidosService.syncPutFinalizarPartido(this.retador ? this.partido[0] : this.partido[1]).then((resp:any) =>{
 
                   this.partido = resp.partido
-                  this.cerrarModal();
+                  this.regresar();
                 this.evaluacionModal();
                     })
               },
@@ -124,6 +128,7 @@ export class InicioPartidoPage implements OnInit {
        ;
       }
       async continuarEvaluacion() {
+ 
         const alert = await this.alertCtrl.create({
           header: 'FUTPLAY!',
           subHeader:'¿Esta seguro que desea continuar? No podras revertir el proceso..',
@@ -139,10 +144,11 @@ export class InicioPartidoPage implements OnInit {
               text: 'Si, continuar',
               role: 'confirm',
               handler: () => {
+           
                 this.partidosService.syncPutFinalizarPartido(this.retador ? this.partido[0] : this.partido[1]).then((resp:any) =>{
 
                   this.partido = resp.partido
-                  this.cerrarModal();
+                  this.regresar();
                   this.evaluacionModal();
 
                     })
@@ -178,7 +184,7 @@ export class InicioPartidoPage implements OnInit {
                 this.partidosService.syncPutFinalizarPartido(this.retador ? this.partido[0] : this.partido[1]).then((resp:any) =>{
 
                   this.partido = resp.partido
-                  this.cerrarModal();
+                  this.regresar();
                   this.evaluacionModal();
     
                     })
@@ -235,9 +241,9 @@ export class InicioPartidoPage implements OnInit {
         
 
  async evaluacionIndividual(){
-
+ 
   await this.varificarMarcador();
-        
+ 
   if(this.partido[0].Goles_Retador == 0 &&  this.partido[1].Goles_Retador == 0  && this.partido[0].Goles_Rival == 0 && this.partido[1].Goles_Rival == 0 ){
         
     this.empate();
@@ -393,7 +399,7 @@ if(this.retador){
 
 }
 
-cerrarModal(){
+regresar(){
 
   this.modalCtrl.dismiss(null,null,'inicio-partido')
 }

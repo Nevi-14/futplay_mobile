@@ -1,23 +1,17 @@
-
-  <ion-header class="ion-no-border">
-
-    <ion-toolbar class="ion-toolbar">
-
-
-          <ion-button  slot="start"  fill="clear" (click)="cerrarModal()">
-            <ion-icon style="color:#fff"  name="chevron-back"></ion-icon>    
-          </ion-button>
-    
+ 
    
- <ion-title>{{reto.reservacion.Titulo}}</ion-title>
-
-    </ion-toolbar>
-
-    </ion-header>
-   
-
+    <ion-header class="ion-no-border">
+      <ion-toolbar>
+       <ion-button slot="start" (click)="regresar()" fill="clear">
+         <ion-icon size="large" name="close-outline"></ion-icon>
+       </ion-button>
+       <ion-title class="ion-text-capitalize">{{reto.reservacion.Titulo}}</ion-title>
+        
+      </ion-toolbar>
+      
+     </ion-header>
     <ion-content  [fullscreen]="true"   >
-        <div class="mainContent ion-text-center">
+         
           <ion-grid  style="height: 100%;">
  
 
@@ -32,7 +26,7 @@
       </ion-avatar>
       </ion-col>
 
-      <ion-col size="12">
+      <ion-col size="12" class="ion-text-center">
  <h3 class="ion-text-wrap">
 <strong>
   Validando Partido...
@@ -349,19 +343,16 @@
 
       
           </ion-grid>    
-      </div>
+ 
     </ion-content>
-    <ion-footer class="ion-no-border" *ngIf="retador &&  partido[0].Estado || rival && partido[1].Estado" class="ion-padding">
+    <ion-footer class="ion-no-border" *ngIf="retador &&  partido[0].Estado || rival && partido[1].Estado">
   
 
-<ion-toolbar class="transparent" >
+<ion-toolbar >
        
+ <app-button class="ion-margin" (click)="evaluacionIndividual()" label="Finalizar Partido"></app-button>
+
  
-
-  <ion-button   (click)="evaluacionIndividual()"  expand="block">
-    Finalizar Partido
-   </ion-button>
-
 </ion-toolbar>
    
   </ion-footer>

@@ -1,0 +1,40 @@
+ion-header {
+
+  ion-toolbar {
+    --background: #5a55ca;
+    color: #fff;
+
+    ion-icon {
+      color: #fff;
+    }
+  }
+}
+ion-fab-button{
+  --background:#5a55ca;
+  
+}
+ion-slides{
+  height: 200px;
+  width: 100%;
+ 
+ 
+}
+ion-slide {
+  height: 200px;
+  width: 100% !important;
+  background-size: 100% 100%;
+  background-position: center;
+}
+ .slider{
+  width:100%;
+  overflow:scroll;//if you want fully display the imgaes
+  overflow:hidden;//if your want omit the rest of images
+ }
+.swiper-wrapper {
+  width: min-content !important;
+}
+ion-avatar ,ion-thumbnail{
+ height: 4rem;
+ width: 4rem;
+}  
+ 

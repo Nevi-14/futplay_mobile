@@ -1,0 +1,152 @@
+ 
+ 
+<ion-header    class="ion-no-border">
+  <ion-toolbar>
+   <ion-button slot="start" (click)="regresar()" fill="clear">
+     <ion-icon size="large" name="close-outline"></ion-icon>
+   </ion-button>
+   <ion-title>Detalle Reto</ion-title>
+    
+  </ion-toolbar>
+  
+ </ion-header>
+    <ion-content fullscreen *ngIf="reto">
+
+
+      <ion-slides pager="true" [options]="slideOpts">
+        <ion-slide  [ngStyle]="{'background-image':'url('+'https://futplaycompany.com/api_test/'+ reto.cancha.Foto  +')'}">
+ 
+        </ion-slide>
+     
+      </ion-slides> 
+  
+        <ion-item detail (click)="canchaDetalle()"   lines="full" class="animate__animated animate__fadeIn ion-no-padding" >
+    
+                
+                  <ion-label class="ion-margin">
+                    <p><strong>Cancha</strong></p>
+                    <p >
+                               
+                      Categoria {{reto.categoria}}
+                 
+                     </p>
+                     <p class="ion-text-wrap">
+                          
+                       {{reto.provincia}}       {{reto.canton}}  
+                  
+                      </p>
+            
+          
+                  </ion-label>
+          
+                </ion-item>
+        <ion-item  detail (click)="equipoRetadorDetalle()"   lines="full" class="animate__animated animate__fadeIn" >
+    
+
+          <ion-avatar slot="start"  >
+        
+          <img *ngIf="!reto.retador.Avatar"   data-src="{{'https://futplaycompany.com/api_test/'+reto.retador.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   >
+          <img  *ngIf="reto.retador.Avatar" src="assets/soccer-shields-svg/{{reto.retador.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"    alt="">
+          </ion-avatar>
+          
+      
+        <ion-label>
+          <p><strong>Retador</strong></p>
+          <h2 class="ion-text-capitalize">{{reto.retador.Nombre}}
+            
+            <p   >
+                 
+              <ng-template ngFor let-hero [ngForOf]="filledStars(reto.retador.Estrellas)"
+              let-i="index" let-odd="odd"  >
+              <ion-icon   color="warning"  name="star"></ion-icon>
+            </ng-template>
+            <ng-template ngFor let-hero [ngForOf]="emptyStars(reto.retador.Estrellas)"
+            let-i="index" let-odd="odd"  >
+            <ion-icon   color="warning"   name="star-outline"></ion-icon>
+          </ng-template> 
+      
+        
+            </p> 
+          </h2>
+        
+  
+
+        </ion-label>
+
+      </ion-item>
+      <ion-item    lines="full" detail (click)="equipoRivalDetalle()"  class="animate__animated animate__fadeIn" >
+    
+
+        <ion-avatar slot="start"  >
+      
+        <img *ngIf="!reto.rival.Avatar" class="logo" data-src="{{'https://futplaycompany.com/api_test/'+reto.rival.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   >
+        <img  *ngIf="reto.rival.Avatar" src="assets/soccer-shields-svg/{{reto.rival.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"    alt="">
+        </ion-avatar>
+        
+    
+      <ion-label>
+        <p><strong>Rival</strong></p>
+        <h2 class="ion-text-capitalize">{{reto.rival.Nombre}}
+          
+          <p   >
+               
+            <ng-template ngFor let-hero [ngForOf]="filledStars(reto.rival.Estrellas)"
+            let-i="index" let-odd="odd"  >
+            <ion-icon   color="warning"  name="star"></ion-icon>
+          </ng-template>
+          <ng-template ngFor let-hero [ngForOf]="emptyStars(reto.rival.Estrellas)"
+          let-i="index" let-odd="odd"  >
+          <ion-icon   color="warning"   name="star-outline"></ion-icon>
+        </ng-template> 
+    
+      
+          </p> 
+        </h2>
+      
+
+
+      </ion-label>
+
+    </ion-item>
+        <ion-grid  class="ion-margin">
+          <ion-row>
+            <ion-col size="12">
+              Descripción : Reto {{ !reto.detalle.Reservacion_Grupal ? 'Grupal' : ' Reto Abierto'}}   
+            </ion-col>
+            <ion-col size="12"  >
+              Fecha  :  <span class="fecha">
+                {{reto.reservacion.Fecha | date :'fullDate'}}
+              </span>
+            </ion-col>
+            <ion-col size="12">
+              Inicio :     {{ reto.reservacion.Hora_Inicio | date:'h:mm a'}}
+            </ion-col>
+            <ion-col size="12">
+              Fin :     {{ reto.reservacion.Hora_Fin| date:'h:mm a'}}
+            </ion-col>
+            <ion-col size="12">
+              Total horas x <strong>{{reto.detalle.Total_Horas}}</strong>
+            </ion-col>
+            <ion-col size="12">
+              Total : {{reto.detalle.Monto_Total | colones }}
+            </ion-col>
+            <ion-col size="12">
+              Monto Por Equipo : {{reto.detalle.Monto_Equipo | colones }}
+            </ion-col>
+            <ion-col size="12">
+              Total Hoy :   {{total | colones}}
+            </ion-col>
+   
+          </ion-row>
+        </ion-grid>
+  
+
+ 
+    </ion-content>
+  
+ <ion-footer  *ngIf="aceptar">
+  <ion-toolbar  >
+    <app-button   (click)="alertaReservacion()" label="Unirme al reto!"></app-button>
+  </ion-toolbar>
+ </ion-footer>
+  

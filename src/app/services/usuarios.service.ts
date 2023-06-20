@@ -22,7 +22,7 @@ import { EquiposService } from './equipos.service';
   providedIn: 'root'
 })
 export class UsuariosService {
-
+  CorreoVerificacion = '';
   usuarioActual: PerfilUsuario
   usuarios: PerfilUsuario[] = []
   userLogin = {
@@ -209,11 +209,15 @@ syncImagePost(data, Cod_Usuario){
 
 
 
-    cerrarSession(){
-
-      this.storageService.delete('usuario')
+async    cerrarSession(){
+  this.alertasService.pagina = 'reservaciones';
+     await this.storageService.delete('usuario')
       this.route.navigate([ '/inicio-sesion']);
+
+      this.equiposService.equipo = null;
+      this.equiposService.misEquipos = [];
       this.usuarioActual = null;
+      
     }
   
   
@@ -381,28 +385,21 @@ syncImagePost(data, Cod_Usuario){
     this.alertasService.presentaLoading('Verificando Datos');
 
     this.loginURL(entrada).subscribe(
-      (resp) =>{
+     async (resp) =>{
 console.log('resp', resp)
  if( resp.usuario ){
 
   this.alertasService.loadingDissmiss();
 
   if(this.comparePassword(contrasena, resp.usuario.Contrasena )){
+ 
     this.usuarioActual = resp;       
     this.storageService.set('usuario',  this.usuarioActual)
-
+    let usuario = await this.storageService.get('usuario')
     console.log('login user', resp)
-    this.equiposService.syncMisEquiposToPromise(this.usuarioActual.usuario.Cod_Usuario).then(resp=>{
-      this.equiposService.equipo = null;
-      this.equiposService.misEquipos = resp;
-      if(this.equiposService.misEquipos.length > 0){
-        this.equiposService.equipo = this.equiposService.misEquipos[0];
-      }
-      this.route.navigateByUrl('/futplay/mis-reservaciones',{replaceUrl:true});
-          })
+   this.alertasService.pagina = 'reservaciones';
+    this.route.navigateByUrl('/futplay/reservaciones',{replaceUrl:true});
  
-
-
 
    }
   
@@ -493,24 +490,14 @@ validarCorreo(email) {
             console.log('posttt', usuario)
 
             this.usuarioActual = resp;
-console.log('this.usuarioActual',this.usuarioActual)
-            if(this.usuarioActual){
-          this.equiposService.misEquipos = [];
-              this.route.navigateByUrl('/futplay/mis-reservaciones',{replaceUrl:true});
-              return;
-            } 
-           
-          
-    
-            this.alertasService.message('Futplay','Lo sentimos algo salio mal')
-            this.route.navigate(['/registro']);
-    
+            this.alertasService.pagina = 'reservaciones'
+            return this.route.navigateByUrl('/futplay/reservaciones',{replaceUrl:true});
    
   
        
       }, error =>{
         this.alertasService.loadingDissmiss();
-        this.alertasService.message('FUTPLAY', 'Error creando el usuario, verifica que el usuario no exista!.')
+        this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal!..')
       });
      
     }

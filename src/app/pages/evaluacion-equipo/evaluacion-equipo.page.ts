@@ -65,7 +65,7 @@ this.finalizar();
    
   }
 
-  cerrarModal(){
+  regresar(){
     this.modalCtrl.dismiss();
   }
   finalizar(){
@@ -78,21 +78,20 @@ this.finalizar();
 
     this.equiposservice.syncPostDurezaEquipo(this.evaluacionEquipo).then(resp =>{
       let stringID = this.reto.reservacion.Cod_Reservacion + "-" + this.usuariosService.usuarioActual.usuario.Cod_Usuario+ "-" +this.reto.reservacion.Fecha
-  
-      this.storageService.delete(stringID).then(codigo =>{
+      this.reservacionesService.cargarReservaciones();
+      this.modalCtrl.dismiss();
+    /**
+     * 
+      this.storageService.delete(stringID).then(async (codigo) =>{
+
+       // this.reservacionesService.segment = 0;
+        this.reservacionesService.cargarReservaciones();
         this.modalCtrl.dismiss();
-        this.reservacionesService.segment = 0;
-       this.reservacionesService.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
-        this.reservacionesService.reservaciones = reservaciones;
-        console.log('reservaciones', this.reservacionesService.reservaciones)
-        this.videoScreen(6);
-
-      })
-
       
   
       })
 
+     */
 
     })
 

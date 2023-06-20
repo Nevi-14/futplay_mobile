@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { InicioPartidoPageRoutingModule } from './inicio-partido-routing.module';
 
 import { InicioPartidoPage } from './inicio-partido.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    InicioPartidoPageRoutingModule
+    InicioPartidoPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [InicioPartidoPage]
 })

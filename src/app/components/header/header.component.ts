@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { UsuariosService } from 'src/app/services/usuarios.service';
-import { MisReservacionesPage } from '../../pages/mis-reservaciones/mis-reservaciones.page';
 import { ReservacionesService } from '../../services/reservaciones.service';
 
 
@@ -38,15 +37,7 @@ export class HeaderComponent implements OnInit {
   }
 
 
-
-
-  async presentModal() {
-    const modal = await this.modalCtrl.create({
-      component: MisReservacionesPage,
-      cssClass: 'full-screen-modal'
-    });
-    return await modal.present();
-  }
+ 
   
 
 

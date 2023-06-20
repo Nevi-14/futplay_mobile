@@ -20,23 +20,26 @@
 
 
     </ion-item>
-
-    <ion-item (click)="onOpenMenu(solicitud)" lines="none" class="employeeItem  animate__animated animate__fadeIn" *ngFor="let solicitud of solicitudesService.solicitudesEquiposArray">
+    <ion-item (click)="onOpenMenu(solicitud)" lines="full" class="custom-item  animate__animated animate__fadeIn" *ngFor="let solicitud of solicitudesService.solicitudesEquiposArray">
       
-      <ion-avatar class="ion-avatar">
-        <img *ngIf="!solicitud.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+solicitud.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+      <ion-avatar slot="start">
+        <img *ngIf="!solicitud.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+solicitud.usuario.Foto}}"
+          onerror="this.src='assets/user.svg'" alt="">
 
-        <img *ngIf="solicitud.usuario.Avatar"src="assets/profile/avatars/{{solicitud.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+        <img *ngIf="solicitud.usuario.Avatar" src="assets/profile/avatars/{{solicitud.usuario.Foto}}"
+          onerror="this.src='assets/user.svg'" alt="">
+
 
       </ion-avatar>
- 
-
-  
       <ion-label>
- 
-        <h2>    {{solicitud.usuario.Nombre}} {{solicitud.usuario.Primer_Apellido}}</h2>
+        <h2>{{solicitud.usuario.Nombre}} </h2>
+        <p>{{solicitud.provincia.Provincia}}, {{solicitud.canton.Canton}} ...</p>
+        <p class="ion-text-wrap">Posicion : <ion-badge color="warning" mode="ios">{{solicitud.posicion}}</ion-badge> </p>
+        <p *ngIf="solicitud.usuario.Apodo">Apodo: {{solicitud.usuario.Apodo}}</p>
+
 
       </ion-label>
+
 
     </ion-item>
 

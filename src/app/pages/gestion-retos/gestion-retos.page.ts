@@ -17,7 +17,7 @@ public router:Router
   }
  
   regresar(){
-    this.router.navigateByUrl('/futplay/mis-reservaciones', {replaceUrl:true})
+    this.router.navigateByUrl('/futplay/reservaciones', {replaceUrl:true})
   }
   redirigir(ruta){
     this.router.navigateByUrl(ruta,{replaceUrl:true})

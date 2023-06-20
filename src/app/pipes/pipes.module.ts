@@ -4,6 +4,7 @@ import { FiltroPipe } from './filtro.pipe';
 
 import { ImageSanitizerPipe } from './image-sanitizer.pipe';
 import { ColonesPipe } from './colones.pipe';
+import { ValidacionFormularioPipe } from './validacion-formulario.pipe';
 
 
 
@@ -11,7 +12,8 @@ import { ColonesPipe } from './colones.pipe';
   declarations: [
     FiltroPipe,
     ImageSanitizerPipe,
-    ColonesPipe
+    ColonesPipe,
+    ValidacionFormularioPipe
   
   ],
   exports:[

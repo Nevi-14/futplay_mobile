@@ -12,24 +12,25 @@
  </ion-header>
     <ion-content fullscreen *ngIf="reto">
 
+      <ion-slides pager="true" [options]="slideOpts">
+        <ion-slide>
+          <img src="{{'https://futplaycompany.com/api_test/'+reto.cancha.Foto }}"
+          onerror="this.src='assets/soccerfield.jpg'" alt="">
+    
+        </ion-slide>
+      </ion-slides>
 
+        <ion-item detail (click)="canchaDetalle()"   lines="full" class="animate__animated animate__fadeIn ion-no-padding" >
 
-      <ion-list>
-        <ion-item detail (click)="canchaDetalle()"   lines="full" class="animate__animated animate__fadeIn" >
-<ion-thumbnail slot="start">
-  <img    src="{{'https://futplaycompany.com/api_test/'+reto.cancha.Foto }}"
-  onerror="this.src='assets/soccerfield.jpg'" alt="">
-</ion-thumbnail>
-        
       
-        <ion-label>
+        <ion-label class="ion-margin">
           <p><strong>Cancha</strong></p>
-          <p >
+          <p  >
                      
             Categoria {{reto.categoria}}
        
            </p>
-           <p>
+           <p class="ion-text-wrap">
                 
              {{reto.provincia}}       {{reto.canton}}  
         
@@ -40,7 +41,7 @@
 
       </ion-item>
  
-        <ion-item detail (click)="equipoDetalle()" *ngIf="partido.length == 0"  lines="full" class="animate__animated animate__fadeIn" >
+        <ion-item detail (click)="equipoDetalle()"    lines="full" class="animate__animated animate__fadeIn" >
 
           <ion-avatar slot="start"  >
         
@@ -146,19 +147,18 @@
             <ion-col size="12">
               Monto Por Equipo : {{reto.detalle.Monto_Equipo | colones }}
             </ion-col>
-            <ion-col size="12">
-              Total Hoy :   {{total | colones}}
-            </ion-col>
-      <ion-col size="12"  *ngIf="rival">
-        <app-button  (click)="finalizarReservacion()"  label="Unirme al reto!"></app-button>
-      </ion-col>
+        
+ 
           </ion-row>
         </ion-grid>
-      </ion-list>
-
+  
 
  
     </ion-content>
-  
+  <ion-footer *ngIf="rival">
+    <ion-toolbar>
+      <app-button   class="ion-margin" (click)="finalizarReservacion()"  label="Unirme al reto!"></app-button>
+    </ion-toolbar>
+  </ion-footer>
  
   

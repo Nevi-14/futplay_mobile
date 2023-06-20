@@ -44,7 +44,7 @@ public jugadoresService:JugadoresService
   ngOnInit() {
     
 
-    this.jugadoresService.syncJugadoresEquipos(this.equipo.Cod_Equipo == this.reto.retador.Cod_Equipo ?  this.reto.retador.Cod_Equipo : this.reto.rival.Cod_Equipo).then(jugadores =>{
+    this.jugadoresService.syncJugadoresEquipos(this.equipo.Cod_Equipo == this.reto.retador.Cod_Equipo ?  this.reto.rival.Cod_Equipo : this.reto.retador.Cod_Equipo).then(jugadores =>{
 console.log('jugadores', jugadores)
       this.jugadoresRetadores = jugadores;
       this.jugadoresService.syncJugadoresEquipos(this.equipo.Cod_Equipo == this.reto.retador.Cod_Equipo ?  this.reto.rival.Cod_Equipo : this.reto.retador.Cod_Equipo).then(jugadores =>{
@@ -82,12 +82,12 @@ console.log(this.partido,'patidooo')
     let {data} = await modal.onDidDismiss();
 
 
- this.cerrarModal();
+ this.regresar();
 
 //this.slideNext();
   }
 
-  cerrarModal(){
+  regresar(){
     this.modalCtrl.dismiss(null,null,'evaluacion-individual')
   }
   agregarJFP(value){

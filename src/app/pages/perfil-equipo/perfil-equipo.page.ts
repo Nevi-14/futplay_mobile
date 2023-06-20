@@ -49,17 +49,28 @@ export class PerfilEquipoPage {
 
   async ionViewWillEnter() {
 
+ 
     let equipos = await this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario);
-    this.equiposService.equipo = equipos[0]
+/**
+ *     this.equiposService.equipo = equipos[0]
+    
+ */
     if(equipos.length == 0) return this.router.navigateByUrl('/futplay/crear-unirse-equipo',{replaceUrl:true})
+    if(this.equiposService.misEquipos.length == 0 && equipos.length  > 0 ){
+      this.equiposService.misEquipos = equipos;
+    this.equiposService.equipo = this.equiposService.misEquipos[0]
+    }
+ //()   alert(JSON.stringify( this.equiposService.equipo));
+ 
     this.solicitudesService.syncGetSolicitudesRecibidasEquipoToPromise(this.equiposService.equipo.equipo.Cod_Equipo).then(solicitudes => {
 
       this.solicitudesService.solicitudesEquiposArray = solicitudes;
-
+ 
 
       this.jugadoresService.syncJugadoresEquipos(this.equiposService.equipo.equipo.Cod_Equipo).then(jugadores => {
         this.jugadoresService.jugadores = jugadores;
-
+   
+          this.equiposService.cargarDAtosUbicacion();
 
       })
 
@@ -83,8 +94,7 @@ export class PerfilEquipoPage {
   }
 
   async gestionarPerfil() {
-
-
+ 
     
           const modal = await this.modalCtrl.create({
             component: EditarPerfilEquipoPage,
@@ -227,6 +237,7 @@ export class PerfilEquipoPage {
         this.jugadoresService.jugadores = []
         this.jugadoresService.jugadores = jugadores;
         //this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, true,false, true)
+        this.equiposService.cargarDAtosUbicacion();
 
       }, error => {
 
@@ -273,7 +284,7 @@ export class PerfilEquipoPage {
 
     console.log(jugador)
 
-
+ 
     if (jugador.usuario.Cod_Usuario == this.equiposService.equipo.equipo.Cod_Usuario) {
       this.alertasService.message('FUTPLAY', 'No se puede eliminar el usuario por defecto')
       return

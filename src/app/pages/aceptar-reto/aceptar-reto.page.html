@@ -12,25 +12,26 @@
  </ion-header>
     <ion-content fullscreen *ngIf="reto">
 
-
-
-      <ion-list>
+      <ion-slides pager="true" [options]="slideOpts">
+        <ion-slide>
+          <img src="{{'https://futplaycompany.com/api_test/'+reto.cancha.Foto }}"
+          onerror="this.src='assets/soccerfield.jpg'" alt="">
+    
+        </ion-slide>
+     
+      </ion-slides>
   
-        <ion-item detail (click)="canchaDetalle()"   lines="full" class="animate__animated animate__fadeIn" >
-          <ion-thumbnail slot="start">
-            <img    src="{{'https://futplaycompany.com/api_test/'+reto.cancha.Foto }}"
-            onerror="this.src='assets/soccerfield.jpg'" alt="">
-          </ion-thumbnail>
-                  
+        <ion-item detail (click)="canchaDetalle()"   lines="full" class="animate__animated animate__fadeIn ion-no-padding" >
+    
                 
-                  <ion-label>
+                  <ion-label class="ion-margin">
                     <p><strong>Cancha</strong></p>
                     <p >
                                
                       Categoria {{reto.categoria}}
                  
                      </p>
-                     <p>
+                     <p class="ion-text-wrap">
                           
                        {{reto.provincia}}       {{reto.canton}}  
                   
@@ -133,19 +134,17 @@
             <ion-col size="12">
               Monto Por Equipo : {{reto.detalle.Monto_Equipo | colones }}
             </ion-col>
-            <ion-col size="12">
-              Total Hoy :   {{total | colones}}
-            </ion-col>
-      <ion-col size="12" (click)="alertaReservacion()">
-        <app-button label="Unirme al reto!"></app-button>
-      </ion-col>
+          
           </ion-row>
         </ion-grid>
-      </ion-list>
-
+  
 
  
     </ion-content>
   
- 
+ <ion-footer  *ngIf="aceptar">
+  <ion-toolbar  >
+    <app-button class="ion-margin"  (click)="alertaReservacion()" label="Unirme al reto!"></app-button>
+  </ion-toolbar>
+ </ion-footer>
   

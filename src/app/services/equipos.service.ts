@@ -6,6 +6,12 @@ import { Equipos } from '../models/equipos';
 import { PerfilEquipos } from '../models/perfilEquipos';
 import { AlertasService } from './alertas.service';
 import { HistorialPartidoEquipos } from '../models/historialPartidoEquipo';
+import { CantonesService } from './cantones.service';
+import { ProvinciasService } from './provincias.service';
+import { DistritosService } from './distritos.service';
+import { Provincias } from '../models/provincias';
+import { Cantones } from '../models/cantones';
+import { Distritos } from '../models/distritos';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +24,15 @@ mostrarEquipos:PerfilEquipos[]=[]
 dataProvincias = [];
 dataCantones = [];
 dataDistritos = [];
+showCanton = null;
+showDistrito = null;
   constructor(
     private http: HttpClient,
     private router: Router,
-    public alertasService: AlertasService
+    public alertasService: AlertasService,
+    public cantonesService:CantonesService,
+    public provinciasService:ProvinciasService,
+    public distritosService:DistritosService
   ) { }
   reload:boolean = false;
 // GET  METHODS
@@ -305,5 +316,69 @@ syncimagePost(data, Cod_Equipo){
         this.mostrarEquipos.push(this.equipos[i]);
       }
     }
+  }
+
+
+
+
+  async cargarDAtosUbicacion(){
+    let provincias = await this.provinciasService.syncProvinciasPromise();
+
+    provincias.forEach(async (provincia:Provincias, index)=>{
+   
+  let data  = {
+    id : provincia.Cod_Provincia,
+    valor: provincia.Provincia
+  }
+  console.log(data,'data')
+  this.dataProvincias.push(data)
+      if(index == provincias.length -1){
+
+
+
+          
+  let cantones = await this.cantonesService.syncCantonesToPromise(this.equipo.equipo.Cod_Provincia);
+  if(cantones.length == 0) this.alertasService.loadingDissmiss();
+    cantones.forEach((canton:Cantones, index)=>{
+   
+  let data  = {
+    id : canton.Cod_Canton,
+    valor: canton.Canton
+  }
+  console.log(data,'data')
+  this.dataCantones.push(data)
+      if(index == cantones.length -1){
+        this.showCanton = true;
+        this.showDistrito = null;
+        this.distritosService.syncDistritos( this.equipo.equipo.Cod_Canton).then(distritos =>{
+          if(distritos.length == 0) this.alertasService.loadingDissmiss();
+          distritos.forEach((distrito:Distritos, index)=>{
+         
+            let data  = {
+              id : distrito.Cod_Distrito,
+              valor: distrito.Distrito
+            }
+            console.log(data,'data')
+            this.dataDistritos.push(data)
+                if(index == distritos.length -1){
+             //     this.distritosService.distritos = resp.slice(0);
+                  this.showDistrito = true;
+                  this.alertasService.loadingDissmiss();
+                }
+              })
+        
+         
+          
+        })
+      }
+
+
+
+    })
+  
+         
+      }
+
+    })
   }
 }

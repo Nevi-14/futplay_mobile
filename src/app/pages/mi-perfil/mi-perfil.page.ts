@@ -24,6 +24,7 @@ public router:Router
   ) { }
 
    ionViewWillEnter() {
+    
 this.cargarDatosUsuario();
   }
 

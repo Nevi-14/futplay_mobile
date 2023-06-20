@@ -1,55 +1,109 @@
-
-<ion-header class="ion-no-border ion-padding" >
-  <ion-toolbar >
-    <ion-button (click)="cerrarModal()"   fill="clear"  slot="start">
-      <ion-icon size="large" name="chevron-back-outline"></ion-icon>
-    </ion-button>
-    <ion-title><strong>Gestion Retos</strong></ion-title>
- 
-  </ion-toolbar>
- 
-
-  </ion-header>
-
-  <ion-content >
-    <div class="content">
-      <ion-list  >
-  
-        <ion-item *ngIf="reservacionesService.reservaciones.length == 0"  lines="none" class="transparent  animate__animated animate__fadeIn" >
-      
-          <ion-avatar slot="start"  style="height:6rem;width: 6rem;" >
-           <img style="height: 5rem;width: 5rem;"   src="assets/logo.png" alt="">
+<ion-content>
+  <ion-list>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4">
+          <ion-avatar>
+            <img src="../assets/logo.png" alt="">
           </ion-avatar>
-         
-   
-           <ion-label>
-      
-             <h2>MENSAJE FUTPLAY </h2>
-      <p class="ion-text-wrap">   No se encontraron resultados </p>
-    
-           </ion-label>
-  
-         </ion-item>
-        <ion-item  (click)="onOpenMenu(reto)"   lines="none" class="custom-item  custom-item-img animate__animated animate__fadeIn"     *ngFor="let reto of reservacionesService.reservaciones | filtro: textoBuscar:'titulo' ; let odd = odd; let i = index;" >
-          <img  src="{{'https://futplaycompany.com/api_test/'+reto.cancha.Foto }}"  onerror="this.src='assets/soccerfield.jpg'"   alt="">
-      
-          <ion-label>
-            <h2> {{reto.titulo}} </h2>
-            <p> Fecha : <ion-badge color="warning" mode="ios"> {{reto.reservacion.Fecha | date:'shortDate'}} </ion-badge> </p>
-            <p   >
-                 
-              Cancha : {{reto.cancha.Nombre}}
-        
-            </p>
-            <p>Hora:  {{reto.reservacion.Hora_Inicio | date:'shortTime'}}    -   {{reto.reservacion.Hora_Fin | date:'shortTime'}}   </p>
+        </ion-col>
+        <ion-col size="8">
+          <ion-label>Diviértete al máximo jugando. Crea o únete a desafíos disponibles en tu zona.
           </ion-label>
-      
-        </ion-item>
-      
-       </ion-list>
-        
-    </div>
 
-     
-  </ion-content>
+        </ion-col>
+        <ion-col size="12">
+          <app-button (click)="nuevaReservacion()" label="Reservar Cancha"></app-button>
 
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-toolbar>
+      <ion-label slot="start" class="subtitle"><strong>Tus Retos</strong></ion-label>
+      <ion-button (click)="gestionRetos()" slot="end" fill="clear" shape="round">
+        <ion-icon size="large" name="arrow-forward"></ion-icon>
+      </ion-button>
+    </ion-toolbar>
+
+
+
+    <ion-item *ngIf="reservacionesService.retosConfirmados.length == 0" lines="none" class="animate__animated animate__fadeIn">
+      <span slot="start">
+        <ion-avatar>
+          <img src="assets/logo.png" alt="">
+        </ion-avatar>
+
+
+        <ion-label>
+
+          <h6><strong>MENSAJE FUTPLAY</strong> </h6>
+          <p> No se encontraron resultados!..</p>
+
+        </ion-label>
+      </span>
+
+
+    </ion-item>
+    <ion-item (click)="iniciarPartido(reservacionesService.retosConfirmados[0])" detail *ngIf="reservacionesService.retosConfirmados.length > 0" lines="none"
+      class="custom-item  animate__animated animate__fadeIn">
+      <img src="{{'https://futplaycompany.com/api_test/'+reservacionesService.retosConfirmados[0].cancha.Foto}}" alt="">
+
+      <ion-label>
+        {{reservacionesService.retosConfirmados[0].reservacion.Fecha | date :'fullDate'}}
+        <p>{{reservacionesService.retosConfirmados[0].reservacion.Hora_Inicio | date:'h:mm a' }} en {{reservacionesService.retosConfirmados[0].cancha.Nombre}}
+        </p>
+        <p>
+
+          {{reservacionesService.retosConfirmados[0].reservacion.Titulo }}
+
+        </p>
+
+      </ion-label>
+
+    </ion-item>
+
+  </ion-list>
+  <ion-list>
+    <ion-toolbar>
+      <ion-label class="subtitle"><strong>Retos Disponibles</strong></ion-label>
+
+      <ion-button fill="clear" slot="end">
+        <ion-icon size="large" name="options"></ion-icon>
+      </ion-button>
+    </ion-toolbar>
+    <ion-item detail *ngFor="let retoAbierto of reservacionesService.retosAbiertos" (click)="detalleReto(retoAbierto)" lines="full"
+      class="custom-item animate__animated animate__fadeIn">
+      <img src="{{'https://futplaycompany.com/api_test/'+retoAbierto.cancha.Foto}}" alt="">
+
+      <ion-label>
+        {{retoAbierto.reservacion.Fecha | date :'fullDate'}}
+        <p>{{retoAbierto.reservacion.Hora_Inicio | date:'h:mm a' }} en {{retoAbierto.cancha.Nombre}} </p>
+        <p>
+
+          {{retoAbierto.reservacion.Titulo }}
+
+        </p>
+
+      </ion-label>
+
+    </ion-item>
+    <ion-item *ngIf="reservacionesService.retosAbiertos.length == 0" lines="none" class="animate__animated animate__fadeIn">
+      <span slot="start">
+        <ion-avatar>
+          <img src="assets/logo.png" alt="">
+        </ion-avatar>
+
+
+        <ion-label>
+
+          <h6><strong>MENSAJE FUTPLAY</strong> </h6>
+          <p> No se encontraron resultados!..</p>
+
+        </ion-label>
+      </span>
+
+
+    </ion-item>
+  </ion-list>
+
+</ion-content>

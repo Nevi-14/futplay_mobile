@@ -9,36 +9,28 @@ ion-header {
     }
   }
 }
-
-.slide-container {
- height: 120px;
+ion-fab-button{
+  --background:#5a55ca;
+  
+}ion-slides{
+  max-height: 250px;
+  width: 100%;
+ img{
+  width: 100%; /* takes the 100 % width of its container (.box div)*/
+  height: 100%; /* takes the 100 % height of its container (.box div)*/
+ }
 }
-ion-slides {
- height: 100%;
-
-}
-
 ion-slide {
- width: 100% !important;
- height: 100%;
-
+  width: 100% !important;
 }
-
-ion-slides {
- width: 100% !important;
+ion-slides{
+  width: 100% !important;
 }
-
 .swiper-wrapper {
- width: min-content !important;
+  width: min-content !important;
 }
-ion-avatar{
+ion-avatar ,ion-thumbnail{
  height: 4rem;
  width: 4rem;
-}
-p{
- display:block;
-  margin-top: 0.5rem;
-}
-ion-icon{
- size: 10px;
-}
+}  
+ 

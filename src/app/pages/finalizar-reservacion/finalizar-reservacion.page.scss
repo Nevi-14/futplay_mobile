@@ -86,16 +86,16 @@ ion-header{
     color: #fff;
     margin-right: 0.5rem;
   }
-
-  
   ion-slides{
-    height: 100%;
-
+    max-height: 250px;
+    width: 100%;
+   img{
+    width: 100%; /* takes the 100 % width of its container (.box div)*/
+    height: 100%; /* takes the 100 % height of its container (.box div)*/
+   }
   }
   ion-slide {
-     width: 100% !important;
-   height: 100%;
-   
+    width: 100% !important;
   }
   ion-slides{
     width: 100% !important;

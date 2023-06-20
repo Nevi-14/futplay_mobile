@@ -34,61 +34,56 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-   <form id="form" (ngSubmit)="crearEquipo(fRegistroEquipo)" #fRegistroEquipo="ngForm">
+   <form id="form" (ngSubmit)="updateUser(fRegistroEquipo)" #fRegistroEquipo="ngForm">
 
     <ion-grid >
       <ion-row>
         <ion-col size="12">
-          <app-input    name="nombre" type="text" label="Nombre" ngModel=""></app-input>
+          <app-input    name="Nombre" type="text" label="Nombre" ngModel="{{usuario.usuario.Nombre}}"></app-input>
  
  
 
         </ion-col>
         <ion-col size="12">
-          <app-input      name="Primer_Apellido" type="text" label="Primer Apellido" ngModel=""></app-input>
+          <app-input      name="Primer_Apellido" type="text" label="Primer Apellido" ngModel="{{usuario.usuario.Primer_Apellido}}"></app-input>
         </ion-col>
         <ion-col size="12">
-          <app-input      name="apodo" type="text" label="Apodo" ngModel=""></app-input> 
+          <app-input      name="Apodo" type="text" label="Apodo" ngModel="{{usuario.usuario.Apodo}}"></app-input> 
         </ion-col>
         <ion-col size="12">
           
-     <app-select  name="posicion"  [data]="[]"   label="Posición" ngModel=""></app-select>
+     <app-select  name="Cod_Posicion"  [data]="dataPosiciones"   [ngModel]="usuario.usuario.Cod_Posicion" label="Posición"  ></app-select>
         </ion-col>
         <ion-col size="12">
-          <app-input      name="estatura" type="text" label="Estatura" ngModel=""></app-input>
+          <app-input      name="Estatura" type="text" label="Estatura" ngModel="{{usuario.usuario.Estatura}}"></app-input>
 
         </ion-col>
 
         <ion-col size="12">
-          <app-input      name="peso" type="text" label="Peso" ngModel=""></app-input>
+          <app-input      name="Peso" type="text" label="Peso" ngModel="{{usuario.usuario.Peso}}"></app-input>
         </ion-col>
+        <ion-col size="12">
+          <app-input      name="Telefono" type="text" label="Telefono" ngModel="{{usuario.usuario.Telefono}}"></app-input>
 
-        <ion-col size="12">
-          <app-input      name="correo" type="text" label="Correo" ngModel=""></app-input>
         </ion-col>
         <ion-col size="12">
-       
-          <app-select  name="pais"  [data]="[]"   label="Pais" ngModel=""></app-select>
+          <app-input readonly="true"     name="Correo" type="text" label="Correo" ngModel="{{usuario.usuario.Correo}}"></app-input>
         </ion-col>
-
-
-        <ion-col size="12">
-          <app-input      name="fechaNacimiento" type="text" label="Fecha Nacimiento" ngModel=""></app-input>
-        </ion-col>
-        <ion-col size="12">
-              
-     <app-select  name="provincia"  [data]="[]"   label="Provincia" ngModel=""></app-select>
-        </ion-col>
+         
 
 
         <ion-col size="12">
-              
-
-     <app-select  name="canton"  [data]="[]"   label="Cantón" ngModel=""></app-select>
+          <app-input readonly="true" (click)="SelectDate()"     name="fechaNacimiento" type="text" label="Fecha Nacimiento" ngModel="{{usuario.usuario.Fecha_Nacimiento | date}}"></app-input>
         </ion-col>
-        <ion-col size="12">
-             
-     <app-select  name="distrito" [data]="[]"   label="Distrito" ngModel=""></app-select>
+        <ion-col size="12"   >
+  
+          <app-select name="Cod_Provincia" (ionChange)="onChangeProvincias(fRegistroEquipo, $event)"   [data]="dataProvincias" label="Provincia" [ngModel]="usuario.usuario.Cod_Provincia"></app-select>
+        </ion-col>
+        <ion-col size="12" (ionChange)="onChangeCantones(fRegistroEquipo, $event)"  *ngIf="showCanton" >
+          <app-select name="Cod_Canton" [data]="dataCantones" label="Canton" [ngModel]="usuario.usuario.Cod_Canton"></app-select>
+        </ion-col>
+        <ion-col size="12"  *ngIf="showDistrito" >
+          <app-select name="Cod_Distrito" [data]="dataDistritos" label="Distrito" [ngModel]="usuario.usuario.Cod_Distrito"></app-select>
         </ion-col>
         <ion-col size="12">
           <app-button label="Editar Perfil"></app-button>

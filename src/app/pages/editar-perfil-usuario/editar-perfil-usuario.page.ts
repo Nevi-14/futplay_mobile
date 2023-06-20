@@ -13,6 +13,11 @@ import { ChangeDetectorRef } from '@angular/core'
 import { EliminarCuentaPage } from '../eliminar-cuenta/eliminar-cuenta.page';
 import { GestorPerfilImagenesPage } from '../gestor-perfil-imagenes/gestor-perfil-imagenes.page';
 import { GestorImagenesService } from '../../services/gestor-imagenes.service';
+import { Distritos } from 'src/app/models/distritos';
+import { Cantones } from 'src/app/models/cantones';
+import { Provincias } from 'src/app/models/provincias';
+import { NgForm } from '@angular/forms';
+import { tick } from '@angular/core/testing';
 @Component({
   selector: 'app-editar-perfil-usuario',
   templateUrl: './editar-perfil-usuario.page.html',
@@ -24,6 +29,10 @@ showPosicion = false;
 showProvicia = false;
 showCanton = false;
 showDistrito = false;
+dataProvincias = [];
+dataCantones = [];
+dataDistritos = [];
+dataPosiciones=[];
 imgs = avatarArray;
   private modalOpen:boolean = false;
   areaUnit =1;
@@ -152,57 +161,83 @@ isVisible = false;
   this.showPosicion = true;
  this.usuario.usuario.Cod_Posicion = this.usuarioService.usuarioActual.usuario.Cod_Posicion;
 this.posicionesService.posiciones  = resp;
+resp.forEach( posision =>{
+     
+  let data  = {
+    id : posision.Cod_Posicion,
+    valor: posision.Posicion
+  }
+  this.dataPosiciones.push(data)
+})
 
    });
-
-
-   this.provinciasService.provincias = [];
-      this.provinciasService.syncProvinciasPromise().then(resp =>{
-        this.provinciasService.provincias = resp
-this.showProvicia = true;
-this.usuario.usuario.Cod_Provincia = this.usuarioService.usuarioActual.usuario.Cod_Provincia
-      })
-  
-      this.usuario.usuario.Cod_Provincia = this.usuarioService.usuarioActual.usuario.Cod_Provincia
-
-
-      if(this.usuario.usuario.Cod_Provincia){
-        this.cantonesService.syncCantones(this.usuario.usuario.Cod_Provincia).then(resp =>{
-      this.showCanton = true;
-      this.showDistrito = null;
-      this.cantonesService.cantones = resp.slice(0);
-      this.alertasService.loadingDissmiss();
-      this.usuario.usuario.Cod_Canton = this.usuarioService.usuarioActual.usuario.Cod_Canton
-
-      if(this.usuario.usuario.Cod_Provincia && this.usuario.usuario.Cod_Canton){
-        this.distritosService.syncDistritos(this.usuario.usuario.Cod_Canton).then(resp =>{
-          this.distritosService.distritos = resp.slice(0);
-          this.showDistrito = true;
-          this.alertasService.loadingDissmiss();
-          this.usuario.usuario.Cod_Distrito = this.usuarioService.usuarioActual.usuario.Cod_Distrito
-        });
-      
-        }
-
-
-      
-        })
-
-
-  
-
-
-       }else{
-        this.alertasService.loadingDissmiss();
-       }
-
+ this.cargarDAtosUbicacion()
   }
 
   avatar(){
     this.avatars = !this.avatars
 
   }
+  async cargarDAtosUbicacion(){
+    let provincias = await this.provinciasService.syncProvinciasPromise();
 
+    provincias.forEach(async (provincia:Provincias, index)=>{
+   
+  let data  = {
+    id : provincia.Cod_Provincia,
+    valor: provincia.Provincia
+  }
+  console.log(data,'data')
+  this.dataProvincias.push(data)
+      if(index == provincias.length -1){
+
+
+
+          
+  let cantones = await this.cantonesService.syncCantonesToPromise(this.usuario.usuario.Cod_Provincia);
+  if(cantones.length == 0) this.alertasService.loadingDissmiss();
+    cantones.forEach((canton:Cantones, index)=>{
+   
+  let data  = {
+    id : canton.Cod_Canton,
+    valor: canton.Canton
+  }
+  console.log(data,'data')
+  this.dataCantones.push(data)
+      if(index == cantones.length -1){
+        this.showCanton = true;
+        this.showDistrito = null;
+        this.distritosService.syncDistritos( this.usuario.usuario.Cod_Canton).then(distritos =>{
+          if(distritos.length == 0) this.alertasService.loadingDissmiss();
+          distritos.forEach((distrito:Distritos, index)=>{
+         
+            let data  = {
+              id : distrito.Cod_Distrito,
+              valor: distrito.Distrito
+            }
+            console.log(data,'data')
+            this.dataDistritos.push(data)
+                if(index == distritos.length -1){
+             //     this.distritosService.distritos = resp.slice(0);
+                  this.showDistrito = true;
+                  this.alertasService.loadingDissmiss();
+                }
+              })
+        
+         
+          
+        })
+      }
+
+
+
+    })
+  
+         
+      }
+
+    })
+  }
 
   async  gestorPerfilImagenes(){
 
@@ -241,10 +276,23 @@ this.usuario.usuario.Cod_Provincia = this.usuarioService.usuarioActual.usuario.C
   }
 
 
-  updateUser(){
-    
+  updateUser(fRegistroEquipo:NgForm){
+    let usuario = fRegistroEquipo.value;
+    this.usuario.usuario.Nombre = usuario.Nombre;
+    this.usuario.usuario.Primer_Apellido = usuario.Primer_Apellido;
+    this.usuario.usuario.Apodo = usuario.Apodo;
+    this.usuario.usuario.Cod_Posicion = usuario.Cod_Posicion;
+    this.usuario.usuario.Estatura = usuario.Estatura;
+    this.usuario.usuario.Peso = usuario.Peso;
+    this.usuario.usuario.Telefono = usuario.Telefono;
+    this.usuario.usuario.Correo = usuario.Correo;
+    this.usuario.usuario.Cod_Provincia = usuario.Cod_Provincia;
+    this.usuario.usuario.Cod_Canton = usuario.Cod_Canton;
+    this.usuario.usuario.Cod_Distrito = usuario.Cod_Distrito;
+
   //  if(fActualizar.invalid) {return;}
  
+  this.usuarioService.usuarioActual.usuario = this.usuario.usuario;
     this.modalCtrl.dismiss({'data':true}, null, 'perfil-usuario')
     console.log(this.usuario, this.usuario.usuario.Cod_Posicion, 'Cod_Posicion')
     this.usuario.usuario.Cod_Pais = this.usuario.usuario.Pais == 'CR' ? '+506' : '+1';

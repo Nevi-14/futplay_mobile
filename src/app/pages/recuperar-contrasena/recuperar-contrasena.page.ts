@@ -1,19 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { UsuariosService } from '../../services/usuarios.service';
-import * as bcrypt from 'bcryptjs';  // npm install bcryptjs --save  &&  npm install @types/bcrypt --save-dev
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-recuperar-contrasena',
   templateUrl: './recuperar-contrasena.page.html',
   styleUrls: ['./recuperar-contrasena.page.scss'],
 })
-export class RecuperarContrasenaPage implements OnInit {
-  showPass = false;
-  confirmPass = false;
-  cambiarContrasena = false;
-  contrasena = '';
-  confirmarContrasena = '';
+export class RecuperarContrasenaPage {
+  token = null;
   verificarCodigo = false;
   correo = '';
   codigo = '';
@@ -21,100 +18,82 @@ export class RecuperarContrasenaPage implements OnInit {
   constructor(
     public modalCtrl: ModalController,
     public alertasService: AlertasService,
-    public usuariosService:UsuariosService ) { }
+    public usuariosService: UsuariosService,
+    public router: Router
 
-  ngOnInit() {
+  ) { }
+
+  ionViewWillEnter() {
+    this.limpiarDatos()
+  }
+  limpiarDatos() {
+    this.token = null;
+    this.verificarCodigo = false;
+    this.correo = '';
+    this.codigo = '';
+
   }
 
-  cerrarModal(){
-    this.modalCtrl.dismiss();
-  }
-
-  
-  confirmar(){
-
-    if(!this.correo ){
-      this.alertasService.message('ALERTA','Todos los campos son obligatorios!.');
-      return
-    }
-
-    this.modalCtrl.dismiss({correo:this.correo})
-  }
-
-  verificar(){
-    this.verificarCodigo!=this.verificarCodigo;
- 
-  }
-
-  cambiarContra(){
-
-
-    if(this.confirmarContrasena != this.contrasena){
-
-      this.alertasService.message('FUTPLAY','Las contraseñas deben de coincidir');
-    }else{
-
-      
-      let userInfo = {
-        email:this.correo,
-        password: bcrypt.hashSync(this.contrasena, 10)
-      }
-      this.usuariosService.syncPutUserPasswordToPromise(userInfo).then((resp:any) =>{
-        this.alertasService.message('app', resp.message)
-        this.cerrarModal();
-        console.log(resp)
-      }, error =>{
-        this.alertasService.message('app', 'Lo sentimos algo salio mal')
-      })
-    }
-  }
-
-  verificarCodigos(){
-
-    this.alertasService.presentaLoading('Validando información..')
-    this.usuariosService.syncPostTokenVerification( {
-      token:this.codigo,
-      email:this.correo
-    }).then((resp:any) =>{
+  verificarCodigos(fRecuperarContrasena: NgForm) {
     
-      console.log('resp', resp)
-    this.alertasService.loadingDissmiss();
-      if(resp.passwordReset.token == this.codigo){
-      //  this.changePassword(data.email);
-    this.cambiarContrasena = true;
-      }else{
+    let data = fRecuperarContrasena.value;
+    this.codigo = data.codigo
+    if(!this.codigo) return this.alertasService.message('FUTPLAY','Todos los campos son obligatorios!');
+    this.alertasService.presentaLoading('Validando información..')
+    this.usuariosService.syncPostTokenVerification({
+      token: this.codigo,
+      email: this.correo
+    }).then((resp: any) => {
+      console.log(this.codigo)
+      console.log(resp.passwordReset.token)
+      this.alertasService.loadingDissmiss();
+      if (resp.passwordReset.token == this.codigo) {
+        this.usuariosService.CorreoVerificacion = this.correo;
+        this.router.navigateByUrl('/cambiar-contrasena', { replaceUrl: true })
+      } else {
         this.alertasService.loadingDissmiss();
-        this.alertasService.message('Mi Enfermera','Codigo incorrecto.');
+        this.alertasService.message('Futplay', 'Codigo incorrecto.');
         return;
       }
     })
   }
 
-  recuperar(){
+  obtenerCodigoDeSeguridad(fRecuperarContrasena: NgForm) {
 
-    let token = String(new Date().getHours()) + String(new Date().getMinutes()) +String(new Date().getMilliseconds());
+    if (this.verificarCodigo) return this.verificarCodigos(fRecuperarContrasena);
+
+    let data = fRecuperarContrasena.value;
+    this.correo = data.Correo;
+    
+    if(!this.correo) return this.alertasService.message('FUTPLAY','Todos los campos son obligatorios!');
+    let token = String(new Date().getHours()) + String(new Date().getMinutes()) + String(new Date().getMilliseconds());
     let item = {
       "body": {
-              "email":this.correo,
-              "token":token
-              }
-         
+        "email": this.correo,
+        "token": token
+      }
     }
-    this.alertasService.presentaLoading('Verificando informacion.')
-          this.usuariosService.syncPostForgotPassword(item).then((resp:any) =>{
-    console.log(resp,'res')
-    this.verificarCodigo = true;
-    this.alertasService.loadingDissmiss();
-    if(!resp.error){
 
-     // this.securityCode(data.correo)
-    }
-    
-            this.alertasService.message('app', resp.message)
-          }, error =>{
-            this.alertasService.loadingDissmiss();
-            this.alertasService.message('App','Lo sentimos algo salio mal.')
-          })
+    this.alertasService.presentaLoading('Verificando informacion.')
+    this.usuariosService.syncPostForgotPassword(item).then((resp: any) => {
+      this.alertasService.loadingDissmiss();
+      if (resp != 500) {
+        this.verificarCodigo = true;
+        this.alertasService.message('FUTPLAY', resp.message)
+        return
+      }
+
+      this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal.')
+
+
+    }, error => {
+      this.verificarCodigo = false;
+      this.alertasService.loadingDissmiss();
+      this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal.')
+
+    })
   }
+
+
 
 }

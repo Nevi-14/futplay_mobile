@@ -41,7 +41,8 @@ export class FinalizarReservacionPage implements OnInit {
     public gestionReservacionesService:ReservacionesService,
     public emailService:EmailService,
     public usuariosService:UsuariosService,
-    public router:Router
+    public router:Router,
+    public reservacionesService:ReservacionesService
     ) {
     this.plt.ready().then(() => {
       // Only for debugging!
@@ -153,8 +154,8 @@ export class FinalizarReservacionPage implements OnInit {
   this.nuevaReservacion.Cod_Estado = 4;
   this.detalleReservacion.Cod_Estado = 4;
   this.detalleReservacion.Confirmacion_Rival = true;
- 
- 
+ this.detalleReservacion.Cod_Retador = this.retador.equipo.Cod_Equipo;
+ this.detalleReservacion.Cod_Rival = this.rival.equipo.Cod_Equipo;
   console.log('actualzianco this.nuevaReservacion',this.nuevaReservacion);
   console.log('actualzianco this.detalleReservacion',this.detalleReservacion)
 this.gestionReservacionesService.syncPutReservacione(this.nuevaReservacion).then((resp:any) =>{
@@ -164,10 +165,13 @@ this.detalleReservacion.Cod_Reservacion = resp.reservacion.Cod_Reservacion;
 this.gestionReservacionesService.syncPutDetalleReservaion(this.detalleReservacion).then(resp =>{
 if(this.detalleReservacion.Reservacion_Grupal){
   this.emailService.enviarCorreoReservaciones(1, this.rival.correo, this.nuevaReservacion.Fecha, this.nuevaReservacion.Hora_Inicio, this.cancha.nombre, this.rival.nombre, this.retador.nombre).then(resp =>{
-    this.regresar();
-    this.router.navigateByUrl('/futplay/mis-reservaciones',{replaceUrl:true})
+ 
+
     this.alertasService.loadingDissmiss();
+   this.regresar();
+    this.reservacionesService.cargarReservaciones();
     this.alertasService.message('FUTPLAY', 'El reto  se acepto con éxito ');
+    this.router.navigateByUrl('/futplay/reservaciones',{replaceUrl:true})
   }, error =>{
     this.alertasService.loadingDissmiss();
     this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
@@ -185,12 +189,13 @@ if(this.detalleReservacion.Reservacion_Grupal){
   body.body.email = this.usuariosService.usuarioActual.usuario.Correo;
 this.emailService.syncPostReservacionEmail(body).then(resp =>{
   body.body.email = this.cancha.correo;
-  this.emailService.syncPostReservacionEmail(body).then(resp =>{
+  this.emailService.syncPostReservacionEmail(body).then(async (resp) =>{
+ 
     this.regresar();
-    this.router.navigateByUrl('/futplay/mis-reservaciones',{replaceUrl:true})
     this.alertasService.loadingDissmiss();
+   await this.gestionReservacionesService.cargarReservaciones()
     this.alertasService.message('FUTPLAY', 'El reto  se efectuo con éxito ')
-  
+    this.router.navigateByUrl('/futplay/mis-reservaciones',{replaceUrl:true})
   })
 
 
@@ -243,7 +248,8 @@ this.detalleReservacion.Cod_Reservacion = resp.reservacion.Cod_Reservacion;
 //this.actualizarDetalle()
 this.gestionReservacionesService.insertarDetalleReservacionToPromise(this.detalleReservacion).then(resp =>{
 if(this.detalleReservacion.Reservacion_Grupal){
-  this.emailService.enviarCorreoReservaciones(1, this.rival.correo, this.nuevaReservacion.Fecha, this.nuevaReservacion.Hora_Inicio, this.cancha.nombre, this.rival.nombre, this.retador.nombre).then(resp =>{
+  this.emailService.enviarCorreoReservaciones(1, this.rival.correo, this.nuevaReservacion.Fecha, this.nuevaReservacion.Hora_Inicio, this.cancha.nombre, this.rival.nombre, this.retador.nombre).then(async (resp) =>{
+    await this.gestionReservacionesService.cargarReservaciones()
     this.regresar();
     this.alertasService.loadingDissmiss();
     this.alertasService.message('FUTPLAY', 'El reto  se efectuo con éxito ');
@@ -264,7 +270,8 @@ if(this.detalleReservacion.Reservacion_Grupal){
   body.body.email = this.usuariosService.usuarioActual.usuario.Correo;
 this.emailService.syncPostReservacionEmail(body).then(resp =>{
   body.body.email = this.cancha.correo;
-  this.emailService.syncPostReservacionEmail(body).then(resp =>{
+  this.emailService.syncPostReservacionEmail(body).then(async (resp) =>{
+    await this.gestionReservacionesService.cargarReservaciones()
     this.regresar();
     this.alertasService.loadingDissmiss();
     this.alertasService.message('FUTPLAY', 'El reto  se efectuo con éxito ')

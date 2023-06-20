@@ -16,10 +16,11 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgModel } from '@angular/forms
 export class InputComponent  implements ControlValueAccessor{
   @Input() name: any = '';
   @Input() ngModel:any = '';
-  @Input() readonly:boolean;
+  @Input() readonly:boolean= false;
   @Input() label: string = '';
   @Input() type = 'text'; // set default type be text
-public onChange!: Function  | any
+  showPass:boolean = true;
+public onChange!: Function;
   constructor(){
 
   }
@@ -36,8 +37,8 @@ public onChange!: Function  | any
   }
 
   changeText($event:any):void{
-    console.log('event', $event.target.value)
-    this.onChange($event.target.value)
+    
+this.onChange($event.target.value)
   }
   writeValue(value: any): void {
     if(value){

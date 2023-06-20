@@ -8,7 +8,7 @@ export class AlertasService {
 
   isLoading = false;
   loading: HTMLIonLoadingElement;
-
+  pagina = null;
 
 
   constructor(

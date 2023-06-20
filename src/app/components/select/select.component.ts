@@ -24,7 +24,7 @@ export class SelectComponent  implements ControlValueAccessor{
   @Input() data:data[] = [];
   @Input() multiple:boolean = false;
   @Input() readonly:boolean = false;
-public onChange!: Function  | any;
+public onChange!: Function;
   constructor(){
 
   }
@@ -41,8 +41,8 @@ public onChange!: Function  | any;
   }
 
   changeText($event:any):void{
-    this.onChange($event.target.value)
- 
+    
+this.onChange($event.target.value)
   }
   writeValue(value: any): void {
     if(value){

@@ -63,8 +63,7 @@ export class EditarPerfilEquipoPage implements OnInit {
       }
     },
   };
-  showCanton = null;
-  showDistrito = null;
+ 
   modalOpen:boolean = false;
 
   avatarSlide = null;
@@ -140,64 +139,7 @@ export class EditarPerfilEquipoPage implements OnInit {
         console.log(selectedImage)
       } 
  
-      let provincias = await this.provinciasService.syncProvinciasPromise();
-
-      provincias.forEach(async (provincia:Provincias, index)=>{
-     
-    let data  = {
-      id : provincia.Cod_Provincia,
-      valor: provincia.Provincia
-    }
-    console.log(data,'data')
-    this.equiposService.dataProvincias.push(data)
-        if(index == provincias.length -1){
-
-
-
-            
-    let cantones = await this.cantonesService.syncCantonesToPromise(this.equipo.Cod_Provincia);
-    if(cantones.length == 0) this.alertasService.loadingDissmiss();
-      cantones.forEach((canton:Cantones, index)=>{
-     
-    let data  = {
-      id : canton.Cod_Canton,
-      valor: canton.Canton
-    }
-    console.log(data,'data')
-    this.equiposService.dataCantones.push(data)
-        if(index == cantones.length -1){
-          this.showCanton = true;
-          this.showDistrito = null;
-          this.distritosService.syncDistritos( this.equipo.Cod_Canton).then(distritos =>{
-            if(distritos.length == 0) this.alertasService.loadingDissmiss();
-            distritos.forEach((distrito:Distritos, index)=>{
-           
-              let data  = {
-                id : distrito.Cod_Distrito,
-                valor: distrito.Distrito
-              }
-              console.log(data,'data')
-              this.equiposService.dataDistritos.push(data)
-                  if(index == distritos.length -1){
-               //     this.distritosService.distritos = resp.slice(0);
-                    this.showDistrito = true;
-                    this.alertasService.loadingDissmiss();
-                  }
-                })
-          
-           
-            
-          })
-        }
-
-
-
-      })
-    
-           
-        }
-
-      })
+   
  
     }
 
@@ -384,8 +326,8 @@ if(resp.action){
   console.log(data,'data')
   this.equiposService.dataCantones.push(data)
       if(index == cantones.length -1){
-        this.showCanton = true;
-        this.showDistrito = null;
+        this.equiposService.showCanton = true;
+        this.equiposService.showDistrito = null;
         this.alertasService.loadingDissmiss();
       }
     })
@@ -413,7 +355,7 @@ if(resp.action){
       this.equiposService.dataDistritos.push(data)
           if(index == distritos.length -1){
        //     this.distritosService.distritos = resp.slice(0);
-            this.showDistrito = true;
+       this.equiposService.showDistrito = true;
             this.alertasService.loadingDissmiss();
           }
         })

@@ -26,7 +26,6 @@ import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-m
 })
 export class AceptarRetoAbiertoPage implements OnInit {
   @Input() reto:PerfilReservaciones
-  @Input() partido:partidos[]
   jugadoresPermitidosRetador:PerfilJugador[]=[]
   jugadoresPermitidosRival:PerfilJugador[]=[]
   rival : PerfilEquipos;
@@ -95,7 +94,7 @@ export class AceptarRetoAbiertoPage implements OnInit {
      
       this.total = Number(((10/100)*this.reto.detalle.Monto_Total).toFixed(2));
   console.log(this.reto, 'reto')
-      console.log('this.partido', this.partido)
+     
         this.jugadoresPermitidosRetador = await this.jugadoresService.syncJugadoresEquipos(this.reto.retador.Cod_Equipo);
         this.jugadoresPermitidosRival = await this.jugadoresService.syncJugadoresEquipos(this.reto.rival.Cod_Equipo);
         this.indexRetador = this.jugadoresPermitidosRetador.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario);
@@ -129,7 +128,7 @@ export class AceptarRetoAbiertoPage implements OnInit {
     
     
       regresar(){
-      this.modalCtrl.dismiss(null,null,'aceptar-reto')
+      this.modalCtrl.dismiss()
     }
   
     async canchaDetalle(){

@@ -4,6 +4,7 @@ import {filter,map,take} from 'rxjs/operators';
 import { UsuariosService } from '../services/usuarios.service';
 import { AuthenticationService } from '../services/autenticacion.service';
 import { StorageService } from '../services/storage-service';
+import { AlertasService } from '../services/alertas.service';
  
 
 @Injectable({
@@ -15,7 +16,8 @@ export class AutoLoginGuard implements CanLoad {
     public usuariosService:UsuariosService,
     public authenticationService:  AuthenticationService,
     public router: Router,
-    public storageService: StorageService
+    public storageService: StorageService,
+    public alertasService:AlertasService
 
   ){}
   canLoad(): any{
@@ -29,7 +31,9 @@ export class AutoLoginGuard implements CanLoad {
       this.usuariosService.usuarioActual = usuario;
       if(this.usuariosService.usuarioActual){
         this.authenticationService.loadToken(true)
-        this.router.navigateByUrl('/futplay/mis-reservaciones', {replaceUrl:true});
+        this.alertasService.pagina = 'reservaciones'
+        
+        this.router.navigateByUrl('/futplay/reservaciones', {replaceUrl:true});
       }else{
        // this.authenticationService.googleSignOut();
         this.authenticationService.isAuthenticated.next(false);

@@ -15,15 +15,9 @@ ion-header{
  .futplay-dark{
   color: #000; 
  }
-ion-searchbar {
-
-  --border-radius: 10px;
-  //--background: white;
-  --color: black;
-  min-height: 5rem;
-  padding: 1rem;
-  padding-top: 0;
-  margin-top: -1rem;
+ .ion-padding ion-icon{
+  color: #5a55ca!important;
+ 
 }
 ion-avatar{
   height: 5rem; width: 5rem;

@@ -15,6 +15,7 @@ import { PerfilEquipos } from 'src/app/models/perfilEquipos';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { CanchaDetallePage } from '../cancha-detalle/cancha-detalle.page';
 import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-modal.page';
+import { InicioPartidoPage } from '../inicio-partido/inicio-partido.page';
 
 @Component({
   selector: 'app-aceptar-reto',
@@ -23,6 +24,7 @@ import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-m
 })
 export class AceptarRetoPage implements OnInit {
   @Input() reto: PerfilReservaciones
+  @Input() aceptar: Boolean = false;
   @Input() partido: partidos[]
   jugadoresPermitidosRetador: PerfilJugador[] = []
   jugadoresPermitidosRival: PerfilJugador[] = []
@@ -162,8 +164,10 @@ export class AceptarRetoPage implements OnInit {
     const { role } = await alert.onDidDismiss();
 
   }
-
+ 
   async aceptarReto() {
+    this.reto.detalle.Cod_Estado = 4;
+    this.reto.reservacion.Cod_Estado = 4;
     this.alertasService.presentaLoading('Gestionando cambios..')
     this.reto.detalle.Confirmacion_Rival = true;
     await this.reservacionesService.syncPutReservacione(this.reto.reservacion);
@@ -173,6 +177,7 @@ export class AceptarRetoPage implements OnInit {
           this.emailService.enviarCorreoReservaciones(2, this.reto.correo, this.reto.reservacion.Fecha, this.reto.reservacion.Hora_Inicio, this.reto.cancha.Nombre, this.reto.rival.Nombre, this.reto.retador.Nombre).then(resp => {
             this.alertasService.loadingDissmiss();
             this.alertasService.message('FUTPLAY', 'La reservación se confirmo con éxito ')
+            this.reservacionesService.cargarReservaciones();
             this.modalCtrl.dismiss(true)
           }, error => {
             this.alertasService.loadingDissmiss();

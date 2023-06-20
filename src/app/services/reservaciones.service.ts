@@ -37,8 +37,9 @@ horario:HorarioCanchas[];
 diaActual:HorarioCanchas;
 reservaciones:PerfilReservaciones[]=[]
 reservacionesDia:PerfilReservaciones[]=[]
+retosAbiertos:PerfilReservaciones[]=[]
+retosConfirmados:PerfilReservaciones[]=[]
 reservacionesRecibidas:PerfilReservaciones[]=[]
-reservacionesAbiertas:PerfilReservaciones[]=[]
 segment = 0;
 constructor(
 
@@ -281,7 +282,19 @@ syncGetReservacionesResvision(Cod_Usuario){
 
 
 }
-
+async cargarReservaciones(){
+ return this.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones2 =>{
+    this.retosConfirmados = reservaciones2;
+   
+    return   this.syncGetReservacionesAbiertasToPromise().then(reservaciones =>{
+     this.retosAbiertos = reservaciones;
+     return  this.syncgGtReservacionesRecibidas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+      this.reservacionesRecibidas = reservaciones;
+     })
+    })
+  })
+ }
+ 
 syncGetReservacionesCanceladas(Cod_Usuario){
 
   return     this.getReservacionesCanceladas(Cod_Usuario).toPromise();
@@ -481,7 +494,7 @@ console.log('horaActual',horaActual,'apertura',apertura,'cierre',cierre)
     // CALCULAR HORAS
 
 
-    calHoraInicio(Cod_Cancha, date: Date) {
+    async calHoraInicio(Cod_Cancha, date: Date) {
 
       let indexDiaActual = date.getDay();
       this.diaActual = this.horario[indexDiaActual];
@@ -554,10 +567,10 @@ console.log('horaActual',horaActual,'apertura',apertura,'cierre',cierre)
   
       }
   
-      this.rellenarArreglo(Cod_Cancha, horaInicial, cierre, fecha, 'Hora_Inicio').then(resp => {
+      return   this.rellenarArreglo(Cod_Cancha, horaInicial, cierre, fecha, 'Hora_Inicio').then(resp => {
         console.log('this.horaInicioArray', resp)
         this.horaInicioArray = resp;
-        return 
+          
       })
   
   
@@ -566,21 +579,21 @@ console.log('horaActual',horaActual,'apertura',apertura,'cierre',cierre)
       
 
       
-      calHoraFin(Cod_Cancha, value){
-        this.horaFinArray = [];
-        let Fecha = value.date;
+    async  calHoraFin(Cod_Cancha, value:Date){
+       
+        let Fecha = value;
 console.log(Fecha, 'fecha', 'value',value)
 let index = Fecha.getDay();
 this.diaActual =  this.horario[index];
 
 console.log( this.diaActual ,' this.diaActual ')
-let apertura = value.hours+1;
+let apertura = value.getHours()+1;
 let cierre = this.horario[index].Hora_Fin+1;
 
 
-this.rellenarArreglo(Cod_Cancha,apertura, cierre,Fecha,'Hora_Fin').then(resp =>{
+return this.rellenarArreglo(Cod_Cancha,apertura, cierre,Fecha,'Hora_Fin').then(resp =>{
     
-  return  this.horaFinArray = resp;
+    this.horaFinArray = resp;
 
      
   })
@@ -704,11 +717,16 @@ this.rellenarArreglo(Cod_Cancha,apertura, cierre,Fecha,'Hora_Fin').then(resp =>{
       let fin = new Date( reservacionesDia[i].Hora_Fin).getHours();
       for(let j = inicio; j < fin; j++){
   
+    /**
+     *     let hora = {
+          Hora_Inicio: j,
+          Hora_Fin: j+1
+        }
+     */
         let hora = {
           Hora_Inicio: j,
           Hora_Fin: j+1
         }
-  
         horas.push(hora)
         
       }

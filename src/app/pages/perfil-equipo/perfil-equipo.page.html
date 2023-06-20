@@ -15,12 +15,26 @@
       <ion-icon size="large" class="menu" size="large" slot="icon-only" name="menu-outline"></ion-icon>
     </strong>
   </ion-button>
-  <ion-button (click)="gestionarPerfil()"  style="position: fixed;top: 0rem;right: 0rem;" size="large"  fill="clear"
+  <ion-button *ngIf="usuariosService.usuarioActual.usuario.Cod_Usuario == equiposService.equipo.equipo.Cod_Usuario"  (click)="gestionarPerfil()"  style="position: fixed;top: 0rem;right: 0rem;" size="large"  fill="clear"
     color="dark">
     <strong>
       <ion-icon size="large" class="menu" size="large" slot="icon-only" name="settings-outline"></ion-icon>
     </strong>
   </ion-button>
+  <ion-avatar style="height: 12rem;width:12rem;margin:0 auto;margin-top: 2rem; ">
+
+
+
+    <img *ngIf="!equiposService.equipo.equipo.Avatar" 
+      data-src="{{'https://futplaycompany.com/api_test/'+equiposService.equipo.equipo.Foto}}"
+      onerror="this.src='assets/img/icon/FP.svg'">
+    <img *ngIf="equiposService.equipo.equipo.Avatar"
+      src="assets/soccer-shields-svg/{{equiposService.equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"
+      alt="">
+
+
+
+  </ion-avatar>
 
  
  
@@ -28,23 +42,7 @@
   <ion-grid>
  
   <ion-row>
-    <ion-col size="12">
-      <ion-avatar style="height: 12rem;width:12rem;margin:0 auto;margin-top: 2rem;z-index: -1;">
-
-
-
-        <img *ngIf="!equiposService.equipo.equipo.Avatar" 
-          data-src="{{'https://futplaycompany.com/api_test/'+equiposService.equipo.equipo.Foto}}"
-          onerror="this.src='assets/img/icon/FP.svg'">
-        <img *ngIf="equiposService.equipo.equipo.Avatar"
-          src="assets/soccer-shields-svg/{{equiposService.equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"
-          alt="">
-    
-    
-    
-      </ion-avatar>
-    
-    </ion-col>
+ 
     <ion-col size="12" class="ion-text-center">
       <h2><strong>
         <strong>{{equiposService.equipo.equipo.Nombre}}</strong>
@@ -73,7 +71,7 @@
       <ion-avatar    style="height: 2rem;width: 2rem;margin-left: 0.5rem;"  >
         <img      src="assets/emojis/{{dureza[equiposService.equipo.equipo.Dureza]['image']}}">
        
-      </ion-avatar>
+      </ion-avatar> 
     </ion-col>
     <ion-col size="4" *ngIf="jugadoresService.jugadores.length > 0" >
 
@@ -89,7 +87,7 @@
 </ion-grid>
 
 <ion-list>
-  <ion-item lines="none"  (click)="solicitudesEquipos()"    detail>
+  <ion-item *ngIf="usuariosService.usuarioActual.usuario.Cod_Usuario == equiposService.equipo.equipo.Cod_Usuario"   lines="none"  (click)="solicitudesEquipos()"    detail>
     <ion-label>Transferencias</ion-label>
     <ion-badge color="primary" style="margin-left:10px;margin-right: 1rem;">{{solicitudesService.solicitudesEquiposArray.length}}</ion-badge>
   </ion-item>
