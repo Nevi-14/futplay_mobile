@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import * as  mapboxgl from 'mapbox-gl';
+// https://docs.mapbox.com/mapbox-gl-js/api/
 @Component({
   selector: 'app-mapa',
   templateUrl: './mapa.component.html',
@@ -18,14 +19,12 @@ import * as  mapboxgl from 'mapbox-gl';
     `
   ]
 })
-export class MapaComponent implements OnInit, AfterViewInit {
-
+export class MapaComponent implements   AfterViewInit {
   @Input() lngLat: [number,number] = [0,0]
   @ViewChild('mapa') divMapa!:ElementRef
   constructor() { }
 
-  ngOnInit() {}
-
+ 
   ngAfterViewInit(): void {
     
     console.log(this.lngLat)

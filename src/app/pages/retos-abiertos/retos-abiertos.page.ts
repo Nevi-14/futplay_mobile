@@ -17,6 +17,7 @@ import { EliminarRetoPage } from '../eliminar-reto/eliminar-reto.page';
 export class RetosAbiertosPage implements OnInit {
 reservaciones:PerfilReservaciones[]=[];
 partido:partidos[]=[]
+textoBuscar = '';
   constructor(
     public modalCtrl:ModalController,
 public reservacionesService:ReservacionesService,

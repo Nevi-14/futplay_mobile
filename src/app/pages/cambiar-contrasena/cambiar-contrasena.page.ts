@@ -31,11 +31,12 @@ this.limpiarDatos();
 
 let continuar = await ValidacionFormularioPipe.prototype.transform(fCambiarContrasena);
 if(!continuar)  return this.alertasService.message('FUTPLAY','Todos los campos son obligatorios!');
+this.alertasService.presentaLoading('Efectuado cambios!..')
 let data = fCambiarContrasena.value;
 this.Contrasena = data.Contrasena;
 this.ConfirmarContrasena = data.ConfirmarContrasena;
     if(this.Contrasena != this.ConfirmarContrasena){
-
+      this.alertasService.loadingDissmiss();
       this.alertasService.message('FUTPLAY','Las contraseñas deben de coincidir');
     }else{
 
@@ -49,8 +50,10 @@ this.ConfirmarContrasena = data.ConfirmarContrasena;
         let user = await this.usuariosService.syncGetUsuario(resp.user.Cod_Usuario);
         this.usuariosService.usuarioActual = user;
         this.alertasService.pagina = 'reservaciones'
+        this.alertasService.loadingDissmiss();
         this.router.navigateByUrl('/futplay/reservaciones',{replaceUrl:true})
       }, error =>{
+        this.alertasService.loadingDissmiss();
         this.alertasService.message('app', 'Lo sentimos algo salio mal')
       })
     }

@@ -1,5 +1,6 @@
  
-<ion-content>
+
+<ion-content >
   <ion-list>
     <ion-item  *ngIf="solicitudesService.solicitudesEquiposArray.length == 0"    lines="none"
     class="animate__animated animate__fadeIn">
@@ -19,7 +20,6 @@
 
 
     </ion-item>
-
     <ion-item (click)="onOpenMenu(solicitud)" lines="full" class="custom-item  animate__animated animate__fadeIn" *ngFor="let solicitud of solicitudesService.solicitudesEquiposArray">
       
       <ion-avatar slot="start">
@@ -33,7 +33,7 @@
       </ion-avatar>
       <ion-label>
         <h2>{{solicitud.usuario.Nombre}} </h2>
-        <p>{{solicitud.provincia}}, {{solicitud.canton}} ...</p>
+        <p>{{solicitud.provincia.Provincia}}, {{solicitud.canton.Canton}} ...</p>
         <p class="ion-text-wrap">Posicion : <ion-badge color="warning" mode="ios">{{solicitud.posicion}}</ion-badge> </p>
         <p *ngIf="solicitud.usuario.Apodo">Apodo: {{solicitud.usuario.Apodo}}</p>
 
@@ -42,9 +42,6 @@
 
 
     </ion-item>
-
-
-
 
 
   </ion-list>

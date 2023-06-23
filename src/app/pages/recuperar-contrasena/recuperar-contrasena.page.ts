@@ -68,7 +68,7 @@ export class RecuperarContrasenaPage {
     if(!this.correo) return this.alertasService.message('FUTPLAY','Todos los campos son obligatorios!');
     let token = String(new Date().getHours()) + String(new Date().getMinutes()) + String(new Date().getMilliseconds());
     let item = {
-      "body": {
+        "body": {
         "email": this.correo,
         "token": token
       }

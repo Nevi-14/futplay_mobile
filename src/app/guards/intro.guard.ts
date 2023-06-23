@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { CanLoad, Router} from '@angular/router';
-import { Observable } from 'rxjs';
 import { StorageService } from '../services/storage-service';
 export const INTRO_KEY = 'has-seen';
 

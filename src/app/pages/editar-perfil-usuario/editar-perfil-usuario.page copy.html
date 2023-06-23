@@ -77,9 +77,9 @@
         </ion-col>
         <ion-col size="12"   >
   
-          <app-select name="Cod_Provincia" (ionChange)="onChangeProvincias(fRegistroEquipo)"   [data]="dataProvincias" label="Provincia" [ngModel]="usuario.usuario.Cod_Provincia"></app-select>
+          <app-select name="Cod_Provincia" (ionChange)="onChangeProvincias(fRegistroEquipo, $event)"   [data]="dataProvincias" label="Provincia" [ngModel]="usuario.usuario.Cod_Provincia"></app-select>
         </ion-col>
-        <ion-col size="12" (ionChange)="onChangeCantones(fRegistroEquipo)"  *ngIf="showCanton" >
+        <ion-col size="12" (ionChange)="onChangeCantones(fRegistroEquipo, $event)"  *ngIf="showCanton" >
           <app-select name="Cod_Canton" [data]="dataCantones" label="Canton" [ngModel]="usuario.usuario.Cod_Canton"></app-select>
         </ion-col>
         <ion-col size="12"  *ngIf="showDistrito" >
@@ -109,13 +109,13 @@
     <ion-icon name="images"></ion-icon>
   </ion-fab-button>
   <ion-fab-list side="bottom">
-    <ion-fab-button   color="transparent"    data-desc="Abrir Galeria">
+    <ion-fab-button (click)="gestorEquiposImagenesService.selectImage('photos','camera', false)" color="transparent"    data-desc="Abrir Galeria">
       <ion-avatar  class="ion-avatar">
         <img src="../assets/icons/picture.svg" alt="">
        </ion-avatar>
     </ion-fab-button>
  
-    <ion-fab-button   color="transparent"   data-desc="Abrir Camara">
+    <ion-fab-button (click)="gestorEquiposImagenesService.selectImage('camera','camera', false)" color="transparent"   data-desc="Abrir Camara">
       <ion-avatar  class="ion-avatar">
         <img src="../assets/icons/camera.svg" alt="">
        </ion-avatar>

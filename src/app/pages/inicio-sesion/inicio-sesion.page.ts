@@ -11,7 +11,6 @@ import { ValidacionFormularioPipe } from 'src/app/pipes/validacion-formulario.pi
   styleUrls: ['./inicio-sesion.page.scss'],
 })
 export class InicioSesionPage {
-  @ViewChild('fInicioSesion') loginForm: NgForm
   loginUser = {
     email: '',
     password: ''
@@ -34,8 +33,9 @@ export class InicioSesionPage {
 
  
  async login(fInicioSesion: NgForm) {
+
+ 
   this.usuariosServicio.usuarioActual = null;
-  
     let login = fInicioSesion.value;
     let continuar = await ValidacionFormularioPipe.prototype.transform(fInicioSesion);
     if(!continuar)  return this.alertasService.message('FUTPLAY','Todos los campos son obligatorios!');
