@@ -25,7 +25,7 @@ public onChange!: Function;
 
   }
 
-  focused: boolean;
+  focused: boolean; 
 
   onBlur(event: any) {
 
