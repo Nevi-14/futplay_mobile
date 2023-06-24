@@ -49,12 +49,14 @@
             <ion-badge slot="end" color="dark" mode="ios">{{equipo.Goles_Encontra ? equipo.Goles_Encontra : 0}}</ion-badge>
           </ion-item> 
           <ion-item lines="full" class="custom-item   animate__animated animate__fadeIn" >
-            <ion-label class="ion-text-wrap" slot="start">Altura Jugadores</ion-label>
-            <ion-badge slot="end" color="dark" mode="ios">{{estatura ? estatura : 0}}</ion-badge>
+            <ion-label class="ion-text-wrap" slot="start">Altura (Cm) Jugadores</ion-label>
+            <ion-badge slot="end" color="dark" mode="ios">{{estatura ? estatura.toFixed(2) : 0}}</ion-badge> 
+         
           </ion-item> 
           <ion-item lines="full" class="custom-item   animate__animated animate__fadeIn" >
-            <ion-label class="ion-text-wrap"  slot="start">Peso Jugadores</ion-label>
-            <ion-badge slot="end" color="dark" mode="ios">{{peso ? peso : 0}}</ion-badge>
+            <ion-label class="ion-text-wrap"  slot="start">Peso  (Kg) <br> Jugadores</ion-label>
+            <ion-badge slot="end" color="dark" mode="ios">{{peso ? peso.toFixed(2) : 0}}</ion-badge>  
+           
           </ion-item> 
         </ion-list>
           

@@ -58,10 +58,10 @@ export class RegistroPage {
   dataProvincias = [];
   dataCantones = [];
   dataDistritos = [];
-enviarFormulario:boolean = false;
-Cod_Provincia = null;
-Cod_Canton = null;
-Cod_Distrito = null;
+  enviarFormulario: boolean = false;
+  Cod_Provincia = null;
+  Cod_Canton = null;
+  Cod_Distrito = null;
   constructor(
     public usuariosServicio: UsuariosService,
     public provinciasService: ProvinciasService,
@@ -78,51 +78,57 @@ Cod_Distrito = null;
   }
 
   async limpiarDatos() {
-    let provincias = await this.provinciasService.syncProvinciasPromise();
 
-    provincias.forEach((provincia: Provincias, index) => {
+    this.provinciasService.syncProvinciasPromise().then(provincias => {
+      provincias.forEach((provincia: Provincias, index) => {
 
-      let data = {
-        id: provincia.Cod_Provincia,
-        valor: provincia.Provincia
-      }
-      console.log(data, 'data')
-      this.dataProvincias.push(data)
-      if (index == provincias.length - 1) {
+        let data = {
+          id: provincia.Cod_Provincia,
+          valor: provincia.Provincia
+        }
+        console.log(data, 'data')
+        this.dataProvincias.push(data)
+        if (index == provincias.length - 1) {
 
-        this.usuario = {
-          Cod_Usuario: null,
-          Cod_Provincia: null,
-          Cod_Canton: null,
-          Cod_Distrito: null,
-          Cod_Posicion: 1,
-          Cod_Role: 3,
-          Modo_Customizado: false,
-          Foto: 'user.svg',
-          Nombre: '',
-          Primer_Apellido: '',
-          Segundo_Apellido: '',
-          Fecha_Nacimiento: new Date(),
-          Telefono: '',
-          Correo: '',
-          Contrasena: '',
-          Intentos: 0,
-          Peso: 0,
-          Estatura: 0,
-          Apodo: '',
-          Partidos_Jugados: 0,
-          Partidos_Jugador_Futplay: 0,
-          Partidos_Jugador_Del_Partido: 0,
-          Compartir_Datos: false,
-          Avatar: true,
-          Pais: 'CR',
-          Cod_Pais: '+506'
-        };
-        this.showCanton = null;
-        this.showDistrito = null;
+          this.usuario = {
+            Cod_Usuario: null,
+            Cod_Provincia: null,
+            Cod_Canton: null,
+            Cod_Distrito: null,
+            Cod_Posicion: 1,
+            Cod_Role: 3,
+            Modo_Customizado: false,
+            Foto: 'user.svg',
+            Nombre: '',
+            Primer_Apellido: '',
+            Segundo_Apellido: '',
+            Fecha_Nacimiento: new Date(),
+            Telefono: '',
+            Correo: '',
+            Contrasena: '',
+            Intentos: 0,
+            Peso: 0,
+            Estatura: 0,
+            Apodo: '',
+            Partidos_Jugados: 0,
+            Partidos_Jugador_Futplay: 0,
+            Partidos_Jugador_Del_Partido: 0,
+            Compartir_Datos: false,
+            Avatar: true,
+            Pais: 'CR',
+            Cod_Pais: '+506'
+          };
+          this.showCanton = null;
+          this.showDistrito = null;
 
-      }
+        }
+      })
+
+    }, error => {
+      this.limpiarDatos();
     })
+
+
 
 
   }
@@ -162,7 +168,7 @@ Cod_Distrito = null;
     if (!continuar) return this.alertasService.message('FUTPLAY', 'Todos los campos son obligatorios!');
     this.enviarFormulario = true;
     this.usuario.Cod_Provincia = Number(registro.Cod_Provincia)
-    this.usuario.Cod_Canton =Number( registro.Cod_Canton)
+    this.usuario.Cod_Canton = Number(registro.Cod_Canton)
     this.usuario.Cod_Distrito = Number(registro.Cod_Distrito)
     this.usuario.Nombre = registro.Nombre
     this.usuario.Primer_Apellido = registro.Primer_Apellido
@@ -178,7 +184,7 @@ Cod_Distrito = null;
 
   async onChangeProvincias(fRegistro: NgForm) {
     let registro = fRegistro.value;
-    if(this.enviarFormulario) return
+    if (this.enviarFormulario) return
     this.alertasService.presentaLoading('Cargando datos...')
 
     this.dataCantones = []
@@ -209,7 +215,7 @@ Cod_Distrito = null;
   }
   onChangeCantones(fRegistro: NgForm) {
     let registro = fRegistro.value;
-    if(this.enviarFormulario) return
+    if (this.enviarFormulario) return
     this.alertasService.presentaLoading('Cargando datos...')
     this.dataDistritos = [];
     this.distritosService.distritos = [];

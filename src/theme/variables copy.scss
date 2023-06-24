@@ -2,7 +2,16 @@
 // http://ionicframework.com/docs/theming/
 
 @font-face {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Soccer League';
+  src: url('../assets/fonts/SoccerLeague.eot');
+  src: url('../assets/fonts/SoccerLeague.eot') format('embedded-opentype'),
+       url('../assets/fonts/SoccerLeague.woff2') format('woff2'),
+       url( '../assets/fonts/SoccerLeague.woff') format('woff'),
+       url( '../assets/fonts/SoccerLeague.ttf') format('truetype'),
+       url( '../assets/fonts/SoccerLeague.svg') format('svg');
+  font-weight: 400;
+  font-style: normal;
+  unicode-range: U+20-21, U+3F, U+41-5A, U+61-7A;
 } 
 
 
@@ -85,10 +94,10 @@
 
 .soccer-league-header-title{
   margin-top: 1rem;
-  font-family: 'Roboto', sans-serif;
-  font-weight: bold;
+  font-family: 'Soccer League', sans-serif;
+  font-weight: 400;
   letter-spacing: 2px;
-  font-size: 30px; 
+  font-size: 40px; 
   color: rgba(37,13,76,255); 
   padding-bottom: 1rem;
 
@@ -96,7 +105,7 @@
  
   .soccer-league-title{
 
-    font-family: 'Roboto', sans-serif;
+      font-family: 'Soccer League', sans-serif;
       font-weight: 400;
       letter-spacing: 2px;
       font-size: 30px; 
@@ -105,7 +114,7 @@
       }
   .soccer-league-subtitle{
 
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Soccer League', sans-serif;
     font-weight: 400;
     letter-spacing: 2px;
     font-size: 22px; 
@@ -116,7 +125,7 @@
 
 }
 .special-ascill{
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Soccer League', sans-serif;
   font-weight: bold;
 
 

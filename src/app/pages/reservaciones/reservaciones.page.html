@@ -67,9 +67,7 @@
     <ion-toolbar>
       <ion-label class="subtitle"><strong>Retos Disponibles</strong></ion-label>
 
-      <ion-button fill="clear" slot="end">
-        <ion-icon size="large" name="options"></ion-icon>
-      </ion-button>
+    
     </ion-toolbar>
     <ion-item detail *ngFor="let retoAbierto of reservacionesService.retosAbiertos" (click)="detalleReto(retoAbierto)" lines="full"
       class="custom-item animate__animated animate__fadeIn">

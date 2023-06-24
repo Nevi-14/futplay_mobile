@@ -9,7 +9,7 @@ import { JugadoresService } from 'src/app/services/jugadores.service';
   templateUrl: './estadistica-equipo.page.html',
   styleUrls: ['./estadistica-equipo.page.scss'],
 })
-export class EstadisticaEquipoPage implements OnInit {
+export class EstadisticaEquipoPage {
 @Input() equipo: any
 estatura = 0;
 peso = 0;
@@ -20,20 +20,15 @@ public jugadoresService:JugadoresService
 
   ) { }
 
-  ngOnInit() {
+  ionViewWillEnter() {
 console.log('equipo', this.equipo)
  this.jugadoresService.syncJugadoresEquipos(this.equipo.Cod_Equipo).then(jugadores =>{
-
   console.log('jugadores', jugadores)
-
   for (let i = 0 ; i < jugadores.length; i++){
     this.peso  += jugadores[i].usuario.Peso;
     this.estatura  +=  jugadores[i].usuario.Estatura;
-
     if(i == jugadores.length -1){
-    
-
-        this.peso = this.peso / jugadores.length
+  this.peso = this.peso / jugadores.length
   this.estatura =  this.estatura  / jugadores.length;
     }
   }

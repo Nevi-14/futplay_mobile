@@ -46,11 +46,12 @@ this.ConfirmarContrasena = data.ConfirmarContrasena;
         password: bcrypt.hashSync(this.Contrasena, 10)
       }
       this.usuariosService.syncPutUserPasswordToPromise(userInfo).then(async(resp:any) =>{
-        this.alertasService.message('app', resp.message)
+        
         let user = await this.usuariosService.syncGetUsuario(resp.user.Cod_Usuario);
         this.usuariosService.usuarioActual = user;
         this.alertasService.pagina = 'reservaciones'
-        this.alertasService.loadingDissmiss();
+       await this.alertasService.loadingDissmiss();
+        this.alertasService.message('FUTPLAY', resp.message)
         this.router.navigateByUrl('/futplay/reservaciones',{replaceUrl:true})
       }, error =>{
         this.alertasService.loadingDissmiss();

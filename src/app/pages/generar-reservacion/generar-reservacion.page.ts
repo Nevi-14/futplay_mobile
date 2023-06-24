@@ -14,6 +14,7 @@ import { EmailService } from 'src/app/services/email.service';
 import { EquiposService } from '../../services/equipos.service';
 import { format } from 'date-fns';
 import { FinalizarReservacionPage } from '../finalizar-reservacion/finalizar-reservacion.page';
+import { CanchaDetallePage } from '../cancha-detalle/cancha-detalle.page';
 interface objetoFecha{
   id:number,
   year: number,
@@ -191,7 +192,25 @@ export class GenerarReservacionPage  {
 
   }
 
+      async canchaDetalle(){
+       if(!this.isModalOpen){
+        this.isModalOpen = true;
+        const modal = await this.modalCtrl.create({
+          component:CanchaDetallePage,
+          cssClass:'my-custom-class',
+          mode:'ios',
+          componentProps:{
+            cancha:this.cancha,
+            reservar:false
+          }
 
+        })
+        modal.present();
+        const { data} = await modal.onDidDismiss();
+        this.isModalOpen = false;
+       }
+
+      }
 
   async agregarRetador() {
  
@@ -226,8 +245,14 @@ export class GenerarReservacionPage  {
         console.log(date,'date')
         return date;
   }
+
+
+
+
+
   async openPicker(index:number) {
-    let data:objetoFecha[] = []
+let data:objetoFecha[] = []
+
 if(index == 1){
   await this.gestionReservacionesService.calHoraInicio(this.cancha.cancha.Cod_Cancha,new Date(format(new Date(this.nuevaReservacion.Fecha), 'yyy/MM/dd')));
 

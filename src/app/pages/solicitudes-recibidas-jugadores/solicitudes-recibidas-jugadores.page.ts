@@ -36,6 +36,7 @@ cargarDatos(){
   this.solicitudesService.syncGetSolicitudesRecibidasEquipoToPromise(this.equiposService.equipo.equipo.Cod_Equipo).then(solicitudes =>{
 
     this.solicitudesService.solicitudesEquiposArray = solicitudes;
+    console.log(solicitudes)
   })
 }
 async perfilJugador(solicitud:PerfilSolicitud) {
