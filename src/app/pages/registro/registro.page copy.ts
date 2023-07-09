@@ -12,9 +12,6 @@ import { Provincias } from 'src/app/models/provincias';
 import { Cantones } from 'src/app/models/cantones';
 import { Distritos } from 'src/app/models/distritos';
 import { ValidacionFormularioPipe } from 'src/app/pipes/validacion-formulario.pipe';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { GeolocalizacionService } from 'src/app/services/geolocalizacion.service';
 
 @Component({
   selector: 'app-registro',
@@ -65,8 +62,6 @@ export class RegistroPage {
   Cod_Provincia = null;
   Cod_Canton = null;
   Cod_Distrito = null;
-
- 
   constructor(
     public usuariosServicio: UsuariosService,
     public provinciasService: ProvinciasService,
@@ -74,20 +69,13 @@ export class RegistroPage {
     public distritosService: DistritosService,
     public modalCrtl: ModalController,
     public alertasService: AlertasService,
-    public http:HttpClient,
-    public geolocalizacionService:GeolocalizacionService
   ) { }
 
+
+
   ionViewWillEnter() {
-
     this.limpiarDatos()
-    this.geolocalizacionService.loadCountries();
-    
-    
   }
- 
-
-
 
   async limpiarDatos() {
 
@@ -193,7 +181,70 @@ export class RegistroPage {
 
   }
 
- 
+
+  async onChangeProvincias(fRegistro: NgForm) {
+    let registro = fRegistro.value;
+    if (this.enviarFormulario) return
+    this.alertasService.presentaLoading('Cargando datos...')
+
+    this.dataCantones = []
+
+    this.cantonesService.cantones = [];
+    this.distritosService.distritos = [];
+    if (registro.Cod_Provincia) {
+
+      let cantones = await this.cantonesService.syncCantonesToPromise(registro.Cod_Provincia);
+      if (cantones.length == 0) this.alertasService.loadingDissmiss();
+      cantones.forEach((canton: Cantones, index) => {
+
+        let data = {
+          id: canton.Cod_Canton,
+          valor: canton.Canton
+        }
+        this.dataCantones.push(data)
+        if (index == cantones.length - 1) {
+          this.showCanton = true;
+          this.showDistrito = null;
+          this.alertasService.loadingDissmiss();
+        }
+      })
+
+    } else {
+      this.alertasService.loadingDissmiss();
+    }
+  }
+  onChangeCantones(fRegistro: NgForm) {
+    let registro = fRegistro.value;
+    if (this.enviarFormulario) return
+    this.alertasService.presentaLoading('Cargando datos...')
+    this.dataDistritos = [];
+    this.distritosService.distritos = [];
+    if (registro.Cod_Provincia && registro.Cod_Canton) {
+      this.distritosService.syncDistritos(registro.Cod_Canton).then(distritos => {
+        if (distritos.length == 0) this.alertasService.loadingDissmiss();
+        distritos.forEach((distrito: Distritos, index) => {
+
+          let data = {
+            id: distrito.Cod_Distrito,
+            valor: distrito.Distrito
+          }
+          this.dataDistritos.push(data)
+          if (index == distritos.length - 1) {
+            this.showDistrito = true;
+            this.alertasService.loadingDissmiss();
+          }
+        })
+
+
+
+      })
+    } else {
+      this.alertasService.loadingDissmiss();
+    }
+
+  }
+
+
 
 
 

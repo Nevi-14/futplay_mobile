@@ -54,6 +54,8 @@
     "@ionic/storage": "^3.0.6",
     "@ionic/storage-angular": "^3.0.6",
     "@ionic/utils-subprocess": "^2.1.11",
+    "@ngx-translate/core": "^13.0.0",
+    "@ngx-translate/http-loader": "^6.0.0",
     "@syncfusion/ej2-angular-schedule": "^20.3.61",
     "@types/google-maps": "^3.2.3",
     "angular-file-uploader": "^7.0.3",

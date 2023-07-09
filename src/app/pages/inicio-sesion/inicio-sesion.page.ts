@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { Router } from '@angular/router';
 import { ValidacionFormularioPipe } from 'src/app/pipes/validacion-formulario.pipe';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-inicio-sesion',
   templateUrl: './inicio-sesion.page.html',
@@ -15,23 +16,37 @@ export class InicioSesionPage {
     email: '',
     password: ''
   }
+  @ViewChild('popover') popover;
+  isOpen = false;
+  idioma = 'Us';
+  file = 'Ingles';
   constructor(
     public usuariosServicio: UsuariosService,
     public modalCtrl: ModalController,
     public alertasService: AlertasService,
-    public router:Router
+    public router:Router,
+    private translateService: TranslateService
   ) { }
 
   ionViewWillEnter() {
+    
+    this.cambiarIdioma(this.idioma, this.file);
     this.limpiarDatos()
   }
-
+  presentPopover(e: Event) {
+    this.popover.event = e;
+    this.isOpen = true;
+  }
   limpiarDatos() {
     this.loginUser.email = null;
     this.loginUser.password = null;
   }
 
- 
+  cambiarIdioma(lng, file){
+    this.idioma = lng;
+    this.translateService.setDefaultLang(file);
+    this.popover.dismiss();
+  }
  async login(fInicioSesion: NgForm) {
 
  

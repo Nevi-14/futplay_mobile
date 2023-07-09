@@ -47,11 +47,14 @@ form {
 .footer-text {
   text-align: center;
   font-size: 17px;
-  margin-top: 2rem;
 
   a {
     text-decoration: none;
     font-weight: 600;
     color: #5a55ca;
   }
+}
+ion-popover {
+  --offset-y: 0px !important;
+  --height: 120px
 }

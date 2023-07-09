@@ -1,0 +1,13 @@
+{
+   "NAME":"Name",
+   "LAST_NAME":"Lastname",
+   "EMAIL":"Email",
+   "LOGIN":"Login",
+   "LOGIN_LEGEND":"Please login to continue!.",
+   "REGISTER":"Register",
+   "FORGOT_PASSWORD":"Forgot Password?",
+   "IM_NEW":"I am new",
+   "SELECTED_LANGUAGE":"English",
+   "USERNAME":"Username",
+   "PASSWORD":"Password"
+}

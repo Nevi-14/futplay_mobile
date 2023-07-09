@@ -1,5 +1,9 @@
- <app-header></app-header>
+ 
+  <app-header></app-header>
+ 
+ 
 
+ 
 <ion-content class="ion-padding">
 
 
@@ -12,27 +16,35 @@
           </ion-avatar>
         </ion-col>
         <ion-col size="12">
-          <h1>Inicio sesión,</h1>
-          <h3>Inicia sesión para continuar!.</h3>
-
+          <h1>  {{"LOGIN" | translate }},</h1>
+          <h3> {{"LOGIN_LEGEND" | translate }}</h3>
+           
+           
+        </ion-col>
+        <ion-col size="12">
+          <app-input name="email" type="text" label="{{'USERNAME' | translate }}"  ngModel="{{loginUser.email}}"    ></app-input>
 
         </ion-col>
         <ion-col size="12">
-          <app-input name="email" type="text" label="Usuario"  ngModel="{{loginUser.email}}"    ></app-input>
-
-        </ion-col>
-        <ion-col size="12">
-          <app-input  name="password"  type="password"  label="Contraseña" 
+          <app-input  name="password"  type="password"  label="{{'PASSWORD' | translate }}" 
     ngModel="{{loginUser.password}}"></app-input>
 
         </ion-col>
         <ion-col size="12">
-          <app-button label='Iniciar Sesión'></app-button>
+          <app-button label='{{"LOGIN" | translate }}'></app-button>
         </ion-col>
         <ion-col size="12">
-          <a routerLink="/recuperar-contrasena" class="forgot-password-link">Recuperar contraseña?</a>
+          <a routerLink="/recuperar-contrasena" class="forgot-password-link">{{"FORGOT_PASSWORD" | translate }}</a>
+          <p class="footer-text"> 
+            
+       
+          </p> 
+          <p class="footer-text" style="margin-top:2rem"> {{'IM_NEW' | translate }} , <a routerLink="/registro">{{'REGISTER' | translate }}</a></p> 
+     
+           
+         
         </ion-col>
-    
+  
       </ion-row>
     </ion-grid>
 
@@ -41,8 +53,23 @@
 
 </ion-content>
 <ion-footer class="ion-no-border">
-  <ion-toolbar class="ion-padding">
-    <p class="footer-text">Soy nuevo, <a routerLink="/registro">Registro</a></p> 
+  <ion-toolbar class="ion-text-center">
+    <ion-button  mode="ios"  (click)="presentPopover($event)"  fill="clear" color="primary"   >
+      <ion-icon name="language-outline" slot="start"></ion-icon>
+      {{"SELECTED_LANGUAGE" | translate }}
+    </ion-button>
+    <ion-popover mode="ios" #popover [isOpen]="isOpen" (didDismiss)="isOpen = false" side="top" alignment="center">
+      <ng-template>
+        <ion-content class="ion-padding">
+          <ion-item (click)="cambiarIdioma('US','Ingles')">
+            <ion-label>English</ion-label>
+          </ion-item>
+          <ion-item (click)="cambiarIdioma('Es','Espanol')">
+            <ion-label>Spanish</ion-label>
+          </ion-item>
+        </ion-content>
+      </ng-template>
+    </ion-popover>
   </ion-toolbar>
 </ion-footer>
  

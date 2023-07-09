@@ -717,12 +717,6 @@ return this.rellenarArreglo(Cod_Cancha,apertura, cierre,Fecha,'Hora_Fin').then(r
       let fin = new Date( reservacionesDia[i].Hora_Fin).getHours();
       for(let j = inicio; j < fin; j++){
   
-    /**
-     *     let hora = {
-          Hora_Inicio: j,
-          Hora_Fin: j+1
-        }
-     */
         let hora = {
           Hora_Inicio: j,
           Hora_Fin: j+1

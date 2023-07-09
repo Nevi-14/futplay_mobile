@@ -28,19 +28,15 @@
         <app-input name="Primer_Apellido" label="Apellido" ngModel="{{usuario.Primer_Apellido}}"></app-input> 
       </ion-col>
       <ion-col size="12"   >
-        <app-select name="Country_Code"  (ionChange)="geolocalizacionService.onChangeCountries(fRegistro)"     [data]="geolocalizacionService.countries" label="Pais" ngModel="{{geolocalizacionService.Country_Code}}"></app-select>
+        <app-select name="Cod_Provincia" (ionChange)="onChangeProvincias(fRegistro)"   [data]="dataProvincias" label="Provincia" ngModel="{{Cod_Provincia}}"></app-select>
       </ion-col>
-      <ion-col size="12" (ionChange)="geolocalizacionService.onChangeStates(fRegistro)"  *ngIf="geolocalizacionService.states.length > 0" >
-        <app-select name="State_Code" [data]="geolocalizacionService.states" label="State" ngModel="{{geolocalizacionService.State_Code}}"></app-select>
+      <ion-col size="12" (ionChange)="onChangeCantones(fRegistro)"  *ngIf="showCanton" >
+        <app-select name="Cod_Canton" [data]="dataCantones" label="Canton" ngModel="{{Cod_Canton}}"></app-select>
       </ion-col>
-      <ion-col size="12"  *ngIf="geolocalizacionService.cities.length > 0" >
-        <app-select (ionChange)="geolocalizacionService.onChangeCities(fRegistro)" name="City_Code" [data]="geolocalizacionService.cities" label="Ciudad" ngModel="{{geolocalizacionService.City_Code}}"></app-select>
+      <ion-col size="12"  *ngIf="showDistrito" >
+        <app-select name="Cod_Distrito" [data]="dataDistritos" label="Distrito" ngModel="{{Cod_Distrito}}"></app-select>
       </ion-col>
-      <ion-col size="12" *ngIf="geolocalizacionService.Country_Code && geolocalizacionService.State_Code && geolocalizacionService.City_Code">
-    
-        <app-input name="Codigo_Postal" label="Codigo Postal" ngModel="{{geolocalizacionService.Codigo_Postal}}"></app-input>
-       
-      </ion-col>
+  
   <ion-col size="12">
     
     <app-input name="Telefono" label="Telefono" ngModel="{{usuario.Telefono}}"></app-input>

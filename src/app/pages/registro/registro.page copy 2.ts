@@ -14,7 +14,6 @@ import { Distritos } from 'src/app/models/distritos';
 import { ValidacionFormularioPipe } from 'src/app/pipes/validacion-formulario.pipe';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { GeolocalizacionService } from 'src/app/services/geolocalizacion.service';
 
 @Component({
   selector: 'app-registro',
@@ -66,7 +65,11 @@ export class RegistroPage {
   Cod_Canton = null;
   Cod_Distrito = null;
 
- 
+  countries = [];
+  states = [];
+  cities = [];
+  Zip_Code = [];
+  Country_Code = '';
   constructor(
     public usuariosServicio: UsuariosService,
     public provinciasService: ProvinciasService,
@@ -74,18 +77,78 @@ export class RegistroPage {
     public distritosService: DistritosService,
     public modalCrtl: ModalController,
     public alertasService: AlertasService,
-    public http:HttpClient,
-    public geolocalizacionService:GeolocalizacionService
+    public http:HttpClient
   ) { }
 
   ionViewWillEnter() {
 
     this.limpiarDatos()
-    this.geolocalizacionService.loadCountries();
+    this.loadCountries();
     
     
   }
- 
+  loadCountries(){
+    this.getCountries().toPromise().then( (paises:any[])=>{
+      console.log('paises', paises)
+      paises.forEach( pais =>{
+        let data = {
+          id: pais.id,
+          valor: pais.name
+        }
+this.countries.push(data)
+
+      })
+    })
+  }
+  private getCountries (){
+    let URL = 'https://api.countrystatecity.in/v1/countries/IN/states/MH/cities';
+    URL = URL 
+    const options = {
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*', 
+          'X-CSCAPI-KEY': 'V1Fub3lWNW1zWk12TjhGdjZBMUxkSGp0b3dwaHdNaWJLekVhajFndA=='  
+}
+    };
+    return this.http.get( URL, options);
+  }
+
+
+
+
+private getStates(){
+  let URL = `https://api.countrystatecity.in/v1/countries/${this.Country_Code}/states`;
+  URL = URL 
+  const options = {
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*', 
+        'X-CSCAPI-KEY': 'V1Fub3lWNW1zWk12TjhGdjZBMUxkSGp0b3dwaHdNaWJLekVhajFndA=='  
+}
+  };
+  return this.http.get( URL, options);
+
+}
+loadStates(){
+  this.getStates().toPromise().then( (states:any[])=>{
+    console.log('states', states)
+    states.forEach( pais =>{
+      let data = {
+        id: pais.id,
+        valor: pais.name
+      }
+this.states.push(data)
+
+    })
+  })
+}
+
+
+
+
+
 
 
 
@@ -193,7 +256,70 @@ export class RegistroPage {
 
   }
 
- 
+
+  async onChangeProvincias(fRegistro: NgForm) {
+    let registro = fRegistro.value;
+    if (this.enviarFormulario) return
+    this.alertasService.presentaLoading('Cargando datos...')
+
+    this.dataCantones = []
+
+    this.cantonesService.cantones = [];
+    this.distritosService.distritos = [];
+    if (registro.Cod_Provincia) {
+
+      let cantones = await this.cantonesService.syncCantonesToPromise(registro.Cod_Provincia);
+      if (cantones.length == 0) this.alertasService.loadingDissmiss();
+      cantones.forEach((canton: Cantones, index) => {
+
+        let data = {
+          id: canton.Cod_Canton,
+          valor: canton.Canton
+        }
+        this.dataCantones.push(data)
+        if (index == cantones.length - 1) {
+          this.showCanton = true;
+          this.showDistrito = null;
+          this.alertasService.loadingDissmiss();
+        }
+      })
+
+    } else {
+      this.alertasService.loadingDissmiss();
+    }
+  }
+  onChangeCantones(fRegistro: NgForm) {
+    let registro = fRegistro.value;
+    if (this.enviarFormulario) return
+    this.alertasService.presentaLoading('Cargando datos...')
+    this.dataDistritos = [];
+    this.distritosService.distritos = [];
+    if (registro.Cod_Provincia && registro.Cod_Canton) {
+      this.distritosService.syncDistritos(registro.Cod_Canton).then(distritos => {
+        if (distritos.length == 0) this.alertasService.loadingDissmiss();
+        distritos.forEach((distrito: Distritos, index) => {
+
+          let data = {
+            id: distrito.Cod_Distrito,
+            valor: distrito.Distrito
+          }
+          this.dataDistritos.push(data)
+          if (index == distritos.length - 1) {
+            this.showDistrito = true;
+            this.alertasService.loadingDissmiss();
+          }
+        })
+
+
+
+      })
+    } else {
+      this.alertasService.loadingDissmiss();
+    }
+
+  }
+
+
 
 
 

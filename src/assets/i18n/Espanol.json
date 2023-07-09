@@ -1,0 +1,14 @@
+{
+    "NAME":"Nombre",
+    "LAST_NAME":"Apellido",
+    "EMAIL":"Correo",
+    "LOGIN":"Inicio Sesión",
+    "LOGIN_LEGEND":"Inicia sesión para continuar!.",
+    "REGISTER":"Registro",
+    "FORGOT_PASSWORD":"Recuperar Contraseña?",
+    "IM_NEW":"Soy nuevo",
+    "SELECTED_LANGUAGE":"Español",
+    "USERNAME":"Usuario",
+    "PASSWORD":"Contraseña"
+ }
+ 
