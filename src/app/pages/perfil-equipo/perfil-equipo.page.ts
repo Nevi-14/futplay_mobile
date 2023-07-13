@@ -50,7 +50,7 @@ export class PerfilEquipoPage {
   async ionViewWillEnter() {
 
  
-    let equipos = await this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario);
+    let equipos = await this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.Cod_Usuario);
 /**
  *     this.equiposService.equipo = equipos[0]
     
@@ -154,7 +154,7 @@ export class PerfilEquipoPage {
     console.log(jugador)
     let normalBtns: ActionSheetButton[];
 
-    if (this.usuariosService.usuarioActual.usuario.Cod_Usuario == this.equiposService.equipo.equipo.Cod_Usuario) {
+    if (this.usuariosService.usuarioActual.Cod_Usuario == this.equiposService.equipo.equipo.Cod_Usuario) {
       normalBtns = [
         {
           text: 'Detalle Jugador',

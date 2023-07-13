@@ -9,5 +9,12 @@
    "IM_NEW":"I am new",
    "SELECTED_LANGUAGE":"English",
    "USERNAME":"Username",
-   "PASSWORD":"Password"
+   "PASSWORD":"Password",
+   "RECOVER_PASSWORD":"Forgot my password",
+   "RECOVER_ACCESS":"Access recovery!.",
+   "EMAIL_PHONE":"Email or Phone",
+   "REQUEST_CODE":"Request code",
+   "MAIN_PAGE":"Main Page",
+   "RETURN":"Return"
+
 }

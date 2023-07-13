@@ -20,7 +20,7 @@ export class MiPerfilGuard implements CanLoad {
   ){}
  
   canLoad(): any {
-    this.solicitudesService.syncGetSolicitudesRecibidasUsuarioToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(solicitudes =>{
+    this.solicitudesService.syncGetSolicitudesRecibidasUsuarioToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(solicitudes =>{
  
           this.solicitudesService.solicitudesJugadoresArray = solicitudes;
         })

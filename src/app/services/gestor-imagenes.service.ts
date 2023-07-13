@@ -305,10 +305,10 @@ async startUpload( ) {
   formData.append('image', blob,this.images[0].fileName);
 
 this.alertasService.presentaLoading('Guardando cambios..')
-  this.syncImagePost(formData,this.usuariosService.usuarioActual.usuario.Cod_Usuario).then((resp:any)=>{
+  this.syncImagePost(formData,this.usuariosService.usuarioActual.Cod_Usuario).then((resp:any)=>{
     this.alertasService.loadingDissmiss()
    this.modalCtrl.dismiss()
-   this.usuariosService.usuarioActual.usuario = resp.usuario
+   this.usuariosService.usuarioActual = resp.usuario
  
 this.reset();
    // console.log(resp,'resp')

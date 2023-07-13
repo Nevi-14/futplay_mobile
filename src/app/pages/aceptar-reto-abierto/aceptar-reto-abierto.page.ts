@@ -18,6 +18,7 @@ import { EquiposService } from 'src/app/services/equipos.service';
 import { FinalizarReservacionPage } from '../finalizar-reservacion/finalizar-reservacion.page';
 import { CanchaDetallePage } from '../cancha-detalle/cancha-detalle.page';
 import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-modal.page';
+import { EliminarRetoPage } from '../eliminar-reto/eliminar-reto.page';
 
 @Component({
   selector: 'app-aceptar-reto-abierto',
@@ -97,8 +98,8 @@ export class AceptarRetoAbiertoPage implements OnInit {
      
         this.jugadoresPermitidosRetador = await this.jugadoresService.syncJugadoresEquipos(this.reto.retador.Cod_Equipo);
         this.jugadoresPermitidosRival = await this.jugadoresService.syncJugadoresEquipos(this.reto.rival.Cod_Equipo);
-        this.indexRetador = this.jugadoresPermitidosRetador.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario);
-        this.indexRival = this.jugadoresPermitidosRival.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario); 
+        this.indexRetador = this.jugadoresPermitidosRetador.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.Cod_Usuario);
+        this.indexRival = this.jugadoresPermitidosRival.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.Cod_Usuario); 
    
         if( this.indexRival >=0){
           this.allowUser = true;
@@ -227,6 +228,20 @@ export class AceptarRetoAbiertoPage implements OnInit {
   
     }
   
+    async cancelarReservacion(){
+   
+      let equipo = await this.equiposService.syncGetPerfilEquipoToPromise(this.reto.rival.Cod_Equipo)
+      const modal = await this.modalCtrl.create({
+        component:EliminarRetoPage,
+        mode:'ios',
+        backdropDismiss:false,
+        componentProps:{
+          reto: this.reto
+
+        }
+      });
   
+      return await modal.present();
+    }
   
 }

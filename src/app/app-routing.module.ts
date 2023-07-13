@@ -259,6 +259,11 @@ const routes: Routes = [
     path: 'aceptar-reto-abierto',
     loadChildren: () => import('./pages/aceptar-reto-abierto/aceptar-reto-abierto.module').then( m => m.AceptarRetoAbiertoPageModule)
   },
+  {
+    path: 'busqueda-modal',
+    loadChildren: () => import('./pages/busqueda-modal/busqueda-modal.module').then( m => m.BusquedaModalPageModule)
+  },
+
 
 
 

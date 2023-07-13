@@ -106,7 +106,7 @@ this.receive();
   /**
    *   this.solicitudesService.syncGetSolicitudesJugadores(this.usuariosService.usuarioActual.Cod_Usuario, true,false, true)
    */
-   this.solicitudesService.syncGetSolicitudesEnviadasUsuarioToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(solicitudes =>{
+   this.solicitudesService.syncGetSolicitudesEnviadasUsuarioToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(solicitudes =>{
     console.log('solicitudes', solicitudes)
         this.solicitudesService.solicitudesJugadoresArray = solicitudes;
       })
@@ -125,7 +125,7 @@ this.receive();
 /**
  *     this.solicitudesService.syncGetSolicitudesJugadores(this.usuariosService.usuarioActual.Cod_Usuario, false,true, true)
  */
- this.solicitudesService.syncGetSolicitudesRecibidasUsuarioToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(solicitudes =>{
+ this.solicitudesService.syncGetSolicitudesRecibidasUsuarioToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(solicitudes =>{
   console.log('solicitudes', solicitudes)
       this.solicitudesService.solicitudesJugadoresArray = solicitudes;
     })
@@ -170,7 +170,7 @@ console.log('solicitud', solicitud)
   
     this.solicitudesService.syncPutSolicitudToProimise(solicitudActualizar).then(resp =>{
       this.solicitudesService.syncPutSolicitudToProimise(solicitudActualizar).then(resp =>{
-        this.solicitudesService.syncGetSolicitudesRecibidasUsuarioToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp=>{
+        this.solicitudesService.syncGetSolicitudesRecibidasUsuarioToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(resp=>{
           this.solicitudesService.solicitudesJugadoresArray = resp;
         })
       
@@ -306,7 +306,7 @@ else{
 
     this.solicitudesService.syncPutSolicitudToProimise(solicitudActualizar).then(resp =>{
       
-      this.solicitudesService.syncGetSolicitudesEnviadasUsuarioToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp=>{
+      this.solicitudesService.syncGetSolicitudesEnviadasUsuarioToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(resp=>{
         this.solicitudesService.solicitudesJugadoresArray = resp;
       })
    

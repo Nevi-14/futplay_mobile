@@ -77,7 +77,7 @@ this.finalizar();
    */
 
     this.equiposservice.syncPostDurezaEquipo(this.evaluacionEquipo).then(resp =>{
-      let stringID = this.reto.reservacion.Cod_Reservacion + "-" + this.usuariosService.usuarioActual.usuario.Cod_Usuario+ "-" +this.reto.reservacion.Fecha
+      let stringID = this.reto.reservacion.Cod_Reservacion + "-" + this.usuariosService.usuarioActual.Cod_Usuario+ "-" +this.reto.reservacion.Fecha
       this.reservacionesService.cargarReservaciones();
       this.modalCtrl.dismiss();
     /**

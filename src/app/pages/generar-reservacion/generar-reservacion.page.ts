@@ -42,7 +42,7 @@ export class GenerarReservacionPage {
   validarReservacion: boolean = false;
   nuevaReservacion = {
     Cod_Cancha: null,
-    Cod_Usuario: this.usuariosService.usuarioActual.usuario.Cod_Usuario,
+    Cod_Usuario: this.usuariosService.usuarioActual.Cod_Usuario,
     Reservacion_Externa: false,
     Titulo: '',
     Cod_Estado: 2,
@@ -115,7 +115,7 @@ export class GenerarReservacionPage {
 
     this.nuevaReservacion = {
       Cod_Cancha: null,
-      Cod_Usuario: this.usuariosService.usuarioActual.usuario.Cod_Usuario,
+      Cod_Usuario: this.usuariosService.usuarioActual.Cod_Usuario,
       Reservacion_Externa: false,
       Titulo: '',
       Cod_Estado: 2,

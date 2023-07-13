@@ -62,7 +62,7 @@ export class RivalesPage implements OnInit {
 
        this.equiposService.equipos  = [];
       this.alertasService.presentaLoading('Cargando datos...');
-      this.equiposService.syncListaEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp =>{
+      this.equiposService.syncListaEquiposToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
         this.alertasService.loadingDissmiss();
         this.equiposService.equipos = resp.slice(0);
       }, error =>{

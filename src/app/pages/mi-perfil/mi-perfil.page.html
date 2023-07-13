@@ -16,11 +16,11 @@
 
   <ion-avatar>
 
-    <img *ngIf="!usuariosService.usuarioActual.usuario.Avatar" 
-      data-src="{{'https://futplaycompany.com/api_test/'+usuariosService.usuarioActual.usuario.Foto}}"
+    <img *ngIf="!usuariosService.usuarioActual.Avatar" 
+      data-src="{{'https://futplaycompany.com/api_test/'+usuariosService.usuarioActual.Foto}}"
       onerror="this.src='assets/user.svg'">
-    <img *ngIf="usuariosService.usuarioActual.usuario.Avatar"
-      src="{{'assets/profile/avatars/'+usuariosService.usuarioActual.usuario.Foto}}"
+    <img *ngIf="usuariosService.usuarioActual.Avatar"
+      src="{{'assets/profile/avatars/'+usuariosService.usuarioActual.Foto}}"
       onerror="this.src='assets/user.svg'" alt="">
 
 
@@ -34,26 +34,21 @@
 
       <ion-col size="12" class="ion-text-center">
         <h2><strong>
-            <strong>{{usuariosService.usuarioActual.usuario.Nombre}}
-              {{usuariosService.usuarioActual.usuario.Primer_Apellido}}
-              {{usuariosService.usuarioActual.usuario.Segundo_Apellido}}</strong>
+            <strong>{{usuariosService.usuarioActual.Nombre}}
+              {{usuariosService.usuarioActual.Primer_Apellido}}
+              {{usuariosService.usuarioActual.Segundo_Apellido}}</strong>
 
 
           </strong></h2>
       </ion-col>
-      <ion-col size="8" *ngIf="usuariosService.usuarioActual.usuario.Apodo">
-        <ion-label class="ion-text-wrap">
-          {{usuariosService.usuarioActual.provincia}}, {{usuariosService.usuarioActual.canton}}
-        </ion-label>
-
-
-      </ion-col>
+    
       <ion-col size="4">
-        <ion-label>{{usuariosService.usuarioActual.posicion}}</ion-label>
+        <ion-label></ion-label>
 
       </ion-col>
+ 
       <ion-col size="8">
-        <ion-label> {{calcularEdad(usuariosService.usuarioActual.usuario.Fecha_Nacimiento)}} años</ion-label>
+        <ion-label> {{calcularEdad(usuariosService.usuarioActual.Fecha_Nacimiento)}} años</ion-label>
 
 
       </ion-col>
@@ -68,18 +63,18 @@
         <ion-label>
           Partidos Jugados
         </ion-label>
-        <ion-badge color="dark" mode="ios">{{usuariosService.usuarioActual.usuario.Partidos_Jugados}}</ion-badge>
+        <ion-badge color="dark" mode="ios">{{usuariosService.usuarioActual.Partidos_Jugados}}</ion-badge>
 
       </ion-col>
       <ion-col size="12" class="space-between">
         <ion-label> Jugador del partido</ion-label>
-        <ion-badge color="dark" mode="ios">{{usuariosService.usuarioActual.usuario.Partidos_Jugador_Del_Partido
+        <ion-badge color="dark" mode="ios">{{usuariosService.usuarioActual.Partidos_Jugador_Del_Partido
           }}</ion-badge>
       </ion-col>
       <ion-col size="12" class="space-between">
         <ion-label> Jugador FutPlay</ion-label>
         <ion-badge color="dark"
-          mode="ios">{{usuariosService.usuarioActual.usuario.Partidos_Jugador_Futplay}}</ion-badge>
+          mode="ios">{{usuariosService.usuarioActual.Partidos_Jugador_Futplay}}</ion-badge>
 
       </ion-col>
     </ion-row>

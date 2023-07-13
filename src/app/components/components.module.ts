@@ -16,6 +16,7 @@ import { ButtonComponent } from './button/button.component';
 import { IconButtonComponent } from './icon-button/icon-button.component';
 import { InputComponent } from './input/input.component';
 import { SelectComponent } from './select/select.component';
+import { DeleteButtonComponent } from './delete-button/delete-button.component';
 
 registerLocaleData(localeDe);
 @NgModule({
@@ -25,7 +26,8 @@ registerLocaleData(localeDe);
     ButtonComponent,
     IconButtonComponent,
     SelectComponent,
-    InputComponent
+    InputComponent,
+    DeleteButtonComponent
 
 
  
@@ -46,7 +48,8 @@ registerLocaleData(localeDe);
   ButtonComponent,
   IconButtonComponent,
   SelectComponent,
-  InputComponent
+  InputComponent,
+  DeleteButtonComponent
 
 
   ],

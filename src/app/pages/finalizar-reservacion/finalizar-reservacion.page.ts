@@ -180,13 +180,13 @@ if(this.detalleReservacion.Reservacion_Grupal){
   let body = {
     body: {
     email:  null,
-    body: "Se ha confirmado un reto para el día " +  this.nuevaReservacion.Fecha +" en  la cancha " +  this.cancha.nombre + " Hora : " +this.formatoAmPM(new Date(this.nuevaReservacion.Hora_Inicio)) + ". Reseto Abierto "+this.usuariosService.usuarioActual.nombre+ ".",
+    body: "Se ha confirmado un reto para el día " +  this.nuevaReservacion.Fecha +" en  la cancha " +  this.cancha.nombre + " Hora : " +this.formatoAmPM(new Date(this.nuevaReservacion.Hora_Inicio)) + ". Reseto Abierto "+this.usuariosService.usuarioActual.Nombre+ ".",
     footer: "¡Hay un reto esperándote!"
 }
 
   }
 
-  body.body.email = this.usuariosService.usuarioActual.usuario.Correo;
+  body.body.email = this.usuariosService.usuarioActual.Correo;
 this.emailService.syncPostReservacionEmail(body).then(resp =>{
   body.body.email = this.cancha.correo;
   this.emailService.syncPostReservacionEmail(body).then(async (resp) =>{
@@ -261,13 +261,13 @@ if(this.detalleReservacion.Reservacion_Grupal){
   let body = {
     body: {
     email:  null,
-    body: "Se ha confirmado un reto para el día " +  this.nuevaReservacion.Fecha +" en  la cancha " +  this.cancha.nombre + " Hora : " +this.formatoAmPM(new Date(this.nuevaReservacion.Hora_Inicio)) + ". Reseto Abierto "+this.usuariosService.usuarioActual.nombre+ ".",
+    body: "Se ha confirmado un reto para el día " +  this.nuevaReservacion.Fecha +" en  la cancha " +  this.cancha.nombre + " Hora : " +this.formatoAmPM(new Date(this.nuevaReservacion.Hora_Inicio)) + ". Reseto Abierto "+this.usuariosService.usuarioActual.Nombre+ ".",
     footer: "¡Hay un reto esperándote!"
 }
 
   }
 
-  body.body.email = this.usuariosService.usuarioActual.usuario.Correo;
+  body.body.email = this.usuariosService.usuarioActual.Correo;
 this.emailService.syncPostReservacionEmail(body).then(resp =>{
   body.body.email = this.cancha.correo;
   this.emailService.syncPostReservacionEmail(body).then(async (resp) =>{

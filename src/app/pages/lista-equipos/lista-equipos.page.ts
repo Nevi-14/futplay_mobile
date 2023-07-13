@@ -41,7 +41,7 @@ private cd: ChangeDetectorRef
     if(this.rival){
     
       this.alertasService.presentaLoading('Cargando datos...');
-      this.equiposService.syncListaEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp =>{
+      this.equiposService.syncListaEquiposToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
         this.equiposService.equipos = resp.slice(0);
         this.alertasService.loadingDissmiss();
         this.cd.markForCheck();
@@ -55,7 +55,7 @@ private cd: ChangeDetectorRef
     }else{
 
       this.alertasService.presentaLoading('Cargando datos...');
-      this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp =>{
+      this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
         this.equiposService.equipos = resp.slice(0);
         this.alertasService.loadingDissmiss();
         this.cd.markForCheck();

@@ -9,6 +9,12 @@
     "IM_NEW":"Soy nuevo",
     "SELECTED_LANGUAGE":"Español",
     "USERNAME":"Usuario",
-    "PASSWORD":"Contraseña"
+    "PASSWORD":"Contraseña",
+    "RECOVER_PASSWORD":"Olvide mi contraseña,",
+    "RECOVER_ACCESS":"Recuperación de acceso!.",
+    "EMAIL_PHONE":"Correo o Teléfono",
+    "REQUEST_CODE":"Solicitar Código",
+    "MAIN_PAGE":"Página principal",
+    "RETURN":"Regresar"
  }
  

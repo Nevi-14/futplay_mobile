@@ -55,13 +55,13 @@ export class InicioPartidoPage implements OnInit {
     this.alertasService.presentaLoading('Cargando datos..')
     this.jugadoresPermitidosRetador = await this.jugadoresService.syncJugadoresEquipos(this.reto.retador.Cod_Equipo);
     this.jugadoresPermitidosRival = await this.jugadoresService.syncJugadoresEquipos(this.reto.rival.Cod_Equipo);
-    let indexRetador = this.jugadoresPermitidosRetador.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario);
-    let indexRival = this.jugadoresPermitidosRival.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario);
-    let stringID = this.reto.reservacion.Cod_Reservacion + "-" + this.usuariosService.usuarioActual.usuario.Cod_Usuario+ "-" +this.reto.reservacion.Fecha
+    let indexRetador = this.jugadoresPermitidosRetador.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.Cod_Usuario);
+    let indexRival = this.jugadoresPermitidosRival.findIndex(user =>  user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.Cod_Usuario);
+    let stringID = this.reto.reservacion.Cod_Reservacion + "-" + this.usuariosService.usuarioActual.Cod_Usuario+ "-" +this.reto.reservacion.Fecha
 
 
     if(indexRetador >=0 && indexRival >=0){
-      if(this.jugadoresPermitidosRetador[0].usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario){
+      if(this.jugadoresPermitidosRetador[0].usuario.Cod_Usuario == this.usuariosService.usuarioActual.Cod_Usuario){
         this.funcionRetador();
       }else{
         this.funcionRival();

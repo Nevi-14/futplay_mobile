@@ -25,10 +25,7 @@ import { NgForm } from '@angular/forms';
 export class CrearEquipoPage implements OnInit {
   imgs = imgs;
   equipo: Equipos = {
-    Cod_Usuario: this.usuariosService.usuarioActual.usuario.Cod_Usuario,
-    Cod_Provincia: null,
-    Cod_Canton: null,
-    Cod_Distrito: null,
+    Cod_Usuario: this.usuariosService.usuarioActual.Cod_Usuario,
     Foto: 'No Pic',
     Dureza: 0,
     Avatar: true,
@@ -38,7 +35,7 @@ export class CrearEquipoPage implements OnInit {
     Cod_Equipo: null
   }
   jugador: Jugador = {
-    Cod_Usuario: this.usuariosService.usuarioActual.usuario.Cod_Usuario,
+    Cod_Usuario: this.usuariosService.usuarioActual.Cod_Usuario,
     Cod_Equipo: null,
     Favorito: false,
     Administrador: true
@@ -123,83 +120,13 @@ export class CrearEquipoPage implements OnInit {
   
   }
   
-  
-  async onChangeProvincias(fRegistroEquipo:NgForm,$event){
-    let registro = fRegistroEquipo.value;
-    this.alertasService.presentaLoading('Cargando datos...')
-    this.dataCantones = []
-    this.equipo.Cod_Canton = null;
-    this.equipo.Cod_Distrito = null;
-    this.cantonesService.cantones = [];
-    this.distritosService.distritos = [];
-  if(registro.Cod_Provincia){
-  
-    let cantones = await this.cantonesService.syncCantonesToPromise(registro.Cod_Provincia);
-  if(cantones.length == 0) this.alertasService.loadingDissmiss();
-    cantones.forEach((canton:Cantones, index)=>{
-   
-  let data  = {
-    id : canton.Cod_Canton,
-    valor: canton.Canton
-  }
-  console.log(data,'data')
-  this.dataCantones.push(data)
-      if(index == cantones.length -1){
-        this.showCanton = true;
-        this.showDistrito = null;
-        this.alertasService.loadingDissmiss();
-      }
-    })
-   
-  }else{
-  this.alertasService.loadingDissmiss();
-  }
-  }
-  onChangeCantones(fRegistroEquipo:NgForm,$event){
-    let registro = fRegistroEquipo.value;
-    this.alertasService.presentaLoading('Cargando datos...')
-  this.dataDistritos = [];
-    this.equipo.Cod_Distrito = null;
-    this.distritosService.distritos = [];
-  if(registro.Cod_Provincia && registro.Cod_Canton){
-  this.distritosService.syncDistritos( registro.Cod_Canton).then(distritos =>{
-    if(distritos.length == 0) this.alertasService.loadingDissmiss();
-    distritos.forEach((distrito:Distritos, index)=>{
-   
-      let data  = {
-        id : distrito.Cod_Distrito,
-        valor: distrito.Distrito
-      }
-      console.log(data,'data')
-      this.dataDistritos.push(data)
-          if(index == distritos.length -1){
-       //     this.distritosService.distritos = resp.slice(0);
-            this.showDistrito = true;
-            this.alertasService.loadingDissmiss();
-          }
-        })
-  
-   
-    
-  })
-  }else{
-  this.alertasService.loadingDissmiss();
-  }
-  
-  }
-  
-  onChangeDistritos($event){
-  this.equipo.Cod_Distrito = $event.target.value;
-  }
-  
+
 
   crearRegistro(fRegistroEquipo:NgForm) {
 let equipo = fRegistroEquipo.value;
 this.equipo.Nombre = equipo.Nombre;
 this.equipo.Abreviacion = equipo.Abreviacion;
-this.equipo.Cod_Provincia = equipo.Cod_Provincia;
-this.equipo.Cod_Canton = equipo.Cod_Canton;
-this.equipo.Cod_Distrito = equipo.Cod_Distrito;
+
  
     if(this.gestorEquiposImagenesService.avatarActual){
 
@@ -213,7 +140,7 @@ this.equipo.Cod_Distrito = equipo.Cod_Distrito;
       this.alertasService.message('FUTLAY', 'El Equipo ' + resp.Nombre + ' se creo con Exito!.');
       this.jugador.Cod_Equipo = resp.Cod_Equipo
       this.jugadoresService.syncPostJugadorEquipoToPromise(this.jugador).then(resp => {
-        this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(equipos => {
+        this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(equipos => {
 
           if (equipos.length > 0) {
             this.equiposService.equipo = equipos[equipos.length -1];

@@ -30,7 +30,7 @@ public modalCtrl:ModalController
     }
     cargarDatos(){
 
-      this.solicitudesService.syncGetSolicitudesEnviadasUsuarioToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(solicitudes =>{
+      this.solicitudesService.syncGetSolicitudesEnviadasUsuarioToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(solicitudes =>{
         console.log('solicitudes', solicitudes)
             this.solicitudesService.solicitudesJugadoresArray = solicitudes;
           })

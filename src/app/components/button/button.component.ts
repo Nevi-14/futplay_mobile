@@ -7,4 +7,5 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ButtonComponent {
   @Input() label: string;
+  @Input() css: string;
 }

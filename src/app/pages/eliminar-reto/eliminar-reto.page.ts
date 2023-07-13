@@ -21,8 +21,7 @@ public modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
- 
-
+ console.log(this.reto, 'reto')
   }
   cerrarModal(){
 this.modalCtrl.dismiss(true);

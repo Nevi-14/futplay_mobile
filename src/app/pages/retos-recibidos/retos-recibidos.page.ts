@@ -25,7 +25,7 @@ public modalCtrl:ModalController
 this.retosRecibidos()
   }
   retosRecibidos(){
-    this.reservacionesService.syncgGtReservacionesRecibidas(this.usuariosSErvice.usuarioActual.usuario.Cod_Usuario).then(reservaciones=>{
+    this.reservacionesService.syncgGtReservacionesRecibidas(this.usuariosSErvice.usuarioActual.Cod_Usuario).then(reservaciones=>{
       this.reservaciones = reservaciones;
           })
   }

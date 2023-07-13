@@ -11,6 +11,9 @@ import { PerfilUsuario } from '../models/perfilUsuario';
 import { SolicitudesService } from './solicitudes.service';
 import { StorageService } from './storage-service';
 import { EquiposService } from './equipos.service';
+import { UsuarioGeolocalizacion } from '../models/usuarioGeolocalizacion';
+import { UsuariosGeolocalizacionService } from './usuarios-geolocalizacion.service';
+import { GeolocalizacionService } from './geolocalizacion.service';
 
 
 
@@ -21,7 +24,7 @@ import { EquiposService } from './equipos.service';
 })
 export class UsuariosService {
   CorreoVerificacion = '';
-  usuarioActual: PerfilUsuario
+  usuarioActual: Usuarios
   usuarios: PerfilUsuario[] = []
   userLogin = {
     usuario: '',
@@ -42,7 +45,9 @@ export class UsuariosService {
     public actionSheetCtrl: ActionSheetController,
     public solicitudesService: SolicitudesService,
     public storageService: StorageService,
-    public equiposService: EquiposService
+    public equiposService: EquiposService,
+    public usuariosGeolocalizacionService:UsuariosGeolocalizacionService,
+    public geolocalizacionService:GeolocalizacionService
 
   ) {
 
@@ -263,7 +268,7 @@ export class UsuariosService {
     this.putProfile(usuario, Cod_Usuario).subscribe(
       (resp: any) => {
 
-        this.loginURL(this.usuarioActual.usuario.Correo).subscribe(resp => {
+        this.loginURL(this.usuarioActual.Correo).subscribe(resp => {
 
           this.alertasService.loadingDissmiss();
           this.usuarioActual = resp;
@@ -287,7 +292,7 @@ export class UsuariosService {
     let URL = this.getURL(environment.getUsuario);
     URL = URL + Cod_Usuario;
     console.log(URL, 'URL')
-    return this.http.get<PerfilUsuario>(URL);
+    return this.http.get<Usuarios>(URL);
   }
   private getUserImage(api: string) {
     console.log('api', api)
@@ -328,7 +333,7 @@ export class UsuariosService {
     let URL = this.getURL(environment.getLoginURL);
     URL = URL + entrada;
     console.log(URL)
-    return this.http.get<PerfilUsuario>(URL);
+    return this.http.get<Usuarios>(URL);
   }
 
   private getListaUsuarios(Cod_Usuario) {
@@ -365,11 +370,16 @@ export class UsuariosService {
     this.loginURL(entrada).subscribe(
       async (resp) => {
         console.log('resp', resp)
-        if (resp.usuario) {
+        if (resp) {
 
           this.alertasService.loadingDissmiss();
-
-          if (this.comparePassword(contrasena, resp.usuario.Contrasena)) {
+          this.usuarioActual = resp;
+          this.storageService.set('usuario', this.usuarioActual)
+          let usuario = await this.storageService.get('usuario')
+          console.log('login user', resp)
+    
+        
+          if (this.comparePassword(contrasena, resp.Contrasena)) {
 
             this.usuarioActual = resp;
             this.storageService.set('usuario', this.usuarioActual)
@@ -430,7 +440,8 @@ export class UsuariosService {
   private postUsuario(usuario) {
     const URL = this.getURL(environment.postUserURL);
 
-    console.log('post user', URL)
+    console.log('post user', usuario)
+    console.log('URL', URL)
     const options = {
       headers: {
         'Content-Type': 'application/json',
@@ -457,19 +468,27 @@ export class UsuariosService {
     return bcrypt.hashSync(Contrasena, 10);
   }
 
-  registro(usuario: Usuarios) {
+  registro(usuario: Usuarios, geolocalizacion:UsuarioGeolocalizacion) {
     this.alertasService.presentaLoading('Generando registro');
     usuario.Fecha_Nacimiento = format(new Date(usuario.Fecha_Nacimiento), 'yyyy-MM-dd')
     usuario.Contrasena = bcrypt.hashSync(usuario.Contrasena, 10)
     this.postUsuario(usuario).subscribe(
       (resp: any) => {
-        this.alertasService.loadingDissmiss();
-
+      
         console.log('posttt', usuario)
 
-        this.usuarioActual = resp;
-        this.alertasService.pagina = 'reservaciones'
-        return this.route.navigateByUrl('/futplay/reservaciones', { replaceUrl: true });
+        this.usuarioActual = resp[0];
+        geolocalizacion.Cod_Usuario = resp[0].Cod_Usuario;
+        geolocalizacion.Codigo_Pais = this.geolocalizacionService.Country_Code;
+        this.usuariosGeolocalizacionService.syncPostUsuarioGeolocalizacionToPromise(geolocalizacion).then( resp =>{
+          this.alertasService.loadingDissmiss();
+
+          this.alertasService.pagina = 'reservaciones'
+          return this.route.navigateByUrl('/futplay/reservaciones', { replaceUrl: true });
+        }, error => {
+          this.alertasService.loadingDissmiss();
+          this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal!..')
+        });
 
 
 

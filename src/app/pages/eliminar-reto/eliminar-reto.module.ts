@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { EliminarRetoPageRoutingModule } from './eliminar-reto-routing.module';
 
 import { EliminarRetoPage } from './eliminar-reto.page';
+import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EliminarRetoPageRoutingModule
+    EliminarRetoPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [EliminarRetoPage]
 })

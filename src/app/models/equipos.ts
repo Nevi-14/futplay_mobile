@@ -2,9 +2,6 @@
 export class Equipos {
     constructor(
         public Cod_Usuario: number,
-        public Cod_Provincia: number,
-        public Cod_Canton: number,
-        public Cod_Distrito: number,
         public Foto: string,
         public Dureza: any,
         public Estrellas: number,

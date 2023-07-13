@@ -43,7 +43,7 @@ export class MisEquiposPage implements OnInit {
  
     this.btn1 = true;
     this.btn2 = false;
-    this.equiposService.syncMisEquiposToPromise(this.user.usuarioActual.usuario.Cod_Usuario).then(resp=>{
+    this.equiposService.syncMisEquiposToPromise(this.user.usuarioActual.Cod_Usuario).then(resp=>{
 
       if(this.equiposService.misEquipos.length < resp.length){
         this.equiposService.misEquipos = [];

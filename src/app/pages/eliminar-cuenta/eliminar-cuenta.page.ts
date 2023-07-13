@@ -29,14 +29,14 @@ public alertasService: AlertasService
 
   }
   eliminarCuenta(){
-    this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(equipos =>{
+    this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(equipos =>{
 
       let continuar = true;
 
 
       if(equipos.length == 0){
 
-        return this.usuariosService.syncDeleteUserToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp =>{
+        return this.usuariosService.syncDeleteUserToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
 
           this.alertasService.message('FUTPLAY', 'El Perfil se elimino con éxito.');
           this.modalCtrl.dismiss(true)
@@ -50,7 +50,7 @@ public alertasService: AlertasService
 
     this.reservacionesService.syncGetReservcionesFuturas(equipos[i].equipo.Cod_Equipo, format(new Date(), 'yyy-MM-dd')).then(reservaciones =>{
 
-    if(reservaciones.length > 0 && equipos[i].equipo.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario){
+    if(reservaciones.length > 0 && equipos[i].equipo.Cod_Usuario == this.usuariosService.usuarioActual.Cod_Usuario){
       continuar = false;
     }
     })
@@ -59,7 +59,7 @@ public alertasService: AlertasService
 
           console.log('continuar', continuar)
 if(continuar){
-  this.usuariosService.syncDeleteUserToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp =>{
+  this.usuariosService.syncDeleteUserToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
 
     this.alertasService.message('FUTPLAY', 'El Perfil se elimino con éxito.');
           this.modalCtrl.dismiss(true)

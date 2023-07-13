@@ -106,7 +106,7 @@ if(this.filtro.Cod_Provincia && this.filtro.Cod_Canton){
       Cod_Distrito:null,
       Cod_Posicion:null,
     }
-    this.usuariosService.syncListaUsuariosToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(usuarios=>{
+    this.usuariosService.syncListaUsuariosToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(usuarios=>{
 
       this.usuariosService.usuarios = usuarios;
       this.cerrarModal();

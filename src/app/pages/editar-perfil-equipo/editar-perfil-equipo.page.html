@@ -44,16 +44,7 @@
         <ion-col size="12">
           <app-input      name="Abreviacion" type="text" label="Abreviación" ngModel="{{equipo.Abreviacion}}"></app-input>
         </ion-col>
-        <ion-col size="12"   >
-  
-          <app-select name="Cod_Provincia" (ionChange)="onChangeProvincias(fRegistroEquipo)"   [data]="equiposService.dataProvincias" label="Provincia" [ngModel]="equipo.Cod_Provincia"></app-select>
-        </ion-col>
-        <ion-col size="12" (ionChange)="onChangeCantones(fRegistroEquipo)"  *ngIf="equiposService.showCanton" >
-          <app-select name="Cod_Canton" [data]="equiposService.dataCantones" label="Canton" [ngModel]="equipo.Cod_Canton"></app-select>
-        </ion-col>
-        <ion-col size="12"  *ngIf="equiposService.showDistrito" >
-          <app-select name="Cod_Distrito" [data]="equiposService.dataDistritos" label="Distrito" [ngModel]="equipo.Cod_Distrito"></app-select>
-        </ion-col>
+       
         <ion-col size="12">
           <app-button label="Editar Equipo"></app-button>
         </ion-col>

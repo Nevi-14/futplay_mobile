@@ -15,6 +15,7 @@ import { ValidacionFormularioPipe } from 'src/app/pipes/validacion-formulario.pi
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { GeolocalizacionService } from 'src/app/services/geolocalizacion.service';
+import { UsuarioGeolocalizacion } from 'src/app/models/usuarioGeolocalizacion';
 
 @Component({
   selector: 'app-registro',
@@ -25,12 +26,8 @@ export class RegistroPage {
   @ViewChild('mySlider', { static: true }) slides: IonSlides;
   usuario: Usuarios = {
     Cod_Usuario: null,
-    Cod_Provincia: null,
-    Cod_Canton: null,
-    Cod_Distrito: null,
     Cod_Posicion: 1,
     Cod_Role: 3,
-    Modo_Customizado: false,
     Foto: 'user.svg',
     Nombre: '',
     Primer_Apellido: '',
@@ -48,8 +45,10 @@ export class RegistroPage {
     Partidos_Jugador_Del_Partido: 0,
     Compartir_Datos: false,
     Avatar: true,
-    Pais: 'CR',
-    Cod_Pais: '+506'
+    Codigo_Llamadas: '+506',
+    Estado:true,
+    Descripcion_Estado:null,
+    Inicio_Sesion:new Date()
   };
   ingresarContrasena = '';
   provincia = null;
@@ -66,7 +65,15 @@ export class RegistroPage {
   Cod_Canton = null;
   Cod_Distrito = null;
 
- 
+ geolocalizacion:UsuarioGeolocalizacion = {
+   ID:  null,
+   Cod_Usuario:  null,
+   Codigo_Pais:  null,
+   Codigo_Estado:  null,
+   Codigo_Ciudad:  null,
+   Codigo_Postal:  null,
+   Direccion:  null
+ }
   constructor(
     public usuariosServicio: UsuariosService,
     public provinciasService: ProvinciasService,
@@ -91,56 +98,37 @@ export class RegistroPage {
 
   async limpiarDatos() {
 
-    this.provinciasService.syncProvinciasPromise().then(provincias => {
-      provincias.forEach((provincia: Provincias, index) => {
+ 
 
-        let data = {
-          id: provincia.Cod_Provincia,
-          valor: provincia.Provincia
-        }
-        console.log(data, 'data')
-        this.dataProvincias.push(data)
-        if (index == provincias.length - 1) {
-
-          this.usuario = {
-            Cod_Usuario: null,
-            Cod_Provincia: null,
-            Cod_Canton: null,
-            Cod_Distrito: null,
-            Cod_Posicion: 1,
-            Cod_Role: 3,
-            Modo_Customizado: false,
-            Foto: 'user.svg',
-            Nombre: '',
-            Primer_Apellido: '',
-            Segundo_Apellido: '',
-            Fecha_Nacimiento: new Date(),
-            Telefono: '',
-            Correo: '',
-            Contrasena: '',
-            Intentos: 0,
-            Peso: 0,
-            Estatura: 0,
-            Apodo: '',
-            Partidos_Jugados: 0,
-            Partidos_Jugador_Futplay: 0,
-            Partidos_Jugador_Del_Partido: 0,
-            Compartir_Datos: false,
-            Avatar: true,
-            Pais: 'CR',
-            Cod_Pais: '+506'
-          };
-          this.showCanton = null;
-          this.showDistrito = null;
-
-        }
-      })
-
-    }, error => {
-      this.limpiarDatos();
-    })
+      this.usuario = {
+        Cod_Usuario: null,
+        Cod_Posicion: 1,
+        Cod_Role: 3,
+        Foto: 'user.svg',
+        Nombre: '',
+        Primer_Apellido: '',
+        Segundo_Apellido: '',
+        Fecha_Nacimiento: new Date(),
+        Telefono: '',
+        Correo: '',
+        Contrasena: '',
+        Intentos: 0,
+        Peso: 0,
+        Estatura: 0,
+        Apodo: '',
+        Partidos_Jugados: 0,
+        Partidos_Jugador_Futplay: 0,
+        Partidos_Jugador_Del_Partido: 0,
+        Compartir_Datos: false,
+        Avatar: true,
+        Codigo_Llamadas: '+506',
+        Estado:true,
+        Descripcion_Estado:null,
+        Inicio_Sesion:new Date()
+      };
 
 
+   
 
 
   }
@@ -179,17 +167,13 @@ export class RegistroPage {
     let continuar = await ValidacionFormularioPipe.prototype.transform(fRegistro);
     if (!continuar) return this.alertasService.message('FUTPLAY', 'Todos los campos son obligatorios!');
     this.enviarFormulario = true;
-    this.usuario.Cod_Provincia = Number(registro.Cod_Provincia)
-    this.usuario.Cod_Canton = Number(registro.Cod_Canton)
-    this.usuario.Cod_Distrito = Number(registro.Cod_Distrito)
     this.usuario.Nombre = registro.Nombre
     this.usuario.Primer_Apellido = registro.Primer_Apellido
     this.usuario.Telefono = registro.Telefono
     this.usuario.Correo = registro.Correo
     this.ingresarContrasena = registro.password;
     this.usuario.Contrasena = this.ingresarContrasena;
-    this.usuario.Cod_Pais = this.usuario.Pais == 'CR' ? '+506' : '+1';
-    this.usuariosServicio.registro(this.usuario)
+    this.usuariosServicio.registro(this.usuario, this.geolocalizacion)
 
   }
 

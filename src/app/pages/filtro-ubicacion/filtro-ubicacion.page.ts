@@ -103,7 +103,7 @@ this.cerrarModal();
       Cod_Canton: null,
       Cod_Distrito:null,
     }
-    this.equiposService.syncListaEquiposToPromise( this.usuariosService.usuarioActual.usuario.Cod_Usuario
+    this.equiposService.syncListaEquiposToPromise( this.usuariosService.usuarioActual.Cod_Usuario
       ).then(equipos=>{
         this.equiposService.equipos = equipos;
   this.cerrarModal();

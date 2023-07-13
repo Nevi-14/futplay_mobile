@@ -175,36 +175,7 @@ export class EditarPerfilEquipoPage implements OnInit {
     dateF(){
       return new Date().getTime() 
     }
-    onChange($event,identifier){
-      console.log(identifier)
-      switch(identifier){
-      
-      case 'provincia':
-      
-      this.provinciasService.syncProvincias();
-      this.equipo.Cod_Canton = null;
-      this.equipo.Cod_Distrito = null;
-      this.cantonesService.cantones = [];
-      this.distritosService.distritos = [];
-      this.cantonesService.syncCantones($event.target.value);
-      console.log(identifier)
-      break;
-      case 'canton':
-        console.log(identifier)
-      this.equipo.Cod_Distrito = null;
-      this.distritosService.distritos = [];
-       if(this.equipo.Cod_Canton){
-        this.distritosService.syncDistritos( $event.target.value);
-       }
-      break;
-      
-      case 'distrito':
-        
-      break;
-      
-      }
-      }
-  
+ 
   seleccionarAvatar(img, i){
   
 
@@ -273,19 +244,17 @@ export class EditarPerfilEquipoPage implements OnInit {
     let equipo = fRegistroEquipo.value;
 this.equipo.Nombre = equipo.Nombre;
 this.equipo.Abreviacion = equipo.Abreviacion;
-this.equipo.Cod_Provincia = equipo.Cod_Provincia;
-this.equipo.Cod_Canton = equipo.Cod_Canton;
-this.equipo.Cod_Distrito = equipo.Cod_Distrito;
+ 
  
  
  console.log(this.equipo,'this.equipo')
-    this.equiposService.putEquipoToPromise(this.equipo, this.usuariosService.usuarioActual.usuario.Cod_Usuario).then((resp:any) =>{
+    this.equiposService.putEquipoToPromise(this.equipo, this.usuariosService.usuarioActual.Cod_Usuario).then((resp:any) =>{
 console.log('equipo update', resp)
 
 if(resp.action){
  // this.equiposService.equipo.equipo = resp.equipo;
   this.alertasService.message('FUTPLAY', resp.message)
-  this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(equipos =>{
+  this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(equipos =>{
 
     this.equiposService.equipos = equipos;
     
@@ -305,74 +274,7 @@ if(resp.action){
 
   }
 
-  async onChangeProvincias(fRegistroEquipo:NgForm){
-    let registro = fRegistroEquipo.value;
-    this.alertasService.presentaLoading('Cargando datos...')
-    this.equiposService.dataCantones = []
-    this.equipo.Cod_Canton = null;
-    this.equipo.Cod_Distrito = null;
-    this.cantonesService.cantones = [];
-    this.distritosService.distritos = [];
-  if(registro.Cod_Provincia){
-  
-    let cantones = await this.cantonesService.syncCantonesToPromise(registro.Cod_Provincia);
-  if(cantones.length == 0) this.alertasService.loadingDissmiss();
-    cantones.forEach((canton:Cantones, index)=>{
-   
-  let data  = {
-    id : canton.Cod_Canton,
-    valor: canton.Canton
-  }
-  console.log(data,'data')
-  this.equiposService.dataCantones.push(data)
-      if(index == cantones.length -1){
-        this.equiposService.showCanton = true;
-        this.equiposService.showDistrito = null;
-        this.alertasService.loadingDissmiss();
-      }
-    })
-   
-  }else{
-  this.alertasService.loadingDissmiss();
-  }
-  }
-  onChangeCantones(fRegistroEquipo:NgForm){
-    let registro = fRegistroEquipo.value;
-    this.alertasService.presentaLoading('Cargando datos...')
-    this.equiposService.dataDistritos = [];
-    this.equipo.Cod_Distrito = null;
-    this.distritosService.distritos = [];
-  if(registro.Cod_Provincia && registro.Cod_Canton){
-  this.distritosService.syncDistritos( registro.Cod_Canton).then(distritos =>{
-    if(distritos.length == 0) this.alertasService.loadingDissmiss();
-    distritos.forEach((distrito:Distritos, index)=>{
-   
-      let data  = {
-        id : distrito.Cod_Distrito,
-        valor: distrito.Distrito
-      }
-      console.log(data,'data')
-      this.equiposService.dataDistritos.push(data)
-          if(index == distritos.length -1){
-       //     this.distritosService.distritos = resp.slice(0);
-       this.equiposService.showDistrito = true;
-            this.alertasService.loadingDissmiss();
-          }
-        })
-  
-   
-    
-  })
-  }else{
-  this.alertasService.loadingDissmiss();
-  }
-  
-  }
-  
-  onChangeDistritos($event){
-  this.equipo.Cod_Distrito = $event.target.value;
-  }
-  
+ 
 
 eliminarEquipo(){
 /**

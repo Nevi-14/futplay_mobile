@@ -61,7 +61,7 @@ this.loadToken(false);
    deleteAccount(){
 
     
-    this.userService.syncDeleteUserToPromise(this.userService.usuarioActual.usuario.Correo).then(user=>{
+    this.userService.syncDeleteUserToPromise(this.userService.usuarioActual.Correo).then(user=>{
       this.userService.usuarioActual = null;
       this.modalCtrl.dismiss();
       this.alertasService.message('FUTPLAY', 'La cuenta se elimino con éxito!.')

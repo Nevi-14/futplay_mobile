@@ -26,7 +26,7 @@ public modalCtrl:ModalController
  
   }
   reservacionesConfirmadas(){
-    this.reservacionesService.syncgGtReservacionesConfirmadas(this.usuariosSErvice.usuarioActual.usuario.Cod_Usuario).then(reservaciones=>{
+    this.reservacionesService.syncgGtReservacionesConfirmadas(this.usuariosSErvice.usuarioActual.Cod_Usuario).then(reservaciones=>{
       this.reservaciones = reservaciones;
           })
   }

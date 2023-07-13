@@ -25,7 +25,7 @@ this.reservacionesEnviadas();
   }
 
   reservacionesEnviadas(){
-    this.reservacionesService.syncgGtReservacionesEnviadas(this.usuariosSErvice.usuarioActual.usuario.Cod_Usuario).then(reservaciones=>{
+    this.reservacionesService.syncgGtReservacionesEnviadas(this.usuariosSErvice.usuarioActual.Cod_Usuario).then(reservaciones=>{
       this.reservaciones = reservaciones;
           })
   }

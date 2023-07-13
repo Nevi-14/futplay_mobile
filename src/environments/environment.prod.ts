@@ -2,8 +2,8 @@
 export const environment = {
   production: true,
   maxCharCodigoProd: 6,
-  preURL: 'https://futplaycompany.com/api_test/api/',
-  preURL2: 'https://futplaycompany.com/api_test/api/',
+  preURL: 'https://futplaycompany.com/testing/api/',
+  preURL2: 'https://futplaycompany.com/testing/api/',
   getUserIMG:'get/usuarios/foto/',
   TestURL: '',
   postURL: '',

@@ -236,7 +236,7 @@ await actionSheet.present();
       this.solicitudesService.syncPutSolicitudToProimise(solicitudActualizar).then(resp =>{
         this.solicitudesService.syncGetSolicitudesRecibidasEquipoToPromise(this.equiposService.equipo.equipo.Cod_Equipo).then(resp=>{
           this.solicitudesService.solicitudesEquiposArray = resp;
-          this.solicitudesService.syncGetSolicitudesRecibidasUsuarioToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp=>{
+          this.solicitudesService.syncGetSolicitudesRecibidasUsuarioToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(resp=>{
             this.solicitudesService.solicitudesEquiposArray = resp;
           })
         })

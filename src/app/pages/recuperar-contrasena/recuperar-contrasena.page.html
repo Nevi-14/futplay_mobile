@@ -12,13 +12,13 @@
           </ion-thumbnail>
         </ion-col>
         <ion-col size="12">
-          <h1>Olvide mi contraseña,</h1>
-          <h3>Recuperación de acceso!.</h3>
+          <h1>{{"RECOVER_PASSWORD" | translate }},</h1>
+          <h3>{{"RECOVER_ACCESS" | translate }}.</h3>
 
-
+           
         </ion-col>
         <ion-col size="12">
-          <app-input [readonly]="verificarCodigo ? true : false" name="Correo" type="text" label="Correo o Teléfono"  ngModel="{{correo}}"    ></app-input>
+          <app-input [readonly]="verificarCodigo ? true : false" name="Correo" type="text"label='{{"EMAIL_PHONE" | translate }}'  ngModel="{{correo}}"    ></app-input>
 
         </ion-col>
         <ion-col size="12" *ngIf="verificarCodigo">
@@ -30,7 +30,7 @@
         <ion-col size="12">
           <app-button label="{{ !verificarCodigo ? 'Solicitar Código' : 'Validar Código'}}"></app-button>
         </ion-col>
-
+     
  
       </ion-row>
     </ion-grid>
@@ -41,7 +41,7 @@
 </ion-content>
 <ion-footer class="ion-no-border">
   <ion-toolbar class="ion-padding">
-    <p class="footer-text">Página principal, <a routerLink="/inicio-sesion">Regresar</a></p>
+    <p class="footer-text"> {{"MAIN_PAGE" | translate }}, <a routerLink="/inicio-sesion"> {{"RETURN" | translate }}</a></p>
   </ion-toolbar>
 </ion-footer>
  

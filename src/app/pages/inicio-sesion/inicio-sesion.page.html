@@ -54,8 +54,7 @@
 </ion-content>
 <ion-footer class="ion-no-border">
   <ion-toolbar class="ion-text-center">
-    <ion-button  mode="ios"  (click)="presentPopover($event)"  fill="clear" color="primary"   >
-      <ion-icon name="language-outline" slot="start"></ion-icon>
+    <ion-button  mode="ios"  (click)="presentPopover($event)"  fill="clear" color="primary">
       {{"SELECTED_LANGUAGE" | translate }}
     </ion-button>
     <ion-popover mode="ios" #popover [isOpen]="isOpen" (didDismiss)="isOpen = false" side="top" alignment="center">

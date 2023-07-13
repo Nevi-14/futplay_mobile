@@ -65,8 +65,8 @@ export class AceptarRetoPage implements OnInit {
     this.total = Number(((10 / 100) * this.reto.detalle.Monto_Total).toFixed(2));
     this.jugadoresPermitidosRetador = await this.jugadoresService.syncJugadoresEquipos(this.reto.retador.Cod_Equipo);
     this.jugadoresPermitidosRival = await this.jugadoresService.syncJugadoresEquipos(this.reto.rival.Cod_Equipo);
-    this.indexRetador = this.jugadoresPermitidosRetador.findIndex(user => user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario);
-    this.indexRival = this.jugadoresPermitidosRival.findIndex(user => user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.usuario.Cod_Usuario);
+    this.indexRetador = this.jugadoresPermitidosRetador.findIndex(user => user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.Cod_Usuario);
+    this.indexRival = this.jugadoresPermitidosRival.findIndex(user => user.usuario.Cod_Usuario == this.usuariosService.usuarioActual.Cod_Usuario);
 
     if (this.indexRival >= 0) {
       this.allowUser = true;

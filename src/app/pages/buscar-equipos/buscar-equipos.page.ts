@@ -20,7 +20,7 @@ export class BuscarEquiposPage implements OnInit {
   solicitud:Solicitudes = {
 
     Cod_Solicitud : null,
-    Cod_Usuario :  this.usuariosService.usuarioActual.usuario.Cod_Usuario,
+    Cod_Usuario :  this.usuariosService.usuarioActual.Cod_Usuario,
     Cod_Equipo :null,
     Confirmacion_Usuario:true,
     Confirmacion_Equipo:false,
@@ -44,7 +44,7 @@ public jugadoresService: JugadoresService
 
   ngOnInit() {
 this.alertasService.presentaLoading('Cargando lista de equipos!..');
-    this.equiposService.syncListaEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp =>{
+    this.equiposService.syncListaEquiposToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
       this.equiposService.equipos = resp;
 this.alertasService.loadingDissmiss();
 
@@ -95,7 +95,7 @@ this.alertasService.loadingDissmiss();
     }
       EquipoSolicitud(equipo){
 
-        this.jugadoresService.syncGetJugador(this.usuariosService.usuarioActual.usuario.Cod_Usuario,equipo.equipo.Cod_Equipo).then(resp =>{
+        this.jugadoresService.syncGetJugador(this.usuariosService.usuarioActual.Cod_Usuario,equipo.equipo.Cod_Equipo).then(resp =>{
 
           if(resp.length > 0){
 

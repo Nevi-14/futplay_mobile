@@ -99,8 +99,10 @@ this.cargarDatosUsuario();
  
     }
   async cargarDatosUsuario(){
-    let usuario = await this.usuariosService.syncGetUsuario(this.usuariosService.usuarioActual.usuario.Cod_Usuario);
+/**
+ *     let usuario = await this.usuariosService.syncGetUsuario(this.usuariosService.usuarioActual.Cod_Usuario);
 this.usuariosService.usuarioActual = usuario;
+ */
   }
   calcularEdad(fechaNacimiento:Date){
   const dob = new Date(fechaNacimiento);

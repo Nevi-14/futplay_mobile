@@ -283,12 +283,12 @@ syncGetReservacionesResvision(Cod_Usuario){
 
 }
 async cargarReservaciones(){
- return this.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones2 =>{
+ return this.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.Cod_Usuario).then(reservaciones2 =>{
     this.retosConfirmados = reservaciones2;
    
     return   this.syncGetReservacionesAbiertasToPromise().then(reservaciones =>{
      this.retosAbiertos = reservaciones;
-     return  this.syncgGtReservacionesRecibidas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+     return  this.syncgGtReservacionesRecibidas(this.usuariosService.usuarioActual.Cod_Usuario).then(reservaciones =>{
       this.reservacionesRecibidas = reservaciones;
      })
     })
@@ -856,7 +856,7 @@ async compararFechas(date1,date2){
           case 0:
            // confirmados
    
-           this.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+           this.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.Cod_Usuario).then(reservaciones =>{
              this.reservaciones = reservaciones;
              console.log('reservaciones', this.reservaciones)
    
@@ -866,7 +866,7 @@ async compararFechas(date1,date2){
           case 1:
     
      // recibidos
-     this.syncgGtReservacionesRecibidas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+     this.syncgGtReservacionesRecibidas(this.usuariosService.usuarioActual.Cod_Usuario).then(reservaciones =>{
        this.reservaciones = reservaciones;
        console.log('reservaciones', this.reservaciones)
    
@@ -874,7 +874,7 @@ async compararFechas(date1,date2){
          break;
           case 2:
        // enviados
-       this.syncgGtReservacionesEnviadas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+       this.syncgGtReservacionesEnviadas(this.usuariosService.usuarioActual.Cod_Usuario).then(reservaciones =>{
          this.reservaciones = reservaciones;
        
          console.log('reservaciones', this.reservaciones)
@@ -883,7 +883,7 @@ async compararFechas(date1,date2){
           
           case 3:
         //hisyotial
-        this.syncgGtReservacionesHistorial(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+        this.syncgGtReservacionesHistorial(this.usuariosService.usuarioActual.Cod_Usuario).then(reservaciones =>{
          this.reservaciones = reservaciones;
        
          console.log('reservaciones', this.reservaciones)
@@ -891,7 +891,7 @@ async compararFechas(date1,date2){
           break;
           
           case 4:
-           this.syncGetReservacionesResvision(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+           this.syncGetReservacionesResvision(this.usuariosService.usuarioActual.Cod_Usuario).then(reservaciones =>{
              this.reservaciones = reservaciones;
            
              console.log('reservaciones', this.reservaciones)
@@ -899,7 +899,7 @@ async compararFechas(date1,date2){
    
           break;
           case 5:
-           this.syncGetReservacionesCanceladas(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(reservaciones =>{
+           this.syncGetReservacionesCanceladas(this.usuariosService.usuarioActual.Cod_Usuario).then(reservaciones =>{
              this.reservaciones = reservaciones;
            
              console.log('reservaciones', this.reservaciones)

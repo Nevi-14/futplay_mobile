@@ -16,7 +16,7 @@ export class GestorContrasenaPage implements OnInit {
   contrasena = '';
   confirmarContrasena = '';
   verificarCodigo = false;
-  correo = this.usuariosService.usuarioActual.usuario.Correo;
+  correo = this.usuariosService.usuarioActual.Correo;
   Codigo = '';
 
   constructor(

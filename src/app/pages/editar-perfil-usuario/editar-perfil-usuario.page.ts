@@ -159,7 +159,7 @@ isVisible = false;
   this.posicionesService.posiciones = [];
    this.posicionesService.syncPosicionesToPromise().then(resp =>{
   this.showPosicion = true;
- this.usuario.usuario.Cod_Posicion = this.usuarioService.usuarioActual.usuario.Cod_Posicion;
+ this.usuario.Cod_Posicion = this.usuarioService.usuarioActual.Cod_Posicion;
 this.posicionesService.posiciones  = resp;
 resp.forEach( posision =>{
      
@@ -171,73 +171,14 @@ resp.forEach( posision =>{
 })
 
    });
- this.cargarDAtosUbicacion()
+ 
   }
 
   avatar(){
     this.avatars = !this.avatars
 
   }
-  async cargarDAtosUbicacion(){
-    let provincias = await this.provinciasService.syncProvinciasPromise();
-
-    provincias.forEach(async (provincia:Provincias, index)=>{
-   
-  let data  = {
-    id : provincia.Cod_Provincia,
-    valor: provincia.Provincia
-  }
-  console.log(data,'data')
-  this.dataProvincias.push(data)
-      if(index == provincias.length -1){
-
-
-
-          
-  let cantones = await this.cantonesService.syncCantonesToPromise(this.usuario.usuario.Cod_Provincia);
-  if(cantones.length == 0) this.alertasService.loadingDissmiss();
-    cantones.forEach((canton:Cantones, index)=>{
-   
-  let data  = {
-    id : canton.Cod_Canton,
-    valor: canton.Canton
-  }
-  console.log(data,'data')
-  this.dataCantones.push(data)
-      if(index == cantones.length -1){
-        this.showCanton = true;
-        this.showDistrito = null;
-        this.distritosService.syncDistritos( this.usuario.usuario.Cod_Canton).then(distritos =>{
-          if(distritos.length == 0) this.alertasService.loadingDissmiss();
-          distritos.forEach((distrito:Distritos, index)=>{
-         
-            let data  = {
-              id : distrito.Cod_Distrito,
-              valor: distrito.Distrito
-            }
-            console.log(data,'data')
-            this.dataDistritos.push(data)
-                if(index == distritos.length -1){
-             //     this.distritosService.distritos = resp.slice(0);
-                  this.showDistrito = true;
-                  this.alertasService.loadingDissmiss();
-                }
-              })
-        
-         
-          
-        })
-      }
-
-
-
-    })
-  
-         
-      }
-
-    })
-  }
+ 
 
   async  gestorPerfilImagenes(){
 
@@ -263,10 +204,10 @@ resp.forEach( posision =>{
       this.imgs.forEach(av => av.seleccionado = false);
       this.imgs[resp].seleccionado = true;
       this.image = this.imgs[resp].img
-      this.usuario.usuario.Foto = this.imgs[resp].img;
-      this.usuario.usuario.Avatar = true;
-      this.usuarioService.usuarioActual.usuario.Avatar = true;
-      this.usuarioService.usuarioActual.usuario.Foto =  this.imgs[resp].img;
+      this.usuario.Foto = this.imgs[resp].img;
+      this.usuario.Avatar = true;
+      this.usuarioService.usuarioActual.Avatar = true;
+      this.usuarioService.usuarioActual.Foto =  this.imgs[resp].img;
 
 //      this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.usuario.Avatar, this.usuario.Foto); 
 
@@ -278,30 +219,26 @@ resp.forEach( posision =>{
 
   updateUser(fRegistroEquipo:NgForm){
     let usuario = fRegistroEquipo.value;
-    this.usuario.usuario.Nombre = usuario.Nombre;
-    this.usuario.usuario.Primer_Apellido = usuario.Primer_Apellido;
-    this.usuario.usuario.Apodo = usuario.Apodo;
-    this.usuario.usuario.Cod_Posicion = usuario.Cod_Posicion;
-    this.usuario.usuario.Estatura = usuario.Estatura;
-    this.usuario.usuario.Peso = usuario.Peso;
-    this.usuario.usuario.Telefono = usuario.Telefono;
-    this.usuario.usuario.Correo = usuario.Correo;
-    this.usuario.usuario.Cod_Provincia = usuario.Cod_Provincia;
-    this.usuario.usuario.Cod_Canton = usuario.Cod_Canton;
-    this.usuario.usuario.Cod_Distrito = usuario.Cod_Distrito;
+    this.usuario.Nombre = usuario.Nombre;
+    this.usuario.Primer_Apellido = usuario.Primer_Apellido;
+    this.usuario.Apodo = usuario.Apodo;
+    this.usuario.Cod_Posicion = usuario.Cod_Posicion;
+    this.usuario.Estatura = usuario.Estatura;
+    this.usuario.Peso = usuario.Peso;
+    this.usuario.Telefono = usuario.Telefono;
+    this.usuario.Correo = usuario.Correo;
 
   //  if(fActualizar.invalid) {return;}
  
-  this.usuarioService.usuarioActual.usuario = this.usuario.usuario;
+  this.usuarioService.usuarioActual = this.usuario;
     this.modalCtrl.dismiss({'data':true}, null, 'perfil-usuario')
-    console.log(this.usuario, this.usuario.usuario.Cod_Posicion, 'Cod_Posicion')
-    this.usuario.usuario.Cod_Pais = this.usuario.usuario.Pais == 'CR' ? '+506' : '+1';
-    this.usuarioService.actualizarUsuario(this.usuario.usuario, this.usuario.usuario.Cod_Usuario)
+    console.log(this.usuario, this.usuario.Cod_Posicion, 'Cod_Posicion')
+    this.usuarioService.actualizarUsuario(this.usuario, this.usuario.Cod_Usuario)
 
   }
   imageUpload2(source:string){
    
-    let fileName = this.userService.usuarioActual.usuario.Foto
+    let fileName = this.userService.usuarioActual.Foto
     let location = 'perfil-usuario';
 /**
  *        this.gestorImagenesService.selectImage(source,fileName,location, false).then(resp =>{
@@ -326,10 +263,10 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
     this.imgs.forEach(av => av.seleccionado = false);
     img.seleccionado = true;
     this.image = this.imgs[i].img;
-    this.usuario.usuario.Foto =  this.imgs[i].img;
-    this.usuario.usuario.Avatar = true;
-    this.usuarioService.usuarioActual.usuario.Avatar = true;
-    this.usuarioService.usuarioActual.usuario.Foto =   this.image;
+    this.usuario.Foto =  this.imgs[i].img;
+    this.usuario.Avatar = true;
+    this.usuarioService.usuarioActual.Avatar = true;
+    this.usuarioService.usuarioActual.Foto =   this.image;
 
    // this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.usuario.Avatar, this.usuario.Foto); 
  
@@ -354,7 +291,7 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
         componentProps:{
           title:'Fecha de nacimiento',
           id: 'seleccionar-fecha',
-          fecha: new Date(this.usuarioService.usuarioActual.usuario.Fecha_Nacimiento.replace('-','/'))
+          fecha: new Date(this.usuarioService.usuarioActual.Fecha_Nacimiento.replace('-','/'))
         },
         id: 'seleccionar-fecha'
       })
@@ -364,7 +301,7 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
    
       if(data !== undefined ){
         console.log(data,'data')
-        this.usuario.usuario.Fecha_Nacimiento = format(data.date,'yyyy/MM/dd')
+        this.usuario.Fecha_Nacimiento = format(data.date,'yyyy/MM/dd')
             this.modalOpen = false;
       }else{
    
@@ -376,48 +313,9 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
     
   }
 
-
-  onChangeProvincias($event){
-    this.alertasService.presentaLoading('Cargando datos...')
-    this.usuario.usuario.Cod_Provincia = $event.target.value;
-    this.usuario.usuario.Cod_Canton = null;
-    this.usuario.usuario.Cod_Distrito = null;
-    this.cantonesService.cantones = [];
-    this.distritosService.distritos = [];
- if(this.usuario.usuario.Cod_Provincia){
-  this.cantonesService.syncCantones(this.usuario.usuario.Cod_Provincia).then(resp =>{
-this.showCanton = true;
-this.showDistrito = null;
-this.cantonesService.cantones = resp.slice(0);
-this.alertasService.loadingDissmiss();
-  })
- }else{
-  this.alertasService.loadingDissmiss();
- }
-  }
-  onChangeCantones($event){
-    this.alertasService.presentaLoading('Cargando datos...')
-    this.usuario.usuario.Cod_Canton = $event.target.value;
-    this.usuario.usuario.Cod_Distrito = null;
-    this.distritosService.distritos = [];
-if(this.usuario.usuario.Cod_Provincia && this.usuario.usuario.Cod_Canton){
-  this.distritosService.syncDistritos(this.usuario.usuario.Cod_Canton).then(resp =>{
-    this.distritosService.distritos = resp.slice(0);
-    this.showDistrito = true;
-    this.alertasService.loadingDissmiss();
-    
-  })
-}else{
-  this.alertasService.loadingDissmiss();
-}
-
-  }
-
-  onChangeDistritos($event){
-
-    this.usuario.usuario.Cod_Distrito = $event.target.value;
-
-  }
+ 
+ 
+ 
 
   async eliminarCuenta(){
 

@@ -1,8 +1,8 @@
 export const environment = {
   production: false,
   maxCharCodigoProd: 6,
-  preURL: 'https://futplaycompany.com/api_test/api/',
-  preURL2: 'https://futplaycompany.com/api_test/api/',
+  preURL: 'https://futplaycompany.com/testing/api/',
+  preURL2: 'https://futplaycompany.com/testing/api/',
   getUserIMG:'get/usuarios/foto/',
   TestURL: '',
   postURL: '',
@@ -91,5 +91,17 @@ export const environment = {
 
 
   getPerfilEquipo:'get/perfil/equipo/',
-  getPerfilCancha:'get/perfil/cancha/'
+  getPerfilCancha:'get/perfil/cancha/',
+
+  // usuario geolocalizacion
+  getUsuarioGeolocalizacion:'get/usuario/geolocalizacion/',
+  postUsuarioGeolocalizacion:'post/usuario/geolocalizacion',
+  putUsuarioGeolocalizacion:'put/usuario/geolocalizacion/',
+  deleteUsuarioGeolocalizacion:'delete/usuario/geolocalizacion/',
+
+    // equipo geolocalizacion
+    getEquipoGeolocalizacion:'get/equipo/geolocalizacion/',
+    postEquipoGeolocalizacion:'post/equipo/geolocalizacion',
+    putEquipoGeolocalizacion:'put/equipo/geolocalizacion/',
+    deleteEquipoGeolocalizacion:'delete/equipo/geolocalizacion/'
 };

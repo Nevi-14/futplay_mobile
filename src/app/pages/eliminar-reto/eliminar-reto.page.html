@@ -1,25 +1,19 @@
-
-  <ion-header class="custom-header">
-
-    <ion-toolbar class="custom-toolbar"  mode="ios">
-<ion-row>
-  <ion-col size="12">
-    <ion-button fill="clear" (click)="cerrarModal()">
-      <ion-icon color="light" slot="start" name="chevron-back"></ion-icon>
-      &nbsp;
-      <ion-label color="light" slot="start">Eliminar Reto FUTPLAY</ion-label>
-    </ion-button>
-  </ion-col>
-
-
-</ion-row>
-
-
+ 
+     
+ 
+<ion-header    class="ion-no-border">
+  <ion-toolbar>
+   <ion-button slot="start" (click)="cerrarModal()" fill="clear">
+     <ion-icon size="large" name="close-outline"></ion-icon>
+   </ion-button>
+   <ion-title>Eliminar Reto FUTPLAY</ion-title>
+    
   </ion-toolbar>
-    </ion-header>
+  
+ </ion-header>
 
     <ion-content fullscreen overflow-scroll="true" scroll="true">
-      <div class="mainContent"> 
+     
  
         <ion-list>
 <ion-item lines="none" class="ion-text-center ion-padding">
@@ -48,15 +42,14 @@
           </ion-item>
           
         </ion-list>
-        
-      </div>
+  
     </ion-content>
     <ion-footer>
  
-       
-      <ion-button (click)="eliminarReto()" expand="block" class="ion-text-center" >
-       <ion-label>Deseo Eliminar El Reto </ion-label>
-             </ion-button>
+       <app-delete-button  (click)="eliminarReto()" label="Deseo Eliminar El Reto" >
+
+       </app-delete-button>
+ 
 
    </ion-footer>
  

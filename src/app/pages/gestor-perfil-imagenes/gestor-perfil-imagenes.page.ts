@@ -123,7 +123,7 @@ this.avatarActual =  this.imgs[i].img
       }else{
         let data = {
 
-          Cod_Usuario:this.usuarioService.usuarioActual.usuario.Cod_Usuario,
+          Cod_Usuario:this.usuarioService.usuarioActual.Cod_Usuario,
           Avatar:true,
           Foto: this.imgs[this.index].img
 
@@ -133,7 +133,7 @@ this.avatarActual =  this.imgs[i].img
 
 
    this.usuarioService.syncAvatarToPromise(data).then((resp:any) =>{
-    this.usuarioService.usuarioActual.usuario = resp.usuario[0];
+    this.usuarioService.usuarioActual = resp.usuario[0];
     this.alertasService.message('FUTPLAY', resp.message)
    console.log('imagen actualizada  ' , resp)
  

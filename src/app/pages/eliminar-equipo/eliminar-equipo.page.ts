@@ -40,7 +40,7 @@ public usuariosService: UsuariosService
       }else{
 this.equiposService.syncDeleteEquipo(this.equiposService.equipo.equipo.Cod_Equipo).then( resp =>{
 
-  this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.usuario.Cod_Usuario).then(resp =>{
+  this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
 
     this.equiposService.misEquipos = resp;
     this.equiposService.equipo = resp[0];
