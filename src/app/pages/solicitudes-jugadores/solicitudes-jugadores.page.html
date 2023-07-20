@@ -4,25 +4,75 @@
    <ion-button slot="start" (click)="regresar()" fill="clear">
      <ion-icon size="large" name="close-outline"></ion-icon>
    </ion-button>
-   <ion-title>Solicitudes</ion-title>
+   <ion-title>{{"REQUESTS" | translate }}</ion-title>
     
   </ion-toolbar>
+ 
+  <ion-segment mode="md" value="received" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="received">
+      <ion-label>{{"RECEIVED" | translate }}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="sent">
+      <ion-label>{{"SENT" | translate }}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+ 
   
  </ion-header>
 <ion-content>
   
-<ion-tabs>
-  
-  <ion-tab-bar slot="top"  >
-    <ion-tab-button   tab="recibidas">
-    <ion-label>Recibidas</ion-label>
-    </ion-tab-button>
-    <ion-tab-button   tab="enviadas">
-  <ion-label>   
-    Enviadas</ion-label>
-    </ion-tab-button>
+ <ion-list>
+  <ion-item  *ngIf="solicitudes.length == 0"    lines="none"
+  class="animate__animated animate__fadeIn">
+  <span slot="start">
+    <ion-avatar>
+      <img src="assets/logo.png" alt="">
+    </ion-avatar>
+
+
+    <ion-label>
+
+   <h6><strong>{{"FUTPLAY_MESSAGE" | translate }}</strong> </h6>
+        <p>{{"NO_RECORDS_FOUND" | translate }}</p>
+
+    </ion-label>
+  </span>
+
+
+  </ion-item>
+
+
+  <ion-item (click)="onOpenMenu(solicitud)" lines="full" class="custom-item  animate__animated animate__fadeIn" *ngFor="let solicitud of solicitudes">
+      
+    <span slot="start">
+      <ion-avatar    >
+
+        <img *ngIf="!solicitud.equipo.Avatar" class="logo" data-src="{{'https://futplaycompany.com/api_test/'+solicitud.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   >
+        <img *ngIf="solicitud.equipo.Avatar" src="assets/soccer-shields-svg/{{solicitud.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"    alt="">
+
+      </ion-avatar>
+      
+      <ion-label>
+        {{solicitud.equipo.Nombre}}
+        <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
+        
+          <ng-template ngFor let-hero [ngForOf]="filledStars(solicitud.equipo.Estrellas)"
+          let-i="index" let-odd="odd"  >
+          <ion-icon style="size: 10px;" name="star"></ion-icon>
+        </ng-template>
+        <ng-template ngFor let-hero [ngForOf]="emptyStars(solicitud.equipo.Estrellas)"
+        let-i="index" let-odd="odd"  >
+        <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+      </ng-template>
+        </p>
+      </ion-label>
+
+    </span>
    
-  </ion-tab-bar>
-</ion-tabs>
+
+
+  </ion-item>
+ </ion-list>
 
 </ion-content>
+

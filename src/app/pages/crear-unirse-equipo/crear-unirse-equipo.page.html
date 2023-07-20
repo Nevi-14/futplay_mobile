@@ -1,8 +1,8 @@
 <ion-content     class="ion-padding">
   <ion-list>
     <ion-col size="12">
-      <h1>Equipos,</h1>
-      <h3>Debes crear o unirte a un equipo para continuar!</h3>
+      <h1>{{"TEAMS" | translate }},</h1>
+      <h3>{{"CREATE_JOIN_TEAM_TO_CONTINUE" | translate }}</h3>
     </ion-col>
     <ion-item button (click)="crearEquipo()"  detail    lines="none" class="custom-item  animate__animated animate__fadeIn employeeItem"  >
       <ion-avatar  slot="start"  >
@@ -13,7 +13,7 @@
       
  
       <ion-label class="ion-text-wrap">
-<h3>Crear Equipo</h3>
+<h3>{{"CREATE_TEAM" | translate }}</h3>
       </ion-label>
       
 
@@ -30,7 +30,7 @@
       
  
       <ion-label class="ion-text-wrap">
-<h3>Unirse a un  Equipo</h3>
+<h3>{{"JOIN_TEAM" | translate }}</h3>
       </ion-label>
       
 

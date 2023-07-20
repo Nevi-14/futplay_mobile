@@ -480,6 +480,13 @@ export class UsuariosService {
         this.usuarioActual = resp[0];
         geolocalizacion.Cod_Usuario = resp[0].Cod_Usuario;
         geolocalizacion.Codigo_Pais = this.geolocalizacionService.Country_Code;
+        console.log('isoindex', this.geolocalizacionService.countries)
+        let indexPais = this.geolocalizacionService.countries.findIndex(e => e.id == this.geolocalizacionService.Country_Code);
+        console.log('indexPais',indexPais)
+        if(indexPais >=0){
+          console.log(this.geolocalizacionService.countries[indexPais].valor,'valoooor')
+          geolocalizacion.Pais = this.geolocalizacionService.countries[indexPais].valor;
+        }
         this.usuariosGeolocalizacionService.syncPostUsuarioGeolocalizacionToPromise(geolocalizacion).then( resp =>{
           this.alertasService.loadingDissmiss();
 

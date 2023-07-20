@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { ModalController } from '@ionic/angular';
 import { JugadoresService } from 'src/app/services/jugadores.service';
+import { Equipos } from 'src/app/models/equipos';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { JugadoresService } from 'src/app/services/jugadores.service';
   styleUrls: ['./estadistica-equipo.page.scss'],
 })
 export class EstadisticaEquipoPage {
-@Input() equipo: any
+@Input() equipo: Equipos
 estatura = 0;
 peso = 0;
   constructor(

@@ -8,6 +8,7 @@ import { FutplayPageRoutingModule } from './futplay-routing.module';
 
 import { FutplayPage } from './futplay.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     IonicModule,
     FutplayPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    TranslateModule
   ],
   declarations: [FutplayPage]
 })

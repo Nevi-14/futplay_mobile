@@ -6,6 +6,10 @@ import { EditarPerfilUsuarioPage } from '../editar-perfil-usuario/editar-perfil-
 import { SolicitudesService } from '../../services/solicitudes.service';
 import { Router } from '@angular/router';
 import { GestorContrasenaPage } from '../gestor-contrasena/gestor-contrasena.page';
+import { UsuarioGeolocalizacion } from 'src/app/models/usuarioGeolocalizacion';
+import { UsuariosGeolocalizacionService } from '../../services/usuarios-geolocalizacion.service';
+import { UsuarioGeolocalizacionPage } from '../usuario-geolocalizacion/usuario-geolocalizacion.page';
+import { SolicitudesJugadoresPage } from '../solicitudes-jugadores/solicitudes-jugadores.page';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -14,12 +18,15 @@ import { GestorContrasenaPage } from '../gestor-contrasena/gestor-contrasena.pag
 })
 export class MiPerfilPage {
   img = null;
+  modalOpen = false;
+  usuarioGeolocalizacion:UsuarioGeolocalizacion
   constructor(
 public usuariosService:UsuariosService,
 public modalCtrl: ModalController,
 public actionSheetCtrl: ActionSheetController,
 public solicitudesService: SolicitudesService,
-public router:Router
+public router:Router,
+public usuariosGeolocalizacionService:UsuariosGeolocalizacionService
 
   ) { }
 
@@ -79,7 +86,27 @@ this.cargarDatosUsuario();
   
   
     }
-
+    async usuarioGeolocalizacionModal(){
+      if (!this.modalOpen){
+        const modal = await this.modalCtrl.create({
+          component: UsuarioGeolocalizacionPage,
+          backdropDismiss:false,
+          cssClass:'alert-modal',
+          mode:'ios', 
+          componentProps:{
+            usuarioGeolocalizacion:this.usuarioGeolocalizacion
+          }
+      
+        });
+        this.modalOpen = true;
+    
+         await modal.present();
+         const { data } = await modal.onWillDismiss();
+    
+         this.modalOpen = false;
+      }
+    
+     }
   // FIN MENU DE OPCIONES RELACIONADAS AL PERFIL DE USUARIO
  
   async  gestionarContrasena(){
@@ -103,6 +130,10 @@ this.cargarDatosUsuario();
  *     let usuario = await this.usuariosService.syncGetUsuario(this.usuariosService.usuarioActual.Cod_Usuario);
 this.usuariosService.usuarioActual = usuario;
  */
+this.usuariosGeolocalizacionService.syncGetUsuarioGeolocalizacionToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then( geolocalizacion =>{
+  console.log(geolocalizacion,'geolocalizacion')
+  this.usuarioGeolocalizacion = geolocalizacion[0]
+})
   }
   calcularEdad(fechaNacimiento:Date){
   const dob = new Date(fechaNacimiento);
@@ -117,10 +148,24 @@ this.usuariosService.usuarioActual = usuario;
 return age;
   }
 
-async solicitudes(){
  
-this.router.navigateByUrl('solicitudes-jugadores',{replaceUrl:true})
-  }
+  async solicitudes(){
+    if (!this.modalOpen){
+      const modal = await this.modalCtrl.create({
+        component: SolicitudesJugadoresPage,
+        cssClass:'alert-modal',
+        mode:'ios', 
+    
+      });
+      this.modalOpen = true;
+  
+       await modal.present();
+       const { data } = await modal.onWillDismiss();
+  
+       this.modalOpen = false;
+    }
+  
+   }
 
 
    async  gestionarPerfil(){

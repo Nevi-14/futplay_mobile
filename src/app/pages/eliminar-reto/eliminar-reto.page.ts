@@ -75,7 +75,8 @@ this.modalCtrl.dismiss(true);
 
             this.emailService.enviarCorreoReservaciones(3, this.reto.correo, this.reto.reservacion.Fecha, this.reto.reservacion.Hora_Inicio, this.reto.cancha.Nombre, this.reto.rival.Nombre, this.reto.retador.Nombre).then(resp =>{
            
-
+/**
+ * 
               if(this.reto.detalle.Reservacion_Grupal){
 
                 this.emailService.enviarCorreoReservaciones(3, this.reto.usuario_retador.Correo, this.reto.reservacion.Fecha, this.reto.reservacion.Hora_Inicio, this.reto.cancha.Nombre, this.reto.rival.Nombre, this.reto.retador.Nombre).then(resp =>{
@@ -86,6 +87,7 @@ this.modalCtrl.dismiss(true);
                 })
 
               }
+ */
               
               this.alertasService.loadingDissmiss();
               this.cerrarModal();

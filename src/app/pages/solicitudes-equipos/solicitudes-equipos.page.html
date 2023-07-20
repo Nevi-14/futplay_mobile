@@ -9,7 +9,7 @@
         <ion-buttons slot="start">
           <ion-button (click)="cerrarModal()" color="light">
             <ion-icon slot="start" name="chevron-back"></ion-icon>
-            &nbsp;Solcitudes  Jugadores
+            &nbsp;{{"PLAYERS_REQUEST" | translate }}
           </ion-button>
         </ion-buttons>
   
@@ -20,9 +20,14 @@
     <ion-col size="12">
       <ion-segment     mode="md"    value="1"   scrollable >
   
-        <ion-segment-button mode="md" id="seg-{{i}}"  [value]="i" *ngFor="let cat of categories; let i = index;"  (click)="selectCategory(i)">
-          <ion-label [class.active-category]="activeCategory == i">{{cat}}</ion-label>
+        <ion-segment-button mode="md"    value="1"    (click)="selectCategory(i)">
+          <ion-label [class.active-category]="activeCategory == i">{{"RECEIVED" | translate }}</ion-label>
         </ion-segment-button>
+
+        <ion-segment-button mode="md"   value="2"    (click)="selectCategory(i)">
+          <ion-label [class.active-category]="activeCategory == i">{{"SENT" | translate }}</ion-label>
+        </ion-segment-button>
+
       </ion-segment>
     </ion-col>
   </ion-row>
@@ -44,8 +49,8 @@
      
              <ion-label>
         
-               <h2>MENSAJE FUTPLAY </h2>
-        <p class="ion-text-wrap">   No se encontraron resultados</p>
+              <h6><strong>{{"FUTPLAY_MESSAGE" | translate }}</strong> </h6>
+              <p>{{"NO_RECORDS_FOUND" | translate }}</p>
       
              </ion-label>
     
@@ -73,7 +78,7 @@
           </ion-item>
         </ion-list>
       </div>
-    </ion-content>
+    </ion-content> 
  
 
 
@@ -81,7 +86,7 @@
  
        
       <ion-button  (click)="buscarJugadores()"  expand="block">
-       <ion-label>  Buscar Jugadores</ion-label>
+       <ion-label>{"SEARCH_PLAYERS" | translate }}</ion-label>
              </ion-button>
 
 

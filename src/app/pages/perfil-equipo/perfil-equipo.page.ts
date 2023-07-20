@@ -12,14 +12,17 @@ import { SolicitudesService } from '../../services/solicitudes.service';
 import { AlertasService } from '../../services/alertas.service';
 import { UsuariosService } from '../../services/usuarios.service';
 import { Router } from '@angular/router';
-import { ProvinciasService } from 'src/app/services/provincias.service';
-import { Provincias } from 'src/app/models/provincias';
+import { EquipoGeolocalizacion } from 'src/app/models/equipoGeolocalizacion';
+import { EquiposGeolocalizacionService } from 'src/app/services/equipos-geolocalizacion.service';
+import { EquipoGeolocalizacionPage } from '../equipo-geolocalizacion/equipo-geolocalizacion.page';
+import { TransferenciasPage } from '../transferencias/transferencias.page';
 @Component({
   selector: 'app-perfil-equipo',
   templateUrl: './perfil-equipo.page.html',
   styleUrls: ['./perfil-equipo.page.scss'],
 })
 export class PerfilEquipoPage {
+equipoGeolocalizacion:EquipoGeolocalizacion
   dureza = [
 
     { id: 0, titulo: 'Equipo Neutral', image: 'equipo-neutral.svg' },
@@ -31,6 +34,7 @@ export class PerfilEquipoPage {
 
   ]
   teamPic = null
+  modalOpen = false;
   constructor(
     public equiposService: EquiposService,
     public jugadoresService: JugadoresService,
@@ -41,7 +45,7 @@ export class PerfilEquipoPage {
     public alertCtrl: AlertController,
     public usuariosService: UsuariosService,
     public router:Router,
-    public provinciasService:ProvinciasService
+    public equipoGeolocalizacionService:EquiposGeolocalizacionService
   ) {
 
   }
@@ -70,7 +74,10 @@ export class PerfilEquipoPage {
       this.jugadoresService.syncJugadoresEquipos(this.equiposService.equipo.equipo.Cod_Equipo).then(jugadores => {
         this.jugadoresService.jugadores = jugadores;
    
-          this.equiposService.cargarDAtosUbicacion();
+        this.equipoGeolocalizacionService.syncGetEquipoGeolocalizacionToPromise(this.equiposService.equipo.equipo.Cod_Equipo).then( geolocalizacion =>{
+          console.log(geolocalizacion,'geolocalizacion')
+          this.equipoGeolocalizacion = geolocalizacion[0]
+        })
 
       })
 
@@ -86,7 +93,26 @@ export class PerfilEquipoPage {
   }
 
 
-
+  async equipoGeolocalizacionModal(){
+    if (!this.modalOpen){
+      const modal = await this.modalCtrl.create({
+        component: EquipoGeolocalizacionPage,
+        backdropDismiss:false,
+        cssClass:'alert-modal',
+        mode:'ios', 
+        componentProps:{
+          equipoGeolocalizacion:this.equipoGeolocalizacion
+        }
+    
+      });
+      this.modalOpen = true;
+  
+       await modal.present();
+       const { data } = await modal.onWillDismiss();
+  
+       this.modalOpen = false;
+    }
+  }
   durezaEquipo(value) {
     console.log(value.detail.value)
     alert(value)
@@ -225,8 +251,26 @@ export class PerfilEquipoPage {
   }
   async solicitudesEquipos(){
  
-    this.router.navigateByUrl('transferencias',{replaceUrl:true})
-      }
+    if (!this.modalOpen){
+      const modal = await this.modalCtrl.create({
+        component: TransferenciasPage,
+        cssClass:'alert-modal',
+        mode:'ios', 
+    
+      });
+      this.modalOpen = true;
+  
+       await modal.present();
+       const { data } = await modal.onWillDismiss();
+  
+       this.modalOpen = false;
+    }
+  
+   }
+
+
+
+
   jugadoresEquipo() {
     this.solicitudesService.syncGetSolicitudesRecibidasEquipoToPromise(this.equiposService.equipo.equipo.Cod_Equipo).then(solicitudes => {
 
@@ -237,7 +281,7 @@ export class PerfilEquipoPage {
         this.jugadoresService.jugadores = []
         this.jugadoresService.jugadores = jugadores;
         //this.solicitudesService.syncGetSolicitudesEquipos(this.equiposService.perfilEquipo.Cod_Equipo, true,false, true)
-        this.equiposService.cargarDAtosUbicacion();
+       // this.equiposService.cargarDAtosUbicacion();
 
       }, error => {
 

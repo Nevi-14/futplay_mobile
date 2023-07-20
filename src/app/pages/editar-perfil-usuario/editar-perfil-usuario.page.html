@@ -4,7 +4,7 @@
    <ion-button slot="start" (click)="regresar()" fill="clear">
      <ion-icon size="large" name="close-outline"></ion-icon>
    </ion-button>
-   <ion-title>Editar Perfil</ion-title>
+   <ion-title>{{"EDIT_PROFILE" | translate }}</ion-title>
     
   </ion-toolbar>
   
@@ -14,7 +14,7 @@
   <ion-grid >
     <ion-row>
       <ion-col size="12">
-        <h1>Seleccionar Avatar</h1>
+        <h1>{{"SELECT_AVATAR" | translate }}</h1>
       </ion-col>
       <ion-col size="12">
         <ion-slides   (ionSlideDidChange)="slideChange($event)"   pager="false"   mode="ios" [options]="sliderOpts" >
@@ -39,45 +39,45 @@
     <ion-grid >
       <ion-row>
         <ion-col size="12">
-          <app-input    name="Nombre" type="text" label="Nombre" ngModel="{{usuario.Nombre}}"></app-input>
+          <app-input    name="Nombre" type="text" label='{{"NAME" | translate }}' ngModel="{{usuario.Nombre}}"></app-input>
  
  
 
         </ion-col>
         <ion-col size="12">
-          <app-input      name="Primer_Apellido" type="text" label="Primer Apellido" ngModel="{{usuario.Primer_Apellido}}"></app-input>
+          <app-input      name="Primer_Apellido" type="text" label='{{"LAST_NAME" | translate }}' ngModel="{{usuario.Primer_Apellido}}"></app-input>
         </ion-col>
         <ion-col size="12">
-          <app-input      name="Apodo" type="text" label="Apodo" ngModel="{{usuario.Apodo}}"></app-input> 
+          <app-input      name="Apodo" type="text" label='{{"NICK_NAME" | translate }}' ngModel="{{usuario.Apodo}}"></app-input> 
         </ion-col>
         <ion-col size="12">
           
-     <app-select  name="Cod_Posicion"  [data]="dataPosiciones"   [ngModel]="usuario.Cod_Posicion" label="Posición"  ></app-select>
+     <app-select  name="Cod_Posicion"  [data]="dataPosiciones"   [ngModel]="usuario.Cod_Posicion" label='{{"POSITION" | translate }}'  ></app-select>
         </ion-col>
         <ion-col size="12">
-          <app-input      name="Estatura" type="text" label="Estatura (CM)" ngModel="{{usuario.Estatura}}"></app-input>
+          <app-input      name="Estatura" type="text"  label='{{"HEIGHT" | translate }}' ngModel="{{usuario.Estatura}}"></app-input>
 
         </ion-col>
 
         <ion-col size="12">
-          <app-input      name="Peso" type="text" label="Peso (KG)" ngModel="{{usuario.Peso}}"></app-input>
+          <app-input      name="Peso" type="text"   label='{{"WEIGHT" | translate }}' ngModel="{{usuario.Peso}}"></app-input>
         </ion-col>
         <ion-col size="12">
-          <app-input      name="Telefono" type="text" label="Telefono" ngModel="{{usuario.Telefono}}"></app-input>
+          <app-input      name="Telefono" type="text"  label='{{"PHONE" | translate }}' ngModel="{{usuario.Telefono}}"></app-input>
 
         </ion-col>
         <ion-col size="12">
-          <app-input readonly="true"     name="Correo" type="text" label="Correo" ngModel="{{usuario.Correo}}"></app-input>
+          <app-input readonly="true"     name="Correo" type="text"  label='{{"EMAIL" | translate }}' ngModel="{{usuario.Correo}}"></app-input>
         </ion-col>
          
 
 
         <ion-col size="12">
-          <app-input readonly="true" (click)="SelectDate()"     name="fechaNacimiento" type="text" label="Fecha Nacimiento" ngModel="{{usuario.Fecha_Nacimiento | date}}"></app-input>
+          <app-input readonly="true" (click)="SelectDate()"     name="fechaNacimiento" type="text"  label='{{"DATE_OF_BIRTH" | translate }}' ngModel="{{usuario.Fecha_Nacimiento | date}}"></app-input>
         </ion-col>
  
         <ion-col size="12">
-          <app-button label="Editar Perfil"></app-button>
+          <app-button label='{{"EDIT_PROFILE" | translate }}' ></app-button>
      
         </ion-col>
       </ion-row>

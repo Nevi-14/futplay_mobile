@@ -8,6 +8,7 @@ import { BuscarEquiposPageRoutingModule } from './buscar-equipos-routing.module'
 
 import { BuscarEquiposPage } from './buscar-equipos.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     FormsModule,
     IonicModule,
     BuscarEquiposPageRoutingModule,
-    PipesModule
+    PipesModule,
+    TranslateModule
   ],
   declarations: [BuscarEquiposPage]
 })

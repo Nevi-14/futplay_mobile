@@ -8,6 +8,7 @@ import { TransferenciasPageRoutingModule } from './transferencias-routing.module
 
 import { TransferenciasPage } from './transferencias.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     IonicModule,
     TransferenciasPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    TranslateModule
   ],
   declarations: [TransferenciasPage]
 })

@@ -1,0 +1,29 @@
+ 
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+   <ion-button slot="start" (click)="regresar()" fill="clear">
+     <ion-icon size="large" name="close-outline"></ion-icon>
+   </ion-button>
+   <ion-title>{{"REQUESTS" | translate }}</ion-title>
+    
+  </ion-toolbar>
+  
+ </ion-header>
+<ion-content>
+  
+<ion-tabs>
+  
+  <ion-tab-bar slot="top">
+    <ion-tab-button   tab="recibidas">
+    <ion-label>{{"RECEIVED" | translate }}</ion-label>
+    </ion-tab-button>
+    <ion-tab-button   tab="enviadas">
+  <ion-label>   
+    {{"SENT" | translate }}</ion-label>
+    </ion-tab-button>
+   
+  </ion-tab-bar>
+</ion-tabs>
+
+</ion-content>
+

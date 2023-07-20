@@ -11,7 +11,6 @@ import { ReservacionesService } from 'src/app/services/reservaciones.service';
 })
  
 export class FutplayPage  {
-  segment = 'football';
   constructor(
     public router:Router,
     public usuariosService: UsuariosService,
@@ -21,7 +20,7 @@ export class FutplayPage  {
   ) { }
  
 ionViewWillEnter(){
-  this.segment = 'football';
+
 }
 redirigir(url:string, pagina:string){
   this.alertasService.pagina = pagina;

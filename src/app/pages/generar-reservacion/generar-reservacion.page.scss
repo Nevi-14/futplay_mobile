@@ -13,7 +13,7 @@ ion-fab-button{
   --background:#5a55ca;
   
 }ion-slides{
-  max-height: 250px;
+ height: 150px;
   width: 100%;
  img{
   width: 100%; /* takes the 100 % width of its container (.box div)*/
@@ -21,9 +21,15 @@ ion-fab-button{
  }
 }
 ion-slide {
+  margin: 0;
+  padding: 0;
+  height: 100%;
   width: 100% !important;
 }
 ion-slides{
+  margin: 0;
+  padding: 0;
+  height: 100%;
   width: 100% !important;
 }
 .swiper-wrapper {
@@ -36,4 +42,11 @@ ion-avatar ,ion-thumbnail{
 ion-datetime{
   --background:#fff;
 }
+ 
+.time{
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: #000;
+}
+
  

@@ -24,12 +24,11 @@ export class InicioSesionPage {
     public usuariosServicio: UsuariosService,
     public modalCtrl: ModalController,
     public alertasService: AlertasService,
-    public router:Router,
+    public router: Router,
     private translateService: TranslateService
   ) { }
 
   ionViewWillEnter() {
-    
     this.cambiarIdioma(this.idioma, this.file);
     this.limpiarDatos()
   }
@@ -42,23 +41,22 @@ export class InicioSesionPage {
     this.loginUser.password = null;
   }
 
-  cambiarIdioma(lng, file){
+  cambiarIdioma(lng, file) {
     this.idioma = lng;
     this.translateService.setDefaultLang(file);
     this.popover.dismiss();
   }
- async login(fInicioSesion: NgForm) {
+  async login(fInicioSesion: NgForm) {
 
- 
-  this.usuariosServicio.usuarioActual = null;
+
+    this.usuariosServicio.usuarioActual = null;
     let login = fInicioSesion.value;
+    console.log('login', login)
     let continuar = await ValidacionFormularioPipe.prototype.transform(fInicioSesion);
-    if(!continuar)  return this.alertasService.message('FUTPLAY','Todos los campos son obligatorios!');
-      this.loginUser.email = login.email;
-      this.loginUser.password = login.password;
-        this.usuariosServicio.syncLogin(this.loginUser.email, this.loginUser.password);
- 
-
+    if (!continuar) return this.alertasService.message('FUTPLAY', 'Todos los campos son obligatorios!');
+    this.loginUser.email = login.email;
+    this.loginUser.password = login.password;
+    this.usuariosServicio.syncLogin(this.loginUser.email, this.loginUser.password);
 
   }
 

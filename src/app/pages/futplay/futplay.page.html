@@ -14,13 +14,13 @@
   <ion-footer>
     <ion-toolbar  >
   
-      <ion-segment    mode="md"   [value]="alertasService.pagina">
+      <ion-segment    mode="md"   value="reservaciones">
   
       
         <ion-segment-button   (click)="redirigir('/futplay/reservaciones', 'reservaciones')" value="reservaciones" >
 
           <ion-icon name="football-outline"></ion-icon>
-          <ion-label>Retos</ion-label>
+          <ion-label>{{"CHALLENGES" | translate }}</ion-label>
           <ion-badge color="primary" size="small"   mode="ios">{{reservacionesService.reservacionesRecibidas.length > 0 ? reservacionesService.reservacionesRecibidas.length : 0}}</ion-badge>
  
 
@@ -31,7 +31,7 @@
         <ion-segment-button   (click)="redirigir('/futplay/mi-perfil', 'perfil')" value="perfil" >
            
           <ion-icon name="person-outline"></ion-icon>
-   <ion-label>Mi Perfil</ion-label>
+   <ion-label>{{"MY-PROFILE" | translate }}</ion-label>
         </ion-segment-button>
 
 
@@ -39,14 +39,14 @@
           <ion-icon name="shield-outline"></ion-icon>
        
   
-          <ion-label>Equipos</ion-label>
+          <ion-label>{{"TEAMS" | translate }}</ion-label>
         
         </ion-segment-button>
         <ion-segment-button value="torneos" (click)="redirigir('/futplay/torneos', 'torneos')">
           <ion-icon name="trophy-outline"></ion-icon>
         
          
-      <ion-label>Torneos</ion-label>
+      <ion-label>{{"TOURNAMENTS" | translate }}</ion-label>
         </ion-segment-button>
    
    

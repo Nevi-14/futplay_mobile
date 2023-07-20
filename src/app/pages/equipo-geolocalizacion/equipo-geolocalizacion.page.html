@@ -1,0 +1,46 @@
+ 
+ 
+    <ion-header class="ion-no-border">
+      <ion-toolbar>
+       <ion-button slot="start" (click)="regresar()" fill="clear">
+         <ion-icon size="large" name="close-outline"></ion-icon>
+       </ion-button>
+       <ion-title>{{"TEAM_GEOLOCATION" | translate }}</ion-title>
+        
+      </ion-toolbar>
+ 
+     </ion-header>
+
+<ion-content class="ion-padding">
+  <form id="form" (ngSubmit)="registro(fRegistro)" #fRegistro="ngForm">
+    <ion-grid >
+      <ion-row>
+     
+ 
+        <ion-col size="12"   >
+          <app-select name="Country_Code"  (ionChange)="geolocalizacionService.onChangeCountries(fRegistro)"     [data]="geolocalizacionService.countries"  label='{{"COUNTRY" | translate }}' ngModel="{{equipoGeolocalizacion.Codigo_Pais}}"></app-select>
+        </ion-col>
+        <ion-col size="12" (ionChange)="geolocalizacionService.onChangeStates(fRegistro)"  *ngIf="geolocalizacionService.states.length > 0" >
+          <app-select name="State_Code" [data]="geolocalizacionService.states" label='{{"STATE" | translate }}' ngModel="{{equipoGeolocalizacion.Codigo_Estado}}"></app-select>
+        </ion-col>
+        <ion-col size="12"  *ngIf="geolocalizacionService.cities.length > 0" >
+          <app-select (ionChange)="geolocalizacionService.onChangeCities(fRegistro)" name="City_Code" [data]="geolocalizacionService.cities"  label='{{"CITY" | translate }}' ngModel="{{equipoGeolocalizacion.Codigo_Ciudad}}"></app-select>
+        </ion-col>
+        <ion-col size="12">
+      
+          <app-input name="Codigo_Postal"  label='{{"ZIP_CODE" | translate }}' ngModel="{{equipoGeolocalizacion.Codigo_Postal}}"></app-input>
+         
+        </ion-col>
+        <ion-col size="12" >
+      
+          <app-input name="Direccion" label='{{"ADDRESS" | translate }}' ngModel="{{equipoGeolocalizacion.Direccion}}"></app-input>
+         
+        </ion-col>
+        <ion-col size="12">
+          <app-button   label='{{"UPDATE_DATA" | translate }}'></app-button>
+         </ion-col>
+      </ion-row>
+    </ion-grid>
+      </form>
+    
+</ion-content>

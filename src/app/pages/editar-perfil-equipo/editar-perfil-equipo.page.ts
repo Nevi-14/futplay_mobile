@@ -1,10 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AlertController, IonSlides, ModalController } from '@ionic/angular';
-import { CantonesService } from 'src/app/services/cantones.service';
-import { DistritosService } from 'src/app/services/distritos.service';
 import { EquiposService } from 'src/app/services/equipos.service';
-import { ProvinciasService } from 'src/app/services/provincias.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { AlertasService } from 'src/app/services/alertas.service';
@@ -12,9 +9,6 @@ import { Equipos } from '../../models/equipos';
 import { Router } from '@angular/router';
 import { EliminarEquipoPage } from '../eliminar-equipo/eliminar-equipo.page';
 import { GestorEquipoImagenesPage } from '../gestor-equipo-imagenes/gestor-equipo-imagenes.page';
-import { Provincias } from 'src/app/models/provincias';
-import { Distritos } from 'src/app/models/distritos';
-import { Cantones } from 'src/app/models/cantones';
 declare const window: any; 
 @Component({
   selector: 'app-editar-perfil-equipo',
@@ -112,9 +106,6 @@ export class EditarPerfilEquipoPage implements OnInit {
    
     constructor(
       public modalCtrl: ModalController,
-      public provinciasService: ProvinciasService,
-      public cantonesService: CantonesService,
-      public distritosService: DistritosService,
       public usuariosService: UsuariosService,
       public equiposService: EquiposService,
       public camera: Camera,

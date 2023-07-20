@@ -25,6 +25,7 @@ categories = [ 'recibidas','enviadas'];
 showReceive = true;
 showSend = false;
 selected:string = '';
+solicitudes = [];
   constructor(
     public modalCtrl:ModalController,
     public equiposService: EquiposService,
@@ -47,33 +48,19 @@ selected:string = '';
   
   }
 
-  selectCategory(index){
-    this.activeCategory = index;
-    this.segment = index;
-    switch(index){
-   
-     case 0:
+  segmentChanged($event){
+
+let value = $event.detail.value;
+switch(value){
+    case 'received':
       this.receive();
-
-     break;
-     
-     case 1:
+    break;
+    case 'sent':
       this.send();
-     break;
-
-     break;
-     
-     case 3:
-   
-     break;
-   
-     default:
-       
-       break;
-   }
-   
-   
-       }
+      break;
+}
+  }
+ 
 
     async detalleEquipo(equipo){
 
@@ -98,43 +85,23 @@ this.send()
 this.receive();
   }
     }
+
   send(){
-    this.selected ='send';
-    this.showReceive = false;
-    this.showSend = true;
-    this.title = 'Enviadas'
-  /**
-   *   this.solicitudesService.syncGetSolicitudesJugadores(this.usuariosService.usuarioActual.Cod_Usuario, true,false, true)
-   */
    this.solicitudesService.syncGetSolicitudesEnviadasUsuarioToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(solicitudes =>{
-    console.log('solicitudes', solicitudes)
-        this.solicitudesService.solicitudesJugadoresArray = solicitudes;
-      })
-    
-
-
-  
+  this.solicitudes= solicitudes;
+  console.log('solicitudes  enviadas jugadores', solicitudes)
+  })
   }
 
   receive(){
-    this.selected ='receive';
-    this.showReceive = true;
-    this.showSend = false;
-    
-    this.title = 'Recibidas'
-/**
- *     this.solicitudesService.syncGetSolicitudesJugadores(this.usuariosService.usuarioActual.Cod_Usuario, false,true, true)
- */
  this.solicitudesService.syncGetSolicitudesRecibidasUsuarioToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(solicitudes =>{
-  console.log('solicitudes', solicitudes)
-      this.solicitudesService.solicitudesJugadoresArray = solicitudes;
-    })
   
-
+  console.log('solicitudes  recividad jugadores', solicitudes)
+  this.solicitudes= solicitudes;
+    })
   }
   regresar(){
-
-    this.router.navigateByUrl('futplay/mi-perfil',{replaceUrl:true})
+this.modalCtrl.dismiss();
   }
   async buscarJugadores(){
 

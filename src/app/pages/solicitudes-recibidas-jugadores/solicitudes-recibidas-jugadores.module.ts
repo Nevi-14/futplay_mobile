@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { SolicitudesRecibidasJugadoresPageRoutingModule } from './solicitudes-recibidas-jugadores-routing.module';
 
 import { SolicitudesRecibidasJugadoresPage } from './solicitudes-recibidas-jugadores.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SolicitudesRecibidasJugadoresPageRoutingModule
+    SolicitudesRecibidasJugadoresPageRoutingModule,
+    TranslateModule
   ],
   declarations: [SolicitudesRecibidasJugadoresPage]
 })

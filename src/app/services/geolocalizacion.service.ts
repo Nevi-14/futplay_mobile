@@ -2,14 +2,18 @@ import { Injectable } from '@angular/core';
 import { AlertasService } from './alertas.service';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+interface valores {
+  id :string,
+  valor:string
+}
 // https://countrystatecity.in/
 @Injectable({
   providedIn: 'root'
 })
 export class GeolocalizacionService {
-  countries = [];
-  states = [];
-  cities = [];
+  countries:valores[] = [];
+  states:valores[] = [];
+  cities:valores[] = [];
   Zip_Code = [];
   Country_Code = '';
   State_Code = '';
@@ -22,7 +26,6 @@ public http: HttpClient
   ) { }
 
   loadCountries(){
- 
     this.getCountries().toPromise().then( (paises:any[])=>{
       console.log('paises', paises)
       paises.forEach( pais =>{

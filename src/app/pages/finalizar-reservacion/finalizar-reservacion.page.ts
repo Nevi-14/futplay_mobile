@@ -163,7 +163,6 @@ console.log(' this.nuevaReservacion resp', resp)
 this.detalleReservacion.Cod_Reservacion = resp.reservacion.Cod_Reservacion;
 //this.actualizarDetalle()
 this.gestionReservacionesService.syncPutDetalleReservaion(this.detalleReservacion).then(resp =>{
-if(this.detalleReservacion.Reservacion_Grupal){
   this.emailService.enviarCorreoReservaciones(1, this.rival.correo, this.nuevaReservacion.Fecha, this.nuevaReservacion.Hora_Inicio, this.cancha.nombre, this.rival.nombre, this.retador.nombre).then(resp =>{
  
 
@@ -176,38 +175,6 @@ if(this.detalleReservacion.Reservacion_Grupal){
     this.alertasService.loadingDissmiss();
     this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
   })
-}else{
-  let body = {
-    body: {
-    email:  null,
-    body: "Se ha confirmado un reto para el día " +  this.nuevaReservacion.Fecha +" en  la cancha " +  this.cancha.nombre + " Hora : " +this.formatoAmPM(new Date(this.nuevaReservacion.Hora_Inicio)) + ". Reseto Abierto "+this.usuariosService.usuarioActual.Nombre+ ".",
-    footer: "¡Hay un reto esperándote!"
-}
-
-  }
-
-  body.body.email = this.usuariosService.usuarioActual.Correo;
-this.emailService.syncPostReservacionEmail(body).then(resp =>{
-  body.body.email = this.cancha.correo;
-  this.emailService.syncPostReservacionEmail(body).then(async (resp) =>{
- 
-    this.regresar();
-    this.alertasService.loadingDissmiss();
-   await this.gestionReservacionesService.cargarReservaciones()
-    this.alertasService.message('FUTPLAY', 'El reto  se efectuo con éxito ')
-    this.router.navigateByUrl('/futplay/mis-reservaciones',{replaceUrl:true})
-  })
-
-
- 
-
-})
-
-   
-
-
-}
-
 
 
       
@@ -227,18 +194,16 @@ this.emailService.syncPostReservacionEmail(body).then(resp =>{
 // this.alertasService.message('FUTPLAY','La reservación se guardo con exito!.')
   //if(this.detalleReservacion.Reservacion_Grupal) this.rival = this.retador;
   this.alertasService.presentaLoading('Guardando reto...')
-  this.nuevaReservacion.Titulo = !this.detalleReservacion.Reservacion_Grupal ? this.retador.equipo.Abreviacion +' VS '+this.rival.equipo.Abreviacion : 'Reto Abierto ' + this.cancha.nombre;
+  this.nuevaReservacion.Titulo =   this.retador.equipo.Abreviacion +' VS '+this.rival.equipo.Abreviacion  
     this.nuevaReservacion.Fecha = format( new Date(this.nuevaReservacion.Fecha),'yyy-MM-dd');
   this.nuevaReservacion.Hora_Inicio = format( new Date(this.nuevaReservacion.Hora_Inicio),'yyy-MM-dd')+" "+new Date(this.nuevaReservacion.Hora_Inicio).toTimeString().split(' ')[0] 
   this.nuevaReservacion.Hora_Fin =  format( new Date(this.nuevaReservacion.Hora_Fin),'yyy-MM-dd')+" "+new Date(this.nuevaReservacion.Hora_Fin).toTimeString().split(' ')[0] 
  
 
-  if(this.detalleReservacion.Reservacion_Grupal) {
-    this.nuevaReservacion.Cod_Estado = 10;
+  this.nuevaReservacion.Cod_Estado = 10;
     this.detalleReservacion.Cod_Estado = 10;
     this.detalleReservacion.Cod_Rival = this.retador.equipo.Cod_Equipo;
     this.detalleReservacion.Confirmacion_Rival = true;
-      }
 
   console.log('this.nuevaReservacion',this.nuevaReservacion);
   console.log('this.detalleReservacion',this.detalleReservacion)
@@ -247,7 +212,6 @@ console.log(' this.nuevaReservacion resp', resp)
 this.detalleReservacion.Cod_Reservacion = resp.reservacion.Cod_Reservacion;
 //this.actualizarDetalle()
 this.gestionReservacionesService.insertarDetalleReservacionToPromise(this.detalleReservacion).then(resp =>{
-if(this.detalleReservacion.Reservacion_Grupal){
   this.emailService.enviarCorreoReservaciones(1, this.rival.correo, this.nuevaReservacion.Fecha, this.nuevaReservacion.Hora_Inicio, this.cancha.nombre, this.rival.nombre, this.retador.nombre).then(async (resp) =>{
     await this.gestionReservacionesService.cargarReservaciones()
     this.regresar();
@@ -255,39 +219,7 @@ if(this.detalleReservacion.Reservacion_Grupal){
     this.alertasService.message('FUTPLAY', 'El reto  se efectuo con éxito ');
   }, error =>{
     this.alertasService.loadingDissmiss();
-    this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
   })
-}else{
-  let body = {
-    body: {
-    email:  null,
-    body: "Se ha confirmado un reto para el día " +  this.nuevaReservacion.Fecha +" en  la cancha " +  this.cancha.nombre + " Hora : " +this.formatoAmPM(new Date(this.nuevaReservacion.Hora_Inicio)) + ". Reseto Abierto "+this.usuariosService.usuarioActual.Nombre+ ".",
-    footer: "¡Hay un reto esperándote!"
-}
-
-  }
-
-  body.body.email = this.usuariosService.usuarioActual.Correo;
-this.emailService.syncPostReservacionEmail(body).then(resp =>{
-  body.body.email = this.cancha.correo;
-  this.emailService.syncPostReservacionEmail(body).then(async (resp) =>{
-    await this.gestionReservacionesService.cargarReservaciones()
-    this.regresar();
-    this.alertasService.loadingDissmiss();
-    this.alertasService.message('FUTPLAY', 'El reto  se efectuo con éxito ')
-  
-  })
-
-
- 
-
-})
-
-   
-
-
-}
-
 
 
       

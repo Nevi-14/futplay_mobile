@@ -2,9 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides, ModalController } from '@ionic/angular';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { format } from 'date-fns';
-import { ProvinciasService } from 'src/app/services/provincias.service';
-import { CantonesService } from 'src/app/services/cantones.service';
-import { DistritosService } from 'src/app/services/distritos.service';
 import { PosicionesService } from 'src/app/services/posiciones.service';
 import { SeleccionarFechaPage } from '../seleccionar-fecha/seleccionar-fecha.page';
 import avatarArray from '../../../assets/data/avatars.json';
@@ -13,9 +10,6 @@ import { ChangeDetectorRef } from '@angular/core'
 import { EliminarCuentaPage } from '../eliminar-cuenta/eliminar-cuenta.page';
 import { GestorPerfilImagenesPage } from '../gestor-perfil-imagenes/gestor-perfil-imagenes.page';
 import { GestorImagenesService } from '../../services/gestor-imagenes.service';
-import { Distritos } from 'src/app/models/distritos';
-import { Cantones } from 'src/app/models/cantones';
-import { Provincias } from 'src/app/models/provincias';
 import { NgForm } from '@angular/forms';
 import { tick } from '@angular/core/testing';
 @Component({
@@ -139,9 +133,6 @@ isVisible = false;
     
     public modalCtrl: ModalController,
     public usuarioService: UsuariosService,
-    public provinciasService: ProvinciasService,
-    public cantonesService: CantonesService,
-    public distritosService: DistritosService,
     public posicionesService: PosicionesService,
     public userService: UsuariosService,
     public alertasService: AlertasService,
@@ -253,9 +244,7 @@ this.gestorImagenesService.actualizaFotoUsuario(this.usuario.Cod_Usuario, this.u
  */
       
   }
-  syncProvincias(){
-    this.provinciasService.syncProvincias();
-  }
+ 
 
   seleccionarAvatar(img, i){
   

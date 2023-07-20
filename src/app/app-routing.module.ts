@@ -266,6 +266,20 @@ const routes: Routes = [
 
 
 
+  {
+    path: 'calendario-popover',
+    loadChildren: () => import('./pages/calendario-popover/calendario-popover.module').then( m => m.CalendarioPopoverPageModule)
+  },
+  {
+    path: 'usuario-geolocalizacion',
+    loadChildren: () => import('./pages/usuario-geolocalizacion/usuario-geolocalizacion.module').then( m => m.UsuarioGeolocalizacionPageModule)
+  },
+  {
+    path: 'equipo-geolocalizacion',
+    loadChildren: () => import('./pages/equipo-geolocalizacion/equipo-geolocalizacion.module').then( m => m.EquipoGeolocalizacionPageModule)
+  },
+
+
 
 
   

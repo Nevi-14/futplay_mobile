@@ -28,9 +28,9 @@ export class PerfilEquipos {
             created_at: Date,
             updated_at: Date
         },
-       public  provincia:string,
-       public  canton : string,
-       public  distrito: string,
+        public pais : string,
+        public  estado:string,
+        public  ciudad : string,
        public  correo: string
         
     ){}

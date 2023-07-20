@@ -9,7 +9,7 @@ import { BuscarJugadoresPage } from '../buscar-jugadores/buscar-jugadores.page';
   styleUrls: ['./transferencias.page.scss'],
 })
 export class TransferenciasPage implements OnInit {
-
+  solicitudes = [];
   constructor(
 public router:Router,
 public modalCtrl:ModalController
@@ -17,10 +17,11 @@ public modalCtrl:ModalController
   ) { }
 
   ngOnInit() {
+    //this.re
   }
   regresar(){
 
-    this.router.navigateByUrl('futplay/perfil-equipo',{replaceUrl:true})
+    this.modalCtrl.dismiss();
   }
 
   async buscarJugadores() {
@@ -33,8 +34,18 @@ public modalCtrl:ModalController
     modal.present();
     const { data } = await modal.onWillDismiss();
     console.log(data)
+  }
 
+  segmentChanged($event){
 
-
+    let value = $event.detail.value;
+    switch(value){
+        case 'received':
+         
+        break;
+        case 'sent':
+          
+          break;
+    }
   }
 }

@@ -9,6 +9,7 @@ import { EditarPerfilUsuarioPageRoutingModule } from './editar-perfil-usuario-ro
 import { EditarPerfilUsuarioPage } from './editar-perfil-usuario.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
     IonicModule,
     EditarPerfilUsuarioPageRoutingModule,
     PipesModule,
-    ComponentsModule
+    ComponentsModule,
+    TranslateModule
   ],
   declarations: [EditarPerfilUsuarioPage]
 })

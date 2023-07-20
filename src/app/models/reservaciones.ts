@@ -3,6 +3,7 @@ export class Reservaciones {
     public Cod_Reservacion:  number,
     public Cod_Cancha:  number,
     public Cod_Usuario:  number,
+    public Cod_Tipo:number,
     public Cod_Estado:  number,
     public Reservacion_Externa:  boolean,
     public Titulo:  string,

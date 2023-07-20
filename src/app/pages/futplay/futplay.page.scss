@@ -1,8 +1,7 @@
  
 ion-segment-button {
   --indicator-box-shadow: transparent!important;
-  padding: 0;
-  margin: 0;
+ 
   --background:white;
   --color-checked: #2d2e87;
   --indicator-color : #2d2e87!important; /* this solution */
@@ -20,6 +19,4 @@ ion-segment-button {
   font-size: 12px;
 }
 }
-ion-segment-button ion-label{
-  margin:auto; 
-}
+ 

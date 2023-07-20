@@ -9,6 +9,7 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { ReservacionesPageRoutingModule } from './reservaciones-routing.module';
 import { ReservacionesPage } from './reservaciones.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { ReservacionesPage } from './reservaciones.page';
     IonicModule,
     ReservacionesPageRoutingModule,
     PipesModule,
-    ComponentsModule
+    ComponentsModule,
+    TranslateModule
   ],
   declarations: [ReservacionesPage]
 })

@@ -7,6 +7,7 @@ import { BuscarEquiposPage } from '../buscar-equipos/buscar-equipos.page';
 import { CrearEquipoPage } from '../crear-equipo/crear-equipo.page';
 import { CrearUnirseEquipoPage } from '../crear-unirse-equipo/crear-unirse-equipo.page';
 import { JugadoresService } from '../../services/jugadores.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-mis-equipos',
@@ -18,17 +19,20 @@ export class MisEquiposPage implements OnInit {
   btn1 = true;
   btn2 = false;
   textoBuscar ='';
+  createTeam = 'afafa'
+
   constructor(
     public equiposService: EquiposService,
      public modalCtrl: ModalController, 
      public popOverCtrl: PopoverController,
       public user: UsuariosService,
         public router: Router,
-        public jugadoresService:JugadoresService
+        public jugadoresService:JugadoresService,
+        private translate: TranslateService
         ) { }
-
-  ngOnInit() {
-
+     
+   ngOnInit() {
+ 
 
     this.misEquipos();
   }

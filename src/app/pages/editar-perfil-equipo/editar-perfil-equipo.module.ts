@@ -8,6 +8,7 @@ import { EditarPerfilEquipoPageRoutingModule } from './editar-perfil-equipo-rout
 
 import { EditarPerfilEquipoPage } from './editar-perfil-equipo.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     IonicModule,
     EditarPerfilEquipoPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    TranslateModule
   ],
   declarations: [EditarPerfilEquipoPage]
 })

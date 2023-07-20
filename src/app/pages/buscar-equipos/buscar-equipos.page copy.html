@@ -1,0 +1,84 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-button slot="start" (click)="regresar()" fill="clear">
+      <ion-icon size="large" name="close-outline"></ion-icon>
+    </ion-button>
+    <ion-title>{{"JOIN_TEAM" | translate }}</ion-title>
+
+  </ion-toolbar>
+  <ion-row>
+
+
+    <ion-col size="10">
+
+      <ion-searchbar (ionChange)="onSearchChange($event)" mode="ios" placeholder='{{"SEARCH_FOR_TEAM" | translate }}' inputmode="text"
+        debounce="250"></ion-searchbar>
+
+    </ion-col>
+    <ion-col size="2">
+      <ion-buttons>
+        <ion-button class="custom-bottom" (click)="filtroUbicacion()">
+          <ion-icon size="large" name="options-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-col>
+  </ion-row>
+
+</ion-header>
+<ion-content>
+
+  <ion-list>
+
+    <ion-item *ngIf="equiposService.equipos.length == 0" lines="none"
+    class="animate__animated animate__fadeIn">
+    <span slot="start">
+      <ion-avatar>
+        <img src="assets/logo.png" alt="">
+      </ion-avatar>
+
+
+      <ion-label>
+
+        <h6><strong>{{"FUTPLAY_MESSAGE" | translate }}</strong> </h6>
+        <p>{{"NO_RECORDS_FOUND" | translate }}</p>
+
+      </ion-label>
+    </span>
+
+
+    </ion-item>
+
+
+    <ion-item lines="full" (click)="onOpenMenu(equipo)" class="animate__animated animate__fadeIn"
+      *ngFor="let equipo of equiposService.equipos  | filtro : textoBuscar:'nombre'">
+      <span slot="start">
+
+        <ion-avatar>
+          <img *ngIf="!equipo.equipo.Avatar" src="{{'https://futplaycompany.com/api_test/'+equipo.equipo.Foto}}"
+            onerror="this.src='assets/img/icon/FP.svg'" alt="">
+          <img *ngIf="equipo.equipo.Avatar" src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}"
+            onerror="this.src='assets/img/icon/FP.svg'" alt="">
+
+        </ion-avatar>
+
+        <ion-label>
+          {{equipo.nombre}}
+          <p>{{equipo.provincia}}, {{equipo.canton}} ...</p>
+          <p>Puntaje : {{equipo.equipo.Puntaje_Actual ? equipo.equipo.Puntaje_Actual : 0}} </p>
+          <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
+
+            <ion-icon style="size: 10px;" name="star"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+          </p>
+        </ion-label>
+      </span>
+
+    </ion-item>
+  </ion-list>
+
+
+
+</ion-content>

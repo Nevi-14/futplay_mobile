@@ -8,6 +8,7 @@ import { CrearUnirseEquipoPageRoutingModule } from './crear-unirse-equipo-routin
 
 import { CrearUnirseEquipoPage } from './crear-unirse-equipo.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     IonicModule,
     CrearUnirseEquipoPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    TranslateModule
   ],
   declarations: [CrearUnirseEquipoPage]
 })

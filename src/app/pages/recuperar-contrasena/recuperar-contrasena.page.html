@@ -18,7 +18,7 @@
            
         </ion-col>
         <ion-col size="12">
-          <app-input [readonly]="verificarCodigo ? true : false" name="Correo" type="text"label='{{"EMAIL_PHONE" | translate }}'  ngModel="{{correo}}"    ></app-input>
+          <app-input [readonly]="verificarCodigo ? true : false" name="Correo" type="text" label='{{"EMAIL_PHONE" | translate }}'  ngModel="{{correo}}"    ></app-input>
 
         </ion-col>
         <ion-col size="12" *ngIf="verificarCodigo">
@@ -27,10 +27,12 @@
 
         </ion-col>
 
-        <ion-col size="12">
-          <app-button label="{{ !verificarCodigo ? 'Solicitar Código' : 'Validar Código'}}"></app-button>
+        <ion-col size="12" *ngIf="!verificarCodigo">
+          <app-button label='{{"REQUEST_CODE" | translate }}'></app-button>
         </ion-col>
-     
+        <ion-col size="12" *ngIf="verificarCodigo">
+          <app-button  label='{{"VALIDATE_CODE" | translate }}'   ></app-button>
+        </ion-col>
  
       </ion-row>
     </ion-grid>

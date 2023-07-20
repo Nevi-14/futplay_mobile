@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { PerfilJugadorPageRoutingModule } from './perfil-jugador-routing.module';
 
 import { PerfilJugadorPage } from './perfil-jugador.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PerfilJugadorPageRoutingModule
+    PerfilJugadorPageRoutingModule,
+    TranslateModule
   ],
   declarations: [PerfilJugadorPage]
 })

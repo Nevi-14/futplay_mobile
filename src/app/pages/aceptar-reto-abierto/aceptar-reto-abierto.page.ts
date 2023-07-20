@@ -8,7 +8,6 @@ import { PerfilEquipos } from 'src/app/models/perfilEquipos';
 import { ActionSheetController, AlertController, ModalController } from '@ionic/angular';
 import { CanchasService } from 'src/app/services/canchas.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
-import { ProvinciasService } from 'src/app/services/provincias.service';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { ReservacionesService } from 'src/app/services/reservaciones.service';
 import { PartidoService } from 'src/app/services/partido.service';
@@ -44,7 +43,6 @@ export class AceptarRetoAbiertoPage implements OnInit {
       public canchasService: CanchasService,
       public actionCtrl: ActionSheetController,
       public usuariosService: UsuariosService,
-      public provinciasService:ProvinciasService,
   
   
   
@@ -66,7 +64,6 @@ export class AceptarRetoAbiertoPage implements OnInit {
       let cancha = await this.canchasService.syncGetPerfilCanchaToPromise(this.reto.cancha.Cod_Cancha);
       let rival = await this.equiposService.syncGetPerfilEquipoToPromise(this.rival.equipo.Cod_Equipo);
       let retador = await this.equiposService.syncGetPerfilEquipoToPromise(this.reto.retador.Cod_Equipo);
-      this.reto.detalle.Reservacion_Grupal = false;
       this.regresar()
          if(!this.isModalOpen){
            this.isModalOpen = true;

@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { TorneosPageRoutingModule } from './torneos-routing.module';
 
 import { TorneosPage } from './torneos.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TorneosPageRoutingModule
+    TorneosPageRoutingModule,
+    TranslateModule
   ],
   declarations: [TorneosPage]
 })

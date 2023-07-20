@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { EstadisticaEquipoPageRoutingModule } from './estadistica-equipo-routing.module';
 
 import { EstadisticaEquipoPage } from './estadistica-equipo.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EstadisticaEquipoPageRoutingModule
+    EstadisticaEquipoPageRoutingModule,
+    TranslateModule
   ],
   declarations: [EstadisticaEquipoPage]
 })

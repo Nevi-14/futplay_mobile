@@ -15,6 +15,8 @@ import { EquiposService } from '../../services/equipos.service';
 import { format } from 'date-fns';
 import { FinalizarReservacionPage } from '../finalizar-reservacion/finalizar-reservacion.page';
 import { CanchaDetallePage } from '../cancha-detalle/cancha-detalle.page';
+import { CalendarioPopoverPage } from '../calendario-popover/calendario-popover.page';
+import { Reservaciones } from 'src/app/models/reservaciones';
 interface objetoFecha {
   id: number,
   year: number,
@@ -40,22 +42,27 @@ export class GenerarReservacionPage {
   rival: PerfilEquipos;
   retador: PerfilEquipos;
   validarReservacion: boolean = false;
-  nuevaReservacion = {
+  nuevaReservacion:Reservaciones = {
+    Cod_Reservacion:null,
     Cod_Cancha: null,
+    Cod_Tipo:1,
     Cod_Usuario: this.usuariosService.usuarioActual.Cod_Usuario,
     Reservacion_Externa: false,
     Titulo: '',
+    Detalle:'',
     Cod_Estado: 2,
     Fecha: new Date(format(new Date(), 'yyy/MM/dd')).toISOString(),
     Hora_Inicio: null,
     Hora_Fin: null,
-    Estado: true,
     Dia_Completo: false
   }
+
+
+  
   detalleReservacion: DetalleReservaciones = {
-    Reservacion_Grupal: true,
     Cod_Detalle: null,
     Cod_Reservacion: null,
+    Cod_Moneda:1,
     Cod_Estado: 3,
     Cod_Retador: null,
     Cod_Rival: null,
@@ -114,21 +121,23 @@ export class GenerarReservacionPage {
   ionViewWillEnter() {
 
     this.nuevaReservacion = {
-      Cod_Cancha: null,
-      Cod_Usuario: this.usuariosService.usuarioActual.Cod_Usuario,
-      Reservacion_Externa: false,
-      Titulo: '',
-      Cod_Estado: 2,
-      Fecha: new Date(format(new Date(), 'yyy/MM/dd')).toISOString(),
-      Hora_Inicio: null,
-      Hora_Fin: null,
-      Estado: true,
-      Dia_Completo: false
+      Cod_Reservacion:null,
+    Cod_Cancha: null,
+    Cod_Tipo:1,
+    Cod_Usuario: this.usuariosService.usuarioActual.Cod_Usuario,
+    Reservacion_Externa: false,
+    Titulo: '',
+    Detalle:'',
+    Cod_Estado: 2,
+    Fecha: new Date(format(new Date(), 'yyy/MM/dd')).toISOString(),
+    Hora_Inicio: null,
+    Hora_Fin: null,
+    Dia_Completo: false
     }
     this.detalleReservacion = {
-      Reservacion_Grupal: true,
       Cod_Detalle: null,
       Cod_Reservacion: null,
+      Cod_Moneda:1,
       Cod_Estado: 3,
       Cod_Retador: null,
       Cod_Rival: null,
@@ -186,12 +195,55 @@ export class GenerarReservacionPage {
 
       }
 
-      if (!this.validarReservacion) this.alertaRival()
+    //  if (!this.validarReservacion) this.alertaRival()
     }
 
 
   }
+  async tipoReto() {
+    const alert = await this.alertCtrl.create({
+      header: 'FUTPLAY',
+      subHeader:'Seleccionar el tipo de reto',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            
+          },
+        },
+        {
+          text: 'OK',
+          role: 'confirm',
+          handler: (data) => {
+            console.log('data', data)
+            this.nuevaReservacion.Cod_Tipo = data;
+            this.cd.detectChanges();
+          },
+        },
+      ],
+      mode:'ios',
+      inputs: [
+        {
+          label: 'Reto Individual',
+          type: 'radio',
+          value: 1,
+        },
+        {
+          label: 'Reto Grupal',
+          type: 'radio',
+          value: 3,
+        },
+        {
+          label: 'Reto Abierto',
+          type: 'radio',
+          value: 2,
+        },
+      ],
+    });
 
+    await alert.present();
+  }
   async canchaDetalle() {
     if (!this.isModalOpen) {
       this.isModalOpen = true;
@@ -229,8 +281,9 @@ export class GenerarReservacionPage {
       this.isModalOpen = false;
       if (data !== undefined) {
         this.retador = data.equipo;
+         
         this.cd.detectChanges();
-        if (!this.rival) this.alertaRival();
+       
       }
     }
   }
@@ -297,6 +350,7 @@ export class GenerarReservacionPage {
 
       if (i == fin - 1) {
         const picker = await this.pickerCtrl.create({
+          mode:'md',
           columns: [
             {
               name: 'hora',
@@ -370,40 +424,33 @@ export class GenerarReservacionPage {
       }
     }
   }
-  async alertaRival() {
-    const alert = await this.alertCtrl.create({
-      header: 'FUTPLAY',
-      message: '¿Deasea seleccionar un equipo rival o crear un reto abierto?',
-      buttons: [
-        {
-          text: 'Reto Abierto',
-          role: 'cancel',
-          handler: () => {
-            this.detalleReservacion.Reservacion_Grupal = true;
-            this.rival = this.retador;
-            this.cd.detectChanges();
-            this.validarReservacion = true;
-            this.finalizarReservacion();
-          },
-        },
-        {
-          text: 'Agregar Rival',
-          role: 'confirm',
-          handler: () => {
-            this.detalleReservacion.Reservacion_Grupal = false;
 
-            this.cd.detectChanges();
-            this.agregarRival();
-          },
-        },
-      ],
-    });
+  
+  async calendario() {
 
-    await alert.present();
-
-    const { role } = await alert.onDidDismiss();
-
+    if (!this.isModalOpen) {
+      this.isModalOpen = true;
+      const modal = await this.modalCtrl.create({
+        component: CalendarioPopoverPage,
+        cssClass: 'my-custom-modal',
+        mode: 'ios',
+        componentProps: {
+          fecha: this.nuevaReservacion.Fecha
+        }
+      });
+      await modal.present();
+      const { data } = await modal.onDidDismiss();
+      this.isModalOpen = false;
+      if (data !== undefined) {
+        this.nuevaReservacion.Fecha = data.fecha;
+        this.nuevaReservacion.Hora_Inicio = null;
+        this.nuevaReservacion.Hora_Fin = null;
+        this.cd.detectChanges();
+console.log('dataa', data)
+      }
+    }
   }
+ 
 
 
   cerrarModal() {
@@ -428,6 +475,7 @@ export class GenerarReservacionPage {
   }
 
 
+
   cambiarFecha($event) {
     let inputDate = $event.detail.value;
     var today = new Date();
@@ -446,6 +494,51 @@ export class GenerarReservacionPage {
     this.cd.detectChanges()
   }
 
+  enviarReto(){
 
 
+    this.alertasService.presentaLoading('Guardando reto...')
+    this.nuevaReservacion.Titulo =   this.retador.equipo.Abreviacion +' VS '+this.rival.equipo.Abreviacion 
+      this.nuevaReservacion.Fecha = format( new Date(this.nuevaReservacion.Fecha),'yyy-MM-dd');
+    this.nuevaReservacion.Hora_Inicio = format( new Date(this.nuevaReservacion.Hora_Inicio),'yyy-MM-dd')+" "+new Date(this.nuevaReservacion.Hora_Inicio).toTimeString().split(' ')[0] 
+    this.nuevaReservacion.Hora_Fin =  format( new Date(this.nuevaReservacion.Hora_Fin),'yyy-MM-dd')+" "+new Date(this.nuevaReservacion.Hora_Fin).toTimeString().split(' ')[0] 
+   
+    this.nuevaReservacion.Cod_Estado = 10;
+    this.detalleReservacion.Cod_Estado = 10;
+    this.detalleReservacion.Cod_Retador = this.retador.equipo.Cod_Equipo;
+    this.detalleReservacion.Cod_Rival = this.rival.equipo.Cod_Equipo;
+    this.detalleReservacion.Confirmacion_Rival = true;
+  
+    console.log('this.nuevaReservacion',this.nuevaReservacion);
+    console.log('this.detalleReservacion',this.detalleReservacion)
+  this.gestionReservacionesService.insertarReservacionToPromise(this.nuevaReservacion).then((resp:any) =>{
+  console.log(' this.nuevaReservacion resp', resp)
+  this.detalleReservacion.Cod_Reservacion = resp.reservacion.Cod_Reservacion;
+  //this.actualizarDetalle()
+  this.gestionReservacionesService.insertarDetalleReservacionToPromise(this.detalleReservacion).then(async resp =>{
+  //  await this.gestionReservacionesService.cargarReservaciones()
+    this.regresar();
+    this.alertasService.loadingDissmiss();
+    this.alertasService.message('FUTPLAY', 'El reto  se efectuo con éxito ');
+  
+  
+        
+        }, error =>{
+          this.alertasService.loadingDissmiss();
+          this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
+        })
+        
+        return
+        this.regresar();
+      }, error =>{
+        this.alertasService.loadingDissmiss();
+        this.alertasService.message('FUTPLAY', 'Lo sentimos algo salio mal ')
+      })
+        
+     }
+
+     formatoAmPM (date:Date) {
+      // hour: 'numeric', minute: 'numeric', hour12: true
+      return date.toLocaleString('en-US', { hour: '2-digit',minute: '2-digit', hour12: true })
+    }
 }

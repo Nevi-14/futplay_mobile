@@ -7,7 +7,6 @@ import { PerfilReservaciones } from '../../models/perfilReservaciones';
 import { ReservacionesService } from 'src/app/services/reservaciones.service';
 import { PartidoService } from '../../services/partido.service';
 import { partidos } from '../../models/partidos';
-import { ProvinciasService } from '../../services/provincias.service';
 import { EmailService } from '../../services/email.service';
 import { JugadoresService } from 'src/app/services/jugadores.service';
 import { PerfilJugador } from '../../models/perfilJugador';
@@ -15,7 +14,6 @@ import { PerfilEquipos } from 'src/app/models/perfilEquipos';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { CanchaDetallePage } from '../cancha-detalle/cancha-detalle.page';
 import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-modal.page';
-import { InicioPartidoPage } from '../inicio-partido/inicio-partido.page';
 
 @Component({
   selector: 'app-aceptar-reto',
@@ -43,7 +41,6 @@ export class AceptarRetoPage implements OnInit {
     public canchasService: CanchasService,
     public actionCtrl: ActionSheetController,
     public usuariosService: UsuariosService,
-    public provinciasService: ProvinciasService,
 
 
 

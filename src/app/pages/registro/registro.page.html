@@ -3,8 +3,8 @@
 <ion-grid >
   <ion-row>
     <ion-col size="12">
-      <h1>Registro,</h1>
-      <h3>Crear una cuenta para continuar!</h3>
+      <h1>{{"REGISTRATION" | translate }},</h1>
+      <h3>{{"CREATE_ACCOUNT_TO_CONTINUE" | translate }}</h3>
     </ion-col>
   </ion-row>
 </ion-grid>
@@ -16,37 +16,37 @@
     <ion-row>
    
       <ion-col size="12"  size-md="6">
-        <app-input readonly="true" (click)="seleccionarFecha()" name="Fecha_Nacimiento" label="Fecha Nacimiento" ngModel="{{usuario.Fecha_Nacimiento | date :'longDate'}}"></app-input>
+        <app-input readonly="true" (click)="seleccionarFecha()" name="Fecha_Nacimiento" label='{{"DATE_OF_BIRTH" | translate }}' ngModel="{{usuario.Fecha_Nacimiento | date :'longDate'}}"></app-input>
   
       </ion-col>
       <ion-col size="12"  size-md="6">
-        <app-input name="Nombre" label="Nombre" ngModel="{{usuario.Nombre}}"></app-input>
+        <app-input name="Nombre"  label='{{"NAME" | translate }}' ngModel="{{usuario.Nombre}}"></app-input>
   
       </ion-col>
   
       <ion-col size="12"  size-md="6">
-        <app-input name="Primer_Apellido" label="Apellido" ngModel="{{usuario.Primer_Apellido}}"></app-input> 
+        <app-input name="Primer_Apellido"  label='{{"LAST_NAME" | translate }}' ngModel="{{usuario.Primer_Apellido}}"></app-input> 
       </ion-col>
       <ion-col size="12"   >
-        <app-select name="Country_Code"  (ionChange)="geolocalizacionService.onChangeCountries(fRegistro)"     [data]="geolocalizacionService.countries" label="Pais" ngModel="{{geolocalizacionService.Country_Code}}"></app-select>
+        <app-select name="Country_Code"  (ionChange)="geolocalizacionService.onChangeCountries(fRegistro)"     [data]="geolocalizacionService.countries"  label='{{"COUNTRY" | translate }}' ngModel="{{geolocalizacionService.Country_Code}}"></app-select>
       </ion-col>
   <ion-col size="12">
     
-    <app-input name="Telefono" label="Telefono" ngModel="{{usuario.Telefono}}"></app-input>
+    <app-input name="Telefono"  label='{{"PHONE" | translate }}'  ngModel="{{usuario.Telefono}}"></app-input>
    
   </ion-col>
   <ion-col size="12">
     
    
-    <app-input name="Correo" label="Correo" ngModel="{{usuario.Correo}}"></app-input>
+    <app-input name="Correo"  label='{{"EMAIL" | translate }}' ngModel="{{usuario.Correo}}"></app-input>
    
   </ion-col>
   <ion-col size="12">
    
-    <app-input name="password" label="Contraseña" type="password" ngModel="{{ingresarContrasena}}"></app-input>
+    <app-input name="password"  label='{{"PASSWORD" | translate }}' type="password" ngModel="{{ingresarContrasena}}"></app-input>
   </ion-col>
    <ion-col size="12">
-    <app-button   label='Completar registro!'></app-button>
+    <app-button    label='{{"COMPLETE_REGISTRATION" | translate }}'></app-button>
    </ion-col>
  
     
@@ -58,6 +58,6 @@
   </ion-content>
    <ion-footer class="ion-no-border">
     <ion-toolbar class="ion-padding">
-      <p class="footer-text">Usuario existente, <a routerLink="/inicio-sesion">Iniciar Sesión</a></p>
+      <p class="footer-text">{{"EXISTING_USER" | translate }} <a routerLink="/inicio-sesion">{{"LOGIN" | translate }}</a></p>
     </ion-toolbar>
    </ion-footer>

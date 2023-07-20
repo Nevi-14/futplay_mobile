@@ -33,10 +33,12 @@ public horario: [{
     Estado: boolean,
 
 }],
-public provincia:string,
-public canton:string,
-public distrito:string,
+public pais : string,
+public  estado:string,
+public  ciudad : string,
 public categoria:string,
+public  latitud : number,
+public longitud:number,
 public correo:string,
     ){}
     

@@ -4,7 +4,7 @@
    <ion-button slot="start" (click)="regresar()" fill="clear">
      <ion-icon size="large" name="close-outline"></ion-icon>
    </ion-button>
-   <ion-title>Estadisticas </ion-title>
+   <ion-title>{{"STATISTICS" | translate }} </ion-title>
  
   </ion-toolbar>
   
@@ -12,11 +12,11 @@
 
  <ion-header mode="ios">
   <ion-toolbar>
-   <h3>Equipo : {{equipo.Nombre ? equipo.Nombre : equipo.nombre}}</h3>
+   <h3>{{"TEAM" | translate }} : {{equipo.Nombre ? equipo.Nombre : equipo.nombre}}</h3>
    <ion-avatar slot="end"   >
     <img class="picture-img" *ngIf="!equipo.Avatar"  src="https://futplaycompany.com/api_test/{{equipo.Foto}}"  onerror="this.src='assets/img/icon/FP.svg'"   onerror="this.src='assets/img/icon/FP.svg'"   alt="">
 
-    <img class="picture-img"  *ngIf="equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+    <img class="picture-img"  *ngIf="equipo.Avatar"  src="../assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
   </ion-avatar>
    </ion-toolbar>
 </ion-header>
@@ -25,36 +25,36 @@
         <ion-list >
 
           <ion-item  lines="full" class="custom-item   animate__animated animate__fadeIn" >
-            <ion-label slot="start"  class="ion-text-wrap">Total Partidos Ganados</ion-label>
+            <ion-label slot="start"  class="ion-text-wrap">{{"TOTAL_MATCHES_WON" | translate }} </ion-label>
             <ion-badge slot="end" color="dark" mode="ios">{{equipo.Partidos_Ganados ? equipo.Partidos_Ganados : 0}}</ion-badge>
           </ion-item> 
           <ion-item lines="full" class="custom-item   animate__animated animate__fadeIn" >
-            <ion-label class="ion-text-wrap" slot="start">Total Partidos Perdidos</ion-label>
+            <ion-label class="ion-text-wrap" slot="start">{{"TOTAL_MATCHES_LOST" | translate }}</ion-label>
             <ion-badge slot="end" color="dark" mode="ios">{{equipo.Partidos_Perdidos ?  equipo.Partidos_Perdidos : 0}}</ion-badge>
           </ion-item> 
           <ion-item lines="full" class="custom-item   animate__animated animate__fadeIn" >
-            <ion-label  class="ion-text-wrap" slot="start">Posición Actual</ion-label>
+            <ion-label  class="ion-text-wrap" slot="start">{{"CURRENT_RANKING" | translate }}</ion-label>
             <ion-badge slot="end" color="dark" mode="ios">{{equipo.Posicion_Actual ? equipo.Posicion_Actual : 0}}</ion-badge>
           </ion-item> 
           <ion-item lines="full" class="custom-item   animate__animated animate__fadeIn" >
-            <ion-label class="ion-text-wrap"  slot="start">Puntaje Actual</ion-label>
+            <ion-label class="ion-text-wrap"  slot="start">{{"CURRENT_SCORE" | translate }}</ion-label>
             <ion-badge slot="end" color="dark" mode="ios">{{equipo.Puntaje_Actual ? equipo.Puntaje_Actual : 0}}</ion-badge>
           </ion-item> 
           <ion-item lines="full" class="custom-item   animate__animated animate__fadeIn" >
-            <ion-label class="ion-text-wrap" slot="start">Goles a Favor</ion-label>
+            <ion-label class="ion-text-wrap" slot="start">{{"GOALS_SCORED" | translate }}</ion-label>
             <ion-badge slot="end" color="dark" mode="ios">{{equipo.Goles_Favor ? equipo.Goles_Favor : 0}}</ion-badge>
           </ion-item>
           <ion-item lines="full" class="custom-item   animate__animated animate__fadeIn" >
-            <ion-label  class="ion-text-wrap" slot="start">Goles Encontra</ion-label>
+            <ion-label  class="ion-text-wrap" slot="start">{{"GOALS_CONCEDED" | translate }}</ion-label>
             <ion-badge slot="end" color="dark" mode="ios">{{equipo.Goles_Encontra ? equipo.Goles_Encontra : 0}}</ion-badge>
           </ion-item> 
           <ion-item lines="full" class="custom-item   animate__animated animate__fadeIn" >
-            <ion-label class="ion-text-wrap" slot="start">Altura (Cm) Jugadores</ion-label>
+            <ion-label class="ion-text-wrap" slot="start">{{"PLAYERS_HEIGHT" | translate}}</ion-label>
             <ion-badge slot="end" color="dark" mode="ios">{{estatura ? estatura.toFixed(2) : 0}}</ion-badge> 
          
           </ion-item> 
           <ion-item lines="full" class="custom-item   animate__animated animate__fadeIn" >
-            <ion-label class="ion-text-wrap"  slot="start">Peso  (Kg) <br> Jugadores</ion-label>
+            <ion-label class="ion-text-wrap"  slot="start">{{"PLAYERS" | translate}} <br> {{"WEIGHT" | translate}}</ion-label>
             <ion-badge slot="end" color="dark" mode="ios">{{peso ? peso.toFixed(2) : 0}}</ion-badge>  
            
           </ion-item> 

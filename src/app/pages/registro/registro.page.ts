@@ -1,21 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { IonSlides, ModalController } from '@ionic/angular';
 import { Usuarios } from 'src/app/models/usuarios';
 import { AlertasService } from 'src/app/services/alertas.service';
-import { CantonesService } from 'src/app/services/cantones.service';
-import { DistritosService } from 'src/app/services/distritos.service';
-import { ProvinciasService } from 'src/app/services/provincias.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { SeleccionarFechaPage } from '../seleccionar-fecha/seleccionar-fecha.page';
-import { Provincias } from 'src/app/models/provincias';
-import { Cantones } from 'src/app/models/cantones';
-import { Distritos } from 'src/app/models/distritos';
 import { ValidacionFormularioPipe } from 'src/app/pipes/validacion-formulario.pipe';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { GeolocalizacionService } from 'src/app/services/geolocalizacion.service';
 import { UsuarioGeolocalizacion } from 'src/app/models/usuarioGeolocalizacion';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registro',
@@ -23,7 +16,6 @@ import { UsuarioGeolocalizacion } from 'src/app/models/usuarioGeolocalizacion';
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage {
-  @ViewChild('mySlider', { static: true }) slides: IonSlides;
   usuario: Usuarios = {
     Cod_Usuario: null,
     Cod_Posicion: 1,
@@ -69,16 +61,16 @@ export class RegistroPage {
    ID:  null,
    Cod_Usuario:  null,
    Codigo_Pais:  null,
+   Pais:null,
    Codigo_Estado:  null,
+   Estado:null,
    Codigo_Ciudad:  null,
+   Ciudad:null,
    Codigo_Postal:  null,
    Direccion:  null
  }
   constructor(
     public usuariosServicio: UsuariosService,
-    public provinciasService: ProvinciasService,
-    public cantonesService: CantonesService,
-    public distritosService: DistritosService,
     public modalCrtl: ModalController,
     public alertasService: AlertasService,
     public http:HttpClient,
@@ -97,8 +89,6 @@ export class RegistroPage {
 
 
   async limpiarDatos() {
-
- 
 
       this.usuario = {
         Cod_Usuario: null,
@@ -126,13 +116,7 @@ export class RegistroPage {
         Descripcion_Estado:null,
         Inicio_Sesion:new Date()
       };
-
-
-   
-
-
   }
-
 
   async seleccionarFecha() {
     if (!this.modalOpen) {
@@ -161,7 +145,6 @@ export class RegistroPage {
 
   }
 
-
   async registro(fRegistro: NgForm) {
     let registro = fRegistro.value;
     let continuar = await ValidacionFormularioPipe.prototype.transform(fRegistro);
@@ -176,11 +159,6 @@ export class RegistroPage {
     this.usuariosServicio.registro(this.usuario, this.geolocalizacion)
 
   }
-
- 
-
-
-
 
 
 

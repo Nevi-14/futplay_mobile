@@ -8,9 +8,9 @@ export class PerfilJugador {
         public jugador: Jugador,
         public usuario:Usuarios,
         public equipo: Equipos,
-        public provincia:string,
-        public canton:string,
-        public distrito:string,
+        public pais : string,
+        public  estado:string,
+        public  ciudad : string,
         public posicion:string
 
     ) { }
