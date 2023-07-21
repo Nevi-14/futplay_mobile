@@ -8,6 +8,7 @@ import { ListaCanchasPageRoutingModule } from './lista-canchas-routing.module';
 
 import { ListaCanchasPage } from './lista-canchas.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     FormsModule,
     IonicModule,
     ListaCanchasPageRoutingModule,
-    PipesModule
+    PipesModule,
+    TranslateModule
   ],
   declarations: [ListaCanchasPage]
 })

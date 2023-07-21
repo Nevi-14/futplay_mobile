@@ -9,6 +9,7 @@ import { AceptarRetoPageRoutingModule } from './aceptar-reto-routing.module';
 import { AceptarRetoPage } from './aceptar-reto.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { PipesModule } from '../../pipes/pipes.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { PipesModule } from '../../pipes/pipes.module';
     IonicModule,
     AceptarRetoPageRoutingModule,
     ComponentsModule,
-    PipesModule
+    PipesModule,
+    TranslateModule
   ],
   declarations: [AceptarRetoPage]
 })

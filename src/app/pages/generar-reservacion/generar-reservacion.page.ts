@@ -56,7 +56,8 @@ export class GenerarReservacionPage {
     Hora_Fin: null,
     Dia_Completo: false
   }
-
+  selectedDate: string;
+  selectedTime: string;
 
   
   detalleReservacion: DetalleReservaciones = {

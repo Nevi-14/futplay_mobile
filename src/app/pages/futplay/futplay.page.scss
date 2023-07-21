@@ -1,4 +1,6 @@
- 
+ion-segment{
+  --background:#fff;
+}
 ion-segment-button {
   --indicator-box-shadow: transparent!important;
  
@@ -6,17 +8,13 @@ ion-segment-button {
   --color-checked: #2d2e87;
   --indicator-color : #2d2e87!important; /* this solution */
   text-transform: capitalize;
- ion-icon{
-  font-size: 20px;
- }
+ 
  ion-badge{
   position: 
   absolute;
   top: 0.5rem; 
   right: -0.5rem; 
 }
- ion-label{
-  font-size: 12px;
-}
+
 }
  

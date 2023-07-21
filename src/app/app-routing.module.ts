@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AutoLoginGuard } from './guards/auto-login.guard';
+ 
 
 const routes: Routes = [
 
@@ -13,7 +14,7 @@ const routes: Routes = [
 
   {
     path: 'inicio-sesion',
-    loadChildren: () => import('./pages/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule) , canLoad:[AutoLoginGuard]
+    loadChildren: () => import('./pages/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule) 
   },
   {
     path: 'registro',
@@ -28,8 +29,6 @@ const routes: Routes = [
     path: 'clasificacion',
     loadChildren: () => import('./pages/clasificacion/clasificacion.module').then( m => m.ClasificacionPageModule)
   },
-
-
 
 
   {
@@ -133,8 +132,6 @@ const routes: Routes = [
     path: 'inicio-sesion',
     loadChildren: () => import('./pages/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule) , canLoad:[AutoLoginGuard]
   },
-
-
   {
     path: 'crear-equipo',
     loadChildren: () => import('./pages/crear-equipo/crear-equipo.module').then( m => m.CrearEquipoPageModule)
@@ -278,6 +275,8 @@ const routes: Routes = [
     path: 'equipo-geolocalizacion',
     loadChildren: () => import('./pages/equipo-geolocalizacion/equipo-geolocalizacion.module').then( m => m.EquipoGeolocalizacionPageModule)
   },
+ 
+
 
 
 

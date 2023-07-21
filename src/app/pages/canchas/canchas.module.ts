@@ -9,6 +9,7 @@ import { CanchasPageRoutingModule } from './canchas-routing.module';
 import { CanchasPage } from './canchas.page';
 import { ComponentsModule } from '../../components/components.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     IonicModule,
     CanchasPageRoutingModule,
     ComponentsModule,
-    PipesModule
+    PipesModule,
+    TranslateModule
   ],
   declarations: [CanchasPage]
 })

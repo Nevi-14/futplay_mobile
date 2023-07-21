@@ -11,51 +11,44 @@
 <ion-content>
   <ion-router-outlet id="main-content"></ion-router-outlet>
 </ion-content>
-  <ion-footer>
-    <ion-toolbar  >
-  
-      <ion-segment    mode="md"   value="reservaciones">
+<ion-segment    mode="md"   value="reservaciones">
   
       
-        <ion-segment-button   (click)="redirigir('/futplay/reservaciones', 'reservaciones')" value="reservaciones" >
+  <ion-segment-button   (click)="redirigir('/futplay/reservaciones', 'reservaciones')" value="reservaciones" >
 
-          <ion-icon name="football-outline"></ion-icon>
-          <ion-label>{{"CHALLENGES" | translate }}</ion-label>
-          <ion-badge color="primary" size="small"   mode="ios">{{reservacionesService.reservacionesRecibidas.length > 0 ? reservacionesService.reservacionesRecibidas.length : 0}}</ion-badge>
+    <ion-icon name="football-outline"></ion-icon>
+    <ion-label>{{"CHALLENGES" | translate }}</ion-label>
+    <ion-badge color="primary" size="small"   mode="ios">{{reservacionesService.reservacionesRecibidas.length > 0 ? reservacionesService.reservacionesRecibidas.length : 0}}</ion-badge>
+
+
+
+  </ion-segment-button>
+
+
+  <ion-segment-button   (click)="redirigir('/futplay/mi-perfil', 'perfil')" value="perfil" >
+     
+    <ion-icon name="person-outline"></ion-icon>
+<ion-label>{{"MY-PROFILE" | translate }}</ion-label>
+  </ion-segment-button>
+
+
+  <ion-segment-button value="equipos" (click)="redirigir('/futplay/perfil-equipo', 'equipos')">
+    <ion-icon name="shield-outline"></ion-icon>
  
 
- 
-        </ion-segment-button>
-
-
-        <ion-segment-button   (click)="redirigir('/futplay/mi-perfil', 'perfil')" value="perfil" >
-           
-          <ion-icon name="person-outline"></ion-icon>
-   <ion-label>{{"MY-PROFILE" | translate }}</ion-label>
-        </ion-segment-button>
-
-
-        <ion-segment-button value="equipos" (click)="redirigir('/futplay/perfil-equipo', 'equipos')">
-          <ion-icon name="shield-outline"></ion-icon>
-       
+    <ion-label>{{"TEAMS" | translate }}</ion-label>
   
-          <ion-label>{{"TEAMS" | translate }}</ion-label>
-        
-        </ion-segment-button>
-        <ion-segment-button value="torneos" (click)="redirigir('/futplay/torneos', 'torneos')">
-          <ion-icon name="trophy-outline"></ion-icon>
-        
-         
-      <ion-label>{{"TOURNAMENTS" | translate }}</ion-label>
-        </ion-segment-button>
+  </ion-segment-button>
+  <ion-segment-button value="torneos" (click)="redirigir('/futplay/torneos', 'torneos')">
+    <ion-icon name="trophy-outline"></ion-icon>
+  
    
+<ion-label>{{"TOURNAMENTS" | translate }}</ion-label>
+  </ion-segment-button>
+
+
    
-         
-      </ion-segment>
-      
-    </ion-toolbar>
-  </ion-footer>
- 
+</ion-segment>
  
  
 
