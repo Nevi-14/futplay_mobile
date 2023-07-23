@@ -4,8 +4,7 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { HeaderComponent } from './header/header.component';
 
-import {NgCalendarModule} from 'ionic2-calendar'
-
+ 
 import localeDe from '@angular/common/locales/es';
 
 import { MapaComponent } from './mapa/mapa.component';
@@ -37,7 +36,6 @@ registerLocaleData(localeDe);
     FormsModule,
     IonicModule,
     PipesModule,
-    NgCalendarModule,
     ReactiveFormsModule,
     FormsModule
 

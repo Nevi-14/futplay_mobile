@@ -18,6 +18,12 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import {InAppPurchase2 } from '@ionic-native/in-app-purchase-2/ngx'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatMomentDateModule, MomentDateModule } from "@angular/material-moment-adapter";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 export function HttpLoaderFactory(httpClient: HttpClient){
     return new TranslateHttpLoader(httpClient, "../assets/i18n/", ".json");
   }
@@ -29,7 +35,14 @@ export function HttpLoaderFactory(httpClient: HttpClient){
             useFactory: HttpLoaderFactory,
             deps: [HttpClient]
         }
-    }),],
+    }),
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatMomentDateModule,
+    MomentDateModule,
+    BrowserAnimationsModule
+],
     providers: [BarcodeScanner, Camera, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, SocialSharing,
     InAppPurchase2],
     bootstrap: [AppComponent],

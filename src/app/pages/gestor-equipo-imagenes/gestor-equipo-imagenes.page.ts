@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { IonSlides, ModalController } from '@ionic/angular';
+import {  IonicSlides, ModalController } from '@ionic/angular';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { GestorEquipoImagenesService } from 'src/app/services/gestor-equipo-imagenes.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -16,7 +16,7 @@ export class GestorEquipoImagenesPage implements OnInit {
   @Input()  foto:any
   @ViewChild('myInput')
   myInputVariable: ElementRef;   
-  @ViewChild(IonSlides) slides: IonSlides;
+  @ViewChild(IonicSlides) slides;
   @Input() equipo:Equipos
   avatarSlide = {
     slidesPerView: 2.5

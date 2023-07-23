@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, ModalController } from '@ionic/angular';
+import {  IonicSlides, ModalController } from '@ionic/angular';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { format } from 'date-fns';
 import { PosicionesService } from 'src/app/services/posiciones.service';
@@ -69,7 +69,7 @@ imgs = avatarArray;
 isVisible = false;
   image = 'assets/user.svg'
   ///// In functions declaration zone
-  @ViewChild(IonSlides) slides: IonSlides;
+  @ViewChild(IonicSlides) slides;
   avatarSlide = {
     slidesPerView: 2.5
   }
@@ -176,7 +176,6 @@ resp.forEach( posision =>{
     const modal = await this.modalCtrl.create({
       component: GestorPerfilImagenesPage,
       cssClass:'alert-modal',
-      swipeToClose: false,
       mode:'ios',
     });
   

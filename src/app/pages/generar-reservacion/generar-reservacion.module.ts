@@ -9,8 +9,7 @@ import { GenerarReservacionPageRoutingModule } from './generar-reservacion-routi
 import { GenerarReservacionPage } from './generar-reservacion.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { ComponentsModule } from 'src/app/components/components.module';
-
- 
+import {MatDatepickerModule} from '@angular/material/datepicker';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,7 +17,9 @@ import { ComponentsModule } from 'src/app/components/components.module';
     IonicModule,
     GenerarReservacionPageRoutingModule,
     PipesModule,
-    ComponentsModule
+    ComponentsModule,
+    MatDatepickerModule
+ 
   ],
   declarations: [GenerarReservacionPage],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }]

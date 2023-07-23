@@ -252,7 +252,6 @@ this.equiposGeolocalizacionService.syncPostEquipoGeolocalizacionToPromise(this.g
     const modal = await this.modalCtrl.create({
       component: GestorEquipoImagenesPage,
       cssClass:'alert-modal',
-      swipeToClose: false,
       mode:'ios',
       componentProps:{
         equipo:this.equipo,

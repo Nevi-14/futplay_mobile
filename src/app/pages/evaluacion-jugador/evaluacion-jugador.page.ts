@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ModalController, IonSlides } from '@ionic/angular';
+import { ModalController, IonicSlides } from '@ionic/angular';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { EvaluacionEquipoPage } from '../evaluacion-equipo/evaluacion-equipo.page';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -17,7 +17,7 @@ export class EvaluacionJugadorPage implements OnInit {
 @Input() equipo:any
 @Input() partido : any
 @Input() reto:PerfilReservaciones
-@ViewChild(IonSlides) slides: IonSlides;
+@ViewChild(IonicSlides) slides;
 jugadoresRetadores:PerfilJugador[]
 jugadoresRivales:PerfilJugador[]
 evaluacionJugador:any = {

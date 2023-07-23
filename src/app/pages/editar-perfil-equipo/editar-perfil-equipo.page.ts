@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AlertController, IonSlides, ModalController } from '@ionic/angular';
+import { AlertController, IonicSlides, ModalController } from '@ionic/angular';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
@@ -19,7 +19,7 @@ export class EditarPerfilEquipoPage implements OnInit {
   img =  'assets/main/team-profile.svg';
   imageURL = null;
   image = '';
-  @ViewChild(IonSlides) slides: IonSlides;
+  @ViewChild(IonicSlides) slides;
   @Input() equipo:Equipos
   @ViewChild('fRegistroEquipo') fRegistroEquipo:NgForm
   sliderOpts = {
@@ -139,7 +139,6 @@ export class EditarPerfilEquipoPage implements OnInit {
       const modal = await this.modalCtrl.create({
         component: GestorEquipoImagenesPage,
         cssClass:'alert-modal',
-        swipeToClose: false,
         mode:'ios',
         componentProps:{
           equipo:this.equiposService.equipo.equipo

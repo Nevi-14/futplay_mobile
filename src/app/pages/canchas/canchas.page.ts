@@ -134,7 +134,6 @@ public modalCtrl: ModalController
                   component: CanchaDetallePage,
                   cssClass:'my-custom-modal',
                   backdropDismiss: true,
-                  swipeToClose:false,
                   animated: true,
                   componentProps : {
                     cancha:cancha
