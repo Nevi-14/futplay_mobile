@@ -22,18 +22,26 @@
     <ion-col size="12">
       <mat-form-field>
         <mat-label>Seleccionar Fecha</mat-label>
-        <input matInput [matDatepicker]="picker"  [(ngModel)]= "fecha">
+        <input matInput [matDatepicker]="picker"  (ionChange)="cambiarFecha($event)"  [(ngModel)]= "fecha">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
+      <mat-form-field class="example-full-width"  >
+        <mat-label>Hora Inicio</mat-label>
+        <input matInput placeholder="Ex. Pizza"  (click)="openPicker(1)"  ngModel="{{ !nuevaReservacion.Hora_Inicio ? '00:00:00': nuevaReservacion.Hora_Inicio | date:'h:mm a'}}">
+        <i class="material-icons" matSuffix>access_time</i>
+
+     
+      </mat-form-field>
+      <mat-form-field class="example-full-width"  >
+        <mat-label>Hora Fin</mat-label>
+        <input matInput placeholder="Ex. Pizza" (click)="openPicker(2)"  ngModel="{{ !nuevaReservacion.Hora_Fin ? '00:00:00': nuevaReservacion.Hora_Fin | date:'h:mm a'}}">
+        <i class="material-icons" matSuffix>access_time</i>
+     
+     
+      </mat-form-field>
     </ion-col>
-    <ion-col size="12">
-      <app-icon-button icon="timer-outline" label="Hora Inicio"  label2="{{ nuevaReservacion.Hora_Inicio | date:'h:mm a'}}" (click)="openPicker(1)" ></app-icon-button>
-      
-    </ion-col>
-    <ion-col size="12">
-      <app-icon-button icon="timer-outline" label="Hora Fin"  label2="{{ nuevaReservacion.Hora_Fin| date:'h:mm a'}}" (click)="openPicker(2)" ></app-icon-button>
-    </ion-col>
+ 
     <ion-col size="12">
 
       <ion-item   *ngIf="retador" (click)="agregarRetador()"    lines="full" class="employeeItem  animate__animated animate__fadeIn"   >

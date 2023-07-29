@@ -45,6 +45,7 @@ export class GenerarReservacionPage {
   nuevaReservacion:Reservaciones = {
     Cod_Reservacion:null,
     Cod_Cancha: null,
+    Cod_Moneda:1,
     Cod_Tipo:1,
     Cod_Usuario: this.usuariosService.usuarioActual.Cod_Usuario,
     Reservacion_Externa: false,
@@ -124,6 +125,7 @@ export class GenerarReservacionPage {
     this.nuevaReservacion = {
       Cod_Reservacion:null,
     Cod_Cancha: null,
+    Cod_Moneda:1,
     Cod_Tipo:1,
     Cod_Usuario: this.usuariosService.usuarioActual.Cod_Usuario,
     Reservacion_Externa: false,

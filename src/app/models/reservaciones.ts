@@ -2,6 +2,7 @@ export class Reservaciones {
   constructor(
     public Cod_Reservacion:  number,
     public Cod_Cancha:  number,
+    public Cod_Moneda:number,
     public Cod_Usuario:  number,
     public Cod_Tipo:number,
     public Cod_Estado:  number,
