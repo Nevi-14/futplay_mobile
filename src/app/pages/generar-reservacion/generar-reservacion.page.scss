@@ -1,8 +1,133 @@
-ion-content {
-  background-color: #f5f5f5;
+ion-header {
+
+  ion-toolbar {
+    --background: #5a55ca;
+    color: #fff;
+
+    ion-icon {
+      color: #fff;
+    }
+  }
+}
+ion-fab-button{
+  --background:#5a55ca;
+  
+}ion-slides{
+ min-height: 250px;
+  width: 100%;
+ img{
+  min-height: 250px;
+  width: 100%; /* takes the 100 % width of its container (.box div)*/
+  height: 100%; /* takes the 100 % height of its container (.box div)*/
+ }
+}
+ion-slide {
+  min-height: 250px;
+  height: 100%;
+  width: 100% !important;
+}
+ion-slides{
+  height: 100%;
+  width: 100% !important;
+}
+.swiper-wrapper {
+  width: min-content !important;
+}
+ion-avatar ,ion-thumbnail{
+ height: 4rem;
+ width: 4rem;
+} 
+ion-datetime{
+  --background:#fff;
+}
+ 
+.time{
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: #000;
 }
 
-ion-datetime {
-  --padding-start: 10px;
-  --padding-end: 10px;
+.swiper-pagination {
+  margin: 0.5rem;
+}
+mat-form-field{
+  width: 100%;
+}
+
+
+swiper-container {
+  max-height: 200px;
+  width: 100%;
+  height: 100%;
+}
+
+swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+ion-content {
+  --ion-background-color: #f4f4f4;
+}
+
+.time-picker-button {
+  --background: #833ab4;
+  --color: #fff;
+  --border-radius: 10px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  --border: none;
+  --outline: none;
+  --font-size: 16px;
+  --transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.time-picker-button .icon {
+  margin-right: 10px;
+  font-size: 22px;
+}
+
+.time-picker-button .time-label {
+  flex: 1;
+  text-align: center;
+}
+
+.time-picker-button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+}
+
+.time-picker-button:hover:before {
+  opacity: 1;
+}
+
+.time-picker-button:active {
+  --transform: scale(0.95);
+  --box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
 }

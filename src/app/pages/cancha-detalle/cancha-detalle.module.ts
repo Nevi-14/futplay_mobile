@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -18,6 +18,7 @@ import { ComponentsModule } from 'src/app/components/components.module';
     ComponentsModule
   ],
   declarations: [CanchaDetallePage],
-  providers: [DatePipe]
+  providers: [DatePipe],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CanchaDetallePageModule {}

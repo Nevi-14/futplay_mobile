@@ -30,6 +30,11 @@
       <ion-col size="12"   >
         <app-select name="Country_Code"  (ionChange)="geolocalizacionService.onChangeCountries(fRegistro)"     [data]="geolocalizacionService.countries"  label='{{"COUNTRY" | translate }}' ngModel="{{geolocalizacionService.Country_Code}}"></app-select>
       </ion-col>
+      <ion-col size="12">
+    
+        <app-input type="number" name="codigo"  label='{{"AREA_CODE" | translate }}'  ngModel="{{usuario.Codigo_Llamadas}}"></app-input>
+       
+      </ion-col>
   <ion-col size="12">
     
     <app-input name="Telefono"  label='{{"PHONE" | translate }}'  ngModel="{{usuario.Telefono}}"></app-input>

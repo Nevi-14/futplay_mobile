@@ -4,6 +4,8 @@ import * as  mapboxgl from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
 import { Platform } from '@ionic/angular';
 import { StatusBar} from '@capacitor/status-bar';
+import {register} from 'swiper/element/bundle';
+register();
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',

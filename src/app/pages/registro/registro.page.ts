@@ -37,7 +37,7 @@ export class RegistroPage {
     Partidos_Jugador_Del_Partido: 0,
     Compartir_Datos: false,
     Avatar: true,
-    Codigo_Llamadas: '+506',
+    Codigo_Llamadas: '',
     Estado:true,
     Descripcion_Estado:null,
     Inicio_Sesion:new Date()
@@ -111,7 +111,7 @@ export class RegistroPage {
         Partidos_Jugador_Del_Partido: 0,
         Compartir_Datos: false,
         Avatar: true,
-        Codigo_Llamadas: '+506',
+        Codigo_Llamadas: '',
         Estado:true,
         Descripcion_Estado:null,
         Inicio_Sesion:new Date()
@@ -152,6 +152,7 @@ export class RegistroPage {
     this.enviarFormulario = true;
     this.usuario.Nombre = registro.Nombre
     this.usuario.Primer_Apellido = registro.Primer_Apellido
+    this.usuario.Codigo_Llamadas = registro.Codigo_Llamadas
     this.usuario.Telefono = registro.Telefono
     this.usuario.Correo = registro.Correo
     this.ingresarContrasena = registro.password;

@@ -157,10 +157,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/recuperar-contrasena/recuperar-contrasena.module').then( m => m.RecuperarContrasenaPageModule)
   },
   {
-    path: 'verificacion-qr',
-    loadChildren: () => import('./pages/verificacion-qr/verificacion-qr.module').then( m => m.VerificacionQrPageModule)
-  },
-  {
     path: 'canchas',
     loadChildren: () => import('./pages/canchas/canchas.module').then( m => m.CanchasPageModule)
   },

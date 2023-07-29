@@ -92,5 +92,17 @@ export const environment = {
 
 
   getPerfilEquipo:'get/perfil/equipo/',
-  getPerfilCancha:'get/perfil/cancha/'
+  getPerfilCancha:'get/perfil/cancha/',
+
+  // usuario geolocalizacion
+  getUsuarioGeolocalizacion:'get/usuario/geolocalizacion/',
+  postUsuarioGeolocalizacion:'post/usuario/geolocalizacion',
+  putUsuarioGeolocalizacion:'put/usuario/geolocalizacion/',
+  deleteUsuarioGeolocalizacion:'delete/usuario/geolocalizacion/',
+
+    // equipo geolocalizacion
+    getEquipoGeolocalizacion:'get/equipo/geolocalizacion/',
+    postEquipoGeolocalizacion:'post/equipo/geolocalizacion',
+    putEquipoGeolocalizacion:'put/equipo/geolocalizacion/',
+    deleteEquipoGeolocalizacion:'delete/equipo/geolocalizacion/'
 };

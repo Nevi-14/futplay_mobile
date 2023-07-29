@@ -1,0 +1,93 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+   <ion-button slot="start" (click)="regresar()" fill="clear">
+     <ion-icon size="large" name="close-outline"></ion-icon>
+   </ion-button>
+   <ion-title>Nueva Reservación</ion-title>
+    
+  </ion-toolbar>
+  
+ </ion-header>
+<ion-content class="ion-padding">
+<ion-grid >
+  <ion-row>
+    <ion-col size="12">
+      <swiper-container style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="mySwiper"
+      speed="600" parallax="true" pagination="true" pagination-clickable="true" navigation="true">
+      <div slot="container-start" class="parallax-bg"
+      [ngStyle]="{background: 'url(https://futplaycompany.com/api_test' + cancha.cancha.Foto + ')'}"
+      data-swiper-parallax="-23%"></div>
+        
+      <swiper-slide>
+        <div class="title" data-swiper-parallax="-300">Slide 1</div>
+        <div class="subtitle" data-swiper-parallax="-200">Subtitle</div>
+        <div class="text" data-swiper-parallax="-100">
+          <p>
+         
+            {{cancha.cancha.Foto}}
+          </p>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="title" data-swiper-parallax="-300">Slide 2</div>
+        <div class="subtitle" data-swiper-parallax="-200">Subtitle</div>
+        <div class="text" data-swiper-parallax="-100">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+            dictum mattis velit, sit amet faucibus felis iaculis nec. Nulla
+            laoreet justo vitae porttitor porttitor. Suspendisse in sem justo.
+            Integer laoreet magna nec elit suscipit, ac laoreet nibh euismod.
+            Aliquam hendrerit lorem at elit facilisis rutrum. Ut at
+            ullamcorper velit. Nulla ligula nisi, imperdiet ut lacinia nec,
+            tincidunt ut libero. Aenean feugiat non eros quis feugiat.
+          </p>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="title" data-swiper-parallax="-300">Slide 3</div>
+        <div class="subtitle" data-swiper-parallax="-200">Subtitle</div>
+        <div class="text" data-swiper-parallax="-100">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+            dictum mattis velit, sit amet faucibus felis iaculis nec. Nulla
+            laoreet justo vitae porttitor porttitor. Suspendisse in sem justo.
+            Integer laoreet magna nec elit suscipit, ac laoreet nibh euismod.
+            Aliquam hendrerit lorem at elit facilisis rutrum. Ut at
+            ullamcorper velit. Nulla ligula nisi, imperdiet ut lacinia nec,
+            tincidunt ut libero. Aenean feugiat non eros quis feugiat.
+          </p>
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  
+    </ion-col>
+    <ion-col size="12">
+      <mat-form-field>
+        <mat-label>Seleccionar Fecha</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </ion-col>
+    <ion-col size="12">
+      <ion-item>
+       <ion-icon slot="start" size="large" name="timer-outline"></ion-icon>
+       <ion-button (click)="openPicker(1)" expand="block" fill="clear" shape="round">
+      <ion-label>  Hora Inicio
+        <p style="margin-top: 0.5rem;">{{ nuevaReservacion.Hora_Inicio | date:'h:mm a'}}</p>
+      </ion-label>
+        
+      </ion-button>
+      <ion-button (click)="openPicker(2)" expand="block" fill="clear" shape="round">
+       <ion-label> hora Fin
+        <p style="margin-top: 0.5rem;">{{ nuevaReservacion.Hora_Fin | date:'h:mm a'}}</p>
+       </ion-label>
+        
+        </ion-button>
+      </ion-item>
+ 
+    </ion-col>
+   
+  </ion-row>
+</ion-grid>
+</ion-content>

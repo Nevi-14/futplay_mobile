@@ -33,6 +33,7 @@ export class SeleccionarFechaPage {
     this.dateObjectReturn.date = this.today.getDate();
     this.dateObjectReturn.month = this.capitalizeFirstLetter(this.today.toLocaleString('es-ES', { month: 'long' }))
     this.dateObjectReturn.year = this.today.getFullYear();
+    this.cd.detectChanges();
     this.populateYears();
   }
 
@@ -51,7 +52,9 @@ export class SeleccionarFechaPage {
     } else {
       this.dateObjectReturn.year = this.dateObjectReturn.year;
     }
-    this.obtenerMes(null);
+    this.dateObjectReturn.date = this.today.getDate();
+    this.cd.detectChanges();
+    this.populateDays(null);
 
   }
   obtenerMes(fFecha: NgForm, event?) {
@@ -60,10 +63,12 @@ export class SeleccionarFechaPage {
   }
 
   populateDays(fFecha: NgForm, event?) {
+ //alert(fFecha.value)
     console.log('fFecha', fFecha)
     this.dias = [];
-    let monthValue = fFecha ? fFecha.value.mes : this.dateObjectReturn.month;
-    let year = fFecha ? fFecha.value.ano : this.dateObjectReturn.year;
+    let monthValue = fFecha.value.mes ? fFecha.value.mes : this.dateObjectReturn.month;
+    let year = fFecha.value.ano ? fFecha.value.ano : this.dateObjectReturn.year;
+    this.dateObjectReturn.date = this.today.getDate();
     let numeroDias = 0;
     if (monthValue === 'Enero' || monthValue === 'Mayo' || monthValue === 'Marzo' || monthValue === 'Julio' || monthValue === 'Agosto' || monthValue === 'Octubre' || monthValue === 'Diciembre') {
       numeroDias = 31;
@@ -91,11 +96,11 @@ export class SeleccionarFechaPage {
       );
 
       if (i == numeroDias - 1) {
-
+        this.cd.detectChanges();
       }
 
     }
-
+ 
   }
 
 

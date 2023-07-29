@@ -5,7 +5,7 @@ import { ReservacionesService } from 'src/app/services/reservaciones.service';
 import { AceptarRetoPage } from '../aceptar-reto/aceptar-reto.page';
 import { PartidoService } from 'src/app/services/partido.service';
 import { partidos } from 'src/app/models/partidos';
-import { VerificacionQrPage } from '../verificacion-qr/verificacion-qr.page';
+ 
 import { InicioPartidoPage } from '../inicio-partido/inicio-partido.page';
 import { EliminarRetoPage } from '../eliminar-reto/eliminar-reto.page';
 
@@ -75,42 +75,12 @@ public partidosService:PartidoService
           async     iniciarPartido(reto:PerfilReservaciones){
 
             let partido =   await  this.partidosService.syncGetPartidoReservacion(reto.reservacion.Cod_Reservacion);
-                   
-                   if(partido.length == 0){
-                    this.qrVerification(reto);
-                   }else  if(!partido[0].Verificacion_QR || !partido[1].Verificacion_QR){
-              
-                      this.qrVerification(reto);
-                    }else{
-                    
-                      this.partidoActual(reto);
-                    }
+            this.partidoActual(reto);
                
               
                 }
   
-                async qrVerification(reto:PerfilReservaciones){
-      
-                  let partido =   await  this.partidosService.syncGetPartidoReservacion(reto.reservacion.Cod_Reservacion);
-                  this.cerrarModal();
-                  
-                      const modal = await this.modalCtrl.create({
-                       component: VerificacionQrPage,
-                       cssClass:'large-modal',
-                       componentProps:{
-                      reto:reto,
-                      partido:partido
-                         
-                       }
-                   
-                      });
-                  
-                      
-                   
-                   return await modal.present();
-                  
-                  
-                       }
+            
                        async partidoActual(reto:PerfilReservaciones) {
 
                         let partido =   await  this.partidosService.syncGetPartidoReservacion(reto.reservacion.Cod_Reservacion);

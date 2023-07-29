@@ -13,24 +13,12 @@
 <ion-content *ngIf="cancha"  >
  
   <ion-slides pager="true" [options]="slideOpts">
-<swiper-container style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="mySwiper"
-    thumbs-swiper=".mySwiper2" space-between="10" navigation="true">
-    <swiper-slide>
+    <ion-slide>
       <img src="{{'https://futplaycompany.com/api_test/'+cancha.cancha.Foto }}"
       onerror="this.src='assets/soccerfield.jpg'" alt="">
-    </swiper-slide>
-  
-  </swiper-container>
 
-  <swiper-container class="mySwiper2" space-between="10" slides-per-view="4" free-mode="true"
-    watch-slides-progress="true">
-    <swiper-slide>
-      <img src="{{'https://futplaycompany.com/api_test/'+cancha.cancha.Foto }}"
-      onerror="this.src='assets/soccerfield.jpg'" alt="">
-    </swiper-slide>
-   
-  </swiper-container>
-
+    </ion-slide>
+ 
   </ion-slides>
     <!-- background image -->
     <ion-list mode="ios">
@@ -111,7 +99,7 @@
         <ion-col size="12">
       
 <ion-item (click)="navigate()" lines="full" button>
-  <ion-label>   {{cancha.pais}}, {{cancha.estado}}</ion-label>
+  <ion-label>   {{cancha.pais}}, {{cancha.ciudad}}</ion-label>
  
 </ion-item>
        

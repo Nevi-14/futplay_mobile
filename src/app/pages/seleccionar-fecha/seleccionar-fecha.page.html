@@ -19,7 +19,7 @@
     </ion-col>
 
     <ion-col size="12" size-md="4">
-      <app-select  (ionChange)="obtenerAno(fFecha, $event)"  name="ano" [data]="anos"  label="Año" ngModel="{{dateObjectReturn.year}}"></app-select>
+      <app-select  (ionChange)="populateYears()"  name="ano" [data]="anos"  label="Año" ngModel="{{dateObjectReturn.year}}"></app-select>
      
     </ion-col>
     <ion-col size="12"  >

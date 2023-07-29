@@ -84,7 +84,8 @@
    "HEIGHT":"Height (CM)",
    "NICK_NAME":"Apodo",
    "POSITION":"Posición",
-   "CREATE_JOIN_TEAM_TO_CONTINUE":"Crea o únete a un equipo para continuar!."
+   "CREATE_JOIN_TEAM_TO_CONTINUE":"Crea o únete a un equipo para continuar!.",
+   "AREA_CODE":"Código  Area"
 
  }
  

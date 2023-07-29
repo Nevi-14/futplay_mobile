@@ -17,20 +17,23 @@
         <h1>{{"SELECT_AVATAR" | translate }}</h1>
       </ion-col>
       <ion-col size="12">
-        <ion-slides   (ionSlideDidChange)="slideChange($event)"   pager="false"   mode="ios" [options]="sliderOpts" >
-          <ion-slide  *ngFor="let img of imgs; let i = index;">
-    
-        <ion-img class="pick-avatar" 
-                      src="assets/soccer-shields-svg/{{img.img}}"
-                      [ngClass]="{'pick-avatar-seleccionado': img.seleccionado}" (click)="seleccionarAvatar(img, i)"></ion-img>
+
+        <swiper-container  (slideChange)="slideChange($event)"  class="mySwiper"   space-between="30"
+        slides-per-view="3">
         
-        
+        <swiper-slide   *ngFor="let img of imgs; let i = index;" >
+          <ion-img  class="pick-avatar" 
+          src="assets/soccer-shields-svg/{{img.img}}"
+          [ngClass]="{'pick-avatar-seleccionado': img.seleccionado}" (click)="seleccionarAvatar(img, i)"></ion-img>
+  
       
-            
     
-        
-          </ion-slide>
-          </ion-slides>
+            
+        </swiper-slide>
+ 
+      </swiper-container>
+
+ 
       </ion-col>
     </ion-row>
   </ion-grid>

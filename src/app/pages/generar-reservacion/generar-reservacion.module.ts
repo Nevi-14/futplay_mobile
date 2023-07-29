@@ -10,6 +10,10 @@ import { GenerarReservacionPage } from './generar-reservacion.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { ComponentsModule } from 'src/app/components/components.module';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatMomentDateModule, MomentDateModule } from "@angular/material-moment-adapter";
+import { MatFormFieldModule } from '@angular/material/form-field';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,7 +22,13 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     GenerarReservacionPageRoutingModule,
     PipesModule,
     ComponentsModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatMomentDateModule,
+    MomentDateModule,
+    MatFormFieldModule,
+    ComponentsModule
  
   ],
   declarations: [GenerarReservacionPage],

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { UsuarioGeolocalizacion } from 'src/app/models/usuarioGeolocalizacion';
 import { GeolocalizacionService } from 'src/app/services/geolocalizacion.service';
@@ -26,4 +27,7 @@ export class UsuarioGeolocalizacionPage implements OnInit {
 this.modalCtrl.dismiss();
   }
 
+
+actualizar(form:NgForm){
+}
 }
