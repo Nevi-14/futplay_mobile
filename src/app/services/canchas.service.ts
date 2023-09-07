@@ -18,13 +18,13 @@ export class CanchasService {
 canchas:PerfilCancha[]=[];
 cancha:PerfilCancha;
 semana = [
-  { Code: 0, Day: 'Domingo' },
-  { Code: 1, Day: 'Lunes' },
-  { Code: 2, Day: 'Martes' },
-  { Code: 3, Day: 'Miercoles' },
-  { Code: 4, Day: 'Jueves' },
-  { Code: 5, Day: 'Viernes' },
-  { Code: 6, Day: 'Sabado' }]
+  { Code: 0, Day: 'SUNDAY' },
+  { Code: 1, Day: 'MONDAY' },
+  { Code: 2, Day: 'TUESDAY' },
+  { Code: 3, Day: 'WEDNESDAY' },
+  { Code: 4, Day: 'THURSDAY' },
+  { Code: 5, Day: 'FRIDAY' },
+  { Code: 6, Day: 'SATURDAY' }]
   dia:dia = null;
 
   constructor(
@@ -64,7 +64,11 @@ semana = [
   }
   private getFiltroListaCanchas(filtro:any ){
     let URL = this.getURL( environment.getFiltroCanchasURL);
- URL = URL+filtro.Cod_Provincia+'/'+filtro.Cod_Canton+'/'+filtro.Cod_Distrito+'/'+filtro.Cod_Categoria
+    let Codigo_Pais = filtro.Codigo_Pais ? filtro.Codigo_Pais : null;
+    let Codigo_Estado = filtro.Codigo_Estado ? filtro.Codigo_Estado : null;
+    let Codigo_Ciudad = filtro.Codigo_Ciudad ? filtro.Codigo_Ciudad : null;
+    let Cod_Categoria = filtro.Cod_Categoria ? filtro.Cod_Categoria : null;
+ URL = URL+ Codigo_Pais +'/'+Codigo_Estado+'/'+Codigo_Ciudad+'/'+Cod_Categoria
         console.log(URL, 'URL')
     return this.http.get<PerfilCancha[]>( URL );
   }

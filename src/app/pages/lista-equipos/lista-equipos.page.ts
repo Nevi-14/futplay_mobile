@@ -18,9 +18,9 @@ export class ListaEquiposPage implements OnInit {
   @Input() rival: boolean;
 
   filtro ={
-    Cod_Provincia: null,
-    Cod_Canton: null,
-    Cod_Distrito:null,
+    Codigo_Pais: null,
+    Codigo_Estado: null,
+    Codigo_Ciudad:null
   }
   textoBuscar = '';
   @ViewChild(IonContent, { static: false }) content: IonContent;
@@ -90,7 +90,7 @@ console.log(this.equiposService.equipos, 'kdkd')
 
   async filtroUbicacion(){
 
-  
+ 
      
     const modal  = await this.modalCtrl.create({
      component: FiltroUbicacionPage,
@@ -98,9 +98,9 @@ console.log(this.equiposService.equipos, 'kdkd')
      breakpoints: [0, 0.3, 0.5, 0.8],
      initialBreakpoint: 0.5,
      componentProps : {
-      'Cod_Provincia': this.filtro.Cod_Provincia,
-      'Cod_Canton': this.filtro.Cod_Canton,
-      'Cod_Distrito': this.filtro.Cod_Distrito
+      'Codigo_Pais': this.filtro.Codigo_Pais,
+      'Codigo_Estado': this.filtro.Codigo_Estado,
+      'Codigo_Ciudad': this.filtro.Codigo_Ciudad
      },
      
      id:'my-modal-id'
@@ -112,9 +112,9 @@ console.log(this.equiposService.equipos, 'kdkd')
  console.log(data)
    if(data !== undefined ){
 
-    this.filtro.Cod_Provincia = data.Cod_Provincia;
-    this.filtro.Cod_Canton = data.Cod_Canton;
-    this.filtro.Cod_Distrito = data.Cod_Distrito;
+    this.filtro.Codigo_Pais = data.Codigo_Pais;
+    this.filtro.Codigo_Estado = data.Codigo_Estado;
+    this.filtro.Codigo_Ciudad = data.Codigo_Ciudad;
 
    }
  }

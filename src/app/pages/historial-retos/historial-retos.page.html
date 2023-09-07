@@ -1,9 +1,9 @@
 <ion-header mode="ios">
   <ion-toolbar>
-   <h3>Historial Retos</h3>
+   <h3>{{'CHALLENGES_HISTORY' | translate}}</h3>
    </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content> 
   <ion-list>
     <ion-item  *ngIf="reservaciones.length == 0"    lines="none"
     class="animate__animated animate__fadeIn">
@@ -14,9 +14,8 @@
   
   
       <ion-label>
-  
-        <h6><strong>MENSAJE FUTPLAY</strong> </h6>
-        <p  > No se encontraron resultados!..</p>
+        <h6>{{'FUTPLAY_MESSAGE' | translate}}</h6>
+  <p class="ion-text-wrap">   {{'NO_RECORDS_FOUND' | translate}}</p>
   
       </ion-label>
     </span>

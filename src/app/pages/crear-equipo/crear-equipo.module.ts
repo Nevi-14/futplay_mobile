@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -17,8 +17,9 @@ import { TranslateModule } from '@ngx-translate/core';
     IonicModule,
     CrearEquipoPageRoutingModule,
     ComponentsModule,
-    TranslateModule
+    TranslateModule,
   ],
-  declarations: [CrearEquipoPage]
+  declarations: [CrearEquipoPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CrearEquipoPageModule {}

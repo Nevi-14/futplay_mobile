@@ -35,7 +35,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-   <form id="form" (ngSubmit)="crearRegistro(fRegistro)" #fRegistro="ngForm">
+   <form id="form" (ngSubmit)="crearRegistro(form)" #form="ngForm">
 
     <ion-grid >
       <ion-row>
@@ -46,15 +46,15 @@
           <app-input      name="Abreviacion" type="text"  label='{{"ABREVIATION" | translate }}' ngModel="{{equipo.Abreviacion}}"></app-input>
         </ion-col>
         <ion-col size="12"   >
-          <app-select name="Country_Code"  (ionChange)="geolocalizacionService.onChangeCountries(fRegistro)"     [data]="geolocalizacionService.countries" label='{{"COUNTRY" | translate }}'ngModel="{{geolocalizacionService.Country_Code}}"></app-select>
+          <app-select name="Codigo_Pais"  (ionChange)="geolocalizacionService.onChangeCountries(form)"     [data]="geolocalizacionService.paises" label='{{"COUNTRY" | translate }}'ngModel="{{geolocalizacionService.Codigo_Pais}}"></app-select>
         </ion-col>
-        <ion-col size="12" (ionChange)="geolocalizacionService.onChangeStates(fRegistro)"  *ngIf="geolocalizacionService.states.length > 0" >
-          <app-select name="State_Code" [data]="geolocalizacionService.states" label='{{"STATE" | translate }}' ngModel="{{geolocalizacionService.State_Code}}"></app-select>
+        <ion-col size="12" (ionChange)="geolocalizacionService.onChangeStates(form)"  *ngIf="geolocalizacionService.estados.length > 0" >
+          <app-select name="Codigo_Estado" [data]="geolocalizacionService.estados" label='{{"STATE" | translate }}' ngModel="{{geolocalizacionService.Codigo_Estado}}"></app-select>
         </ion-col>
-        <ion-col size="12"  *ngIf="geolocalizacionService.cities.length > 0" >
-          <app-select (ionChange)="geolocalizacionService.onChangeCities(fRegistro)" name="City_Code" [data]="geolocalizacionService.cities" label='{{"CITY" | translate }}' ngModel="{{geolocalizacionService.City_Code}}"></app-select>
+        <ion-col size="12"  *ngIf="geolocalizacionService.ciudades.length > 0" >
+          <app-select (ionChange)="geolocalizacionService.onChangeCities(form)" name="Codigo_Ciudad" [data]="geolocalizacionService.ciudades" label='{{"CITY" | translate }}' ngModel="{{geolocalizacionService.Codigo_Ciudad}}"></app-select>
         </ion-col>
-        <ion-col size="12" *ngIf="geolocalizacionService.Country_Code && geolocalizacionService.State_Code && geolocalizacionService.City_Code">
+        <ion-col size="12" *ngIf="geolocalizacionService.Codigo_Pais && geolocalizacionService.Codigo_Estado && geolocalizacionService.Codigo_Ciudad">
       
           <app-input name="Codigo_Postal" label='{{"ZIP_CODE" | translate }}' ngModel="{{geolocalizacionService.Codigo_Postal}}"></app-input>
          

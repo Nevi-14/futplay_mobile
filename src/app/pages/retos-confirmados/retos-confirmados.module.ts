@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { RetosConfirmadosPageRoutingModule } from './retos-confirmados-routing.module';
 
 import { RetosConfirmadosPage } from './retos-confirmados.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RetosConfirmadosPageRoutingModule
+    RetosConfirmadosPageRoutingModule,
+    TranslateModule
   ],
   declarations: [RetosConfirmadosPage]
 })

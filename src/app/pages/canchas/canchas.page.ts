@@ -16,9 +16,9 @@ import { FiltroCanchaPage } from '../filtro-cancha/filtro-cancha.page';
 })
 export class CanchasPage implements OnInit {
   filtro ={
-    Cod_Provincia: null,
-    Cod_Canton: null,
-    Cod_Distrito: null,
+    Codigo_Pais: null,
+    Codigo_Estado: null,
+    Codigo_Ciudad: null,
     Cod_Categoria: null
   }
   textoBuscar = '';
@@ -112,15 +112,15 @@ public modalCtrl: ModalController
   
                 const modal  = await this.modalCtrl.create({
                   component: GenerarReservacionPage,
-                  mode:'ios',
-                 cssClass: 'my-custom-class',
+                  cssClass: 'my-custom-class',
+                  mode:'md',
                  componentProps:{
                   rival:null,
                   retador:null,
                   cancha:cancha
             
                  },
-                 id:'my-modal-id'
+ 
                });
                await modal .present();
              }
@@ -132,9 +132,8 @@ public modalCtrl: ModalController
 
                 const modal = await this.modalCtrl.create({
                   component: CanchaDetallePage,
-                  cssClass:'my-custom-modal',
-                  backdropDismiss: true,
-                  animated: true,
+                  cssClass: 'my-custom-class',
+                  mode:'md',
                   componentProps : {
                     cancha:cancha
                   }
@@ -143,7 +142,7 @@ public modalCtrl: ModalController
               
                 });
               
-               modal.present();
+              await modal.present();
             
             
             
@@ -179,7 +178,7 @@ public modalCtrl: ModalController
 
               async filtroUbicacion(){
 
-  
+           
      
                 const modal  = await this.modalCtrl.create({
                  component: FiltroCanchaPage,
@@ -188,9 +187,9 @@ public modalCtrl: ModalController
                  initialBreakpoint: 0.5,
                  id:'my-modal-id',
                  componentProps:{
-                  'Cod_Provincia':this.filtro.Cod_Provincia, 
-                  'Cod_Canton':this.filtro.Cod_Canton, 
-                  'Cod_Distrito':this.filtro.Cod_Distrito , 
+                  'Codigo_Pais':this.filtro.Codigo_Pais, 
+                  'Codigo_Estado':this.filtro.Codigo_Estado, 
+                  'Codigo_Ciudad':this.filtro.Codigo_Ciudad , 
                   'Cod_Categoria':this.filtro.Cod_Categoria 
                  }
                });
@@ -199,9 +198,9 @@ public modalCtrl: ModalController
                const { data } = await modal.onWillDismiss();
              console.log(data, 'filto return')
                if(data !== undefined ){
-                this.filtro.Cod_Provincia = data.Cod_Provincia;
-                this.filtro.Cod_Canton = data.Cod_Canton;
-                this.filtro.Cod_Distrito = data.Cod_Distrito;
+                this.filtro.Codigo_Pais = data.Codigo_Pais;
+                this.filtro.Codigo_Estado = data.Codigo_Estado;
+                this.filtro.Codigo_Ciudad = data.Codigo_Ciudad;
                 this.filtro.Cod_Categoria = data.Cod_Categoria;
               
             

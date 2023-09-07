@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { CategoriaCanchasService } from '../../services/categoria-canchas.service';
 import { ModalController } from '@ionic/angular';
 import { CanchasService } from '../../services/canchas.service';
+import { GeolocalizacionService } from 'src/app/services/geolocalizacion.service';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -10,27 +12,37 @@ import { CanchasService } from '../../services/canchas.service';
   styleUrls: ['./filtro-cancha.page.scss'],
 })
 export class FiltroCanchaPage implements OnInit {
-  @Input() Cod_Provincia:number;
-  @Input() Cod_Canton:number;
-  @Input() Cod_Distrito:number;
+  @Input() Codigo_Pais:number;
+  @Input() Codigo_Estado:number;
+  @Input() Codigo_Ciudad:number;
   @Input() Cod_Categoria:number;
+  categorias  = [];
   filtro ={
-    Cod_Provincia: null,
-    Cod_Canton: null,
-    Cod_Distrito: null,
+    Codigo_Pais: null,
+    Codigo_Estado: null,
+    Codigo_Ciudad: null,
     Cod_Categoria: null
   }
   constructor(
     public categoriasCanchasService:CategoriaCanchasService,
     public modalCtrl: ModalController ,
-    public canchasService:CanchasService
+    public canchasService:CanchasService,
+    public geolocalizacionService:GeolocalizacionService
 
   ) { }
 
   ngOnInit() {
+    this.geolocalizacionService.loadCountries(); 
 
-
- 
+ this.categoriasCanchasService.syncCategoriaCanchasToPromise().then(categorias=>{
+    categorias.forEach(categoria => {
+      let cat = {
+        id: categoria.Cod_Categoria,
+        valor:categoria.Nombre
+      }
+      this.categorias.push(cat)
+    })
+ })
   }
 
 
@@ -38,14 +50,14 @@ export class FiltroCanchaPage implements OnInit {
 
   onChangeDistritos($event){
 
-    this.filtro.Cod_Distrito = $event.target.value;
+    this.filtro.Codigo_Pais = $event.target.value;
 
   }
   limpiarDatos(){
     this.filtro ={
-      Cod_Provincia: null,
-      Cod_Canton: null,
-      Cod_Distrito: null,
+      Codigo_Pais: null,
+      Codigo_Estado: null,
+      Codigo_Ciudad: null,
       Cod_Categoria: null
     }
     this.canchasService.syncListaCanchasToPromise().then(canchas=>{
@@ -57,9 +69,14 @@ export class FiltroCanchaPage implements OnInit {
   onOpenMenu(cancha){
 
   }
-  submit(){
+  consultarFiltro(form:NgForm){
     //this.cerrarModal();
-
+    let data  = form.value;
+    console.log(data,'data')
+    this.filtro.Codigo_Pais = data.Codigo_Pais;
+    this.filtro.Codigo_Estado = data.Codigo_Estado;
+    this.filtro.Codigo_Ciudad = data.Codigo_Ciudad;
+    this.filtro.Cod_Categoria = data.Cod_Categoria;
     this.canchasService.syncFintroListaCanchasToPromise(this.filtro).then(canchas=>{
 
       this.canchasService.canchas = canchas;
@@ -71,9 +88,9 @@ export class FiltroCanchaPage implements OnInit {
     console.log(this.filtro,'cerrar fil')
     this.modalCtrl.dismiss({
 
-      'Cod_Provincia':this.filtro.Cod_Provincia,
-      'Cod_Canton':this.filtro.Cod_Canton,
-      'Cod_Distrito':this.filtro.Cod_Distrito,
+      'Codigo_Pais':this.filtro.Codigo_Pais,
+      'Codigo_Estado':this.filtro.Codigo_Estado,
+      'Codigo_Ciudad':this.filtro.Codigo_Ciudad,
       'Cod_Categoria':this.filtro.Cod_Categoria
     });
   }

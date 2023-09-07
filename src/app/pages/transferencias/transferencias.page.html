@@ -9,7 +9,7 @@
     
   </ion-toolbar>
  
-  <ion-segment mode="md" value="received" (ionChange)="segmentChanged($event)">
+  <ion-segment mode="md" [(ngModel)]="segment" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="received">
       <ion-label>{{"RECEIVED" | translate }}</ion-label>
     </ion-segment-button>
@@ -25,21 +25,41 @@
   <ion-list>
     <ion-item  *ngIf="solicitudes.length == 0"    lines="none"
     class="animate__animated animate__fadeIn">
-    <span slot="start">
+    <span  >
       <ion-avatar>
         <img src="assets/logo.png" alt="">
       </ion-avatar>
   
   
-      <ion-label>
-  
-     <h6><strong>{{"FUTPLAY_MESSAGE" | translate }}</strong> </h6>
-          <p>{{"NO_RECORDS_FOUND" | translate }}</p>
-  
-      </ion-label>
+<div>
+  <h2>{{"FUTPLAY_MESSAGE" | translate }} </h2>
+  <p>{{"NO_RECORDS_FOUND" | translate }}</p>
+
+</div>
     </span>
   
   
+    </ion-item>
+
+    <ion-item (click)="onOpenMenu(solicitud)" lines="full" class="animate__animated animate__fadeIn" *ngFor="let solicitud of solicitudes">
+      
+<span>
+  <ion-avatar   >
+    <img *ngIf="!solicitud.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+solicitud.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+
+    <img *ngIf="solicitud.usuario.Avatar"src="assets/profile/avatars/{{solicitud.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
+
+  </ion-avatar>
+
+
+
+ 
+<div>
+
+  <h2>    {{solicitud.usuario.Nombre}} {{solicitud.usuario.Primer_Apellido}}</h2>
+</div>
+</span>
+
     </ion-item>
    </ion-list>
 

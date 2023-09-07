@@ -141,11 +141,11 @@
         
     <ion-col  size="6" style="display: grid;place-content: center;">
 
-      <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="reto.rival.Avatar" [ngClass]="usuarioService.usuarioActual.Cod_Usuario == reto.rival.Cod_Usuario ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
+      <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="reto.rival.Avatar" [ngClass]="usuariosService.usuarioActual.usuario.Cod_Usuario == reto.rival.Cod_Usuario ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
         <img  style="height: 6rem; width: 6rem;"  src="{{'assets/soccer-shields-svg/'+reto.rival.Foto}}" alt="" onerror="this.src='assets/img/icon/FP.svg'">
       </ion-avatar>
   
-      <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="!reto.rival.Avatar" [ngClass]="usuarioService.usuarioActual.Cod_Usuario == reto.rival.Cod_Usuario ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
+      <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="!reto.rival.Avatar" [ngClass]="usuariosService.usuarioActual.usuario.Cod_Usuario == reto.rival.Cod_Usuario ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
         <img  style="height: 6rem; width: 6rem;"  src="{{'https://futplaycompany.com/api_test/'+reto.rival.Foto}}" onerror="this.src='assets/img/icon/FP.svg'" alt="" onerror="this.src='assets/img/icon/FP.svg'">
       </ion-avatar>
   
@@ -184,11 +184,11 @@
 
     <ion-col size="6" style="display: grid;place-content: center;">
       
-      <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="reto.retador.Avatar" [ngClass]="usuarioService.usuarioActual.Cod_Usuario == reto.rival.Cod_Usuario ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
+      <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="reto.retador.Avatar" [ngClass]="usuariosService.usuarioActual.usuario.Cod_Usuario == reto.rival.Cod_Usuario ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
         <img  style="height: 6rem; width: 6rem;"  src="{{'assets/soccer-shields-svg/'+reto.retador.Foto}}" alt="" onerror="this.src='assets/img/icon/FP.svg'">
       </ion-avatar>
   
-      <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="!reto.retador.Avatar" [ngClass]="usuarioService.usuarioActual.Cod_Usuario == reto.retador.Cod_Usuario  ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
+      <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="!reto.retador.Avatar" [ngClass]="usuariosService.usuarioActual.usuario.Cod_Usuario == reto.retador.Cod_Usuario  ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
         <img  style="height: 6rem; width: 6rem;"  src="{{'https://futplaycompany.com/api_test/'+reto.retador.Foto}}" alt="" onerror="this.src='assets/img/icon/FP.svg'">
       </ion-avatar>
   
@@ -242,11 +242,11 @@
  
     <ion-col size="6" style="display: grid;place-content: center;">
           
-      <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="reto.retador.Avatar" [ngClass]="usuarioService.usuarioActual.Cod_Usuario == reto.rival.Cod_Usuario ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
+      <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="reto.retador.Avatar" [ngClass]="usuariosService.usuarioActual.usuario.Cod_Usuario == reto.rival.Cod_Usuario ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
         <img  style="height: 6rem; width: 6rem;"  src="{{'assets/soccer-shields-svg/'+reto.retador.Foto}}" alt="" onerror="this.src='assets/img/icon/FP.svg'">
       </ion-avatar>
     
-      <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="!reto.retador.Avatar" [ngClass]="usuarioService.usuarioActual.Cod_Usuario == reto.retador.Cod_Usuario  ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
+      <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="!reto.retador.Avatar" [ngClass]="usuariosService.usuarioActual.usuario.Cod_Usuario == reto.retador.Cod_Usuario  ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
         <img  style="height: 6rem; width: 6rem;"  src="{{'https://futplaycompany.com/api_test/'+reto.retador.Foto}}" alt="" onerror="this.src='assets/img/icon/FP.svg'">
       </ion-avatar>
     
@@ -284,11 +284,11 @@
 
     <ion-col  size="6" style="display: grid;place-content: center;">
     
-      <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="reto.rival.Avatar" [ngClass]="usuarioService.usuarioActual.Cod_Usuario == reto.rival.Cod_Usuario ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
+      <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="reto.rival.Avatar" [ngClass]="usuariosService.usuarioActual.usuario.Cod_Usuario == reto.rival.Cod_Usuario ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
         <img  style="height: 6rem; width: 6rem;"  src="{{'assets/soccer-shields-svg/'+reto.rival.Foto}}" alt="" onerror="this.src='assets/img/icon/FP.svg'">
       </ion-avatar>
   
-      <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="!reto.rival.Avatar" [ngClass]="usuarioService.usuarioActual.Cod_Usuario == reto.rival.Cod_Usuario ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
+      <ion-avatar style="height: auto; width: auto;" class="ion-text-center"  *ngIf="!reto.rival.Avatar" [ngClass]="usuariosService.usuarioActual.usuario.Cod_Usuario == reto.rival.Cod_Usuario ? 'pick-avatar-seleccionado':  'pick-avatar'"   style="height: auto; width: auto;" class="ion-text-center">
         <img  style="height: 6rem; width: 6rem;"  src="{{'https://futplaycompany.com/api_test/'+reto.rival.Foto}}" onerror="this.src='assets/img/icon/FP.svg'" alt="" onerror="this.src='assets/img/icon/FP.svg'">
       </ion-avatar>
   

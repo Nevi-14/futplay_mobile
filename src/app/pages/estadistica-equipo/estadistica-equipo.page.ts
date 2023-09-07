@@ -22,7 +22,7 @@ public jugadoresService:JugadoresService
   ) { }
 
   ionViewWillEnter() {
-console.log('equipo', this.equipo)
+ 
  this.jugadoresService.syncJugadoresEquipos(this.equipo.Cod_Equipo).then(jugadores =>{
   console.log('jugadores', jugadores)
   for (let i = 0 ; i < jugadores.length; i++){

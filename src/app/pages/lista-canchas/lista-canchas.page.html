@@ -46,8 +46,9 @@
 
  
 
-      <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"    (click)="retornarCancha(cancha)" *ngFor="let cancha of canchasService.canchas | filtro: textoBuscar:'nombre'" >
+      <ion-item lines="full" class="employeeItem  animate__animated animate__fadeIn"    (click)="retornarCancha(cancha)" *ngFor="let cancha of canchasService.canchas | filtro: textoBuscar:'nombre'" >
 
+       <span>
         <ion-avatar slot="start">
           <img  src="{{'https://futplaycompany.com/api_test/'+cancha.cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">
   
@@ -56,15 +57,16 @@
 
 
       
-        <ion-label>
-          <h2>{{cancha.cancha.Nombre}} <ion-badge color="dark" mode="ios">₡ {{cancha.cancha.Precio_Hora}}</ion-badge></h2>
+        <div>
+          <h2>{{cancha.cancha.Nombre}} <ion-badge color="dark" mode="ios">  {{cancha.cancha.Precio_Hora | colones }}</ion-badge></h2>
           <p   >
                
             Categoria <ion-badge color="warning" mode="ios">{{cancha.categoria}}</ion-badge>
       
           </p>
           <p>{{cancha.pais}},       {{cancha.estado}} ...</p>
-        </ion-label>
+        </div>
+       </span>
   
       </ion-item>
     </ion-list>

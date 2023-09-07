@@ -284,7 +284,11 @@ export class UsuariosService {
 
   private getFiltroUsuarios(filtro: any) {
     let URL = this.getURL(environment.getFiltroUsuariosURL);
-    URL = URL + filtro.Cod_Provincia + '/' + filtro.Cod_Canton + '/' + filtro.Cod_Distrito + '/' + filtro.Cod_Posicion
+    let Codigo_Pais = filtro.Codigo_Pais ? filtro.Codigo_Pais : null;
+    let Codigo_Estado = filtro.Codigo_Estado ? filtro.Codigo_Estado : null;
+    let Codigo_Ciudad = filtro.Codigo_Ciudad ? filtro.Codigo_Ciudad : null;
+    let Codigo_Posicion = filtro.Codigo_Posicion ? filtro.Codigo_Posicion : null;
+ URL = URL+ Codigo_Pais +'/'+Codigo_Estado+'/'+Codigo_Ciudad+'/'+Codigo_Posicion
     return this.http.get<PerfilUsuario[]>(URL);
   }
 
@@ -321,7 +325,7 @@ export class UsuariosService {
 
 
 
-  syncfiltrarUsuarios(filtro: any) {
+  syncfiltrarUsuariosToPromise(filtro: any) {
 
     return this.getFiltroUsuarios(filtro).toPromise();
 
@@ -479,13 +483,13 @@ export class UsuariosService {
 
         this.usuarioActual = resp[0];
         geolocalizacion.Cod_Usuario = resp[0].Cod_Usuario;
-        geolocalizacion.Codigo_Pais = this.geolocalizacionService.Country_Code;
-        console.log('isoindex', this.geolocalizacionService.countries)
-        let indexPais = this.geolocalizacionService.countries.findIndex(e => e.id == this.geolocalizacionService.Country_Code);
+        geolocalizacion.Codigo_Pais = this.geolocalizacionService.Codigo_Pais;
+        console.log('isoindex', this.geolocalizacionService.paises)
+        let indexPais = this.geolocalizacionService.paises.findIndex(e => e.id == this.geolocalizacionService.Codigo_Pais);
         console.log('indexPais',indexPais)
         if(indexPais >=0){
-          console.log(this.geolocalizacionService.countries[indexPais].valor,'valoooor')
-          geolocalizacion.Pais = this.geolocalizacionService.countries[indexPais].valor;
+          console.log(this.geolocalizacionService.paises[indexPais].valor,'valoooor')
+          geolocalizacion.Pais = this.geolocalizacionService.paises[indexPais].valor;
         }
         this.usuariosGeolocalizacionService.syncPostUsuarioGeolocalizacionToPromise(geolocalizacion).then( resp =>{
           this.alertasService.loadingDissmiss();

@@ -2,7 +2,9 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IAPProduct, InAppPurchase2 } from '@ionic-native/in-app-purchase-2/ngx';
 import { AlertController, ModalController, Platform } from '@ionic/angular';
+import { error } from 'console';
 import { format } from 'date-fns';
+import { element } from 'protractor';
 import { DetalleReservaciones } from 'src/app/models/detalleReservaciones';
 import { PerfilCancha } from 'src/app/models/perfilCancha';
 import { PerfilEquipos } from 'src/app/models/perfilEquipos';
@@ -10,6 +12,7 @@ import { Reservaciones } from 'src/app/models/reservaciones';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { EmailService } from 'src/app/services/email.service';
 import { ReservacionesService } from 'src/app/services/reservaciones.service';
+import { StripeService } from 'src/app/services/stripe.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 const PRODUCT_GEMS_KEY = 'futplay.dev.coding';
@@ -42,13 +45,14 @@ export class FinalizarReservacionPage implements OnInit {
     public emailService:EmailService,
     public usuariosService:UsuariosService,
     public router:Router,
-    public reservacionesService:ReservacionesService
+    public reservacionesService:ReservacionesService,
+    public stripeService:StripeService
     ) {
     this.plt.ready().then(() => {
       // Only for debugging!
       this.store.verbosity = this.store.DEBUG;
 
-      this.registerProducts();
+   
       this.setupListeners();
 
       // Get the real product information
@@ -61,19 +65,7 @@ export class FinalizarReservacionPage implements OnInit {
     });
   }
 
-  registerProducts() {
-    this.store.register({
-      id: PRODUCT_GEMS_KEY,
-      type: this.store.NON_CONSUMABLE,
-    });
-
-    this.store.register({
-      id: PRODUCT_PRO_KEY,
-      type: this.store.NON_CONSUMABLE,
-    });
-
-    this.store.refresh();
-  }
+ 
 
   setupListeners() {
     // General query to all products
@@ -143,8 +135,26 @@ export class FinalizarReservacionPage implements OnInit {
 
   
  enviarReto(){
-
-
+// items only accepts an array of sku/plans and quantiy  for pricing use lineItems
+/**
+ *  this.stripeService.redirectToCheckout({
+    lineItems: [{
+  amount: 1000,
+      currency: 'usd'
+    }
+  }],
+  mode:'payment',
+  successUrl: "https://www.website.com/success",
+  cancelUrl: "https://www.website.com/canceled",
+  })
+ */
+ 
+  this.stripeService.createPaymentIntent(100,'usd').subscribe(resp =>{
+    console.log('resp', resp)
+  }, err =>{
+    console.log('err', err)
+  })
+return
  if(this.actualizar){
 // this.alertasService.message('FUTPLAY','La reservación se guardo con exito!.')
   //if(this.detalleReservacion.Reservacion_Grupal) this.rival = this.retador;

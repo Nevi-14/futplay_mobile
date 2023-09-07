@@ -46,7 +46,7 @@ export class GenerarReservacionPage {
     Cod_Reservacion:null,
     Cod_Cancha: null,
     Cod_Moneda:1,
-    Cod_Tipo:3,
+    Cod_Tipo:1,
     Cod_Usuario: this.usuariosService.usuarioActual.Cod_Usuario,
     Reservacion_Externa: false,
     Titulo: '',
@@ -59,9 +59,7 @@ export class GenerarReservacionPage {
   }
   selectedDate: string;
   selectedTime: string;
-   
-  startTime: string;
-  endTime: string;
+
   
   detalleReservacion: DetalleReservaciones = {
     Cod_Detalle: null,
@@ -93,7 +91,7 @@ export class GenerarReservacionPage {
   isModalOpen: boolean = false;
   fecha: string = new Date(format(new Date(), 'yyy/MM/dd')).toISOString();
   fechaMinima = new Date(format(new Date(), 'yyy/MM/dd')).toISOString();
-showPicker = false;
+
   constructor(
     public modalCtrl: ModalController,
     public usuariosService: UsuariosService,
@@ -128,7 +126,7 @@ showPicker = false;
       Cod_Reservacion:null,
     Cod_Cancha: null,
     Cod_Moneda:1,
-    Cod_Tipo:3,
+    Cod_Tipo:1,
     Cod_Usuario: this.usuariosService.usuarioActual.Cod_Usuario,
     Reservacion_Externa: false,
     Titulo: '',
@@ -184,7 +182,7 @@ showPicker = false;
       const modal = await this.modalCtrl.create({
         component: ListaEquiposPage,
         cssClass: 'my-custom-modal',
-        mode: 'md',
+        mode: 'ios',
         componentProps: {
           rival: true
         }
@@ -208,6 +206,7 @@ showPicker = false;
   async tipoReto() {
     const alert = await this.alertCtrl.create({
       header: 'FUTPLAY',
+      subHeader:'Seleccionar el tipo de reto',
       buttons: [
         {
           text: 'Cancel',
@@ -253,7 +252,8 @@ showPicker = false;
       this.isModalOpen = true;
       const modal = await this.modalCtrl.create({
         component: CanchaDetallePage,
-        mode: 'md',
+        cssClass: 'my-custom-class',
+        mode: 'ios',
         componentProps: {
           cancha: this.cancha,
           reservar: false
@@ -273,7 +273,8 @@ showPicker = false;
       this.isModalOpen = true;
       const modal = await this.modalCtrl.create({
         component: ListaEquiposPage,
-        mode: 'md',
+        cssClass: 'my-custom-modal',
+        mode: 'ios',
         componentProps: {
           rival: false
         }
@@ -321,9 +322,16 @@ showPicker = false;
 
       data = this.gestionReservacionesService.horaFinArray
     }
- 
+
+    console.log(this.gestionReservacionesService.horaInicioArray, 'horaInicioArray')
+
+    console.log(this.gestionReservacionesService.horaFinArray, 'horaFinArray')
+    // no olvidar +1
+    let horaActual = new Date(this.nuevaReservacion.Fecha).getHours() + 1;
+    let hora = index == 1 ? horaActual : new Date(this.nuevaReservacion.Hora_Inicio).getHours() == 23 ? 0 : new Date(this.nuevaReservacion.Hora_Inicio).getHours() + 1;
     let options = [];
-  
+    let end = index == 2 && horaActual == 23 ? 1 : 24;
+
     let inicio = index == 2 ? new Date(this.nuevaReservacion.Hora_Inicio).getHours() + 1 : data[0].id;
     let fin = data[data.length - 1].id + 1;
 
@@ -334,15 +342,18 @@ showPicker = false;
       if (indexH >= 0) {
         let option1 = {
           text: `${(String(data[indexH].id % 12 || 12)).padStart(2, '0')} : 00 :  ${AmOrPm}`,
-          value: `${this.agregarHoras(i,0)}`
+          value: `${this.agregarHoras(i,0)}`,
         }
-       
-        options.push(option1)
+        let option2 = {
+          text: `${(String(data[indexH].id % 12 || 12)).padStart(2, '0')} : 30 :  ${AmOrPm}`,
+          value: `${this.agregarHoras(i,30)}`,
+        }
+        options.push(option1,option2)
       }
 
       if (i == fin - 1) {
         const picker = await this.pickerCtrl.create({
-          mode:'ios',
+          mode:'md',
           columns: [
             {
               name: 'hora',
@@ -375,24 +386,15 @@ showPicker = false;
                 this.detalleReservacion.Total_Horas =  (totalHoras / 60) / 60
                 }
                 this.cd.detectChanges();
-                
               },
 
 
             },
           ],
         });
-      //  await picker.present();
-if(!this.showPicker){
-this.showPicker = true;
-await picker.present();
-const {data} = await picker.onDidDismiss();
-this.showPicker = false;    
-}
-      console.log('options', options)
-   
+
+        await picker.present();
       }
-      
     }
 
 

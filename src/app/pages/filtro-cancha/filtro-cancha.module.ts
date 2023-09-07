@@ -8,6 +8,8 @@ import { FiltroCanchaPageRoutingModule } from './filtro-cancha-routing.module';
 
 import { FiltroCanchaPage } from './filtro-cancha.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { PipesModule } from 'src/app/pipes/pipes.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +17,9 @@ import { ComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     IonicModule,
     FiltroCanchaPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    PipesModule,
+    TranslateModule
   ],
   declarations: [FiltroCanchaPage]
 })

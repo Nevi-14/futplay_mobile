@@ -92,7 +92,7 @@ this.cargarDatosUsuario();
           component: UsuarioGeolocalizacionPage,
           backdropDismiss:false,
           cssClass:'alert-modal',
-          mode:'ios', 
+          mode:'md', 
           componentProps:{
             usuarioGeolocalizacion:this.usuarioGeolocalizacion
           }
@@ -154,7 +154,7 @@ return age;
       const modal = await this.modalCtrl.create({
         component: SolicitudesJugadoresPage,
         cssClass:'alert-modal',
-        mode:'ios', 
+        mode:'md', 
     
       });
       this.modalOpen = true;

@@ -4,19 +4,21 @@
 
 <ion-content>
 
-  <ion-slides pager="ios" class="slide-full" >
-    <ion-slide *ngFor="let slide of slides">
+  <swiper-container style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="mySwiper"
+  thumbs-swiper=".mySwiper2" space-between="10" navigation="true">
+  <swiper-slide *ngFor="let slide of slides">
     <ion-card mode="ios">
-      <img [src]="slide.img" class="slide-image" alt="">
+    <img [src]="slide.img" class="slide-image" alt="">
 
-      <ion-card-content>
- <ion-label class="ion-text-uppercase"> {{slide.desc}}</ion-label>
-       
-      </ion-card-content>
+    <ion-card-content>
+<ion-label class="ion-text-uppercase"> {{slide.desc}}</ion-label>
+     
+    </ion-card-content>
 
-    </ion-card>
-    </ion-slide>
+  </ion-card>
+  </swiper-slide>
 
+  </swiper-container>
 
-  </ion-slides>
+ 
 </ion-content>

@@ -103,7 +103,7 @@ await this.partidosService.syncPutPartidoCodigoQR(partido[1]);
     const modal  = await this.modalCtrl.create({
       component: CanchasPage,
      cssClass: 'my-custom-class',
-     mode:'md',
+     mode:'ios',
      componentProps:{
       rival:null,
       retador:null,

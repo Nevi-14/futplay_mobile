@@ -38,6 +38,7 @@ export class AceptarRetoAbiertoPage implements OnInit {
    indexRival:number = null;
    unirseAlReto:boolean = false;
    total:number = 0;
+   danger='danger'
     constructor(
       public modalCtrl:ModalController,
       public canchasService: CanchasService,
@@ -60,6 +61,8 @@ export class AceptarRetoAbiertoPage implements OnInit {
   
   
     async finalizarReservacion() {
+    
+      
 
       let cancha = await this.canchasService.syncGetPerfilCanchaToPromise(this.reto.cancha.Cod_Cancha);
       let rival = await this.equiposService.syncGetPerfilEquipoToPromise(this.rival.equipo.Cod_Equipo);

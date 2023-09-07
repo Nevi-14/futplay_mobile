@@ -18,18 +18,17 @@
    
 
     <ion-col size="{{avatars ? 12 : 12}}" class="ion-text-center">
-      <ion-slides *ngIf="avatars" mode="ios"    (ionSlideDidChange)="slideChange()"  [options]="avatarSlide" >
-      <ion-slide  *ngFor="let img of imgs; let i = index;">
-      <ion-img  class="pick-avatar" 
-              src="assets/soccer-shields-svg/{{img.img}}"
-              [ngClass]="{'pick-avatar-seleccionado': img.seleccionado}" (click)="seleccionarAvatar(img, i)"></ion-img>
-      
-      
-      
-      
-      </ion-slide>
-      </ion-slides>
-
+ 
+      <swiper-container *ngIf="avatars" class="mySwiper" navigation="true"   (ionSlideDidChange)="slideChange()">
+        <swiper-slide  *ngFor="let img of imgs; let i = index;">
+          <ion-img  class="pick-avatar" 
+          src="assets/soccer-shields-svg/{{img.img}}"
+          [ngClass]="{'pick-avatar-seleccionado': img.seleccionado}" (click)="seleccionarAvatar(img, i)"></ion-img>
+  
+  
+        </swiper-slide>
+    
+      </swiper-container>
    
       <img *ngIf="!equipo.Avatar && !avatars && gestorEquiposImagenesService.images.length == 0 && !gestorEquiposImagenesService.avatarActual " class="logo"  data-src= "{{'https://futplaycompany.com/api_test/'+equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"    alt="">
 

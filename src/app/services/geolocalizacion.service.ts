@@ -11,14 +11,13 @@ interface valores {
   providedIn: 'root'
 })
 export class GeolocalizacionService {
-  countries:valores[] = [];
-  states:valores[] = [];
-  cities:valores[] = [];
-  Zip_Code = [];
-  Country_Code = '';
-  State_Code = '';
-  City_Code = '';
-  Codigo_Postal = '';
+  paises:valores[] = [];
+  estados:valores[] = [];
+  ciudades:valores[] = [];
+  Codigo_Postal = [];
+  Codigo_Pais = '';
+  Codigo_Estado = '';
+  Codigo_Ciudad = '';
   constructor(
 public alertasService:AlertasService,
 public http: HttpClient
@@ -33,7 +32,7 @@ public http: HttpClient
           id: pais.iso2,
           valor: pais.name
         }
-this.countries.push(data)
+this.paises.push(data)
 
       })
     })
@@ -49,6 +48,8 @@ this.countries.push(data)
           'X-CSCAPI-KEY': 'V1Fub3lWNW1zWk12TjhGdjZBMUxkSGp0b3dwaHdNaWJLekVhajFndA=='  
 }
     };
+
+ 
     return this.http.get( URL, options);
   }
 
@@ -56,7 +57,7 @@ this.countries.push(data)
 
 
 private getStates(){
-  let URL = `https://api.countrystatecity.in/v1/countries/${this.Country_Code}/states`;
+  let URL = `https://api.countrystatecity.in/v1/countries/${this.Codigo_Pais}/states`;
   URL = URL 
   const options = {
     headers: {
@@ -71,7 +72,7 @@ private getStates(){
 }
 
 private getCities(){
-  let URL = `https://api.countrystatecity.in/v1/countries/${this.Country_Code}/states/${this.State_Code}/cities`;
+  let URL = `https://api.countrystatecity.in/v1/countries/${this.Codigo_Pais}/states/${this.Codigo_Estado}/cities`;
   URL = URL 
   const options = {
     headers: {
@@ -98,7 +99,7 @@ loadStates(){
         id: state.iso2,
         valor: state.name
       }
-this.states.push(data)
+this.estados.push(data)
 if(index == states.length -1){
   this.alertasService.loadingDissmiss();
 }
@@ -117,10 +118,10 @@ loadCities(){
     }
     cities.forEach( (city, index) =>{
       let data = {
-        id: city.iso2,
+        id: city.id,
         valor: city.name
       }
-this.cities.push(data)
+this.ciudades.push(data)
 if(index == cities.length -1){
   this.alertasService.loadingDissmiss();
 }
@@ -129,27 +130,27 @@ if(index == cities.length -1){
   })
 }
 
-async onChangeCountries(fRegistro: NgForm) {
-  let registro = fRegistro.value;
-   this.Country_Code = registro.Country_Code;
-   this.State_Code = null;
+async onChangeCountries(form: NgForm) {
+  let registro = form.value;
+   this.Codigo_Pais = registro.Codigo_Pais;
+   this.Codigo_Estado = null;
    this.Codigo_Postal  = null;
-   this.states = [];
+   this.estados = [];
    this.loadStates();
 
 }
-onChangeStates(fRegistro: NgForm) {
-  let registro = fRegistro.value;
-  this.State_Code = registro.State_Code;
-  this.cities = [];
-  this.City_Code = null;
+onChangeStates(form: NgForm) {
+  let registro = form.value;
+  this.Codigo_Estado = registro.Codigo_Estado;
+  this.ciudades = [];
+  this.Codigo_Ciudad = null;
   this.Codigo_Postal  = null;
  this.loadCities();
 
 }
-onChangeCities(fRegistro: NgForm) {
-  let registro = fRegistro.value;
-  this.City_Code = registro.City_Code;
+onChangeCities(form: NgForm) {
+  let registro = form.value;
+  this.Codigo_Ciudad = registro.Codigo_Ciudad;
   this.Codigo_Postal  = null;
 
 }

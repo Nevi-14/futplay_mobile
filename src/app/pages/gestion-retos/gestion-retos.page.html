@@ -6,7 +6,7 @@
         <ion-icon size="large" name="close-outline"></ion-icon>
       </ion-button>
 
-      <ion-title>Gestion Retos</ion-title>
+      <ion-title>{{"CHALLENGE_MANAGEMENT" | translate }}</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -20,21 +20,21 @@
       <ion-segment mode="md" value="down">
         <ion-segment-button (click)="redirigir('/gestion-retos/retos-recibidos')" value="down">
           <ion-icon name="arrow-down-outline"></ion-icon>
-          <ion-label>Recibidos</ion-label>
+          <ion-label>{{"RECEIVED" | translate }}</ion-label>
 
         </ion-segment-button>
 
         <ion-segment-button (click)="redirigir('/gestion-retos/retos-enviados')" value="up">
           <ion-icon name="arrow-up-outline"></ion-icon>
-          <ion-label>Enviados</ion-label>
+          <ion-label>{{"SENT" | translate }}</ion-label>
         </ion-segment-button>
         <ion-segment-button (click)="redirigir('/gestion-retos/retos-confirmados')" value="checkmark">
           <ion-icon name="checkmark-outline"></ion-icon>
-          <ion-label>Confirmado</ion-label>
+          <ion-label>{{"CONFIRMED" | translate }}</ion-label>
         </ion-segment-button>
         <ion-segment-button value="calendar" (click)="redirigir('/gestion-retos/historial-retos')">
           <ion-icon name="calendar-outline"></ion-icon>
-          <ion-label>Historial</ion-label>
+          <ion-label>{{"HISTORY" | translate }}</ion-label>
         </ion-segment-button>
       </ion-segment>
     </ion-toolbar>

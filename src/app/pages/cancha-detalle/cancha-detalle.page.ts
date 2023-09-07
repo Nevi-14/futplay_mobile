@@ -57,14 +57,13 @@ async canchaReservacion(cancha){
   this.regresar()
   const modal  = await this.modalCtrl.create({
     component: GenerarReservacionPage,
-   cssClass: 'my-custom-class',
+mode:'md',
    componentProps:{
     rival:null,
     retador:null,
     cancha:cancha
 
    },
-   id:'my-modal-id'
  });
  await modal .present();
  }

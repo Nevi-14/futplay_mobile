@@ -7,7 +7,6 @@ import { EquiposService } from '../../services/equipos.service';
 import { PerfilUsuario } from '../../models/perfilUsuario';
 import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
 import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
-import { SolicitudesEquiposPage } from '../solicitudes-equipos/solicitudes-equipos.page';
  
 import { VideoScreenPage } from '../video-screen/video-screen.page';
 import { Solicitudes } from '../../models/solicitudes';
@@ -22,9 +21,10 @@ import { AlertasService } from '../../services/alertas.service';
 })
 export class BuscarJugadoresPage implements OnInit {
   filtro ={
-    Cod_Provincia: null,
-    Cod_Canton: null,
-    Cod_Distrito:null
+    Codigo_Pais: null,
+    Codigo_Estado: null,
+    Codigo_Ciudad:null,
+    Codigo_Posicion:null
   }
   textoBuscar = '';
   stadiumProfile =  'assets/main/game-match.svg';
@@ -159,16 +159,16 @@ export class BuscarJugadoresPage implements OnInit {
               
           async filtroUbicacion(){
 
-  
-     
+            
             const modal  = await this.modalCtrl.create({
              component: FiltroUsuariosPage,
              breakpoints: [0, 0.3, 0.5, 0.8],
              initialBreakpoint: 0.5,
              componentProps : {
-              'Cod_Provincia': this.filtro.Cod_Provincia,
-              'Cod_Canton': this.filtro.Cod_Canton,
-              'Cod_Distrito': this.filtro.Cod_Distrito
+              'Codigo_Pais': this.filtro.Codigo_Pais,
+              'Codigo_Estado': this.filtro.Codigo_Estado,
+              'Codigo_Ciudad': this.filtro.Codigo_Ciudad,
+              'Codigo_Posicion': this.filtro.Codigo_Posicion
              },
              cssClass: 'my-custom-class',
              id:'my-modal-id'
@@ -176,13 +176,12 @@ export class BuscarJugadoresPage implements OnInit {
            await modal .present();
 
            const { data } = await modal.onWillDismiss();
-         console.log(data)
-           if(data !== undefined ){
-        
-            this.filtro.Cod_Provincia = data.Cod_Provincia;
-            this.filtro.Cod_Canton = data.Cod_Canton;
-            this.filtro.Cod_Distrito = data.Cod_Distrito;
-        
+
+           if(data !== undefined ){ 
+            this.filtro.Codigo_Pais = data.Codigo_Pais;
+            this.filtro.Codigo_Estado = data.Codigo_Estado;
+            this.filtro.Codigo_Ciudad = data.Codigo_Ciudad;
+            this.filtro.Codigo_Posicion = data.Codigo_Posicion
            }
          }
 

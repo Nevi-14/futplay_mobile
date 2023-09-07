@@ -10,20 +10,23 @@
   
  </ion-header>
 
- <ion-header mode="ios">
-  <ion-toolbar>
-   <h3>{{"TEAM" | translate }} : {{equipo.Nombre ? equipo.Nombre : equipo.nombre}}</h3>
-   <ion-avatar slot="end"   >
-    <img class="picture-img" *ngIf="!equipo.Avatar"  src="https://futplaycompany.com/api_test/{{equipo.Foto}}"  onerror="this.src='assets/img/icon/FP.svg'"   onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-
-    <img class="picture-img"  *ngIf="equipo.Avatar"  src="../assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-  </ion-avatar>
-   </ion-toolbar>
-</ion-header>
+ 
     <ion-content fullscreen>
  
-        <ion-list >
+      <ion-avatar   style="height: 12rem;width:12rem;margin:0 auto;margin-top: 2rem;">
+            
+      
+     
+        <img *ngIf="!equipo.Avatar" class="logo" data-src="{{'https://futplaycompany.com/api_test/'+equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   >
+        <img *ngIf="equipo.Avatar" src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"    alt="">
+    
+    
 
+        </ion-avatar>
+        <ion-list >
+    <ion-list-header>
+   <h2 class="ion-text-capitalize">{{"TEAM" | translate }} : {{ equipo.Nombre}}</h2>
+    </ion-list-header>
           <ion-item  lines="full" class="custom-item   animate__animated animate__fadeIn" >
             <ion-label slot="start"  class="ion-text-wrap">{{"TOTAL_MATCHES_WON" | translate }} </ion-label>
             <ion-badge slot="end" color="dark" mode="ios">{{equipo.Partidos_Ganados ? equipo.Partidos_Ganados : 0}}</ion-badge>

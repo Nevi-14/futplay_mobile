@@ -1,4 +1,4 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule, MomentDateModule } from "@angular/material-moment-adapter";
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -28,10 +29,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatMomentDateModule,
     MomentDateModule,
     MatFormFieldModule,
-    ComponentsModule
+    ComponentsModule,
+    TranslateModule
  
   ],
   declarations: [GenerarReservacionPage],
-  providers: [{ provide: LOCALE_ID, useValue: 'es' }]
+  providers: [{ provide: LOCALE_ID, useValue: 'es' }],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class GenerarReservacionPageModule {}

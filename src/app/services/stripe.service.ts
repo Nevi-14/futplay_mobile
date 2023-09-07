@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as stripe from '@stripe/stripe-js';
+import { Observable } from 'rxjs';
  
 
 @Injectable({
@@ -7,14 +9,15 @@ import * as stripe from '@stripe/stripe-js';
 })
 export class StripeService {
   private stripe: stripe.Stripe;
-
-  constructor() {
+  private apiUrl = 'https://api.stripe.com/v1';
+    stripeKey = 'pk_test_51NUivUFCkl6VqTDu0LcRZUfPK4j89snBvIVNHQC5sd49MKdI5sSkC6Ux35NfNpj3OKermwi6EoHK6KuIQhzfGhgD00bK59ZIQe'; // Replace with your actual public key
+  constructor( public http:HttpClient) {
     this.initializeStripe();
   }
 
   async initializeStripe() {
-    const stripeKey = 'YOUR_STRIPE_PUBLIC_KEY'; // Replace with your actual public key
-    this.stripe = await stripe.loadStripe(stripeKey);
+   
+    this.stripe = await stripe.loadStripe(this.stripeKey);
 
   }
 
@@ -26,5 +29,16 @@ export class StripeService {
       throw error;
     }
   }
-  
+   createPaymentIntent(amount: number, currency: string)  {
+    const url = `${this.apiUrl}/payment_intents`;
+    const headers = {
+      'Authorization': `Bearer ${this.stripeKey}`,
+      'Content-Type': 'application/x-www-form-urlencoded'
+    };
+    const body = `amount=${amount}&currency=${currency}`;
+
+    return this.http.post(url, body, { headers });
+  }
+ 
+ 
 }

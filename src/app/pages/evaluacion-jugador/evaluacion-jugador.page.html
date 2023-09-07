@@ -56,9 +56,13 @@
 
 
 <ion-content fullscreen>
-  <ion-slides [options]="slideOpts">
-    <ion-slide>
 
+
+ 
+
+  <swiper-container style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="mySwiper"
+    thumbs-swiper=".mySwiper2" space-between="10" navigation="true">
+    <swiper-slide>
       <ion-list style="width: 100%;">
 
 
@@ -89,16 +93,12 @@
 
         </ion-radio-group>
       </ion-list>
+    </swiper-slide>
 
 
-
-
-    </ion-slide>
-
-
-
-    <ion-slide>
-
+    <swiper-slide>
+       
+   
       <ion-list style="width: 100%;">
 
         <ion-radio-group (ionChange)="agregarJFP($event)">
@@ -130,9 +130,8 @@
 
 
 
+    </swiper-slide>
+  
+  </swiper-container>
 
-    </ion-slide>
-
-
-  </ion-slides>
 </ion-content>

@@ -4,7 +4,7 @@
    <ion-button slot="start" (click)="regresar()" fill="clear">
      <ion-icon size="large" name="close-outline"></ion-icon>
    </ion-button>
-   <ion-title>Detalle Equipo</ion-title>
+   <ion-title>{{"TEAM_DETAILS" | translate }}</ion-title>
     
   </ion-toolbar>
   
@@ -47,7 +47,7 @@
           </h2>
                 
       </ion-col>
-      <ion-col size="8" style="display: flex;justify-content: flex-start;align-items: center;">Agresividad
+      <ion-col size="8" style="display: flex;justify-content: flex-start;align-items: center;">{{"AGGRESSIVENESS" | translate }}
         <ion-avatar    style="height: 2rem;width: 2rem;margin-left: 0.5rem;"  >
           <img      src="assets/emojis/{{dureza[equipo.equipo.Dureza]['image']}}">
          
@@ -56,11 +56,11 @@
       <ion-col size="4" *ngIf="jugadores.length > 0" >
 
         <a target="_blank"
-          href="https://wa.me/{{jugadores[0].usuario.Cod_Pais}}{{jugadores[0].usuario.Telefono}}?text=Hola%20{{jugadores[0].usuario.Nombre}} {{jugadores[0].usuario.Primer_Apellido}}">
-          Contacto</a>
+          href="https://wa.me/{{jugadores[0].usuario.Codigo_Llamadas}}{{jugadores[0].usuario.Telefono}}?text=Hola%20{{jugadores[0].usuario.Nombre}} {{jugadores[0].usuario.Primer_Apellido}}">
+          {{"CONTACT" | translate }}</a>
       </ion-col>
  
-      <ion-col size="12"><strong>Ubicación : </strong> {{equipo.pais}} , {{equipo.estado}}</ion-col>
+      <ion-col size="12"><strong> {{"LOCATION" | translate }} : </strong> {{equipo.pais}} , {{equipo.estado}}</ion-col>
  
  
     </ion-row>
@@ -69,11 +69,11 @@
   <ion-list>
 
     <ion-item lines="none"  (click)="presentModal(equipo.equipo)"  color="light" detail>
-      <ion-label>Estadisticas Equipo</ion-label>
+      <ion-label>{{"TEAM_STATISTICS" | translate }}</ion-label>
      
     </ion-item>
 <ion-item lines="none">
-  <ion-label ><strong>Lista de jugadores</strong></ion-label>
+  <ion-label ><strong>{{"LIST_OF_PLAYERS" | translate }}</strong></ion-label>
 </ion-item>
     <ion-item  *ngIf="jugadores.length == 0"    lines="none"
 class="animate__animated animate__fadeIn">
@@ -85,8 +85,8 @@ class="animate__animated animate__fadeIn">
 
 <ion-label>
 
-  <h6><strong>MENSAJE FUTPLAY</strong> </h6>
-  <p  > No se encontraron resultados!..</p>
+  <h6><strong>{{"FUTPLAY_MESSAGE" | translate }}</strong> </h6>
+  <p  > {{"NO_RECORDS_FOUND" | translate }}</p>
 
 </ion-label>
 </span>

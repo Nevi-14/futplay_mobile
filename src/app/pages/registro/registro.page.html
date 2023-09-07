@@ -11,7 +11,7 @@
 </ion-toolbar>
   <ion-content  class="ion-padding">
    
-    <form id="form" (ngSubmit)="registro(fRegistro)" #fRegistro="ngForm">
+    <form id="form" (ngSubmit)="registro(form)" #form="ngForm">
   <ion-grid >
     <ion-row>
    
@@ -28,11 +28,11 @@
         <app-input name="Primer_Apellido"  label='{{"LAST_NAME" | translate }}' ngModel="{{usuario.Primer_Apellido}}"></app-input> 
       </ion-col>
       <ion-col size="12"   >
-        <app-select name="Country_Code"  (ionChange)="geolocalizacionService.onChangeCountries(fRegistro)"     [data]="geolocalizacionService.countries"  label='{{"COUNTRY" | translate }}' ngModel="{{geolocalizacionService.Country_Code}}"></app-select>
+        <app-select name="Codigo_Pais"  (ionChange)="onChangeCountries(form)"     [data]="geolocalizacionService.paises"  label='{{"COUNTRY" | translate }}' ngModel="{{geolocalizacionService.Codigo_Pais}}"></app-select>
       </ion-col>
       <ion-col size="12">
     
-        <app-input type="number" name="codigo"  label='{{"AREA_CODE" | translate }}'  ngModel="{{usuario.Codigo_Llamadas}}"></app-input>
+        <app-input type="number" name="Codigo_Llamadas"  label='{{"AREA_CODE" | translate }}'  ngModel="{{usuario.Codigo_Llamadas}}"></app-input>
        
       </ion-col>
   <ion-col size="12">

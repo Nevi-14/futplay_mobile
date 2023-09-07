@@ -231,11 +231,22 @@ export class EditarPerfilEquipoPage implements OnInit {
   
 
   updateTeam(fRegistroEquipo:NgForm){
-    let equipo = fRegistroEquipo.value;
-this.equipo.Nombre = equipo.Nombre;
-this.equipo.Abreviacion = equipo.Abreviacion;
- 
- 
+    let form = fRegistroEquipo.value;
+    this.equipo.Nombre = form.Nombre;
+    this.equipo.Abreviacion = form.Abreviacion;
+    if(!form.Nombre){
+      this.alertasService.message('FUTPLAY', 'You must type a name');
+      return;
+    }
+    if(!form.Abreviacion){
+      this.alertasService.message('FUTPLAY', 'You must type an abbreviation');
+      return;
+    }
+    if(form.Abreviacion.length > 3){
+      this.alertasService.message('FUTPLAY', 'Abbreviation must be 3 characters or less');
+      return;
+    }
+  
  
  console.log(this.equipo,'this.equipo')
     this.equiposService.putEquipoToPromise(this.equipo, this.usuariosService.usuarioActual.Cod_Usuario).then((resp:any) =>{

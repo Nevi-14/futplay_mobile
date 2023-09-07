@@ -84,7 +84,12 @@ export class RegistroPage {
     
     
   }
- 
+ async  onChangeCountries(form:NgForm){
+    let data = form.value;
+    console.log(data,'data')
+    this.geolocalizacionService.Codigo_Pais = data.Codigo_Pais;
+this.geolocalizacionService.loadStates();
+  }
 
 
 

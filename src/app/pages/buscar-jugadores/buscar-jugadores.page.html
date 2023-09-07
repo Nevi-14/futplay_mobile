@@ -4,28 +4,30 @@
       <ion-icon size="large" name="close-outline"></ion-icon>
     </ion-button>
     <ion-title>{{"LIST_OF_PLAYERS" | translate }}</ion-title>
-
-  </ion-toolbar>
-  <ion-row>
      
-
-
-    <ion-col size="10">
-
-      <ion-searchbar (ionChange)="onSearchChange($event)" mode="ios" placeholder="Buscar jugador" inputmode="text"
-        debounce="250"></ion-searchbar>
-    </ion-col>
-    <ion-col size="2">
-      <ion-buttons>
-        <ion-button class="custom-bottom" style="margin-top: 1rem;" (click)="filtroUbicacion()">
-          <ion-icon color="dark" size="large" name="options-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-col>
-  </ion-row>
+  </ion-toolbar>
+ 
+ 
 </ion-header>
 
+<ion-toolbar>
+  <ion-grid >
+    <ion-row>
+      <ion-col size="10">
+        <ion-searchbar (ionInput)="onSearchChange($event)"  mode="ios" placeholder="{{'SEARCH_PLAYERS' | translate}}" inputmode="text"  debounce="250" ></ion-searchbar> 
+      </ion-col>
+      <ion-col size="2">
+         
+  <ion-buttons >
+    <ion-button      (click)="filtroUbicacion()"  >
+      <ion-icon class="futplay-color"   size="large"  name="options-outline" ></ion-icon>
+    </ion-button>
+  </ion-buttons>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
+</ion-toolbar>
 
 
 
@@ -36,36 +38,36 @@
     <ion-item *ngIf="usuariosService.usuarios.length == 0" lines="none"
       class="custom-item   animate__animated animate__fadeIn">
 
-      <ion-avatar>
-        <img src="assets/logo.png" alt="">
-      </ion-avatar>
-
-
-      <ion-label>
-        <h6><strong>{{"FUTPLAY_MESSAGE" | translate }}</strong> </h6>
-        <p>{{"NO_RECORDS_FOUND" | translate }}</p>
-
-      </ion-label>
+      <span>
+        <ion-avatar>
+          <img src="assets/logo.png" alt="">
+        </ion-avatar>
+      
+       
+        <div>
+          <h2>{{"FUTPLAY_MESSAGE" | translate }} </h2>
+          <p>{{"NO_RECORDS_FOUND" | translate }}</p>
+        </div>
+      </span>
     </ion-item>
     <ion-item (click)="onOpenMenu(jugador)" lines="full" class="custom-item  animate__animated animate__fadeIn"
       *ngFor="let jugador of usuariosService.usuarios | filtro : textoBuscar:'nombre' ">
-      <ion-avatar slot="start">
-        <img *ngIf="!jugador.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+jugador.usuario.Foto}}"
-          onerror="this.src='assets/user.svg'" alt="">
+<span>
+  <ion-avatar  >
+    <img *ngIf="!jugador.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+jugador.usuario.Foto}}"
+      onerror="this.src='assets/user.svg'" alt="">
 
-        <img *ngIf="jugador.usuario.Avatar" src="assets/profile/avatars/{{jugador.usuario.Foto}}"
-          onerror="this.src='assets/user.svg'" alt="">
-
-
-      </ion-avatar>
-      <ion-label>
-        <h2>{{jugador.nombre}} </h2>
-        <p>{{jugador.provincia}}, {{jugador.canton}} ...</p>
-        <p class="ion-text-wrap">Posicion : <ion-badge color="warning" mode="ios">{{jugador.posicion}}</ion-badge> </p>
-        <p *ngIf="jugador.usuario.Apodo">Apodo: {{jugador.usuario.Apodo}}</p>
+    <img *ngIf="jugador.usuario.Avatar" src="assets/profile/avatars/{{jugador.usuario.Foto}}"
+      onerror="this.src='assets/user.svg'" alt="">
 
 
-      </ion-label>
+  </ion-avatar>
+<div>
+  <h2>{{jugador.nombre}} </h2>
+  <p>{{jugador.pais}}, {{jugador.estado}} ...</p>
+  <p class="ion-text-wrap">{{"POSITION" | translate }} : <ion-badge color="warning" mode="ios">{{jugador.posicion}}</ion-badge> </p>
+</div>
+</span>
 
     </ion-item>
   </ion-list>

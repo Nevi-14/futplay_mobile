@@ -7,7 +7,6 @@ import { EstadisticaEquipoPage } from '../estadistica-equipo/estadistica-equipo.
 import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
 import { MisEquiposPage } from '../mis-equipos/mis-equipos.page';
 import { BuscarJugadoresPage } from '../buscar-jugadores/buscar-jugadores.page';
-import { SolicitudesEquiposPage } from '../solicitudes-equipos/solicitudes-equipos.page';
 import { SolicitudesService } from '../../services/solicitudes.service';
 import { AlertasService } from '../../services/alertas.service';
 import { UsuariosService } from '../../services/usuarios.service';
@@ -99,7 +98,7 @@ equipoGeolocalizacion:EquipoGeolocalizacion
         component: EquipoGeolocalizacionPage,
         backdropDismiss:false,
         cssClass:'alert-modal',
-        mode:'ios', 
+        mode:'md', 
         componentProps:{
           equipoGeolocalizacion:this.equipoGeolocalizacion
         }
@@ -124,6 +123,7 @@ equipoGeolocalizacion:EquipoGeolocalizacion
     
           const modal = await this.modalCtrl.create({
             component: EditarPerfilEquipoPage,
+            mode:'md', 
             componentProps: {
               equipo: this.equiposService.equipo.equipo
             },
@@ -152,6 +152,7 @@ equipoGeolocalizacion:EquipoGeolocalizacion
     const modal = await this.modalCtrl.create({
       component: MisEquiposPage,
       cssClass: 'my-custom-modal',
+      mode:'md',
       id: 'my-clubs'
     });
 
@@ -255,7 +256,7 @@ equipoGeolocalizacion:EquipoGeolocalizacion
       const modal = await this.modalCtrl.create({
         component: TransferenciasPage,
         cssClass:'alert-modal',
-        mode:'ios', 
+        mode:'md', 
     
       });
       this.modalOpen = true;
@@ -313,16 +314,7 @@ equipoGeolocalizacion:EquipoGeolocalizacion
     });
     return await modal.present();
   }
-  async solicitudesEquipos2() {
-    const modal = await this.modalCtrl.create({
-      component: SolicitudesEquiposPage,
-      cssClass: 'my-custom-modal'
-    });
-    await modal.present();
-
-    const { data } = await modal.onWillDismiss();
-    this.jugadoresEquipo();
-  }
+ 
 
   async confirmDelete(jugador) {
 

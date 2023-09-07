@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { HistorialRetosPageRoutingModule } from './historial-retos-routing.module';
 
 import { HistorialRetosPage } from './historial-retos.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HistorialRetosPageRoutingModule
+    HistorialRetosPageRoutingModule,
+    TranslateModule
   ],
   declarations: [HistorialRetosPage]
 })

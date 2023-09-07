@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { GestionRetosPageRoutingModule } from './gestion-retos-routing.module';
 
 import { GestionRetosPage } from './gestion-retos.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    GestionRetosPageRoutingModule
+    GestionRetosPageRoutingModule,
+    TranslateModule
   ],
   declarations: [GestionRetosPage]
 })

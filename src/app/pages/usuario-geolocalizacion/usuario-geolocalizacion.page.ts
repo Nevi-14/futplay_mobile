@@ -18,7 +18,7 @@ export class UsuarioGeolocalizacionPage implements OnInit {
 
   ngOnInit() {
     this.geolocalizacionService.loadCountries();
-    this.geolocalizacionService.Country_Code = this.usuarioGeolocalizacion.Codigo_Pais;
+    this.geolocalizacionService.Codigo_Pais = this.usuarioGeolocalizacion.Codigo_Pais;
     this.geolocalizacionService.loadStates();
   }
 

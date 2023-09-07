@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { EquiposService } from '../../services/equipos.service';
 import { UsuariosService } from '../../services/usuarios.service';
+import { GeolocalizacionService } from 'src/app/services/geolocalizacion.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-filtro-ubicacion',
@@ -10,32 +12,32 @@ import { UsuariosService } from '../../services/usuarios.service';
 })
 export class FiltroUbicacionPage implements OnInit {
   filtro ={
-    Cod_Provincia: null,
-    Cod_Canton: null,
-    Cod_Distrito:null,
+    Codigo_Pais: null,
+    Codigo_Estado: null,
+    Codigo_Ciudad:null
   }
-  @Input() Cod_Provincia:number;
-  @Input() Cod_Canton:number ;
-  @Input() Cod_Distrito:number;
+  @Input() Codigo_Pais:number;
+  @Input() Codigo_Estado:number ;
+  @Input() Codigo_Ciudad:number;
   constructor(
     public modalCtrl: ModalController,
     public equiposService: EquiposService,
-    public usuariosService:UsuariosService
-
+    public usuariosService:UsuariosService,
+    public geolocalizacionService:GeolocalizacionService
   ) { }
 
   ngOnInit(
 
   ) {
-    this.filtro.Cod_Provincia = this.Cod_Provincia;
-   
+    this.filtro.Codigo_Pais = this.Codigo_Pais;
+    this.geolocalizacionService.loadCountries(); 
   }
   
   limpiarDatos(){
     this.filtro ={
-      Cod_Provincia: null,
-      Cod_Canton: null,
-      Cod_Distrito:null,
+      Codigo_Pais: null,
+      Codigo_Estado: null,
+      Codigo_Ciudad:null
     }
     this.equiposService.syncListaEquiposToPromise( this.usuariosService.usuarioActual.Cod_Usuario
       ).then(equipos=>{
@@ -51,11 +53,16 @@ export class FiltroUbicacionPage implements OnInit {
 
   cerrarModal(){
     this.modalCtrl.dismiss(this.modalCtrl.dismiss({
-      'Cod_Provincia': this.filtro.Cod_Provincia,
-      'Cod_Canton':this.filtro.Cod_Canton,
-      'Cod_Distrito':this.filtro.Cod_Distrito
+      'Codigo_Pais': this.filtro.Codigo_Pais,
+      'Codigo_Estado':this.filtro.Codigo_Estado,
+      'Codigo_Ciudad':this.filtro.Codigo_Ciudad
     }));
   }
 
-
+  consultarFiltro(form:NgForm){
+    this.equiposService.syncfiltrarEquipos( this.filtro
+      ).then(equipos=>{
+        this.equiposService.equipos = equipos;
+  })
+}
 }

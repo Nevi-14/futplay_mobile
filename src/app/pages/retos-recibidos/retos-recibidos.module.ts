@@ -9,6 +9,7 @@ import { RetosRecibidosPageRoutingModule } from './retos-recibidos-routing.modul
 import { RetosRecibidosPage } from './retos-recibidos.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     IonicModule,
     RetosRecibidosPageRoutingModule,
     ComponentsModule,
-    PipesModule
+    PipesModule,
+    TranslateModule
   ],
   declarations: [RetosRecibidosPage]
 })

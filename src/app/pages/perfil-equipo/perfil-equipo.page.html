@@ -76,7 +76,7 @@
     <ion-col size="4" *ngIf="jugadoresService.jugadores.length > 0" >
 
       <a target="_blank"
-        href="https://wa.me/{{jugadoresService.jugadores[0].usuario.Cod_Pais}}{{jugadoresService.jugadores[0].usuario.Telefono}}?text=Hola%20{{jugadoresService.jugadores[0].usuario.Nombre}} {{jugadoresService.jugadores[0].usuario.Primer_Apellido}}">
+        href="https://wa.me/{{jugadoresService.jugadores[0].usuario.Codigo_Llamadas}}{{jugadoresService.jugadores[0].usuario.Telefono}}?text=Hola%20{{jugadoresService.jugadores[0].usuario.Nombre}} {{jugadoresService.jugadores[0].usuario.Primer_Apellido}}">
         {{"CONTACT" | translate }}</a>
     </ion-col>
 
@@ -104,40 +104,44 @@
 </ion-item>
   <ion-item  *ngIf="jugadoresService.jugadores.length == 0"    lines="none"
 class="animate__animated animate__fadeIn">
-<span slot="start">
-<ion-avatar>
-<img src="assets/logo.png" alt="">
-</ion-avatar>
+<span>
+  <ion-avatar>
+    <img src="assets/logo.png" alt="">
+  </ion-avatar>
 
-
-<ion-label>
-
-  <h6><strong>{{"FUTPLAY_MESSAGE" | translate }}</strong> </h6>
-  <p>{{"NO_RECORDS_FOUND" | translate }}</p>
-
-</ion-label>
+ 
+  <div>
+    <h5><strong>{{"FUTPLAY_MESSAGE" | translate }}</strong> </h5>
+    <p>{{"NO_RECORDS_FOUND" | translate }}</p>
+  </div>
 </span>
-
 
 </ion-item>
 
 
   <ion-item (click)="onOpenMenu(jugador)" lines="full" class="employeeItem  animate__animated animate__fadeIn"
     *ngFor="let jugador of jugadoresService.jugadores">
-    <ion-avatar slot="start" style="margin-right: 4rem;">
-      <img *ngIf="!jugador.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+jugador.usuario.Foto}}"
-        onerror="this.src='assets/user.svg'" alt="">
 
-      <img *ngIf="jugador.usuario.Avatar" src="assets/profile/avatars/{{jugador.usuario.Foto}}"
-        onerror="this.src='assets/user.svg'" alt="">
+    <span>
+      <ion-avatar  >
+        <img *ngIf="!jugador.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+jugador.usuario.Foto}}"
+          onerror="this.src='assets/user.svg'" alt="">
+    
+        <img *ngIf="jugador.usuario.Avatar" src="assets/profile/avatars/{{jugador.usuario.Foto}}"
+          onerror="this.src='assets/user.svg'" alt="">
+    
+    
+      </ion-avatar>
+    <div>
+      <h2>{{jugador.nombre}} </h2>
+      <p>{{jugador.pais}}, {{jugador.estado}} ...</p>
+      <p class="ion-text-wrap">{{"POSITION" | translate }} : <ion-badge color="warning" mode="ios">{{jugador.posicion}}</ion-badge> </p>
+    </div>
+    </span>
 
 
-    </ion-avatar>
-    <ion-label>
-      {{jugador.usuario.Nombre}} {{jugador.usuario.Primer_Apellido}}     
-    </ion-label>
-    <ion-badge color="warning" mode="ios">{{jugador.posicion}}</ion-badge>
 
+   
   </ion-item>
 
 

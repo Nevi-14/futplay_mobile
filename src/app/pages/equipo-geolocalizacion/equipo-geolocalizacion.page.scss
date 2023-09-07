@@ -1,67 +1,66 @@
+ 
 ion-header{
    
- 
-    ion-toolbar{
-      --background:#5a55ca;
-      color: #fff;
-      ion-icon{
-          color: #fff;
-      }
-    } 
-    }
-      :host {
-        ion-tab-bar {
-         border: 0;
-         margin-top: -1px;
-         padding: 0;
-         --background:#5a55ca;
-       }
-      }
-      
-      ion-tab-button {   
-        --padding: 0;     
-        --margin: 0;
-        ion-label {  
-            font-size: 18px;
-        }
-      }
-      
-      
-      
-      ion-tab-button.tab-selected {
-      
-      --color-selected: var(--ion-color-light);
-      }
-      
-      
-      ion-tab-button {
-        height: 35px;
+  ion-toolbar{
+    --background:#5a55ca;
+    color: #fff;
+    ion-button ion-icon {
         color: #fff;
-        --color-selected: var(--ion-color-primary);
-      
-        &::after {
-          background-color: transparent;
-          display: block;
-          content: "";
-          margin: 0 auto;
-          width: 100%;
-          height: 2px;
-        
-        }
-      
-        &.tab-selected::after {
-          background-color: #fff;
-        }
-      }
+    }
+}
+}.custom-bottom ion-icon{
+  color: #5a55ca!important;
+ 
+}
+ .futplay-color{
+  color: rgba(37,13,76,255); 
+ }
+ .futplay-dark{
+  color: #000; 
+ }
+ 
+ion-avatar{
+  height: 5rem; width: 5rem;
+}
+  ion-buttons {
+    align-self: start;
+  }
+  .ion-button {
+    --background: #5a55ca;
+    --background-focused: #6f6bbb;
+    --background-activated: #6f6bbb;
+    --padding-top: 1rem;
+    --padding-bottom: 1rem;
+    --padding-start: 0.75rem;
+    --padding-end: 0.75rem;
+    color: #fff;
+    margin-right: 0.5rem;
+}span{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px;
+h2,p{
+  margin: 0 0 0 20px;
+  padding: 0;
+}
+}
+.label  {
+ 
+  z-index: 1;
 
-  
-      form {
-       
-        max-width: 500px;
-        margin: 0 auto;
-        app-button {
-          display: block;
-        }
-      }
-       
-      
+  background-color: var(--ion-color-dark);
+  padding: 9px;
+  border-radius: 15px;
+  color: white;
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12);
+}
+
+.ion-avatar{
+  height: 2rem;
+  width: 2rem;
+}
+ion-fab-button{
+  --background:#5a55ca;
+  color: #fff;
+}

@@ -8,6 +8,7 @@ import { RetosEnviadosPageRoutingModule } from './retos-enviados-routing.module'
 
 import { RetosEnviadosPage } from './retos-enviados.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     FormsModule,
     IonicModule,
     RetosEnviadosPageRoutingModule,
-    PipesModule
+    PipesModule,
+    TranslateModule
   ],
   declarations: [RetosEnviadosPage]
 })

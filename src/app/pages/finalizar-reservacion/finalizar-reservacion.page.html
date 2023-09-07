@@ -11,14 +11,17 @@
  </ion-header>
 <ion-content>
 <ion-list>
-  <ion-slides pager="true" >
-    <ion-slide>
-      <img src="{{'https://futplaycompany.com/api_test/'+cancha.cancha.Foto }}"
-      onerror="this.src='assets/soccerfield.jpg'" alt="">
 
-    </ion-slide>
+  <swiper-container style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="mySwiper"
+  thumbs-swiper=".mySwiper2" space-between="10" navigation="true">
+  <swiper-slide>
+    <img src="{{'https://futplaycompany.com/api_test/'+cancha.cancha.Foto }}"
+    onerror="this.src='assets/soccerfield.jpg'" alt="">
+
+  </swiper-slide>
+
+  </swiper-container>
  
-  </ion-slides>
   <ion-item    lines="full" class="employeeItem  animate__animated animate__fadeIn"   >
     
     <ion-grid >
@@ -34,7 +37,7 @@
           </p>
           <p>
                
-            {{cancha.provincia}}       {{cancha.canton}}  
+            {{cancha.pais}}       {{cancha.estado}}  
        
            </p>
         </ion-col>
@@ -44,7 +47,7 @@
 
  
   </ion-item>
-  <ion-item  *ngIf="!detalleReservacion.Reservacion_Grupal"  lines="full" class="employeeItem  animate__animated animate__fadeIn"   >
+  <ion-item  *ngIf="nuevaReservacion.Cod_Tipo != 1"  lines="full" class="employeeItem  animate__animated animate__fadeIn"   >
 
     <ion-grid >
       <ion-row>
@@ -73,7 +76,7 @@
   <ion-grid  class="ion-margin">
     <ion-row>
       <ion-col size="12">
-        Descripción : Reto {{ !detalleReservacion.Reservacion_Grupal ? 'Grupal' : ' Reto Abierto'}}   
+        Descripción : Reto {{ nuevaReservacion.Cod_Tipo == 1 ? 'Grupal' : ' Reto Abierto'}}    
       </ion-col>
       <ion-col size="12">
         Fecha  :  {{nuevaReservacion.Fecha | date :'fullDate'}}

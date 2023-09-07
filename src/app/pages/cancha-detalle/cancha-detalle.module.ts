@@ -8,6 +8,8 @@ import { CanchaDetallePageRoutingModule } from './cancha-detalle-routing.module'
 
 import { CanchaDetallePage } from './cancha-detalle.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { TranslateModule } from '@ngx-translate/core';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -15,7 +17,9 @@ import { ComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     IonicModule,
     CanchaDetallePageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    TranslateModule,
+    PipesModule
   ],
   declarations: [CanchaDetallePage],
   providers: [DatePipe],

@@ -9,6 +9,7 @@ import { Solicitudes } from '../../models/solicitudes';
 import { PerfilSolicitud } from '../../models/perfilSolicitud';
 import { AlertasService } from '../../services/alertas.service';
 import { Router } from '@angular/router';
+import { PerfilEquipos } from 'src/app/models/perfilEquipos';
 
 @Component({
   selector: 'app-solicitudes-jugadores',
@@ -156,96 +157,74 @@ console.log('solicitud', solicitud)
 
   
   }
+
+  async equipoDetalle(perfilEquipo:PerfilEquipos){
+     
+    let equipo = await this.equiposService.syncGetPerfilEquipoToPromise(perfilEquipo.equipo.Cod_Equipo)
+    const modal = await this.modalCtrl.create({
+      component:EquipoDetalleModalPage,
+      mode:'md',
+      backdropDismiss:false,
+      componentProps:{
+        reservar:false,
+        equipo:equipo[0]
+      }
+    });
+  
+    return await modal.present();
+  }
   async onOpenMenu(solicitud){
 
     let equipo  = null;
     console.log('solicitud',solicitud)
     this.equiposService.equipos = [];
-
-if(this.activeCategory == 0){
-
-  const normalBtns : ActionSheetButton[] = [
+    const normalBtns : ActionSheetButton[] = [
+      {  
+       
+     
+        //   text: canchaFavoritos ? 'Remover Favorito' : 'Favorito',
+          // icon: canchaFavoritos ? 'heart' : 'heart-outline',
+          text: 'Detalle equipo',
+          icon:'eye-outline',
+           handler: () =>{
+       this.equipoDetalle(solicitud)
+           }
+          
+          },
  
-    {  
-     
-   
-    //   text: canchaFavoritos ? 'Remover Favorito' : 'Favorito',
-      // icon: canchaFavoritos ? 'heart' : 'heart-outline',
-      text: 'Aceptar',
-      icon:'checkmark-outline',
-       handler: () =>{
-        this.aceptar(solicitud)
-       }
       
-      },
-    
-            {   
-             text: 'Eliminar',
-             icon:'trash-outline',
-             handler: () =>{
-             this.rechazar(solicitud)
-          
-             }
+              {   
+               text: 'Cancelar Solicitud',
+               icon:'trash-outline',
+               handler: () =>{
+              this.rechazar(solicitud)
             
-            },
-   
-            {   
-             text: 'Cancelar',
-             icon:'close-outline',
-            role:'cancel',
-            
-            }
-         
-           ]
-   
+               }
+              
+              },
      
-       const actionSheet = await this.actionSheetCtrl.create({
-         header:  'Opiones Solicitud',
-         cssClass: 'left-align-buttons',
-         buttons:normalBtns,
-         mode:'ios'
-       });
-       await actionSheet.present();
-
-  
-}
-else{
-
-  const normalBtns : ActionSheetButton[] = [
-  
+              {   
+               text: 'Cancelar',
+               icon:'close-outline',
+              role:'cancel',
+              
+              }
+           
+             ]
+     
+       
+         const actionSheet = await this.actionSheetCtrl.create({
+           header:  'Opiones Solicitud',
+           cssClass: 'left-align-buttons',
+           buttons:normalBtns,
+           mode:'ios'
+         });
+         await actionSheet.present();
   
     
-            {   
-             text: 'Eliminar',
-             icon:'trash-outline',
-             handler: () =>{
-             this.rechazar(solicitud)
-          
-             }
-            
-            },
-   
-            {   
-             text: 'Cancelar',
-             icon:'close-outline',
-            role:'cancel',
-            
-            }
-         
-           ]
-   
-     
-       const actionSheet = await this.actionSheetCtrl.create({
-         header:  'Opiones Solicitud'+' '+  solicitud.Nombre_Equipo,
-         cssClass: 'left-align-buttons',
-         buttons:normalBtns,
-         mode:'ios'
-       });
-       await actionSheet.present();
 
-}
-
-  }
+  
+        }
   
   rechazar(solicitud){
   

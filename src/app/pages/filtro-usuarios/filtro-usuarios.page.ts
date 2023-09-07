@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { EquiposService } from '../../services/equipos.service';
 import { UsuariosService } from '../../services/usuarios.service';
+import { GeolocalizacionService } from 'src/app/services/geolocalizacion.service';
+import { PosicionesService } from 'src/app/services/posiciones.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-filtro-usuarios',
@@ -11,35 +14,48 @@ import { UsuariosService } from '../../services/usuarios.service';
 export class FiltroUsuariosPage implements OnInit {
 
   filtro ={
-    Cod_Provincia: null,
-    Cod_Canton: null,
-    Cod_Distrito:null,
-    Cod_Posicion:null,
+    Codigo_Pais: null,
+    Codigo_Estado: null,
+    Codigo_Ciudad:null,
+    Codigo_Posicion:null
   }
   @Input() Cod_Provincia:number;
   @Input() Cod_Canton:number ;
   @Input() Cod_Distrito:number;
   @Input() Cod_Posicion:number;
+  posiciones = [];
   constructor(
     public modalCtrl: ModalController,
     public equiposService: EquiposService,
-    public usuariosService:UsuariosService
+    public usuariosService:UsuariosService,
+    public geolocalizacionService:GeolocalizacionService,
+    public posicionesService:PosicionesService
 
   ) { }
 
   ngOnInit(
 
   ) {
-   
+    this.geolocalizacionService.loadCountries(); 
+
+    this.posicionesService.syncPosicionesToPromise().then(posiciones=>{
+      posiciones.forEach(posicion => {
+         let posi = {
+           id: posicion.Cod_Posicion,
+           valor:posicion.Posicion
+         }
+         this.posiciones.push(posi)
+       })
+    })
   }
  
 
   limpiarDatos(){
     this.filtro ={
-      Cod_Provincia: null,
-      Cod_Canton: null,
-      Cod_Distrito:null,
-      Cod_Posicion:null,
+      Codigo_Pais: null,
+      Codigo_Estado: null,
+      Codigo_Ciudad:null,
+      Codigo_Posicion:null
     }
     this.usuariosService.syncListaUsuariosToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(usuarios=>{
 
@@ -50,13 +66,27 @@ export class FiltroUsuariosPage implements OnInit {
   onOpenMenu(cancha){
 
   }
- 
+  consultarFiltro(form:NgForm){
+    //this.cerrarModal();
+    let data  = form.value;
+    console.log(data,'data')
+    this.filtro.Codigo_Pais = data.Codigo_Pais;
+    this.filtro.Codigo_Estado = data.Codigo_Estado;
+    this.filtro.Codigo_Ciudad = data.Codigo_Ciudad;
+    this.filtro.Codigo_Posicion = data.Codigo_Posicion;
+    this.usuariosService.syncfiltrarUsuariosToPromise(this.filtro).then(usuarios=>{
+
+      this.usuariosService.usuarios = usuarios;
+      this.cerrarModal();
+    })
+  }
 
   cerrarModal(){
     this.modalCtrl.dismiss(this.modalCtrl.dismiss({
-      'Cod_Provincia': this.filtro.Cod_Provincia,
-      'Cod_Canton':this.filtro.Cod_Canton,
-      'Cod_Distrito':this.filtro.Cod_Distrito
+      'Codigo_Pais': this.filtro.Codigo_Pais,
+      'Codigo_Estado':this.filtro.Codigo_Estado,
+      'Codigo_Ciudad':this.filtro.Codigo_Ciudad,
+      'Codigo_Posicion': this.filtro.Codigo_Posicion
     }));
   }
 

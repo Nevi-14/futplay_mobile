@@ -29,7 +29,18 @@ export class CrearEquipoPage implements OnInit {
     Nombre: null,
     Estrellas:1,
     Abreviacion: null,
-    Cod_Equipo: null
+    Cod_Equipo: null,
+    Estrellas_Anteriores: null,
+    Posicion_Actual: null,
+    Puntaje_Actual: null,
+    Partidos_Ganados: null,
+    Partidos_Perdidos: null,
+    Goles_Favor: null,
+    Goles_Encontra: null,
+    Promedio_Altura_Jugadores: null,
+    Promedio_Peso_Jugadores: null,
+    Estado: true,
+    Descripcion_Estado: null
   }
 
   geolocalizacion:EquipoGeolocalizacion = {
@@ -109,7 +120,13 @@ export class CrearEquipoPage implements OnInit {
 
 
  async ngOnInit() {
- 
+  this.geolocalizacionService.Codigo_Pais = null;
+  this.geolocalizacionService.Codigo_Estado = null;
+  this.geolocalizacionService.Codigo_Ciudad = null;
+  this.geolocalizacionService.Codigo_Postal = null;
+  this.geolocalizacionService.paises = [];
+  this.geolocalizacionService.estados = [];
+  this.geolocalizacionService.ciudades = [];
     this.geolocalizacionService.loadCountries(); 
   
   
@@ -118,9 +135,25 @@ export class CrearEquipoPage implements OnInit {
 
 
   crearRegistro(fRegistro:NgForm) {
-let equipo = fRegistro.value;
-this.equipo.Nombre = equipo.Nombre;
-this.equipo.Abreviacion = equipo.Abreviacion;
+let form = fRegistro.value;
+this.equipo.Nombre = form.Nombre;
+this.equipo.Abreviacion = form.Abreviacion;
+if(!form.Nombre){
+  this.alertasService.message('FUTPLAY', 'You must type a name');
+  return;
+}
+if(!form.Abreviacion){
+  this.alertasService.message('FUTPLAY', 'You must type an abbreviation');
+  return;
+}
+if(form.Abreviacion.length > 3){
+  this.alertasService.message('FUTPLAY', 'Abbreviation must be 3 characters or less');
+  return;
+}
+if(!form.Codigo_Pais){
+  this.alertasService.message('FUTPLAY', 'You must select a country');
+  return;
+}
 
  
     if(this.gestorEquiposImagenesService.avatarActual){
@@ -134,28 +167,30 @@ this.equipo.Abreviacion = equipo.Abreviacion;
       let equipo = resp;
       this.geolocalizacion.Cod_Equipo = equipo.Cod_Equipo;
 this.geolocalizacion.Cod_Equipo = equipo.Cod_Equipo;
- this.geolocalizacion.Codigo_Pais = this.geolocalizacionService.Country_Code;
- this.geolocalizacion.Codigo_Estado = this.geolocalizacionService.State_Code;
- this.geolocalizacion.Codigo_Ciudad = this.geolocalizacionService.City_Code;
-  this.geolocalizacion.Codigo_Postal  = this.geolocalizacion.Codigo_Postal;
-  let indexPais = this.geolocalizacionService.countries.findIndex(e => e.id == this.geolocalizacionService.Country_Code);
-  let indexEstado = this.geolocalizacionService.states.findIndex(e => e.id == this.geolocalizacionService.State_Code);
-  let indexCiudad = this.geolocalizacionService.cities.findIndex(e => e.id == this.geolocalizacionService.City_Code);
+ this.geolocalizacion.Codigo_Pais = form.Codigo_Pais;
+ this.geolocalizacion.Codigo_Estado = form.Codigo_Estado;
+ this.geolocalizacion.Codigo_Ciudad = form.Codigo_Ciudad;
+  this.geolocalizacion.Codigo_Postal  = form.Codigo_Postal;
+  let indexPais = this.geolocalizacionService.paises.findIndex(e => e.id == this.geolocalizacionService.Codigo_Pais);
+  let indexEstado = this.geolocalizacionService.estados.findIndex(e => e.id == this.geolocalizacionService.Codigo_Estado);
+  let indexCiudad = this.geolocalizacionService.ciudades.findIndex(e => e.id == this.geolocalizacionService.Codigo_Ciudad);
   console.log('indexPais',indexPais)
   if(indexPais >=0){
-    console.log(this.geolocalizacionService.countries[indexPais].valor,'valoooor')
-    this.geolocalizacion.Pais = this.geolocalizacionService.countries[indexPais].valor;
+    console.log(this.geolocalizacionService.paises[indexPais].valor,'valoooor')
+    this.geolocalizacion.Pais = this.geolocalizacionService.paises[indexPais].valor;
   }
 
   if(indexEstado >=0){
-    console.log(this.geolocalizacionService.states[indexPais].valor,'valoooor')
-    this.geolocalizacion.Estado = this.geolocalizacionService.countries[indexEstado].valor;
+    console.log(this.geolocalizacionService.estados[indexPais].valor,'valoooor')
+    this.geolocalizacion.Estado = this.geolocalizacionService.paises[indexEstado].valor;
   }
 
   if(indexCiudad >=0){
-    console.log(this.geolocalizacionService.countries[indexPais].valor,'valoooor')
-    this.geolocalizacion.Ciudad = this.geolocalizacionService.cities[indexCiudad].valor;
+    console.log(this.geolocalizacionService.paises[indexPais].valor,'valoooor')
+    this.geolocalizacion.Ciudad = this.geolocalizacionService.ciudades[indexCiudad].valor;
   }
+
+  console.log('geolocalizacion',this.geolocalizacion)
 this.equiposGeolocalizacionService.syncPostEquipoGeolocalizacionToPromise(this.geolocalizacion).then(resp =>{
   this.alertasService.loadingDissmiss();
   console.log('post Equipo', resp)

@@ -14,7 +14,7 @@
   <ion-list>
     <ion-item *ngIf="equiposService.misEquipos.length == 0"   lines="none"
     class="animate__animated animate__fadeIn ion-margin-top ion-margin-bottom">
-    <span slot="start">
+    <span  >
       <ion-avatar>
         <img src="assets/logo.png" alt="">
       </ion-avatar>
@@ -32,29 +32,30 @@
 
  
     <ion-item lines="full" (click)="seleccionarEquipo(equipo)"   class="animate__animated animate__fadeIn" *ngFor="let equipo of equiposService.misEquipos | filtro: textoBuscar:'nombre'; let i = index;">
-   <span  slot="start" >
-    
-    <ion-avatar   >
-      <img *ngIf="!equipo.equipo.Avatar"  src="{{'https://futplaycompany.com/api_test/'+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-      <img  *ngIf="equipo.equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-    
+      <span  >
 
-    </ion-avatar>
-    <ion-label style="margin-left: 1rem;">
-      {{equipo.nombre}}
-      <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
-      
-        <ng-template ngFor let-hero [ngForOf]="filledStars(equipo.equipo.Estrellas)"
-        let-i="index" let-odd="odd"  >
-        <ion-icon style="size: 10px;" name="star"></ion-icon>
-      </ng-template>
-      <ng-template ngFor let-hero [ngForOf]="emptyStars(equipo.equipo.Estrellas)"
-      let-i="index" let-odd="odd"  >
-      <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
-    </ng-template>
-      </p>
-    </ion-label>
-   </span>
+        <ion-avatar>
+          <img *ngIf="!equipo.equipo.Avatar" src="{{'https://futplaycompany.com/api_test/'+equipo.equipo.Foto}}"
+            onerror="this.src='assets/img/icon/FP.svg'" alt="">
+          <img *ngIf="equipo.equipo.Avatar" src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}"
+            onerror="this.src='assets/img/icon/FP.svg'" alt="">
+
+        </ion-avatar>
+
+ <div>
+  <h2 class="ion-text-capitalize"> {{equipo.nombre}}</h2>
+
+          <p>Puntaje : {{equipo.equipo.Puntaje_Actual ? equipo.equipo.Puntaje_Actual : 0}} </p>
+          <p style="display:block; margin-top: 0.5rem;margin-left: 1rem;">
+
+            <ion-icon style="size: 10px;" name="star"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+          </p>
+ </div>
+      </span>
   
     </ion-item>
   </ion-list>

@@ -12,13 +12,20 @@
  </ion-header>
     <ion-content fullscreen *ngIf="reto">
 
-      <ion-slides pager="true" >
-        <ion-slide>
-          <img src="{{'https://futplaycompany.com/api_test/'+reto.cancha.Foto }}"
-          onerror="this.src='assets/soccerfield.jpg'" alt="">
     
-        </ion-slide>
-      </ion-slides>
+
+
+      <swiper-container style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="mySwiper"
+    thumbs-swiper=".mySwiper2" space-between="10" navigation="true">
+    <swiper-slide>
+      <img src="{{'https://futplaycompany.com/testing/api/get/file/'+reto.cancha.Foto }}"
+      onerror="this.src='assets/soccerfield.jpg'" alt="">
+    </swiper-slide>
+  
+  </swiper-container>
+
+
+
 
         <ion-item detail (click)="canchaDetalle()"   lines="full" class="animate__animated animate__fadeIn ion-no-padding" >
 
@@ -127,7 +134,7 @@
         <ion-grid  class="ion-margin">
           <ion-row>
             <ion-col size="12">
-              Descripción : Reto {{ !reto.detalle.Reservacion_Grupal ? 'Grupal' : ' Reto Abierto'}}   
+              Descripción : Reto {{ reto.reservacion.Cod_Tipo == 1 ? 'Grupal' : ' Reto Abierto'}}   
             </ion-col>
             <ion-col size="12">
               Fecha  :  {{reto.reservacion.Fecha | date :'fullDate'}}
@@ -162,7 +169,7 @@
   </ion-footer>
   <ion-footer>
     <ion-toolbar *ngIf="!rival">
-      <app-delete-button (click)="cancelarReservacion()"  class="ion-margin" [css]="danger" (click)="cancelarREservacion()"  label="Cancelar Reservacion"></app-delete-button>
+      <app-delete-button (click)="cancelarReservacion()"  class="ion-margin" [css]="danger"   label="Cancelar Reservacion"></app-delete-button>
     </ion-toolbar>
   </ion-footer>
  

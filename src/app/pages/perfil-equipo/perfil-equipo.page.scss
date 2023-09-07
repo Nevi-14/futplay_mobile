@@ -1,17 +1,67 @@
-.picture-img{
-    height: 12rem;
-}
-ion-button{
-    height: auto;
-    ion-icon{
-        //font-size:3rem!important;
+ 
+ion-header{
+   
+    ion-toolbar{
+      --background:#5a55ca;
+      color: #fff;
+      ion-button ion-icon {
+          color: #fff;
+      }
+  }
+  }.custom-bottom ion-icon{
+    color: #5a55ca!important;
+   
+  }
+   .futplay-color{
+    color: rgba(37,13,76,255); 
+   }
+   .futplay-dark{
+    color: #000; 
+   }
+   
+  ion-avatar{
+    height: 4rem; width: 4rem;
+  }
+    ion-buttons {
+      align-self: start;
     }
-}
-
-.sticky{
-    background: #f1f1f1;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    position: sticky;
-    top: 0px;
-}
+    .ion-button {
+      --background: #5a55ca;
+      --background-focused: #6f6bbb;
+      --background-activated: #6f6bbb;
+      --padding-top: 1rem;
+      --padding-bottom: 1rem;
+      --padding-start: 0.75rem;
+      --padding-end: 0.75rem;
+      color: #fff;
+      margin-right: 0.5rem;
+  }span{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px;
+  h2,p,h5{
+    margin: 0 0 0 20px;
+    padding: 0;
+  }
+  }
+  .label  {
+   
+    z-index: 1;
+  
+    background-color: var(--ion-color-dark);
+    padding: 9px;
+    border-radius: 15px;
+    color: white;
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12);
+  }
+  
+  .ion-avatar{
+    height: 2rem;
+    width: 2rem;
+  }
+  ion-fab-button{
+    --background:#5a55ca;
+    color: #fff;
+  }
+  

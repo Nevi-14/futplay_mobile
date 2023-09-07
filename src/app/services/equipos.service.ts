@@ -168,7 +168,10 @@ private postDurezaEquipo (historialPartido:HistorialPartidoEquipos){
 
 private getFiltroEquipos(filtro:any ){
   let URL = this.getURL( environment.getFiltroEquiposURL);
-URL = URL+filtro.Cod_Provincia+'/'+filtro.Cod_Canton+'/'+filtro.Cod_Distrito
+  let Codigo_Pais = filtro.Codigo_Pais ? filtro.Codigo_Pais : null;
+  let Codigo_Estado = filtro.Codigo_Estado ? filtro.Codigo_Estado : null;
+  let Codigo_Ciudad = filtro.Codigo_Ciudad ? filtro.Codigo_Ciudad : null;
+URL = URL+ Codigo_Pais +'/'+Codigo_Estado+'/'+Codigo_Ciudad
       console.log(URL, 'URL')
   return this.http.get<PerfilEquipos[]>( URL );
 }
