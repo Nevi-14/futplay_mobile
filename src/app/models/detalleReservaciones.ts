@@ -3,7 +3,7 @@ export class DetalleReservaciones {
     constructor(
         public Cod_Detalle: number,
         public Cod_Reservacion: number,
-        public Cod_Moneda: number,
+        public Moneda: string,
         public Cod_Estado: number,
         public Cod_Retador: number,
         public Cod_Rival: number,

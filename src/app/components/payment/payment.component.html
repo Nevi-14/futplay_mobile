@@ -1,0 +1,31 @@
+<form     (ngSubmit)="onSubmit()">
+  <ion-grid>
+    <ion-row>
+ 
+   
+      <ion-col size="12">
+        <ion-item >
+          <ion-label>{{ 'FUTPLAY_CODE' | translate }}</ion-label>
+          <ion-input name="code" type="text"   placeholder="" [(ngModel)]="code">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" >
+        <ion-item  lines="none">
+          <ion-label  >{{ 'AMOUNT' | translate }} </ion-label>
+          <ion-input [readonly]="true" name="amount" type="text"  placeholder="" ngModel="{{monto | colones }}">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <div id="card-element"></div>
+      </ion-col>
+      <ion-col size="12">
+        <app-button
+          class="ion-margin"
+          label="{{ 'COMPLETE_RESERVATION' | translate }} "
+        ></app-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</form>

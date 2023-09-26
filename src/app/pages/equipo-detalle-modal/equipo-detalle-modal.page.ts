@@ -5,6 +5,7 @@ import { PerfilJugador } from '../../models/perfilJugador';
 import { EstadisticaEquipoPage } from '../estadistica-equipo/estadistica-equipo.page';
 import { ModalController } from '@ionic/angular';
 import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-equipo-detalle-modal',
@@ -15,6 +16,7 @@ import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
 export class EquipoDetalleModalPage implements OnInit {
   @Input() equipo:PerfilEquipos
   jugadores:PerfilJugador[]=[]
+  url = environment.archivosURL;
   dureza = [
 
     {id:0,titulo:'Equipo Neutral',image:'equipo-neutral.svg'},

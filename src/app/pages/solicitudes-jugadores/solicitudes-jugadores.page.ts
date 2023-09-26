@@ -6,10 +6,11 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { BuscarEquiposPage } from '../buscar-equipos/buscar-equipos.page';
 import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-modal.page';
 import { Solicitudes } from '../../models/solicitudes';
-import { PerfilSolicitud } from '../../models/perfilSolicitud';
 import { AlertasService } from '../../services/alertas.service';
 import { Router } from '@angular/router';
 import { PerfilEquipos } from 'src/app/models/perfilEquipos';
+import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-solicitudes-jugadores',
@@ -19,6 +20,7 @@ import { PerfilEquipos } from 'src/app/models/perfilEquipos';
 export class SolicitudesJugadoresPage implements OnInit {
   @Input() showReceiveInput;
   @Input()showSendInput;
+  url = environment.archivosURL;
 title = 'Recibidas'
 activeCategory = 0;
 segment = 0 ;
@@ -34,7 +36,8 @@ solicitudes = [];
     public actionSheetCtrl: ActionSheetController,
     public solicitudesService:SolicitudesService,
     public alertasService: AlertasService,
-    public router:Router
+    public router:Router,
+    private translateService: TranslateService
   ) { }
 
   ngOnInit() {
@@ -90,14 +93,14 @@ this.receive();
   send(){
    this.solicitudesService.syncGetSolicitudesEnviadasUsuarioToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(solicitudes =>{
   this.solicitudes= solicitudes;
-  console.log('solicitudes  enviadas jugadores', solicitudes)
+ 
   })
   }
 
   receive(){
  this.solicitudesService.syncGetSolicitudesRecibidasUsuarioToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(solicitudes =>{
   
-  console.log('solicitudes  recividad jugadores', solicitudes)
+ 
   this.solicitudes= solicitudes;
     })
   }
@@ -115,15 +118,11 @@ this.modalCtrl.dismiss();
 
      const { data } = await modal.onWillDismiss();
 if(data != undefined){
-/**
- *   this.solicitudesService.syncGetSolicitudesJugadores(this.usuariosService.usuarioActual.Cod_Usuario, true,false, true)
- */
-
-  
+ 
 }
   }
   aceptar(solicitud){
-console.log('solicitud', solicitud)
+ 
     const solicitudActualizar:Solicitudes = {
   
       Cod_Solicitud : solicitud.Cod_Solicitud,
@@ -142,16 +141,17 @@ console.log('solicitud', solicitud)
           this.solicitudesService.solicitudesJugadoresArray = resp;
         })
       
-     this.alertasService.message('FUTPLAY', 'Solicitud aceptada')
+     this.alertasService.message('FUTPLAY', this.translateService.instant('REQUEST_ACCEPTED'))
       }, error =>{
   
-        alert('Lo sentimos algo salio mal')
+        this.alertasService.message('FUTPLAY', this.translateService.instant('SOMETHING_WENT_WRONG'))
       })
        
   
     }, error =>{
 
-      alert('error')
+ 
+      this.alertasService.message('FUTPLAY', this.translateService.instant('SOMETHING_WENT_WRONG'))
     })
      
 
@@ -176,7 +176,7 @@ console.log('solicitud', solicitud)
   async onOpenMenu(solicitud){
 
     let equipo  = null;
-    console.log('solicitud',solicitud)
+  
     this.equiposService.equipos = [];
     const normalBtns : ActionSheetButton[] = [
       {  
@@ -184,7 +184,7 @@ console.log('solicitud', solicitud)
      
         //   text: canchaFavoritos ? 'Remover Favorito' : 'Favorito',
           // icon: canchaFavoritos ? 'heart' : 'heart-outline',
-          text: 'Detalle equipo',
+          text: this.translateService.instant('VIEW_PROFILE'),
           icon:'eye-outline',
            handler: () =>{
        this.equipoDetalle(solicitud)
@@ -194,7 +194,7 @@ console.log('solicitud', solicitud)
  
       
               {   
-               text: 'Cancelar Solicitud',
+               text: this.translateService.instant('CANCEL_REQUEST'),
                icon:'trash-outline',
                handler: () =>{
               this.rechazar(solicitud)
@@ -204,7 +204,7 @@ console.log('solicitud', solicitud)
               },
      
               {   
-               text: 'Cancelar',
+               text: this.translateService.instant('CANCEL'),
                icon:'close-outline',
               role:'cancel',
               
@@ -214,7 +214,7 @@ console.log('solicitud', solicitud)
      
        
          const actionSheet = await this.actionSheetCtrl.create({
-           header:  'Opiones Solicitud',
+           header: this.translateService.instant('OPTIONS'),
            cssClass: 'left-align-buttons',
            buttons:normalBtns,
            mode:'ios'
@@ -245,9 +245,10 @@ console.log('solicitud', solicitud)
   
     this.solicitudesService.syncPutSolicitudToProimise(solicitudActualizar).then(resp =>{
 
-      this.alertasService.message('FUTPLAY','Solicitud cancelada')
+      this.alertasService.message('FUTPLAY',this.translateService.instant('REQUEST_REJECTED'))
     }, error =>{
-      this.alertasService.message('FUTPLAY','Lo sentimos algo salio mal')
+    
+        this.alertasService.message('FUTPLAY', this.translateService.instant('SOMETHING_WENT_WRONG'))
     })
 
     this.solicitudesService.syncPutSolicitudToProimise(solicitudActualizar).then(resp =>{
@@ -259,7 +260,7 @@ console.log('solicitud', solicitud)
 
     }, error =>{
 
-      alert('Lo sentimos algo salio mal')
+      this.alertasService.message('FUTPLAY', this.translateService.instant('SOMETHING_WENT_WRONG'))
     })
   
 

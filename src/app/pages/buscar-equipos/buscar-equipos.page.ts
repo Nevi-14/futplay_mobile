@@ -9,6 +9,8 @@ import { JugadoresService } from '../../services/jugadores.service';
 import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
 import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-modal.page';
 import { PerfilEquipos } from 'src/app/models/perfilEquipos';
+import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-buscar-equipos',
@@ -17,6 +19,7 @@ import { PerfilEquipos } from 'src/app/models/perfilEquipos';
 })
 export class BuscarEquiposPage implements OnInit {
   textoBuscar = ''
+  url = environment.archivosURL;
   solicitud:Solicitudes = {
 
     Cod_Solicitud : null,
@@ -39,18 +42,19 @@ public modalCtrl:ModalController,
 public actionSheetCtrl: ActionSheetController,
 public solicitudesService: SolicitudesService,
 public alertasService:AlertasService,
-public jugadoresService: JugadoresService
+public jugadoresService: JugadoresService,
+private translateService: TranslateService
   ) { }
 
   ngOnInit() {
-this.alertasService.presentaLoading('Cargando lista de equipos!..');
+this.alertasService.presentaLoading(this.translateService.instant('LOADING_DATA'));
     this.equiposService.syncListaEquiposToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
       this.equiposService.equipos = resp;
 this.alertasService.loadingDissmiss();
 
     }, error =>{
       this.alertasService.loadingDissmiss();
-      this.alertasService.message('FUTPLAY','Lo sentimos algo salio mal!..')
+      this.alertasService.message('FUTPLAY',this.translateService.instant('SOMETHING_WENT_WRONG)'))
     })
       }
 
@@ -99,13 +103,13 @@ this.alertasService.loadingDissmiss();
 
           if(resp.length > 0){
 
-return     this.alertasService.message('FUTPLAY', 'Lo sentimos no se puede enviar la solicitud, verifica que no seas parte del equipo o que no hayas enviado una solicitud.')
+return     this.alertasService.message('FUTPLAY', this.translateService.instant('ALREADY_MEMBER_OR_REQUEST_IS_PENDING'))
           }
           this.solicitud.Cod_Equipo = equipo.equipo.Cod_Equipo
     
           this.solicitudesService.generarSolicitud(this.solicitud).then(resp =>{
    
-           this.alertasService.message('FUTPLAY', 'Solicitud Enviada')
+           this.alertasService.message('FUTPLAY', this.translateService.instant('REQUEST_SENT_SUCCESSFULLY'))
           })
         })
      
@@ -118,7 +122,7 @@ return     this.alertasService.message('FUTPLAY', 'Lo sentimos no se puede envia
         
             const normalBtns : ActionSheetButton[] = [
               {   
-                text: 'Ver Equipo',
+                text: this.translateService.instant('VIEW_PROFILE'),
                 icon:'eye-outline',
                 handler: () =>{
                  // this.videoScreen(3);
@@ -130,7 +134,7 @@ return     this.alertasService.message('FUTPLAY', 'Lo sentimos no se puede envia
                },
           
                 {   
-                  text: 'Enviar Solicitud',
+                  text: this.translateService.instant('SEND_REQUEST'),
                   icon:'paper-plane-outline',
                   handler: () =>{
                    // this.videoScreen(3);
@@ -142,7 +146,7 @@ return     this.alertasService.message('FUTPLAY', 'Lo sentimos no se puede envia
                  },
                 
                  {   
-                  text: 'Cancelar',
+                  text: this.translateService.instant('CANCEL'),
                   icon:'close-outline',
                  role:'cancel',
                  
@@ -154,7 +158,7 @@ return     this.alertasService.message('FUTPLAY', 'Lo sentimos no se puede envia
           
           
             const actionSheet = await this.actionSheetCtrl.create({
-              header:'Opciones',
+              header:this.translateService.instant('OPTIONS'),
               cssClass: 'left-align-buttons',
               buttons:normalBtns,
               mode:'ios'

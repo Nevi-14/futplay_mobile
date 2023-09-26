@@ -29,7 +29,7 @@
       <ion-col size="12" class="ion-text-center">
  <h3 class="ion-text-wrap">
 <strong>
-  Validando Partido...
+  {{'VALIDATING_GAME' | translate}}
 </strong>
  </h3>
 
@@ -43,7 +43,7 @@
 
 <ion-col size="12"  >
   <ion-item  lines="none" class="transparent">
-    <ion-label class="soccer-label"><strong>Marcador Rival</strong></ion-label>
+    <ion-label class="soccer-label"><strong>{{'RIVALS_SCORE' | translate}}</strong></ion-label>
   </ion-item>
     <ion-item  lines="none" class="transparent" >
   
@@ -87,7 +87,7 @@
    <ion-col size="12"  >
 
     <ion-item  lines="none" class="transparent">
-     <ion-label  class="soccer-label"><strong>Marcador Retador</strong></ion-label>
+     <ion-label  class="soccer-label"><strong>{{'CHALLENGERS_SCORE' | translate}}</strong></ion-label>
    </ion-item>
    <ion-item lines="none" class="transparent" >
  
@@ -126,7 +126,7 @@
     <ion-row *ngIf="retador || rival">
       <ion-col size="12">
         <ion-item  lines="none" class="transparent">
-          <ion-label  class="soccer-label"><strong>Mi Marcador</strong></ion-label>
+          <ion-label  class="soccer-label"><strong>{{'MY_SCORE' | translate}}</strong></ion-label>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -350,7 +350,7 @@
 
 <ion-toolbar >
        
- <app-button class="ion-margin" (click)="evaluacionIndividual()" label="Finalizar Partido"></app-button>
+ <app-button class="ion-margin" (click)="evaluacionIndividual()" label="{{'FINISH_GAME' | translate}}"></app-button>
 
  
 </ion-toolbar>

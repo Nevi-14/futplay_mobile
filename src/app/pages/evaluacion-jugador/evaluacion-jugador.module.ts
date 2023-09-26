@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { EvaluacionJugadorPageRoutingModule } from './evaluacion-jugador-routing.module';
 
 import { EvaluacionJugadorPage } from './evaluacion-jugador.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EvaluacionJugadorPageRoutingModule
+    EvaluacionJugadorPageRoutingModule,
+    TranslateModule
   ],
   declarations: [EvaluacionJugadorPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

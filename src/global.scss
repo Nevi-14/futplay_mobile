@@ -36,9 +36,13 @@ a:link {
 }
  
 *{
-  font-family: 'Roboto', sans-serif;
- 
+  font-family: 'Roboto', sans-serif; 
   
+}
+h1, h2, h3, h4{
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: bold;
+   
 }
  ion-content {
   font-size: 16px;

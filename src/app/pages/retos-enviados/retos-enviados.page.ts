@@ -4,6 +4,7 @@ import { ReservacionesService } from 'src/app/services/reservaciones.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { AceptarRetoPage } from '../aceptar-reto/aceptar-reto.page';
 import { ModalController } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-retos-enviados',
@@ -11,7 +12,8 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./retos-enviados.page.scss'],
 })
 export class RetosEnviadosPage implements OnInit {
-  reservaciones:PerfilReservaciones[]=[]
+  reservaciones:PerfilReservaciones[]=[];
+  url = environment.archivosURL;
   constructor(
 public reservacionesService:ReservacionesService,
 public usuariosSErvice:UsuariosService,

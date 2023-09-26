@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { InscripcionTorneoPage } from '../inscripcion-torneo/inscripcion-torneo.page';
 
 @Component({
   selector: 'app-torneos',
@@ -16,12 +15,5 @@ public modalCtrl:ModalController
 
   ngOnInit() {
   }
-  async inscripcionTorneo() {
-    const modal = await this.modalCtrl.create({
-      component:InscripcionTorneoPage,
-      cssClass: 'my-custom-class',
- 
-    });
-    return await modal.present();
-  }
+
 }

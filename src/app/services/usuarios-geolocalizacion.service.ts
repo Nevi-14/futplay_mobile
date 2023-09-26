@@ -52,6 +52,7 @@ export class UsuariosGeolocalizacionService {
   }
   private putUsuarioGeolocalizacion(geolocaizacion: UsuarioGeolocalizacion) {
     let URL = this.getURL(environment.putUsuarioGeolocalizacion);
+        URL = URL + geolocaizacion.Cod_Usuario;
     URL = URL;
     const options = {
       headers: {

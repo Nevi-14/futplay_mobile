@@ -283,7 +283,8 @@ syncGetReservacionesResvision(Cod_Usuario){
 
 }
 async cargarReservaciones(){
- return this.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.Cod_Usuario).then(reservaciones2 =>{
+if(this.usuariosService.usuarioActual){
+  return this.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.Cod_Usuario).then(reservaciones2 =>{
     this.retosConfirmados = reservaciones2;
    
     return   this.syncGetReservacionesAbiertasToPromise().then(reservaciones =>{
@@ -293,6 +294,7 @@ async cargarReservaciones(){
      })
     })
   })
+}
  }
  
 syncGetReservacionesCanceladas(Cod_Usuario){

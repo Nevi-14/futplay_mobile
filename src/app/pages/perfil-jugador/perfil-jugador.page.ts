@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { PerfilUsuario } from 'src/app/models/perfilUsuario';
-import { PerfilJugador } from '../../models/perfilJugador';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-perfil-jugador',
@@ -10,14 +9,15 @@ import { PerfilJugador } from '../../models/perfilJugador';
 })
 export class PerfilJugadorPage implements OnInit {
 @Input() perfil:any;
-userPic = null;
+ 
+url = environment.archivosURL;
   constructor(
     public modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
-    this.userPic = this.perfil.usuario.Foto ?  'https://futplaycompany.com/api_test/' + this.perfil.usuario.Foto  : 'assets/user.svg';;
-    console.log(this.perfil, 'perfil')
+  
+  
   }
 
   calcularFecha(fecha){

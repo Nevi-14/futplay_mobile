@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { ModalController } from '@ionic/angular';
 import { JugadoresService } from 'src/app/services/jugadores.service';
 import { Equipos } from 'src/app/models/equipos';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class EstadisticaEquipoPage {
 @Input() equipo: Equipos
 estatura = 0;
 peso = 0;
+url = environment.archivosURL;
   constructor(
     public modalCtrl:ModalController,
 public equiposService: EquiposService,

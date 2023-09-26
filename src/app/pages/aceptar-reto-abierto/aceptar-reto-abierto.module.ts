@@ -9,6 +9,7 @@ import { AceptarRetoAbiertoPageRoutingModule } from './aceptar-reto-abierto-rout
 import { AceptarRetoAbiertoPage } from './aceptar-reto-abierto.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
     IonicModule,
     AceptarRetoAbiertoPageRoutingModule,
     PipesModule,
-    ComponentsModule
+    ComponentsModule,
+    TranslateModule
   ],
   declarations: [AceptarRetoAbiertoPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

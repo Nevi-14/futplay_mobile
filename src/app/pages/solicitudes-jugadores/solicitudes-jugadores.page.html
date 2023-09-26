@@ -22,6 +22,9 @@
 <ion-content>
   
  <ion-list>
+
+
+
   <ion-item  *ngIf="solicitudes.length == 0"    lines="none"
   class="animate__animated animate__fadeIn">
   <span  >
@@ -40,36 +43,50 @@
   </ion-item>
 
 
-  <ion-item (click)="onOpenMenu(solicitud)" lines="full" class="custom-item  animate__animated animate__fadeIn" *ngFor="let solicitud of solicitudes">
+
+  <ion-item (click)="onOpenMenu(solicitud)" lines="full" class="animate__animated animate__fadeIn" *ngFor="let solicitud of solicitudes">
       
-    <span slot="start">
+    <span>
       <ion-avatar    >
 
-        <img *ngIf="!solicitud.equipo.Avatar" class="logo" data-src="{{'https://futplaycompany.com/api_test/'+solicitud.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   >
-        <img *ngIf="solicitud.equipo.Avatar" src="assets/soccer-shields-svg/{{solicitud.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"    alt="">
+      
+
+        <img *ngIf="!solicitud.equipo.Avatar && solicitud.equipo.Foto != 'No Pic' && solicitud.equipo.Foto" src="{{url+solicitud.equipo.Foto}}"
+        onerror="this.src='assets/user.svg'" alt="">
+        <img *ngIf="solicitud.equipo.Foto  == 'No Pic'  || !solicitud.equipo.Foto " src="assets/user.svg" alt="{{solicitud.equipo.Foto}}">
+      
+      <img *ngIf="solicitud.equipo.Avatar&& solicitud.equipo.Foto  != 'No Pic' && solicitud.equipo.Foto" src="assets/profile/avatars/{{solicitud.equipo.Foto}}" alt="{{solicitud.equipo.Foto}}">
+  
+      
 
       </ion-avatar>
       
-      <ion-label>
-        {{solicitud.equipo.Nombre}}
-        <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
+    
+     
+     
+    <div>
+    
+      <h2>{{solicitud.equipo.Nombre}}</h2>
+      <p style="display:block; margin-top: 0.5rem;margin-left: 1rem">
         
-          <ng-template ngFor let-hero [ngForOf]="filledStars(solicitud.equipo.Estrellas)"
-          let-i="index" let-odd="odd"  >
-          <ion-icon style="size: 10px;" name="star"></ion-icon>
-        </ng-template>
-        <ng-template ngFor let-hero [ngForOf]="emptyStars(solicitud.equipo.Estrellas)"
+        <ng-template ngFor let-hero [ngForOf]="filledStars(solicitud.equipo.Estrellas)"
         let-i="index" let-odd="odd"  >
-        <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+        <ion-icon style="size: 10px;" name="star" color="warning"></ion-icon>
       </ng-template>
-        </p>
-      </ion-label>
-
+      <ng-template ngFor let-hero [ngForOf]="emptyStars(solicitud.equipo.Estrellas)"
+      let-i="index" let-odd="odd"  >
+      <ion-icon style="size: 10px;"  name="star-outline"></ion-icon>
+    </ng-template>
+      </p>
+    </div>
     </span>
-   
+    
+        </ion-item>
 
 
-  </ion-item>
+
+
+ 
  </ion-list>
 
 </ion-content>

@@ -23,8 +23,8 @@
 
 
   </ion-item>
-  <ion-item detail (click)="detalleReto(reservacion)" *ngFor="let reservacion of reservaciones"   lines="full" class="custom-item  custom-item-img animate__animated animate__fadeIn"       >
-    <img  src="{{'https://futplaycompany.com/api_test/'+reservacion.cancha.Foto}}"   alt="">
+  <ion-item detail (click)="finalizarReservacion(reservacion)" *ngFor="let reservacion of reservaciones"   lines="full" class="custom-item  custom-item-img animate__animated animate__fadeIn"       >
+    <img  src="{{url+reservacion.cancha.Foto}}"   alt="">
 
     <ion-label>
     {{reservacion.reservacion.Fecha | date :'fullDate'}}

@@ -8,6 +8,7 @@ import { InicioPartidoPageRoutingModule } from './inicio-partido-routing.module'
 
 import { InicioPartidoPage } from './inicio-partido.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     IonicModule,
     InicioPartidoPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    TranslateModule
   ],
   declarations: [InicioPartidoPage]
 })

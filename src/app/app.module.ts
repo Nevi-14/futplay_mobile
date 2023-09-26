@@ -24,6 +24,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule, MomentDateModule } from "@angular/material-moment-adapter";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
 
 export function HttpLoaderFactory(httpClient: HttpClient){
     return new TranslateHttpLoader(httpClient, "../assets/i18n/", ".json");
@@ -43,6 +44,7 @@ export function HttpLoaderFactory(httpClient: HttpClient){
     MatMomentDateModule,
     MomentDateModule,
     BrowserAnimationsModule,
+    FormsModule
     
 ],
     providers: [BarcodeScanner, Camera, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, SocialSharing,

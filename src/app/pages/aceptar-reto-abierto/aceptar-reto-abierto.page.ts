@@ -1,8 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { ListaEquiposPage } from '../lista-equipos/lista-equipos.page';
-import { VideoScreenPage } from '../video-screen/video-screen.page';
 import { PerfilReservaciones } from 'src/app/models/perfilReservaciones';
-import { partidos } from 'src/app/models/partidos';
 import { PerfilJugador } from 'src/app/models/perfilJugador';
 import { PerfilEquipos } from 'src/app/models/perfilEquipos';
 import { ActionSheetController, AlertController, ModalController } from '@ionic/angular';
@@ -17,7 +15,10 @@ import { EquiposService } from 'src/app/services/equipos.service';
 import { FinalizarReservacionPage } from '../finalizar-reservacion/finalizar-reservacion.page';
 import { CanchaDetallePage } from '../cancha-detalle/cancha-detalle.page';
 import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-modal.page';
-import { EliminarRetoPage } from '../eliminar-reto/eliminar-reto.page';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
+import { PerfilCancha } from 'src/app/models/perfilCancha';
+import { Canchas } from 'src/app/models/canchas';
 
 @Component({
   selector: 'app-aceptar-reto-abierto',
@@ -26,6 +27,7 @@ import { EliminarRetoPage } from '../eliminar-reto/eliminar-reto.page';
 })
 export class AceptarRetoAbiertoPage implements OnInit {
   @Input() reto:PerfilReservaciones
+  cancha:PerfilCancha = null;
   jugadoresPermitidosRetador:PerfilJugador[]=[]
   jugadoresPermitidosRival:PerfilJugador[]=[]
   rival : PerfilEquipos;
@@ -39,6 +41,7 @@ export class AceptarRetoAbiertoPage implements OnInit {
    unirseAlReto:boolean = false;
    total:number = 0;
    danger='danger'
+   url = environment.archivosURL;
     constructor(
       public modalCtrl:ModalController,
       public canchasService: CanchasService,
@@ -55,7 +58,9 @@ export class AceptarRetoAbiertoPage implements OnInit {
       public emailService:EmailService,
       public jugadoresService:JugadoresService,
       public equiposService: EquiposService,
-      public cd: ChangeDetectorRef
+      public cd: ChangeDetectorRef,
+      private translateService: TranslateService,
+      public canchasSErvice:CanchasService
       
     ) { }
   
@@ -80,7 +85,7 @@ export class AceptarRetoAbiertoPage implements OnInit {
              detalleReservacion: this.reto.detalle,
              rival:rival[0],
              retador:retador[0],
-             actualizar:true
+             efectuarPago:true
            }
          });
           await modal.present();
@@ -92,7 +97,8 @@ export class AceptarRetoAbiertoPage implements OnInit {
              }
        }
     async ngOnInit() {
-     
+     let canchas = await this.canchasService.syncGetPerfilCanchaToPromise(this.reto.reservacion.Cod_Cancha);
+      this.cancha = canchas[0];
       this.total = Number(((10/100)*this.reto.detalle.Monto_Total).toFixed(2));
   console.log(this.reto, 'reto')
      
@@ -104,7 +110,7 @@ export class AceptarRetoAbiertoPage implements OnInit {
         if( this.indexRival >=0){
           this.allowUser = true;
         }else if(  this.indexRetador >= 0){
-         // this.allowUser = true;  
+          this.allowUser = true;  
         }     
         
       
@@ -230,18 +236,6 @@ export class AceptarRetoAbiertoPage implements OnInit {
   
     async cancelarReservacion(){
    
-      let equipo = await this.equiposService.syncGetPerfilEquipoToPromise(this.reto.rival.Cod_Equipo)
-      const modal = await this.modalCtrl.create({
-        component:EliminarRetoPage,
-        mode:'ios',
-        backdropDismiss:false,
-        componentProps:{
-          reto: this.reto
-
-        }
-      });
-  
-      return await modal.present();
     }
   
 }

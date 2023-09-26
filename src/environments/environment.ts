@@ -1,8 +1,8 @@
 export const environment = {
   production: false,
   maxCharCodigoProd: 6,
-  preURL: 'https://futplaycompany.com/testing/api/',
-  preURL2: 'https://futplaycompany.com/testing/api/',
+  preURL: 'https://futplaycompany.com/production/api/',
+  preURL2: 'https://futplaycompany.com/production/api/',
   getUserIMG:'get/usuarios/foto/',
   TestURL: '',
   postURL: '',
@@ -78,7 +78,7 @@ export const environment = {
 
   putUsuarioAvatarURL:'put/avatar/usuario/',
   putEquiposAvatarURL:'put/avatar/equipo/',
-  postReservacionCorreo:'post/correo/reservacion',
+  postReservacionCorreo:'post/correo',
   mapboxKey:'pk.eyJ1IjoibWhlcnJhIiwiYSI6ImNrcWxhdXk4eTByMDUyd28xNnZ2b2hoMjMifQ.IrIAxPGO4oFiRVR8U5sqkA',
   deleteUser:'delete/usuario/',
   putPartidoURL:'put/partido/',
@@ -103,5 +103,17 @@ export const environment = {
     getEquipoGeolocalizacion:'get/equipo/geolocalizacion/',
     postEquipoGeolocalizacion:'post/equipo/geolocalizacion',
     putEquipoGeolocalizacion:'put/equipo/geolocalizacion/',
-    deleteEquipoGeolocalizacion:'delete/equipo/geolocalizacion/'
+    deleteEquipoGeolocalizacion:'delete/equipo/geolocalizacion/',
+    archivosURL:'https://futplaycompany.com/production/api/get/file/',
+
+    // Descuentos
+
+    getCodigosDesciuentosURL:'get/descuento/codigo/',
+    //PAGOS
+
+    getVerificacionPagoURL:'get/verificacion/pago/',
+    postVerificacionPagoURL:'post/verificacion/pago',
+    putVerificacionPagoURL:'put/verificacion/pago/'
+
+
 };

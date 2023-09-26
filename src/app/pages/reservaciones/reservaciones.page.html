@@ -42,9 +42,9 @@
       </span>
 
     </ion-item>
-    <ion-item (click)="iniciarPartido(reservacionesService.retosConfirmados[0])" detail *ngIf="reservacionesService.retosConfirmados.length > 0" lines="none"
+    <ion-item (click)="detalleReto(reservacionesService.retosConfirmados[0])" detail *ngIf="reservacionesService.retosConfirmados.length > 0" lines="none"
       class="custom-item  animate__animated animate__fadeIn">
-      <img src="{{'https://futplaycompany.com/api_test/'+reservacionesService.retosConfirmados[0].cancha.Foto}}" alt="">
+      <img src="{{url+reservacionesService.retosConfirmados[0].cancha.Foto}}" alt="">
 
       <ion-label>
         {{reservacionesService.retosConfirmados[0].reservacion.Fecha | date :'fullDate'}}
@@ -69,7 +69,7 @@
     </ion-toolbar>
     <ion-item detail *ngFor="let retoAbierto of reservacionesService.retosAbiertos" (click)="detalleReto(retoAbierto)" lines="full"
       class="custom-item animate__animated animate__fadeIn">
-      <img src="{{'https://futplaycompany.com/api_test/'+retoAbierto.cancha.Foto}}" alt="">
+      <img src="{{url+retoAbierto.cancha.Foto }}" alt="">
 
       <ion-label>
         {{retoAbierto.reservacion.Fecha | date :'fullDate'}}

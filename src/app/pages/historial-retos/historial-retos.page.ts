@@ -4,6 +4,7 @@ import { ReservacionesService } from 'src/app/services/reservaciones.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { AceptarRetoPage } from '../aceptar-reto/aceptar-reto.page';
 import { ModalController } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-historial-retos',
@@ -11,7 +12,7 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./historial-retos.page.scss'],
 })
 export class HistorialRetosPage implements OnInit {
-
+url = environment.archivosURL;
   reservaciones:PerfilReservaciones[]=[]
   constructor(
 public reservacionesService:ReservacionesService,

@@ -16,11 +16,16 @@
       <ion-avatar   style="height: 12rem;width:12rem;margin:0 auto;margin-top: 2rem;">
             
       
-     
-        <img *ngIf="!equipo.Avatar" class="logo" data-src="{{'https://futplaycompany.com/api_test/'+equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   >
-        <img *ngIf="equipo.Avatar" src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"    alt="">
-    
-    
+        <img *ngIf="!equipo.Avatar  && equipo.Foto != 'No Pic'" 
+        src="{{url+equipo.Foto}}" alt="{{equipo.Foto}}">
+  
+        <img *ngIf="equipo.Foto == 'No Pic'" 
+        src="assets/img/icon/FP.svg" alt="{{equipo.Foto}}">
+  
+      <img *ngIf="equipo.Avatar && equipo.Foto != 'No Pic'"
+        src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"
+        alt="{{equipo.Foto}}">
+  
 
         </ion-avatar>
         <ion-list >

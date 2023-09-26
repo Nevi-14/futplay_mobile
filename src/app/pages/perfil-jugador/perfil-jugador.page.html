@@ -12,11 +12,14 @@
     <ion-content class="ion-padding">
       <ion-avatar>
 
-    <img *ngIf="!perfil.usuario.Avatar" 
-      data-src="{{'https://futplaycompany.com/api_test/'+perfil.usuario.Foto}}"
+    <img *ngIf="!perfil.usuario.Avatar && perfil.usuario.Foto" 
+      data-src="{{url+perfil.usuario.Foto}}"
       onerror="this.src='assets/user.svg'">
-    <img *ngIf="perfil.usuario.Avatar"
+    <img *ngIf="perfil.usuario.Avatar && perfil.usuario.Foto"
       src="{{'assets/profile/avatars/'+perfil.usuario.Foto}}"
+      onerror="this.src='assets/user.svg'" alt="">
+      <img *ngIf="perfil.usuario.Avatar && !perfil.usuario.Foto || !perfil.usuario.Avatar && !perfil.usuario.Foto"
+      src="assets/user.svg"
       onerror="this.src='assets/user.svg'" alt="">
 
 
@@ -37,25 +40,30 @@
 
           </strong></h2>
       </ion-col>
-      <ion-col size="8" *ngIf="perfil.usuario.Apodo">
+      <ion-col size="12" class="ion-margin-top ion-margin-bottom">
+        <ion-label><strong>  {{"PERSONAL_INFORMATION" | translate }}</strong></ion-label>
+      </ion-col>
+      <ion-col size="12" >
         <ion-label class="ion-text-wrap">
-          {{perfil.pais}}, {{perfil.estado}}
+      {{"LOCATION" | translate }} : {{perfil.pais}}, {{perfil.estado}} ... 
         </ion-label>
 
 
       </ion-col>
-      <ion-col size="4">
+      <ion-col size="12">
+        {{"POSITION" | translate }} :
         <ion-label>{{perfil.posicion}}</ion-label>
 
       </ion-col>
-      <ion-col size="8">
+      <ion-col size="12">
+        {{"AGE" | translate }} :
         <ion-label> {{calcularEdad(perfil.usuario.Fecha_Nacimiento)}}  {{"YEARS" | translate }}</ion-label>
 
 
       </ion-col>
       <ion-col size="4">
         <a target="_blank"
-        href="https://wa.me/{{perfil.usuario.Cod_Pais}}{{perfil.usuario.Telefono}}?text=Hola%20{{perfil.usuario.Nombre}} {{perfil.usuario.Primer_Apellido}}">
+        href="https://wa.me/{{perfil.usuario.Codigo_Llamadas}}{{perfil.usuario.Telefono}}?text=Hola%20{{perfil.usuario.Nombre}} {{perfil.usuario.Primer_Apellido}}">
         {{"CONTACT" | translate }}</a>
       </ion-col>
   

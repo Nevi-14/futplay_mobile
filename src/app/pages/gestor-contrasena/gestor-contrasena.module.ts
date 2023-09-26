@@ -8,6 +8,7 @@ import { GestorContrasenaPageRoutingModule } from './gestor-contrasena-routing.m
 
 import { GestorContrasenaPage } from './gestor-contrasena.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     IonicModule,
     GestorContrasenaPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    TranslateModule
   ],
   declarations: [GestorContrasenaPage]
 })

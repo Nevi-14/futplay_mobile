@@ -8,6 +8,7 @@ import { CrearEquipoPage } from '../crear-equipo/crear-equipo.page';
 import { CrearUnirseEquipoPage } from '../crear-unirse-equipo/crear-unirse-equipo.page';
 import { JugadoresService } from '../../services/jugadores.service';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-mis-equipos',
@@ -20,7 +21,7 @@ export class MisEquiposPage implements OnInit {
   btn2 = false;
   textoBuscar ='';
   createTeam = 'afafa'
-
+  url = environment.archivosURL;
   constructor(
     public equiposService: EquiposService,
      public modalCtrl: ModalController, 

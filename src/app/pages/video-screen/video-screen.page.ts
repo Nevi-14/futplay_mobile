@@ -31,12 +31,12 @@ export class VideoScreenPage implements OnInit {
     { id: '7', titulo: 'Registro', video: 'assets/videos/registro.mp4' }
 
   ]
-  email:Email = 
-  {
-    ToEmail:'',
-    Subject:'',
-    Body:''
-  }
+  // email:Email = 
+  // {
+  //   ToEmail:'',
+  //   Subject:'',
+  //   Body:''
+  // }
   close = false;
   constructor(
     public modalCtrl: ModalController,

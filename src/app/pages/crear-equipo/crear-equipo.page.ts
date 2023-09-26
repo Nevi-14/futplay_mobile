@@ -6,14 +6,14 @@ import { EquiposService } from 'src/app/services/equipos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Jugador } from '../../models/jugador';
 import { JugadoresService } from 'src/app/services/jugadores.service';
-import { ModalController } from '@ionic/angular';
+import { IonicSlides, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { GestorEquipoImagenesPage } from '../gestor-equipo-imagenes/gestor-equipo-imagenes.page';
 import { GestorEquipoImagenesService } from 'src/app/services/gestor-equipo-imagenes.service';
 import { NgForm } from '@angular/forms';
 import { GeolocalizacionService } from 'src/app/services/geolocalizacion.service';
 import { EquipoGeolocalizacion } from 'src/app/models/equipoGeolocalizacion';
 import { EquiposGeolocalizacionService } from 'src/app/services/equipos-geolocalizacion.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-crear-equipo',
   templateUrl: './crear-equipo.page.html',
@@ -27,7 +27,7 @@ export class CrearEquipoPage implements OnInit {
     Dureza: 0,
     Avatar: true,
     Nombre: null,
-    Estrellas:1,
+    Estrellas: 1,
     Abreviacion: null,
     Cod_Equipo: null,
     Estrellas_Anteriores: null,
@@ -40,71 +40,33 @@ export class CrearEquipoPage implements OnInit {
     Promedio_Altura_Jugadores: null,
     Promedio_Peso_Jugadores: null,
     Estado: true,
-    Descripcion_Estado: null
-  }
+    Descripcion_Estado: null,
+  };
 
-  geolocalizacion:EquipoGeolocalizacion = {
-    ID:  null,
-    Cod_Equipo:  null,
-    Codigo_Pais:  null,
-    Pais:null,
-    Codigo_Estado:  null,
-    Estado:null,
-    Codigo_Ciudad:  null,
-    Ciudad:null,
-    Codigo_Postal:  null,
-    Direccion:  null
-  }
+  geolocalizacion: EquipoGeolocalizacion = {
+    ID: null,
+    Cod_Equipo: null,
+    Codigo_Pais: null,
+    Pais: null,
+    Codigo_Estado: null,
+    Estado: null,
+    Codigo_Ciudad: null,
+    Ciudad: null,
+    Codigo_Postal: null,
+    Direccion: null,
+  };
   jugador: Jugador = {
     Cod_Usuario: this.usuariosService.usuarioActual.Cod_Usuario,
     Cod_Equipo: null,
     Favorito: false,
-    Administrador: true
-  }
-  sliderOpts = {
-    zoom: false,
-    slidesPerView: 4,
-    spaceBetween: 2,
-    centeredSlides: false,
-    // Responsive breakpoints
-    breakpoints: {
-      // when window width is >= 320px
-      320: {
-        slidesPerView: 3,
-        spaceBetween: 5
-      },
-      // when window width is >= 480px
-      480: {
-        slidesPerView: 2,
-        spaceBetween: 30
-      },
-      // when window width is >= 640px
-      640: {
-        slidesPerView: 2,
-        spaceBetween: 40
-      },
-      // when window width is >= 940px
-      940: {
-        slidesPerView: 3,
-        spaceBetween: 40
-      },
-
-      // when window width is >= 1200px
-      1300: {
-        slidesPerView: 4,
-        spaceBetween: 40
-      }
-    },
+    Administrador: true,
   };
-  showCanton = null;
-  showDistrito = null;
-  modalOpen:boolean = false;
-   dataProvincias = [];
-   dataCantones = [];
-   dataDistritos = [];
+
+  modalOpen: boolean = false;
   avatarSlide = null;
-  image = ''
+  image = '';
   avatars = false;
+  @ViewChild(IonicSlides) slides;
   constructor(
     public alertasService: AlertasService,
     public modalCtrl: ModalController,
@@ -113,194 +75,196 @@ export class CrearEquipoPage implements OnInit {
     public usuariosService: UsuariosService,
     public jugadoresService: JugadoresService,
     public gestorEquiposImagenesService: GestorEquipoImagenesService,
-    public geolocalizacionService:GeolocalizacionService,
-    public equiposGeolocalizacionService:EquiposGeolocalizacionService
+    public geolocalizacionService: GeolocalizacionService,
+    public equiposGeolocalizacionService: EquiposGeolocalizacionService,
+    private translateService: TranslateService
+  ) {}
 
-  ) { }
-
-
- async ngOnInit() {
-  this.geolocalizacionService.Codigo_Pais = null;
-  this.geolocalizacionService.Codigo_Estado = null;
-  this.geolocalizacionService.Codigo_Ciudad = null;
-  this.geolocalizacionService.Codigo_Postal = null;
-  this.geolocalizacionService.paises = [];
-  this.geolocalizacionService.estados = [];
-  this.geolocalizacionService.ciudades = [];
-    this.geolocalizacionService.loadCountries(); 
-  
-  
+  async ngOnInit() {
+    this.geolocalizacionService.Codigo_Pais = null;
+    this.geolocalizacionService.Codigo_Estado = null;
+    this.geolocalizacionService.Codigo_Ciudad = null;
+    this.geolocalizacionService.Codigo_Postal = null;
+    this.geolocalizacionService.paises = [];
+    this.geolocalizacionService.estados = [];
+    this.geolocalizacionService.ciudades = [];
+    this.equipo.Foto = this.imgs[0].img;
+    this.geolocalizacionService.loadCountries();
+    this.gestorEquiposImagenesService.images = [];
   }
-  
-
-
-  crearRegistro(fRegistro:NgForm) {
-let form = fRegistro.value;
-this.equipo.Nombre = form.Nombre;
-this.equipo.Abreviacion = form.Abreviacion;
-if(!form.Nombre){
-  this.alertasService.message('FUTPLAY', 'You must type a name');
-  return;
-}
-if(!form.Abreviacion){
-  this.alertasService.message('FUTPLAY', 'You must type an abbreviation');
-  return;
-}
-if(form.Abreviacion.length > 3){
-  this.alertasService.message('FUTPLAY', 'Abbreviation must be 3 characters or less');
-  return;
-}
-if(!form.Codigo_Pais){
-  this.alertasService.message('FUTPLAY', 'You must select a country');
-  return;
-}
-
- 
-    if(this.gestorEquiposImagenesService.avatarActual){
-
-      this.equipo.Avatar = true;
-      this.equipo.Foto = this.gestorEquiposImagenesService.avatar
-    }
-    this.alertasService.presentaLoading('Guardando Equipo');
-    this.equiposService.syncPostEquipoToPromise(this.equipo).then((resp: Equipos) => {
-
-      let equipo = resp;
-      this.geolocalizacion.Cod_Equipo = equipo.Cod_Equipo;
-this.geolocalizacion.Cod_Equipo = equipo.Cod_Equipo;
- this.geolocalizacion.Codigo_Pais = form.Codigo_Pais;
- this.geolocalizacion.Codigo_Estado = form.Codigo_Estado;
- this.geolocalizacion.Codigo_Ciudad = form.Codigo_Ciudad;
-  this.geolocalizacion.Codigo_Postal  = form.Codigo_Postal;
-  let indexPais = this.geolocalizacionService.paises.findIndex(e => e.id == this.geolocalizacionService.Codigo_Pais);
-  let indexEstado = this.geolocalizacionService.estados.findIndex(e => e.id == this.geolocalizacionService.Codigo_Estado);
-  let indexCiudad = this.geolocalizacionService.ciudades.findIndex(e => e.id == this.geolocalizacionService.Codigo_Ciudad);
-  console.log('indexPais',indexPais)
-  if(indexPais >=0){
-    console.log(this.geolocalizacionService.paises[indexPais].valor,'valoooor')
-    this.geolocalizacion.Pais = this.geolocalizacionService.paises[indexPais].valor;
-  }
-
-  if(indexEstado >=0){
-    console.log(this.geolocalizacionService.estados[indexPais].valor,'valoooor')
-    this.geolocalizacion.Estado = this.geolocalizacionService.paises[indexEstado].valor;
-  }
-
-  if(indexCiudad >=0){
-    console.log(this.geolocalizacionService.paises[indexPais].valor,'valoooor')
-    this.geolocalizacion.Ciudad = this.geolocalizacionService.ciudades[indexCiudad].valor;
-  }
-
-  console.log('geolocalizacion',this.geolocalizacion)
-this.equiposGeolocalizacionService.syncPostEquipoGeolocalizacionToPromise(this.geolocalizacion).then(resp =>{
-  this.alertasService.loadingDissmiss();
-  console.log('post Equipo', resp)
-  this.alertasService.message('FUTLAY', 'El Equipo ' + equipo.Nombre + ' se creo con Exito!.');
-  this.jugador.Cod_Equipo = equipo.Cod_Equipo
-  this.jugadoresService.syncPostJugadorEquipoToPromise(this.jugador).then(resp => {
-    this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(equipos => {
-
-      if (equipos.length > 0) {
-        this.equiposService.equipo = equipos[equipos.length -1];
-        this.equiposService.misEquipos = equipos;
-        this.jugadoresService.syncJugadoresEquipos(this.equiposService.equipo.equipo.Cod_Equipo).then(resp =>{
-
-          this.jugadoresService.jugadores = resp;
+  slideChange(event) {
+    this.slides.getActiveIndex().then((resp) => {
+      this.imgs.forEach((av) => (av.seleccionado = false));
+      this.imgs[resp].seleccionado = true;
+      this.image = this.imgs[resp].img;
        
+    });
+  }
+  adjuntarImagen() {
+    this.equipo.Avatar = false;
+    this.equipo.Foto = 'No Pic';
+    this.gestorEquiposImagenesService.alertaCamara();
+  }
+  crearRegistro(fRegistro: NgForm) {
+    let form = fRegistro.value;
+    if (!form.Nombre) {
+      this.alertasService.message(
+        'FUTPLAY',
+        this.translateService.instant('YOU_MUST_TYPE_A_NAME')
+      );
+      return;
+    }
+    if (!form.Abreviacion) {
+      this.alertasService.message(
+        'FUTPLAY',
+        this.translateService.instant('YOU_MUST_TYPE_ABBREVIATION')
+      );
+      return;
+    }
+    if (form.Abreviacion.length > 3) {
+      this.alertasService.message(
+        'FUTPLAY',
+        this.translateService.instant(
+          'ABBREVIATION_MUST_BE_LESS_THAN_3_CHARACTERS'
+        )
+      );
+      return;
+    }
 
-          if(this.gestorEquiposImagenesService.images.length > 0){
+    if (!form.Codigo_Pais) {
+      this.alertasService.message(
+        'FUTPLAY',
+        this.translateService.instant('YOU_MUST_SELECT_A_COUNTRY')
+      );
+      return;
+    }
 
-            this.gestorEquiposImagenesService.startUpload();
+    this.equipo.Nombre = form.Nombre;
+    this.equipo.Abreviacion = form.Abreviacion;
 
-          }else{
+    if (this.gestorEquiposImagenesService.images.length == 0) {
+      this.equipo.Avatar = true;
+      this.equipo.Foto = this.imgs[0].img;
+    }
+    this.alertasService.presentaLoading(
+      this.translateService.instant('CREATING_TEAM')
+    );
+    this.equiposService.syncPostEquipoToPromise(this.equipo).then(
+      (resp: Equipos) => {
+        let equipo = resp;
+        this.geolocalizacion.Cod_Equipo = equipo.Cod_Equipo;
+        this.geolocalizacion.Cod_Equipo = equipo.Cod_Equipo;
+        this.geolocalizacion.Codigo_Pais = form.Codigo_Pais;
+        this.geolocalizacion.Codigo_Estado = form.Codigo_Estado;
+        this.geolocalizacion.Codigo_Ciudad = form.Codigo_Ciudad;
+        this.geolocalizacion.Codigo_Postal = form.Codigo_Postal;
+        let indexPais = this.geolocalizacionService.paises.findIndex(
+          (e) => e.id == this.geolocalizacionService.Codigo_Pais
+        );
+        let indexEstado = this.geolocalizacionService.estados.findIndex(
+          (e) => e.id == this.geolocalizacionService.Codigo_Estado
+        );
+        let indexCiudad = this.geolocalizacionService.ciudades.findIndex(
+          (e) => e.id == this.geolocalizacionService.Codigo_Ciudad
+        );
 
-            this.gestorEquiposImagenesService.reset();
-          }
-        })
-        console.log('equipos', equipos)
+        if (indexPais >= 0) {
+          this.geolocalizacion.Pais =
+            this.geolocalizacionService.paises[indexPais].valor;
+        }
+
+        if (indexEstado >= 0) {
+          this.geolocalizacion.Estado =
+            this.geolocalizacionService.paises[indexEstado].valor;
+        }
+
+        if (indexCiudad >= 0) {
+          this.geolocalizacion.Ciudad =
+            this.geolocalizacionService.ciudades[indexCiudad].valor;
+        }
+
+        this.equiposGeolocalizacionService
+          .syncPostEquipoGeolocalizacionToPromise(this.geolocalizacion)
+          .then((resp) => {
+            this.alertasService.loadingDissmiss();
+
+            this.jugador.Cod_Equipo = equipo.Cod_Equipo;
+            this.jugadoresService
+              .syncPostJugadorEquipoToPromise(this.jugador)
+              .then(
+                (resp) => {
+                  this.equiposService
+                    .syncMisEquiposToPromise(
+                      this.usuariosService.usuarioActual.Cod_Usuario
+                    )
+                    .then(
+                      (equipos) => {
+                        if (equipos.length > 0) {
+                          this.equiposService.equipo =
+                            equipos[equipos.length - 1];
+
+                          this.equiposService.misEquipos = equipos;
+                          this.jugadoresService
+                            .syncJugadoresEquipos(
+                              this.equiposService.equipo.equipo.Cod_Equipo
+                            )
+                            .then((resp) => {
+                              this.jugadoresService.jugadores = resp;
+
+                              if (
+                                this.gestorEquiposImagenesService.images
+                                  .length > 0
+                              ) {
+                                this.gestorEquiposImagenesService.startUpload();
+                              } else {
+                                this.alertasService.message(
+                                  'FUTLAY',
+                                  this.translateService.instant(
+                                    'TEAM_CREATED_SUCCESSFULLY'
+                                  )
+                                );
+                                this.gestorEquiposImagenesService.reset();
+                              }
+                            });
+                        }
+
+                        this.modalCtrl.dismiss(
+                          {
+                            equipo: this.equipo,
+                          },
+                          null,
+                          'create-modal'
+                        );
+
+                        this.router.navigate(['/futplay/perfil-equipo']);
+                      },
+                      (error) => {}
+                    );
+                },
+                (error) => {}
+              );
+          });
+      },
+      (error) => {
+        this.alertasService.loadingDissmiss();
+        this.alertasService.message(
+          'FUTLAY',
+          this.translateService.instant('SOMETHING_WENT_WRONG')
+        );
       }
-
-      this.modalCtrl.dismiss({
-        'equipo':this.equipo
-      },null,'create-modal')
-
-      this.router.navigate(['/futplay/perfil-equipo']);
-    }, error => {
-
-      console.log('error', error)
-
-    })
-    console.log('jugador agregado', resp)
-  }, error => {
-
-    console.log('error', error, this.jugador)
-  })
-
-})
-    
-    
-     
-    }, error => {
-      this.alertasService.loadingDissmiss();
-      this.alertasService.message('FUTLAY', 'Error guardando equipo...');
-    })
-
-
-
-
-
-
-
-
+    );
   }
 
-  regresar(){
-
+  regresar() {
     this.modalCtrl.dismiss();
   }
 
-  slideChange($event){
-
-
-  }
-
-  seleccionarAvatar(img, i){
-
-
-    this.imgs.forEach(av => av.seleccionado = false);
+  seleccionarAvatar(img, i) {
+    this.gestorEquiposImagenesService.images = [];
+    this.imgs.forEach((av) => (av.seleccionado = false));
     img.seleccionado = true;
     this.image = this.imgs[i].img;
-    this.equipo.Foto =  this.imgs[i].img;
-  
-  }
-
-  avatar(){
-    
-  }
-
-    imageUpload(filter){
-
-
-  }
-
-  async  gestorPerfilImagenes(){
-
-    const modal = await this.modalCtrl.create({
-      component: GestorEquipoImagenesPage,
-      cssClass:'alert-modal',
-      mode:'ios',
-      componentProps:{
-        equipo:this.equipo,
-        new:true
-      }
-    });
- 
-     await modal.present();
-     const { data } = await modal.onWillDismiss();
-       console.log(data)
-         if(data !== undefined ){
-
-      
-         }
-        // this.equipo  =   this.equiposService.equipo =
+    this.equipo.Foto = this.imgs[i].img;
+    this.equipo.Avatar = true;
   }
 }

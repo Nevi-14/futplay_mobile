@@ -10,6 +10,7 @@ import { UsuarioGeolocalizacion } from 'src/app/models/usuarioGeolocalizacion';
 import { UsuariosGeolocalizacionService } from '../../services/usuarios-geolocalizacion.service';
 import { UsuarioGeolocalizacionPage } from '../usuario-geolocalizacion/usuario-geolocalizacion.page';
 import { SolicitudesJugadoresPage } from '../solicitudes-jugadores/solicitudes-jugadores.page';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -26,7 +27,8 @@ public modalCtrl: ModalController,
 public actionSheetCtrl: ActionSheetController,
 public solicitudesService: SolicitudesService,
 public router:Router,
-public usuariosGeolocalizacionService:UsuariosGeolocalizacionService
+public usuariosGeolocalizacionService:UsuariosGeolocalizacionService,
+private translateService: TranslateService
 
   ) { }
 
@@ -39,7 +41,7 @@ this.cargarDatosUsuario();
   
     const normalBtns : ActionSheetButton[] = [
       {   
-         text: 'Editar Perfil',
+         text: this.translateService.instant('MANAGE_PROFILE'),
          icon:'create-outline',
          handler: () =>{
  this.gestionarPerfil();
@@ -47,7 +49,7 @@ this.cargarDatosUsuario();
         
         },
         {   
-          text: 'Gestionar Contraseñas',
+          text: this.translateService.instant('MANAGE_PASSWORD'),
           icon:'lock-closed-outline',
           handler: () =>{
       this.gestionarContrasena();
@@ -55,13 +57,13 @@ this.cargarDatosUsuario();
          
          },
         {   
-          text: 'Cerrar Sesión',
+          text: this.translateService.instant('LOGOUT'),
           icon:'log-out-outline',
           handler: () =>{
       this.usuariosService.cerrarSession();
           } },
          {   
-          text: 'Cancelar',
+          text: this.translateService.instant('CANCEL'),
           icon:'close-outline',
          role:'cancel',
          
@@ -72,7 +74,7 @@ this.cargarDatosUsuario();
   
   
     const actionSheet = await this.actionSheetCtrl.create({
-      header:'Opciones',
+      header:this.translateService.instant('OPTIONS'),
       cssClass: 'left-align-buttons',
       buttons:normalBtns,
       mode:'ios'
@@ -117,7 +119,6 @@ this.cargarDatosUsuario();
         usuario:this.usuariosService.usuarioActual
       },
       cssClass:'my-custom-modal',
-      id:'perfil-usuario'
     });
 
     modal.present();

@@ -46,11 +46,6 @@ const routes: Routes = [
       {
         path:'crear-unirse-equipo',
         loadChildren: () => import('../crear-unirse-equipo/crear-unirse-equipo.module').then( m => m.CrearUnirseEquipoPageModule)
-      },
-       
-      {
-        path:'notificaciones',
-        loadChildren: () => import('../notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
       }
     ]
   }

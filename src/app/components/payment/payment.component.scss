@@ -1,0 +1,28 @@
+input[type="text"],
+input[type="email"],
+input[type="number"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  color: #ccc;
+ // border: 1px solid #ccc;
+ border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+  font-family: inherit;
+  background-color: #fff;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus {
+  outline: none;
+  border-color: #007bff;
+  //box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+  
+ #card-element {
+    margin-top: 16px;
+ }

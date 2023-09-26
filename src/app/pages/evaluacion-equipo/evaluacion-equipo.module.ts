@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { EvaluacionEquipoPageRoutingModule } from './evaluacion-equipo-routing.module';
 
 import { EvaluacionEquipoPage } from './evaluacion-equipo.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EvaluacionEquipoPageRoutingModule
+    EvaluacionEquipoPageRoutingModule,
+    TranslateModule
   ],
   declarations: [EvaluacionEquipoPage]
 })

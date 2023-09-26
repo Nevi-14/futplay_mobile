@@ -3,6 +3,7 @@ import { CanchasService } from 'src/app/services/canchas.service';
 import { PerfilCancha } from '../../models/perfilCancha';
 import { ModalController } from '@ionic/angular';
 import { GenerarReservacionPage } from '../generar-reservacion/generar-reservacion.page';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cancha-detalle',
@@ -12,6 +13,7 @@ import { GenerarReservacionPage } from '../generar-reservacion/generar-reservaci
 export class CanchaDetallePage implements OnInit {
 @Input() cancha :PerfilCancha
 @Input() reservar :boolean = true;
+url = environment.archivosURL;
 slideOpts = {
   initialSlide: 1,
   speed: 400,

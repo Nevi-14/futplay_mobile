@@ -102,6 +102,9 @@ loadStates(){
 this.estados.push(data)
 if(index == states.length -1){
   this.alertasService.loadingDissmiss();
+  if(this.Codigo_Estado != null){
+    this.loadCities();
+  }
 }
 
     })

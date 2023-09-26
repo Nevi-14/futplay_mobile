@@ -45,13 +45,6 @@ const routes: Routes = [
   },
 
 
-
-
- 
-  {
-    path: 'lista-canchas',
-    loadChildren: () => import('./pages/lista-canchas/lista-canchas.module').then( m => m.ListaCanchasPageModule)
-  },
   {
     path: 'lista-equipos',
     loadChildren: () => import('./pages/lista-equipos/lista-equipos.module').then( m => m.ListaEquiposPageModule)
@@ -165,14 +158,7 @@ const routes: Routes = [
     path: 'eliminar-cuenta',
     loadChildren: () => import('./pages/eliminar-cuenta/eliminar-cuenta.module').then( m => m.EliminarCuentaPageModule)
   },
-  {
-    path: 'eliminar-equipo',
-    loadChildren: () => import('./pages/eliminar-equipo/eliminar-equipo.module').then( m => m.EliminarEquipoPageModule)
-  },
-  {
-    path: 'eliminar-reto',
-    loadChildren: () => import('./pages/eliminar-reto/eliminar-reto.module').then( m => m.EliminarRetoPageModule)
-  },
+
   {
     path: 'cambiar-contrasena',
     loadChildren: () => import('./pages/cambiar-contrasena/cambiar-contrasena.module').then( m => m.CambiarContrasenaPageModule)
@@ -185,32 +171,10 @@ const routes: Routes = [
     path: 'gestor-perfil-imagenes',
     loadChildren: () => import('./pages/gestor-perfil-imagenes/gestor-perfil-imagenes.module').then( m => m.GestorPerfilImagenesPageModule)
   },
-  {
-    path: 'gestor-equipo-imagenes',
-    loadChildren: () => import('./pages/gestor-equipo-imagenes/gestor-equipo-imagenes.module').then( m => m.GestorEquipoImagenesPageModule)
-  },
-  {
-    path: 'efectuar-pago',
-    loadChildren: () => import('./pages/efectuar-pago/efectuar-pago.module').then( m => m.EfectuarPagoPageModule)
-  },
-  {
-    path: 'retos-abiertos',
-    loadChildren: () => import('./pages/retos-abiertos/retos-abiertos.module').then( m => m.RetosAbiertosPageModule)
-  },
-
-  {
-    path: 'horario-canchas',
-    loadChildren: () => import('./pages/horario-canchas/horario-canchas.module').then( m => m.HorarioCanchasPageModule)
-  },
  
   {
     path: 'solicitudes-jugadores',
     loadChildren: () => import('./pages/solicitudes-jugadores/solicitudes-jugadores.module').then( m => m.SolicitudesJugadoresPageModule)
-  },
- 
-  {
-    path: 'inscripcion-torneo',
-    loadChildren: () => import('./pages/inscripcion-torneo/inscripcion-torneo.module').then( m => m.InscripcionTorneoPageModule)
   },
   {
     path: 'transferencias',
@@ -219,10 +183,6 @@ const routes: Routes = [
   {
     path: 'finalizar-reservacion',
     loadChildren: () => import('./pages/finalizar-reservacion/finalizar-reservacion.module').then( m => m.FinalizarReservacionPageModule)
-  },
-  {
-    path: 'notificaciones',
-    loadChildren: () => import('./pages/notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
   },
   {
     path: 'gestion-retos',
@@ -266,7 +226,7 @@ const routes: Routes = [
   {
     path: 'equipo-geolocalizacion',
     loadChildren: () => import('./pages/equipo-geolocalizacion/equipo-geolocalizacion.module').then( m => m.EquipoGeolocalizacionPageModule)
-  },
+  } 
  
 
 

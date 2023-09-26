@@ -29,7 +29,7 @@ export class StripeService {
       throw error;
     }
   }
-   createPaymentIntent(amount: number, currency: string)  {
+   createPaymentIntent2(amount: number, currency: string)  {
     const url = `${this.apiUrl}/payment_intents`;
     const headers = {
       'Authorization': `Bearer ${this.stripeKey}`,
@@ -40,5 +40,21 @@ export class StripeService {
     return this.http.post(url, body, { headers });
   }
  
+  async createPaymentIntent(amount: number): Promise<string> {
+
+    const options = {
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
+      }
+    };
+    const response = await this.http.post(`${'https://futplaycompany.com/production/api/post/efectuar/pago/'}${amount}`,options).toPromise();
+    return response['client_secret'];
+  }
+  
  
+
+  
 }

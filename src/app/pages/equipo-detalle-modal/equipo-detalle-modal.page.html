@@ -15,11 +15,15 @@
         <ion-avatar   style="height: 12rem;width:12rem;margin:0 auto;margin-top: 2rem;">
             
       
-     
-        <img *ngIf="!equipo.equipo.Avatar" class="logo" data-src="{{'https://futplaycompany.com/api_test/'+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   >
-        <img *ngIf="equipo.equipo.Avatar" src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"    alt="">
+          <img *ngIf="!equipo.equipo.Avatar  && equipo.equipo.Foto != 'No Pic'" 
+          src="{{url+equipo.equipo.Foto}}" alt="{{equipo.equipo.Foto}}">
     
+          <img *ngIf="equipo.equipo.Foto == 'No Pic'" 
+          src="assets/img/icon/FP.svg" alt="{{equipo.equipo.Foto}}">
     
+        <img *ngIf="equipo.equipo.Avatar && equipo.equipo.Foto != 'No Pic'"
+          src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"
+          alt="{{equipo.equipo.Foto}}">
 
         </ion-avatar>
 
@@ -98,12 +102,12 @@ class="animate__animated animate__fadeIn">
     <ion-item detail (click)="perfilJugador(jugador)" lines="full" class="employeeItem  animate__animated animate__fadeIn"
       *ngFor="let jugador of jugadores">
       <ion-avatar slot="start" style="margin-right: 4rem;">
-        <img *ngIf="!jugador.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+jugador.usuario.Foto}}"
-          onerror="this.src='assets/user.svg'" alt="">
-
-        <img *ngIf="jugador.usuario.Avatar" src="assets/profile/avatars/{{jugador.usuario.Foto}}"
-          onerror="this.src='assets/user.svg'" alt="">
-
+        <img *ngIf="!jugador.usuario.Avatar && jugador.usuario.Foto != 'No Pic' && jugador.usuario.Foto" src="{{url+jugador.usuario.Foto}}"
+        onerror="this.src='assets/user.svg'" alt="">
+        <img *ngIf="jugador.usuario.Foto  == 'No Pic' || !jugador.usuario.Foto" src="assets/user.svg" alt="{{jugador.usuario.Foto}}">
+  
+      <img *ngIf="jugador.usuario.Avatar && jugador.usuario.Foto  != 'No Pic' && jugador.usuario.Foto" src="assets/profile/avatars/{{jugador.usuario.Foto}}" alt="{{jugador.usuario.Foto}}">
+  
 
       </ion-avatar>
       <ion-label>

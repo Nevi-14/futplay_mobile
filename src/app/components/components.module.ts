@@ -16,6 +16,8 @@ import { IconButtonComponent } from './icon-button/icon-button.component';
 import { InputComponent } from './input/input.component';
 import { SelectComponent } from './select/select.component';
 import { DeleteButtonComponent } from './delete-button/delete-button.component';
+import { PaymentComponent } from './payment/payment.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 registerLocaleData(localeDe);
 @NgModule({
@@ -26,7 +28,8 @@ registerLocaleData(localeDe);
     IconButtonComponent,
     SelectComponent,
     InputComponent,
-    DeleteButtonComponent
+    DeleteButtonComponent,
+    PaymentComponent
 
 
  
@@ -37,7 +40,8 @@ registerLocaleData(localeDe);
     IonicModule,
     PipesModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    TranslateModule
 
   ],
   exports:[
@@ -47,7 +51,8 @@ registerLocaleData(localeDe);
   IconButtonComponent,
   SelectComponent,
   InputComponent,
-  DeleteButtonComponent
+  DeleteButtonComponent,
+  PaymentComponent
 
 
   ],

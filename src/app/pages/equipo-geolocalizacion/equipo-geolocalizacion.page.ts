@@ -1,7 +1,9 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { EquipoGeolocalizacion } from 'src/app/models/equipoGeolocalizacion';
+import { AlertasService } from 'src/app/services/alertas.service';
 import { EquiposGeolocalizacionService } from 'src/app/services/equipos-geolocalizacion.service';
 import { GeolocalizacionService } from 'src/app/services/geolocalizacion.service';
 
@@ -18,16 +20,20 @@ export class EquipoGeolocalizacionPage implements OnInit {
     public modalCtrl:ModalController ,
     public cd:ChangeDetectorRef,
     
-  public equiposGeolocalizacionService:EquiposGeolocalizacionService
+  public equiposGeolocalizacionService:EquiposGeolocalizacionService,
+  private translateService: TranslateService,
+  public alertasService:AlertasService
   ) { }
 
   ngOnInit() {
+    this.geolocalizacionService.paises = [];
+    this.geolocalizacionService.estados = [];
+    this.geolocalizacionService.ciudades = [];
     console.log(this.equipoGeolocalizacion,'equipoGeolocalizacion')
-    this.geolocalizacionService.loadCountries();
     this.geolocalizacionService.Codigo_Pais = this.equipoGeolocalizacion.Codigo_Pais;
     this.geolocalizacionService.Codigo_Estado = this.equipoGeolocalizacion.Codigo_Estado;
     this.geolocalizacionService.Codigo_Ciudad = this.equipoGeolocalizacion.Codigo_Ciudad;
-   
+    this.geolocalizacionService.loadCountries();
     this.geolocalizacionService.loadStates();
     this.cd.detectChanges();
   }
@@ -37,6 +43,7 @@ export class EquipoGeolocalizacionPage implements OnInit {
   }
 
   actualizarGeolocalizacion(form:NgForm){
+    this.alertasService.presentaLoading(this.translateService.instant('UPDATING_DATA'));
     let data  = form.value;
 if(data.Codigo_Pais != null){
   this.equipoGeolocalizacion.Codigo_Pais = data.Codigo_Pais;
@@ -55,19 +62,25 @@ if(data.Codigo_Ciudad != null){
 
 this.equipoGeolocalizacion.Codigo_Postal = data.Codigo_Postal;
 this.equipoGeolocalizacion.Direccion = data.Direccion;
-
-console.log(form.value),'form';
-
-
-console.log(this.equipoGeolocalizacion),'this.equipoGeolocalizacion';
  
 
     this.equiposGeolocalizacionService.syncPutEquipoGeolocalizacionToPromise(this.equipoGeolocalizacion).then(
       res=>{
         console.log(res);
+        this.alertasService.loadingDissmiss();
+        this.alertasService.message(
+          'FUTLAY',
+          this.translateService.instant('DATA_UPDATED_SUCCESSFULLY')
+        );
         this.regresar();
       },
-      err=>console.log(err)
+      err=>{
+        this.alertasService.loadingDissmiss();
+        this.alertasService.message(
+          'FUTLAY',
+          this.translateService.instant('SOMETHING_WENT_WRONG')
+        );
+      }
     );
   }
 }

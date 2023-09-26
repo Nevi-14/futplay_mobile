@@ -1,8 +1,9 @@
 export class Email{
     constructor(
-        public ToEmail: string,
-        public Subject: string,
-        public Body: string
+        public email: string,
+        public header: string,
+        public subject: string,
+        public message: string
     ){
 
     }

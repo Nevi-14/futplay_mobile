@@ -35,11 +35,15 @@
       <span  >
 
         <ion-avatar>
-          <img *ngIf="!equipo.equipo.Avatar" src="{{'https://futplaycompany.com/api_test/'+equipo.equipo.Foto}}"
-            onerror="this.src='assets/img/icon/FP.svg'" alt="">
-          <img *ngIf="equipo.equipo.Avatar" src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}"
-            onerror="this.src='assets/img/icon/FP.svg'" alt="">
-
+          <img *ngIf="!equipo.equipo.Avatar  && equipo.equipo.Foto != 'No Pic'" 
+          src="{{url+equipo.equipo.Foto}}" alt="{{equipo.Foto}}">
+    
+          <img *ngIf="equipo.equipo.Foto == 'No Pic'" 
+          src="assets/img/icon/FP.svg" alt="{{equipo.equipo.Foto}}">
+    
+        <img *ngIf="equipo.equipo.Avatar && equipo.equipo.Foto != 'No Pic'"
+          src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"
+          alt="{{equipo.equipo.Foto}}">
         </ion-avatar>
 
  <div>

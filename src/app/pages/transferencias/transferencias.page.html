@@ -45,14 +45,16 @@
       
 <span>
   <ion-avatar   >
-    <img *ngIf="!solicitud.usuario.Avatar" src="{{'https://futplaycompany.com/api_test/'+solicitud.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
-
-    <img *ngIf="solicitud.usuario.Avatar"src="assets/profile/avatars/{{solicitud.usuario.Foto}}" onerror="this.src='assets/user.svg'"    alt="">
-
+    <img *ngIf="!solicitud.usuario.Avatar && solicitud.usuario.Foto != 'No Pic' && solicitud.usuario.Foto" src="{{url+solicitud.usuario.Foto}}"
+    onerror="this.src='assets/user.svg'" alt="">
+    <img *ngIf="solicitud.usuario.Foto  == 'No Pic'  || !solicitud.usuario.Foto " src="assets/user.svg" alt="{{solicitud.usuario.Foto}}">
+  
+  <img *ngIf="solicitud.usuario.Avatar&& solicitud.usuario.Foto  != 'No Pic' && solicitud.usuario.Foto" src="assets/profile/avatars/{{solicitud.usuario.Foto}}" alt="{{solicitud.usuario.Foto}}">
+  
+  
   </ion-avatar>
 
-
-
+ 
  
 <div>
 

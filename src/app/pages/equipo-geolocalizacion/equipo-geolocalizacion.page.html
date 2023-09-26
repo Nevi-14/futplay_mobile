@@ -20,7 +20,7 @@
           <app-select name="Country_Code"  (ionChange)="geolocalizacionService.onChangeCountries(form)"     [data]="geolocalizacionService.paises"  label='{{"COUNTRY" | translate }}' ngModel="{{equipoGeolocalizacion.Codigo_Pais}}"></app-select>
         </ion-col>
         <ion-col size="12" (ionChange)="geolocalizacionService.onChangeStates(form)"  *ngIf="geolocalizacionService.estados.length > 0" >
-          <app-select name="State_Code" [data]="geolocalizacionService.estados" label='{{"STATE" | translate }}' ngModel="{{equipoGeolocalizacion.Codigo_Estado}}"></app-select>
+          <app-select name="Codigo_Estado" [data]="geolocalizacionService.estados" label='{{"STATE" | translate }}' ngModel="{{equipoGeolocalizacion.Codigo_Estado}}"></app-select>
         </ion-col>
         <ion-col size="12"  *ngIf="geolocalizacionService.ciudades.length > 0 && equipoGeolocalizacion.Codigo_Ciudad || geolocalizacionService.ciudades.length > 0 && !equipoGeolocalizacion.Codigo_Ciudad" >
           <app-select (ionChange)="geolocalizacionService.onChangeCities(form)" name="City_Code" [data]="geolocalizacionService.ciudades"  label='{{"CITY" | translate }}' ngModel="{{equipoGeolocalizacion.Codigo_Ciudad}}"></app-select>

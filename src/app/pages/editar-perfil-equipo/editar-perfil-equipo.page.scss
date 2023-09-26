@@ -14,7 +14,18 @@ ion-header{
     font-weight: 700;
   }
 
-
+  .profile-image {
+    position: relative;
+    height: 12rem;width:12rem;margin:0 auto;margin-top: 2rem;
+ 
+  }
+  .camera-button{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+  }
   form {
     margin-top: 1rem;
     .forgot-password-link {

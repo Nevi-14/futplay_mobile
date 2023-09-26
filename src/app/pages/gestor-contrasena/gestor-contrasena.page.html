@@ -12,20 +12,21 @@
           </ion-thumbnail>
         </ion-col>
         <ion-col size="12">
-          <h1>Gestor contraseñas,</h1>
-          <h3>Proceso de verificación!..</h3>
+          <h1>{{'PASSWORD_MANAGER'  | translate }},</h1>
+          <h3>{{'VERIFICATION_PROCESS'  | translate }}</h3>
 
 
         </ion-col>
  
         <ion-col size="12"  >
-          <app-input  name="Codigo"  type="text"  label="Código" 
+          <app-input  name="Codigo"  type="text"  label="{{'CODE'  | translate }}" 
     ngModel="{{Codigo}}"></app-input>
 
         </ion-col>
 
         <ion-col size="12">
-          <app-button label="{{ !verificarCodigo ? 'Solicitar Código' : 'Validar Código'}}"></app-button>
+          <app-button *ngIf="!verificarCodigo" label="{{  'REQUEST_CODE'  | translate }}"></app-button>
+          <app-button *ngIf="verificarCodigo" label="{{  'VALIDATE_CODE'  | translate }}"></app-button>
         </ion-col>
 
  
@@ -38,7 +39,7 @@
 </ion-content>
 <ion-footer class="ion-no-border">
   <ion-toolbar class="ion-padding">
-    <p class="footer-text">Página principal, <a (click)="regresar()">Regresar</a></p>
+    <p class="footer-text">{{'MAIN_PAGE'  | translate }}, <a (click)="regresar()">{{'RETURN'  | translate }}</a></p>
   </ion-toolbar>
 </ion-footer>
  

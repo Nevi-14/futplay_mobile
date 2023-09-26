@@ -54,17 +54,22 @@
       <span  >
 
         <ion-avatar>
-          <img *ngIf="!equipo.equipo.Avatar" src="{{'https://futplaycompany.com/api_test/'+equipo.equipo.Foto}}"
-            onerror="this.src='assets/img/icon/FP.svg'" alt="">
-          <img *ngIf="equipo.equipo.Avatar" src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}"
-            onerror="this.src='assets/img/icon/FP.svg'" alt="">
+          <img *ngIf="!equipo.equipo.Avatar  && equipo.equipo.Foto != 'No Pic'" 
+          src="{{url+equipo.equipo.Foto}}" alt="{{equipo.Foto}}">
+    
+          <img *ngIf="equipo.equipo.Foto == 'No Pic'" 
+          src="assets/img/icon/FP.svg" alt="{{equipo.equipo.Foto}}">
+    
+        <img *ngIf="equipo.equipo.Avatar && equipo.equipo.Foto != 'No Pic'"
+          src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"
+          alt="{{equipo.equipo.Foto}}">
 
         </ion-avatar>
 
  <div>
   <h2 class="ion-text-capitalize"> {{equipo.nombre}}</h2>
 
-          <p>Puntaje : {{equipo.equipo.Puntaje_Actual ? equipo.equipo.Puntaje_Actual : 0}} </p>
+          <p>{{"SCORE" | translate }} : {{equipo.equipo.Puntaje_Actual ? equipo.equipo.Puntaje_Actual : 0}} </p>
           <p style="display:block; margin-top: 0.5rem;margin-left: 1rem;">
 
             <ion-icon style="size: 10px;" name="star"></ion-icon>
