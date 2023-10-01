@@ -14,7 +14,6 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { IonicStorageModule } from '@ionic/storage-angular';
-import {InAppPurchase2 } from '@ionic-native/in-app-purchase-2/ngx'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { FormsModule } from '@angular/forms';
@@ -34,8 +33,7 @@ export function HttpLoaderFactory(httpClient: HttpClient){
     FormsModule
     
 ],
-    providers: [ Camera, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, SocialSharing,
-    InAppPurchase2],
+    providers: [ Camera, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, SocialSharing],
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
