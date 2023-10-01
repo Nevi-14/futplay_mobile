@@ -9,11 +9,6 @@ import { GenerarReservacionPageRoutingModule } from './generar-reservacion-routi
 import { GenerarReservacionPage } from './generar-reservacion.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { ComponentsModule } from 'src/app/components/components.module';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatMomentDateModule, MomentDateModule } from "@angular/material-moment-adapter";
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
@@ -23,12 +18,6 @@ import { TranslateModule } from '@ngx-translate/core';
     GenerarReservacionPageRoutingModule,
     PipesModule,
     ComponentsModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatMomentDateModule,
-    MomentDateModule,
-    MatFormFieldModule,
     ComponentsModule,
     TranslateModule
  

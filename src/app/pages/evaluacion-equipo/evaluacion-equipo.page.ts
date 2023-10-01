@@ -9,7 +9,6 @@ import { HistorialPartidoEquipos } from '../../models/historialPartidoEquipo';
 import { StorageService } from '../../services/storage-service';
 import { UsuariosService } from '../../services/usuarios.service';
 import { PerfilReservaciones } from '../../models/perfilReservaciones';
-import { VideoScreenPage } from '../video-screen/video-screen.page';
 import { ReservacionesService } from 'src/app/services/reservaciones.service';
 import { environment } from 'src/environments/environment';
 import { TranslateService } from '@ngx-translate/core';
@@ -103,19 +102,6 @@ this.finalizar();
  
     
   }
-  async videoScreen(id){
-    const modal = await this.modalCtrl.create({
-      component:VideoScreenPage,
-      cssClass:'modal-view',
-      id:'video-screen-modal',
-      mode:'ios',
-      backdropDismiss:false,
-      componentProps:{
-        index:id
-      }
-    });
-    return await modal.present();
-    
-      }
+
  
 }

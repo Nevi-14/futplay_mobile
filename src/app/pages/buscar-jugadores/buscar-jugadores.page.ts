@@ -6,9 +6,6 @@ import { EquiposService } from '../../services/equipos.service';
 
 import { PerfilUsuario } from '../../models/perfilUsuario';
 import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
-import { FiltroUbicacionPage } from '../filtro-ubicacion/filtro-ubicacion.page';
- 
-import { VideoScreenPage } from '../video-screen/video-screen.page';
 import { Solicitudes } from '../../models/solicitudes';
 import { SolicitudesService } from '../../services/solicitudes.service';
 import { FiltroUsuariosPage } from '../filtro-usuarios/filtro-usuarios.page';
@@ -136,20 +133,6 @@ export class BuscarJugadoresPage implements OnInit {
         
           }
 
-          async videoScreen(id){
-            const modal = await this.modalCtrl.create({
-              component:VideoScreenPage,
-              id:'video-screen-modal',
-              cssClass:'modal-view',
-              mode:'ios',
-              backdropDismiss:false,
-              componentProps:{
-                index:id
-              }
-            });
-
-            return await modal.present();
-          }
 
 
           onSearchChange(event){

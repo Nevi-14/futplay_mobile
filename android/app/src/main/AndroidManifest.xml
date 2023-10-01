@@ -1,5 +1,7 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="cr.futplay.com.fp">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cr.futplay.com.fp">
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -7,10 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3191879076705982~8866688691"
-        />
 
         <activity
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
@@ -19,10 +17,12 @@
             android:theme="@style/AppTheme.NoActionBarLaunch"
             android:launchMode="singleTask"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <provider
@@ -30,32 +30,13 @@
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
-            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths" />
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
         </provider>
     </application>
 
+    <!-- Permissions -->
 
-<!-- Required only if your app needs to access images or photos
-     that other apps created. -->
-<uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-
-<!-- Required only if your app needs to access videos
-     that other apps created. -->
-<uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-
-<!-- Required only if your app needs to access audio files
-     that other apps created. -->
-<uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
-
-<!-- If your app doesn't need to access media files that other apps created,
-     set the "maxSdkVersion" attribute to "28" instead. -->
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-                />
-
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-                />
- 
-<!-- To allow android in app purchase -->
-<uses-permission android:name="com.android.vending.BILLING" />
-
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

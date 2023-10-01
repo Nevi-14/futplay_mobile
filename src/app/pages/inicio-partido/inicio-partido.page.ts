@@ -8,7 +8,6 @@ import { EvaluacionJugadorPage } from '../evaluacion-jugador/evaluacion-jugador.
 import { AlertasService } from '../../services/alertas.service';
 import { CanchasService } from '../../services/canchas.service';
 import { StorageService } from '../../services/storage-service';
-import { VideoScreenPage } from '../video-screen/video-screen.page';
 import { JugadoresService } from '../../services/jugadores.service';
 import { PerfilJugador } from 'src/app/models/perfilJugador';
 import { TranslateService } from '@ngx-translate/core';
@@ -211,20 +210,7 @@ export class InicioPartidoPage implements OnInit {
         this.partido = partido;
       });
   }
-
-  async videoScreen(id) {
-    const modal = await this.modalCtrl.create({
-      component: VideoScreenPage,
-      cssClass: 'modal-view',
-      id: 'video-screen-modal',
-      mode: 'ios',
-      backdropDismiss: false,
-      componentProps: {
-        index: id,
-      },
-    });
-    return await modal.present();
-  }
+ 
 
   async evaluacionIndividual() {
     await this.varificarMarcador();

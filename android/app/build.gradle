@@ -1,26 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-        signingConfigs {
-        release {
-            storeFile file(RELEASE_STORE_FILE)
-            storePassword RELEASE_STORE_PASSWORD
-            keyAlias RELEASE_KEY_ALIAS
-            keyPassword RELEASE_KEY_PASSWORD
-
-            // Optional, specify signing versions used
-            v1SigningEnabled true
-            v2SigningEnabled true
-        }
-    }
-
-    compileSdkVersion 31
+    compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "cr.futplay.com.fp"
-        minSdkVersion 22
-      targetSdk 31
-      versionCode 34
-        versionName "34.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -32,7 +19,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
         }
     }
 }
@@ -44,7 +30,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'androidx.work:work-runtime:2.7.0-alpha05'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
     implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
@@ -54,10 +39,6 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
-//def billing_version = "5.1.0"
-
-//    implementation "com.android.billingclient:billing:$billing_version"
-// implementation "com.android.billingclient:billing-ktx:$billing_version"
 }
 
 apply from: 'capacitor.build.gradle'

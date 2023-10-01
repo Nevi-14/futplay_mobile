@@ -149,10 +149,7 @@ const routes: Routes = [
     path: 'canchas',
     loadChildren: () => import('./pages/canchas/canchas.module').then( m => m.CanchasPageModule)
   },
-  {
-    path: 'video-screen',
-    loadChildren: () => import('./pages/video-screen/video-screen.module').then( m => m.VideoScreenPageModule)
-  },
+ 
  
   {
     path: 'eliminar-cuenta',
