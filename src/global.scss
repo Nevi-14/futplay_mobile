@@ -25,7 +25,6 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-@import url('http://fonts.cdnfonts.com/css/soccer-league');
 ion-content{
   --background: #fff;
 }
@@ -41,7 +40,48 @@ a:link {
 h1, h2, h3, h4{
   font-family: 'Roboto Condensed', sans-serif;
 }
+h3,h2 {
+  font-size: 16px;
+  text-transform: capitalize;
+}
+.soccer-league-header-title{
+  margin-top: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 30px; 
+  color: rgba(37,13,76,255); 
+  padding-bottom: 1rem;
 
+  }
+ 
+  .soccer-league-title{
+
+    font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      letter-spacing: 2px;
+      font-size: 30px; 
+      color:#fff;
+    
+      }
+  .soccer-league-subtitle{
+
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    letter-spacing: 2px;
+    font-size: 22px; 
+    color: rgba(37,13,76,255); 
+    padding: 4px;
+  
+    }
+
+
+.special-ascill{
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+
+
+  }
 .btn-circle{
     --border-radius: 50%!important;
     height: 30px;
