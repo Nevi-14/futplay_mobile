@@ -14,6 +14,7 @@ import { EquiposService } from './equipos.service';
 import { UsuarioGeolocalizacion } from '../models/usuarioGeolocalizacion';
 import { UsuariosGeolocalizacionService } from './usuarios-geolocalizacion.service';
 import { GeolocalizacionService } from './geolocalizacion.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 
@@ -36,8 +37,10 @@ export class UsuariosService {
   lastDayOfMonth = new Date(this.today.getFullYear(), this.today.getMonth() + 1, 0);
   Fecha_Inicio = this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + this.today.getDate();
   Fecha_Fin = this.today.getFullYear() + '-' + (this.lastDayOfMonth.getMonth() + 1) + '-' + this.lastDayOfMonth.getDate();
+  idioma = 'Us';
+  file = 'Ingles';
 
-
+ 
   constructor(
     private http: HttpClient,
     private route: Router,
@@ -47,7 +50,8 @@ export class UsuariosService {
     public storageService: StorageService,
     public equiposService: EquiposService,
     public usuariosGeolocalizacionService:UsuariosGeolocalizacionService,
-    public geolocalizacionService:GeolocalizacionService
+    public geolocalizacionService:GeolocalizacionService,
+    public translateService: TranslateService
 
   ) {
 
@@ -55,7 +59,16 @@ export class UsuariosService {
   }
 
 
+  private getValidarCuenta(identificador: number) {
+    let URL = this.getURL(environment.getValidarCuentaURL);
+    URL = URL + identificador;
+    console.log(URL), 'URL';
+    return this.http.get<Usuarios>(URL);
+  }
 
+  syncValidarCuenta(identificador) {
+    return this.getValidarCuenta(identificador).toPromise();
+  }
 
   private postForgotPassword(data) {
 
@@ -272,6 +285,24 @@ export class UsuariosService {
 
           this.alertasService.loadingDissmiss();
           this.usuarioActual = resp;
+          
+
+
+          if(this.usuarioActual.Idioma == 'US'){
+            this.idioma = 'US';
+            this.file = 'Ingles';
+          }else{
+            this.idioma = 'Es';
+            this.file = 'Espanol';
+          }
+          this.storageService.set('usuario', this.usuarioActual)
+        this.translateService.setDefaultLang(this.file);
+
+
+
+
+
+
           this.alertasService.message('FUTPLAY', 'El perfil se actualizo con exito')
         })
       }, error => {
@@ -333,7 +364,7 @@ export class UsuariosService {
   }
 
 
-  private loginURL(entrada: string) {
+  public loginURL(entrada: string) {
     let URL = this.getURL(environment.getLoginURL);
     URL = URL + entrada;
     console.log(URL)
@@ -378,7 +409,7 @@ export class UsuariosService {
 
           this.alertasService.loadingDissmiss();
           this.usuarioActual = resp;
-          this.storageService.set('usuario', this.usuarioActual)
+      
           let usuario = await this.storageService.get('usuario')
           console.log('login user', resp)
     

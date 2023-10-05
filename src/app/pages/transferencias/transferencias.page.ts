@@ -51,6 +51,11 @@ export class TransferenciasPage implements OnInit {
 
     modal.present();
     const { data } = await modal.onWillDismiss();
+    if(this.segment == 'sent'){
+      this.send();
+    }else if(this.segment == 'received'){
+      this.received();
+    }
   }
 
   segmentChanged($event) {
@@ -87,63 +92,47 @@ export class TransferenciasPage implements OnInit {
         this.solicitudes = solicitudes;
       });
   }
-  rechazar(solicitud) {
+  rechazar(solicitud: PerfilSolicitud) {
     const solicitudActualizar = {
       Cod_Solicitud: solicitud.solicitud.Cod_Solicitud,
       Cod_Usuario: solicitud.solicitud.Cod_Usuario,
       Cod_Equipo: solicitud.solicitud.Cod_Equipo,
       Confirmacion_Usuario: false,
       Confirmacion_Equipo: true,
-      Fecha: solicitud.Fecha,
       Estado: false,
       Usuarios: null,
       Equipos: null,
     };
 
+  this.alertasService.presentaLoading(this.translateService.instant('LOADING'));
     this.solicitudesService
-      .syncPutSolicitudToProimise(solicitudActualizar)
-      .then(
-        (resp) => {
-          this.alertasService.message(
-            'FUTPLAY',
-            this.translateService.instant('REQUEST_REJECTED')
-          );
-          this.solicitudesService
-            .syncPutSolicitudToProimise(solicitudActualizar)
-            .then(
-              (resp) => {
-                this.solicitudesService
-                  .syncGetSolicitudesRecibidasEquipoToPromise(
-                    this.equiposService.equipo.equipo.Cod_Equipo
-                  )
-                  .then((resp) => {
-                    this.solicitudesService.solicitudesEquiposArray = resp;
-                    this.solicitudesService
-                      .syncGetSolicitudesRecibidasUsuarioToPromise(
-                        this.usuariosService.usuarioActual.Cod_Usuario
-                      )
-                      .then((resp) => {
-                        this.solicitudesService.solicitudesEquiposArray = resp;
-                      });
-                  });
-              },
-              (error) => {
-                this.alertasService.message(
-                  'FUTPLAY',
-                  this.translateService.instant('SOMETHING_WENT_WRONG')
-                );
-              }
-            );
-        },
-        (error) => {
-          this.alertasService.message(
-            'FUTPLAY',
-            this.translateService.instant('SOMETHING_WENT_WRONG')
-          );
+    .syncPutSolicitudToProimise(solicitudActualizar)
+    .then(
+      (resp) => {
+        this.alertasService.loadingDissmiss();
+        this.alertasService.message(
+          'FUTPLAY',
+          this.translateService.instant('REQUEST_REJECTED')
+        );
+        if(this.segment == 'sent'){
+          this.send();
+        }else if(this.segment == 'received'){
+          this.received();
         }
-      );
+      },
+      (error) => {
+        this.alertasService.loadingDissmiss();
+        this.alertasService.message(
+          'FUTPLAY',
+          this.translateService.instant('SOMETHING_WENT_WRONG')
+        );
+      }
+    );
+       
   }
   async onOpenMenu(solicitud: PerfilSolicitud) {
+
+    console.log(solicitud,'solicitud');
     if (this.segment == 'received') {
       const normalBtns: ActionSheetButton[] = [
         {
@@ -227,52 +216,43 @@ export class TransferenciasPage implements OnInit {
     }
   }
 
-  aceptar(solicitud) {
+  aceptar(solicitud: PerfilSolicitud) {
     const solicitudActualizar: Solicitudes = {
-      Cod_Solicitud: solicitud.Cod_Solicitud,
-      Cod_Usuario: solicitud.Cod_Usuario,
-      Cod_Equipo: solicitud.Cod_Equipo,
+      Cod_Solicitud: solicitud.solicitud.Cod_Solicitud,
+      Cod_Usuario: solicitud.solicitud.Cod_Usuario,
+      Cod_Equipo: solicitud.solicitud.Cod_Equipo,
       Confirmacion_Usuario: true,
       Confirmacion_Equipo: true,
       Estado: true,
     };
-
+    this.alertasService.presentaLoading(this.translateService.instant('LOADING'));
     this.solicitudesService
-      .syncPutSolicitudToProimise(solicitudActualizar)
-      .then(
-        (resp) => {
-          this.solicitudesService
-            .syncPutSolicitudToProimise(solicitudActualizar)
-            .then(
-              (resp) => {
-                this.solicitudesService
-                  .syncGetSolicitudesRecibidasUsuarioToPromise(
-                    this.usuariosService.usuarioActual.Cod_Usuario
-                  )
-                  .then((resp) => {
-                    this.solicitudesService.solicitudesJugadoresArray = resp;
-                  });
-
-                this.alertasService.message(
-                  'FUTPLAY',
-                  this.translateService.instant('REQUEST_ACCEPTED')
-                );
-              },
-              (error) => {
-                this.alertasService.message(
-                  'FUTPLAY',
-                  this.translateService.instant('SOMETHING_WENT_WRONG')
-                );
-              }
-            );
-        },
-        (error) => {
-          this.alertasService.message(
-            'FUTPLAY',
-            this.translateService.instant('SOMETHING_WENT_WRONG')
-          );
+    .syncPutSolicitudToProimise(solicitudActualizar)
+    .then(
+      (resp) => {
+        this.alertasService.loadingDissmiss();
+        this.alertasService.message(
+          'FUTPLAY',
+          this.translateService.instant('REQUEST_ACCEPTED')
+        );
+        if(this.segment == 'sent'){
+          this.send();
+        }else if(this.segment == 'received'){
+          this.received();
         }
-      );
+
+
+ 
+      },
+      (error) => {
+        this.alertasService.loadingDissmiss();
+        this.alertasService.message(
+          'FUTPLAY',
+          this.translateService.instant('SOMETHING_WENT_WRONG')
+        );
+      }
+    );
+       
   }
 
   async perfilJugador(jugador) {

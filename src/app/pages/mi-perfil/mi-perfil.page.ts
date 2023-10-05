@@ -11,6 +11,7 @@ import { UsuariosGeolocalizacionService } from '../../services/usuarios-geolocal
 import { UsuarioGeolocalizacionPage } from '../usuario-geolocalizacion/usuario-geolocalizacion.page';
 import { SolicitudesJugadoresPage } from '../solicitudes-jugadores/solicitudes-jugadores.page';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -21,6 +22,7 @@ export class MiPerfilPage {
   img = null;
   modalOpen = false;
   usuarioGeolocalizacion:UsuarioGeolocalizacion
+  url = environment.archivosURL;
   constructor(
 public usuariosService:UsuariosService,
 public modalCtrl: ModalController,

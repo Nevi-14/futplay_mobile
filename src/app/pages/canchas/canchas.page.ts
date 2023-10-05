@@ -5,6 +5,7 @@ import { CanchasService } from '../../services/canchas.service';
 import {
   ActionSheetButton,
   ActionSheetController,
+  InfiniteScrollCustomEvent,
   ModalController,
 } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -20,7 +21,7 @@ import { AlertasService } from 'src/app/services/alertas.service';
   templateUrl: './canchas.page.html',
   styleUrls: ['./canchas.page.scss'],
 })
-export class CanchasPage implements OnInit {
+export class CanchasPage {
   filtro = {
     Codigo_Pais: null,
     Codigo_Estado: null,
@@ -29,6 +30,7 @@ export class CanchasPage implements OnInit {
   };
   textoBuscar = '';
   url = environment.archivosURL;
+  items = [];
   constructor(
     public canchasService: CanchasService,
     public actionSheetCtrl: ActionSheetController,
@@ -38,11 +40,12 @@ export class CanchasPage implements OnInit {
     public alertasService: AlertasService
   ) {}
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.canchasService.syncListaCanchasToPromise().then(
       (resp) => {
         this.canchasService.canchas = resp;
         this.canchasService.dia = this.diaSemana(new Date().getDay());
+        this.generateItems();
       },
       (error) => {
         this.alertasService.message(
@@ -52,7 +55,24 @@ export class CanchasPage implements OnInit {
       }
     );
   }
+  private generateItems() {
+    const count = this.canchasService.canchas.length;
+   
+    for (let i = 0; i < 10 ; i++) {
+   let index = this.items.findIndex(x => x.cancha.Cod_Cancha == this.canchasService.canchas[i].cancha.Cod_Cancha);
+   if(index < 0 ){
+    
+    this.items.push(this.canchasService.canchas[i]);
+   }
+    }
+  }
 
+  onIonInfinite(ev) {
+    this.generateItems();
+    setTimeout(() => {
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }, 500);
+  }
   diaSemana(index) {
     return this.canchasService.diaSemana(index);
   }

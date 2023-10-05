@@ -17,7 +17,7 @@
   <ion-avatar >
 
     <img *ngIf="!usuariosService.usuarioActual.Avatar" 
-      data-src="{{'https://futplaycompany.com/api_test/'+usuariosService.usuarioActual.Foto}}"
+      data-src="{{url+usuariosService.usuarioActual.Foto}}"
       onerror="this.src='assets/user.svg'">
     <img *ngIf="usuariosService.usuarioActual.Avatar"
       src="{{'assets/profile/avatars/'+usuariosService.usuarioActual.Foto}}"

@@ -51,12 +51,15 @@
 
           <p>Puntaje : {{equipo.equipo.Puntaje_Actual ? equipo.equipo.Puntaje_Actual : 0}} </p>
           <p style="display:block; margin-top: 0.5rem;margin-left: 1rem;">
-
-            <ion-icon style="size: 10px;" name="star"></ion-icon>
-            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+      
+            <ng-template ngFor let-hero [ngForOf]="filledStars(equipo.equipo.Estrellas)" let-i="index"
+            let-odd="odd">
+            <ion-icon color="warning"   name="star"></ion-icon>
+          </ng-template>
+          <ng-template ngFor let-hero [ngForOf]="emptyStars(equipo.equipo.Estrellas)" let-i="index"
+            let-odd="odd">
+            <ion-icon color="warning"   name="star-outline"></ion-icon>
+          </ng-template>
           </p>
  </div>
       </span>

@@ -94,10 +94,13 @@ export class FinalizarReservacionPage   {
     this.alertasService.presentaLoading(this.translateService.instant('SAVING'));
   if(this.nuevaReservacion.Cod_Tipo == 1){
   this.nuevaReservacion.Titulo = this.translateService.instant('INDIVIDUAL_RESERVATION')
+  this.detalleReservacion.Notas_Estado = this.translateService.instant('INDIVIDUAL_RESERVATION');
  }else if (this.nuevaReservacion.Cod_Tipo == 2){
   this.nuevaReservacion.Titulo = this.translateService.instant('OPEN_RESERVATION')
   this.detalleReservacion.Cod_Rival = this.retador.equipo.Cod_Equipo;
+  this.detalleReservacion.Notas_Estado = this.translateService.instant('PENDING_CONFIRMATION');
  }else {
+  this.detalleReservacion.Notas_Estado = this.translateService.instant('PENDING_CONFIRMATION');
   this.nuevaReservacion.Titulo =
   this.retador.equipo.Abreviacion +
   ' VS ' +

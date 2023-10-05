@@ -126,8 +126,21 @@ export class PaymentComponent implements OnInit {
     this.alertasService.presentaLoading(
       this.translateService.instant('SAVING_DATA')
     );
+    if(this.nuevaReservacion.Cod_Tipo == 1){
    
+      this.detalleReservacion.Notas_Estado = this.translateService.instant('INDIVIDUAL_RESERVATION');
+     }else if (this.nuevaReservacion.Cod_Tipo == 2){
+
+      this.detalleReservacion.Notas_Estado = this.translateService.instant('PENDING_CONFIRMATION');
+     }else {
+      this.detalleReservacion.Notas_Estado = this.translateService.instant('PENDING_CONFIRMATION');
+
+      this.rival.equipo.Abreviacion;
+    
+     }
     if (this.nuevaReservacion.Cod_Tipo == 1) {
+
+ 
 
         this.nuevaReservacion.Fecha = format(
       new Date(this.nuevaReservacion.Fecha),

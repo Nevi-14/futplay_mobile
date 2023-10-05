@@ -43,6 +43,7 @@ export class MisEquiposPage implements OnInit {
 
     this.textoBuscar = event.detail.value;
       }
+      
   misEquipos(){
 
  
@@ -90,13 +91,12 @@ console.log('resp', resp)
 
  
 
-  filledStars(stars:number){
-
-    return new Array(stars)
+  filledStars(stars: number) {
+    return new Array(stars);
   }
-  emptyStars(stars:number){
+  emptyStars(stars: number) {
     let value = 5 - stars;
-    return new Array(value)
+    return new Array(value);
   }
 
   

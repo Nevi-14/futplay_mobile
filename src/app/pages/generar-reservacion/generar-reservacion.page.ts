@@ -167,7 +167,7 @@ export class GenerarReservacionPage {
       Monto_Sub_Total: 0,
       Monto_Total: 0,
       Pendiente: 0,
-      Notas_Estado: this.translateService.instant('PENDING_CONFIRMATION'),
+      Notas_Estado: null,
     };
     if (this.cancha) {
       this.resetearHoras();
@@ -214,7 +214,7 @@ export class GenerarReservacionPage {
           text: this.translateService.instant('CONFIRM'),
           role: 'confirm',
           handler: (data) => {
-            this.nuevaReservacion.Cod_Tipo = data;
+           if( data) this.nuevaReservacion.Cod_Tipo = data;
             if (data == 1 || data == 2) {
               this.rival = null;
             }
@@ -313,6 +313,12 @@ export class GenerarReservacionPage {
       );
 
       data = this.gestionReservacionesService.horaInicioArray;
+      if (data.length == 0) {
+        return this.alertasService.message(
+          'FUTPLAY',
+          this.translateService.instant('NO_HOURS_AVAILABLE')
+        );
+      }
     }
     if (index == 2) {
       let fecha = new Date(
@@ -324,6 +330,7 @@ export class GenerarReservacionPage {
       );
 
       data = this.gestionReservacionesService.horaFinArray;
+   
     }
 
     let options = [];

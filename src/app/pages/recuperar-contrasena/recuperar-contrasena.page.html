@@ -6,23 +6,24 @@
   <form id="form" (ngSubmit)="obtenerCodigoDeSeguridad(fRecuperarContrasena)" #fRecuperarContrasena="ngForm">
     <ion-grid>
       <ion-row>
-        <ion-col size="12">
-          <ion-thumbnail>
-            <img  src="assets/forgot-password.svg" alt="">
-          </ion-thumbnail>
+        <ion-col size="12" class="img-container">
+          <img  src="assets/forgot-password.svg" alt="">
         </ion-col>
         <ion-col size="12">
-          <h1>{{"RECOVER_PASSWORD" | translate }},</h1>
+          <h2>{{"RECOVER_PASSWORD" | translate }},</h2>
+        </ion-col>
+        <ion-col size="12">
+           
           <h3>{{"RECOVER_ACCESS" | translate }}.</h3>
 
            
         </ion-col>
         <ion-col size="12">
-          <app-input [readonly]="verificarCodigo ? true : false" name="Correo" type="text" label='{{"EMAIL_PHONE" | translate }}'  ngModel="{{correo}}"    ></app-input>
+          <app-input [readonly]="verificarCodigo ? true : false" name="email" type="text" label='{{"EMAIL_PHONE" | translate }}'  ngModel="{{sendEmail.email}}"    ></app-input>
 
         </ion-col>
         <ion-col size="12" *ngIf="verificarCodigo">
-          <app-input  name="codigo"  type="text"  label="Código" 
+          <app-input  name="codigo"  type="text"   label='{{"CODE" | translate }}'
     ngModel="{{codigo}}"></app-input>
 
         </ion-col>
@@ -33,7 +34,9 @@
         <ion-col size="12" *ngIf="verificarCodigo">
           <app-button  label='{{"VALIDATE_CODE" | translate }}'   ></app-button>
         </ion-col>
- 
+ <ion-col size="12">
+  <p class="footer-text"> {{"MAIN_PAGE" | translate }} <a routerLink="/inicio-sesion"> {{"RETURN" | translate }}</a></p>
+ </ion-col>
       </ion-row>
     </ion-grid>
 
@@ -41,9 +44,4 @@
   </form>
 
 </ion-content>
-<ion-footer class="ion-no-border">
-  <ion-toolbar class="ion-padding">
-    <p class="footer-text"> {{"MAIN_PAGE" | translate }}, <a routerLink="/inicio-sesion"> {{"RETURN" | translate }}</a></p>
-  </ion-toolbar>
-</ion-footer>
  

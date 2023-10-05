@@ -5,6 +5,8 @@ import { environment } from 'src/environments/environment';
 import { Platform } from '@ionic/angular';
 import { StatusBar} from '@capacitor/status-bar';
 import {register} from 'swiper/element/bundle';
+import { TranslateService } from '@ngx-translate/core';
+import { UsuariosService } from './services/usuarios.service';
 register();
 @Component({
   selector: 'app-root',
@@ -14,7 +16,9 @@ register();
 export class AppComponent implements OnInit {
 ;
   constructor( 
-    public platform: Platform
+    public platform: Platform,
+    public translateService: TranslateService,
+    public usuariosService:UsuariosService
     
     
     ) {
@@ -26,6 +30,7 @@ export class AppComponent implements OnInit {
   
 
     ngOnInit(){
+      this.translateService.setDefaultLang(this.usuariosService.file);
       (mapboxgl as any ).accessToken = environment.mapboxKey;
       if(!this.platform.is('mobileweb')) {
         StatusBar.setOverlaysWebView({overlay:false})

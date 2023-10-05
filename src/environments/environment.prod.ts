@@ -115,4 +115,5 @@ export const environment = {
        postVerificacionPagoURL:'post/verificacion/pago',
        putVerificacionPagoURL:'put/verificacion/pago/',
        archivosURL:'https://futplaycompany.com/production/api/get/file/',
+       getValidarCuentaURL:'get/validar/cuenta/',
 };

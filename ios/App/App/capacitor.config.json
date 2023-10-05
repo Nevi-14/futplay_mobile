@@ -1,9 +1,0 @@
-{
-	"appId": "cr.futplay.com.fp",
-	"appName": "FUTPLAY",
-	"webDir": "www",
-	"bundledWebRuntime": false,
-	"plugins": {
-		"cordova": {}
-	}
-}

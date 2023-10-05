@@ -137,6 +137,7 @@
    "CONFIRM":"Confirm",
    "VALIDATING_DATA":"Validating Data",
    "ACTION_COMPLETED":"Action Completed",
+   "ACTION_COMPLETE":"Action Completed",
    "NEUTRAL_TEAM":"Neutral Team",
    "ANNOYING_GAME":"Annoying Game",
    "IRRESPONSIBLE_AGGRESSIVENESS":"Irresponsible Aggressiveness",
@@ -241,7 +242,19 @@
    "JOIN_GAME" : "Join Game",
    "PLAYER_EVALUATION": "Player Evaluation",
    "TEAM_EVALUATION":"Team Evaluation",
-   "TEAM_HARDNESS":"Team Hardness"
+   "TEAM_HARDNESS":"Team Hardness",
+   "REQUEST_SENT":"Request Sent",
+   "ACCEPT_REQUEST":"Accept Request",
+   "ALL_FIIELD_ARE_REQUIRED":"All fields are required!.",
+   "MIN_PASSWORD_LENGTH":"Password must be at least 8 characters long.",
+   "DEAR_USER":"Dear user",
+   "ACCOUNT_VERIFICATION_MESSAGE":"Welcome to FUTPLAY, before creating your account we need to verify your email address. Please use the following code to verify your account",
+   "FILTER":"Filter Data",
+   "NO_HOURS_AVAILABLE":"No hours available!.",
+   "LANGUAGE":"Language",
+   "SPANISH":"Spanish",
+   "ENGLISH":"English"
+ 
   
    
    

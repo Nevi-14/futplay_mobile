@@ -3,7 +3,7 @@
   padding: 0;
 }
 
-h1 {
+h2 {
   margin-bottom: 10px;
   font-size: 24px;
   font-weight: 700;
@@ -11,6 +11,22 @@ h1 {
 
 h3 {
   color: #939fab;
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 2rem;
+} 
+img {
+  height: 8rem;
+  width: 8rem;
+  display: block;
+  margin: 0 auto;
+
+}
+.img-container {
+  margin-bottom: 32px;
+}
+
+h3 {
   font-weight: 600;
   font-size: 18px;
   margin-bottom: 2rem;
@@ -27,7 +43,8 @@ ion-thumbnail{
 }
 form {
   margin-top: 2rem;
-
+max-width: 500px;
+margin: 0 auto;
   .forgot-password-link {
     text-decoration: none;
     display: inline-block;

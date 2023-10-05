@@ -24,6 +24,7 @@ export class Usuarios {
         public Codigo_Llamadas: string,
         public Inicio_Sesion: Date,
         public Estado : boolean,
-        public Descripcion_Estado: string
+        public Descripcion_Estado: string,
+        public Idioma: string
     ){}
 }

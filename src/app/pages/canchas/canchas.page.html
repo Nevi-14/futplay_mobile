@@ -33,7 +33,7 @@
   
 
 
-  <ion-list *ngIf="canchasService.canchas.length == 0">
+  <ion-list *ngIf="items.length == 0">
     <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"   >
 
       <span>
@@ -50,11 +50,11 @@
      </ion-item>
 
   </ion-list>
-<ion-list *ngIf="canchasService.canchas.length > 0">
+<ion-list *ngIf="items.length > 0">
 
 
 
-<ion-item  lines="full"  class="employeeItem  animate__animated animate__fadeIn"    (click)="onOpenMenu(cancha)" *ngFor="let cancha of canchasService.canchas | filtro: textoBuscar:'nombre'" >
+<ion-item  lines="full"  class="employeeItem  animate__animated animate__fadeIn"    (click)="onOpenMenu(cancha)"  *ngFor="let cancha of items | filtro: textoBuscar:'nombre'" >
 
 <span>
   <ion-avatar  >
@@ -79,6 +79,8 @@
 </span>
 </ion-item>
 </ion-list>
-
+<ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+  <ion-infinite-scroll-content></ion-infinite-scroll-content>
+</ion-infinite-scroll>
 </ion-content>
 

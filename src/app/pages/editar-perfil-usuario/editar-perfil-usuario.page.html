@@ -14,6 +14,28 @@
   <ion-grid >
     <ion-row>
       <ion-col size="12">
+        <ion-avatar class="profile-image" >
+        
+          <ion-fab-button (click)="adjuntarImagen()" class="camera-button">
+            <ion-icon size="large"   name="camera-outline"></ion-icon>
+          </ion-fab-button>
+         
+    
+      
+    
+          <img *ngIf="!usuarioService.usuarioActual.Avatar  && usuarioService.usuarioActual.Foto != 'No Pic'" 
+          src="{{url+usuarioService.usuarioActual.Foto}}" alt="{{usuarioService.usuarioActual.Foto}}" onerror="this.src='assets/img/icon/FP.svg'">
+    
+          <img *ngIf="usuarioService.usuarioActual.Foto == 'No Pic'" 
+          src="assets/img/icon/FP.svg" alt="{{usuarioService.usuarioActual.Foto}}" onerror="this.src='assets/img/icon/FP.svg'">
+    
+        <img *ngIf="usuarioService.usuarioActual.Avatar && usuarioService.usuarioActual.Foto != 'No Pic'"
+          src="assets/profile/avatars/{{usuarioService.usuarioActual.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"
+          alt="{{usuarioService.usuarioActual.Foto}}">
+      
+        </ion-avatar>
+      </ion-col>
+      <ion-col size="12">
         <h1>{{"SELECT_AVATAR" | translate }}</h1>
       </ion-col>
       <ion-col size="12">
@@ -51,6 +73,10 @@
         <ion-col size="12">
           <app-input      name="Apodo" type="text" label='{{"NICK_NAME" | translate }}' ngModel="{{usuario.Apodo}}"></app-input> 
         </ion-col>
+        <ion-col size="12">
+          
+          <app-select  name="Idioma"  [data]="languages"   [ngModel]="usuario.Idioma" label='{{"LANGUAGE" | translate }}'  ></app-select>
+             </ion-col>
         <ion-col size="12">
           
      <app-select  name="Cod_Posicion"  [data]="dataPosiciones"   [ngModel]="usuario.Cod_Posicion" label='{{"POSITION" | translate }}'  ></app-select>

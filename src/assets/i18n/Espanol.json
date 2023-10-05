@@ -136,6 +136,7 @@
     "CONFIRM":"Confirmar",
     "VALIDATING_DATA":"Validando Datos",
     "ACTION_COMPLETED":"Acción Completada",
+    "ACTION_COMPLETE":"Acción Completada",
     "NEUTRAL_TEAM":"Equipo Neutral",
     "ANNOYING_GAME":"Juego Molesto",
     "IRRESPONSIBLE_AGGRESSIVENESS":"Agresividad Irresponsable",
@@ -238,7 +239,19 @@
  "JOIN_GANE" : "Unirse al Juego",
  "PLAYER_EVALUATION" : "Evaluación Jugador",
  "TEAM_EVALUATION" : "Evaluación Equipo",
- "TEAM_HARDNESS" : "Dureza Equipo"
+ "TEAM_HARDNESS" : "Dureza Equipo",
+ "REQUEST_SENT":"Solicitud Enviada",
+ "ACCEPT_REQUEST":"Aceptar Solicitud",
+ "ALL_FIIELD_ARE_REQUIRED":"Todos los campos son requeridos!.",
+ "MIN_PASSWORD_LENGTH":"La contraseña debe tener al menos 8 caracteres de longitud.",
+ "DEAR_USER":"Estimado Usuario",
+ "ACCOUNT_VERIFICATION_MESSAGE":"Bienvenido a FUTPLAY, antes de crear tu cuenta, necesitamos verificar tu dirección de correo electrónico. Por favor, utiliza el siguiente código para verificar tu cuenta.",
+ "FILTER":"Filtrar Datos",
+ "NO_HOURS_AVAILABLE":"No hay horas disponibles!.",
+ "LANGUAGE":"Idioma",
+ "SPANISH":"Español",
+ "ENGLISH":"Ingles"
+ 
  
 
  }

@@ -16,7 +16,7 @@
             
       
           <img *ngIf="!equipo.equipo.Avatar  && equipo.equipo.Foto != 'No Pic'" 
-          src="{{url+equipo.equipo.Foto}}" alt="{{equipo.equipo.Foto}}">
+          src="{{url+equipo.equipo.Foto}}" alt="{{equipo.equipo.Foto}}"   onerror="this.src='assets/img/icon/FP.svg'">
     
           <img *ngIf="equipo.equipo.Foto == 'No Pic'" 
           src="assets/img/icon/FP.svg" alt="{{equipo.equipo.Foto}}">

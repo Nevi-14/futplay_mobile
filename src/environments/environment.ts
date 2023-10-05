@@ -113,7 +113,8 @@ export const environment = {
 
     getVerificacionPagoURL:'get/verificacion/pago/',
     postVerificacionPagoURL:'post/verificacion/pago',
-    putVerificacionPagoURL:'put/verificacion/pago/'
+    putVerificacionPagoURL:'put/verificacion/pago/',
+    getValidarCuentaURL:'get/validar/cuenta/',
 
 
 };

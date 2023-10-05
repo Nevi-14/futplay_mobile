@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EquiposService } from '../../services/equipos.service';
 import { UsuariosService } from '../../services/usuarios.service';
-import { ActionSheetButton, ModalController, ActionSheetController } from '@ionic/angular';
+import { ActionSheetButton, ModalController, ActionSheetController, InfiniteScrollCustomEvent } from '@ionic/angular';
 import { Solicitudes } from 'src/app/models/solicitudes';
 import { SolicitudesService } from '../../services/solicitudes.service';
 import { AlertasService } from '../../services/alertas.service';
@@ -17,7 +17,8 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './buscar-equipos.page.html',
   styleUrls: ['./buscar-equipos.page.scss'],
 })
-export class BuscarEquiposPage implements OnInit {
+export class BuscarEquiposPage {
+  items = [];
   textoBuscar = ''
   url = environment.archivosURL;
   solicitud:Solicitudes = {
@@ -46,10 +47,11 @@ public jugadoresService: JugadoresService,
 private translateService: TranslateService
   ) { }
 
-  ngOnInit() {
+  ionViewWillEnter() {
 this.alertasService.presentaLoading(this.translateService.instant('LOADING_DATA'));
     this.equiposService.syncListaEquiposToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(resp =>{
       this.equiposService.equipos = resp;
+      this.generateItems();
 this.alertasService.loadingDissmiss();
 
     }, error =>{
@@ -97,6 +99,20 @@ this.alertasService.loadingDissmiss();
       this.textoBuscar = event.detail.value;
   
     }
+
+    private generateItems() {
+      const count =  this.equiposService.equipos.length + 1;
+      for (let i = 0; i < 50; i++) {
+        this.items.push( this.equiposService.equipos[i]);
+      }
+    }
+  
+    onIonInfinite(ev) {
+      this.generateItems();
+      setTimeout(() => {
+        (ev as InfiniteScrollCustomEvent).target.complete();
+      }, 500);
+    }
       EquipoSolicitud(equipo){
 
         this.jugadoresService.syncGetJugador(this.usuariosService.usuarioActual.Cod_Usuario,equipo.equipo.Cod_Equipo).then(resp =>{
@@ -116,7 +132,13 @@ return     this.alertasService.message('FUTPLAY', this.translateService.instant(
   
        
       }
-     
+     filledStars(stars: number) {
+    return new Array(stars);
+  }
+  emptyStars(stars: number) {
+    let value = 5 - stars;
+    return new Array(value);
+  }
       async onOpenMenu(equipo){
         console.log(equipo)
         

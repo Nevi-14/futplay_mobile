@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActionSheetButton, ModalController, ActionSheetController } from '@ionic/angular';
+import { ActionSheetButton, ModalController, ActionSheetController, InfiniteScrollCustomEvent } from '@ionic/angular';
 import { UsuariosService } from '../../services/usuarios.service';
 import { EquiposService } from '../../services/equipos.service';
  
@@ -10,13 +10,15 @@ import { Solicitudes } from '../../models/solicitudes';
 import { SolicitudesService } from '../../services/solicitudes.service';
 import { FiltroUsuariosPage } from '../filtro-usuarios/filtro-usuarios.page';
 import { AlertasService } from '../../services/alertas.service';
+import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-buscar-jugadores',
   templateUrl: './buscar-jugadores.page.html',
   styleUrls: ['./buscar-jugadores.page.scss'],
 })
-export class BuscarJugadoresPage implements OnInit {
+export class BuscarJugadoresPage  {
   filtro ={
     Codigo_Pais: null,
     Codigo_Estado: null,
@@ -34,35 +36,57 @@ export class BuscarJugadoresPage implements OnInit {
     Confirmacion_Equipo:true,
     Estado:true
   }
+  items = [];
+  url  = environment.archivosURL;
     constructor(
       public modalCtrl: ModalController,
       public equiposService: EquiposService,
       public usuariosService:UsuariosService,
       public actionSheetCtrl: ActionSheetController,
       public solicitudesService:SolicitudesService,
-      public alertasService: AlertasService
+      public alertasService: AlertasService,
+      public translateService:TranslateService
     ) { }
   
-    ngOnInit() {
-      this.alertasService.presentaLoading('Cargando lista de jugadores...')
+    ionViewWillEnter() {
+      this.alertasService.presentaLoading(this.translateService.instant('LOADING'));
   this.usuariosService.syncListaUsuariosToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then(usuarios=>{
     this.usuariosService.usuarios = usuarios;
     this.alertasService.loadingDissmiss();
-
+    this.generateItems();
 
   }, error =>{
     this.alertasService.loadingDissmiss();
-    this.alertasService.message('FUTPLAY','Lo sentimos algo salio mal!..')
+    this.alertasService.message('FUTPLAY', this.translateService.instant('SOMETHING_WENT_WRONG'))
   })
 
  
     }
+
+    
+  private generateItems() {
+    const count = this.usuariosService.usuarios.length + 1;
+    for (let i = 0; i < 100; i++) {
+      this.items.push(this.usuariosService.usuarios[i]);
+    }
+  }
+
+  onIonInfinite(ev) {
+    this.generateItems();
+    setTimeout(() => {
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }, 500);
+  }
     jugadorEquipoSolicitud(usuario: PerfilUsuario){
+      this.alertasService.presentaLoading(this.translateService.instant('LOADING'));
       this.solicitud.Cod_Usuario = usuario.usuario.Cod_Usuario
   
      this.solicitudesService.generarSolicitud(this.solicitud).then(resp =>{
-
-      this.alertasService.message('FUTPLAY', 'Solicitud Enviada')
+this.alertasService.loadingDissmiss();
+      this.alertasService.message('FUTPLAY', this.translateService.instant('REQUEST_SENT'))
+     }, error =>{
+      this.alertasService.loadingDissmiss();
+      this.alertasService.message('FUTPLAY', this.translateService.instant('SOMETHING_WENT_WRONG'))
      })
     }
   
@@ -87,7 +111,7 @@ export class BuscarJugadoresPage implements OnInit {
       
           const normalBtns : ActionSheetButton[] = [
             {   
-               text: 'Detalle Jugador',
+              text: this.translateService.instant('VIEW_PROFILE'),
                icon:'person-outline',
                handler: () =>{
        this.perfilJugador(jugador);
@@ -96,7 +120,7 @@ export class BuscarJugadoresPage implements OnInit {
               },
         
               {   
-                text: 'Enviar Solicitud',
+                text: this.translateService.instant('SEND_REQUEST'),
                 icon:'paper-plane-outline',
                 handler: () =>{
                  // this.videoScreen(3);
@@ -106,7 +130,7 @@ export class BuscarJugadoresPage implements OnInit {
                },
               
                {   
-                text: 'Cancelar',
+                text: this.translateService.instant('CANCEL'),
                 icon:'close-outline',
                role:'cancel',
                

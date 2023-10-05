@@ -98,11 +98,14 @@ let-i="index" let-odd="odd"  >
      
                 <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
                 
-                  <ion-icon color="warning" style="size: 10px;" name="star" color="warning"></ion-icon>
-                  <ion-icon  color="warning" style="size: 10px;"  name="star-outline"></ion-icon>
-                  <ion-icon color="warning"style="size: 10px;" name="star-outline"></ion-icon>
-                  <ion-icon color="warning" style="size: 10px;"  name="star-outline"></ion-icon>
-                  <ion-icon color="warning"style="size: 10px;" name="star-outline"></ion-icon>
+                  <ng-template ngFor let-hero [ngForOf]="filledStars(equipo.equipo.Estrellas)" let-i="index"
+                  let-odd="odd">
+                  <ion-icon color="warning"   name="star"></ion-icon>
+                </ng-template>
+                <ng-template ngFor let-hero [ngForOf]="emptyStars(equipo.equipo.Estrellas)" let-i="index"
+                  let-odd="odd">
+                  <ion-icon color="warning"   name="star-outline"></ion-icon>
+                </ng-template>
                 </p>
               </ion-label>
     

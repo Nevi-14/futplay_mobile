@@ -50,15 +50,15 @@
 
 
     <ion-item lines="full" (click)="onOpenMenu(equipo)" class="animate__animated animate__fadeIn"
-      *ngFor="let equipo of equiposService.equipos  | filtro : textoBuscar:'nombre'">
+      *ngFor="let equipo of items  | filtro : textoBuscar:'nombre'">
       <span  >
 
         <ion-avatar>
           <img *ngIf="!equipo.equipo.Avatar  && equipo.equipo.Foto != 'No Pic'" 
-          src="{{url+equipo.equipo.Foto}}" alt="{{equipo.Foto}}">
+          src="{{url+equipo.equipo.Foto}}" alt="{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'">
     
           <img *ngIf="equipo.equipo.Foto == 'No Pic'" 
-          src="assets/img/icon/FP.svg" alt="{{equipo.equipo.Foto}}">
+          src="assets/img/icon/FP.svg"  alt="{{equipo.equipo.Foto}}">
     
         <img *ngIf="equipo.equipo.Avatar && equipo.equipo.Foto != 'No Pic'"
           src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"
@@ -71,12 +71,14 @@
 
           <p>{{"SCORE" | translate }} : {{equipo.equipo.Puntaje_Actual ? equipo.equipo.Puntaje_Actual : 0}} </p>
           <p style="display:block; margin-top: 0.5rem;margin-left: 1rem;">
-
-            <ion-icon style="size: 10px;" name="star"></ion-icon>
-            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
-            <ion-icon style="size: 10px;" name="star-outline"></ion-icon>
+            <ng-template ngFor let-hero [ngForOf]="filledStars(equipo.equipo.Estrellas)" let-i="index"
+            let-odd="odd">
+            <ion-icon color="warning"   name="star"></ion-icon>
+          </ng-template>
+          <ng-template ngFor let-hero [ngForOf]="emptyStars(equipo.equipo.Estrellas)" let-i="index"
+            let-odd="odd">
+            <ion-icon color="warning"   name="star-outline"></ion-icon>
+          </ng-template>
           </p>
  </div>
       </span>
@@ -84,6 +86,8 @@
     </ion-item>
   </ion-list>
 
-
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

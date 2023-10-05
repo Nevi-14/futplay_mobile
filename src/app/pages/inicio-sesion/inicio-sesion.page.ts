@@ -18,18 +18,17 @@ export class InicioSesionPage {
   }
   @ViewChild('popover') popover;
   isOpen = false;
-  idioma = 'Us';
-  file = 'Ingles';
+
   constructor(
     public usuariosServicio: UsuariosService,
     public modalCtrl: ModalController,
     public alertasService: AlertasService,
     public router: Router,
-    private translateService: TranslateService
+    private translateService: TranslateService,
   ) { }
 
   ionViewWillEnter() {
-    this.cambiarIdioma(this.idioma, this.file);
+ 
     this.limpiarDatos()
   }
   presentPopover(e: Event) {
@@ -42,7 +41,7 @@ export class InicioSesionPage {
   }
 
   cambiarIdioma(lng, file) {
-    this.idioma = lng;
+    this.usuariosServicio.idioma = lng;
     this.translateService.setDefaultLang(file);
     this.popover.dismiss();
   }

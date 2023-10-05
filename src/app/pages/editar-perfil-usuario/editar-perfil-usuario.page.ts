@@ -8,10 +8,11 @@ import avatarArray from '../../../assets/data/avatars.json';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { ChangeDetectorRef } from '@angular/core'
 import { EliminarCuentaPage } from '../eliminar-cuenta/eliminar-cuenta.page';
-import { GestorPerfilImagenesPage } from '../gestor-perfil-imagenes/gestor-perfil-imagenes.page';
 import { GestorImagenesService } from '../../services/gestor-imagenes.service';
 import { NgForm } from '@angular/forms';
 import { tick } from '@angular/core/testing';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-editar-perfil-usuario',
   templateUrl: './editar-perfil-usuario.page.html',
@@ -28,6 +29,7 @@ dataCantones = [];
 dataDistritos = [];
 dataPosiciones=[];
 imgs = avatarArray;
+url = environment.archivosURL;
   private modalOpen:boolean = false;
   areaUnit =1;
   sliderOpts = {
@@ -70,6 +72,7 @@ isVisible = false;
   image = 'assets/user.svg'
   ///// In functions declaration zone
   @ViewChild(IonicSlides) slides;
+  languages =  [{'id':'Es', 'valor':this.translateService.instant('SPANISH')},{'id':'US', 'valor':this.translateService.instant('ENGLISH')}]
   avatarSlide = {
     slidesPerView: 2.5
   }
@@ -137,7 +140,8 @@ isVisible = false;
     public userService: UsuariosService,
     public alertasService: AlertasService,
     public cdr: ChangeDetectorRef,
-    public gestorImagenesService: GestorImagenesService
+    public gestorImagenesService: GestorImagenesService,
+    private translateService: TranslateService
     ) {
 
 
@@ -164,29 +168,17 @@ resp.forEach( posision =>{
    });
  
   }
-
+  adjuntarImagen() {
+    this.gestorImagenesService.post = true;
+    this.gestorImagenesService.alertaCamara();
+  }
   avatar(){
     this.avatars = !this.avatars
 
   }
  
 
-  async  gestorPerfilImagenes(){
-
-    const modal = await this.modalCtrl.create({
-      component: GestorPerfilImagenesPage,
-      cssClass:'alert-modal',
-      mode:'ios',
-    });
-  
-    
-     await modal.present();
-     const { data } = await modal.onWillDismiss();
-  
-     
-    
-   this.cdr.detectChanges();
-  }
+ 
 
 
   slideChange(event){
@@ -217,6 +209,7 @@ resp.forEach( posision =>{
     this.usuario.Peso = usuario.Peso;
     this.usuario.Telefono = usuario.Telefono;
     this.usuario.Correo = usuario.Correo;
+    this.usuario.Idioma = usuario.Idioma;
 
   //  if(fActualizar.invalid) {return;}
  

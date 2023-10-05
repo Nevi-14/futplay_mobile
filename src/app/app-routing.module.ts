@@ -14,7 +14,8 @@ const routes: Routes = [
 
   {
     path: 'inicio-sesion',
-    loadChildren: () => import('./pages/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule) 
+    loadChildren: () => import('./pages/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule) ,
+    canLoad : [AutoLoginGuard]
   },
   {
     path: 'registro',
@@ -164,11 +165,6 @@ const routes: Routes = [
     path: 'filtro-usuarios',
     loadChildren: () => import('./pages/filtro-usuarios/filtro-usuarios.module').then( m => m.FiltroUsuariosPageModule)
   },
-  {
-    path: 'gestor-perfil-imagenes',
-    loadChildren: () => import('./pages/gestor-perfil-imagenes/gestor-perfil-imagenes.module').then( m => m.GestorPerfilImagenesPageModule)
-  },
- 
   {
     path: 'solicitudes-jugadores',
     loadChildren: () => import('./pages/solicitudes-jugadores/solicitudes-jugadores.module').then( m => m.SolicitudesJugadoresPageModule)

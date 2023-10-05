@@ -11,6 +11,7 @@ import { StorageService } from '../../services/storage-service';
 import { JugadoresService } from '../../services/jugadores.service';
 import { PerfilJugador } from 'src/app/models/perfilJugador';
 import { TranslateService } from '@ngx-translate/core';
+import { ReservacionesService } from 'src/app/services/reservaciones.service';
 @Component({
   selector: 'app-inicio-partido',
   templateUrl: './inicio-partido.page.html',
@@ -32,7 +33,8 @@ export class InicioPartidoPage implements OnInit {
     public canchasService: CanchasService,
     public storageService: StorageService,
     public jugadoresService: JugadoresService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    public reservacionesService: ReservacionesService
   ) {}
 
   funcionRetador() {
@@ -112,15 +114,37 @@ export class InicioPartidoPage implements OnInit {
           text: this.translateService.instant('CONTINUE'),
           role: 'confirm',
           handler: () => {
-            this.partidosService
+            if (this.partido[0].Cod_Equipo != this.partido[1].Cod_Equipo) {
+              this.partidosService
               .syncPutFinalizarPartido(
                 this.retador ? this.partido[0] : this.partido[1]
               )
               .then((resp: any) => {
                 this.partido = resp.partido;
                 this.regresar();
+               
                 this.evaluacionModal();
               });
+            }else{
+              this.partidosService
+              .syncPutFinalizarPartido(
+                this.partido[0]  
+              )
+              .then((resp: any) => {
+                this.partido = resp.partido;
+                this.partidosService.syncPutFinalizarPartido(
+                this.partido[1]
+                )
+                .then((resp: any) => {
+                  this.partido = resp.partido;
+                  this.reservacionesService.cargarReservaciones();
+                  this.regresar();
+              
+                });
+           
+            
+              });
+            }
           },
         },
       ],
@@ -153,7 +177,9 @@ export class InicioPartidoPage implements OnInit {
               .then((resp: any) => {
                 this.partido = resp.partido;
                 this.regresar();
-                this.evaluacionModal();
+                if (this.partido[0].Cod_Equipo != this.partido[1].Cod_Equipo) {
+                  this.evaluacionModal();
+                }
               });
           },
         },
@@ -188,7 +214,10 @@ export class InicioPartidoPage implements OnInit {
               .then((resp: any) => {
                 this.partido = resp.partido;
                 this.regresar();
-                this.evaluacionModal();
+                if(this.partido[0].Cod_Equipo != this.partido[1].Cod_Equipo){
+                  this.evaluacionModal();
+                }
+                
               });
           },
         },
@@ -214,6 +243,7 @@ export class InicioPartidoPage implements OnInit {
 
   async evaluacionIndividual() {
     await this.varificarMarcador();
+
 
     if (
       this.partido[0].Goles_Retador == 0 &&
