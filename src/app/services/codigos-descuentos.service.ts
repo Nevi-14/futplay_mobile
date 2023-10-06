@@ -7,30 +7,24 @@ import { CodigosDescuento } from '../models/codigoDescuento';
   providedIn: 'root'
 })
 export class CodigosDescuentosService {
+  constructor(public http: HttpClient) {}
 
-  constructor(
-  public http:HttpClient  
-  ) { }
-
-  getURL( api: string ){
-
-    let test: string = ''
-    if ( !environment.prdMode ) {
+  getURL(api: string) {
+    let test = '';
+    if (!environment.prdMode) {
       test = environment.TestURL;
-      
     }
-  const URL = environment.preURL  + test +  environment.postURL + api;
+    const URL = environment.preURL + test + environment.postURL + api;
     return URL;
   }
-  private getDescuento( Codigo_Descuento:string){
-    let URL = this.getURL( environment.getCodigosDesciuentosURL);
-        URL = URL + Codigo_Descuento
 
-        console.log(URL, 'URL ')
-    return this.http.get<CodigosDescuento[]>( URL );
+  private getDescuento(codigoDescuento: string) {
+    const URL = this.getURL(environment.getCodigosDesciuentosURL) + codigoDescuento;
+    console.log(URL, 'URL ');
+    return this.http.get<CodigosDescuento[]>(URL);
   }
- 
- getDescuentoToPromise(Codigo_Descuento:string){
-return   this.getDescuento(Codigo_Descuento).toPromise();
- }
+
+  getDescuentoToPromise(codigoDescuento: string) {
+    return this.getDescuento(codigoDescuento).toPromise();
+  }
 }

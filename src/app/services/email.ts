@@ -19,6 +19,7 @@ export class EmailService {
 
     return URL;
   }
+
   private postEmail(email) {
     const URL = this.getURL('post/correo');
     const options = {
@@ -28,7 +29,6 @@ export class EmailService {
         'Access-Control-Allow-Origin': '*',
       },
     };
-    console.log(URL);
     return this.http.post(URL, JSON.stringify(email), options);
   }
 

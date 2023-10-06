@@ -8,91 +8,75 @@ import { partidos } from '../models/partidos';
 })
 export class PartidoService {
 
-  constructor(
-public http: HttpClient
+  constructor(public http: HttpClient) {}
 
-  ) { }
-
-
-  getURL( api: string ){
-    let test: string = ''
-    if ( !environment.prdMode ) {
-   test = environment.TestURL;
+  getURL(api: string) {
+    let test: string = '';
+    if (!environment.prdMode) {
+      test = environment.TestURL;
     }
-  const URL = environment.preURL  + test +  environment.postURL + api 
- 
+    const URL = environment.preURL + test + environment.postURL + api;
     return URL;
   }
   
-   getPartidoReservacion(Cod_Reservacion ){
-    let URL = this.getURL( environment.getPartidoURL);
-    URL = URL +Cod_Reservacion
-    console.log(URL,'URL')
-    return this.http.get<partidos[]>( URL );
+  getPartidoReservacion(Cod_Reservacion) {
+    let URL = this.getURL(environment.getPartidoURL);
+    URL = URL + Cod_Reservacion;
+    return this.http.get<partidos[]>(URL);
   }
-  private    putPartidoCodigoQR(partido:partidos){
 
-    let URL = this.getURL( environment.putPartidoCodigoQR);
-     URL = URL +partido.Cod_Reservacion  ;
+  private putPartidoCodigoQR(partido: partidos) {
+    let URL = this.getURL(environment.putPartidoCodigoQR);
+    URL = URL + partido.Cod_Reservacion;
     const options = {
       headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       }
     };
-   
- 
-    return this.http.put( URL, partido, options );
+    return this.http.put(URL, partido, options);
   }
-  private    putPartido(partido:partidos){
 
-    let URL = this.getURL( environment.putPartidoURL);
-     URL = URL +partido.Cod_Reservacion  ;
+  private putPartido(partido: partidos) {
+    let URL = this.getURL(environment.putPartidoURL);
+    URL = URL + partido.Cod_Reservacion;
     const options = {
       headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       }
     };
-   
- 
-    return this.http.put( URL, partido, options );
+    return this.http.put(URL, partido, options);
   }
 
-  private    putFinalizarPartido(partido:partidos){
-
-    let URL = this.getURL( environment.finalizarPartidoURL);
-     URL = URL +partido.Cod_Reservacion;
+  private putFinalizarPartido(partido: partidos) {
+    let URL = this.getURL(environment.finalizarPartidoURL);
+    URL = URL + partido.Cod_Reservacion;
     const options = {
       headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       }
     };
-   
- console.log('URL PUT PARTIDO', URL)
- console.log('partido', partido)
-    return this.http.put( URL, partido, options );
+    return this.http.put(URL, partido, options);
   }
-  syncGetPartidoReservacion(Cod_Reservacion){
 
+  syncGetPartidoReservacion(Cod_Reservacion) {
     return this.getPartidoReservacion(Cod_Reservacion).toPromise();
   }
 
-  syncPutFinalizarPartido(partido:partidos){
-
+  syncPutFinalizarPartido(partido: partidos) {
     return this.putFinalizarPartido(partido).toPromise();
   }
-  syncPutPartidoCodigoQR(partido:partidos){
 
+  syncPutPartidoCodigoQR(partido: partidos) {
     return this.putPartidoCodigoQR(partido).toPromise();
   }
 
-  syncPutPartido(partido:partidos){
-
+  syncPutPartido(partido: partidos) {
     return this.putPartido(partido).toPromise();
   }
 }

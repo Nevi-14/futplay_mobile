@@ -13,19 +13,13 @@ export class EquiposGeolocalizacionService {
     private http: HttpClient,
     public alertasService: AlertasService
   ) { }
-  reload: boolean = false;
-  // GET  METHODS
 
   getURL(api: string) {
-
     let test: string = ''
     if (!environment.prdMode) {
       test = environment.TestURL;
-
     }
     const URL = environment.preURL + test + environment.postURL + api;
-
-
     return URL;
   }
 
@@ -35,7 +29,6 @@ export class EquiposGeolocalizacionService {
     console.log(URL, 'URL ')
     return this.http.get<EquipoGeolocalizacion[]>(URL);
   }
-
 
   private postEquipoGeolocalizacion(geolocaizacion: EquipoGeolocalizacion) {
     let URL = this.getURL(environment.postEquipoGeolocalizacion);
@@ -50,6 +43,7 @@ export class EquiposGeolocalizacionService {
     console.log('POST URL', URL, 'geolocaizacion', geolocaizacion)
     return this.http.post(URL, JSON.stringify(geolocaizacion), options);
   }
+
   private putEquipoGeolocalizacion(geolocaizacion: EquipoGeolocalizacion) {
     let URL = this.getURL(environment.putEquipoGeolocalizacion);
     URL = URL;
@@ -63,8 +57,8 @@ export class EquiposGeolocalizacionService {
     console.log('PUT URL', URL, 'geolocaizacion', geolocaizacion)
     return this.http.put(URL, JSON.stringify(geolocaizacion), options);
   }
-  private deleteEquipoGeolocalizacion(Cod_Equipo) {
 
+  private deleteEquipoGeolocalizacion(Cod_Equipo) {
     let URL = this.getURL(environment.deleteEquipoGeolocalizacion);
     URL = URL + Cod_Equipo;
     const options = {
@@ -80,12 +74,15 @@ export class EquiposGeolocalizacionService {
   syncGetEquipoGeolocalizacionToPromise(Cod_Equipo: number) {
     return this.getEquipoGeolocalizacion(Cod_Equipo).toPromise();
   }
+
   syncPostEquipoGeolocalizacionToPromise(geolocalizacion: EquipoGeolocalizacion) {
     return this.postEquipoGeolocalizacion(geolocalizacion).toPromise();
   }
+
   syncPutEquipoGeolocalizacionToPromise(geolocalizacion: EquipoGeolocalizacion) {
     return this.postEquipoGeolocalizacion(geolocalizacion).toPromise();
   }
+
   syncDeleteEquipoGeolocalizacionToPromise(Cod_Equipo: number) {
     return this.deleteEquipoGeolocalizacion(Cod_Equipo).toPromise();
   }

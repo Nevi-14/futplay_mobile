@@ -18,7 +18,6 @@ import {
   CameraSource,
   Photo,
 } from '@capacitor/camera';
-import { EquiposService } from './equipos.service';
 import { TranslateService } from '@ngx-translate/core';
 import { UsuariosService } from './usuarios.service';
 import { StorageService } from './storage-service';

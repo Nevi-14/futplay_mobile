@@ -10,145 +10,92 @@ import { PerfilJugador } from '../models/perfilJugador';
   providedIn: 'root'
 })
 export class JugadoresService {
-jugadores:PerfilJugador[]=[]
-jugador:PerfilJugador;
+  jugadores: PerfilJugador[] = [];
+  jugador: PerfilJugador;
   constructor(
     private http: HttpClient,
     private router: Router,
     public alertasService: AlertasService
   ) { }
-  reload:boolean = false;
-// GET  METHODS
+  reload: boolean = false;
 
-  getURL( api: string ){
-
-    let test: string = ''
-    if ( !environment.prdMode ) {
+  getURL(api: string) {
+    let test: string = '';
+    if (!environment.prdMode) {
       test = environment.TestURL;
-      
     }
-  const URL = environment.preURL  + test +  environment.postURL + api;
-
-
+    const URL = environment.preURL + test + environment.postURL + api;
     return URL;
   }
 
-  private getJugadoresEquipos( Cod_Equipo){
-    let URL = this.getURL( environment.getJugadoresEquipoURL);
-        URL = URL + Cod_Equipo
-
-        console.log(URL, 'URL ')
-    return this.http.get<PerfilJugador[]>( URL );
+  private getJugadoresEquipos(Cod_Equipo) {
+    let URL = this.getURL(environment.getJugadoresEquipoURL);
+    URL = URL + Cod_Equipo;
+    return this.http.get<PerfilJugador[]>(URL);
   }
 
-
-  private getJugador( Cod_Usuario, Cod_Equipo){
-    let URL = this.getURL( environment.getJugadorURL);
-        URL = URL + Cod_Usuario + '/'+Cod_Equipo
-
-        console.log(URL, 'URL ')
-    return this.http.get<any[]>( URL );
+  private getJugador(Cod_Usuario, Cod_Equipo) {
+    let URL = this.getURL(environment.getJugadorURL);
+    URL = URL + Cod_Usuario + '/' + Cod_Equipo;
+    return this.http.get<any[]>(URL);
   }
 
-
-
-  syncJugadoresEquipos(Cod_Equipo){
-
-  return this.getJugadoresEquipos(Cod_Equipo).toPromise();
-
-  
+  syncJugadoresEquipos(Cod_Equipo) {
+    return this.getJugadoresEquipos(Cod_Equipo).toPromise();
   }
 
-  syncGetJugador(Cod_Usuario, Cod_Equipo){
-
+  syncGetJugador(Cod_Usuario, Cod_Equipo) {
     return this.getJugador(Cod_Usuario, Cod_Equipo).toPromise();
-  
-    
-    }
- 
+  }
 
-
-
-// POST METHODS
-
-
-private postJugador (jugador:Jugador){
-  
-  let URL = this.getURL( environment.postJugadoresEquiposURL );
-
-  URL = URL +jugador.Cod_Equipo
-  const options = {
-    headers: {
+  private postJugador(jugador: Jugador) {
+    let URL = this.getURL(environment.postJugadoresEquiposURL);
+    URL = URL + jugador.Cod_Equipo;
+    const options = {
+      headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Access-Control-Allow-Origin': '*'
-    }
-  };
- console.log('post equipo URL', URL)
-  return this.http.post( URL, JSON.stringify(jugador), options );
-}
-
-syncPostJugadorEquipoToPromise(jugador:Jugador){
-console.log('jugador', jugador)
- return  this.postJugador(jugador).toPromise();
-
-}
-
-
-
-// PUT  METHODS
-
-  private    putJugadorEquipo(jugador:Jugador){
-
-    let URL = this.getURL( environment.putJugadoresEquiposURL);
-     URL = URL +jugador.Cod_Equipo  ;
-    const options = {
-      headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Access-Control-Allow-Origin': '*'
       }
     };
-   
- 
-    return this.http.put( URL, jugador, options );
+    return this.http.post(URL, JSON.stringify(jugador), options);
   }
 
-  
-  putJugadorToPromise(jugador:Jugador  ){
-
-
-   
-      
-   return this.putJugadorEquipo( jugador ).toPromise();
+  syncPostJugadorEquipoToPromise(jugador: Jugador) {
+    return this.postJugador(jugador).toPromise();
   }
 
- 
-
- 
-
-
-  // DELETE  METHODS
-
-  private   deleteJugadorEquipo(Cod_Jugador ){
-
-    let URL = this.getURL( environment.deleteJugadoresEquiposURL);
-        URL = URL  + Cod_Jugador;
+  private putJugadorEquipo(jugador: Jugador) {
+    let URL = this.getURL(environment.putJugadoresEquiposURL);
+    URL = URL + jugador.Cod_Equipo;
     const options = {
       headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Access-Control-Allow-Origin': '*'
-      } 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
     };
- console.log('URL', URL)
-    return this.http.delete( URL, options );
+    return this.http.put(URL, jugador, options);
   }
 
-  syncDeleteJugadorEquipo(Cod_Jugador){
+  putJugadorToPromise(jugador: Jugador) {
+    return this.putJugadorEquipo(jugador).toPromise();
+  }
 
+  private deleteJugadorEquipo(Cod_Jugador) {
+    let URL = this.getURL(environment.deleteJugadoresEquiposURL);
+    URL = URL + Cod_Jugador;
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    };
+    return this.http.delete(URL, options);
+  }
+
+  syncDeleteJugadorEquipo(Cod_Jugador) {
     return this.deleteJugadorEquipo(Cod_Jugador).toPromise();
-
   }
-
 }

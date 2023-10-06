@@ -7,15 +7,12 @@ import { CategoriaCanchas } from '../models/categoriaCanchas';
   providedIn: 'root'
 })
 export class CategoriaCanchasService {
+  categoriaCanchas: CategoriaCanchas[] = [];
 
-  categoria_canchas: CategoriaCanchas[] = [];
-
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
 
   getURL(api: string, id: string) {
-    let test: string = ''
+    let test = '';
     if (!environment.prdMode) {
       test = environment.TestURL;
     }
@@ -24,29 +21,22 @@ export class CategoriaCanchasService {
     console.log(URL);
     return URL;
   }
+
   private getCategoriaCanchas() {
     const URL = this.getURL(environment.getCategoriasURL, '');
     return this.http.get<CategoriaCanchas[]>(URL);
   }
 
   syncCategoriaCanchas() {
+    this.categoriaCanchas = [];
 
-    this.categoria_canchas = [];
-
-
-    this.getCategoriaCanchas().subscribe(
-      resp => {
-
-
-
-        this.categoria_canchas = resp.slice(0);
-        console.log(this.categoria_canchas, 'this.categoria_canchas')
-      }
-
-    );
+    this.getCategoriaCanchas().subscribe(resp => {
+      this.categoriaCanchas = resp.slice(0);
+      console.log(this.categoriaCanchas, 'this.categoriaCanchas');
+    });
   }
+
   syncCategoriaCanchasToPromise() {
     return this.getCategoriaCanchas().toPromise();
   }
-
 }

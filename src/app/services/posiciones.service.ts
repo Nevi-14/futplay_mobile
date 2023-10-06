@@ -7,41 +7,30 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class PosicionesService {
-  posiciones:  Posiciones[]=[];
-  constructor( private http: HttpClient) { }
+  posiciones: Posiciones[] = [];
+  constructor(private http: HttpClient) {}
 
-  
-  getURL( api: string ){
-
-    let test: string = ''
-    if ( !environment.prdMode ) {
+  getURL(api: string) {
+    let test: string = '';
+    if (!environment.prdMode) {
       test = environment.TestURL;
     }
-    const URL = environment.preURL  + test +  environment.postURL + api 
+    const URL = environment.preURL + test + environment.postURL + api;
     return URL;
-
   }
-  private getPosiciones( ){
+
+  private getPosiciones() {
     let URL = this.getURL(environment.getPosicionesURL);
-  console.log(URL,'URL POS')
-      return this.http.get<Posiciones[]>( URL );
-    }
-    syncPosiciones(){
+    return this.http.get<Posiciones[]>(URL);
+  }
 
-      this.getPosiciones().subscribe(
-        resp =>{
-          this.posiciones = resp.slice(0);
-       
-  
-        }
-  
-      );
-    }
-  
-    syncPosicionesToPromise(){
+  syncPosiciones() {
+    this.getPosiciones().subscribe(resp => {
+      this.posiciones = resp.slice(0);
+    });
+  }
 
-     return this.getPosiciones().toPromise();
-    }
-  
-
+  syncPosicionesToPromise() {
+    return this.getPosiciones().toPromise();
+  }
 }
