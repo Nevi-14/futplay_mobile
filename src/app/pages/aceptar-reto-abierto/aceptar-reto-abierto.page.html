@@ -1,223 +1,251 @@
- 
- 
-<ion-header    class="ion-no-border">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-   <ion-button slot="start" (click)="regresar()" fill="clear">
-     <ion-icon size="large" name="close-outline"></ion-icon>
-   </ion-button>
-   <ion-title>{{"OPEN_RESERVATION" | translate }}</ion-title>
-    
+    <ion-button slot="start" (click)="regresar()" fill="clear">
+      <ion-icon size="large" name="close-outline"></ion-icon>
+    </ion-button>
+    <ion-title>{{ "OPEN_RESERVATION" | translate }}</ion-title>
   </ion-toolbar>
-  
- </ion-header>
-    <ion-content fullscreen *ngIf="reto && cancha">
+</ion-header>
 
-    
+<ion-content fullscreen *ngIf="reto && cancha">
+  <swiper-container
+    style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
+    class="mySwiper"
+    thumbs-swiper=".mySwiper2"
+    space-between="10"
+    navigation="true"
+  >
+    <swiper-slide>
+      <img
+        src="{{ url + cancha.cancha.Foto }}"
+        onerror="this.src='assets/soccerfield.jpg'"
+        alt=""
+      />
+    </swiper-slide>
+  </swiper-container>
 
-
-      <swiper-container
-      style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
-      class="mySwiper"
-      thumbs-swiper=".mySwiper2"
-      space-between="10"
-      navigation="true"
-    >
-      <swiper-slide>
-        <img
-          src="{{url'+cancha.cancha.Foto }}"
-          onerror="this.src='assets/soccerfield.jpg'"
-          alt=""
-        />
-      </swiper-slide>
-    </swiper-container>
-
-
-    <ion-item
+  <ion-item
     detail
     (click)="canchaDetalle()"
     lines="full"
     class="animate__animated animate__fadeIn ion-no-padding"
   >
     <ion-label class="ion-margin">
-      <strong>{{"SOCCER_FIELD" | translate }} : {{cancha.nombre}}</strong>
+      <strong>{{ "SOCCER_FIELD" | translate }} : {{ cancha.nombre }}</strong>
     </ion-label>
   </ion-item>
   <ion-item lines="full">
-    <ion-label> {{"CATEGORY" | translate }} : {{cancha.categoria}} </ion-label>
-  </ion-item>
-  <ion-item lines="full">
-    <ion-label>
-      {{"LOCATION" | translate }} : {{cancha.pais}} {{cancha.estado}}
-    </ion-label>
+    <ion-label>{{ "CATEGORY" | translate }} : {{ cancha.categoria }}</ion-label>
   </ion-item>
   <ion-item lines="full">
     <ion-label>
-      {{"PRICING" | translate }} : {{cancha.cancha.Precio_Hora | colones}}
+      {{ "LOCATION" | translate }} : {{ cancha.pais }} {{ cancha.estado }}
+    </ion-label>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label>
+      {{ "PRICING" | translate }} : {{ cancha.cancha.Precio_Hora | colones }}
     </ion-label>
   </ion-item>
 
+  <ion-item
+    detail
+    (click)="equipoDetalle()"
+    lines="full"
+    class="animate__animated animate__fadeIn"
+  >
+    <ion-avatar slot="start">
+      <img
+        *ngIf="!reto.retador.Avatar"
+        class="logo"
+        data-src="{{ 'https://futplaycompany.com/api_test/' + reto.retador.Foto }}"
+        onerror="this.src='assets/img/icon/FP.svg'"
+      />
+      <img
+        *ngIf="reto.retador.Avatar"
+        src="assets/soccer-shields-svg/{{ reto.retador.Foto }}"
+        onerror="this.src='assets/img/icon/FP.svg'"
+        alt=""
+      />
+    </ion-avatar>
 
- 
-        <ion-item detail (click)="equipoDetalle()"    lines="full" class="animate__animated animate__fadeIn" >
-
-          <ion-avatar slot="start"  >
-        
-          <img *ngIf="!reto.retador.Avatar" class="logo" data-src="{{'https://futplaycompany.com/api_test/'+reto.retador.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   >
-          <img  *ngIf="reto.retador.Avatar" src="assets/soccer-shields-svg/{{reto.retador.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"    alt="">
-          </ion-avatar>
-          
-      
-        <ion-label>
-          <p><strong>Retador</strong></p>
-          <h2 class="ion-text-capitalize">{{reto.retador.Nombre}}
-            
-            <p  >
-                 
-              <ng-template ngFor let-hero [ngForOf]="filledStars(reto.retador.Estrellas)"
-              let-i="index" let-odd="odd"  >
-              <ion-icon color="warning"  name="star"></ion-icon>
-            </ng-template>
-            <ng-template ngFor let-hero [ngForOf]="emptyStars(reto.retador.Estrellas)"
-            let-i="index" let-odd="odd"  >
-            <ion-icon  color="warning"   name="star-outline"></ion-icon>
-          </ng-template> 
-      
-        
-            </p> 
-          </h2>
-        
-  
-
-        </ion-label>
-
-      </ion-item>
-
-      <ion-item detail  (click)="agregarRival()"  *ngIf="rival"  lines="full" class="animate__animated animate__fadeIn" >
-    
-
-        <ion-avatar slot="start"  >
-      
-        <img *ngIf="!rival.equipo.Avatar"   class="logo" data-src="{{'https://futplaycompany.com/api_test/'+rival.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   >
-        <img  *ngIf="rival.equipo.Avatar" src="assets/soccer-shields-svg/{{rival.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"    alt="">
-        </ion-avatar>
-        
-    
-      <ion-label>
-        <p><strong>Rival</strong></p>
-        <h2 class="ion-text-capitalize">{{rival.equipo.Nombre}}
-          
-          <p   >
-               
-            <ng-template ngFor let-hero [ngForOf]="filledStars(+rival.equipo.Estrellas)"
-            let-i="index" let-odd="odd"  >
-            <ion-icon color="warning"  name="star"></ion-icon>
+    <ion-label>
+      <p><strong>Retador</strong></p>
+      <h2 class="ion-text-capitalize">{{ reto.retador.Nombre }}
+        <p>
+          <ng-template
+            ngFor
+            let-hero
+            [ngForOf]="filledStars(reto.retador.Estrellas)"
+            let-i="index"
+            let-odd="odd"
+          >
+            <ion-icon color="warning" name="star"></ion-icon>
           </ng-template>
-          <ng-template ngFor let-hero [ngForOf]="emptyStars(+rival.equipo.Estrellas)"
-          let-i="index" let-odd="odd"  >
-          <ion-icon   color="warning"   name="star-outline"></ion-icon>
-        </ng-template> 
-    
-      
-          </p> 
-        </h2>
-      
+          <ng-template
+            ngFor
+            let-hero
+            [ngForOf]="emptyStars(reto.retador.Estrellas)"
+            let-i="index"
+            let-odd="odd"
+          >
+            <ion-icon color="warning" name="star-outline"></ion-icon>
+          </ng-template>
+        </p>
+      </h2>
+    </ion-label>
+  </ion-item>
 
+  <ion-item
+    detail
+    (click)="agregarRival()"
+    *ngIf="rival"
+    lines="full"
+    class="animate__animated animate__fadeIn"
+  >
+    <ion-avatar slot="start">
+      <img
+        *ngIf="!rival.equipo.Avatar"
+        class="logo"
+        data-src="{{ 'https://futplaycompany.com/api_test/' + rival.equipo.Foto }}"
+        onerror="this.src='assets/img/icon/FP.svg'"
+      />
+      <img
+        *ngIf="rival.equipo.Avatar"
+        src="assets/soccer-shields-svg/{{ rival.equipo.Foto }}"
+        onerror="this.src='assets/img/icon/FP.svg'"
+        alt=""
+      />
+    </ion-avatar>
 
-      </ion-label>
+    <ion-label>
+      <p><strong>Rival</strong></p>
+      <h2 class="ion-text-capitalize">{{ rival.equipo.Nombre }}
+        <p>
+          <ng-template
+            ngFor
+            let-hero
+            [ngForOf]="filledStars(+rival.equipo.Estrellas)"
+            let-i="index"
+            let-odd="odd"
+          >
+            <ion-icon color="warning" name="star"></ion-icon>
+          </ng-template>
+          <ng-template
+            ngFor
+            let-hero
+            [ngForOf]="emptyStars(+rival.equipo.Estrellas)"
+            let-i="index"
+            let-odd="odd"
+          >
+            <ion-icon color="warning" name="star-outline"></ion-icon>
+          </ng-template>
+        </p>
+      </h2>
+    </ion-label>
+  </ion-item>
 
-    </ion-item>
-      <ion-item   *ngIf="!rival && reto.reservacion.Cod_Estado == 10"   lines="full" class="ion-item animate__animated animate__fadeIn"  >
-        <ion-avatar   slot="start" >
-          <img    src="assets/img/icon/FP.svg"     alt="">
- 
-        </ion-avatar>
-        
-   
-   <ion-label>     <p><strong>Rival</strong></p></ion-label>
-        
-      
-        <ion-fab-button   size="small" (click)="agregarRival()"  slot="end"  >
-          <ion-icon name="add-outline"></ion-icon>
-        </ion-fab-button>
+  <ion-item
+    *ngIf="!rival && reto.reservacion.Cod_Estado == 10"
+    lines="full"
+    class="ion-item animate__animated animate__fadeIn"
+  >
+    <ion-avatar slot="start">
+      <img src="assets/img/icon/FP.svg" alt="" />
+    </ion-avatar>
 
-      </ion-item>
-      <ion-grid class="ion-margin">
-        <ion-row>
-          <ion-col size="12">
-            <ion-label>
-              <span *ngIf="reto.reservacion.Cod_Tipo == 1 ">
-                {{"INDIVIDUAL_RESERVATION" | translate }}
-              </span>
-              <span *ngIf="reto.reservacion.Cod_Tipo == 2 ">
-                {{"OPEN_RESERVATION" | translate }}
-              </span>
-              <span *ngIf="reto.reservacion.Cod_Tipo == 3 ">
-                {{"GROUP_RESERVATION" | translate }}
-              </span>
-      
-              <p
-                class="ion-text-wrap"
-                style="margin-top: 0.5rem"
-                *ngIf="reto.reservacion.Cod_Tipo == 1 "
-              >
-                {{"RESERVATION_FOR_ONE_PERSON" | translate }}
-              </p>
-              <p
-                class="ion-text-wrap"
-                style="margin-top: 0.5rem"
-                *ngIf="reto.reservacion.Cod_Tipo == 2 "
-              >
-                {{"OPEN_RESERVATION_FOR_OTHER_TEAMS_TO_JOIN" | translate }}
-              </p>
-              <p
-                class="ion-text-wrap"
-                style="margin-top: 0.5rem"
-                *ngIf="reto.reservacion.Cod_Tipo == 3 "
-              >
-                {{"CHALLENGE_OTHER_TEAMS" | translate }}
-              </p>
-            </ion-label>
-          </ion-col>
-          <ion-col size="12">
-            {{"DATE" | translate }} : {{reto.reservacion.Fecha | date
-            :'fullDate'}}
-          </ion-col>
-          <ion-col size="12">
-            {{"START_TIME" | translate }} : {{ reto.reservacion.Hora_Inicio |
-            date:'h:mm a'}}
-          </ion-col>
-          <ion-col size="12">
-            {{"END_TIME" | translate }} : {{ reto.reservacion.Hora_Fin| date:'h:mm
-            a'}}
-          </ion-col>
-          <ion-col size="12">
-            {{"TOTAL_HOURS" | translate }} x
-            <strong>{{reto.detalle.Total_Horas}}</strong>
-          </ion-col>
-          <ion-col size="12">
-            {{"TOTAL" | translate }} : {{reto.detalle.Monto_Total | colones
-            }}
-          </ion-col>
-          <ion-col size="12">
-            {{"AMOUNT_PER_TEAM" | translate }} : {{reto.detalle.Monto_Equipo
-            | colones }}
-          </ion-col>
-          
-       
-        </ion-row>
-      </ion-grid>
+    <ion-label>
+      <p><strong>Rival</strong></p>
+    </ion-label>
 
- 
-    </ion-content>
-  <ion-footer *ngIf="rival">
-    <ion-toolbar>
-      <app-button   class="ion-margin" (click)="finalizarReservacion()"  label="{{'JOIN_GAME' | translate }}"></app-button>
-    </ion-toolbar>
-  </ion-footer>
-  <ion-footer>
-    <ion-toolbar *ngIf="!rival && allowUser">
-      <app-delete-button (click)="cancelarReservacion()"  class="ion-margin" [css]="danger"   label="{{'CANCEL_RESERVATION' | translate }}"></app-delete-button>
-    </ion-toolbar>
-  </ion-footer>
- 
-  
+    <ion-fab-button size="small" (click)="agregarRival()" slot="end">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-item>
+
+  <ion-grid class="ion-margin">
+    <ion-row>
+      <ion-col size="12">
+        <ion-label>
+          <span *ngIf="reto.reservacion.Cod_Tipo == 1">
+            {{ "INDIVIDUAL_RESERVATION" | translate }}
+          </span>
+          <span *ngIf="reto.reservacion.Cod_Tipo == 2">
+            {{ "OPEN_RESERVATION" | translate }}
+          </span>
+          <span *ngIf="reto.reservacion.Cod_Tipo == 3">
+            {{ "GROUP_RESERVATION" | translate }}
+          </span>
+
+          <p
+            class="ion-text-wrap"
+            style="margin-top: 0.5rem"
+            *ngIf="reto.reservacion.Cod_Tipo == 1"
+          >
+            {{ "RESERVATION_FOR_ONE_PERSON" | translate }}
+          </p>
+          <p
+            class="ion-text-wrap"
+            style="margin-top: 0.5rem"
+            *ngIf="reto.reservacion.Cod_Tipo == 2"
+          >
+            {{ "OPEN_RESERVATION_FOR_OTHER_TEAMS_TO_JOIN" | translate }}
+          </p>
+          <p
+            class="ion-text-wrap"
+            style="margin-top: 0.5rem"
+            *ngIf="reto.reservacion.Cod_Tipo == 3"
+          >
+            {{ "CHALLENGE_OTHER_TEAMS" | translate }}
+          </p>
+        </ion-label>
+      </ion-col>
+      <ion-col size="12">
+        {{ "DATE" | translate }} : {{ reto.reservacion.Fecha | date: "fullDate" }}
+      </ion-col>
+      <ion-col size="12">
+        {{ "START_TIME" | translate }} : {{
+          reto.reservacion.Hora_Inicio | date: "h:mm a"
+        }}
+      </ion-col>
+      <ion-col size="12">
+        {{ "END_TIME" | translate }} : {{
+          reto.reservacion.Hora_Fin | date: "h:mm a"
+        }}
+      </ion-col>
+      <ion-col size="12">
+        {{ "TOTAL_HOURS" | translate }} x
+        <strong>{{ reto.detalle.Total_Horas }}</strong>
+      </ion-col>
+      <ion-col size="12">
+        {{ "TOTAL" | translate }} : {{ reto.detalle.Monto_Total | colones }}
+      </ion-col>
+      <ion-col size="12">
+        {{ "AMOUNT_PER_TEAM" | translate }} : {{
+          reto.detalle.Monto_Equipo | colones
+        }}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer *ngIf="rival">
+  <ion-toolbar>
+    <app-button
+      class="ion-margin"
+      (click)="finalizarReservacion()"
+      label="{{ 'JOIN_GAME' | translate }}"
+    ></app-button>
+  </ion-toolbar>
+</ion-footer>
+
+<ion-footer>
+  <ion-toolbar *ngIf="!rival && allowUser">
+    <app-delete-button
+      (click)="cancelarReservacion()"
+      class="ion-margin"
+      [css]="danger"
+      label="{{ 'CANCEL_RESERVATION' | translate }}"
+    ></app-delete-button>
+  </ion-toolbar>
+</ion-footer>

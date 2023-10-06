@@ -6,6 +6,7 @@ import { AlertasService } from 'src/app/services/alertas.service';
 import { Router } from '@angular/router';
 import { ValidacionFormularioPipe } from 'src/app/pipes/validacion-formulario.pipe';
 import { TranslateService } from '@ngx-translate/core';
+import { ContactarDesarolladorPage } from '../contactar-desarollador/contactar-desarollador.page';
 @Component({
   selector: 'app-inicio-sesion',
   templateUrl: './inicio-sesion.page.html',
@@ -18,6 +19,7 @@ export class InicioSesionPage {
   }
   @ViewChild('popover') popover;
   isOpen = false;
+  isModalOpen = false;
 
   constructor(
     public usuariosServicio: UsuariosService,
@@ -58,5 +60,24 @@ export class InicioSesionPage {
     this.usuariosServicio.syncLogin(this.loginUser.email, this.loginUser.password);
 
   }
+ async contactDeveloper(){
+ 
+    if (!this.isModalOpen){
+      const modal = await this.modalCtrl.create({
+        component: ContactarDesarolladorPage,
+        backdropDismiss:false,
+        cssClass:'alert-modal',
+        mode:'md', 
+ 
+    
+      });
+      this.isModalOpen = true;
+  
+       await modal.present();
+       const { data } = await modal.onWillDismiss();
+  
+       this.isModalOpen = false;
+    }
 
+  }
 }

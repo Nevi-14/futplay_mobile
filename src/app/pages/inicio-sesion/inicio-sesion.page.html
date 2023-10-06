@@ -40,11 +40,14 @@
        
           </p> 
           <p class="footer-text" style="margin-top:2rem"> {{'IM_NEW' | translate }} , <a routerLink="/registro">{{'REGISTER' | translate }}</a></p> 
-     
-           
-         
+      
         </ion-col>
-  
+        <ion-col>
+          <ion-button    style="margin-top:1rem" (click)="contactDeveloper()" expand="block" fill="clear" shape="round">
+           <p> {{"NEED_HELP" | translate }}</p>
+          </ion-button>
+        </ion-col>
+      
       </ion-row>
     </ion-grid>
 

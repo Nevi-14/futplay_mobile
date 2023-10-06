@@ -1,0 +1,18 @@
+ 
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-button slot="start" (click)="regresar()" fill="clear">
+      <ion-icon size="large" name="close-outline"></ion-icon>
+    </ion-button>
+    <ion-title>{{"CONTACT_DEVELOPER" | translate }}</ion-title>
+
+  </ion-toolbar>
+ 
+
+</ion-header>
+
+<ion-content class="ion-padding">
+  <p>{{ 'CONTACT_DEVELOPER_TEXT' | translate }}</p>
+  <ion-button expand="block" color="primary" (click)="openWhatsApp()">{{ 'CONTACT_DEVELOPER_WHATSAPP' | translate }}</ion-button>
+ 
+</ion-content>

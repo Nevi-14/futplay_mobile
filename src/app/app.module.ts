@@ -17,6 +17,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { FormsModule } from '@angular/forms';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 export function HttpLoaderFactory(httpClient: HttpClient){
     return new TranslateHttpLoader(httpClient, "assets/i18n/", ".json");
@@ -33,7 +34,7 @@ export function HttpLoaderFactory(httpClient: HttpClient){
     FormsModule
     
 ],
-    providers: [ Camera, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, SocialSharing],
+    providers: [ Camera, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, SocialSharing,InAppBrowser],
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

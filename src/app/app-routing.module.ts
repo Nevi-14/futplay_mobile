@@ -185,6 +185,10 @@ const routes: Routes = [
   {
     path: 'equipo-geolocalizacion',
     loadChildren: () => import('./pages/equipo-geolocalizacion/equipo-geolocalizacion.module').then(m => m.EquipoGeolocalizacionPageModule)
+  },
+  {
+    path: 'contactar-desarollador',
+    loadChildren: () => import('./pages/contactar-desarollador/contactar-desarollador.module').then( m => m.ContactarDesarolladorPageModule)
   }
 ];
 

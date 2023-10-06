@@ -250,8 +250,15 @@
  "NO_HOURS_AVAILABLE":"No hay horas disponibles!.",
  "LANGUAGE":"Idioma",
  "SPANISH":"Español",
- "ENGLISH":"Ingles"
- 
+ "ENGLISH":"Ingles",
+ "NEED_HELP":"Necesitas Ayuda?",
+ "CONTACT_DEVELOPER": "Contactar al desarrollador",
+"CONTACT_DEVELOPER_TEXT": "Si tienes alguna pregunta o comentario, por favor contacta al desarrollador utilizando uno de los siguientes métodos:",
+"CONTACT_DEVELOPER_WHATSAPP": "WhatsApp",
+"CONTACT_DEVELOPER_WHATSAPP_MESSAGE": "Hola Nelson Morera, tengo una pregunta sobre la aplicación.",
+"CONTACT_DEVELOPER_EMAIL": "Correo electrónico",
+"CONTACT_DEVELOPER_EMAIL_SUBJECT": "Pregunta sobre la aplicación",
+"CONTACT_DEVELOPER_EMAIL_BODY": "Hola Nelson Morera,\n\nTengo una pregunta sobre la aplicación.\n\nSaludos cordiales,\nTu nombre"
  
 
  }

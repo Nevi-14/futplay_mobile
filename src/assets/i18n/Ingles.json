@@ -253,8 +253,15 @@
    "NO_HOURS_AVAILABLE":"No hours available!.",
    "LANGUAGE":"Language",
    "SPANISH":"Spanish",
-   "ENGLISH":"English"
- 
+   "ENGLISH":"English",
+   "NEED_HELP":"Need Help?",
+   "CONTACT_DEVELOPER": "Contact Developer",
+   "CONTACT_DEVELOPER_TEXT": "If you have any questions or feedback, please contact the developer using one of the following methods:",
+   "CONTACT_DEVELOPER_WHATSAPP": "WhatsApp",
+   "CONTACT_DEVELOPER_WHATSAPP_MESSAGE": "Hello Nelson Morera, I have a question about the app.",
+   "CONTACT_DEVELOPER_EMAIL": "Email",
+   "CONTACT_DEVELOPER_EMAIL_SUBJECT": "Question about the app",
+   "CONTACT_DEVELOPER_EMAIL_BODY": "Hello Nelson Morera,\n\nI have a question about the app.\n\nBest regards,\nNelson Morera"
   
    
    
