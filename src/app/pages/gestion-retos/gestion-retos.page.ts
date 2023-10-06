@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./gestion-retos.page.scss'],
 })
 export class GestionRetosPage implements OnInit {
-
+  segment = 'received';
   constructor(
 public router:Router
 

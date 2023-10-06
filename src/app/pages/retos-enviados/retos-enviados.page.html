@@ -1,8 +1,17 @@
-<ion-header mode="ios">
+<ion-header mode="md" class="ion-no-border">
+  <ion-toolbar class="ion-toolbar">
+    <ion-button (click)="regresar()" fill="clear" slot="start">
+      <ion-icon size="large" name="close-outline"></ion-icon>
+    </ion-button>
+
+    <ion-title>{{"CHALLENGE_MANAGEMENT" | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
   <ion-toolbar>
    <h3>{{'SENT_CHALLENGES' | translate}}</h3>
    </ion-toolbar>
-</ion-header>
+ 
 <ion-content>
   <ion-list>
     <ion-item  *ngIf="reservaciones.length == 0"    lines="none"

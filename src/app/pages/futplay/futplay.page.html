@@ -11,45 +11,29 @@
 <ion-content>
   <ion-router-outlet id="main-content"></ion-router-outlet>
 </ion-content>
-<ion-segment    mode="md"   value="reservaciones">
-  
-      
-  <ion-segment-button   (click)="redirigir('/futplay/reservaciones', 'reservaciones')" value="reservaciones" >
-
-    <ion-icon name="football-outline"></ion-icon>
-  {{"CHALLENGES" | translate }}
-    <ion-badge color="primary" size="small"   mode="ios">{{reservacionesService.reservacionesRecibidas.length > 0 ? reservacionesService.reservacionesRecibidas.length : 0}}</ion-badge>
-
-
-
-  </ion-segment-button>
-
-
-  <ion-segment-button   (click)="redirigir('/futplay/mi-perfil', 'perfil')" value="perfil" >
-     
-    <ion-icon name="person-outline"></ion-icon>
-
-  {{"MY-PROFILE" | translate }}
-
-  </ion-segment-button>
-
-
-  <ion-segment-button value="equipos" (click)="redirigir('/futplay/perfil-equipo', 'equipos')">
-    <ion-icon name="shield-outline"></ion-icon>
  
-{{"TEAMS" | translate }}
-  
-  </ion-segment-button>
-  <ion-segment-button value="torneos" (click)="redirigir('/futplay/torneos', 'torneos')">
-    <ion-icon name="trophy-outline"></ion-icon>
-  
-{{"TOURNAMENTS" | translate }}
-  </ion-segment-button>
-
-
-   
-</ion-segment>
- 
+    <ion-segment mode="md" [(ngModel)]="segment">
+      <ion-segment-button value="reservaciones" [routerLink]="['/futplay/reservaciones']" [class.active]="segment === 'reservaciones'" (click)="segment = 'reservaciones'">
+        <ion-icon name="football-outline"></ion-icon>
+        {{ "CHALLENGES" | translate }}
+        <ion-badge color="primary" size="small" mode="ios">{{ reservacionesService.reservacionesRecibidas.length || 0 }}</ion-badge>
+      </ion-segment-button>
+    
+      <ion-segment-button value="perfil" [routerLink]="['/futplay/mi-perfil']" [class.active]="segment === 'perfil'" (click)="segment = 'perfil'">
+        <ion-icon name="person-outline"></ion-icon>
+        {{ "MY-PROFILE" | translate }}
+      </ion-segment-button>
+    
+      <ion-segment-button value="equipos" [routerLink]="['/futplay/perfil-equipo']" [class.active]="segment === 'equipos'" (click)="segment = 'equipos'">
+        <ion-icon name="shield-outline"></ion-icon>
+        {{ "TEAMS" | translate }}
+      </ion-segment-button>
+    
+      <ion-segment-button value="torneos" [routerLink]="['/futplay/torneos']" [class.active]="segment === 'torneos'" (click)="segment = 'torneos'">
+        <ion-icon name="trophy-outline"></ion-icon>
+        {{ "TOURNAMENTS" | translate }}
+      </ion-segment-button>
+    </ion-segment>
  
 
  

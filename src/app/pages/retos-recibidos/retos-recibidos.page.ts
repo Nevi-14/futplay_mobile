@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { CanchasService } from 'src/app/services/canchas.service';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { FinalizarReservacionPage } from '../finalizar-reservacion/finalizar-reservacion.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-retos-recibidos',
@@ -24,13 +25,17 @@ public reservacionesService:ReservacionesService,
 public usuariosSErvice:UsuariosService,
 public modalCtrl:ModalController,
 public canchasService:CanchasService,
-public equiposService:EquiposService
+public equiposService:EquiposService,
+public router:Router
 
 
   ) { }
 
   ngOnInit() {
 this.retosRecibidos()
+  }
+  regresar(){
+    this.router.navigateByUrl('/futplay/reservaciones', {replaceUrl:true})
   }
   retosRecibidos(){
     this.reservacionesService.syncgGtReservacionesRecibidas(this.usuariosSErvice.usuarioActual.Cod_Usuario).then(reservaciones=>{

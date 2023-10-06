@@ -5,6 +5,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { AceptarRetoPage } from '../aceptar-reto/aceptar-reto.page';
 import { ModalController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-retos-enviados',
@@ -17,7 +18,8 @@ export class RetosEnviadosPage implements OnInit {
   constructor(
 public reservacionesService:ReservacionesService,
 public usuariosSErvice:UsuariosService,
-public modalCtrl:ModalController
+public modalCtrl:ModalController,
+public router:Router
 
 
   ) { }
@@ -25,7 +27,9 @@ public modalCtrl:ModalController
   ngOnInit() {
 this.reservacionesEnviadas();
   }
-
+  regresar(){
+    this.router.navigateByUrl('/futplay/reservaciones', {replaceUrl:true})
+  }
   reservacionesEnviadas(){
     this.reservacionesService.syncgGtReservacionesEnviadas(this.usuariosSErvice.usuarioActual.Cod_Usuario).then(reservaciones=>{
       this.reservaciones = reservaciones;

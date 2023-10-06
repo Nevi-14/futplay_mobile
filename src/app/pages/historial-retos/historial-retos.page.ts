@@ -5,6 +5,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { AceptarRetoPage } from '../aceptar-reto/aceptar-reto.page';
 import { ModalController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-historial-retos',
@@ -17,7 +18,8 @@ url = environment.archivosURL;
   constructor(
 public reservacionesService:ReservacionesService,
 public usuariosSErvice:UsuariosService,
-public modalCtrl:ModalController
+public modalCtrl:ModalController,
+public router:Router
 
 
   ) { }
@@ -25,6 +27,9 @@ public modalCtrl:ModalController
   ngOnInit() {
     this.reservacionesHistorial();
  
+  }
+  regresar(){
+    this.router.navigateByUrl('/futplay/reservaciones', {replaceUrl:true})
   }
   reservacionesHistorial(){
     this.reservacionesService.syncgGtReservacionesHistorial(this.usuariosSErvice.usuarioActual.Cod_Usuario).then(reservaciones=>{

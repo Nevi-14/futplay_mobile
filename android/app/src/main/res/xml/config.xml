@@ -18,10 +18,6 @@
     <param name="android-package" value="cc.fovea.PurchasePlugin"/>
   </feature>
 
-  <feature name="CordovaStripe">
-    <param name="android-package" value="com.zyramedia.cordova.stripe.CordovaStripe"/>
-  </feature>
-
   <feature name="SocialSharing">
     <param name="android-package" value="nl.xservices.plugins.SocialSharing"/>
   </feature>

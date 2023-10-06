@@ -5,8 +5,7 @@ import { AuthenticationService } from '../services/autenticacion.service';
 import { StorageService } from '../services/storage-service';
 import { AlertasService } from '../services/alertas.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Usuarios } from '../models/usuarios';
-
+ 
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +37,7 @@ export class AutoLoginGuard implements CanLoad {
       this.usuariosService.usuarioActual = usuarioDB;
   }
         if(this.usuariosService.usuarioActual && this.usuariosService.usuarioActual.Idioma){
-          if(this.usuariosService.usuarioActual.Idioma == 'Us'){
+          if(this.usuariosService.usuarioActual.Idioma == 'US'){
             this.usuariosService.idioma = 'US';
             this.usuariosService.file = 'Ingles';
           }else{

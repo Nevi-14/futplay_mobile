@@ -10,6 +10,7 @@ import { FinalizarReservacionPage } from '../finalizar-reservacion/finalizar-res
 import { InicioPartidoPage } from '../inicio-partido/inicio-partido.page';
 import { PartidoService } from 'src/app/services/partido.service';
 import { AlertasService } from 'src/app/services/alertas.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-retos-confirmados',
@@ -27,7 +28,8 @@ export class RetosConfirmadosPage implements OnInit {
     public canchasService: CanchasService,
     public equiposService: EquiposService,
     public partidosService: PartidoService,
-    public alertasService: AlertasService
+    public alertasService: AlertasService,
+    public router:Router
   ) {}
 
   async iniciarPartido(reto: PerfilReservaciones) {
@@ -42,6 +44,9 @@ export class RetosConfirmadosPage implements OnInit {
     } else {
       this.partidoActual(reto);
     }
+  }
+  regresar(){
+    this.router.navigateByUrl('/futplay/reservaciones', {replaceUrl:true})
   }
   async partidoActual(reto: PerfilReservaciones) {
     let partido = await this.partidosService.syncGetPartidoReservacion(
