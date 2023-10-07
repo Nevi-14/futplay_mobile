@@ -42,7 +42,7 @@ export class RegistroPage {
     Estado: true,
     Descripcion_Estado: null,
     Inicio_Sesion: new Date(),
-    Idioma: null,
+    Idioma: 'US',
   };
   ingresarContrasena = '';
   provincia = null;
@@ -120,7 +120,7 @@ export class RegistroPage {
       Estado: true,
       Descripcion_Estado: null,
       Inicio_Sesion: new Date(),
-      Idioma: null,
+      Idioma: 'US',
     };
   }
 

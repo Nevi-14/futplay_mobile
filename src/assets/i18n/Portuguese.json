@@ -271,6 +271,10 @@
     "PROFILE_UPDATED_SUCCESSFULLY": "Perfil atualizado com sucesso!",
     "INCORRECT_USER_OR_PASSWORD": "Usuário ou senha incorretos!",
     "CONTACT_ADMINISTRATOR": "Contate o Administrador",
-    "PORTUGUESE": "Português"
+    "PORTUGUESE": "Português",
+    "LOADING": "Carregando",
+    "LOADING_DATA": "Carregando Dados",
+    "ACCOUNT_VEIRIFICATION": "Verificação de Conta"
+     
   }
   

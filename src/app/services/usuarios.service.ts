@@ -454,6 +454,7 @@ export class UsuariosService {
     this.postUsuario(usuario).subscribe(
       (resp: any) => {
         this.usuarioActual = resp[0];
+        this.storageService.set('usuario', this.usuarioActual);
         geolocalizacion.Cod_Usuario = resp[0].Cod_Usuario;
         geolocalizacion.Codigo_Pais = this.geolocalizacionService.Codigo_Pais;
         let indexPais = this.geolocalizacionService.paises.findIndex(

@@ -192,6 +192,8 @@ export class CanchasService {
     const actionSheet = await this.actionCtrl.create({
       header: this.translateService.instant('OPTIONS'),
       buttons: actionLinks,
+      cssClass: 'left-align-buttons',
+      mode: 'ios'
     });
     await actionSheet.present();
   }

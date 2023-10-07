@@ -26,24 +26,23 @@ ion-avatar {
 form {
   margin-top: 2rem;
 
-  .forgot-password-link {
-    text-decoration: none;
-    display: inline-block;
-    width: 100%;
-    text-align: right;
-    font-weight: 600;
-    font-size: 14px;
-    color: #4a4a4a;
-    margin-top: 1rem;
-    margin-right: 2rem !important;
-  }
+ 
 
   app-button {
     display: block;
     margin-top: 3rem;
   }
 }
-
+.forgot-password-link {
+ display: flex;
+ justify-content: flex-end;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  color: #4a4a4a;
+  margin-top: 1rem;
+  margin-right: 2rem !important;
+}
 .footer-text {
   text-align: center;
   font-size: 17px;
@@ -69,8 +68,4 @@ ion-popover {
 .margin-top-register {
   margin-top: 32px;
 }
-ion-popover {
-  p {
-    font-size: 14px;
-  }
-}
+ 
