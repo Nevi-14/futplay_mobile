@@ -4,44 +4,6 @@ ion-header{
   ion-toolbar{
     --background:#5a55ca;
     color: #fff;
-    ion-icon{
-        color: #fff;
-    }
-}
-}
- .futplay-color{
-  color: rgba(37,13,76,255); 
- }
- .futplay-dark{
-  color: #000; 
- }
- .ion-padding ion-icon{
-  color: #5a55ca!important;
- 
-}
-ion-avatar{
-  height: 5rem; width: 5rem;
-}
-  ion-buttons {
-    align-self: start;
-  }
-  .ion-button {
-    --background: #5a55ca;
-    --background-focused: #6f6bbb;
-    --background-activated: #6f6bbb;
-    --padding-top: 1rem;
-    --padding-bottom: 1rem;
-    --padding-start: 0.75rem;
-    --padding-end: 0.75rem;
-    color: #fff;
-    margin-right: 0.5rem;
-}
- 
-ion-header{
-   
-  ion-toolbar{
-    --background:#5a55ca;
-    color: #fff;
     ion-button ion-icon {
         color: #fff;
     }
@@ -104,5 +66,5 @@ ion-fab-button{
 }
 
 .stars {
-  display:block; margin-top: 0.5rem;margin-left: 0.5rem;
+  display:block; margin-top: 0.5rem;margin-left: 1rem;
 }

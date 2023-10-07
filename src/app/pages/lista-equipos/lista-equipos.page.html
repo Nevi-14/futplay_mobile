@@ -33,22 +33,26 @@
   </ion-grid>
 </ion-toolbar>
 <ion-content fullscreen>
-  <ion-item
-    *ngIf="equiposService.equipos.length == 0"
-    lines="none"
-    class="animate__animated animate__fadeIn"
-  >
-    <span>
-      <ion-avatar>
-        <img src="assets/logo.png" alt="" />
-      </ion-avatar>
+ 
 
-      <div>
-        <h3>{{"FUTPLAY_MESSAGE" | translate }}</h3>
-        <p>{{"NO_RECORDS_FOUND" | translate }}</p>
-      </div>
-    </span>
+
+  <ion-item   *ngIf="equiposService.equipos.length == 0"lines="none"
+  class="animate__animated animate__fadeIn">
+  <span>
+    <ion-avatar>
+      <img src="assets/logo.png" alt="">
+    </ion-avatar>
+  
+   
+    <div>
+      <h2>{{"FUTPLAY_MESSAGE" | translate }} </h2>
+      <p>{{"NO_RECORDS_FOUND" | translate }}</p>
+    </div>
+  </span>
+
   </ion-item>
+
+
   <ion-list *ngIf="!rival">
     <ion-item
       (click)="retornarEquipo(equipo)"
@@ -56,15 +60,15 @@
       class="custom-item animate__animated animate__fadeIn"
       *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'nombre'"
     >
-      <span>
-        <ion-avatar s>
+  
+        <ion-avatar slot="start">
           <img
             *ngIf="!equipo.equipo.Avatar"
             src="{{url+equipo.equipo.Foto}}"
             onerror="this.src='assets/img/icon/FP.svg'"
             alt=""
           />
-          <img
+          <img  
             *ngIf="equipo.equipo.Avatar"
             src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}"
             onerror="this.src='assets/img/icon/FP.svg'"
@@ -72,17 +76,16 @@
           />
         </ion-avatar>
 
-        <div>
-          <h2>{{'TEAM' | translate }} : {{equipo.nombre}}</h2>
-
+        <ion-label>
+          {{'TEAM' | translate }} : {{equipo.nombre}}
           <p>
-            {{'LOCATION' | translate }} : {{equipo.pais}}, {{equipo.estado}} ...
+            {{'LOCATION' | translate }} : {{equipo.pais}}, {{equipo.estado}} 
           </p>
           <p>
             {{'SCORE' | translate }} : {{equipo.equipo.Puntaje_Actual ?
             equipo.equipo.Puntaje_Actual : 0}}
           </p>
-
+  
           <p class="stars">
             <ng-template
               ngFor
@@ -103,8 +106,8 @@
               <ion-icon color="warning" name="star-outline"></ion-icon>
             </ng-template>
           </p>
-        </div>
-      </span>
+        </ion-label>
+     
     </ion-item>
   </ion-list>
   <ion-list *ngIf="rival">
@@ -132,7 +135,7 @@
       <ion-label>
         {{'TEAM' | translate }} : {{equipo.nombre}}
         <p>
-          {{'LOCATION' | translate }} : {{equipo.pais}}, {{equipo.estado}} ...
+          {{'LOCATION' | translate }} : {{equipo.pais}}, {{equipo.estado}} 
         </p>
         <p>
           {{'SCORE' | translate }} : {{equipo.equipo.Puntaje_Actual ?

@@ -28,7 +28,7 @@ export class FinalizarReservacionPage {
   @Input() rival: PerfilEquipos;
   @Input() retador: PerfilEquipos;
   @Input() efectuarPago: boolean;
-
+ pagoPendiente = false;
   total = 0;
   url = environment.archivosURL;
    pago:ConfirmacionPagos[] = [];
@@ -57,6 +57,7 @@ export class FinalizarReservacionPage {
   }
 
   async ionViewWillEnter() {
+    this.pagoPendiente = this.nuevaReservacion.Cod_Estado == 7 ? true : false;
 
    this.pago =  await this.confirmacionPagosService.getConfirmacionPagoToPromise(this.nuevaReservacion.Cod_Reservacion);
  

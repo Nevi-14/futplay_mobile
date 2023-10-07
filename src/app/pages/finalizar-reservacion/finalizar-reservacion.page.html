@@ -160,7 +160,7 @@
           {{"AMOUNT_PER_TEAM" | translate }} : {{detalleReservacion.Monto_Equipo
           | colones }}
         </ion-col>
-        <ion-col size="12" *ngIf="pago.length == 0 && nuevaReservacion.Cod_Estado == 7 || pago.length > 0 && nuevaReservacion.Cod_Estado == 7 " >
+        <ion-col size="12" *ngIf="pago.length == 0 && pagoPendiente || pago.length > 0 && pagoPendiente" >
 
           {{"PENDING_PAYMENTS" | translate }}
           <ion-item
