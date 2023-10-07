@@ -18,19 +18,13 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <ion-toolbar>
-      <ion-label slot="start" class="subtitle"
-        ><strong>{{"YOUR_CHALLENGES" | translate }}</strong></ion-label
-      >
-      <ion-button
-        (click)="gestionRetos()"
-        slot="end"
-        fill="clear"
-        shape="round"
-      >
-        <ion-icon size="large" name="arrow-forward"></ion-icon>
-      </ion-button>
-    </ion-toolbar>
+ 
+    <ion-item lines="full"  class="ion-margin-bottom"  (click)="gestionRetos()" detail>
+      <ion-label slot="start" >{{"INBOX" | translate }}</ion-label>
+      <ion-badge slot="end" color="warning" size="small" mode="ios"
+      >{{ reservacionesService.reservacionesRecibidas.length || 0
+      }}</ion-badge>
+    </ion-item>
 
     <ion-item
       *ngIf="reservacionesService.retosConfirmados.length == 0"

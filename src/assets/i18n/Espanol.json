@@ -279,7 +279,8 @@
 "RESERVATION_DELETED_SUCCESSFULLY": "Reserva eliminada correctamente!.",
 "PENDING_PAYMENTS": "Pagos Pendientes",
 "LEAVE_TEAM": "Dejar Equipo",
-"LEAVE_TEAM_CONFIRMATION": "Estas seguro que deseas dejar el equipo?"
+"LEAVE_TEAM_CONFIRMATION": "Estas seguro que deseas dejar el equipo?",
+"INBOX": "Bandeja de Entrada"
  
 
  }
