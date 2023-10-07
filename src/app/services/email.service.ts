@@ -39,12 +39,7 @@ export class EmailService {
 
   async enviarCorreoReservaciones(
     $index,
-    $email,
-    $fecha,
-    $hora,
-    $cancha,
-    $rival,
-    $retador
+    $email
   ) {
     let body: any = null;
     switch ($index) {

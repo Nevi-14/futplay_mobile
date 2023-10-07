@@ -228,7 +228,7 @@
  "FINISH_GAME":"Finalizar Juego",
  "MY_SCORE" : "Mi Marcador",
  "GAME_ALREADY_FINISHED" : "El juego ya ha finalizado!.",
- "SCORE_NOT_EQUAL_ASK_THE_OTHER_TEAM_TO_FINISH_THE_GAME" : "El marcador no es igual, pide al otro equipo que finalice el juego!.",
+ "SCORE_NOT_EQUAL" : "El marcador no es igual!.",
  "ARE_YOU_SURE_YOU_WANT_TO_CONTINUE_YOU_WILL_NOT_BE_ABLE_TO_REVERSE_THE_PROCESS" : "Estas seguro que deseas continuar? no podrás revertir el proceso!.",
  "THE_GAMES_SCORE_IS_CERO_DO_YOU_WANT_TO_CONTINUE" : "El marcador del juego es cero, deseas continuar? no podrás revertir el proceso!.",
  "CHALLENGE_COMPLETED_SUCCESSFULLY" : "Desafío completado correctamente!.",

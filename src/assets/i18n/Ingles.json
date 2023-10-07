@@ -231,7 +231,7 @@
    "FINISH_GAME" : "Finish Game",
    "MY_SCORE" : "My Score",
    "GAME_ALREADY_FINISHED" : "Game already finished!.",
-   "SCORE_NOT_EQUAL_ASK_THE_OTHER_TEAM_TO_FINISH_THE_GAME" : "Score not equal, ask the other team to finish the game!.",
+   "SCORE_NOT_EQUAL" : "Score not equal!.",
    "ARE_YOU_SURE_YOU_WANT_TO_CONTINUE_YOU_WILL_NOT_BE_ABLE_TO_REVERSE_THE_PROCESS" : "Are you sure you want to continue? You will not be able to reverse the process!.",
    "THE_GAMES_SCORE_IS_CERO_DO_YOU_WANT_TO_CONTINUE": "The game's score is cero, do you want to continue? You will not be able to reverse the process!.",
    "CHALLENGE_COMPLETED_SUCCESSFULLY" : "Challenge completed successfully!.",

@@ -16,6 +16,7 @@ import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-m
 import { environment } from 'src/environments/environment';
 import { PerfilCancha } from 'src/app/models/perfilCancha';
 import { TranslateService } from '@ngx-translate/core';
+import { EmailService } from 'src/app/services/email.service';
 
 @Component({
   selector: 'app-aceptar-reto',
@@ -52,7 +53,8 @@ export class AceptarRetoPage implements OnInit {
     public partidosService: PartidoService,
     public jugadoresService: JugadoresService,
     public equiposService: EquiposService,
-    public translateService: TranslateService
+    public translateService: TranslateService,
+    public emailService:EmailService
   ) {}
 
   async ngOnInit() {
@@ -166,6 +168,8 @@ export class AceptarRetoPage implements OnInit {
 this.reservacionesService.syncDeleteReservacion(this.reto.reservacion.Cod_Reservacion).then(async () => {
   this.alertasService.loadingDissmiss();
   this.modalCtrl.dismiss();
+  await this.emailService.enviarCorreoReservaciones(3,this.rival.correo)  
+  await this.emailService.enviarCorreoReservaciones(3,this.reto.correo) 
   this.alertasService.message('FUTPLAY', this.translateService.instant(
     'RESERVATION_DELETED_SUCCESSFULLY'
   ));

@@ -10,6 +10,7 @@ import { FiltroUsuariosPage } from '../filtro-usuarios/filtro-usuarios.page';
 import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
 import { PerfilUsuario } from '../../models/perfilUsuario';
 import { Solicitudes } from '../../models/solicitudes';
+import { concat } from 'rxjs';
 
 @Component({
   selector: 'app-buscar-jugadores',
@@ -33,7 +34,7 @@ export class BuscarJugadoresPage {
     Confirmacion_Equipo: true,
     Estado: true
   };
-  items = [];
+  items:PerfilUsuario[] = [];
   url = environment.archivosURL;
 
   constructor(
@@ -59,9 +60,13 @@ export class BuscarJugadoresPage {
   }
 
   private generateItems() {
-    const count = this.usuariosService.usuarios.length + 1;
-    for (let i = 0; i < 100; i++) {
-      this.items.push(this.usuariosService.usuarios[i]);
+    let  count = this.items.length ;
+          count =  this.usuariosService.usuarios.length - count > 50 ? count + 50 :  this.usuariosService.usuarios.length; 
+    for (let i = 0; i < count; i++) {
+     let index =  this.items.findIndex(x => x.usuario.Cod_Usuario ===  this.usuariosService.usuarios[i].usuario.Cod_Usuario);
+      if(index === -1){
+        this.items.push(this.usuariosService.usuarios[i]);
+      }
     }
   }
 
@@ -135,6 +140,23 @@ export class BuscarJugadoresPage {
 
   onSearchChange(event) {
     this.textoBuscar = event.detail.value;
+  
+    let index = this.items.filter(x => x.nombre.startsWith(this.textoBuscar));
+    console.log(index, this.textoBuscar,'index');
+    if (index.length === 0) {
+      let usuarioIndex =  this.usuariosService.usuarios.filter(x => x.nombre.startsWith(this.textoBuscar));
+      console.log(usuarioIndex, this.textoBuscar,'usuarioIndex');
+      console.log(this.usuariosService.usuarios, this.textoBuscar,'this.usuariosService.usuarios');
+  
+      if(usuarioIndex.length > 0){
+        usuarioIndex.forEach(element => {
+          let index = this.items.findIndex(x => x.usuario.Cod_Usuario === element.usuario.Cod_Usuario);
+          if(index === -1){
+            this.items.push(element);
+          }
+        });
+      }
+    }
   }
 
   async filtroUbicacion() {

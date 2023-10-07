@@ -18,7 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./buscar-equipos.page.scss'],
 })
 export class BuscarEquiposPage {
-  items = [];
+  items:PerfilEquipos[] = [];
   textoBuscar = '';
   url = environment.archivosURL;
   solicitud: Solicitudes = {
@@ -91,12 +91,32 @@ export class BuscarEquiposPage {
 
   onSearchChange(event) {
     this.textoBuscar = event.detail.value;
+  
+    let index = this.items.filter(x => x.nombre.startsWith(this.textoBuscar));
+
+    if (index.length === 0) {
+      let equiposIndex =  this.equiposService.equipos.filter(x => x.nombre.startsWith(this.textoBuscar));
+ 
+  
+      if(equiposIndex.length > 0){
+        equiposIndex.forEach(element => {
+          let index = this.items.findIndex(x => x.equipo.Cod_Equipo === element.equipo.Cod_Equipo);
+          if(index === -1){
+            this.items.push(element);
+          }
+        });
+      }
+    }
   }
 
   private generateItems() {
-    const count = this.equiposService.equipos.length + 1;
-    for (let i = 0; i < 50; i++) {
-      this.items.push(this.equiposService.equipos[i]);
+    let  count = this.items.length ;
+          count =  this.equiposService.equipos.length - count > 50 ? count + 50 :  this.equiposService.equipos.length; 
+    for (let i = 0; i < count; i++) {
+     let index =  this.items.findIndex(x => x.equipo.Cod_Equipo ===  this.equiposService.equipos[i].equipo.Cod_Equipo);
+      if(index === -1){
+        this.items.push(this.equiposService.equipos[i]);
+      }
     }
   }
 

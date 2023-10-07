@@ -30,7 +30,7 @@ export class CanchasPage {
   };
   textoBuscar = '';
   url = environment.archivosURL;
-  items = [];
+  items:PerfilCancha[] = [];
   constructor(
     public canchasService: CanchasService,
     public actionSheetCtrl: ActionSheetController,
@@ -55,17 +55,37 @@ export class CanchasPage {
       }
     );
   }
-  private generateItems() {
-    const count = this.canchasService.canchas.length;
-   
-    for (let i = 0; i < 10 ; i++) {
-   let index = this.items.findIndex(x => x.cancha.Cod_Cancha == this.canchasService.canchas[i].cancha.Cod_Cancha);
-   if(index < 0 ){
-    
-    this.items.push(this.canchasService.canchas[i]);
-   }
+  onSearchChange(event) {
+    this.textoBuscar = event.detail.value;
+  
+    let index = this.items.filter(x => x.nombre.startsWith(this.textoBuscar));
+
+    if (index.length === 0) {
+      let equiposIndex =  this.canchasService.canchas.filter(x => x.nombre.startsWith(this.textoBuscar));
+ 
+  
+      if(equiposIndex.length > 0){
+        equiposIndex.forEach(element => {
+          let index = this.items.findIndex(x => x.cancha.Cod_Cancha === element.cancha.Cod_Cancha );
+          if(index === -1){
+            this.items.push(element);
+          }
+        });
+      }
     }
   }
+
+  private generateItems() {
+    let  count = this.items.length ;
+          count =  this.canchasService.canchas.length - count > 50 ? count + 50 :  this.canchasService.canchas.length; 
+    for (let i = 0; i < count; i++) {
+     let index =  this.items.findIndex(x => x.cancha.Cod_Cancha  ===  this.canchasService.canchas[i].cancha.Cod_Cancha );
+      if(index === -1){
+        this.items.push(this.canchasService.canchas[i]);
+      }
+    }
+  }
+  
 
   onIonInfinite(ev) {
     this.generateItems();
@@ -177,7 +197,5 @@ export class CanchasPage {
     }
   }
 
-  onSearchChange(event) {
-    this.textoBuscar = event.detail.value;
-  }
+  
 }

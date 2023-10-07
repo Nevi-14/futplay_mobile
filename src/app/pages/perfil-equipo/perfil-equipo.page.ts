@@ -216,9 +216,7 @@ async cargarEquipos(){
     await modal.present();
     const { data } = await modal.onWillDismiss();
 
-    if (data != undefined) {
-      this.jugadoresEquipo();
-    }
+    this.jugadoresEquipo();
   }
 
   async onOpenMenu(jugador) {
@@ -291,6 +289,7 @@ async cargarEquipos(){
       const { data } = await modal.onWillDismiss();
 
       this.modalOpen = false;
+      this.jugadoresEquipo();
     }
   }
 

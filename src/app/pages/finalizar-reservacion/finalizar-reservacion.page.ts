@@ -165,12 +165,7 @@ export class FinalizarReservacionPage {
                   this.emailService
                     .enviarCorreoReservaciones(
                       1,
-                      this.rival.correo,
-                      this.nuevaReservacion.Fecha,
-                      this.nuevaReservacion.Hora_Inicio,
-                      this.cancha.nombre,
-                      this.rival.nombre,
-                      this.retador.nombre
+                      this.rival.correo
                     )
                     .then(
                       async (resp) => {

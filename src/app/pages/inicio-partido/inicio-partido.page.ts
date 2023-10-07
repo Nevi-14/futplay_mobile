@@ -256,7 +256,7 @@ export class InicioPartidoPage implements OnInit {
       this.alertasService.message(
         'FUTPLAY',
         this.translateService.instant(
-          'SCORE_NOT_EQUAL_ASK_THE_OTHER_TEAM_TO_FINISH_THE_GAME'
+          'SCORE_NOT_EQUAL'
         )
       );
 

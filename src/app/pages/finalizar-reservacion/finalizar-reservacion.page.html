@@ -164,11 +164,11 @@
 
           {{"PENDING_PAYMENTS" | translate }}
           <ion-item
-          lines="none"
+       
         >
         <ion-label class="ion-text-capitalize"><strong>{{rival.equipo.Nombre}}</strong></ion-label>
 
-        <ion-fab-button size="small"  slot="end" [color]="pago.length == 0  ||  pago[0].Cod_Equipo == rival.equipo.Cod_Equipo  ?  'danger' : 'success' ">
+        <ion-fab-button size="small"  slot="end" [color]="pago.length == 0  ?   'danger' ||  pago[0].Cod_Equipo == rival.equipo.Cod_Equipo  : 'success' ">
           <ion-icon [name]="pago.length == 0 ? 'close-outline' ||  pago[0].Cod_Equipo == rival.equipo.Cod_Equipo  : 'checkmark-outline'"></ion-icon>
         </ion-fab-button>
         </ion-item>
