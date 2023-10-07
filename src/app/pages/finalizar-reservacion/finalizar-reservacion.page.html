@@ -160,6 +160,30 @@
           {{"AMOUNT_PER_TEAM" | translate }} : {{detalleReservacion.Monto_Equipo
           | colones }}
         </ion-col>
+        <ion-col size="12" *ngIf="pago.length == 0 && nuevaReservacion.Cod_Estado == 7 || pago.length > 0 && nuevaReservacion.Cod_Estado == 7 " >
+
+          {{"PENDING_PAYMENTS" | translate }}
+          <ion-item
+          lines="none"
+        >
+        <ion-label class="ion-text-capitalize"><strong>{{rival.equipo.Nombre}}</strong></ion-label>
+
+        <ion-fab-button size="small"  slot="end" [color]="pago.length == 0  ||  pago[0].Cod_Equipo == rival.equipo.Cod_Equipo  ?  'danger' : 'success' ">
+          <ion-icon [name]="pago.length == 0 ? 'close-outline' ||  pago[0].Cod_Equipo == rival.equipo.Cod_Equipo  : 'checkmark-outline'"></ion-icon>
+        </ion-fab-button>
+        </ion-item>
+
+        <ion-item
+        lines="none"
+        >
+      
+          <ion-label class="ion-text-capitalize"><strong>{{retador.equipo.Nombre}}</strong></ion-label>
+   
+        <ion-fab-button size="small" slot="end" [color]="pago.length == 0  ||  pago.length == 1    ?  'danger' : 'success' ">
+          <ion-icon [name]="pago.length == 1   ? 'close-outline' : 'checkmark-outline'"></ion-icon>
+        </ion-fab-button>
+        </ion-item>
+        </ion-col>
         <ion-col
           size="12"
           *ngIf="nuevaReservacion.Cod_Tipo == 1 || efectuarPago "

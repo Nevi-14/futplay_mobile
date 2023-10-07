@@ -18,6 +18,7 @@ import { MisEquiposPage } from '../mis-equipos/mis-equipos.page';
 import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
 import { TransferenciasPage } from '../transferencias/transferencias.page';
 import { Router } from '@angular/router';
+import { PerfilJugador } from 'src/app/models/perfilJugador';
 
 @Component({
   selector: 'app-perfil-equipo',
@@ -76,40 +77,40 @@ export class PerfilEquipoPage {
     public router: Router
   ) {}
 
-  async ionViewWillEnter() {
-    let equipos = await this.equiposService.syncMisEquiposToPromise(
-      this.usuariosService.usuarioActual.Cod_Usuario
-    );
-    if (equipos.length == 0)
-      return this.router.navigateByUrl('/futplay/crear-unirse-equipo', {
-        replaceUrl: true,
-      });
-    if (this.equiposService.misEquipos.length == 0 && equipos.length > 0) {
-      this.equiposService.misEquipos = equipos;
-      this.equiposService.equipo = this.equiposService.misEquipos[0];
-    }
-    this.solicitudesService
-      .syncGetSolicitudesRecibidasEquipoToPromise(
-        this.equiposService.equipo.equipo.Cod_Equipo
-      )
-      .then((solicitudes) => {
-        this.solicitudesService.solicitudesEquiposArray = solicitudes;
-
-        this.jugadoresService
-          .syncJugadoresEquipos(this.equiposService.equipo.equipo.Cod_Equipo)
-          .then((jugadores) => {
-            this.jugadoresService.jugadores = jugadores;
-            this.equipoGeolocalizacionService
-              .syncGetEquipoGeolocalizacionToPromise(
-                this.equiposService.equipo.equipo.Cod_Equipo
-              )
-              .then((geolocalizacion) => {
-                this.equipoGeolocalizacion = geolocalizacion[0];
-              });
-          });
-      });
+    ionViewWillEnter() {
+ this.cargarEquipos();
   }
+async cargarEquipos(){
+  let equipos = await this.equiposService.syncMisEquiposToPromise(
+    this.usuariosService.usuarioActual.Cod_Usuario
+  );
+  if (equipos.length == 0)
+    return this.router.navigateByUrl('/futplay/crear-unirse-equipo', {
+      replaceUrl: true,
+    });
+    this.equiposService.misEquipos = equipos;
+    this.equiposService.equipo = this.equiposService.misEquipos[0];
+  this.solicitudesService
+    .syncGetSolicitudesRecibidasEquipoToPromise(
+      this.equiposService.equipo.equipo.Cod_Equipo
+    )
+    .then((solicitudes) => {
+      this.solicitudesService.solicitudesEquiposArray = solicitudes;
 
+      this.jugadoresService
+        .syncJugadoresEquipos(this.equiposService.equipo.equipo.Cod_Equipo)
+        .then((jugadores) => {
+          this.jugadoresService.jugadores = jugadores;
+          this.equipoGeolocalizacionService
+            .syncGetEquipoGeolocalizacionToPromise(
+              this.equiposService.equipo.equipo.Cod_Equipo
+            )
+            .then((geolocalizacion) => {
+              this.equipoGeolocalizacion = geolocalizacion[0];
+            });
+        });
+    });
+}
   filledStars(stars: number) {
     return new Array(stars);
   }
@@ -139,6 +140,58 @@ export class PerfilEquipoPage {
     }
   }
 
+  async leaveTeam() {
+
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'FUTPLAY',
+      message: this.translateService.instant('LEAVE_TEAM_CONFIRMATION'),
+      buttons: [
+        {
+          text: this.translateService.instant('CANCEL'),
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+          handler: (blah) => {},
+        },
+        {
+          text: this.translateService.instant('CONFIRM'),
+          id: 'confirm-button',
+          handler: () => {
+            let jugador:PerfilJugador = null ;
+            let index = this.jugadoresService.jugadores.findIndex( e=> e.usuario.Cod_Usuario == this.usuariosService.usuarioActual.Cod_Usuario);
+            if(index >=0){
+              jugador = this.jugadoresService.jugadores[index];
+            }
+            this.alertasService.presentaLoading(
+              this.translateService.instant('VALIDATING_DATA')
+            );
+            this.jugadoresService
+              .syncDeleteJugadorEquipo(jugador.jugador.Cod_Jugador)
+              .then(
+                (resp) => {
+                  this.alertasService.loadingDissmiss();
+                  this.cargarEquipos();
+                  this.alertasService.message(
+                    'FUTPLAY',
+                    this.translateService.instant('ACTION_COMPLETE')
+                  );
+                },
+                (error) => {
+                  this.alertasService.loadingDissmiss();
+                  this.alertasService.message(
+                    'FUTPLAY',
+                    this.translateService.instant('SOMETHING_WENT_WRONG')
+                  );
+                }
+              );
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
   async gestionarPerfil() {
     const modal = await this.modalCtrl.create({
       component: EditarPerfilEquipoPage,

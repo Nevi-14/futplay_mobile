@@ -274,7 +274,13 @@
     "PORTUGUESE": "Português",
     "LOADING": "Carregando",
     "LOADING_DATA": "Carregando Dados",
-    "ACCOUNT_VEIRIFICATION": "Verificação de Conta"
+    "ACCOUNT_VEIRIFICATION": "Verificação de Conta",
+    "DO_YOU_WANT_TO_DELETE_THE_RESERVATION": "Você quer excluir a reserva?",
+    "RESERVATION_DELETED_SUCCESSFULLY": "Reserva excluída com sucesso!",
+    "PENDING_PAYMENTS": "Pagamentos Pendentes",
+    "LEAVE_TEAM": "Deixar Equipe",
+"LEAVE_TEAM_CONFIRMATION": "Você tem certeza de que deseja deixar a equipe?"
+ 
      
   }
   

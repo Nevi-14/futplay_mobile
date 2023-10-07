@@ -189,8 +189,51 @@ export class AceptarRetoAbiertoPage implements OnInit {
       }
     }
   }
+  async alertaEliminar() {
+    const alert = await this.alertCtrl.create({
+      header: 'FUTPLAY',
+      message: this.translateService.instant(
+        'DO_YOU_WANT_TO_DELETE_THE_RESERVATION'
+      ),
+      cssClass: 'custom-alert',
+      buttons: [
+        {
+          text: this.translateService.instant('CANCEL'),
+          role: 'cancel',
+          handler: () => {},
+        },
+        {
+          text: this.translateService.instant('CONTINUE'),
+          role: 'Continuar',
+          handler: () => {
+            this.cancelarReservacion();
+          },
+        },
+      ],
+    });
 
-  async cancelarReservacion() {}
+    await alert.present();
+  }
+  async cancelarReservacion() {
+    this.alertasService.presentaLoading(this.translateService.instant(
+        'LOADING'
+      ));
+this.reservacionesService.syncDeleteReservacion(this.reto.reservacion.Cod_Reservacion).then(async () => {
+  this.alertasService.loadingDissmiss();
+  this.modalCtrl.dismiss();
+  this.alertasService.message('FUTPLAY', this.translateService.instant(
+    'RESERVATION_DELETED_SUCCESSFULLY'
+  ));
+}, error => {
+  this.alertasService.loadingDissmiss();
+  this.alertasService.message('FUTPLAY', this.translateService.instant(
+    'SOMETHING_WENT_WRONG'
+  ));
+})
+
+
+
+  }
 
   filledStars(stars: number) {
     return new Array(stars);

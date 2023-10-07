@@ -241,7 +241,7 @@
 <ion-footer>
   <ion-toolbar *ngIf="!rival && allowUser">
     <app-delete-button
-      (click)="cancelarReservacion()"
+      (click)="alertaEliminar()"
       class="ion-margin"
       [css]="danger"
       label="{{ 'CANCEL_RESERVATION' | translate }}"

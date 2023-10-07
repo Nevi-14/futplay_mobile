@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content fullscreen *ngIf="reto && cancha">
-  <swiper-container class="mySwiper" thumbs-swiper=".mySwiper2" space-between="10" navigation="true">
+  <swiper-container class="mySwiper" thumbs-swiper=".mySwiper2"  navigation="true">
     <swiper-slide>
       <img src="{{url'+cancha.cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'" alt="" />
     </swiper-slide>
@@ -76,6 +76,6 @@
 
 <ion-footer *ngIf="reto.reservacion.Cod_Estado == 2">
   <ion-toolbar>
-    <app-delete-button class="ion-margin" [css]="danger" label="{{'CANCEL_RESERVATION' | translate }}"></app-delete-button>
+    <app-delete-button (click)="alertaEliminar()" class="ion-margin" [css]="danger" label="{{'CANCEL_RESERVATION' | translate }}"></app-delete-button>
   </ion-toolbar>
 </ion-footer>

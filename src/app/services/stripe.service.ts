@@ -8,15 +8,18 @@ import * as stripe from '@stripe/stripe-js';
 export class StripeService {
   private stripe: stripe.Stripe;
   private apiUrl = 'https://api.stripe.com/v1';
-  stripeKey =
+  testStripeKey =
     'pk_test_51NUivUFCkl6VqTDu0LcRZUfPK4j89snBvIVNHQC5sd49MKdI5sSkC6Ux35NfNpj3OKermwi6EoHK6KuIQhzfGhgD00bK59ZIQe'; // Replace with your actual public key
+
+    stripePublicKey =
+    'pk_live_51NUivUFCkl6VqTDue0ETyAHVLsMR8rBmLu0KHybWWh7naMHHRl71CpHFm0kgjgXoGhoFqCS4ZdGwvYbJKi0TEhUE00HeZplPRp'; // Replace with your actual public key
 
   constructor(public http: HttpClient) {
     this.initializeStripe();
   }
 
   async initializeStripe() {
-    this.stripe = await stripe.loadStripe(this.stripeKey);
+    this.stripe = await stripe.loadStripe(this.stripePublicKey);
   }
 
   async redirectToCheckout(options: any) {
@@ -31,7 +34,7 @@ export class StripeService {
   createPaymentIntent2(amount: number, currency: string) {
     const url = `${this.apiUrl}/payment_intents`;
     const headers = {
-      Authorization: `Bearer ${this.stripeKey}`,
+      Authorization: `Bearer ${this.stripePublicKey}`,
       'Content-Type': 'application/x-www-form-urlencoded',
     };
     const body = `amount=${amount}&currency=${currency}`;

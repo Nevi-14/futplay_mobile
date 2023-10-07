@@ -32,8 +32,6 @@ export class PaymentComponent implements OnInit {
   @Input() retador: PerfilEquipos;
   @Input() monto = 0;
   codigoDescuento: CodigosDescuento = null;
-  stripePublicKey =
-    'pk_test_51NUivUFCkl6VqTDu0LcRZUfPK4j89snBvIVNHQC5sd49MKdI5sSkC6Ux35NfNpj3OKermwi6EoHK6KuIQhzfGhgD00bK59ZIQe';
   private stripe: stripe.Stripe;
   elements: stripe.StripeElements;
   card: stripe.StripeCardElement;
@@ -56,7 +54,7 @@ export class PaymentComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.stripe = await stripe.loadStripe(this.stripePublicKey);
+    this.stripe = await stripe.loadStripe(this.stripeService.stripePublicKey);
     this.elements = this.stripe.elements();
     this.card = this.elements.create('card');
     let doc = document.getElementById('card-element');

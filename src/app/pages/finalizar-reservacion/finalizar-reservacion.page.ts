@@ -3,11 +3,13 @@ import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { format } from 'date-fns';
+import { ConfirmacionPagos } from 'src/app/models/confirmacionPagos';
 import { DetalleReservaciones } from 'src/app/models/detalleReservaciones';
 import { PerfilCancha } from 'src/app/models/perfilCancha';
 import { PerfilEquipos } from 'src/app/models/perfilEquipos';
 import { Reservaciones } from 'src/app/models/reservaciones';
 import { AlertasService } from 'src/app/services/alertas.service';
+import { ConfirmacionPagosService } from 'src/app/services/confirmacion-pagos.service';
 import { EmailService } from 'src/app/services/email.service';
 import { ReservacionesService } from 'src/app/services/reservaciones.service';
 import { StripeService } from 'src/app/services/stripe.service';
@@ -29,7 +31,7 @@ export class FinalizarReservacionPage {
 
   total = 0;
   url = environment.archivosURL;
-
+   pago:ConfirmacionPagos[] = [];
   constructor(
     private alertController: AlertController,
     public modalCtrl: ModalController,
@@ -40,7 +42,8 @@ export class FinalizarReservacionPage {
     public router: Router,
     public reservacionesService: ReservacionesService,
     public stripeService: StripeService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    public confirmacionPagosService: ConfirmacionPagosService
   ) {}
 
   async presentAlert(header, message) {
@@ -53,7 +56,10 @@ export class FinalizarReservacionPage {
     await alert.present();
   }
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
+
+   this.pago =  await this.confirmacionPagosService.getConfirmacionPagoToPromise(this.nuevaReservacion.Cod_Reservacion);
+ 
     console.log(
       this.nuevaReservacion,
       this.detalleReservacion,

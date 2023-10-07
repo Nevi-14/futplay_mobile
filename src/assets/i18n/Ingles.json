@@ -277,7 +277,13 @@
    "PORTUGUESE": "Portuguese",
    "LOADING": "Loading",
 "LOADING_DATA": "Loading Data",
-"ACCOUNT_VEIRIFICATION": "Account Verification"
+"ACCOUNT_VEIRIFICATION": "Account Verification",
+"DO_YOU_WANT_TO_DELETE_THE_RESERVATION": "Do you want to delete the reservation? You will not be able to reverse the process!.",
+"RESERVATION_DELETED_SUCCESSFULLY": "Reservation deleted successfully!.",
+"PENDING_PAYMENTS": "Pending Payments",
+"LEAVE_TEAM": "Leave Team",
+"LEAVE_TEAM_CONFIRMATION":  "Are you sure you want to leave the team? You will not be able to reverse the process!."
+ 
  
   
    

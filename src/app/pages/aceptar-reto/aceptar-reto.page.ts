@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { CanchasService } from 'src/app/services/canchas.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { AlertasService } from 'src/app/services/alertas.service';
@@ -15,6 +15,7 @@ import { CanchaDetallePage } from '../cancha-detalle/cancha-detalle.page';
 import { EquipoDetalleModalPage } from '../equipo-detalle-modal/equipo-detalle-modal.page';
 import { environment } from 'src/environments/environment';
 import { PerfilCancha } from 'src/app/models/perfilCancha';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-aceptar-reto',
@@ -43,13 +44,15 @@ export class AceptarRetoPage implements OnInit {
 
   constructor(
     public modalCtrl: ModalController,
+    public alertCtrl: AlertController,
     public canchasService: CanchasService,
     public usuariosService: UsuariosService,
     public alertasService: AlertasService,
     public reservacionesService: ReservacionesService,
     public partidosService: PartidoService,
     public jugadoresService: JugadoresService,
-    public equiposService: EquiposService
+    public equiposService: EquiposService,
+    public translateService: TranslateService
   ) {}
 
   async ngOnInit() {
@@ -130,4 +133,51 @@ export class AceptarRetoPage implements OnInit {
   regresar() {
     this.modalCtrl.dismiss();
   }
+
+  async alertaEliminar() {
+    const alert = await this.alertCtrl.create({
+      header: 'FUTPLAY',
+      message: this.translateService.instant(
+        'DO_YOU_WANT_TO_DELETE_THE_RESERVATION'
+      ),
+      cssClass: 'custom-alert',
+      buttons: [
+        {
+          text: this.translateService.instant('CANCEL'),
+          role: 'cancel',
+          handler: () => {},
+        },
+        {
+          text: this.translateService.instant('CONTINUE'),
+          role: 'Continuar',
+          handler: () => {
+            this.cancelarReservacion();
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+  async cancelarReservacion() {
+    this.alertasService.presentaLoading(this.translateService.instant(
+        'LOADING'
+      ));
+this.reservacionesService.syncDeleteReservacion(this.reto.reservacion.Cod_Reservacion).then(async () => {
+  this.alertasService.loadingDissmiss();
+  this.modalCtrl.dismiss();
+  this.alertasService.message('FUTPLAY', this.translateService.instant(
+    'RESERVATION_DELETED_SUCCESSFULLY'
+  ));
+}, error => {
+  this.alertasService.loadingDissmiss();
+  this.alertasService.message('FUTPLAY', this.translateService.instant(
+    'SOMETHING_WENT_WRONG'
+  ));
+})
+
+
+
+  }
+
 }

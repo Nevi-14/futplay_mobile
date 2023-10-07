@@ -56,6 +56,7 @@ export class CrearEquipoPage implements OnInit {
     Direccion: null,
   };
   jugador: Jugador = {
+    Cod_Jugador: null,
     Cod_Usuario: this.usuariosService.usuarioActual.Cod_Usuario,
     Cod_Equipo: null,
     Favorito: false,

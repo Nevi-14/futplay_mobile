@@ -133,7 +133,15 @@
         >{{solicitudesService.solicitudesEquiposArray.length}}</ion-badge
       >
     </ion-item>
+    <ion-item
+    *ngIf="usuariosService.usuarioActual.Cod_Usuario != equiposService.equipo.equipo.Cod_Usuario"
+    lines="none"
+    (click)="leaveTeam()"
+    detail
+  >
+    <ion-label>{{"LEAVE_TEAM" | translate }}</ion-label>
 
+  </ion-item>
     <ion-item
       lines="none"
       (click)="presentModal(equiposService.equipo.equipo)"
