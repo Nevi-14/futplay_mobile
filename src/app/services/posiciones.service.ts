@@ -4,7 +4,7 @@ import { Posiciones } from '../models/posiciones';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PosicionesService {
   posiciones: Posiciones[] = [];
@@ -25,7 +25,7 @@ export class PosicionesService {
   }
 
   syncPosiciones() {
-    this.getPosiciones().subscribe(resp => {
+    this.getPosiciones().subscribe((resp) => {
       this.posiciones = resp.slice(0);
     });
   }

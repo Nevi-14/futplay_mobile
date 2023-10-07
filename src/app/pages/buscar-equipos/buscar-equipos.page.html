@@ -70,7 +70,7 @@
   <h2 class="ion-text-capitalize"> {{equipo.nombre}}</h2>
 
           <p>{{"SCORE" | translate }} : {{equipo.equipo.Puntaje_Actual ? equipo.equipo.Puntaje_Actual : 0}} </p>
-          <p style="display:block; margin-top: 0.5rem;margin-left: 1rem;">
+          <p class="stars">
             <ng-template ngFor let-hero [ngForOf]="filledStars(equipo.equipo.Estrellas)" let-i="index"
             let-odd="odd">
             <ion-icon color="warning"   name="star"></ion-icon>

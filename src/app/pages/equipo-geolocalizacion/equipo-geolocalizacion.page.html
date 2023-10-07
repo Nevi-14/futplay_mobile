@@ -1,45 +1,66 @@
- 
- 
-     <ion-header class="ion-no-border">
-      <ion-toolbar>
-       <ion-button slot="start" (click)="regresar()" fill="clear">
-         <ion-icon size="large" name="close-outline"></ion-icon>
-       </ion-button>
-       <ion-title>{{"TEAM_GEOLOCATION" | translate }}</ion-title>
-        
-      </ion-toolbar>
-      
-     </ion-header>
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-button slot="start" (click)="regresar()" fill="clear">
+      <ion-icon size="large" name="close-outline"></ion-icon>
+    </ion-button>
+    <ion-title>{{"TEAM_GEOLOCATION" | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content class="ion-padding">
   <form id="form" (ngSubmit)="actualizarGeolocalizacion(form)" #form="ngForm">
-    <ion-grid >
+    <ion-grid>
       <ion-row>
-     
- 
-        <ion-col size="12"   >
-          <app-select name="Country_Code"  (ionChange)="geolocalizacionService.onChangeCountries(form)"     [data]="geolocalizacionService.paises"  label='{{"COUNTRY" | translate }}' ngModel="{{equipoGeolocalizacion.Codigo_Pais}}"></app-select>
+        <ion-col size="12">
+          <app-select
+            name="Country_Code"
+            (ionChange)="geolocalizacionService.onChangeCountries(form)"
+            [data]="geolocalizacionService.paises"
+            label='{{"COUNTRY" | translate }}'
+            ngModel="{{equipoGeolocalizacion.Codigo_Pais}}"
+          ></app-select>
         </ion-col>
-        <ion-col size="12" (ionChange)="geolocalizacionService.onChangeStates(form)"  *ngIf="geolocalizacionService.estados.length > 0" >
-          <app-select name="Codigo_Estado" [data]="geolocalizacionService.estados" label='{{"STATE" | translate }}' ngModel="{{equipoGeolocalizacion.Codigo_Estado}}"></app-select>
+        <ion-col
+          size="12"
+          (ionChange)="geolocalizacionService.onChangeStates(form)"
+          *ngIf="geolocalizacionService.estados.length > 0"
+        >
+          <app-select
+            name="Codigo_Estado"
+            [data]="geolocalizacionService.estados"
+            label='{{"STATE" | translate }}'
+            ngModel="{{equipoGeolocalizacion.Codigo_Estado}}"
+          ></app-select>
         </ion-col>
-        <ion-col size="12"  *ngIf="geolocalizacionService.ciudades.length > 0 && equipoGeolocalizacion.Codigo_Ciudad || geolocalizacionService.ciudades.length > 0 && !equipoGeolocalizacion.Codigo_Ciudad" >
-          <app-select (ionChange)="geolocalizacionService.onChangeCities(form)" name="City_Code" [data]="geolocalizacionService.ciudades"  label='{{"CITY" | translate }}' ngModel="{{equipoGeolocalizacion.Codigo_Ciudad}}"></app-select>
+        <ion-col
+          size="12"
+          *ngIf="geolocalizacionService.ciudades.length > 0 && equipoGeolocalizacion.Codigo_Ciudad || geolocalizacionService.ciudades.length > 0 && !equipoGeolocalizacion.Codigo_Ciudad"
+        >
+          <app-select
+            (ionChange)="geolocalizacionService.onChangeCities(form)"
+            name="City_Code"
+            [data]="geolocalizacionService.ciudades"
+            label='{{"CITY" | translate }}'
+            ngModel="{{equipoGeolocalizacion.Codigo_Ciudad}}"
+          ></app-select>
         </ion-col>
         <ion-col size="12">
-      
-          <app-input name="Codigo_Postal"  label='{{"ZIP_CODE" | translate }}' ngModel="{{equipoGeolocalizacion.Codigo_Postal}}"></app-input>
-         
-        </ion-col>
-        <ion-col size="12" >
-      
-          <app-input name="Direccion" label='{{"ADDRESS" | translate }}' ngModel="{{equipoGeolocalizacion.Direccion}}"></app-input>
-         
+          <app-input
+            name="Codigo_Postal"
+            label='{{"ZIP_CODE" | translate }}'
+            ngModel="{{equipoGeolocalizacion.Codigo_Postal}}"
+          ></app-input>
         </ion-col>
         <ion-col size="12">
-          <app-button   label='{{"UPDATE_DATA" | translate }}'></app-button>
-         </ion-col>
+          <app-input
+            name="Direccion"
+            label='{{"ADDRESS" | translate }}'
+            ngModel="{{equipoGeolocalizacion.Direccion}}"
+          ></app-input>
+        </ion-col>
+        <ion-col size="12">
+          <app-button label='{{"UPDATE_DATA" | translate }}'></app-button>
+        </ion-col>
       </ion-row>
     </ion-grid>
-      </form>
- 
+  </form>
 </ion-content>

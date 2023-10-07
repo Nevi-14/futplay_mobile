@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 import { CategoriaCanchas } from '../models/categoriaCanchas';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CategoriaCanchasService {
   categoriaCanchas: CategoriaCanchas[] = [];
@@ -30,9 +30,8 @@ export class CategoriaCanchasService {
   syncCategoriaCanchas() {
     this.categoriaCanchas = [];
 
-    this.getCategoriaCanchas().subscribe(resp => {
+    this.getCategoriaCanchas().subscribe((resp) => {
       this.categoriaCanchas = resp.slice(0);
-      console.log(this.categoriaCanchas, 'this.categoriaCanchas');
     });
   }
 

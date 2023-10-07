@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { PerfilCancha } from '../models/perfilCancha';
-
 import { AlertasService } from './alertas.service';
 import { ActionSheetController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 interface Dia {
   Code: number;
@@ -13,7 +12,7 @@ interface Dia {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CanchasService {
   canchas: PerfilCancha[] = [];
@@ -25,16 +24,16 @@ export class CanchasService {
     { Code: 3, Day: 'WEDNESDAY' },
     { Code: 4, Day: 'THURSDAY' },
     { Code: 5, Day: 'FRIDAY' },
-    { Code: 6, Day: 'SATURDAY' }
+    { Code: 6, Day: 'SATURDAY' },
   ];
   dia: Dia = null;
 
   constructor(
     private http: HttpClient,
-    private router: Router,
     public alertasService: AlertasService,
-    public actionCtrl: ActionSheetController
-  ) { }
+    public actionCtrl: ActionSheetController,
+    public translateService: TranslateService
+  ) {}
 
   reload = false;
 
@@ -67,7 +66,15 @@ export class CanchasService {
     const Codigo_Ciudad = filtro.Codigo_Ciudad ? filtro.Codigo_Ciudad : null;
     const Cod_Categoria = filtro.Cod_Categoria ? filtro.Cod_Categoria : null;
     let URL = this.getURL(environment.getFiltroCanchasURL);
-    URL = URL + Codigo_Pais + '/' + Codigo_Estado + '/' + Codigo_Ciudad + '/' + Cod_Categoria;
+    URL =
+      URL +
+      Codigo_Pais +
+      '/' +
+      Codigo_Estado +
+      '/' +
+      Codigo_Ciudad +
+      '/' +
+      Cod_Categoria;
     console.log(URL, 'URL');
     return this.http.get<PerfilCancha[]>(URL);
   }
@@ -97,12 +104,12 @@ export class CanchasService {
     console.log('Hora_Fin', filtro.Hora_Fin);
     console.log('current time', new Date().getHours());
     if (filtro.Hora_Fin <= new Date().getHours() + 1) {
-      return 'Cerrada';
+      return this.translateService.instant('CLOSED');
     }
     if (filtro.Estado) {
-      return 'Disponible';
+      return this.translateService.instant('AVAILABLE');
     } else {
-      return 'Cerrada';
+      return this.translateService.instant('CLOSED');
     }
   }
 
@@ -118,7 +125,9 @@ export class CanchasService {
   horarioCancha(cancha: PerfilCancha) {
     const filtro = cancha.horario[new Date().getDay()];
     if (!filtro.Estado) {
-      return 'El día ' + this.dia.Day + ' la cancha se encuentra cerrada.';
+      return (
+        this.dia.Day + this.translateService.instant('SOCCER_FIELD_CLOSED')
+      );
     }
     const inicio = filtro.Hora_Inicio;
     const fin = filtro.Hora_Fin;
@@ -150,35 +159,39 @@ export class CanchasService {
 
     // 2A. Add Google Maps App
     actionLinks.push({
-      text: 'Google Maps App',
+      text: this.translateService.instant('GOOGLE_MAPS_APP'),
       icon: 'navigate',
       handler: () => {
-        window.open('https://www.google.com/maps/search/?api=1&query=' + destination);
-      }
+        window.open(
+          'https://www.google.com/maps/search/?api=1&query=' + destination
+        );
+      },
     });
 
     // 2B. Add Waze App
     actionLinks.push({
-      text: 'Waze App',
+      text: this.translateService.instant('WAZE_APP'),
       icon: 'navigate',
       handler: () => {
-        window.open('https://waze.com/ul?ll=' + destination + '&navigate=yes&z=10');
-      }
+        window.open(
+          'https://waze.com/ul?ll=' + destination + '&navigate=yes&z=10'
+        );
+      },
     });
 
     // 2C. Add a cancel button, you know, just to close down the action sheet controller if the user can't make up his/her mind
     actionLinks.push({
-      text: 'Cancel',
+      text: this.translateService.instant('CANCEL'),
       icon: 'close',
       role: 'cancel',
       handler: () => {
         // console.log('Cancel clicked');
-      }
+      },
     });
 
     const actionSheet = await this.actionCtrl.create({
-      header: 'Navigate',
-      buttons: actionLinks
+      header: this.translateService.instant('OPTIONS'),
+      buttons: actionLinks,
     });
     await actionSheet.present();
   }

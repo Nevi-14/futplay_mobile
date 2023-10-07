@@ -1,45 +1,51 @@
 <app-header></app-header>
 
 <ion-content class="ion-padding">
-
-
-  <form id="form" (ngSubmit)="obtenerCodigoDeSeguridad(fRecuperarContrasena)" #fRecuperarContrasena="ngForm">
+  <form
+    id="form"
+    (ngSubmit)="obtenerCodigoDeSeguridad(fRecuperarContrasena)"
+    #fRecuperarContrasena="ngForm"
+  >
     <ion-grid>
       <ion-row>
         <ion-col size="12">
           <ion-thumbnail>
-            <img  src="assets/web-security.svg" alt="">
+            <img src="assets/web-security.svg" alt="" />
           </ion-thumbnail>
         </ion-col>
         <ion-col size="12">
-          <h1>{{'PASSWORD_MANAGER'  | translate }},</h1>
-          <h3>{{'VERIFICATION_PROCESS'  | translate }}</h3>
-
-
-        </ion-col>
- 
-        <ion-col size="12"  >
-          <app-input  name="Codigo"  type="text"  label="{{'CODE'  | translate }}" 
-    ngModel="{{Codigo}}"></app-input>
-
+          <h1>{{'PASSWORD_MANAGER' | translate }},</h1>
+          <h3>{{'VERIFICATION_PROCESS' | translate }}</h3>
         </ion-col>
 
         <ion-col size="12">
-          <app-button *ngIf="!verificarCodigo" label="{{  'REQUEST_CODE'  | translate }}"></app-button>
-          <app-button *ngIf="verificarCodigo" label="{{  'VALIDATE_CODE'  | translate }}"></app-button>
+          <app-input
+            name="Codigo"
+            type="text"
+            label="{{'CODE'  | translate }}"
+            ngModel="{{Codigo}}"
+          ></app-input>
         </ion-col>
 
- 
+        <ion-col size="12">
+          <app-button
+            *ngIf="!verificarCodigo"
+            label="{{  'REQUEST_CODE'  | translate }}"
+          ></app-button>
+          <app-button
+            *ngIf="verificarCodigo"
+            label="{{  'VALIDATE_CODE'  | translate }}"
+          ></app-button>
+        </ion-col>
       </ion-row>
     </ion-grid>
-
-
   </form>
-
 </ion-content>
 <ion-footer class="ion-no-border">
   <ion-toolbar class="ion-padding">
-    <p class="footer-text">{{'MAIN_PAGE'  | translate }}, <a (click)="regresar()">{{'RETURN'  | translate }}</a></p>
+    <p class="footer-text">
+      {{'MAIN_PAGE' | translate }},
+      <a (click)="regresar()">{{'RETURN' | translate }}</a>
+    </p>
   </ion-toolbar>
 </ion-footer>
- 

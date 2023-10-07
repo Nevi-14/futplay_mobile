@@ -8,18 +8,14 @@ import { Router } from '@angular/router';
 })
 export class GestionRetosPage implements OnInit {
   segment = 'received';
-  constructor(
-public router:Router
+  constructor(public router: Router) {}
 
-  ) { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  regresar() {
+    this.router.navigateByUrl('/futplay/reservaciones', { replaceUrl: true });
   }
- 
-  regresar(){
-    this.router.navigateByUrl('/futplay/reservaciones', {replaceUrl:true})
+  redirigir(ruta) {
+    this.router.navigateByUrl(ruta, { replaceUrl: true });
   }
-  redirigir(ruta){
-    this.router.navigateByUrl(ruta,{replaceUrl:true})
-      }
 }

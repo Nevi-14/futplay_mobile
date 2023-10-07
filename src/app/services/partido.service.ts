@@ -4,10 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { partidos } from '../models/partidos';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PartidoService {
-
   constructor(public http: HttpClient) {}
 
   getURL(api: string) {
@@ -18,7 +17,7 @@ export class PartidoService {
     const URL = environment.preURL + test + environment.postURL + api;
     return URL;
   }
-  
+
   getPartidoReservacion(Cod_Reservacion) {
     let URL = this.getURL(environment.getPartidoURL);
     URL = URL + Cod_Reservacion;
@@ -31,9 +30,9 @@ export class PartidoService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     };
     return this.http.put(URL, partido, options);
   }
@@ -44,9 +43,9 @@ export class PartidoService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     };
     return this.http.put(URL, partido, options);
   }
@@ -57,9 +56,9 @@ export class PartidoService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     };
     return this.http.put(URL, partido, options);
   }

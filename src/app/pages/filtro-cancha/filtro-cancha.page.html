@@ -1,40 +1,51 @@
-
 <ion-content class="ion-padding">
   <form id="form" (ngSubmit)="consultarFiltro(form)" #form="ngForm">
-  <ion-grid  >
-    <ion-row style="display: flex;justify-content:center;align-items:center">
-  
-      <ion-col size="12">
-        <app-select name="Cod_Categoria"       [data]="categorias" label='{{"CATEGORY" | translate }}'ngModel="{{filtro.Cod_Categoria}}"></app-select>
-      </ion-col>
-      <ion-col size="12"   >
-        <app-select name="Codigo_Pais"  (ionChange)="geolocalizacionService.onChangeCountries(form)"     [data]="geolocalizacionService.paises" label='{{"COUNTRY" | translate }}'ngModel="{{filtro.Codigo_Pais}}"></app-select>
-      </ion-col>
-      <ion-col size="12" (ionChange)="geolocalizacionService.onChangeStates(form)"  *ngIf="geolocalizacionService.estados.length > 0" >
-        <app-select name="Codigo_Estado" [data]="geolocalizacionService.estados" label='{{"STATE" | translate }}' ngModel="{{filtro.Codigo_Estado}}"></app-select>
-      </ion-col>
-      <ion-col size="12"  *ngIf="geolocalizacionService.ciudades.length > 0" >
-        <app-select (ionChange)="geolocalizacionService.onChangeCities(form)" name="Codigo_Ciudad" [data]="geolocalizacionService.ciudades" label='{{"CITY" | translate }}' ngModel="{{filtro.Codigo_Ciudad}}"></app-select>
-      </ion-col>
-  
-
-    </ion-row>
-    <ion-row>
-
-      <ion-col size="12">
-        <app-button   label="{{'FILTER' | translate }}">
-         
-        </app-button>
-      </ion-col>
-      
-    </ion-row>
-
-  </ion-grid>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <app-select
+            name="Cod_Categoria"
+            [data]="categorias"
+            label='{{"CATEGORY" | translate }}'
+            ngModel="{{filtro.Cod_Categoria}}"
+          ></app-select>
+        </ion-col>
+        <ion-col size="12">
+          <app-select
+            name="Codigo_Pais"
+            (ionChange)="geolocalizacionService.onChangeCountries(form)"
+            [data]="geolocalizacionService.paises"
+            label='{{"COUNTRY" | translate }}'
+            ngModel="{{filtro.Codigo_Pais}}"
+          ></app-select>
+        </ion-col>
+        <ion-col
+          size="12"
+          (ionChange)="geolocalizacionService.onChangeStates(form)"
+          *ngIf="geolocalizacionService.estados.length > 0"
+        >
+          <app-select
+            name="Codigo_Estado"
+            [data]="geolocalizacionService.estados"
+            label='{{"STATE" | translate }}'
+            ngModel="{{filtro.Codigo_Estado}}"
+          ></app-select>
+        </ion-col>
+        <ion-col size="12" *ngIf="geolocalizacionService.ciudades.length > 0">
+          <app-select
+            (ionChange)="geolocalizacionService.onChangeCities(form)"
+            name="Codigo_Ciudad"
+            [data]="geolocalizacionService.ciudades"
+            label='{{"CITY" | translate }}'
+            ngModel="{{filtro.Codigo_Ciudad}}"
+          ></app-select>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <app-button label="{{'FILTER' | translate }}"> </app-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </form>
 </ion-content>
-
-
-
-
-
-

@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { EquiposService } from 'src/app/services/equipos.service';
-import { EvaluacionEquipoPage } from '../evaluacion-equipo/evaluacion-equipo.page';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { PartidoService } from 'src/app/services/partido.service';
 import { JugadoresService } from 'src/app/services/jugadores.service';
+import { EvaluacionEquipoPage } from '../evaluacion-equipo/evaluacion-equipo.page';
 import { PerfilJugador } from '../../models/perfilJugador';
 import { PerfilReservaciones } from '../../models/perfilReservaciones';
 import { environment } from 'src/environments/environment';
@@ -32,7 +32,8 @@ export class EvaluacionJugadorPage implements OnInit {
     allowTouchMove: false,
   };
   titulo = 'PLAYER_OF_THE_MATCH';
-  url  = environment.archivosURL;
+  url = environment.archivosURL;
+
   constructor(
     public modalCtrl: ModalController,
     public equiposService: EquiposService,

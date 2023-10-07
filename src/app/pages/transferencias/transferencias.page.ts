@@ -51,9 +51,9 @@ export class TransferenciasPage implements OnInit {
 
     modal.present();
     const { data } = await modal.onWillDismiss();
-    if(this.segment == 'sent'){
+    if (this.segment == 'sent') {
       this.send();
-    }else if(this.segment == 'received'){
+    } else if (this.segment == 'received') {
       this.received();
     }
   }
@@ -104,39 +104,39 @@ export class TransferenciasPage implements OnInit {
       Equipos: null,
     };
 
-  this.alertasService.presentaLoading(this.translateService.instant('LOADING'));
-    this.solicitudesService
-    .syncPutSolicitudToProimise(solicitudActualizar)
-    .then(
-      (resp) => {
-        this.alertasService.loadingDissmiss();
-        this.alertasService.message(
-          'FUTPLAY',
-          this.translateService.instant('REQUEST_REJECTED')
-        );
-        if(this.segment == 'sent'){
-          this.send();
-        }else if(this.segment == 'received'){
-          this.received();
-        }
-      },
-      (error) => {
-        this.alertasService.loadingDissmiss();
-        this.alertasService.message(
-          'FUTPLAY',
-          this.translateService.instant('SOMETHING_WENT_WRONG')
-        );
-      }
+    this.alertasService.presentaLoading(
+      this.translateService.instant('LOADING')
     );
-       
+    this.solicitudesService
+      .syncPutSolicitudToProimise(solicitudActualizar)
+      .then(
+        (resp) => {
+          this.alertasService.loadingDissmiss();
+          this.alertasService.message(
+            'FUTPLAY',
+            this.translateService.instant('REQUEST_REJECTED')
+          );
+          if (this.segment == 'sent') {
+            this.send();
+          } else if (this.segment == 'received') {
+            this.received();
+          }
+        },
+        (error) => {
+          this.alertasService.loadingDissmiss();
+          this.alertasService.message(
+            'FUTPLAY',
+            this.translateService.instant('SOMETHING_WENT_WRONG')
+          );
+        }
+      );
   }
   async onOpenMenu(solicitud: PerfilSolicitud) {
-
-    console.log(solicitud,'solicitud');
+    console.log(solicitud, 'solicitud');
     if (this.segment == 'received') {
       const normalBtns: ActionSheetButton[] = [
         {
-          text:  this.translateService.instant('VIEW_PROFILE'),
+          text: this.translateService.instant('VIEW_PROFILE'),
           icon: 'eye-outline',
           handler: () => {
             let usuario = null;
@@ -225,34 +225,32 @@ export class TransferenciasPage implements OnInit {
       Confirmacion_Equipo: true,
       Estado: true,
     };
-    this.alertasService.presentaLoading(this.translateService.instant('LOADING'));
-    this.solicitudesService
-    .syncPutSolicitudToProimise(solicitudActualizar)
-    .then(
-      (resp) => {
-        this.alertasService.loadingDissmiss();
-        this.alertasService.message(
-          'FUTPLAY',
-          this.translateService.instant('REQUEST_ACCEPTED')
-        );
-        if(this.segment == 'sent'){
-          this.send();
-        }else if(this.segment == 'received'){
-          this.received();
-        }
-
-
- 
-      },
-      (error) => {
-        this.alertasService.loadingDissmiss();
-        this.alertasService.message(
-          'FUTPLAY',
-          this.translateService.instant('SOMETHING_WENT_WRONG')
-        );
-      }
+    this.alertasService.presentaLoading(
+      this.translateService.instant('LOADING')
     );
-       
+    this.solicitudesService
+      .syncPutSolicitudToProimise(solicitudActualizar)
+      .then(
+        (resp) => {
+          this.alertasService.loadingDissmiss();
+          this.alertasService.message(
+            'FUTPLAY',
+            this.translateService.instant('REQUEST_ACCEPTED')
+          );
+          if (this.segment == 'sent') {
+            this.send();
+          } else if (this.segment == 'received') {
+            this.received();
+          }
+        },
+        (error) => {
+          this.alertasService.loadingDissmiss();
+          this.alertasService.message(
+            'FUTPLAY',
+            this.translateService.instant('SOMETHING_WENT_WRONG')
+          );
+        }
+      );
   }
 
   async perfilJugador(jugador) {

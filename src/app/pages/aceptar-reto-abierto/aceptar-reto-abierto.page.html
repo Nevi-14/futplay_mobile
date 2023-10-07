@@ -9,7 +9,6 @@
 
 <ion-content fullscreen *ngIf="reto && cancha">
   <swiper-container
-    style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
     class="mySwiper"
     thumbs-swiper=".mySwiper2"
     space-between="10"
@@ -70,7 +69,7 @@
     </ion-avatar>
 
     <ion-label>
-      <p><strong>Retador</strong></p>
+      <p><strong>{{ "CHALLENGER" | translate }}</strong></p>
       <h2 class="ion-text-capitalize">{{ reto.retador.Nombre }}
         <p>
           <ng-template
@@ -119,7 +118,7 @@
     </ion-avatar>
 
     <ion-label>
-      <p><strong>Rival</strong></p>
+      <p><strong>{{ "RIVAL" | translate }}</strong></p>
       <h2 class="ion-text-capitalize">{{ rival.equipo.Nombre }}
         <p>
           <ng-template
@@ -155,7 +154,7 @@
     </ion-avatar>
 
     <ion-label>
-      <p><strong>Rival</strong></p>
+      <p><strong> {{ "RIVAL" | translate }}</strong></p>
     </ion-label>
 
     <ion-fab-button size="small" (click)="agregarRival()" slot="end">

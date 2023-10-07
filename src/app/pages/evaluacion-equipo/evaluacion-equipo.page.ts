@@ -19,7 +19,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./evaluacion-equipo.page.scss'],
 })
 export class EvaluacionEquipoPage implements OnInit {
-  img  = environment.archivosURL;
+  url = environment.archivosURL;
+  stadiumProfile = 'assets/main/team-profile.svg';
   dureza = [
     {
       id: 0,
@@ -53,55 +54,44 @@ export class EvaluacionEquipoPage implements OnInit {
     },
   ];
   indexD = 0;
-  @Input() equipo:Equipos
-  @Input() partido:partidos
-  @Input() reto: PerfilReservaciones
-evaluacionEquipo:HistorialPartidoEquipos = {
-  Cod_Historial:null,
-  Cod_Equipo: null,
-  Dureza: null
+  @Input() equipo: Equipos;
+  @Input() partido: partidos;
+  @Input() reto: PerfilReservaciones;
+  evaluacionEquipo: HistorialPartidoEquipos = {
+    Cod_Historial: null,
+    Cod_Equipo: null,
+    Dureza: null
+  };
 
-}
-
-stadiumProfile =  'assets/main/team-profile.svg';
   constructor(
-    public historialPartidosService:PartidoService,
-    public modalCtrl:ModalController,
+    public historialPartidosService: PartidoService,
+    public modalCtrl: ModalController,
     public equiposservice: EquiposService,
     public alertasService: AlertasService,
-    public storageService:StorageService,
+    public storageService: StorageService,
     public usuariosService: UsuariosService,
     public reservacionesService: ReservacionesService,
     public translateService: TranslateService
-  ) { }
+  ) {}
 
-  ngOnInit() {
-  }
-  
-  durezaEquipo(value){
-this.indexD = value.detail.value
-   this.evaluacionEquipo.Cod_Equipo =  this.equipo.Cod_Equipo;
-   this.evaluacionEquipo.Dureza = value.detail.value
-this.finalizar();
-   
+  ngOnInit() {}
+
+  durezaEquipo(value) {
+    this.indexD = value.detail.value;
+    this.evaluacionEquipo.Cod_Equipo = this.equipo.Cod_Equipo;
+    this.evaluacionEquipo.Dureza = value.detail.value;
+    this.finalizar();
   }
 
-  regresar(){
+  regresar() {
     this.modalCtrl.dismiss();
   }
-  finalizar(){
 
-    this.equiposservice.syncPostDurezaEquipo(this.evaluacionEquipo).then(resp =>{
-      let stringID = this.reto.reservacion.Cod_Reservacion + "-" + this.usuariosService.usuarioActual.Cod_Usuario+ "-" +this.reto.reservacion.Fecha
+  finalizar() {
+    this.equiposservice.syncPostDurezaEquipo(this.evaluacionEquipo).then(resp => {
+      let stringID = this.reto.reservacion.Cod_Reservacion + "-" + this.usuariosService.usuarioActual.Cod_Usuario + "-" + this.reto.reservacion.Fecha;
       this.reservacionesService.cargarReservaciones();
       this.modalCtrl.dismiss();
-  
-
-    })
-
- 
-    
+    });
   }
-
- 
 }

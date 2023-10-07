@@ -8,7 +8,7 @@ import { PerfilEquipos } from '../models/perfilEquipos';
 import { HistorialPartidoEquipos } from '../models/historialPartidoEquipo';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EquiposService {
   misEquipos: PerfilEquipos[] = [];
@@ -25,7 +25,7 @@ export class EquiposService {
     private http: HttpClient,
     private router: Router,
     public alertasService: AlertasService
-  ) { }
+  ) {}
 
   // GET METHODS
 
@@ -41,14 +41,12 @@ export class EquiposService {
   private getMisEquipos(Cod_Usuario) {
     let URL = this.getURL(environment.getMisEquiposURL);
     URL = URL + Cod_Usuario;
-    console.log(URL, 'URL ');
     return this.http.get<PerfilEquipos[]>(URL);
   }
 
   private getPerfilEquipo(codEquipo: number) {
     let URL = this.getURL(environment.getPerfilEquipo);
     URL = URL + codEquipo;
-    console.log(URL, 'URL ');
     return this.http.get<PerfilEquipos[]>(URL);
   }
 
@@ -59,7 +57,6 @@ export class EquiposService {
   private getListaEquipos(Cod_Usuario) {
     let URL = this.getURL(environment.getListaEquiposURL);
     URL = URL + Cod_Usuario;
-    console.log(URL, 'URL');
     return this.http.get<PerfilEquipos[]>(URL);
   }
 
@@ -68,14 +65,14 @@ export class EquiposService {
     URL = URL + avatars.Cod_Equipo;
     const options = {
       headers: {
-        'enctype': 'multipart/form-data;',
-        'Accept': 'plain/text',
+        enctype: 'multipart/form-data;',
+        Accept: 'plain/text',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT',
-        'Access-Control-Allow-Headers': 'Authorization, Origin, Content-Type, X-CSRF-Token',
-      }
+        'Access-Control-Allow-Headers':
+          'Authorization, Origin, Content-Type, X-CSRF-Token',
+      },
     };
-    console.log('URL', URL, avatars, 'put avatars', JSON.stringify(avatars));
     return this.http.put(URL, avatars, options);
   }
 
@@ -85,7 +82,6 @@ export class EquiposService {
 
   private getClasificacionEquipos() {
     let URL = this.getURL(environment.getClasificacionEquiposURL);
-    console.log(URL, 'URL');
     return this.http.get<PerfilEquipos[]>(URL);
   }
 
@@ -107,7 +103,6 @@ export class EquiposService {
     let Codigo_Estado = filtro.Codigo_Estado ? filtro.Codigo_Estado : null;
     let Codigo_Ciudad = filtro.Codigo_Ciudad ? filtro.Codigo_Ciudad : null;
     URL = URL + Codigo_Pais + '/' + Codigo_Estado + '/' + Codigo_Ciudad;
-    console.log(URL, 'URL');
     return this.http.get<PerfilEquipos[]>(URL);
   }
 
@@ -122,11 +117,10 @@ export class EquiposService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     };
-    console.log(URL, 'URL');
     return this.http.post(URL, JSON.stringify(equipo), options);
   }
 
@@ -136,21 +130,18 @@ export class EquiposService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     };
-    console.log(URL, 'URL');
     return this.http.post(URL, JSON.stringify(historialPartido), options);
   }
 
   syncPostDurezaEquipo(historialPartido: HistorialPartidoEquipos) {
-    console.log('historialPartido', historialPartido);
     return this.postDurezaEquipo(historialPartido).toPromise();
   }
 
   syncPostEquipoToPromise(equipo: Equipos) {
-    console.log('equipo', equipo);
     return this.postEquipo(equipo).toPromise();
   }
 
@@ -159,14 +150,14 @@ export class EquiposService {
     URL = URL + Cod_Equipo;
     const options = {
       headers: {
-        'enctype': 'multipart/form-data;',
-        'Accept': 'plain/text',
+        enctype: 'multipart/form-data;',
+        Accept: 'plain/text',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT',
-        'Access-Control-Allow-Headers': 'Authorization, Origin, Content-Type, X-CSRF-Token',
-      }
+        'Access-Control-Allow-Headers':
+          'Authorization, Origin, Content-Type, X-CSRF-Token',
+      },
     };
-    console.log('URL', URL, data, 'data post image', JSON.stringify(data));
     return this.http.post(URL, data, options);
   }
 
@@ -182,9 +173,9 @@ export class EquiposService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     };
     return this.http.put(URL, equipo, options);
   }
@@ -199,11 +190,10 @@ export class EquiposService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     };
-    console.log('put', URL);
     return this.http.put(URL, options);
   }
 
@@ -219,9 +209,9 @@ export class EquiposService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     };
     return this.http.delete(URL, options);
   }

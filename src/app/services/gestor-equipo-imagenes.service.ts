@@ -100,9 +100,9 @@ export class GestorEquipoImagenesService {
       };
       this.images.push(file);
 
-  if(this.post){
-    this.startUpload();
-  }
+      if (this.post) {
+        this.startUpload();
+      }
     }
   }
   async alertaCamara() {
@@ -284,9 +284,8 @@ export class GestorEquipoImagenesService {
     this.syncImagePost(
       formData,
       this.equiposService.equipo.equipo.Cod_Equipo
-     ).then(
+    ).then(
       (resp: any) => {
-  
         this.equiposService.equipo.equipo = resp.equipo;
         this.alertasService.loadingDissmiss();
         this.reset();

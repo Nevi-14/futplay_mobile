@@ -93,8 +93,9 @@ export class RecuperarContrasenaPage {
         )} ${token}. ${this.translateService.instant(
           'DO_NOT_SHARE_THIS_CODE_WITH_ANYONE'
         )}.
-`;  let email = resp.Correo;
-this.sendEmail.email = email;
+`;
+        let email = resp.Correo;
+        this.sendEmail.email = email;
         return this.emailService.syncPostEmail(this.sendEmail).then(
           (resp: any) => {
             this.alertasService.loadingDissmiss();

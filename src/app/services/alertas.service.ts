@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +14,15 @@ export class AlertasService {
 
   constructor(
     public loadingCtrl: LoadingController,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public translateService: TranslateService
   ) { }
 
   async presentaLoading(message: string) {
     this.isLoading = true;
 
     this.loadingCtrl.create({
-      message: message ? message : 'Please wait...',
+      message: message ? message : this.translateService.instant('PLEASE_WAIT'),
       cssClass: 'activity-detail-loading'
     }).then(loader => {
       loader.present().then(() => {

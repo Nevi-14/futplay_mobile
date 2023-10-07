@@ -160,13 +160,26 @@
           {{"AMOUNT_PER_TEAM" | translate }} : {{detalleReservacion.Monto_Equipo
           | colones }}
         </ion-col>
-        <ion-col size="12" *ngIf="nuevaReservacion.Cod_Tipo == 1 || efectuarPago ">
-          <app-payment [cancha]="cancha" [nuevaReservacion]="nuevaReservacion" [detalleReservacion]="detalleReservacion"  [rival]="rival" [retador]="retador" [monto]="total"></app-payment>
+        <ion-col
+          size="12"
+          *ngIf="nuevaReservacion.Cod_Tipo == 1 || efectuarPago "
+        >
+          <app-payment
+            [cancha]="cancha"
+            [nuevaReservacion]="nuevaReservacion"
+            [detalleReservacion]="detalleReservacion"
+            [rival]="rival"
+            [retador]="retador"
+            [monto]="total"
+          ></app-payment>
         </ion-col>
 
-        <ion-col size="12" *ngIf="nuevaReservacion.Cod_Tipo != 1 && !efectuarPago">
+        <ion-col
+          size="12"
+          *ngIf="nuevaReservacion.Cod_Tipo != 1 && !efectuarPago"
+        >
           <app-button
-          (click)="enviarReto()"
+            (click)="enviarReto()"
             class="ion-margin"
             label="{{ 'COMPLETE_RESERVATION' | translate }} "
           ></app-button>
@@ -176,5 +189,4 @@
   </ion-list>
 </ion-content>
 
-<ion-footer>
- 
+<ion-footer> </ion-footer>

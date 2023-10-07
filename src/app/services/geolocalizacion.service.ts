@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { AlertasService } from './alertas.service';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 interface valores {
-  id: string,
-  valor: string
+  id: string;
+  valor: string;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GeolocalizacionService {
   paises: valores[] = [];
@@ -22,19 +23,22 @@ export class GeolocalizacionService {
 
   constructor(
     public alertasService: AlertasService,
-    public http: HttpClient
-  ) { }
+    public http: HttpClient,
+    public translateService: TranslateService
+  ) {}
 
   loadCountries() {
-    this.getCountries().toPromise().then((paises: any[]) => {
-      paises.forEach(pais => {
-        let data = {
-          id: pais.iso2,
-          valor: pais.name
-        };
-        this.paises.push(data);
+    this.getCountries()
+      .toPromise()
+      .then((paises: any[]) => {
+        paises.forEach((pais) => {
+          let data = {
+            id: pais.iso2,
+            valor: pais.name,
+          };
+          this.paises.push(data);
+        });
       });
-    });
   }
 
   private getCountries() {
@@ -43,10 +47,11 @@ export class GeolocalizacionService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Access-Control-Allow-Origin': '*',
-        'X-CSCAPI-KEY': 'V1Fub3lWNW1zWk12TjhGdjZBMUxkSGp0b3dwaHdNaWJLekVhajFndA=='
-      }
+        'X-CSCAPI-KEY':
+          'V1Fub3lWNW1zWk12TjhGdjZBMUxkSGp0b3dwaHdNaWJLekVhajFndA==',
+      },
     };
     return this.http.get(URL, options);
   }
@@ -57,10 +62,11 @@ export class GeolocalizacionService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Access-Control-Allow-Origin': '*',
-        'X-CSCAPI-KEY': 'V1Fub3lWNW1zWk12TjhGdjZBMUxkSGp0b3dwaHdNaWJLekVhajFndA=='
-      }
+        'X-CSCAPI-KEY':
+          'V1Fub3lWNW1zWk12TjhGdjZBMUxkSGp0b3dwaHdNaWJLekVhajFndA==',
+      },
     };
     return this.http.get(URL, options);
   }
@@ -71,53 +77,53 @@ export class GeolocalizacionService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Access-Control-Allow-Origin': '*',
-        'X-CSCAPI-KEY': 'V1Fub3lWNW1zWk12TjhGdjZBMUxkSGp0b3dwaHdNaWJLekVhajFndA=='
-      }
+        'X-CSCAPI-KEY':
+          'V1Fub3lWNW1zWk12TjhGdjZBMUxkSGp0b3dwaHdNaWJLekVhajFndA==',
+      },
     };
     return this.http.get(URL, options);
   }
 
   loadStates() {
-    this.alertasService.presentaLoading('Cargando datos..');
-    this.getStates().toPromise().then((states: any[]) => {
-      if (states.length == 0) {
-        this.alertasService.loadingDissmiss();
-      }
-      states.forEach((state, index) => {
-        let data = {
-          id: state.iso2,
-          valor: state.name
-        };
-        this.estados.push(data);
-        if (index == states.length - 1) {
+    this.alertasService.presentaLoading(
+      this.translateService.instant('LOADING')
+    );
+    this.getStates()
+      .toPromise()
+      .then((states: any[]) => {
+        if (states.length == 0) {
           this.alertasService.loadingDissmiss();
-          if (this.Codigo_Estado != null) {
-            this.loadCities();
-          }
         }
+        states.forEach((state, index) => {
+          let data = {
+            id: state.iso2,
+            valor: state.name,
+          };
+          this.estados.push(data);
+          if (index == states.length - 1) {
+            this.alertasService.loadingDissmiss();
+            if (this.Codigo_Estado != null) {
+              this.loadCities();
+            }
+          }
+        });
       });
-    });
   }
 
   loadCities() {
-    this.alertasService.presentaLoading('Cargando datos..');
-    this.getCities().toPromise().then((cities: any[]) => {
-      if (cities.length == 0) {
-        this.alertasService.loadingDissmiss();
-      }
-      cities.forEach((city, index) => {
-        let data = {
-          id: city.id,
-          valor: city.name
-        };
-        this.ciudades.push(data);
-        if (index == cities.length - 1) {
-          this.alertasService.loadingDissmiss();
-        }
+    this.getCities()
+      .toPromise()
+      .then((cities: any[]) => {
+        cities.forEach((city, index) => {
+          let data = {
+            id: city.id,
+            valor: city.name,
+          };
+          this.ciudades.push(data);
+        });
       });
-    });
   }
 
   async onChangeCountries(form: NgForm) {

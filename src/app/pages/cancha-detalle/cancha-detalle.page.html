@@ -50,7 +50,7 @@
     <ion-item *ngIf="cancha.cancha.Luz">
       <ion-label>{{'LIGHTING' | translate}} </ion-label>
 
-      <p slot="end" class="ion-text-wrap" style="margin-top: 10px">
+      <p slot="end" class="ion-text-wrap">
         + {{cancha.cancha.Precio_Luz | colones }}
       </p>
     </ion-item>
@@ -67,10 +67,10 @@
           </ion-item>
           <ion-item *ngFor="let dia of cancha.horario; let i = index;">
             <ion-label> {{canchasService.diaNombre(i)| translate}} </ion-label>
-            <ion-label class="ion-text-wrap" *ngIf="dia.Estado">
+            <p class="ion-text-wrap" *ngIf="dia.Estado">
               {{canchasService.retornaHoraAmPm(dia.Hora_Inicio)}} -
               {{canchasService.retornaHoraAmPm(dia.Hora_Fin)}}
-            </ion-label>
+            </p>
 
             <ion-label *ngIf="!dia.Estado">
               <ion-label>{{'CLOSED' | translate}} </ion-label>
@@ -83,7 +83,7 @@
         <app-mapa [lngLat]="[cancha.longitud, cancha.latitud]"></app-mapa>
       </ion-col>
       <ion-col size="12">
-        <ion-item (click)="navigate()" lines="full" button>
+        <ion-item (click)="navigate()" lines="full" detail>
           <ion-label> {{cancha.pais}}, {{cancha.estado}}</ion-label>
         </ion-item>
       </ion-col>

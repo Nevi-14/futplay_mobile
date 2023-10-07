@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { ConfirmacionPagos } from '../models/confirmacionPagos';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ConfirmacionPagosService {
   constructor(public http: HttpClient) {}
@@ -22,18 +22,20 @@ export class ConfirmacionPagosService {
     const URL = this.getURL(environment.postVerificacionPagoURL);
     const options = {
       headers: {
-        'enctype': 'multipart/form-data;',
-        'Accept': 'plain/text',
+        enctype: 'multipart/form-data;',
+        Accept: 'plain/text',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT',
-        'Access-Control-Allow-Headers': 'Authorization, Origin, Content-Type, X-CSRF-Token'
-      }
+        'Access-Control-Allow-Headers':
+          'Authorization, Origin, Content-Type, X-CSRF-Token',
+      },
     };
     return this.http.post(URL, pago, options);
   }
 
   private getConfirmacionPago(codReservacion: number) {
-    const URL = this.getURL(environment.getVerificacionPagoURL) + codReservacion;
+    const URL =
+      this.getURL(environment.getVerificacionPagoURL) + codReservacion;
     console.log(URL, 'URL ');
     return this.http.get<ConfirmacionPagos[]>(URL);
   }
@@ -47,15 +49,20 @@ export class ConfirmacionPagosService {
   }
 
   private putVerificacionPago(pago: ConfirmacionPagos) {
-    const URL = this.getURL(environment.putVerificacionPagoURL) + pago.Cod_Equipo + '/' + pago.Cod_Reservacion;
+    const URL =
+      this.getURL(environment.putVerificacionPagoURL) +
+      pago.Cod_Equipo +
+      '/' +
+      pago.Cod_Reservacion;
     const options = {
       headers: {
-        'enctype': 'multipart/form-data;',
-        'Accept': 'plain/text',
+        enctype: 'multipart/form-data;',
+        Accept: 'plain/text',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT',
-        'Access-Control-Allow-Headers': 'Authorization, Origin, Content-Type, X-CSRF-Token'
-      }
+        'Access-Control-Allow-Headers':
+          'Authorization, Origin, Content-Type, X-CSRF-Token',
+      },
     };
     return this.http.put(URL, JSON.stringify(pago), options);
   }

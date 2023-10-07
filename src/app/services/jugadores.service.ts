@@ -1,22 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Jugador } from '../models/jugador';
 import { AlertasService } from './alertas.service';
 import { PerfilJugador } from '../models/perfilJugador';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class JugadoresService {
   jugadores: PerfilJugador[] = [];
   jugador: PerfilJugador;
   constructor(
     private http: HttpClient,
-    private router: Router,
     public alertasService: AlertasService
-  ) { }
+  ) {}
   reload: boolean = false;
 
   getURL(api: string) {
@@ -54,9 +52,9 @@ export class JugadoresService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     };
     return this.http.post(URL, JSON.stringify(jugador), options);
   }
@@ -71,9 +69,9 @@ export class JugadoresService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     };
     return this.http.put(URL, jugador, options);
   }
@@ -88,9 +86,9 @@ export class JugadoresService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     };
     return this.http.delete(URL, options);
   }

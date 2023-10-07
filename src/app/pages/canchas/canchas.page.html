@@ -1,86 +1,88 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-   <ion-button slot="start" (click)="regresar()" fill="clear">
-     <ion-icon size="large" name="close-outline"></ion-icon>
-   </ion-button>
-   <ion-title>{{'SOCCER_FIELDS_LIST' | translate}}</ion-title>
-    
+    <ion-button slot="start" (click)="regresar()" fill="clear">
+      <ion-icon size="large" name="close-outline"></ion-icon>
+    </ion-button>
+    <ion-title>{{'SOCCER_FIELDS_LIST' | translate}}</ion-title>
   </ion-toolbar>
- 
- </ion-header>
- <ion-toolbar >
-  <ion-grid >
+</ion-header>
+<ion-toolbar>
+  <ion-grid>
     <ion-row>
       <ion-col size="10">
-        <ion-searchbar (ionInput)="onSearchChange($event)"  mode="ios" placeholder="{{'SEARCH_SOCCER_FIELDS' | translate}}" inputmode="text"  debounce="250" ></ion-searchbar> 
+        <ion-searchbar
+          (ionInput)="onSearchChange($event)"
+          mode="ios"
+          placeholder="{{'SEARCH_SOCCER_FIELDS' | translate}}"
+          inputmode="text"
+          debounce="250"
+        ></ion-searchbar>
       </ion-col>
       <ion-col size="2">
-         
-  <ion-buttons >
-    <ion-button      (click)="filtroUbicacion()"  >
-      <ion-icon class="futplay-color"   size="large"  name="options-outline" ></ion-icon>
-    </ion-button>
-  </ion-buttons>
+        <ion-buttons>
+          <ion-button (click)="filtroUbicacion()">
+            <ion-icon
+              class="futplay-color"
+              size="large"
+              name="options-outline"
+            ></ion-icon>
+          </ion-button>
+        </ion-buttons>
       </ion-col>
     </ion-row>
   </ion-grid>
-
-
- 
 </ion-toolbar>
 <ion-content>
-
-  
-
-
   <ion-list *ngIf="items.length == 0">
-    <ion-item lines="none" class="employeeItem  animate__animated animate__fadeIn"   >
-
+    <ion-item lines="none" class="animate__animated animate__fadeIn">
       <span>
         <ion-avatar>
-          <img src="assets/logo.png" alt="">
+          <img src="assets/logo.png" alt="" />
         </ion-avatar>
-      
-       
+
         <div>
-          <h2>{{"FUTPLAY_MESSAGE" | translate }} </h2>
+          <h2>{{"FUTPLAY_MESSAGE" | translate }}</h2>
           <p>{{"NO_RECORDS_FOUND" | translate }}</p>
         </div>
       </span>
-     </ion-item>
-
+    </ion-item>
   </ion-list>
-<ion-list *ngIf="items.length > 0">
+  <ion-list *ngIf="items.length > 0">
+    <ion-item
+      lines="full"
+      class="animate__animated animate__fadeIn"
+      (click)="onOpenMenu(cancha)"
+      *ngFor="let cancha of items | filtro: textoBuscar:'nombre'"
+    >
+      <span>
+        <ion-avatar>
+          <img
+            src="{{url+cancha.cancha.Foto }}"
+            onerror="this.src='assets/soccerfield.jpg'"
+            alt=""
+          />
+        </ion-avatar>
 
+        <div>
+          <h2>
+            {{cancha.nombre}}
+            <ion-badge color="dark" mode="ios"
+              >₡ {{cancha.cancha.Precio_Hora}}</ion-badge
+            >
+          </h2>
 
-
-<ion-item  lines="full"  class="employeeItem  animate__animated animate__fadeIn"    (click)="onOpenMenu(cancha)"  *ngFor="let cancha of items | filtro: textoBuscar:'nombre'" >
-
-<span>
-  <ion-avatar  >
-    <img src="{{url+cancha.cancha.Foto }}" onerror="this.src='assets/soccerfield.jpg'"   alt="">
-  
-   </ion-avatar>
-  
-  
-  
-  
-  <div>
-    <h2>{{cancha.nombre}} <ion-badge color="dark" mode="ios">₡ {{cancha.cancha.Precio_Hora}}</ion-badge></h2>
-    
-    <p   >
-         
-      {{'CATEGORY' | translate}} <ion-badge color="warning" mode="ios">{{cancha.categoria}}</ion-badge>
-  
-    </p>
-    <p>{{cancha.pais}},       {{cancha.estado}} ...</p>
-  </div>
-  
-</span>
-</ion-item>
-</ion-list>
-<ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-  <ion-infinite-scroll-content></ion-infinite-scroll-content>
-</ion-infinite-scroll>
+          <p>
+            {{'CATEGORY' | translate}}
+            <ion-badge color="warning" mode="ios"
+              >{{cancha.categoria}}</ion-badge
+            >
+          </p>
+          <p>{{cancha.pais}}, {{cancha.estado}} ...</p>
+        </div>
+      </span>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
-

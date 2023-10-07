@@ -6,7 +6,7 @@ import { Solicitudes } from '../models/solicitudes';
 import { PerfilSolicitud } from '../models/perfilSolicitud';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SolicitudesService {
   solicitudesJugadoresArray: PerfilSolicitud[] = [];
@@ -56,8 +56,8 @@ export class SolicitudesService {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        'Access-Control-Allow-Origin': '*',
+      },
     };
     return this.http.post(URL, JSON.stringify(solicitud), options);
   }
@@ -69,8 +69,8 @@ export class SolicitudesService {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        'Access-Control-Allow-Origin': '*',
+      },
     };
     return this.http.put(URL, JSON.stringify(solicitud), options);
   }

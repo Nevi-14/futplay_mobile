@@ -1,46 +1,54 @@
 <app-header></app-header>
 
 <ion-content class="ion-padding">
-
-
-  <form id="form" (ngSubmit)="cambiarContrasena(fCambiarContrasena)" #fCambiarContrasena="ngForm">
+  <form
+    id="form"
+    (ngSubmit)="cambiarContrasena(fCambiarContrasena)"
+    #fCambiarContrasena="ngForm"
+  >
     <ion-grid>
       <ion-row>
         <ion-col size="12" class="img-container">
-     <ion-thumbnail>
-      <img  src="assets/reset-password.svg" alt="">
-     </ion-thumbnail>
+          <ion-thumbnail>
+            <img src="assets/reset-password.svg" alt="" />
+          </ion-thumbnail>
         </ion-col>
         <ion-col size="12">
-          <h2>{{'CHANGE_PASSWORD'  | translate }}</h2>
+          <h2>{{'CHANGE_PASSWORD' | translate }}</h2>
         </ion-col>
         <ion-col size="12">
-       
-          <h3>{{'I_WANT_TO_CHANGE_MY_PASSWORD'  | translate }}</h3>
-
-
+          <h3>{{'I_WANT_TO_CHANGE_MY_PASSWORD' | translate }}</h3>
         </ion-col>
         <ion-col size="12">
-          <app-input  name="Contrasena" type="password" label="{{'PASSWORD'  | translate }}"  ngModel="{{Contrasena}}"    ></app-input>
-
+          <app-input
+            name="Contrasena"
+            type="password"
+            label="{{'PASSWORD'  | translate }}"
+            ngModel="{{Contrasena}}"
+          ></app-input>
         </ion-col>
         <ion-col size="12">
-            <app-input  name="ConfirmarContrasena" type="password" label="{{'CONFIRMED_PASSWORD'  | translate }}"  ngModel="{{ConfirmarContrasena}}"    ></app-input>
-  
-          </ion-col>
+          <app-input
+            name="ConfirmarContrasena"
+            type="password"
+            label="{{'CONFIRMED_PASSWORD'  | translate }}"
+            ngModel="{{ConfirmarContrasena}}"
+          ></app-input>
+        </ion-col>
         <ion-col size="12">
           <app-button label="{{'CHANGE_PASSWORD'  | translate }}"></app-button>
         </ion-col>
-<ion-col size="12">
-  <p *ngIf="!usuariosService.usuarioActual" class="footer-text">{{'MAIN_PAGE'  | translate }} <a routerLink="/inicio-sesion">{{'RETURN'  | translate }}</a></p>
-    <p *ngIf="usuariosService.usuarioActual" class="footer-text">{{'MAIN_PAGE'  | translate }} <a routerLink="/futplay/mi-perfil">{{'RETURN'  | translate }}</a></p>
-</ion-col>
- 
+        <ion-col size="12">
+          <p *ngIf="!usuariosService.usuarioActual" class="footer-text">
+            {{'MAIN_PAGE' | translate }}
+            <a routerLink="/inicio-sesion">{{'RETURN' | translate }}</a>
+          </p>
+          <p *ngIf="usuariosService.usuarioActual" class="footer-text">
+            {{'MAIN_PAGE' | translate }}
+            <a routerLink="/futplay/mi-perfil">{{'RETURN' | translate }}</a>
+          </p>
+        </ion-col>
       </ion-row>
     </ion-grid>
-
-
   </form>
-
 </ion-content>
- 

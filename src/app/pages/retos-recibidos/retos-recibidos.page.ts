@@ -17,37 +17,45 @@ import { Router } from '@angular/router';
   styleUrls: ['./retos-recibidos.page.scss'],
 })
 export class RetosRecibidosPage implements OnInit {
-reservaciones:PerfilReservaciones[]=[];
-url = environment.archivosURL;
-isModalOpen:boolean = false;
+  reservaciones: PerfilReservaciones[] = [];
+  url = environment.archivosURL;
+  isModalOpen: boolean = false;
   constructor(
-public reservacionesService:ReservacionesService,
-public usuariosSErvice:UsuariosService,
-public modalCtrl:ModalController,
-public canchasService:CanchasService,
-public equiposService:EquiposService,
-public router:Router
-
-
-  ) { }
+    public reservacionesService: ReservacionesService,
+    public usuariosSErvice: UsuariosService,
+    public modalCtrl: ModalController,
+    public canchasService: CanchasService,
+    public equiposService: EquiposService,
+    public router: Router
+  ) {}
 
   ngOnInit() {
-this.retosRecibidos()
+    this.retosRecibidos();
   }
-  regresar(){
-    this.router.navigateByUrl('/futplay/reservaciones', {replaceUrl:true})
+  regresar() {
+    this.router.navigateByUrl('/futplay/reservaciones', { replaceUrl: true });
   }
-  retosRecibidos(){
-    this.reservacionesService.syncgGtReservacionesRecibidas(this.usuariosSErvice.usuarioActual.Cod_Usuario).then(reservaciones=>{
-      this.reservaciones = reservaciones;
-          })
+  retosRecibidos() {
+    this.reservacionesService
+      .syncgGtReservacionesRecibidas(
+        this.usuariosSErvice.usuarioActual.Cod_Usuario
+      )
+      .then((reservaciones) => {
+        this.reservaciones = reservaciones;
+      });
   }
 
-  async finalizarReservacion(reto:PerfilReservaciones) {
-    let cancha =  await this.canchasService.syncGetPerfilCanchaToPromise(reto.cancha.Cod_Cancha);
-    let rival = await this.equiposService.syncGetPerfilEquipoToPromise(reto.rival.Cod_Equipo);
-    let retador = await  this.equiposService.syncGetPerfilEquipoToPromise(reto.retador.Cod_Equipo);
-   // this.regresar();
+  async finalizarReservacion(reto: PerfilReservaciones) {
+    let cancha = await this.canchasService.syncGetPerfilCanchaToPromise(
+      reto.cancha.Cod_Cancha
+    );
+    let rival = await this.equiposService.syncGetPerfilEquipoToPromise(
+      reto.rival.Cod_Equipo
+    );
+    let retador = await this.equiposService.syncGetPerfilEquipoToPromise(
+      reto.retador.Cod_Equipo
+    );
+    // this.regresar();
     if (!this.isModalOpen) {
       this.isModalOpen = true;
       const modal = await this.modalCtrl.create({
@@ -66,24 +74,21 @@ this.retosRecibidos()
       await modal.present();
       const { data } = await modal.onDidDismiss();
       this.isModalOpen = false;
-      if (data !== undefined) {
-      }
+      this.retosRecibidos();
     }
   }
-  async detalleReto(reto:PerfilReservaciones) {
+  async detalleReto(reto: PerfilReservaciones) {
+    const modal = await this.modalCtrl.create({
+      component: AceptarRetoPage,
+      cssClass: 'my-custom-class',
+      componentProps: {
+        reto: reto,
+        aceptar: true,
+      },
+    });
 
-  
-      const modal = await this.modalCtrl.create({
-        component: AceptarRetoPage,
-        cssClass: 'my-custom-class',
-        componentProps: {
-          reto: reto,
-          aceptar:true
-        }
-      });
-  
-       await modal.present();
-    let {data} = await modal.onDidDismiss();
+    await modal.present();
+    let { data } = await modal.onDidDismiss();
     this.retosRecibidos();
-    }
+  }
 }

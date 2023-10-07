@@ -25,7 +25,6 @@ import { EquiposService } from '../../services/equipos.service';
 import { format } from 'date-fns';
 import { FinalizarReservacionPage } from '../finalizar-reservacion/finalizar-reservacion.page';
 import { CanchaDetallePage } from '../cancha-detalle/cancha-detalle.page';
-import { CalendarioPopoverPage } from '../calendario-popover/calendario-popover.page';
 import { Reservaciones } from 'src/app/models/reservaciones';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
@@ -429,28 +428,7 @@ export class GenerarReservacionPage {
     }
   }
 
-  async calendario() {
-    if (!this.isModalOpen) {
-      this.isModalOpen = true;
-      const modal = await this.modalCtrl.create({
-        component: CalendarioPopoverPage,
-        cssClass: 'my-custom-modal',
-        mode: 'ios',
-        componentProps: {
-          fecha: this.nuevaReservacion.Fecha,
-        },
-      });
-      await modal.present();
-      const { data } = await modal.onDidDismiss();
-      this.isModalOpen = false;
-      if (data !== undefined) {
-        this.nuevaReservacion.Fecha = data.fecha;
-        this.nuevaReservacion.Hora_Inicio = null;
-        this.nuevaReservacion.Hora_Fin = null;
-        this.cd.detectChanges();
-      }
-    }
-  }
+ 
 
   cerrarModal() {
     this.modalCtrl.dismiss();
@@ -477,7 +455,14 @@ export class GenerarReservacionPage {
         this.cd.detectChanges();
       });
   }
+  filledStars(stars: number) {
+    return new Array(stars);
+  }
 
+  emptyStars(stars: number) {
+    let value = 5 - stars;
+    return new Array(value);
+  }
   cambiarFecha($event) {
     let inputDate = $event.detail.value;
     var today = new Date();

@@ -88,14 +88,14 @@
         </ion-item>
       </ion-col>
       <ion-col size="12">
-    <ion-list>
-      <ion-datetime
-      (ionChange)="cambiarFecha($event)"
-      [min]="fechaMinima"
-      presentation="date"
-      [(ngModel)]="fecha"
-    ></ion-datetime>
-    </ion-list>
+        <ion-list>
+          <ion-datetime
+            (ionChange)="cambiarFecha($event)"
+            [min]="fechaMinima"
+            presentation="date"
+            [(ngModel)]="fecha"
+          ></ion-datetime>
+        </ion-list>
       </ion-col>
       <ion-col size="12">
         <ion-item (click)="openPicker(1)">
@@ -153,33 +153,26 @@
               <strong>{{"CHALLENGER" | translate }}</strong>
             </p>
 
-            <p style="display: block; margin-top: 0.5rem; margin-left: 0.5rem">
-              <ion-icon
-                color="warning"
-                style="size: 10px"
-                name="star"
-              ></ion-icon>
-              <ion-icon
-                color="warning"
-                style="size: 10px"
-                name="star-outline"
-              ></ion-icon>
-              <ion-icon
-                color="warning"
-                style="size: 10px"
-                name="star-outline"
-              ></ion-icon>
-              <ion-icon
-                color="warning"
-                style="size: 10px"
-                name="star-outline"
-              ></ion-icon>
-              <ion-icon
-                color="warning"
-                style="size: 10px"
-                name="star-outline"
-              ></ion-icon>
-            </p>
+            <span class="stars">
+              <ng-template
+                ngFor
+                let-hero
+                [ngForOf]="filledStars(retador.equipo.Estrellas)"
+                let-i="index"
+                let-odd="odd"
+              >
+                <ion-icon color="warning" name="star"></ion-icon>
+              </ng-template>
+              <ng-template
+                ngFor
+                let-hero
+                [ngForOf]="emptyStars(retador.equipo.Estrellas)"
+                let-i="index"
+                let-odd="odd"
+              >
+                <ion-icon color="warning" name="star-outline"></ion-icon>
+              </ng-template>
+            </span>
           </ion-label>
           <ion-fab-button (click)="agregarRetador()" slot="end" size="small">
             <ion-icon name="reload"></ion-icon>
@@ -211,33 +204,26 @@
               <strong>{{"RIVAL" | translate }}</strong>
             </p>
 
-            <p style="display: block; margin-top: 0.5rem; margin-left: 0.5rem">
-              <ion-icon
-                color="warning"
-                style="size: 10px"
-                name="star"
-              ></ion-icon>
-              <ion-icon
-                color="warning"
-                style="size: 10px"
-                name="star-outline"
-              ></ion-icon>
-              <ion-icon
-                color="warning"
-                style="size: 10px"
-                name="star-outline"
-              ></ion-icon>
-              <ion-icon
-                color="warning"
-                style="size: 10px"
-                name="star-outline"
-              ></ion-icon>
-              <ion-icon
-                color="warning"
-                style="size: 10px"
-                name="star-outline"
-              ></ion-icon>
-            </p>
+            <span class="stars">
+              <ng-template
+                ngFor
+                let-hero
+                [ngForOf]="filledStars(rival.equipo.Estrellas)"
+                let-i="index"
+                let-odd="odd"
+              >
+                <ion-icon color="warning" name="star"></ion-icon>
+              </ng-template>
+              <ng-template
+                ngFor
+                let-hero
+                [ngForOf]="emptyStars(rival.equipo.Estrellas)"
+                let-i="index"
+                let-odd="odd"
+              >
+                <ion-icon color="warning" name="star-outline"></ion-icon>
+              </ng-template>
+            </span>
           </ion-label>
           <ion-fab-button (click)="agregarRival()" slot="end" size="small">
             <ion-icon name="reload"></ion-icon>

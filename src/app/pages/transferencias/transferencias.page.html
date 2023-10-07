@@ -1,15 +1,16 @@
- 
-  
 <ion-header class="ion-no-border">
   <ion-toolbar>
-   <ion-button slot="start" (click)="regresar()" fill="clear">
-     <ion-icon size="large" name="close-outline"></ion-icon>
-   </ion-button>
-   <ion-title>{{"TRANSFERS" | translate }}</ion-title>
-    
+    <ion-button slot="start" (click)="regresar()" fill="clear">
+      <ion-icon size="large" name="close-outline"></ion-icon>
+    </ion-button>
+    <ion-title>{{"TRANSFERS" | translate }}</ion-title>
   </ion-toolbar>
- 
-  <ion-segment mode="md" [(ngModel)]="segment" (ionChange)="segmentChanged($event)">
+
+  <ion-segment
+    mode="md"
+    [(ngModel)]="segment"
+    (ionChange)="segmentChanged($event)"
+  >
     <ion-segment-button value="received">
       <ion-label>{{"RECEIVED" | translate }}</ion-label>
     </ion-segment-button>
@@ -17,58 +18,69 @@
       <ion-label>{{"SENT" | translate }}</ion-label>
     </ion-segment-button>
   </ion-segment>
- 
-  
- </ion-header>
+</ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-item  *ngIf="solicitudes.length == 0"    lines="none"
-    class="animate__animated animate__fadeIn">
-    <span  >
-      <ion-avatar>
-        <img src="assets/logo.png" alt="">
-      </ion-avatar>
-  
-  
-<div>
-  <h2>{{"FUTPLAY_MESSAGE" | translate }} </h2>
-  <p>{{"NO_RECORDS_FOUND" | translate }}</p>
+    <ion-item
+      *ngIf="solicitudes.length == 0"
+      lines="none"
+      class="animate__animated animate__fadeIn"
+    >
+      <span>
+        <ion-avatar>
+          <img src="assets/logo.png" alt="" />
+        </ion-avatar>
 
-</div>
-    </span>
-  
-  
+        <div>
+          <h2>{{"FUTPLAY_MESSAGE" | translate }}</h2>
+          <p>{{"NO_RECORDS_FOUND" | translate }}</p>
+        </div>
+      </span>
     </ion-item>
 
-    <ion-item (click)="onOpenMenu(solicitud)" lines="full" class="animate__animated animate__fadeIn" *ngFor="let solicitud of solicitudes">
-      
-<span>
-  <ion-avatar   >
-    <img *ngIf="!solicitud.usuario.Avatar && solicitud.usuario.Foto != 'No Pic' && solicitud.usuario.Foto" src="{{url+solicitud.usuario.Foto}}"
-    onerror="this.src='assets/user.svg'" alt="">
-    <img *ngIf="solicitud.usuario.Foto  == 'No Pic'  || !solicitud.usuario.Foto " src="assets/user.svg" alt="{{solicitud.usuario.Foto}}">
-  
-  <img *ngIf="solicitud.usuario.Avatar&& solicitud.usuario.Foto  != 'No Pic' && solicitud.usuario.Foto" src="assets/profile/avatars/{{solicitud.usuario.Foto}}" alt="{{solicitud.usuario.Foto}}">
-  
-  
-  </ion-avatar>
+    <ion-item
+      (click)="onOpenMenu(solicitud)"
+      lines="full"
+      class="animate__animated animate__fadeIn"
+      *ngFor="let solicitud of solicitudes"
+    >
+      <span>
+        <ion-avatar>
+          <img
+            *ngIf="!solicitud.usuario.Avatar && solicitud.usuario.Foto != 'No Pic' && solicitud.usuario.Foto"
+            src="{{url+solicitud.usuario.Foto}}"
+            onerror="this.src='assets/user.svg'"
+            alt=""
+          />
+          <img
+            *ngIf="solicitud.usuario.Foto  == 'No Pic'  || !solicitud.usuario.Foto "
+            src="assets/user.svg"
+            alt="{{solicitud.usuario.Foto}}"
+          />
 
- 
- 
-<div>
+          <img
+            *ngIf="solicitud.usuario.Avatar&& solicitud.usuario.Foto  != 'No Pic' && solicitud.usuario.Foto"
+            src="assets/profile/avatars/{{solicitud.usuario.Foto}}"
+            alt="{{solicitud.usuario.Foto}}"
+          />
+        </ion-avatar>
 
-  <h2>    {{solicitud.usuario.Nombre}} {{solicitud.usuario.Primer_Apellido}}</h2>
-</div>
-</span>
-
+        <div>
+          <h2>
+            {{solicitud.usuario.Nombre}} {{solicitud.usuario.Primer_Apellido}}
+          </h2>
+        </div>
+      </span>
     </ion-item>
-   </ion-list>
-
+  </ion-list>
 </ion-content>
 
 <ion-footer class="ion-no-border">
   <ion-toolbar>
-  <app-button (click)="buscarJugadores()" label='{{"SEARCH_PLAYERS" | translate }}'></app-button>
+    <app-button
+      (click)="buscarJugadores()"
+      label='{{"SEARCH_PLAYERS" | translate }}'
+    ></app-button>
   </ion-toolbar>
 </ion-footer>

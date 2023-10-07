@@ -1,126 +1,155 @@
- 
-<ion-header    class="ion-no-border">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-   <ion-button slot="start" (click)="regresar()" fill="clear">
-     <ion-icon size="large" name="close-outline"></ion-icon>
-   </ion-button>
-   <ion-title>{{"TEAM_DETAILS" | translate }}</ion-title>
-    
+    <ion-button slot="start" (click)="regresar()" fill="clear">
+      <ion-icon size="large" name="close-outline"></ion-icon>
+    </ion-button>
+    <ion-title>{{"TEAM_DETAILS" | translate }}</ion-title>
   </ion-toolbar>
-  
- </ion-header>
-  
-      <ion-content>
+</ion-header>
 
-        <ion-avatar   style="height: 12rem;width:12rem;margin:0 auto;margin-top: 2rem;">
-            
-      
-          <img *ngIf="!equipo.equipo.Avatar  && equipo.equipo.Foto != 'No Pic'" 
-          src="{{url+equipo.equipo.Foto}}" alt="{{equipo.equipo.Foto}}"   onerror="this.src='assets/img/icon/FP.svg'">
-    
-          <img *ngIf="equipo.equipo.Foto == 'No Pic'" 
-          src="assets/img/icon/FP.svg" alt="{{equipo.equipo.Foto}}">
-    
-        <img *ngIf="equipo.equipo.Avatar && equipo.equipo.Foto != 'No Pic'"
-          src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"
-          alt="{{equipo.equipo.Foto}}">
+<ion-content>
+  <ion-avatar
+    style="height: 12rem; width: 12rem; margin: 0 auto; margin-top: 2rem"
+  >
+    <img
+      *ngIf="!equipo.equipo.Avatar  && equipo.equipo.Foto != 'No Pic'"
+      src="{{url+equipo.equipo.Foto}}"
+      alt="{{equipo.equipo.Foto}}"
+      onerror="this.src='assets/img/icon/FP.svg'"
+    />
 
-        </ion-avatar>
+    <img
+      *ngIf="equipo.equipo.Foto == 'No Pic'"
+      src="assets/img/icon/FP.svg"
+      alt="{{equipo.equipo.Foto}}"
+    />
 
+    <img
+      *ngIf="equipo.equipo.Avatar && equipo.equipo.Foto != 'No Pic'"
+      src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}"
+      onerror="this.src='assets/img/icon/FP.svg'"
+      alt="{{equipo.equipo.Foto}}"
+    />
+  </ion-avatar>
 
-
-  <ion-grid >
+  <ion-grid>
     <ion-row>
       <ion-col size="12" class="ion-text-center">
-        <h2 class="ion-text-uppercase"> 
+        <h2 class="ion-text-uppercase">
           <strong>{{equipo.equipo.Nombre}}</strong>
-           <span style="display:block;margin-top: 1rem;">
-    
-            <ng-template ngFor let-hero [ngForOf]="filledStars(equipo.equipo.Estrellas)" let-i="index"
-              let-odd="odd">
-              <ion-icon color="warning" style="font-size: 24px;" name="star"></ion-icon>
+          <span style="display: block; margin-top: 1rem">
+            <ng-template
+              ngFor
+              let-hero
+              [ngForOf]="filledStars(equipo.equipo.Estrellas)"
+              let-i="index"
+              let-odd="odd"
+            >
+              <ion-icon
+                color="warning"
+                style="font-size: 24px"
+                name="star"
+              ></ion-icon>
             </ng-template>
-            <ng-template ngFor let-hero [ngForOf]="emptyStars(equipo.equipo.Estrellas)" let-i="index"
-              let-odd="odd">
-              <ion-icon color="warning" style="font-size: 24px;" name="star-outline"></ion-icon>
+            <ng-template
+              ngFor
+              let-hero
+              [ngForOf]="emptyStars(equipo.equipo.Estrellas)"
+              let-i="index"
+              let-odd="odd"
+            >
+              <ion-icon
+                color="warning"
+                style="font-size: 24px"
+                name="star-outline"
+              ></ion-icon>
             </ng-template>
-      
-      
-      
           </span>
-          </h2>
-                
+        </h2>
       </ion-col>
-      <ion-col size="8" style="display: flex;justify-content: flex-start;align-items: center;">{{"AGGRESSIVENESS" | translate }}
-        <ion-avatar    style="height: 2rem;width: 2rem;margin-left: 0.5rem;"  >
-          <img      src="assets/emojis/{{dureza[equipo.equipo.Dureza]['image']}}">
-         
+      <ion-col
+        size="8"
+        style="display: flex; justify-content: flex-start; align-items: center"
+        >{{"AGGRESSIVENESS" | translate }}
+        <ion-avatar style="height: 2rem; width: 2rem; margin-left: 0.5rem">
+          <img src="assets/emojis/{{dureza[equipo.equipo.Dureza]['image']}}" />
         </ion-avatar>
       </ion-col>
-      <ion-col size="4" *ngIf="jugadores.length > 0" >
-
-        <a target="_blank"
-          href="https://wa.me/{{jugadores[0].usuario.Codigo_Llamadas}}{{jugadores[0].usuario.Telefono}}?text=Hola%20{{jugadores[0].usuario.Nombre}} {{jugadores[0].usuario.Primer_Apellido}}">
-          {{"CONTACT" | translate }}</a>
+      <ion-col size="4" *ngIf="jugadores.length > 0">
+        <a
+          target="_blank"
+          href="https://wa.me/{{jugadores[0].usuario.Codigo_Llamadas}}{{jugadores[0].usuario.Telefono}}?text=Hola%20{{jugadores[0].usuario.Nombre}} {{jugadores[0].usuario.Primer_Apellido}}"
+        >
+          {{"CONTACT" | translate }}</a
+        >
       </ion-col>
- 
-      <ion-col size="12"><strong> {{"LOCATION" | translate }} : </strong> {{equipo.pais}} , {{equipo.estado}}</ion-col>
- 
- 
+
+      <ion-col size="12"
+        ><strong> {{"LOCATION" | translate }} : </strong> {{equipo.pais}} ,
+        {{equipo.estado}}</ion-col
+      >
     </ion-row>
   </ion-grid>
 
   <ion-list>
-
-    <ion-item lines="none"  (click)="presentModal(equipo.equipo)"  color="light" detail>
+    <ion-item
+      lines="none"
+      (click)="presentModal(equipo.equipo)"
+      color="light"
+      detail
+    >
       <ion-label>{{"TEAM_STATISTICS" | translate }}</ion-label>
-     
     </ion-item>
-<ion-item lines="none">
-  <ion-label ><strong>{{"LIST_OF_PLAYERS" | translate }}</strong></ion-label>
-</ion-item>
-    <ion-item  *ngIf="jugadores.length == 0"    lines="none"
-class="animate__animated animate__fadeIn">
-<span slot="start">
-<ion-avatar>
-  <img src="assets/logo.png" alt="">
-</ion-avatar>
+    <ion-item lines="none">
+      <ion-label><strong>{{"LIST_OF_PLAYERS" | translate }}</strong></ion-label>
+    </ion-item>
+    <ion-item
+      *ngIf="jugadores.length == 0"
+      lines="none"
+      class="animate__animated animate__fadeIn"
+    >
+      <span slot="start">
+        <ion-avatar>
+          <img src="assets/logo.png" alt="" />
+        </ion-avatar>
 
+        <ion-label>
+          <h6><strong>{{"FUTPLAY_MESSAGE" | translate }}</strong></h6>
+          <p>{{"NO_RECORDS_FOUND" | translate }}</p>
+        </ion-label>
+      </span>
+    </ion-item>
 
-<ion-label>
+    <ion-item
+      detail
+      (click)="perfilJugador(jugador)"
+      lines="full"
+      class="employeeItem animate__animated animate__fadeIn"
+      *ngFor="let jugador of jugadores"
+    >
+      <ion-avatar slot="start" style="margin-right: 4rem">
+        <img
+          *ngIf="!jugador.usuario.Avatar && jugador.usuario.Foto != 'No Pic' && jugador.usuario.Foto"
+          src="{{url+jugador.usuario.Foto}}"
+          onerror="this.src='assets/user.svg'"
+          alt=""
+        />
+        <img
+          *ngIf="jugador.usuario.Foto  == 'No Pic' || !jugador.usuario.Foto"
+          src="assets/user.svg"
+          alt="{{jugador.usuario.Foto}}"
+        />
 
-  <h6><strong>{{"FUTPLAY_MESSAGE" | translate }}</strong> </h6>
-  <p  > {{"NO_RECORDS_FOUND" | translate }}</p>
-
-</ion-label>
-</span>
-
-
-</ion-item>
-
-
-    <ion-item detail (click)="perfilJugador(jugador)" lines="full" class="employeeItem  animate__animated animate__fadeIn"
-      *ngFor="let jugador of jugadores">
-      <ion-avatar slot="start" style="margin-right: 4rem;">
-        <img *ngIf="!jugador.usuario.Avatar && jugador.usuario.Foto != 'No Pic' && jugador.usuario.Foto" src="{{url+jugador.usuario.Foto}}"
-        onerror="this.src='assets/user.svg'" alt="">
-        <img *ngIf="jugador.usuario.Foto  == 'No Pic' || !jugador.usuario.Foto" src="assets/user.svg" alt="{{jugador.usuario.Foto}}">
-  
-      <img *ngIf="jugador.usuario.Avatar && jugador.usuario.Foto  != 'No Pic' && jugador.usuario.Foto" src="assets/profile/avatars/{{jugador.usuario.Foto}}" alt="{{jugador.usuario.Foto}}">
-  
-
+        <img
+          *ngIf="jugador.usuario.Avatar && jugador.usuario.Foto  != 'No Pic' && jugador.usuario.Foto"
+          src="assets/profile/avatars/{{jugador.usuario.Foto}}"
+          alt="{{jugador.usuario.Foto}}"
+        />
       </ion-avatar>
       <ion-label>
-        {{jugador.usuario.Nombre}} {{jugador.usuario.Primer_Apellido}}     
+        {{jugador.usuario.Nombre}} {{jugador.usuario.Primer_Apellido}}
       </ion-label>
       <ion-badge color="warning" mode="ios">{{jugador.posicion}}</ion-badge>
-
     </ion-item>
-
-
   </ion-list>
- 
-
-
-  </ion-content>
-
+</ion-content>

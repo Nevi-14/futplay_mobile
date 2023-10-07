@@ -5,14 +5,13 @@ import { environment } from 'src/environments/environment';
 import { UsuarioGeolocalizacion } from '../models/usuarioGeolocalizacion';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsuariosGeolocalizacionService {
-
   constructor(
     private http: HttpClient,
     public alertasService: AlertasService
-  ) { }
+  ) {}
 
   getURL(api: string) {
     let test: string = '';
@@ -26,7 +25,6 @@ export class UsuariosGeolocalizacionService {
   private getUsuarioGeolocalizacion(Cod_Usuario) {
     let URL = this.getURL(environment.getUsuarioGeolocalizacion);
     URL = URL + Cod_Usuario;
-    console.log(URL, 'URL ');
     return this.http.get<UsuarioGeolocalizacion[]>(URL);
   }
 
@@ -36,11 +34,10 @@ export class UsuariosGeolocalizacionService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     };
-    console.log('POST URL', URL, 'geolocaizacion', geolocaizacion);
     return this.http.post(URL, JSON.stringify(geolocaizacion), options);
   }
 
@@ -51,11 +48,10 @@ export class UsuariosGeolocalizacionService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     };
-    console.log('PUT URL', URL, 'geolocaizacion', geolocaizacion);
     return this.http.put(URL, JSON.stringify(geolocaizacion), options);
   }
 
@@ -65,9 +61,9 @@ export class UsuariosGeolocalizacionService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     };
     return this.http.delete(URL, options);
   }
@@ -76,11 +72,15 @@ export class UsuariosGeolocalizacionService {
     return this.getUsuarioGeolocalizacion(Cod_Usuario).toPromise();
   }
 
-  syncPostUsuarioGeolocalizacionToPromise(geolocalizacion: UsuarioGeolocalizacion) {
+  syncPostUsuarioGeolocalizacionToPromise(
+    geolocalizacion: UsuarioGeolocalizacion
+  ) {
     return this.postUsuarioGeolocalizacion(geolocalizacion).toPromise();
   }
 
-  syncPutUsuarioGeolocalizacionToPromise(geolocalizacion: UsuarioGeolocalizacion) {
+  syncPutUsuarioGeolocalizacionToPromise(
+    geolocalizacion: UsuarioGeolocalizacion
+  ) {
     return this.putUsuarioGeolocalizacion(geolocalizacion).toPromise();
   }
 

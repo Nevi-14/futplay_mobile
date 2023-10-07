@@ -50,7 +50,7 @@ export class GestorImagenesService {
     public usuariosService: UsuariosService,
     public actionSheetCtrl: ActionSheetController,
     private translateService: TranslateService,
-    public storageService:StorageService
+    public storageService: StorageService
   ) {}
 
   cerrarModal(valor) {
@@ -102,9 +102,9 @@ export class GestorImagenesService {
       };
       this.images.push(file);
 
-  if(this.post){
-    this.startUpload();
-  }
+      if (this.post) {
+        this.startUpload();
+      }
     }
   }
   async alertaCamara() {
@@ -286,12 +286,11 @@ export class GestorImagenesService {
     this.syncImagePost(
       formData,
       this.usuariosService.usuarioActual.Cod_Usuario
-     ).then(
+    ).then(
       (resp: any) => {
-  
-        this.usuariosService.usuarioActual= resp.usuario;
-        this.storageService.delete('usuario')
-        this.storageService.set('usuario', this.usuariosService.usuarioActual)
+        this.usuariosService.usuarioActual = resp.usuario;
+        this.storageService.delete('usuario');
+        this.storageService.set('usuario', this.usuariosService.usuarioActual);
         this.alertasService.loadingDissmiss();
         this.reset();
         this.images = [];

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {  ModalController, ActionSheetController } from '@ionic/angular';
+import { ModalController, ActionSheetController } from '@ionic/angular';
 import { PerfilReservaciones } from 'src/app/models/perfilReservaciones';
 import { ReservacionesService } from 'src/app/services/reservaciones.service';
 import { UsuariosService } from '../../services/usuarios.service';
@@ -14,55 +14,48 @@ import { AlertasService } from 'src/app/services/alertas.service';
 import { EquiposService } from 'src/app/services/equipos.service';
 import { FinalizarReservacionPage } from '../finalizar-reservacion/finalizar-reservacion.page';
 import { AceptarRetoPage } from '../aceptar-reto/aceptar-reto.page';
- 
+
 @Component({
   selector: 'app-reservaciones',
   templateUrl: './reservaciones.page.html',
   styleUrls: ['./reservaciones.page.scss'],
 })
 export class ReservacionesPage {
-categories = ['Confirmados','Recibidos','Enviados','Historial','Revisión','Canceladas'];
-url = environment.archivosURL;
-isModalOpen: boolean = false;
+  categories = ['Confirmados', 'Recibidos', 'Enviados', 'Historial', 'Revisión', 'Canceladas'];
+  url = environment.archivosURL;
+  isModalOpen: boolean = false;
+
   constructor(
-public reservacionesService:ReservacionesService,
-public usuariosService:UsuariosService,
-public modalCtrl: ModalController,
-public canchasService:CanchasService,
-public partidosService:PartidoService,
-public actionSheetCtrl: ActionSheetController,
-public router: Router,
-public alertasService:AlertasService,
-public equiposService:EquiposService
-  ) {
+    public reservacionesService: ReservacionesService,
+    public usuariosService: UsuariosService,
+    public modalCtrl: ModalController,
+    public canchasService: CanchasService,
+    public partidosService: PartidoService,
+    public actionSheetCtrl: ActionSheetController,
+    public router: Router,
+    public alertasService: AlertasService,
+    public equiposService: EquiposService
+  ) {}
 
-     
-  }
   ionViewWillEnter() {
-this.reservacionesService.cargarReservaciones();
- 
+    this.reservacionesService.cargarReservaciones();
   }
 
-  gestionRetos(){
-    this.router.navigateByUrl('/gestion-retos', {replaceUrl:true})
+  gestionRetos() {
+    this.router.navigateByUrl('/gestion-retos', { replaceUrl: true });
   }
+
   async iniciarPartido(reto: PerfilReservaciones) {
-    let partido = await this.partidosService.syncGetPartidoReservacion(
-      reto.reservacion.Cod_Reservacion
-    );
+    let partido = await this.partidosService.syncGetPartidoReservacion(reto.reservacion.Cod_Reservacion);
     if (partido.length == 0) {
-      this.alertasService.message(
-        'FUTPLAY',
-        'Lo sentimos, algo salio mal, intentalo mas tarde!.'
-      );
+      this.alertasService.message('FUTPLAY', 'Lo sentimos, algo salio mal, intentalo mas tarde!.');
     } else {
       this.partidoActual(reto);
     }
   }
+
   async partidoActual(reto: PerfilReservaciones) {
-    let partido = await this.partidosService.syncGetPartidoReservacion(
-      reto.reservacion.Cod_Reservacion
-    );
+    let partido = await this.partidosService.syncGetPartidoReservacion(reto.reservacion.Cod_Reservacion);
 
     const modal = await this.modalCtrl.create({
       component: InicioPartidoPage,
@@ -84,15 +77,9 @@ this.reservacionesService.cargarReservaciones();
   }
 
   async finalizarReservacion(reto: PerfilReservaciones) {
-    let cancha = await this.canchasService.syncGetPerfilCanchaToPromise(
-      reto.cancha.Cod_Cancha
-    );
-    let rival = await this.equiposService.syncGetPerfilEquipoToPromise(
-      reto.rival.Cod_Equipo
-    );
-    let retador = await this.equiposService.syncGetPerfilEquipoToPromise(
-      reto.retador.Cod_Equipo
-    );
+    let cancha = await this.canchasService.syncGetPerfilCanchaToPromise(reto.cancha.Cod_Cancha);
+    let rival = await this.equiposService.syncGetPerfilEquipoToPromise(reto.rival.Cod_Equipo);
+    let retador = await this.equiposService.syncGetPerfilEquipoToPromise(reto.retador.Cod_Equipo);
     if (!this.isModalOpen) {
       this.isModalOpen = true;
       const modal = await this.modalCtrl.create({
@@ -115,45 +102,42 @@ this.reservacionesService.cargarReservaciones();
       }
     }
   }
+
   async detalleReto(reto: PerfilReservaciones) {
     if (reto.reservacion.Cod_Estado == 7) {
       return this.finalizarReservacion(reto);
-    }if(reto.reservacion.Cod_Estado == 5 || reto.reservacion.Cod_Estado == 4){
+    }
+    if (reto.reservacion.Cod_Estado == 5 || reto.reservacion.Cod_Estado == 4) {
       return this.partidoActual(reto);
     }
     const modal = await this.modalCtrl.create({
       component: AceptarRetoAbiertoPage,
       cssClass: 'my-custom-class',
       componentProps: {
-        reto: reto
+        reto: reto,
       },
-      id:'aceptar-reto'
+      id: 'aceptar-reto',
     });
 
-     await modal.present();
+    await modal.present();
 
-    let {data} = await modal.onDidDismiss();
+    let { data } = await modal.onDidDismiss();
     this.reservacionesService.selectCategory();
   }
 
- 
-  async nuevaReservacion(){
-    const modal  = await this.modalCtrl.create({
+  async nuevaReservacion() {
+    const modal = await this.modalCtrl.create({
       component: CanchasPage,
-     cssClass: 'my-custom-class',
-     mode:'md',
-     componentProps:{
-      rival:null,
-      retador:null,
-      cancha:null
-     }
-   });
-   await modal .present();
-let {data} = await modal.onDidDismiss();
-this.reservacionesService.cargarReservaciones();
-   
- }
- 
- 
-                
+      cssClass: 'my-custom-class',
+      mode: 'md',
+      componentProps: {
+        rival: null,
+        retador: null,
+        cancha: null,
+      },
+    });
+    await modal.present();
+    let { data } = await modal.onDidDismiss();
+    this.reservacionesService.cargarReservaciones();
+  }
 }

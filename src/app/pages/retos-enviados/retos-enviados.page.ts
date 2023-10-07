@@ -13,42 +13,42 @@ import { Router } from '@angular/router';
   styleUrls: ['./retos-enviados.page.scss'],
 })
 export class RetosEnviadosPage implements OnInit {
-  reservaciones:PerfilReservaciones[]=[];
+  reservaciones: PerfilReservaciones[] = [];
   url = environment.archivosURL;
   constructor(
-public reservacionesService:ReservacionesService,
-public usuariosSErvice:UsuariosService,
-public modalCtrl:ModalController,
-public router:Router
-
-
-  ) { }
+    public reservacionesService: ReservacionesService,
+    public usuariosSErvice: UsuariosService,
+    public modalCtrl: ModalController,
+    public router: Router
+  ) {}
 
   ngOnInit() {
-this.reservacionesEnviadas();
+    this.reservacionesEnviadas();
   }
-  regresar(){
-    this.router.navigateByUrl('/futplay/reservaciones', {replaceUrl:true})
+  regresar() {
+    this.router.navigateByUrl('/futplay/reservaciones', { replaceUrl: true });
   }
-  reservacionesEnviadas(){
-    this.reservacionesService.syncgGtReservacionesEnviadas(this.usuariosSErvice.usuarioActual.Cod_Usuario).then(reservaciones=>{
-      this.reservaciones = reservaciones;
-          })
+  reservacionesEnviadas() {
+    this.reservacionesService
+      .syncgGtReservacionesEnviadas(
+        this.usuariosSErvice.usuarioActual.Cod_Usuario
+      )
+      .then((reservaciones) => {
+        this.reservaciones = reservaciones;
+      });
   }
-  async detalleReto(reto:PerfilReservaciones) {
-
-  
+  async detalleReto(reto: PerfilReservaciones) {
     const modal = await this.modalCtrl.create({
       component: AceptarRetoPage,
       cssClass: 'my-custom-class',
       componentProps: {
-        reto: reto
+        reto: reto,
       },
     });
 
-     await modal.present();
+    await modal.present();
 
-    let {data} = await modal.onDidDismiss();
+    let { data } = await modal.onDidDismiss();
     this.reservacionesEnviadas();
   }
 }

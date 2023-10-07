@@ -5,17 +5,16 @@ import { environment } from 'src/environments/environment';
 import { EquipoGeolocalizacion } from '../models/equipoGeolocalizacion';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EquiposGeolocalizacionService {
-
   constructor(
     private http: HttpClient,
     public alertasService: AlertasService
-  ) { }
+  ) {}
 
   getURL(api: string) {
-    let test: string = ''
+    let test: string = '';
     if (!environment.prdMode) {
       test = environment.TestURL;
     }
@@ -25,8 +24,7 @@ export class EquiposGeolocalizacionService {
 
   private getEquipoGeolocalizacion(Cod_Equipo) {
     let URL = this.getURL(environment.getEquipoGeolocalizacion);
-    URL = URL + Cod_Equipo
-    console.log(URL, 'URL ')
+    URL = URL + Cod_Equipo;
     return this.http.get<EquipoGeolocalizacion[]>(URL);
   }
 
@@ -36,11 +34,10 @@ export class EquiposGeolocalizacionService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     };
-    console.log('POST URL', URL, 'geolocaizacion', geolocaizacion)
     return this.http.post(URL, JSON.stringify(geolocaizacion), options);
   }
 
@@ -50,11 +47,10 @@ export class EquiposGeolocalizacionService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     };
-    console.log('PUT URL', URL, 'geolocaizacion', geolocaizacion)
     return this.http.put(URL, JSON.stringify(geolocaizacion), options);
   }
 
@@ -64,9 +60,9 @@ export class EquiposGeolocalizacionService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     };
     return this.http.delete(URL, options);
   }
@@ -75,12 +71,16 @@ export class EquiposGeolocalizacionService {
     return this.getEquipoGeolocalizacion(Cod_Equipo).toPromise();
   }
 
-  syncPostEquipoGeolocalizacionToPromise(geolocalizacion: EquipoGeolocalizacion) {
+  syncPostEquipoGeolocalizacionToPromise(
+    geolocalizacion: EquipoGeolocalizacion
+  ) {
     return this.postEquipoGeolocalizacion(geolocalizacion).toPromise();
   }
 
-  syncPutEquipoGeolocalizacionToPromise(geolocalizacion: EquipoGeolocalizacion) {
-    return this.postEquipoGeolocalizacion(geolocalizacion).toPromise();
+  syncPutEquipoGeolocalizacionToPromise(
+    geolocalizacion: EquipoGeolocalizacion
+  ) {
+    return this.putEquipoGeolocalizacion(geolocalizacion).toPromise();
   }
 
   syncDeleteEquipoGeolocalizacionToPromise(Cod_Equipo: number) {

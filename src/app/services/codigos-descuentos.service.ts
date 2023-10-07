@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { CodigosDescuento } from '../models/codigoDescuento';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CodigosDescuentosService {
   constructor(public http: HttpClient) {}
@@ -19,8 +19,8 @@ export class CodigosDescuentosService {
   }
 
   private getDescuento(codigoDescuento: string) {
-    const URL = this.getURL(environment.getCodigosDesciuentosURL) + codigoDescuento;
-    console.log(URL, 'URL ');
+    const URL =
+      this.getURL(environment.getCodigosDesciuentosURL) + codigoDescuento;
     return this.http.get<CodigosDescuento[]>(URL);
   }
 

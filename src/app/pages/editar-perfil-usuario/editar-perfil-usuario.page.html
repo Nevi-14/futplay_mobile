@@ -1,125 +1,164 @@
- 
 <ion-header class="ion-no-border">
   <ion-toolbar>
-   <ion-button slot="start" (click)="regresar()" fill="clear">
-     <ion-icon size="large" name="close-outline"></ion-icon>
-   </ion-button>
-   <ion-title>{{"EDIT_PROFILE" | translate }}</ion-title>
-    
+    <ion-button slot="start" (click)="regresar()" fill="clear">
+      <ion-icon size="large" name="close-outline"></ion-icon>
+    </ion-button>
+    <ion-title>{{"EDIT_PROFILE" | translate }}</ion-title>
   </ion-toolbar>
-  
- </ion-header>
- <ion-content class="ion-padding">
-  
-  <ion-grid >
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-grid>
     <ion-row>
       <ion-col size="12">
-        <ion-avatar class="profile-image" >
-        
+        <ion-avatar class="profile-image">
           <ion-fab-button (click)="adjuntarImagen()" class="camera-button">
-            <ion-icon size="large"   name="camera-outline"></ion-icon>
+            <ion-icon size="large" name="camera-outline"></ion-icon>
           </ion-fab-button>
-         
-    
-      
-    
-          <img *ngIf="!usuarioService.usuarioActual.Avatar  && usuarioService.usuarioActual.Foto != 'No Pic'" 
-          src="{{url+usuarioService.usuarioActual.Foto}}" alt="{{usuarioService.usuarioActual.Foto}}" onerror="this.src='assets/img/icon/FP.svg'">
-    
-          <img *ngIf="usuarioService.usuarioActual.Foto == 'No Pic'" 
-          src="assets/img/icon/FP.svg" alt="{{usuarioService.usuarioActual.Foto}}" onerror="this.src='assets/img/icon/FP.svg'">
-    
-        <img *ngIf="usuarioService.usuarioActual.Avatar && usuarioService.usuarioActual.Foto != 'No Pic'"
-          src="assets/profile/avatars/{{usuarioService.usuarioActual.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"
-          alt="{{usuarioService.usuarioActual.Foto}}">
-      
+
+          <img
+            *ngIf="!usuarioService.usuarioActual.Avatar  && usuarioService.usuarioActual.Foto != 'No Pic'"
+            src="{{url+usuarioService.usuarioActual.Foto}}"
+            alt="{{usuarioService.usuarioActual.Foto}}"
+            onerror="this.src='assets/img/icon/FP.svg'"
+          />
+
+          <img
+            *ngIf="usuarioService.usuarioActual.Foto == 'No Pic'"
+            src="assets/img/icon/FP.svg"
+            alt="{{usuarioService.usuarioActual.Foto}}"
+            onerror="this.src='assets/img/icon/FP.svg'"
+          />
+
+          <img
+            *ngIf="usuarioService.usuarioActual.Avatar && usuarioService.usuarioActual.Foto != 'No Pic'"
+            src="assets/profile/avatars/{{usuarioService.usuarioActual.Foto}}"
+            onerror="this.src='assets/img/icon/FP.svg'"
+            alt="{{usuarioService.usuarioActual.Foto}}"
+          />
         </ion-avatar>
       </ion-col>
       <ion-col size="12">
         <h1>{{"SELECT_AVATAR" | translate }}</h1>
       </ion-col>
       <ion-col size="12">
-
-        <swiper-container  (slideChange)="slideChange($event)"  class="mySwiper"   space-between="30"
-        slides-per-view="3">
-        <swiper-slide   *ngFor="let img of imgs; let i = index;" >
-          <ion-img  class="pick-avatar" 
-          src="assets/profile/avatars/{{img.img}}"
-          [ngClass]="{'pick-avatar-seleccionado': img.seleccionado}" (click)="seleccionarAvatar(img, i)"></ion-img>
-  
-      
-    
-            
-        </swiper-slide>
- 
-      </swiper-container>
-    
+        <swiper-container
+          (slideChange)="slideChange($event)"
+          class="mySwiper"
+          space-between="30"
+          slides-per-view="3"
+        >
+          <swiper-slide *ngFor="let img of imgs; let i = index;">
+            <ion-img
+              class="pick-avatar"
+              src="assets/profile/avatars/{{img.img}}"
+              [ngClass]="{'pick-avatar-seleccionado': img.seleccionado}"
+              (click)="seleccionarAvatar(img, i)"
+            ></ion-img>
+          </swiper-slide>
+        </swiper-container>
       </ion-col>
     </ion-row>
   </ion-grid>
-   <form id="form" (ngSubmit)="updateUser(form)" #form="ngForm">
-
-    <ion-grid >
+  <form id="form" (ngSubmit)="updateUser(form)" #form="ngForm">
+    <ion-grid>
       <ion-row>
         <ion-col size="12">
-          <app-input    name="Nombre" type="text" label='{{"NAME" | translate }}' ngModel="{{usuario.Nombre}}"></app-input>
- 
- 
+          <app-input
+            name="Nombre"
+            type="text"
+            label='{{"NAME" | translate }}'
+            ngModel="{{usuario.Nombre}}"
+          ></app-input>
+        </ion-col>
+        <ion-col size="12">
+          <app-input
+            name="Primer_Apellido"
+            type="text"
+            label='{{"LAST_NAME" | translate }}'
+            ngModel="{{usuario.Primer_Apellido}}"
+          ></app-input>
+        </ion-col>
+        <ion-col size="12">
+          <app-input
+            name="Apodo"
+            type="text"
+            label='{{"NICK_NAME" | translate }}'
+            ngModel="{{usuario.Apodo}}"
+          ></app-input>
+        </ion-col>
+        <ion-col size="12">
+          <app-select
+            name="Idioma"
+            [data]="languages"
+            [ngModel]="usuario.Idioma"
+            label='{{"LANGUAGE" | translate }}'
+          ></app-select>
+        </ion-col>
+        <ion-col size="12">
+          <app-select
+            name="Cod_Posicion"
+            [data]="dataPosiciones"
+            [ngModel]="usuario.Cod_Posicion"
+            label='{{"POSITION" | translate }}'
+          ></app-select>
+        </ion-col>
+        <ion-col size="12">
+          <app-input
+            name="Estatura"
+            type="text"
+            label='{{"HEIGHT" | translate }}'
+            ngModel="{{usuario.Estatura}}"
+          ></app-input>
+        </ion-col>
 
+        <ion-col size="12">
+          <app-input
+            name="Peso"
+            type="text"
+            label='{{"WEIGHT" | translate }}'
+            ngModel="{{usuario.Peso}}"
+          ></app-input>
         </ion-col>
         <ion-col size="12">
-          <app-input      name="Primer_Apellido" type="text" label='{{"LAST_NAME" | translate }}' ngModel="{{usuario.Primer_Apellido}}"></app-input>
+          <app-input
+            name="Telefono"
+            type="text"
+            label='{{"PHONE" | translate }}'
+            ngModel="{{usuario.Telefono}}"
+          ></app-input>
         </ion-col>
         <ion-col size="12">
-          <app-input      name="Apodo" type="text" label='{{"NICK_NAME" | translate }}' ngModel="{{usuario.Apodo}}"></app-input> 
+          <app-input
+            readonly="true"
+            name="Correo"
+            type="text"
+            label='{{"EMAIL" | translate }}'
+            ngModel="{{usuario.Correo}}"
+          ></app-input>
         </ion-col>
-        <ion-col size="12">
-          
-          <app-select  name="Idioma"  [data]="languages"   [ngModel]="usuario.Idioma" label='{{"LANGUAGE" | translate }}'  ></app-select>
-             </ion-col>
-        <ion-col size="12">
-          
-     <app-select  name="Cod_Posicion"  [data]="dataPosiciones"   [ngModel]="usuario.Cod_Posicion" label='{{"POSITION" | translate }}'  ></app-select>
-        </ion-col>
-        <ion-col size="12">
-          <app-input      name="Estatura" type="text"  label='{{"HEIGHT" | translate }}' ngModel="{{usuario.Estatura}}"></app-input>
-
-        </ion-col>
-
-        <ion-col size="12">
-          <app-input      name="Peso" type="text"   label='{{"WEIGHT" | translate }}' ngModel="{{usuario.Peso}}"></app-input>
-        </ion-col>
-        <ion-col size="12">
-          <app-input      name="Telefono" type="text"  label='{{"PHONE" | translate }}' ngModel="{{usuario.Telefono}}"></app-input>
-
-        </ion-col>
-        <ion-col size="12">
-          <app-input readonly="true"     name="Correo" type="text"  label='{{"EMAIL" | translate }}' ngModel="{{usuario.Correo}}"></app-input>
-        </ion-col>
-         
-
 
         <ion-col size="12">
-          <app-input readonly="true" (click)="SelectDate()"     name="fechaNacimiento" type="text"  label='{{"DATE_OF_BIRTH" | translate }}' ngModel="{{usuario.Fecha_Nacimiento | date}}"></app-input>
+          <app-input
+            readonly="true"
+            (click)="SelectDate()"
+            name="fechaNacimiento"
+            type="text"
+            label='{{"DATE_OF_BIRTH" | translate }}'
+            ngModel="{{usuario.Fecha_Nacimiento | date}}"
+          ></app-input>
         </ion-col>
- 
+
         <ion-col size="12">
-          <app-button label='{{"EDIT_PROFILE" | translate }}' ></app-button>
-     
+          <app-button label='{{"EDIT_PROFILE" | translate }}'></app-button>
+        </ion-col>
+
+        <ion-col size="12">
+          <app-delete-button
+            (click)="alertaEliminar()"
+            label='{{"DELETE_ACCOUNT" | translate }}'
+          ></app-delete-button>
         </ion-col>
       </ion-row>
     </ion-grid>
-   
-
- 
-     
-
-
-   
-
-   </form>
- 
-   
- </ion-content>
- 
- 
+  </form>
+</ion-content>

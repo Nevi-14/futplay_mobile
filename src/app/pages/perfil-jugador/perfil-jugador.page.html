@@ -1,101 +1,100 @@
- 
-<ion-header    class="ion-no-border">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-   <ion-button slot="start" (click)="regresar()" fill="clear">
-     <ion-icon size="large" name="close-outline"></ion-icon>
-   </ion-button>
-   <ion-title>{{"PLAYER_PROFILE" | translate }}</ion-title>
-    
+    <ion-button slot="start" (click)="regresar()" fill="clear">
+      <ion-icon size="large" name="close-outline"></ion-icon>
+    </ion-button>
+    <ion-title>{{"PLAYER_PROFILE" | translate }}</ion-title>
   </ion-toolbar>
-   
- </ion-header>
-    <ion-content class="ion-padding">
-      <ion-avatar>
-
-    <img *ngIf="!perfil.usuario.Avatar && perfil.usuario.Foto" 
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-avatar>
+    <img
+      *ngIf="!perfil.usuario.Avatar && perfil.usuario.Foto"
       data-src="{{url+perfil.usuario.Foto}}"
-      onerror="this.src='assets/user.svg'">
-    <img *ngIf="perfil.usuario.Avatar && perfil.usuario.Foto"
+      onerror="this.src='assets/user.svg'"
+    />
+    <img
+      *ngIf="perfil.usuario.Avatar && perfil.usuario.Foto"
       src="{{'assets/profile/avatars/'+perfil.usuario.Foto}}"
-      onerror="this.src='assets/user.svg'" alt="">
-      <img *ngIf="perfil.usuario.Avatar && !perfil.usuario.Foto || !perfil.usuario.Avatar && !perfil.usuario.Foto"
+      onerror="this.src='assets/user.svg'"
+      alt=""
+    />
+    <img
+      *ngIf="perfil.usuario.Avatar && !perfil.usuario.Foto || !perfil.usuario.Avatar && !perfil.usuario.Foto"
       src="assets/user.svg"
-      onerror="this.src='assets/user.svg'" alt="">
-
-
+      onerror="this.src='assets/user.svg'"
+      alt=""
+    />
   </ion-avatar>
 
-
-
   <ion-grid>
-
     <ion-row>
-
       <ion-col size="12" class="ion-text-center">
-        <h2><strong>
-            <strong>{{perfil.usuario.Nombre}}
-              {{perfil.usuario.Primer_Apellido}}
-              {{perfil.usuario.Segundo_Apellido}}</strong>
-
-
-          </strong></h2>
+        <h2>
+          <strong>
+            <strong
+              >{{perfil.usuario.Nombre}} {{perfil.usuario.Primer_Apellido}}
+              {{perfil.usuario.Segundo_Apellido}}</strong
+            >
+          </strong>
+        </h2>
       </ion-col>
       <ion-col size="12" class="ion-margin-top ion-margin-bottom">
-        <ion-label><strong>  {{"PERSONAL_INFORMATION" | translate }}</strong></ion-label>
+        <ion-label
+          ><strong> {{"PERSONAL_INFORMATION" | translate }}</strong></ion-label
+        >
       </ion-col>
-      <ion-col size="12" >
+      <ion-col size="12">
         <ion-label class="ion-text-wrap">
-      {{"LOCATION" | translate }} : {{perfil.pais}}, {{perfil.estado}} ... 
+          {{"LOCATION" | translate }} : {{perfil.pais}}, {{perfil.estado}} ...
         </ion-label>
-
-
       </ion-col>
       <ion-col size="12">
         {{"POSITION" | translate }} :
         <ion-label>{{perfil.posicion}}</ion-label>
-
       </ion-col>
       <ion-col size="12">
         {{"AGE" | translate }} :
-        <ion-label> {{calcularEdad(perfil.usuario.Fecha_Nacimiento)}}  {{"YEARS" | translate }}</ion-label>
-
-
+        <ion-label>
+          {{calcularEdad(perfil.usuario.Fecha_Nacimiento)}} {{"YEARS" |
+          translate }}</ion-label
+        >
       </ion-col>
       <ion-col size="4">
-        <a target="_blank"
-        href="https://wa.me/{{perfil.usuario.Codigo_Llamadas}}{{perfil.usuario.Telefono}}?text=Hola%20{{perfil.usuario.Nombre}} {{perfil.usuario.Primer_Apellido}}">
-        {{"CONTACT" | translate }}</a>
+        <a
+          target="_blank"
+          href="https://wa.me/{{perfil.usuario.Codigo_Llamadas}}{{perfil.usuario.Telefono}}?text=Hola%20{{perfil.usuario.Nombre}} {{perfil.usuario.Primer_Apellido}}"
+        >
+          {{"CONTACT" | translate }}</a
+        >
       </ion-col>
-  
 
       <ion-col size="12" class="ion-margin-top ion-margin-bottom">
-        <ion-label><strong>  {{"PERSONAL_STATISTICS" | translate }}</strong></ion-label>
+        <ion-label
+          ><strong> {{"PERSONAL_STATISTICS" | translate }}</strong></ion-label
+        >
       </ion-col>
       <ion-col size="12" class="space-between">
-        <ion-label>
-          {{"MATCHES_PLAYED" | translate }}
-        </ion-label>
-        <ion-badge color="dark" mode="ios">{{perfil.usuario.Partidos_Jugados  ? perfil.usuario.Partidos_Jugados  : 0 }}</ion-badge>
-
+        <ion-label> {{"MATCHES_PLAYED" | translate }} </ion-label>
+        <ion-badge color="dark" mode="ios"
+          >{{perfil.usuario.Partidos_Jugados ? perfil.usuario.Partidos_Jugados :
+          0 }}</ion-badge
+        >
       </ion-col>
       <ion-col size="12" class="space-between">
-        <ion-label>   {{"PLAYER_OF_THE_MATCH" | translate }}</ion-label>
-        <ion-badge color="dark" mode="ios">{{perfil.usuario.Partidos_Jugador_Del_Partido   ?perfil.usuario.Partidos_Jugador_Del_Partido  : 0
-          }}</ion-badge>
+        <ion-label> {{"PLAYER_OF_THE_MATCH" | translate }}</ion-label>
+        <ion-badge color="dark" mode="ios"
+          >{{perfil.usuario.Partidos_Jugador_Del_Partido
+          ?perfil.usuario.Partidos_Jugador_Del_Partido : 0 }}</ion-badge
+        >
       </ion-col>
       <ion-col size="12" class="space-between">
-        <ion-label>   {{"FUTPLAY_PLAYER" | translate }}</ion-label>
-        <ion-badge color="dark"
-          mode="ios">{{perfil.usuario.Partidos_Jugador_Futplay  ? perfil.usuario.Partidos_Jugador_Futplay  : 0 }}</ion-badge>
-
+        <ion-label> {{"FUTPLAY_PLAYER" | translate }}</ion-label>
+        <ion-badge color="dark" mode="ios"
+          >{{perfil.usuario.Partidos_Jugador_Futplay ?
+          perfil.usuario.Partidos_Jugador_Futplay : 0 }}</ion-badge
+        >
       </ion-col>
-
- 
- 
     </ion-row>
   </ion-grid>
-
-
-
-
-    </ion-content>
+</ion-content>

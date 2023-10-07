@@ -64,3 +64,16 @@ ion-fab-button{
   --background:#5a55ca;
   color: #fff;
 }
+
+.fab {
+  position: fixed;right: 2rem;bottom: 1rem;
+}
+.team-label {
+  position: absolute;top: 0.5rem;right: 4rem;min-width:120px;
+}
+.join-label {
+  position: absolute;top: 0.5rem;right: 4rem;min-width: 120px;
+}
+.stars {
+  display:block; margin-top: 0.5rem;margin-left: 1rem;
+}

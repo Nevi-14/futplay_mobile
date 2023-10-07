@@ -97,7 +97,6 @@ export class CrearEquipoPage implements OnInit {
       this.imgs.forEach((av) => (av.seleccionado = false));
       this.imgs[resp].seleccionado = true;
       this.image = this.imgs[resp].img;
-       
     });
   }
   adjuntarImagen() {

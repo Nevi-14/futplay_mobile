@@ -9,44 +9,38 @@ import { CrearEquipoPage } from '../crear-equipo/crear-equipo.page';
   styleUrls: ['./crear-unirse-equipo.page.scss'],
 })
 export class CrearUnirseEquipoPage implements OnInit {
-  add ='../assets/league.svg';
- find ='../assets/img/images/team.svg';
+  add = '../assets/league.svg';
+  find = '../assets/img/images/team.svg';
 
- 
-  constructor(
-    public modalCtrl: ModalController
-  ) { }
+  constructor(public modalCtrl: ModalController) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  cerrarModal() {
+    this.modalCtrl.dismiss(null, null, 'create-join-modal');
   }
 
-  cerrarModal(){
-    this.modalCtrl.dismiss(null,null,'create-join-modal');
-  }
-
-  async crearEquipo(){
-    let modal = await this.modalCtrl.create({
-      component:CrearEquipoPage,
-      cssClass:'my-custom-class',
-      id:'create-modal'
+  async crearEquipo() {
+    const modal = await this.modalCtrl.create({
+      component: CrearEquipoPage,
+      cssClass: 'my-custom-class',
+      id: 'create-modal'
     });
 
     await modal.present();
     const { data } = await modal.onDidDismiss();
- 
-    if(data !== undefined ){
-      console.log(data,'data')
+
+    if (data !== undefined) {
+      console.log(data, 'data');
       this.cerrarModal();
     }
-
   }
 
-  async buscarEquipos(){
-    let modal = await this.modalCtrl.create({
-      component:BuscarEquiposPage,
-      cssClass:'my-custom-class'
-
-    })
+  async buscarEquipos() {
+    const modal = await this.modalCtrl.create({
+      component: BuscarEquiposPage,
+      cssClass: 'my-custom-class'
+    });
 
     return modal.present();
   }

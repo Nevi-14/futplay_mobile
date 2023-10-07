@@ -1,102 +1,128 @@
- 
 <ion-header class="ion-no-border">
   <ion-toolbar>
-   <ion-button slot="start" (click)="regresar()" fill="clear">
-     <ion-icon size="large" name="close-outline"></ion-icon>
-   </ion-button>
-   <ion-title>{{"CREATE_TEAM" | translate }}</ion-title>
-    
+    <ion-button slot="start" (click)="regresar()" fill="clear">
+      <ion-icon size="large" name="close-outline"></ion-icon>
+    </ion-button>
+    <ion-title>{{"CREATE_TEAM" | translate }}</ion-title>
   </ion-toolbar>
-  
- </ion-header>
- <ion-content class="ion-padding">
-  
-  <ion-grid >
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-grid>
     <ion-row>
+      <ion-col size="12"> </ion-col>
       <ion-col size="12">
- 
-      </ion-col>
-      <ion-col size="12">
-        <ion-avatar class="profile-image" >
-        
+        <ion-avatar class="profile-image">
           <ion-fab-button (click)="adjuntarImagen()" class="camera-button">
-            <ion-icon size="large"   name="camera-outline"></ion-icon>
+            <ion-icon size="large" name="camera-outline"></ion-icon>
           </ion-fab-button>
-         
-    
-          <img *ngIf="!equipo.Avatar && gestorEquiposImagenesService.images.length == 0"
-          src="assets/img/icon/FP.svg" onerror="this.src='assets/img/icon/FP.svg'"
-          alt="profile-pic">
-    
-    
-          <img *ngIf="equipo.Avatar && gestorEquiposImagenesService.images.length == 0"
-          src="assets/soccer-shields-svg/{{equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"
-          alt="{{equiposService.equipo.equipo.Foto}}">
-    
-       
-        <img *ngIf="gestorEquiposImagenesService.images.length > 0 "
-          src="{{gestorEquiposImagenesService.images[0].data}}" onerror="this.src='assets/img/icon/FP.svg'"
-          alt="profile-pic">
-      
+
+          <img
+            *ngIf="!equipo.Avatar && gestorEquiposImagenesService.images.length == 0"
+            src="assets/img/icon/FP.svg"
+            onerror="this.src='assets/img/icon/FP.svg'"
+            alt="profile-pic"
+          />
+
+          <img
+            *ngIf="equipo.Avatar && gestorEquiposImagenesService.images.length == 0"
+            src="assets/soccer-shields-svg/{{equipo.Foto}}"
+            onerror="this.src='assets/img/icon/FP.svg'"
+            alt="{{equiposService.equipo.equipo.Foto}}"
+          />
+
+          <img
+            *ngIf="gestorEquiposImagenesService.images.length > 0 "
+            src="{{gestorEquiposImagenesService.images[0].data}}"
+            onerror="this.src='assets/img/icon/FP.svg'"
+            alt="profile-pic"
+          />
         </ion-avatar>
       </ion-col>
       <ion-col size="12">
         <h1>{{"SELECT_AVATAR" | translate }}</h1>
       </ion-col>
       <ion-col size="12">
-        <swiper-container  (slideChange)="slideChange($event)"  class="mySwiper"   space-between="30"
-        slides-per-view="3">
-        
-        <swiper-slide   *ngFor="let img of imgs; let i = index;" >
-          <ion-img  class="pick-avatar" 
-          src="assets/soccer-shields-svg/{{img.img}}"
-          [ngClass]="{'pick-avatar-seleccionado': img.seleccionado}" (click)="seleccionarAvatar(img, i)"></ion-img>
-  
-      
-    
-            
-        </swiper-slide>
- 
-      </swiper-container>
-
+        <swiper-container
+          (slideChange)="slideChange($event)"
+          class="mySwiper"
+          space-between="30"
+          slides-per-view="3"
+        >
+          <swiper-slide *ngFor="let img of imgs; let i = index;">
+            <ion-img
+              class="pick-avatar"
+              src="assets/soccer-shields-svg/{{img.img}}"
+              [ngClass]="{'pick-avatar-seleccionado': img.seleccionado}"
+              (click)="seleccionarAvatar(img, i)"
+            ></ion-img>
+          </swiper-slide>
+        </swiper-container>
       </ion-col>
     </ion-row>
   </ion-grid>
-   <form id="form" (ngSubmit)="crearRegistro(form)" #form="ngForm">
-
-    <ion-grid >
+  <form id="form" (ngSubmit)="crearRegistro(form)" #form="ngForm">
+    <ion-grid>
       <ion-row>
         <ion-col size="12">
-          <app-input    name="Nombre" type="text" label='{{"NAME" | translate }}' ngModel="{{equipo.Nombre}}"></app-input>
+          <app-input
+            name="Nombre"
+            type="text"
+            label='{{"NAME" | translate }}'
+            ngModel="{{equipo.Nombre}}"
+          ></app-input>
         </ion-col>
         <ion-col size="12">
-          <app-input      name="Abreviacion" type="text"  label='{{"ABREVIATION" | translate }}' ngModel="{{equipo.Abreviacion}}"></app-input>
-        </ion-col>
-        <ion-col size="12"   >
-          <app-select name="Codigo_Pais"  (ionChange)="geolocalizacionService.onChangeCountries(form)"     [data]="geolocalizacionService.paises" label='{{"COUNTRY" | translate }}'ngModel="{{geolocalizacionService.Codigo_Pais}}"></app-select>
-        </ion-col>
-        <ion-col size="12" (ionChange)="geolocalizacionService.onChangeStates(form)"  *ngIf="geolocalizacionService.estados.length > 0" >
-          <app-select name="Codigo_Estado" [data]="geolocalizacionService.estados" label='{{"STATE" | translate }}' ngModel="{{geolocalizacionService.Codigo_Estado}}"></app-select>
-        </ion-col>
-        <ion-col size="12"  *ngIf="geolocalizacionService.ciudades.length > 0" >
-          <app-select (ionChange)="geolocalizacionService.onChangeCities(form)" name="Codigo_Ciudad" [data]="geolocalizacionService.ciudades" label='{{"CITY" | translate }}' ngModel="{{geolocalizacionService.Codigo_Ciudad}}"></app-select>
-        </ion-col>
-        <ion-col size="12" *ngIf="geolocalizacionService.Codigo_Pais && geolocalizacionService.Codigo_Estado && geolocalizacionService.Codigo_Ciudad">
-      
-          <app-input name="Codigo_Postal" label='{{"ZIP_CODE" | translate }}' ngModel="{{geolocalizacionService.Codigo_Postal}}"></app-input>
-         
+          <app-input
+            name="Abreviacion"
+            type="text"
+            label='{{"ABREVIATION" | translate }}'
+            ngModel="{{equipo.Abreviacion}}"
+          ></app-input>
         </ion-col>
         <ion-col size="12">
-          <app-button  label='{{"CREATE_TEAM" | translate }}'></app-button>
+          <app-select
+            name="Codigo_Pais"
+            (ionChange)="geolocalizacionService.onChangeCountries(form)"
+            [data]="geolocalizacionService.paises"
+            label='{{"COUNTRY" | translate }}'
+            ngModel="{{geolocalizacionService.Codigo_Pais}}"
+          ></app-select>
+        </ion-col>
+        <ion-col
+          size="12"
+          (ionChange)="geolocalizacionService.onChangeStates(form)"
+          *ngIf="geolocalizacionService.estados.length > 0"
+        >
+          <app-select
+            name="Codigo_Estado"
+            [data]="geolocalizacionService.estados"
+            label='{{"STATE" | translate }}'
+            ngModel="{{geolocalizacionService.Codigo_Estado}}"
+          ></app-select>
+        </ion-col>
+        <ion-col size="12" *ngIf="geolocalizacionService.ciudades.length > 0">
+          <app-select
+            (ionChange)="geolocalizacionService.onChangeCities(form)"
+            name="Codigo_Ciudad"
+            [data]="geolocalizacionService.ciudades"
+            label='{{"CITY" | translate }}'
+            ngModel="{{geolocalizacionService.Codigo_Ciudad}}"
+          ></app-select>
+        </ion-col>
+        <ion-col
+          size="12"
+          *ngIf="geolocalizacionService.Codigo_Pais && geolocalizacionService.Codigo_Estado && geolocalizacionService.Codigo_Ciudad"
+        >
+          <app-input
+            name="Codigo_Postal"
+            label='{{"ZIP_CODE" | translate }}'
+            ngModel="{{geolocalizacionService.Codigo_Postal}}"
+          ></app-input>
+        </ion-col>
+        <ion-col size="12">
+          <app-button label='{{"CREATE_TEAM" | translate }}'></app-button>
         </ion-col>
       </ion-row>
     </ion-grid>
-     
- 
- 
-     
-   </form>
- 
-   
- </ion-content>
- 
+  </form>
+</ion-content>

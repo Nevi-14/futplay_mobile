@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { UsuariosService } from 'src/app/services/usuarios.service';
-import { AlertasService } from '../../services/alertas.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { AlertasService } from '../../services/alertas.service';
 import { EmailService } from 'src/app/services/email';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+
 @Component({
   selector: 'app-gestor-contrasena',
   templateUrl: './gestor-contrasena.page.html',
@@ -21,7 +22,6 @@ export class GestorContrasenaPage implements OnInit {
   correo = this.usuariosService.usuarioActual.Correo;
   Codigo = '';
   token = null;
- 
   codigo = '';
   sendEmail = {
     email: null,
@@ -29,29 +29,23 @@ export class GestorContrasenaPage implements OnInit {
     subject: this.translateService.instant('PASSWORD_RECOVERY'),
     message: null,
   };
+
   constructor(
     public modalCtrl: ModalController,
     public alertasService: AlertasService,
-    public usuariosService:UsuariosService,
-    public router:Router,
+    public usuariosService: UsuariosService,
+    public router: Router,
     private translateService: TranslateService,
     public emailService: EmailService
-    
-    ) { }
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  regresar(){
+  regresar() {
     this.modalCtrl.dismiss();
   }
 
-  
-
-
- 
- 
- async verificarCodigos(fRecuperarContrasena: NgForm) {
+  async verificarCodigos(fRecuperarContrasena: NgForm) {
     let data = fRecuperarContrasena.value;
     this.codigo = data.Codigo;
     if (!this.codigo)
@@ -62,7 +56,7 @@ export class GestorContrasenaPage implements OnInit {
     if (this.token == this.codigo) {
       this.usuariosService.CorreoVerificacion = this.sendEmail.email;
       this.modalCtrl.dismiss();
-      this.router.navigateByUrl('/cambiar-contrasena', { replaceUrl: true })
+      this.router.navigateByUrl('/cambiar-contrasena', { replaceUrl: true });
     } else {
       return this.alertasService.message(
         'FUTPLAY',
@@ -70,7 +64,7 @@ export class GestorContrasenaPage implements OnInit {
       );
     }
   }
- 
+
   obtenerCodigoDeSeguridad(fRecuperarContrasena: NgForm) {
     let data = fRecuperarContrasena.value;
     this.sendEmail.email = this.usuariosService.usuarioActual.Correo;
@@ -87,33 +81,32 @@ export class GestorContrasenaPage implements OnInit {
       this.translateService.instant('VALIDATING_DATA')
     );
     let token =
-    String(new Date().getHours()) +
-    String(new Date().getMinutes()) +
-    String(new Date().getMilliseconds());
-  this.token = token;
-  this.sendEmail.message = `${this.translateService.instant(
-    'USE_THIS_SECURITY_CODE'
-  )} ${token}. ${this.translateService.instant(
-    'DO_NOT_SHARE_THIS_CODE_WITH_ANYONE'
-  )}.
-`;  
-return this.emailService.syncPostEmail(this.sendEmail).then(
-  (resp: any) => {
-    this.alertasService.loadingDissmiss();
-    this.verificarCodigo = true;
-    this.alertasService.message(
-      'FUTPLAY',
-      this.translateService.instant('SECURITY_CODE_MESSAGE')
-    );
-  },
-  (error) => {
-    this.alertasService.loadingDissmiss();
-    this.alertasService.message(
-      'FUTPLAY',
-      this.translateService.instant('SOMETHING_WENT_WRONG')
+      String(new Date().getHours()) +
+      String(new Date().getMinutes()) +
+      String(new Date().getMilliseconds());
+    this.token = token;
+    this.sendEmail.message = `${this.translateService.instant(
+      'USE_THIS_SECURITY_CODE'
+    )} ${token}. ${this.translateService.instant(
+      'DO_NOT_SHARE_THIS_CODE_WITH_ANYONE'
+    )}.
+`;
+    return this.emailService.syncPostEmail(this.sendEmail).then(
+      (resp: any) => {
+        this.alertasService.loadingDissmiss();
+        this.verificarCodigo = true;
+        this.alertasService.message(
+          'FUTPLAY',
+          this.translateService.instant('SECURITY_CODE_MESSAGE')
+        );
+      },
+      (error) => {
+        this.alertasService.loadingDissmiss();
+        this.alertasService.message(
+          'FUTPLAY',
+          this.translateService.instant('SOMETHING_WENT_WRONG')
+        );
+      }
     );
   }
-);
-}
- 
 }

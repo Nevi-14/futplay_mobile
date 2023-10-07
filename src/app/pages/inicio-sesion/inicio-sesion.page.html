@@ -1,77 +1,93 @@
- 
-  <app-header></app-header>
- 
- 
+<app-header></app-header>
 
- 
 <ion-content class="ion-padding">
-
-
   <form id="form" (ngSubmit)="login(fInicioSesion)" #fInicioSesion="ngForm">
     <ion-grid>
       <ion-row>
         <ion-col size="12">
           <ion-avatar>
-            <img  src="assets/logo.png" alt="">
+            <img src="assets/logo.png" alt="" />
           </ion-avatar>
         </ion-col>
         <ion-col size="12">
-          <h1>  {{"LOGIN" | translate }},</h1>
-          <h3> {{"LOGIN_LEGEND" | translate }}</h3>
-           
-           
+          <h1>{{"LOGIN" | translate }},</h1>
+          <h3>{{"LOGIN_LEGEND" | translate }}</h3>
         </ion-col>
         <ion-col size="12">
-          <app-input name="email" type="text" label="{{'USERNAME' | translate }}"  ngModel="{{loginUser.email}}"    ></app-input>
-
+          <app-input
+            name="email"
+            type="text"
+            label="{{'USERNAME' | translate }}"
+            ngModel="{{loginUser.email}}"
+          ></app-input>
         </ion-col>
         <ion-col size="12">
-          <app-input  name="password"  type="password"  label="{{'PASSWORD' | translate }}" 
-    ngModel="{{loginUser.password}}"></app-input>
-
+          <app-input
+            name="password"
+            type="password"
+            label="{{'PASSWORD' | translate }}"
+            ngModel="{{loginUser.password}}"
+          ></app-input>
         </ion-col>
         <ion-col size="12">
           <app-button label='{{"LOGIN" | translate }}'></app-button>
         </ion-col>
         <ion-col size="12">
-          <a routerLink="/recuperar-contrasena" class="forgot-password-link">{{"FORGOT_PASSWORD" | translate }}</a>
-          <p class="footer-text"> 
-            
-       
-          </p> 
-          <p class="footer-text" style="margin-top:2rem"> {{'IM_NEW' | translate }} , <a routerLink="/registro">{{'REGISTER' | translate }}</a></p> 
-      
+          <a routerLink="/recuperar-contrasena" class="forgot-password-link"
+            >{{"FORGOT_PASSWORD" | translate }}</a
+          >
+          <p class="footer-text"></p>
+          <p class="footer-text margin-top-register"  >
+            {{'IM_NEW' | translate }} ,
+            <a routerLink="/registro">{{'REGISTER' | translate }}</a>
+          </p>
         </ion-col>
         <ion-col>
-          <ion-button    style="margin-top:1rem" (click)="contactDeveloper()" expand="block" fill="clear" shape="round">
-           <p> {{"NEED_HELP" | translate }}</p>
+          <ion-button
+            class="margin-top"
+            (click)="contactDeveloper()"
+            expand="block"
+            fill="clear"
+            shape="round"
+          >
+            <p class="need-help">{{"NEED_HELP" | translate }}</p>
           </ion-button>
         </ion-col>
-      
       </ion-row>
     </ion-grid>
-
- 
   </form>
-
 </ion-content>
 <ion-footer class="ion-no-border">
   <ion-toolbar class="ion-text-center">
-    <ion-button  mode="ios"  (click)="presentPopover($event)"  fill="clear" color="primary">
+    <ion-button
+      mode="ios"
+      (click)="presentPopover($event)"
+      fill="clear"
+      color="primary"
+    >
       {{"SELECTED_LANGUAGE" | translate }}
     </ion-button>
-    <ion-popover mode="ios" #popover [isOpen]="isOpen" (didDismiss)="isOpen = false" side="top" alignment="center">
+    <ion-popover
+      mode="ios"
+      #popover
+      [isOpen]="isOpen"
+      (didDismiss)="isOpen = false"
+      side="top"
+      alignment="center"
+    >
       <ng-template>
         <ion-content class="ion-padding">
           <ion-item (click)="cambiarIdioma('US','Ingles')">
-            <ion-label>English</ion-label>
+            <p>{{"ENGLISH" | translate }}</p>
           </ion-item>
           <ion-item (click)="cambiarIdioma('Es','Espanol')">
-            <ion-label>Spanish</ion-label>
+            <p>{{"SPANISH" | translate }}</p>
+          </ion-item>
+          <ion-item (click)="cambiarIdioma('PO','Portuguese')">
+            <p>{{"PORTUGUESE" | translate }}</p>
           </ion-item>
         </ion-content>
       </ng-template>
     </ion-popover>
   </ion-toolbar>
 </ion-footer>
- 

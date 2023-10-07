@@ -261,7 +261,20 @@
    "CONTACT_DEVELOPER_WHATSAPP_MESSAGE": "Hello Nelson Morera, I have a question about the app.",
    "CONTACT_DEVELOPER_EMAIL": "Email",
    "CONTACT_DEVELOPER_EMAIL_SUBJECT": "Question about the app",
-   "CONTACT_DEVELOPER_EMAIL_BODY": "Hello Nelson Morera,\n\nI have a question about the app.\n\nBest regards,\nNelson Morera"
+   "CONTACT_DEVELOPER_EMAIL_BODY": "Hello Nelson Morera,\n\nI have a question about the app.\n\nBest regards,\nNelson Morera",
+   "DELETE_ACCOUNT": "Delete Account",
+   "ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ACCOUNT": "Are you sure you want to delete this account? You will not be able to reverse the process!.",
+   "ACCOUNT_DELETED_SUCCESSFULLY": "Account deleted successfully!.",
+   "YOU_CANNOT_DELETE_YOUR_ACCOUNT_BECAUSE_YOU_HAVE_FUTURE_RESERVATIONS": "You cannot delete your account because you have future reservations!.",
+   "PLEASE_WAIT": "Please wait",
+   "SOCCER_FIELD_CLOSED": "Soccer field closed!.",
+   "AVAILABLE": "Available",
+   "GOOGLE_MAPS_APP": "Google Maps App",
+   "WAZE_APP": "Waze App",
+   "PROFILE_UPDATED_SUCCESSFULLY": "Profile updated successfully!.",
+   "INCORRECT_USER_OR_PASSWORD": "Incorrect user or password!.",
+   "CONTACT_ADMINISTRATOR": "Contact Administrator",
+   "PORTUGUESE": "Portuguese"
   
    
    

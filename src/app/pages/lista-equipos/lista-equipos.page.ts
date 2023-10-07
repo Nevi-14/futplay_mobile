@@ -83,9 +83,7 @@ export class ListaEquiposPage {
         );
     }
   }
-  detalleEquipo(equipo) {
-    //this.equiposService.detalleEquipo(equipo)
-  }
+
   onSearchChange(event) {
     this.textoBuscar = event.detail.value;
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PerfilCancha } from 'src/app/models/perfilCancha';
 
 import { CanchasService } from '../../services/canchas.service';

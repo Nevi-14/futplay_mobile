@@ -38,8 +38,8 @@
             <img *ngIf="reto.retador.Avatar" src="assets/soccer-shields-svg/{{reto.retador.Foto}}" onerror="this.src='assets/img/icon/FP.svg'" alt="" />
           </ion-avatar>
         </ion-col>
-        <ion-col size="6" style="display: flex; justify-content: center; align-items: center" class="ion-text-uppercase">
-          <strong style="font-size: 14px">{{reto.retador.Abreviacion}} vs {{reto.rival.Abreviacion}}</strong>
+        <ion-col size="6" class="ion-text-uppercase">
+          <strong  >{{reto.retador.Abreviacion}} vs {{reto.rival.Abreviacion}}</strong>
         </ion-col>
         <ion-col size="3">
           <ion-avatar (click)="equipoRivalDetalle()">
@@ -59,9 +59,9 @@
           <span *ngIf="reto.reservacion.Cod_Tipo == 2 ">{{"OPEN_RESERVATION" | translate }}</span>
           <span *ngIf="reto.reservacion.Cod_Tipo == 3 ">{{"GROUP_RESERVATION" | translate }}</span>
 
-          <p class="ion-text-wrap" style="margin-top: 0.5rem" *ngIf="reto.reservacion.Cod_Tipo == 1 ">{{"RESERVATION_FOR_ONE_PERSON" | translate }}</p>
-          <p class="ion-text-wrap" style="margin-top: 0.5rem" *ngIf="reto.reservacion.Cod_Tipo == 2 ">{{"OPEN_RESERVATION_FOR_OTHER_TEAMS_TO_JOIN" | translate }}</p>
-          <p class="ion-text-wrap" style="margin-top: 0.5rem" *ngIf="reto.reservacion.Cod_Tipo == 3 ">{{"CHALLENGE_OTHER_TEAMS" | translate }}</p>
+          <p class="ion-text-wrap" *ngIf="reto.reservacion.Cod_Tipo == 1 ">{{"RESERVATION_FOR_ONE_PERSON" | translate }}</p>
+          <p class="ion-text-wrap" *ngIf="reto.reservacion.Cod_Tipo == 2 ">{{"OPEN_RESERVATION_FOR_OTHER_TEAMS_TO_JOIN" | translate }}</p>
+          <p class="ion-text-wrap" *ngIf="reto.reservacion.Cod_Tipo == 3 ">{{"CHALLENGE_OTHER_TEAMS" | translate }}</p>
         </ion-label>
       </ion-col>
       <ion-col size="12">{{"DATE" | translate }} : {{reto.reservacion.Fecha | date :'fullDate'}}</ion-col>

@@ -1,23 +1,19 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AlertController, IonicSlides, ModalController } from '@ionic/angular';
-import { EquiposService } from 'src/app/services/equipos.service';
-import { UsuariosService } from 'src/app/services/usuarios.service';
-import { AlertasService } from 'src/app/services/alertas.service';
-import { Equipos } from '../../models/equipos';
-import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
-import { GestorEquipoImagenesService } from 'src/app/services/gestor-equipo-imagenes.service';
+import { AlertController, ModalController, IonicSlides } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { Equipos } from '../../models/equipos';
+import { environment } from 'src/environments/environment';
+import { AlertasService } from 'src/app/services/alertas.service';
+import { EquiposService } from 'src/app/services/equipos.service';
+import { GestorEquipoImagenesService } from 'src/app/services/gestor-equipo-imagenes.service';
 import { ReservacionesService } from 'src/app/services/reservaciones.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+import { Router } from '@angular/router';
 import { format } from 'date-fns';
+
 declare const window: any;
+
 @Component({
   selector: 'app-editar-perfil-equipo',
   templateUrl: './editar-perfil-equipo.page.html',
@@ -31,7 +27,7 @@ export class EditarPerfilEquipoPage implements OnInit {
   @ViewChild(IonicSlides) slides;
   @Input() equipo: Equipos;
   @ViewChild('fRegistroEquipo') fRegistroEquipo: NgForm;
-  modalOpen: boolean = false;
+  modalOpen = false;
   avatarSlide = null;
   avatars = false;
   imgs = [
@@ -83,7 +79,7 @@ export class EditarPerfilEquipoPage implements OnInit {
   async ngOnInit() {
     const i = this.imgs.findIndex((image) => image.img == this.equipo.Foto);
     if (i >= 0) {
-      let selectedImage = this.imgs[i];
+      const selectedImage = this.imgs[i];
       selectedImage.seleccionado = true;
       this.imgs.splice(i, 1);
       this.imgs.unshift(selectedImage);
@@ -92,11 +88,11 @@ export class EditarPerfilEquipoPage implements OnInit {
       }
     }
   }
+
   adjuntarImagen() {
     this.gestorEquiposImagenesService.post = true;
     this.gestorEquiposImagenesService.alertaCamara();
   }
-
 
   avatar() {
     this.avatars = !this.avatars;
@@ -110,8 +106,6 @@ export class EditarPerfilEquipoPage implements OnInit {
     this.imgs.forEach((av) => (av.seleccionado = false));
     img.seleccionado = true;
     this.image = this.imgs[i].img;
-   
- 
   }
 
   slideChange(event) {
@@ -119,13 +113,13 @@ export class EditarPerfilEquipoPage implements OnInit {
       this.imgs.forEach((av) => (av.seleccionado = false));
       this.imgs[resp].seleccionado = true;
       this.image = this.imgs[resp].img;
-       
     });
   }
 
   slidePrev() {
     this.slides.slidePrev();
   }
+
   slideNext() {
     this.slides.slideNext();
   }
@@ -135,7 +129,7 @@ export class EditarPerfilEquipoPage implements OnInit {
   }
 
   updateTeam(fRegistroEquipo: NgForm) {
-    let form = fRegistroEquipo.value;
+    const form = fRegistroEquipo.value;
     if (!form.Nombre) {
       this.alertasService.message(
         'FUTPLAY',
@@ -159,11 +153,12 @@ export class EditarPerfilEquipoPage implements OnInit {
       );
       return;
     }
-    this.alertasService.presentaLoading(this.translateService.instant('UPDATING_DATA'))
-    if (this.image){
+    this.alertasService.presentaLoading(
+      this.translateService.instant('UPDATING_DATA')
+    );
+    if (this.image) {
       this.equipo.Foto = this.image;
       this.equipo.Avatar = true;
-    
     }
     this.equipo.Nombre = form.Nombre;
     this.equipo.Abreviacion = form.Abreviacion;
@@ -181,8 +176,9 @@ export class EditarPerfilEquipoPage implements OnInit {
             .then((equipos) => {
               this.equiposService.equipos = equipos;
 
-              let i = this.equiposService.equipos.findIndex(
-                (equipo) => equipo.equipo.Cod_Equipo == resp.equipo.Cod_Equipo
+              const i = this.equiposService.equipos.findIndex(
+                (equipo) =>
+                  equipo.equipo.Cod_Equipo == resp.equipo.Cod_Equipo
               );
               if (i >= 0) {
                 this.equiposService.equipo = this.equiposService.equipos[i];
@@ -227,6 +223,7 @@ export class EditarPerfilEquipoPage implements OnInit {
       }
     );
   }
+
   async alertaEliminar() {
     const alert = await this.alertCtrl.create({
       header: 'FUTPLAY',
@@ -252,6 +249,7 @@ export class EditarPerfilEquipoPage implements OnInit {
 
     await alert.present();
   }
+
   eliminarEquipos() {
     this.reservacionesService
       .syncGetReservcionesFuturas(

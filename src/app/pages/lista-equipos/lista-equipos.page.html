@@ -1,116 +1,165 @@
- 
-
-    
 <ion-header class="ion-no-border">
   <ion-toolbar>
-   <ion-button slot="start" (click)="regresar()" fill="clear">
-     <ion-icon size="large" name="close-outline"></ion-icon>
-   </ion-button>
-   <ion-title>{{"TEAMS" | translate }}</ion-title>
-    
+    <ion-button slot="start" (click)="regresar()" fill="clear">
+      <ion-icon size="large" name="close-outline"></ion-icon>
+    </ion-button>
+    <ion-title>{{"TEAMS" | translate }}</ion-title>
   </ion-toolbar>
- 
-
- </ion-header>
+</ion-header>
 <ion-toolbar>
-<ion-grid >
-  <ion-row>
- 
-  
-  
-    <ion-col size="10">
-  
-      <ion-searchbar (ionInput)="onSearchChange($event)"  mode="ios" placeholder="{{'SEARCH_TEAM' | translate }}" inputmode="text"  debounce="250" ></ion-searchbar> 
-    </ion-col>
-    <ion-col size="2">
-      <ion-buttons >
-        <ion-button     (click)="filtroUbicacion()"  >
-          <ion-icon class="futplay-color"   size="large"  name="options-outline" ></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="10">
+        <ion-searchbar
+          (ionInput)="onSearchChange($event)"
+          mode="ios"
+          placeholder="{{'SEARCH_TEAM' | translate }}"
+          inputmode="text"
+          debounce="250"
+        ></ion-searchbar>
+      </ion-col>
+      <ion-col size="2">
+        <ion-buttons>
+          <ion-button (click)="filtroUbicacion()">
+            <ion-icon
+              class="futplay-color"
+              size="large"
+              name="options-outline"
+            ></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-toolbar>
-      <ion-content fullscreen>
-        
-          <ion-item  *ngIf="equiposService.equipos.length == 0"    lines="none"
-          class="animate__animated animate__fadeIn">
-          <span  >
-            <ion-avatar>
-              <img src="assets/logo.png" alt="">
-            </ion-avatar>
-        
-        
-        <div>
-        <h3>{{"FUTPLAY_MESSAGE" | translate }} </h3>
-        <p>{{"NO_RECORDS_FOUND" | translate }}</p>
-        
-        </div>
-          </span>
-        
-        
-          </ion-item>
-          <ion-list *ngIf="!rival">
-            
-            <ion-item    (click)="retornarEquipo(equipo)" lines="full" class="custom-item  animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'nombre'">
-     <span>
-      <ion-avatar  s >
-        <img *ngIf="!equipo.equipo.Avatar"  src="{{url+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-        <img  *ngIf="equipo.equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
+<ion-content fullscreen>
+  <ion-item
+    *ngIf="equiposService.equipos.length == 0"
+    lines="none"
+    class="animate__animated animate__fadeIn"
+  >
+    <span>
+      <ion-avatar>
+        <img src="assets/logo.png" alt="" />
       </ion-avatar>
-      
+
       <div>
-      <h2> {{'TEAM' | translate }} : {{equipo.nombre}}</h2>
-
-        <p>{{'LOCATION' | translate }} : {{equipo.pais}},       {{equipo.estado}} ...</p>
-        <p>{{'SCORE' | translate }} : {{equipo.equipo.Puntaje_Actual ?  equipo.equipo.Puntaje_Actual : 0}} </p>
-
-        <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
-        
-
-<ng-template ngFor let-hero [ngForOf]="filledStars(equipo.equipo.Estrellas)"
-let-i="index" let-odd="odd"  >
-<ion-icon  color="warning" style="size: 10px;" name="star"></ion-icon>
-</ng-template>
-<ng-template  ngFor let-hero [ngForOf]="emptyStars(equipo.equipo.Estrellas)"
-let-i="index" let-odd="odd"  >
-<ion-icon  color="warning" style="size: 10px;"  name="star-outline"></ion-icon>
-</ng-template>
-        </p>
+        <h3>{{"FUTPLAY_MESSAGE" | translate }}</h3>
+        <p>{{"NO_RECORDS_FOUND" | translate }}</p>
       </div>
-     </span>
-    
-            </ion-item>
-          
-          </ion-list>
-          <ion-list *ngIf="rival" >
-            <ion-item   (click)="retornarEquipo(equipo)" lines="full" class="custom-item  animate__animated animate__fadeIn"  *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'nombre'">
-              <ion-avatar  slot="start">
-                <img *ngIf="!equipo.equipo.Avatar"  src="{{url+equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-                <img  *ngIf="equipo.equipo.Avatar"  src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}" onerror="this.src='assets/img/icon/FP.svg'"   alt="">
-              </ion-avatar>
-              
-              <ion-label>
-                {{'TEAM' | translate }} : {{equipo.nombre}}
-                <p>{{'LOCATION' | translate }} : {{equipo.pais}},       {{equipo.estado}} ...</p>
-                <p>{{'SCORE' | translate }} :  {{equipo.equipo.Puntaje_Actual ?  equipo.equipo.Puntaje_Actual : 0}} </p>
-     
-                <p style="display:block; margin-top: 0.5rem;margin-left: 0.5rem;">
-                
-                  <ng-template ngFor let-hero [ngForOf]="filledStars(equipo.equipo.Estrellas)" let-i="index"
-                  let-odd="odd">
-                  <ion-icon color="warning"   name="star"></ion-icon>
-                </ng-template>
-                <ng-template ngFor let-hero [ngForOf]="emptyStars(equipo.equipo.Estrellas)" let-i="index"
-                  let-odd="odd">
-                  <ion-icon color="warning"   name="star-outline"></ion-icon>
-                </ng-template>
-                </p>
-              </ion-label>
-    
-            </ion-item>
-          </ion-list>
-   
-    </ion-content>
+    </span>
+  </ion-item>
+  <ion-list *ngIf="!rival">
+    <ion-item
+      (click)="retornarEquipo(equipo)"
+      lines="full"
+      class="custom-item animate__animated animate__fadeIn"
+      *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'nombre'"
+    >
+      <span>
+        <ion-avatar s>
+          <img
+            *ngIf="!equipo.equipo.Avatar"
+            src="{{url+equipo.equipo.Foto}}"
+            onerror="this.src='assets/img/icon/FP.svg'"
+            alt=""
+          />
+          <img
+            *ngIf="equipo.equipo.Avatar"
+            src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}"
+            onerror="this.src='assets/img/icon/FP.svg'"
+            alt=""
+          />
+        </ion-avatar>
 
+        <div>
+          <h2>{{'TEAM' | translate }} : {{equipo.nombre}}</h2>
+
+          <p>
+            {{'LOCATION' | translate }} : {{equipo.pais}}, {{equipo.estado}} ...
+          </p>
+          <p>
+            {{'SCORE' | translate }} : {{equipo.equipo.Puntaje_Actual ?
+            equipo.equipo.Puntaje_Actual : 0}}
+          </p>
+
+          <p class="stars">
+            <ng-template
+              ngFor
+              let-hero
+              [ngForOf]="filledStars(equipo.equipo.Estrellas)"
+              let-i="index"
+              let-odd="odd"
+            >
+              <ion-icon color="warning" name="star"></ion-icon>
+            </ng-template>
+            <ng-template
+              ngFor
+              let-hero
+              [ngForOf]="emptyStars(equipo.equipo.Estrellas)"
+              let-i="index"
+              let-odd="odd"
+            >
+              <ion-icon color="warning" name="star-outline"></ion-icon>
+            </ng-template>
+          </p>
+        </div>
+      </span>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="rival">
+    <ion-item
+      (click)="retornarEquipo(equipo)"
+      lines="full"
+      class="custom-item animate__animated animate__fadeIn"
+      *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'nombre'"
+    >
+      <ion-avatar slot="start">
+        <img
+          *ngIf="!equipo.equipo.Avatar"
+          src="{{url+equipo.equipo.Foto}}"
+          onerror="this.src='assets/img/icon/FP.svg'"
+          alt=""
+        />
+        <img
+          *ngIf="equipo.equipo.Avatar"
+          src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}"
+          onerror="this.src='assets/img/icon/FP.svg'"
+          alt=""
+        />
+      </ion-avatar>
+
+      <ion-label>
+        {{'TEAM' | translate }} : {{equipo.nombre}}
+        <p>
+          {{'LOCATION' | translate }} : {{equipo.pais}}, {{equipo.estado}} ...
+        </p>
+        <p>
+          {{'SCORE' | translate }} : {{equipo.equipo.Puntaje_Actual ?
+          equipo.equipo.Puntaje_Actual : 0}}
+        </p>
+
+        <p class="stars">
+          <ng-template
+            ngFor
+            let-hero
+            [ngForOf]="filledStars(equipo.equipo.Estrellas)"
+            let-i="index"
+            let-odd="odd"
+          >
+            <ion-icon color="warning" name="star"></ion-icon>
+          </ng-template>
+          <ng-template
+            ngFor
+            let-hero
+            [ngForOf]="emptyStars(equipo.equipo.Estrellas)"
+            let-i="index"
+            let-odd="odd"
+          >
+            <ion-icon color="warning" name="star-outline"></ion-icon>
+          </ng-template>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

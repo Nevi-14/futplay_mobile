@@ -1,26 +1,24 @@
 import { Component } from '@angular/core';
-import {
-  ActionSheetButton,
-  ActionSheetController,
-  ModalController,
-  AlertController,
-} from '@ionic/angular';
-import { EquiposService } from 'src/app/services/equipos.service';
-import { JugadoresService } from '../../services/jugadores.service';
-import { EditarPerfilEquipoPage } from '../editar-perfil-equipo/editar-perfil-equipo.page';
-import { EstadisticaEquipoPage } from '../estadistica-equipo/estadistica-equipo.page';
-import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
-import { MisEquiposPage } from '../mis-equipos/mis-equipos.page';
-import { SolicitudesService } from '../../services/solicitudes.service';
-import { AlertasService } from '../../services/alertas.service';
-import { UsuariosService } from '../../services/usuarios.service';
-import { Router } from '@angular/router';
-import { EquipoGeolocalizacion } from 'src/app/models/equipoGeolocalizacion';
-import { EquiposGeolocalizacionService } from 'src/app/services/equipos-geolocalizacion.service';
-import { EquipoGeolocalizacionPage } from '../equipo-geolocalizacion/equipo-geolocalizacion.page';
-import { TransferenciasPage } from '../transferencias/transferencias.page';
-import { environment } from 'src/environments/environment';
+import { ActionSheetButton, ActionSheetController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
+import { EquipoGeolocalizacion } from 'src/app/models/equipoGeolocalizacion';
+import { AlertasService } from '../../services/alertas.service';
+import { EquiposGeolocalizacionService } from '../../services/equipos-geolocalizacion.service';
+import { EquiposService } from '../../services/equipos.service';
+import { JugadoresService } from '../../services/jugadores.service';
+import { SolicitudesService } from '../../services/solicitudes.service';
+import { UsuariosService } from '../../services/usuarios.service';
+import { EditarPerfilEquipoPage } from '../editar-perfil-equipo/editar-perfil-equipo.page';
+import { EquipoGeolocalizacionPage } from '../equipo-geolocalizacion/equipo-geolocalizacion.page';
+import { EstadisticaEquipoPage } from '../estadistica-equipo/estadistica-equipo.page';
+import { MisEquiposPage } from '../mis-equipos/mis-equipos.page';
+import { PerfilJugadorPage } from '../perfil-jugador/perfil-jugador.page';
+import { TransferenciasPage } from '../transferencias/transferencias.page';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-perfil-equipo',
   templateUrl: './perfil-equipo.page.html',
@@ -63,6 +61,7 @@ export class PerfilEquipoPage {
   ];
   teamPic = null;
   modalOpen = false;
+
   constructor(
     public equiposService: EquiposService,
     public jugadoresService: JugadoresService,
@@ -72,9 +71,9 @@ export class PerfilEquipoPage {
     public alertasService: AlertasService,
     public alertCtrl: AlertController,
     public usuariosService: UsuariosService,
-    public router: Router,
     public equipoGeolocalizacionService: EquiposGeolocalizacionService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    public router: Router
   ) {}
 
   async ionViewWillEnter() {
@@ -110,9 +109,11 @@ export class PerfilEquipoPage {
           });
       });
   }
+
   filledStars(stars: number) {
     return new Array(stars);
   }
+
   emptyStars(stars: number) {
     let value = 5 - stars;
     return new Array(value);
@@ -139,7 +140,6 @@ export class PerfilEquipoPage {
   }
 
   async gestionarPerfil() {
-    
     const modal = await this.modalCtrl.create({
       component: EditarPerfilEquipoPage,
       mode: 'md',
@@ -224,6 +224,7 @@ export class PerfilEquipoPage {
 
     await actionSheet.present();
   }
+
   async solicitudesEquipos() {
     if (!this.modalOpen) {
       const modal = await this.modalCtrl.create({
@@ -275,6 +276,7 @@ export class PerfilEquipoPage {
     });
     return await modal.present();
   }
+
   async perfilJugador(jugador) {
     const modal = await this.modalCtrl.create({
       component: PerfilJugadorPage,

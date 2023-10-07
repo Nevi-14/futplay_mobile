@@ -54,7 +54,7 @@ export class InicioSesionPage {
     let login = fInicioSesion.value;
     console.log('login', login)
     let continuar = await ValidacionFormularioPipe.prototype.transform(fInicioSesion);
-    if (!continuar) return this.alertasService.message('FUTPLAY', 'Todos los campos son obligatorios!');
+    if (!continuar) return this.alertasService.message('FUTPLAY',   this.translateService.instant('ALL_FIELDS_REQUIRED'));
     this.loginUser.email = login.email;
     this.loginUser.password = login.password;
     this.usuariosServicio.syncLogin(this.loginUser.email, this.loginUser.password);

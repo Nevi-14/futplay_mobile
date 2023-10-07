@@ -258,7 +258,20 @@
 "CONTACT_DEVELOPER_WHATSAPP_MESSAGE": "Hola Nelson Morera, tengo una pregunta sobre la aplicación.",
 "CONTACT_DEVELOPER_EMAIL": "Correo electrónico",
 "CONTACT_DEVELOPER_EMAIL_SUBJECT": "Pregunta sobre la aplicación",
-"CONTACT_DEVELOPER_EMAIL_BODY": "Hola Nelson Morera,\n\nTengo una pregunta sobre la aplicación.\n\nSaludos cordiales,\nTu nombre"
+"CONTACT_DEVELOPER_EMAIL_BODY": "Hola Nelson Morera,\n\nTengo una pregunta sobre la aplicación.\n\nSaludos cordiales,\nTu nombre",
+"DELETE_ACCOUNT": "Eliminar Cuenta",
+"ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ACCOUNT": "Estas seguro que deseas eliminar esta cuenta?.",
+"ACCOUNT_DELETED_SUCCESSFULLY": "Cuenta eliminada correctamente!.",
+"YOU_CANNOT_DELETE_YOUR_ACCOUNT_BECAUSE_YOU_HAVE_FUTURE_RESERVATIONS": "No puedes eliminar tu cuenta porque tienes reservas futuras!.",
+"PLEASE_WAIT": "Por favor espera",
+"SOCCER_FIELD_CLOSED": "Cancha Cerrada",
+"AVAILABLE": "Disponible",
+"GOOGLE_MAPS_APP": "Aplicación Google Maps",
+"WAZE_APP": "Aplicación Waze",
+"PROFILE_UPDATED_SUCCESSFULLY": "Perfil actualizado correctamente!.",
+"INCORRECT_USER_OR_PASSWORD": "Usuario o contraseña incorrecta!.",
+"CONTACT_ADMINISTRATOR": "Contactar Administrador",
+"PORTUGUESE": "Portugués"
  
 
  }

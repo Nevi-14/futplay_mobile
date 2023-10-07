@@ -29,7 +29,7 @@ export class RetosConfirmadosPage implements OnInit {
     public equiposService: EquiposService,
     public partidosService: PartidoService,
     public alertasService: AlertasService,
-    public router:Router
+    public router: Router
   ) {}
 
   async iniciarPartido(reto: PerfilReservaciones) {
@@ -45,8 +45,8 @@ export class RetosConfirmadosPage implements OnInit {
       this.partidoActual(reto);
     }
   }
-  regresar(){
-    this.router.navigateByUrl('/futplay/reservaciones', {replaceUrl:true})
+  regresar() {
+    this.router.navigateByUrl('/futplay/reservaciones', { replaceUrl: true });
   }
   async partidoActual(reto: PerfilReservaciones) {
     let partido = await this.partidosService.syncGetPartidoReservacion(
@@ -68,8 +68,7 @@ export class RetosConfirmadosPage implements OnInit {
 
     this.reservacionesService.selectCategory();
 
-    if (data != undefined) {
-    }
+    this.reservacionesConfirmadas();
   }
 
   async finalizarReservacion(reto: PerfilReservaciones) {
@@ -100,8 +99,7 @@ export class RetosConfirmadosPage implements OnInit {
       await modal.present();
       const { data } = await modal.onDidDismiss();
       this.isModalOpen = false;
-      if (data !== undefined) {
-      }
+      this.reservacionesConfirmadas();
     }
   }
   async detalleReto(reto: PerfilReservaciones) {
@@ -110,7 +108,6 @@ export class RetosConfirmadosPage implements OnInit {
     }
     this.iniciarPartido(reto);
   }
-
 
   ngOnInit() {
     this.reservacionesConfirmadas();
@@ -124,5 +121,4 @@ export class RetosConfirmadosPage implements OnInit {
         this.reservaciones = reservaciones;
       });
   }
- 
 }

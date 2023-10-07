@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
@@ -17,7 +16,7 @@ import { SeleccionarFechaPage } from '../seleccionar-fecha/seleccionar-fecha.pag
   templateUrl: './registro.page.html',
   styleUrls: ['./registro.page.scss'],
 })
-export class RegistroPage  {
+export class RegistroPage {
   usuario: Usuarios = {
     Cod_Usuario: null,
     Cod_Posicion: 1,
@@ -43,7 +42,7 @@ export class RegistroPage  {
     Estado: true,
     Descripcion_Estado: null,
     Inicio_Sesion: new Date(),
-    Idioma:null
+    Idioma: null,
   };
   ingresarContrasena = '';
   provincia = null;
@@ -70,15 +69,15 @@ export class RegistroPage  {
     Codigo_Ciudad: null,
     Ciudad: null,
     Codigo_Postal: null,
-    Direccion: null
-  }
+    Direccion: null,
+  };
   sendEmail = {
     email: null,
     header: null,
     subject: this.translateService.instant('ACCOUNT_VEIRIFICATION'),
     message: null,
   };
- 
+
   token = null;
   codigo = null;
   verificarCodigo = false;
@@ -87,13 +86,12 @@ export class RegistroPage  {
     public modalCrtl: ModalController,
     public alertasService: AlertasService,
     public geolocalizacionService: GeolocalizacionService,
-    public emailService:EmailService,
+    public emailService: EmailService,
     private translateService: TranslateService
-  ) { }
-
+  ) {}
 
   ionViewWillEnter() {
-    this.limpiarDatos()
+    this.limpiarDatos();
     this.geolocalizacionService.loadCountries();
   }
   async limpiarDatos() {
@@ -118,11 +116,11 @@ export class RegistroPage  {
       Partidos_Jugador_Del_Partido: 0,
       Compartir_Datos: false,
       Avatar: true,
-      Codigo_Llamadas:null,
+      Codigo_Llamadas: null,
       Estado: true,
       Descripcion_Estado: null,
       Inicio_Sesion: new Date(),
-      Idioma:null
+      Idioma: null,
     };
   }
 
@@ -131,61 +129,101 @@ export class RegistroPage  {
       this.modalOpen = true;
       const modal = await this.modalCrtl.create({
         component: SeleccionarFechaPage,
-        cssClass:'alert-modal',
-        mode:'ios', 
+        cssClass: 'alert-modal',
+        mode: 'ios',
         componentProps: {
           title: this.translateService.instant('DATE_OF_BIRTH'),
-          fecha: new Date(this.usuario.Fecha_Nacimiento)
-        }
-      })
+          fecha: new Date(this.usuario.Fecha_Nacimiento),
+        },
+      });
       await modal.present();
       const { data } = await modal.onWillDismiss();
       if (data !== undefined) {
-        this.usuario.Fecha_Nacimiento = data.date
+        this.usuario.Fecha_Nacimiento = data.date;
         this.modalOpen = false;
       } else {
         this.modalOpen = false;
       }
     }
-
   }
 
   async registro(fRegistro: NgForm) {
     let registro = fRegistro.value;
-    let continuar = await ValidacionFormularioPipe.prototype.transform(fRegistro);
-    if (!continuar) return this.alertasService.message('FUTPLAY', this.translateService.instant('ALL_FIIELD_ARE_REQUIRED'));
-    if(registro.password.length < 8) return this.alertasService.message('FUTPLAY', this.translateService.instant('MIN_PASSWORD_LENGTH'))
+    let continuar = await ValidacionFormularioPipe.prototype.transform(
+      fRegistro
+    );
+    if (!continuar)
+      return this.alertasService.message(
+        'FUTPLAY',
+        this.translateService.instant('ALL_FIIELD_ARE_REQUIRED')
+      );
+    if (registro.password.length < 8)
+      return this.alertasService.message(
+        'FUTPLAY',
+        this.translateService.instant('MIN_PASSWORD_LENGTH')
+      );
     this.enviarFormulario = true;
-    this.usuario.Nombre = registro.Nombre
-    this.usuario.Primer_Apellido = registro.Primer_Apellido
-    this.usuario.Telefono = registro.Telefono
-    this.usuario.Codigo_Llamadas = registro.Codigo_Llamadas
-    this.usuario.Correo = registro.Correo
+    this.usuario.Nombre = registro.Nombre;
+    this.usuario.Primer_Apellido = registro.Primer_Apellido;
+    this.usuario.Telefono = registro.Telefono;
+    this.usuario.Codigo_Llamadas = registro.Codigo_Llamadas;
+    this.usuario.Correo = registro.Correo;
     this.ingresarContrasena = registro.password;
     this.usuario.Contrasena = this.ingresarContrasena;
     this.sendEmail.email = registro.Correo;
-    if(this.verificarCodigo){ 
-      if(this.token != registro.codigo) {return this.alertasService.message('FUTPLAY',this.translateService.instant('INCORRECT_CODE'));}
-      return  this.usuariosServicio.registro(this.usuario, this.geolocalizacion)
-    } 
-    this.alertasService.presentaLoading(this.translateService.instant('VALIDATING_DATA'));
-    return this.usuariosServicio.syncValidarCuenta(this.sendEmail.email).then((resp:any)=>{
-      if(resp == 403) {
-        let token = String(new Date().getHours()) + String(new Date().getMinutes()) + String(new Date().getMilliseconds());
-        this.sendEmail.header = this.translateService.instant('DEAR_USER') + ' ' +  this.usuario.Nombre + ' ' + this.usuario.Primer_Apellido;
-        this.sendEmail.message =  `${this.translateService.instant('ACCOUNT_VERIFICATION_MESSAGE')}   ${token}`;
-         return this.emailService.syncPostEmail(this.sendEmail).then((resp:any)=>{
-    this.alertasService.loadingDissmiss();
-    this.token = token;
-    this.verificarCodigo = true;
-    this.alertasService.message('FUTPLAY', this.translateService.instant('SECURITY_CODE_MESSAGE'))
-  }, error =>{ 
-    this.alertasService.loadingDissmiss();
-    this.alertasService.message('FUTPLAY', this.translateService.instant('SOMETHING_WENT_WRONG'))
-  })
+    if (this.verificarCodigo) {
+      if (this.token != registro.codigo) {
+        return this.alertasService.message(
+          'FUTPLAY',
+          this.translateService.instant('INCORRECT_CODE')
+        );
       }
-      this.alertasService.loadingDissmiss();
-      return this.alertasService.message('FUTPLAY', this.translateService.instant('SOMETHING_WENT_WRONG'))
-    })
+      return this.usuariosServicio.registro(this.usuario, this.geolocalizacion);
+    }
+    this.alertasService.presentaLoading(
+      this.translateService.instant('VALIDATING_DATA')
+    );
+    return this.usuariosServicio
+      .syncValidarCuenta(this.sendEmail.email)
+      .then((resp: any) => {
+        if (resp == 403) {
+          let token =
+            String(new Date().getHours()) +
+            String(new Date().getMinutes()) +
+            String(new Date().getMilliseconds());
+          this.sendEmail.header =
+            this.translateService.instant('DEAR_USER') +
+            ' ' +
+            this.usuario.Nombre +
+            ' ' +
+            this.usuario.Primer_Apellido;
+          this.sendEmail.message = `${this.translateService.instant(
+            'ACCOUNT_VERIFICATION_MESSAGE'
+          )}   ${token}`;
+          return this.emailService.syncPostEmail(this.sendEmail).then(
+            (resp: any) => {
+              this.alertasService.loadingDissmiss();
+              this.token = token;
+              this.verificarCodigo = true;
+              this.alertasService.message(
+                'FUTPLAY',
+                this.translateService.instant('SECURITY_CODE_MESSAGE')
+              );
+            },
+            (error) => {
+              this.alertasService.loadingDissmiss();
+              this.alertasService.message(
+                'FUTPLAY',
+                this.translateService.instant('SOMETHING_WENT_WRONG')
+              );
+            }
+          );
+        }
+        this.alertasService.loadingDissmiss();
+        return this.alertasService.message(
+          'FUTPLAY',
+          this.translateService.instant('SOMETHING_WENT_WRONG')
+        );
+      });
   }
 }
