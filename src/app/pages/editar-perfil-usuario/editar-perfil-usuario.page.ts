@@ -187,6 +187,7 @@ export class EditarPerfilUsuarioPage implements OnInit {
     this.usuario.Cod_Posicion = usuario.Cod_Posicion;
     this.usuario.Estatura = usuario.Estatura;
     this.usuario.Peso = usuario.Peso;
+    this.usuario.Codigo_Llamadas = usuario.Codigo_Llamadas;
     this.usuario.Telefono = usuario.Telefono;
     this.usuario.Correo = usuario.Correo;
     this.usuario.Idioma = usuario.Idioma;
