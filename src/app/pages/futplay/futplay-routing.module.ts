@@ -23,6 +23,14 @@ const routes: Routes = [
         loadChildren: () => import('../reservaciones/reservaciones.module').then( m => m.ReservacionesPageModule), canLoad:[ReservacionesGuard]
       },
       {
+        path:'gestion-retos',
+        loadChildren: () => import('../gestion-retos/gestion-retos.module').then( m => m.GestionRetosPageModule), canLoad:[ReservacionesGuard]
+      },
+      {
+        path:'canchas',
+        loadChildren: () => import('../canchas/canchas.module').then( m => m.CanchasPageModule), canLoad:[ReservacionesGuard]
+      },
+      {
         path:'mi-perfil',
         loadChildren: () => import('../mi-perfil/mi-perfil.module').then( m => m.MiPerfilPageModule), canLoad:[MiPerfilGuard]
       },

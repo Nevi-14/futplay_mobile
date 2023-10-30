@@ -229,34 +229,6 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'retos-enviados',
-    loadChildren: () =>
-      import('./pages/retos-enviados/retos-enviados.module').then(
-        (m) => m.RetosEnviadosPageModule
-      ),
-  },
-  {
-    path: 'retos-recibidos',
-    loadChildren: () =>
-      import('./pages/retos-recibidos/retos-recibidos.module').then(
-        (m) => m.RetosRecibidosPageModule
-      ),
-  },
-  {
-    path: 'retos-confirmados',
-    loadChildren: () =>
-      import('./pages/retos-confirmados/retos-confirmados.module').then(
-        (m) => m.RetosConfirmadosPageModule
-      ),
-  },
-  {
-    path: 'historial-retos',
-    loadChildren: () =>
-      import('./pages/historial-retos/historial-retos.module').then(
-        (m) => m.HistorialRetosPageModule
-      ),
-  },
-  {
     path: 'aceptar-reto-abierto',
     loadChildren: () =>
       import('./pages/aceptar-reto-abierto/aceptar-reto-abierto.module').then(

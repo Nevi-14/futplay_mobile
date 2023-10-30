@@ -72,6 +72,7 @@ export class PaymentComponent implements OnInit {
   }
   async onSubmit() {
     if (this.code) {
+      console.log('this.code', this.code  )
       this.codigosDescuentosService.getDescuentoToPromise(this.code).then(
         (resp) => {
           if (resp.length == 0) {
@@ -170,6 +171,7 @@ export class PaymentComponent implements OnInit {
       .insertarReservacionToPromise(this.nuevaReservacion)
       .then(
         (resp: any) => {
+        console.log(resp,'post')
           this.detalleReservacion.Cod_Reservacion =
             resp.reservacion.Cod_Reservacion;
           this.gestionReservacionesService
@@ -275,7 +277,7 @@ this.insertarPagosIndividuales(id)
   };
 
 
-let pago = await this.confirmacionPagosService.getConfirmacionPagoToPromise(this.nuevaReservacion.Cod_Reservacion);
+let pago =  await this.confirmacionPagosService.getConfirmacionPagoToPromise(this.nuevaReservacion.Cod_Reservacion);
   if(this.verificarUsuario(this.rival, true) && pago.length == 0 ){
 
     this.nuevaReservacion.Cod_Estado = 7;

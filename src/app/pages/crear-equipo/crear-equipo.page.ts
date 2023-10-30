@@ -223,7 +223,10 @@ export class CrearEquipoPage implements OnInit {
                                     'TEAM_CREATED_SUCCESSFULLY'
                                   )
                                 );
-                                this.gestorEquiposImagenesService.reset();
+                                if(this.gestorEquiposImagenesService.images.length > 0){
+                                  this.gestorEquiposImagenesService.reset();
+                                }
+                                   
                               }
                             });
                         }
@@ -231,9 +234,7 @@ export class CrearEquipoPage implements OnInit {
                         this.modalCtrl.dismiss(
                           {
                             equipo: this.equipo,
-                          },
-                          null,
-                          'create-modal'
+                          }
                         );
 
                         this.router.navigate(['/futplay/perfil-equipo']);

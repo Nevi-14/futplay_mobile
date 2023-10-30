@@ -14,10 +14,10 @@ export class PerfilReservaciones {
        public  usuario_rival: Usuarios,
        public  retador: Equipos,
        public  usuario_retador: Usuarios,
-       public provincia:string,
+       public pais:string,
        public correo:string,
-public canton:string,
-public distrito:string,
+public estado:string,
+public ciudad:string,
 public categoria:string,
 public titulo:string
         

@@ -10,7 +10,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
   styleUrls: ['./futplay.page.scss'],
 })
 export class FutplayPage {
-  segment = 'reservaciones';
+ 
 
   constructor(
     public router: Router,
@@ -20,12 +20,12 @@ export class FutplayPage {
   ) {}
 
   ionViewWillEnter() {
-    this.segment = 'reservaciones';
+  
   }
 
   redirigir(url: string, pagina: string) {
     const navigation = this.router.url;
-    this.segment = pagina;
+    this.alertasService.segment = pagina;
     if (navigation) {
       console.log(navigation);
     }

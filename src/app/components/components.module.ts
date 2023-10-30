@@ -18,6 +18,7 @@ import { SelectComponent } from './select/select.component';
 import { DeleteButtonComponent } from './delete-button/delete-button.component';
 import { PaymentComponent } from './payment/payment.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { SecondaryHeaderComponent } from './secondary-header/secondary-header.component';
 
 registerLocaleData(localeDe);
 @NgModule({
@@ -29,7 +30,8 @@ registerLocaleData(localeDe);
     SelectComponent,
     InputComponent,
     DeleteButtonComponent,
-    PaymentComponent
+    PaymentComponent,
+    SecondaryHeaderComponent
 
 
  
@@ -52,7 +54,8 @@ registerLocaleData(localeDe);
   SelectComponent,
   InputComponent,
   DeleteButtonComponent,
-  PaymentComponent
+  PaymentComponent,
+  SecondaryHeaderComponent
 
 
   ],

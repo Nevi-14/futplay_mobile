@@ -139,8 +139,6 @@ export class CanchasPage {
     await actionSheet.present();
   }
   async canchaReservacion(cancha) {
-    this.regresar();
-
     const modal = await this.modalCtrl.create({
       component: GenerarReservacionPage,
       cssClass: 'my-custom-class',

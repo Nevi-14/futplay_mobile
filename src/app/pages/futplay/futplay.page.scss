@@ -1,21 +1,26 @@
-ion-segment{
-  --background:#fff;
-  text-transform: capitalize;
-    
-}
-ion-segment-button {
-  --indicator-box-shadow: transparent!important;
-  --background:white;
-  --color-checked: #2d2e87;
-  --indicator-color : #2d2e87!important; /* this solution */
-  font-size: 10px;
-  padding-bottom: 0.5rem;
- ion-badge{
-  position: 
-  absolute;
-  top: 0.5rem; 
-  right: -0.5rem; 
-}
+/* Your CSS stylesheet */
 
+
+ion-segment {
+  background:#fff;
+ padding: 0;
+ height: 70px;
+ svg {
+  margin-top: 10px;
+  margin-bottom: 8px;
+ }
+}
+/* Center the text within ion-label */
+ion-segment-button{
+  text-align: center;
+  font-size: 12px;
+  text-transform: capitalize;
+  --background-checked:  #fff !important;
+  --indicator-color: transparent !important;
+  --indicator-color-checked: transparent !important;
+  --color-checked: #000;
 }
  
+.selected {
+  fill: #000;
+}

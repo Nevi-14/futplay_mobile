@@ -31,7 +31,7 @@
    "ADDRESS":"Address",
    "COMPLETE_REGISTRATION":"Complete registration",
    "EXISTING_USER":"Existing user,",
-   "RESERVATIONS_TITLE":"Have fun to the fullest while playing. Create or join available challenges in your area.",
+   "RESERVATIONS_TITLE":"Have fun playing, reserve a court and create your next challenge.",
    "RESERVE_SOCCER_FIELD":"Reserve soccer fields",
    "YOUR_CHALLENGES":"Your challenges",
    "CHALLENGES_AVAILABLE":"Challanges Available",
@@ -95,9 +95,6 @@
    "CONFIRMED":"Confirmed",
    "HISTORY":"History",
    "CHALLENGES_HISTORY":"Challenges History",
-   "CONFIRMED_CHALLENGES":"Confirmed Challenges",
-   "SENT_CHALLENGES":"Sent Challenges",
-   "RECEIVED_CHALLENGES":"Received Challenges",
    "SOCCER_FIELD_DETAILS":"Soccer Field Details",
    "SOCCER_FIELD":"Soccer Field",
    "ADD_RESERVATION":"Add Reservation",
@@ -283,5 +280,13 @@
   "PENDING_PAYMENTS": "Pending Payments",
   "LEAVE_TEAM": "Leave Team",
   "LEAVE_TEAM_CONFIRMATION":  "Are you sure you want to leave the team? You will not be able to reverse the process!.",
-  "INBOX": "Inbox"
+  "INBOX": "Inbox",
+  "RESERVATIONS":  "Reservations",
+  "YOUR_RESERVATIONS": "Your Reservations",
+  "SEARCH": "Search",
+  "EXPLORE": "Explore",
+  "CONFIRMED_CHALLENGES": "Confirmed Challenges",
+  "SENT_CHALLENGES": "Sent Challenges",
+  "RECEIVED_CHALLENGES": "Received Challenges",
+  "AVAILABLE_CHALLENGES": "Available Challenges"
 }

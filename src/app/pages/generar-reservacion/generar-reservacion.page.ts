@@ -360,7 +360,7 @@ export class GenerarReservacionPage {
           mode: 'md',
           columns: [
             {
-              name: this.translateService.instant('HOUR'),
+              name: 'Hour',
               options: options,
             },
           ],
@@ -372,6 +372,7 @@ export class GenerarReservacionPage {
             {
               text: this.translateService.instant('CONFIRM'),
               handler: (value) => {
+                console.log('value', value);
                 if (index == 1) {
                   this.nuevaReservacion.Hora_Fin = null;
                   this.nuevaReservacion.Hora_Inicio = value.Hour.value;
@@ -428,7 +429,9 @@ export class GenerarReservacionPage {
     }
   }
 
- 
+  filtroUbicacion(){
+    this.alertasService.message('FUTPLAY', 'Not Availabe yet')
+  }
 
   cerrarModal() {
     this.modalCtrl.dismiss();

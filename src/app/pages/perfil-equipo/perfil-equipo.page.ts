@@ -121,6 +121,8 @@ async cargarEquipos(){
   }
 
   async equipoGeolocalizacionModal() {
+
+    if(this.usuariosService.usuarioActual.Cod_Usuario != this.equiposService.equipo.equipo.Cod_Usuario) return
     if (!this.modalOpen) {
       const modal = await this.modalCtrl.create({
         component: EquipoGeolocalizacionPage,
@@ -204,6 +206,11 @@ async cargarEquipos(){
 
     modal.present();
     const { data } = await modal.onWillDismiss();
+
+    if(data){
+      this.cargarEquipos();
+ 
+    }
   }
 
   async myClubsMenu() {

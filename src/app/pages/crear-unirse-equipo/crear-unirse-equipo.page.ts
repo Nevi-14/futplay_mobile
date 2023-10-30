@@ -16,10 +16,7 @@ export class CrearUnirseEquipoPage implements OnInit {
 
   ngOnInit() {}
 
-  cerrarModal() {
-    this.modalCtrl.dismiss(null, null, 'create-join-modal');
-  }
-
+ 
   async crearEquipo() {
     const modal = await this.modalCtrl.create({
       component: CrearEquipoPage,
@@ -32,7 +29,7 @@ export class CrearUnirseEquipoPage implements OnInit {
 
     if (data !== undefined) {
       console.log(data, 'data');
-      this.cerrarModal();
+      
     }
   }
 

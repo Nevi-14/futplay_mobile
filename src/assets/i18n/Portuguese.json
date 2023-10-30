@@ -31,7 +31,7 @@
     "ADDRESS": "Endereço",
     "COMPLETE_REGISTRATION": "Completar Registro",
     "EXISTING_USER": "Usuário Existente",
-    "RESERVATIONS_TITLE": "Divirta-se ao máximo jogando. Crie ou junte-se a desafios disponíveis na sua região.",
+    "RESERVATIONS_TITLE": "Divirta-se jogando, reserve uma quadra e crie seu próximo desafio.",
     "RESERVE_SOCCER_FIELD": "Reservar Campos de Futebol",
     "YOUR_CHALLENGES": "Seus Desafios",
     "CHALLENGES_AVAILABLE": "Desafios Disponíveis",
@@ -94,9 +94,6 @@
     "CONFIRMED": "Confirmado",
     "HISTORY": "História",
     "CHALLENGES_HISTORY": "Histórico de Desafios",
-    "CONFIRMED_CHALLENGES": "Desafios Confirmados",
-    "SENT_CHALLENGES": "Desafios Enviados",
-    "RECEIVED_CHALLENGES": "Desafios Recebidos",
     "SOCCER_FIELD_DETAILS": "Detalhes do Campo de Futebol",
     "SOCCER_FIELD": "Campo de Futebol",
     "ADD_RESERVATION": "Adicionar Reserva",
@@ -280,6 +277,14 @@
     "PENDING_PAYMENTS": "Pagamentos Pendentes",
     "LEAVE_TEAM": "Deixar Equipe",
     "LEAVE_TEAM_CONFIRMATION": "Você tem certeza de que deseja deixar a equipe?",
-    "INBOX": "Caixa de Entrada"
+    "INBOX": "Caixa de Entrada",
+  "RESERVATIONS": "Reservas",
+  "YOUR_RESERVATIONS": "Suas Reservas",
+  "SEARCH": "Buscar",
+  "EXPLORE": "Explorar",
+  "CONFIRMED_CHALLENGES":"Desafios Confirmados",
+  "SENT_CHALLENGES":"Desafios Enviados",
+  "RECEIVED_CHALLENGES":"Desafios Recebidos",
+  "AVAILABLE_CHALLENGES":"Desafios Disponíveis"
   }
   

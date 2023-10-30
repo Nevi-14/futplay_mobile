@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
   providedIn: 'root'
 })
 export class AlertasService {
-
+  segment = 'reservaciones';
   isLoading = false;
   loading: HTMLIonLoadingElement;
   pagina = null;

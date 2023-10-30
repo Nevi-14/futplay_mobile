@@ -1,4 +1,4 @@
-<ion-content *ngIf="equiposService.equipo">
+<ion-content *ngIf="equiposService.equipo && equiposService.equipo.equipo">
   <ion-button
     class="menu"
     size="large"
@@ -139,7 +139,7 @@
     (click)="leaveTeam()"
     detail
   >
-    <ion-label>{{"LEAVE_TEAM" | translate }}</ion-label>
+    <ion-label color="danger">{{"LEAVE_TEAM" | translate }}</ion-label>
 
   </ion-item>
     <ion-item

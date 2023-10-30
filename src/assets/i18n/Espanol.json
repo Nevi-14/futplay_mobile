@@ -31,7 +31,7 @@
     "ADDRESS":"Dirección",
     "COMPLETE_REGISTRATION":"Completar registro!",
     "EXISTING_USER":"Usuario existente,",
-    "RESERVATIONS_TITLE":"Diviértete al máximo jugando. Crea o únete a desafíos disponibles en tu zona.",
+    "RESERVATIONS_TITLE":"Diviértete al máximo jugando Reserva una cancha y crea tu próximo desafío.",
     "RESERVE_SOCCER_FIELD":"Reservar canchas",
     "YOUR_CHALLENGES":"Tus Retos",
     "CHALLENGES_AVAILABLE":"Retos Disponibles",
@@ -94,12 +94,7 @@
    "CONFIRMED":"Confirmados",
    "HISTORY":"Historia",
    "CHALLENGES_HISTORY":"Historial Retos",
-   "CONFIRMED_CHALLENGES":"Retos Confirmados",
-   "SENT_CHALLENGES":"Retos Enviados",
-   "RECEIVED_CHALLENGES":"Retos Recibidos",
-   "SOCCER_FIELD_DETAILS":"Detalles Cancha",
-   "SOCCER_FIELD":"Cancha",
-   "ADD_RESERVATION":"Agregar reserva",
+  "ADD_RESERVATION":"Agregar reserva",
    "PRICE":"Precio",
    "SCHEDULE":"Horario",
    "MONDAY":"Lunes",
@@ -280,7 +275,16 @@
 "PENDING_PAYMENTS": "Pagos Pendientes",
 "LEAVE_TEAM": "Dejar Equipo",
 "LEAVE_TEAM_CONFIRMATION": "Estas seguro que deseas dejar el equipo?",
-"INBOX": "Bandeja de Entrada"
+"INBOX": "Bandeja de Entrada",
+"RESERVATIONS": "Reservas",
+"YOUR_RESERVATIONS":"Tus Reservas",
+"SEARCH":"Buscar",
+"EXPLORE":"Explorar",
+"CONFIRMED_CHALLENGES":"Retos Confirmados",
+"SENT_CHALLENGES":"Retos Enviados",
+"RECEIVED_CHALLENGES":"Retos Recibidos",
+"AVAILABLE_CHALLENGES":"Retos Disponibles"
+ 
  
 
  }

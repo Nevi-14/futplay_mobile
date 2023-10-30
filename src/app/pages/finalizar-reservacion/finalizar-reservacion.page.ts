@@ -28,10 +28,10 @@ export class FinalizarReservacionPage {
   @Input() rival: PerfilEquipos;
   @Input() retador: PerfilEquipos;
   @Input() efectuarPago: boolean;
- pagoPendiente = false;
+  pagoPendiente = false;
   total = 0;
   url = environment.archivosURL;
-   pago:ConfirmacionPagos[] = [];
+  pago: ConfirmacionPagos[] = [];
   constructor(
     private alertController: AlertController,
     public modalCtrl: ModalController,
@@ -59,8 +59,9 @@ export class FinalizarReservacionPage {
   async ionViewWillEnter() {
     this.pagoPendiente = this.nuevaReservacion.Cod_Estado == 7 ? true : false;
 
-   this.pago =  await this.confirmacionPagosService.getConfirmacionPagoToPromise(this.nuevaReservacion.Cod_Reservacion);
- 
+    let pago = await this.confirmacionPagosService.getConfirmacionPagoToPromise(
+      this.nuevaReservacion.Cod_Reservacion
+    );
     console.log(
       this.nuevaReservacion,
       this.detalleReservacion,
@@ -111,9 +112,8 @@ export class FinalizarReservacionPage {
         'INDIVIDUAL_RESERVATION'
       );
     } else if (this.nuevaReservacion.Cod_Tipo == 2) {
-      this.nuevaReservacion.Titulo = this.translateService.instant(
-        'OPEN_RESERVATION'
-      );
+      this.nuevaReservacion.Titulo =
+        this.translateService.instant('OPEN_RESERVATION');
       this.detalleReservacion.Cod_Rival = this.retador.equipo.Cod_Equipo;
       this.detalleReservacion.Notas_Estado = this.translateService.instant(
         'PENDING_CONFIRMATION'
@@ -134,9 +134,7 @@ export class FinalizarReservacionPage {
     this.nuevaReservacion.Hora_Inicio =
       format(new Date(this.nuevaReservacion.Hora_Inicio), 'yyy-MM-dd') +
       ' ' +
-      new Date(this.nuevaReservacion.Hora_Inicio)
-        .toTimeString()
-        .split(' ')[0];
+      new Date(this.nuevaReservacion.Hora_Inicio).toTimeString().split(' ')[0];
     this.nuevaReservacion.Hora_Fin =
       format(new Date(this.nuevaReservacion.Hora_Fin), 'yyy-MM-dd') +
       ' ' +
@@ -164,15 +162,15 @@ export class FinalizarReservacionPage {
               async (resp) => {
                 if (this.rival && this.retador) {
                   this.emailService
-                    .enviarCorreoReservaciones(
-                      1,
-                      this.rival.correo
-                    )
+                    .enviarCorreoReservaciones(1, this.rival.correo)
                     .then(
                       async (resp) => {
-                        await this.gestionReservacionesService.cargarReservaciones();
-                        this.regresar();
                         this.alertasService.loadingDissmiss();
+                        this.alertasService.segment = 'reservaciones';
+                        this.router.navigateByUrl('/futplay/reservaciones', {
+                          replaceUrl: true,
+                        });
+                        this.modalCtrl.dismiss(true);
                         this.alertasService.message(
                           'FUTPLAY',
                           this.translateService.instant(
@@ -185,14 +183,15 @@ export class FinalizarReservacionPage {
                       }
                     );
                 } else {
-                  await this.gestionReservacionesService.cargarReservaciones();
-                  this.regresar();
                   this.alertasService.loadingDissmiss();
+                  this.alertasService.segment = 'reservaciones';
+                  this.router.navigateByUrl('/futplay/reservaciones', {
+                    replaceUrl: true,
+                  });
+                  this.modalCtrl.dismiss(true);
                   this.alertasService.message(
                     'FUTPLAY',
-                    this.translateService.instant(
-                      'CHALLENGE_SENT_SUCCESSFULLY'
-                    )
+                    this.translateService.instant('CHALLENGE_SENT_SUCCESSFULLY')
                   );
                 }
               },
