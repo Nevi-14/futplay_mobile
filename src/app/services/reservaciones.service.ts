@@ -272,6 +272,8 @@ export class ReservacionesService {
     return this.getReservacionesConfirmadas(Cod_Usuario).toPromise();
   }
 
+  
+
   insertarDetalleReservacionToPromise(detalle: DetalleReservaciones) {
     return this.postDetalleReservacion(detalle).toPromise();
   }

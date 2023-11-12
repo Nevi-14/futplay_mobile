@@ -1,120 +1,95 @@
-ion-header {
-
-  ion-toolbar {
-    --background: #5a55ca;
-    color: #fff;
-
-    ion-icon {
-      color: #fff;
+ 
+.container{
+  position: relative;
+  .ion-fab-button {
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    z-index: 1001;
+  }
+  .swiper-wrapper {
+    width: min-content !important;
+  } 
+  swiper-slide{
+    height: 280px;
+    z-index: 1000;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    
     }
   }
 }
-ion-fab-button{
-  --background:#5a55ca;
-  
-} 
-.swiper-wrapper {
-  width: min-content !important;
-}
-ion-avatar ,ion-thumbnail{
- height: 4rem;
- width: 4rem;
-} 
-ion-datetime{
-  --background:#fff;
-  width: 100%;
-  margin: 0 auto;
-}
- 
-.time{
-  font-size: 1rem;
-  text-transform: uppercase;
-  color: #000;
-}
-.stars {
-  display:block;margin-top: 1rem;
-}
-.swiper-pagination {
-  margin: 0.5rem;
-}
-mat-form-field{
-  width: 100%;
-}
 
-
-swiper-container {
-  max-height: 200px;
-  width: 100%;
-  height: 100%;
-}
-
-swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-ion-content {
-  --ion-background-color: #f4f4f4;
-}
-
-.time-picker-button {
-  --background: #833ab4;
-  --color: #fff;
-  --border-radius: 10px;
-  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  --padding-start: 16px;
-  --padding-end: 16px;
-  --padding-top: 12px;
-  --padding-bottom: 12px;
-  --border: none;
-  --outline: none;
-  --font-size: 16px;
-  --transition: all 0.2s ease-in-out;
-  display: flex;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.time-picker-button .icon {
-  margin-right: 10px;
-  font-size: 22px;
-}
-
-.time-picker-button .time-label {
-  flex: 1;
-  text-align: center;
-}
-
-.time-picker-button:before {
-  content: '';
+.first-layer{
+  z-index: 999;
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.2);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  border-radius: inherit;
+  top: 250px;
+  background: #280A50;
+  color: #fff;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+.first-layer-container {
+padding-bottom: 10px;
+  h1 {
+    margin-left: 20px;
+    font-size: 30px;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+  ion-label {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+}
+ .label-box {
+  display: flex;
+  align-items: center;
+ }
+.second-layer{
+  background: #fff;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  ion-col, ion-row{
+    padding: 0;
+  
+  }
 }
 
-.time-picker-button:hover:before {
-  opacity: 1;
+h3 {
+  text-transform: lowercase;
+  font-size: 18px;
+  color: #000;
+  margin-left: 20px;
+}
+h3::first-letter {
+  text-transform: uppercase;
+}
+ion-button {
+border: 1px solid #FEFEFE;
+border-radius: 10px;
+}
+p {
+  margin-top: 0.5rem;
+}
+.datetime-full-width {
+  width: 100% !important;
+  margin: 0 auto !important;
 }
 
-.time-picker-button:active {
-  --transform: scale(0.95);
-  --box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+.custom-button {
+  --border-radius: 12px !important;
+  height: 40px !important;
+  width: 130px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+ion-avatar {
+  height: 42px;
+  width: 42px;
 }

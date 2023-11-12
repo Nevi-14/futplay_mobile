@@ -1,0 +1,60 @@
+<ion-header  mode="md"  class="ion-no-border" >
+ 
+  <ion-toolbar    >
+    <div style="height: 40px;"></div>
+    <ion-button (click)="regresar()" size="small" slot="start" style="margin-top: 40px;"     fill="clear" >
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-button>
+    <ion-item class="custom-item" lines="none">
+   
+      <ion-icon slot="start"   name="search"></ion-icon>
+      <ion-input class="input" (ionInput)="onSearchChange($event)"  type="text"  placeholder="{{'SEARCH' | translate}}"  debounce="250"></ion-input>
+  
+    
+     
+          </ion-item>
+      </ion-toolbar>
+   
+      <ion-toolbar>
+        <ion-title>{{"CHALLENGES_HISTORY" | translate }}</ion-title>
+      </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item class="no-records"  *ngIf="reservaciones.length == 0"  lines="none" >
+      
+      <ion-avatar slot="start">
+        <img   src="assets/logo.png" alt="No data" class="no-data-image">
+      </ion-avatar>
+          <p>{{"NO_RECORDS_FOUND" | translate }}</p>
+        </ion-item>
+
+
+        <ion-grid class="card" (click)="detalleReto(reservacion)" *ngFor="let reservacion of reservaciones | filtro: textoBuscar:'categoria'"     >
+          <ion-row>
+            <ion-col size="12">
+              
+              <img src="{{url+reservacion.cancha.Foto }}" alt=""  onerror="this.src='assets/photo-1473976345543-9ffc928e648d.avif'">
+            
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="8">
+              <strong class="margin-left">{{reservacion.cancha.Nombre}}</strong>   
+            </ion-col>
+            <ion-col size="4">
+              <ion-label class="float-right">      {{reservacion.categoria}}</ion-label>
+            </ion-col>
+            <ion-col size="12">
+              {{reservacion.reservacion.Fecha | date :'longDate'}} |  {{reservacion.detalle.Monto_Total | colones }}  
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+ 
+  </ion-list>
+  
+     
+  </ion-content>
+  

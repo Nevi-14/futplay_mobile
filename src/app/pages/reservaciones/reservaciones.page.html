@@ -1,9 +1,13 @@
+
+ 
+
 <ion-header mode="md"  class="ion-no-border">
+  <app-header></app-header>
   <ion-toolbar>
     <ion-item class="custom-item" lines="none">
-      <ion-icon slot="start" name="search"></ion-icon>
+      <ion-icon   name="search"></ion-icon>
       <ion-input (ionInput)="onSearchChange($event)"  type="text"  placeholder="{{'SEARCH' | translate}}"  debounce="250"></ion-input>
-      <ion-button slot="end" class="filter" fill="clear">
+      <ion-button   class="filter" fill="clear">
         <svg
        
           width="20"

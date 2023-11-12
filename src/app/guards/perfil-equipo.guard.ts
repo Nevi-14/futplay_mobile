@@ -16,9 +16,8 @@ export class PerfilEquipoGuard implements CanLoad {
 
   canLoad(): any {
 
+    if(!this.usuariosService.usuarioActual) return
     this.equiposService.syncMisEquiposToPromise(this.usuariosService.usuarioActual.Cod_Usuario).then( (equipos) => {
-
- 
       this.equiposService.misEquipos = equipos;
       if (this.equiposService.misEquipos.length > 0) {
         this.equiposService.equipo = this.equiposService.misEquipos[0];

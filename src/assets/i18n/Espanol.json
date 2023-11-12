@@ -283,7 +283,29 @@
 "CONFIRMED_CHALLENGES":"Retos Confirmados",
 "SENT_CHALLENGES":"Retos Enviados",
 "RECEIVED_CHALLENGES":"Retos Recibidos",
-"AVAILABLE_CHALLENGES":"Retos Disponibles"
+"AVAILABLE_CHALLENGES":"Retos Disponibles",
+"SOCCER_FIELD":"Cancha",
+"JOIN_GAME":"Unirse al Juego",
+"SELECT_DATE":"Seleccionar Fecha",
+"SELECT_SHECULE":"Seleccionar Horario",
+"YOUR_TEAM":"Tu Equipo",
+"YOUR_TEAM_DESCRIPTION":"Añade al equipo con el que jugaras",
+"TYPE_OF_SOCCER_GAME":"Tipo de partido",
+"RIVAL_DESCRIPTION":"Añade un equipo rival y juega contra el",
+"OPEN_RESERVATION_DESCRIPTION":"Juega contra un equipo aleatorios",
+"RESERVATION_DESCRIPTION" : "Juega solo con tu equipo",
+"CONTUNUE":"Continuar",
+"SELECT_START_TIME":"Seleccionar Hora Inicio",
+"SELECT_END_TIME":"Seleccionar Hora Fin",
+"SELECT_YOUR_TEAM":"Seleccionar Tu Equipo",
+"SELECT_CHALLENGER_TEAM":"Seleccionar Equipo Retador",
+"SELECT_RIVAL_TEAM":"Seleccionar Equipo Rival",
+"TOTAL_AMOUNT":"Monto Total",
+"AMOUNT_TO_PAY":"Monto a Pagar",
+"AMOUNT_TO_PAY_TODAY":"Monto a Pagar Hoy",
+"SEE_ALL":"Ver Todas",
+"SOCCER_FIELDS_DESCRIPTION":"Explora la variedad de canchas"
+ 
  
  
 

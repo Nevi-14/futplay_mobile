@@ -52,10 +52,12 @@ export class GenerarReservacionPage {
   rival: PerfilEquipos;
   retador: PerfilEquipos;
   validarReservacion: boolean = false;
+  retoAbierto = true;
+  retoIndividual = false;
   nuevaReservacion: Reservaciones = {
     Cod_Reservacion: null,
     Cod_Cancha: null,
-    Cod_Tipo: 3,
+    Cod_Tipo: 2,
     Cod_Usuario: this.usuariosService.usuarioActual.Cod_Usuario,
     Reservacion_Externa: false,
     Titulo: '',
@@ -128,11 +130,32 @@ export class GenerarReservacionPage {
     this.modalCtrl.dismiss();
   }
 
+  retoAbiertoChange($event){
+   let value  = $event.detail.checked;
+ if(value){
+  this.nuevaReservacion.Cod_Tipo = 2;
+  this.nuevaReservacion.Cod_Estado = 10;
+  this.detalleReservacion.Cod_Estado = 10;
+  this.rival = null;
+   this.retoIndividual = false;
+  }
+}
+  retoIndividualChange($event){
+    let value  = $event.detail.checked;
+    if(value){
+      this.nuevaReservacion.Cod_Tipo = 1;
+      this.nuevaReservacion.Cod_Estado = 4;
+      this.detalleReservacion.Cod_Estado = 4;
+      this.rival = null;
+      this.retoAbierto = false;
+     }
+  
+  }
   ionViewWillEnter() {
     this.nuevaReservacion = {
       Cod_Reservacion: null,
       Cod_Cancha: null,
-      Cod_Tipo: 3,
+      Cod_Tipo: 2,
       Cod_Usuario: this.usuariosService.usuarioActual.Cod_Usuario,
       Reservacion_Externa: false,
       Titulo: '',
@@ -193,56 +216,19 @@ export class GenerarReservacionPage {
       this.isModalOpen = false;
 
       if (data !== undefined) {
+        this.nuevaReservacion.Cod_Tipo = 3;
+        this.nuevaReservacion.Cod_Estado = 2;
+        this.detalleReservacion.Cod_Estado = 3;
         this.rival = data.equipo;
         this.validarReservacion = true;
+        this.retoAbierto = false;
+        this.retoIndividual = false
         this.cd.detectChanges();
       }
     }
   }
 
-  async tipoReto() {
-    const alert = await this.alertCtrl.create({
-      header: 'FUTPLAY',
-      buttons: [
-        {
-          text: this.translateService.instant('CANCEL'),
-          role: 'cancel',
-          handler: () => {},
-        },
-        {
-          text: this.translateService.instant('CONFIRM'),
-          role: 'confirm',
-          handler: (data) => {
-           if( data) this.nuevaReservacion.Cod_Tipo = data;
-            if (data == 1 || data == 2) {
-              this.rival = null;
-            }
-            this.cd.detectChanges();
-          },
-        },
-      ],
-      mode: 'ios',
-      inputs: [
-        {
-          label: this.translateService.instant('INDIVIDUAL_RESERVATION'),
-          type: 'radio',
-          value: 1,
-        },
-        {
-          label: this.translateService.instant('GROUP_RESERVATION'),
-          type: 'radio',
-          value: 3,
-        },
-        {
-          label: this.translateService.instant('OPEN_RESERVATION'),
-          type: 'radio',
-          value: 2,
-        },
-      ],
-    });
-
-    await alert.present();
-  }
+ 
 
   async canchaDetalle() {
     if (!this.isModalOpen) {
@@ -276,7 +262,7 @@ export class GenerarReservacionPage {
       this.isModalOpen = false;
       if (data !== undefined) {
         this.retador = data.equipo;
-
+        
         this.cd.detectChanges();
       }
     }
@@ -405,6 +391,28 @@ export class GenerarReservacionPage {
   }
 
   async finalizarReservacion() {
+
+    if(this.nuevaReservacion.Hora_Inicio == null){
+      return this.alertasService.message('FUTPLAY', this.translateService.instant('SELECT_START_TIME'))
+    }
+    if(this.nuevaReservacion.Hora_Fin == null){
+      return this.alertasService.message('FUTPLAY', this.translateService.instant('SELECT_YOUR_TEAM'))
+    }
+    if(this.nuevaReservacion.Cod_Tipo == 1 && this.retador == null){
+      return this.alertasService.message('FUTPLAY', this.translateService.instant('SELECT_CHALLENGER_TEAM'))
+    }
+    if(this.nuevaReservacion.Cod_Tipo == 2 && this.retador == null){
+      return this.alertasService.message('FUTPLAY', this.translateService.instant('SELECT_CHALLENGER_TEAM'))
+    }
+
+ 
+    if(this.nuevaReservacion.Cod_Tipo == 3 && this.retador == null){
+      return this.alertasService.message('FUTPLAY', this.translateService.instant('SELECT_CHALLENGER_TEAM'))
+    }
+    if(this.nuevaReservacion.Cod_Tipo == 3 && this.rival == null){
+      return this.alertasService.message('FUTPLAY', this.translateService.instant('SELECT_RIVAL_TEAM'))
+    }
+    
     this.regresar();
     if (!this.isModalOpen) {
       this.isModalOpen = true;

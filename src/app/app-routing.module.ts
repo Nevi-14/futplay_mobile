@@ -257,6 +257,10 @@ const routes: Routes = [
         './pages/contactar-desarollador/contactar-desarollador.module'
       ).then((m) => m.ContactarDesarolladorPageModule),
   },
+  {
+    path: 'historial-retos',
+    loadChildren: () => import('./pages/historial-retos/historial-retos.module').then( m => m.HistorialRetosPageModule)
+  },
 ];
 
 @NgModule({

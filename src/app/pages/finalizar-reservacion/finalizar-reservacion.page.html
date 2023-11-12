@@ -1,60 +1,175 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-button slot="start" (click)="regresar()" fill="clear">
-      <ion-icon size="large" name="close-outline"></ion-icon>
-    </ion-button>
-    <ion-title>{{"COMPLETE_RESERVATION" | translate }} </ion-title>
-  </ion-toolbar>
-</ion-header>
+ 
 <ion-content>
-  <swiper-container
-    style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
-    class="mySwiper"
-    thumbs-swiper=".mySwiper2"
-    space-between="10"
-    navigation="true"
-  >
-    <swiper-slide>
-      <img
-        src="{{url+cancha.cancha.Foto }}"
-        onerror="this.src='assets/soccerfield.jpg'"
-        alt=""
-      />
-    </swiper-slide>
-  </swiper-container>
-  <ion-list>
-    <ion-item
-      lines="full"
-      class="animate__animated animate__fadeIn ion-no-padding"
-    >
-      <ion-label class="ion-margin">
-        <strong>{{"SOCCER_FIELD" | translate }} : {{cancha.nombre}}</strong>
+  <div class="container">
+ 
+    <swiper-container class="mySwiper" navigation="true">
+      <ion-fab-button class="ion-fab-button" (click)="regresar()" size="small" color="dark">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-fab-button>
+      <swiper-slide>
+        <img
+          src="{{url+cancha.cancha.Foto }}"
+          onerror="this.src='assets/photo-1473976345543-9ffc928e648d.avif'"
+          alt=""
+        />
+      </swiper-slide>
+    </swiper-container>
+
+    <div class="first-layer">
+<div class="first-layer-container">
+<ion-grid >
+  <ion-row>
+    <ion-col size="12">
+      <h1>{{cancha.nombre}}</h1>
+    </ion-col>
+    <ion-col size="12" class="label-box">
+<ion-label>
+  <svg width="13" height="15" viewBox="0 0 13 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.5026 7.49935C6.89219 7.49935 7.22569 7.36063 7.50313 7.0832C7.78056 6.80577 7.91927 6.47227 7.91927 6.08268C7.91927 5.6931 7.78056 5.35959 7.50313 5.08216C7.22569 4.80473 6.89219 4.66602 6.5026 4.66602C6.11302 4.66602 5.77951 4.80473 5.50208 5.08216C5.22465 5.35959 5.08594 5.6931 5.08594 6.08268C5.08594 6.47227 5.22465 6.80577 5.50208 7.0832C5.77951 7.36063 6.11302 7.49935 6.5026 7.49935ZM6.5026 14.5827C4.60191 12.9653 3.18229 11.4631 2.24375 10.0759C1.30521 8.68876 0.835938 7.4049 0.835938 6.22435C0.835938 4.45352 1.40556 3.04275 2.54479 1.99206C3.68403 0.941363 5.0033 0.416016 6.5026 0.416016C8.00191 0.416016 9.32118 0.941363 10.4604 1.99206C11.5997 3.04275 12.1693 4.45352 12.1693 6.22435C12.1693 7.4049 11.7 8.68876 10.7615 10.0759C9.82292 11.4631 8.4033 12.9653 6.5026 14.5827Z" fill="white"/>
+    </svg>
+    
+  {{cancha.pais}}, {{cancha.estado}}</ion-label> 
+  
+  <ion-label>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3.21185 5.3324C3.15531 4.94335 3.03445 4.48025 2.88985 3.92618L2.45646 2.26538L2.44883 2.23611C3.01804 1.68847 3.66818 1.22424 4.37955 0.863102L5.68771 1.85348C6.13616 2.19302 6.51319 2.47848 6.84701 2.67549C7.02179 2.77864 7.19781 2.86578 7.38139 2.9281V5.34564C7.2827 5.39152 7.18814 5.44918 7.09976 5.51851L5.55112 6.73329C5.49334 6.77862 5.43975 6.82771 5.39048 6.88L3.24407 5.95226C3.25705 5.7497 3.24265 5.54433 3.21185 5.3324Z" fill="white"/>
+      <path d="M1.63396 6.56214C1.39754 6.76546 1.06467 6.99224 0.564176 7.33156L0 7.71405C0.0572976 6.08419 0.602473 4.57835 1.49406 3.33793L1.71818 4.19681C1.87324 4.79101 1.97632 5.18942 2.02213 5.50466C2.06581 5.80529 2.04713 5.97056 1.99797 6.10356C1.94921 6.23549 1.85807 6.36939 1.63396 6.56214Z" fill="white"/>
+      <path d="M2.64059 11.9081C3.19726 11.9081 3.66655 11.9081 4.04993 11.953C4.25212 11.9767 4.44523 12.0142 4.6294 12.0763L5.76401 10.5943C5.72267 10.5143 5.68828 10.4298 5.6617 10.3415L5.05343 8.32029C5.0233 8.22015 5.00421 8.11853 4.99566 8.01702L2.81045 7.0725C2.6964 7.21548 2.56438 7.34592 2.41865 7.47125C2.12369 7.72492 1.73277 7.98993 1.26753 8.30533L0.0722112 9.1157C0.212154 10.1179 0.537904 11.0607 1.01356 11.9081L2.64059 11.9081Z" fill="white"/>
+      <path d="M7.84256 6.46204C7.8859 6.42804 7.93481 6.41268 7.98247 6.41268C8.03013 6.41268 8.07905 6.42804 8.12239 6.46204L9.67102 7.67682C9.71232 7.70921 9.74376 7.75509 9.76017 7.80961C9.77606 7.86239 9.77676 7.91993 9.76017 7.97505L9.1519 9.99624C9.13517 10.0518 9.10372 10.096 9.06553 10.1268C9.02342 10.1608 8.9738 10.1784 8.92284 10.1784H7.0421C6.99115 10.1784 6.94153 10.1608 6.89942 10.1268C6.86123 10.096 6.82977 10.0518 6.81305 9.99624L6.20478 7.97505C6.18819 7.91993 6.18889 7.86239 6.20478 7.80961C6.22118 7.75509 6.25263 7.70921 6.29392 7.67682L7.84256 6.46204Z" fill="white"/>
+      <path d="M9.11207 2.70053C9.45001 2.51094 9.83299 2.23389 10.2885 1.90441L11.6835 0.895248C12.3766 1.25481 13.0104 1.71269 13.5664 2.25038L13.1291 3.92627C12.9845 4.48033 12.8637 4.94343 12.8071 5.33248C12.7765 5.54328 12.7621 5.74758 12.7747 5.94908L10.5769 6.88255C10.5269 6.82931 10.4725 6.77935 10.4138 6.73329L8.86519 5.51851C8.77681 5.44918 8.68225 5.39152 8.58356 5.34564V2.93773C8.76443 2.87967 8.93869 2.7978 9.11207 2.70053Z" fill="white"/>
+      <path d="M7.45885 1.64253C7.1918 1.48492 6.86984 1.24234 6.38698 0.876779L5.67967 0.341287C6.41416 0.119327 7.19325 0 8.00023 0C8.82778 0 9.62601 0.12549 10.3769 0.358467L9.6107 0.912699C9.12024 1.26748 8.79331 1.50282 8.52307 1.65443C8.26623 1.79851 8.1167 1.83355 7.98915 1.83213C7.86156 1.83072 7.71271 1.79235 7.45885 1.64253Z" fill="white"/>
+      <path d="M13.6003 7.47133C13.8953 7.725 14.2862 7.99002 14.7515 8.30542L15.9298 9.10431C15.7908 10.1108 15.4644 11.0575 14.9869 11.9081L13.4977 11.9081C12.941 11.9081 12.4717 11.9081 12.0883 11.953C11.8777 11.9777 11.677 12.0174 11.4859 12.0841L10.2119 10.5727C10.2484 10.4992 10.279 10.4219 10.3032 10.3415L10.9115 8.32029C10.9413 8.22117 10.9604 8.12059 10.969 8.02011L13.2063 7.06986C13.3209 7.2139 13.4537 7.3452 13.6003 7.47133Z" fill="white"/>
+      <path d="M10.2602 13.3012C10.0985 13.6581 9.95084 14.1131 9.77428 14.657L9.37656 15.8822C8.9294 15.9596 8.46953 16 8.00023 16C7.58168 16 7.17064 15.9679 6.76942 15.906L6.36396 14.657C6.18741 14.1131 6.03972 13.6581 5.87801 13.3012C5.79543 13.1189 5.70359 12.9488 5.59304 12.7939L6.70729 11.3385C6.81512 11.3646 6.92731 11.3784 7.0421 11.3784H8.92284C9.04603 11.3784 9.16622 11.3625 9.28125 11.3326L10.5306 12.8147C10.4265 12.964 10.3391 13.127 10.2602 13.3012Z" fill="white"/>
+      <path d="M5.23059 15.0585C5.04109 14.4748 4.9134 14.0843 4.78264 13.7957C4.65779 13.5201 4.55496 13.3962 4.44733 13.3166C4.34111 13.238 4.19831 13.1787 3.9097 13.1448C3.60467 13.1091 3.20642 13.1081 2.60619 13.1081H1.83903C2.76708 14.2248 3.99331 15.0851 5.39566 15.567L5.23059 15.0585Z" fill="white"/>
+      <path d="M12.2285 13.1448C12.5336 13.1091 12.9318 13.1081 13.5321 13.1081H14.1614C13.2679 14.1832 12.098 15.0207 10.7606 15.5117L10.9077 15.0585C11.0972 14.4748 11.2249 14.0843 11.3556 13.7956C11.4805 13.5201 11.5833 13.3962 11.6909 13.3166C11.7971 13.238 11.9399 13.1787 12.2285 13.1448Z" fill="white"/>
+      <path d="M13.9968 5.50474C14.0426 5.1895 14.1457 4.79109 14.3008 4.19689L14.52 3.35688C15.4012 4.59043 15.9406 6.0846 16 7.70127L15.4548 7.33164C14.9543 6.99232 14.6214 6.76554 14.385 6.56222C14.1609 6.36947 14.0698 6.23557 14.021 6.10364C13.9718 5.97064 13.9531 5.80537 13.9968 5.50474Z" fill="white"/>
+      </svg>
+      
+    
+    {{cancha.categoria}} </ion-label>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</div>
+      <div class="second-layer">
+
+    
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12">
+              <h2>
+                <span *ngIf="nuevaReservacion.Cod_Tipo == 1 ">
+                  {{"INDIVIDUAL_RESERVATION" | translate }}
+                </span>
+                <span *ngIf="nuevaReservacion.Cod_Tipo == 2 ">
+                  {{"OPEN_RESERVATION" | translate }}
+                </span>
+                <span *ngIf="nuevaReservacion.Cod_Tipo == 3 ">
+                  {{"GROUP_RESERVATION" | translate }}
+                </span>
+    
+               
+              </h2>
+            </ion-col>
+            <ion-col size="12">
+         <h3><strong> {{nuevaReservacion.Fecha | date
+              :'fullDate'}}</strong></h3>
+            </ion-col>
+            <ion-col size="12">
+     <ion-label color="dark" style="margin-left: 20px; font-size: 16px;">{{ nuevaReservacion.Hora_Inicio |
+      date:'h:mm a'}}
+      -    {{ nuevaReservacion.Hora_Fin| date:'h:mm
+      a'}}</ion-label>
+            </ion-col>
+
+            <ion-col size="12">
+              <h3><strong>   {{"TEAMS" | translate }}</strong></h3>
+                 </ion-col>
+       <ion-col size="12" *ngIf="nuevaReservacion.Cod_Tipo == 3   && rival && retador">
+ 
+          <ion-row>
+            <ion-col size="6" style="display: flex;align-items: center; padding: 20px;gap:20px">
+              <ion-avatar>
+                <img
+                  *ngIf="!retador.equipo.Avatar"
+                  src="{{url+retador.equipo.Foto}}"
+                  onerror="this.src='assets/img/icon/FP.svg'"
+                  alt=""
+                />
+                <img
+                  *ngIf="retador.equipo.Avatar"
+                  src="assets/soccer-shields-svg/{{retador.equipo.Foto}}"
+                  onerror="this.src='assets/img/icon/FP.svg'"
+                  alt=""
+                />
+              </ion-avatar>
+
+              <ion-label color="dark" class="ion-text-uppercase">
+          <strong  
+          >{{retador.equipo.Abreviacion}}
+        </strong>
+        <p>
+          {{"CHALLENGER" | translate }}
+          </p>
+        </ion-label>
+            </ion-col>
+            <ion-col size="6" style="display: flex;align-items: center; padding: 20px;gap:20px">
+              <ion-avatar>
+                <img
+                  *ngIf="!rival.equipo.Avatar"
+                  src="{{url+rival.equipo.Foto}}"
+                  onerror="this.src='assets/img/icon/FP.svg'"
+                  alt=""
+                />
+                <img
+                  *ngIf="rival.equipo.Avatar"
+                  src="assets/soccer-shields-svg/{{rival.equipo.Foto}}"
+                  onerror="this.src='assets/img/icon/FP.svg'"
+                  alt=""
+                />
+              </ion-avatar>
+
+         <ion-label color="dark" class="ion-text-uppercase">
+          <strong  >
+            {{rival.equipo.Abreviacion}}
+          </strong>
+          <p>
+
+            {{"RIVAL" | translate }}
+            </p>
+         </ion-label>
+            </ion-col>
+
+            <ion-col size="12">
+              <h3 color="dark">
+                {{"TOTAL_AMOUNT" | translate  }}
+              </h3>
+            </ion-col>
+            <ion-col size="12">
+      <ion-label color="dark">
+        <span class="total">
+          {{detalleReservacion.Monto_Total | colones }} 
+        </span>
+        {{detalleReservacion.Total_Horas}}/h
       </ion-label>
-    </ion-item>
-    <ion-item
-      lines="full"
-      class="employeeItem animate__animated animate__fadeIn"
-    >
-      <ion-label>
-        {{"CATEGORY" | translate }} : {{cancha.categoria}}
-      </ion-label>
-    </ion-item>
-    <ion-item
-      lines="full"
-      class="employeeItem animate__animated animate__fadeIn"
-    >
-      <ion-label>
-        {{"LOCATION" | translate }} : {{cancha.pais}} {{cancha.estado}}
-      </ion-label>
-    </ion-item>
-    <ion-item
-      *ngIf="nuevaReservacion.Cod_Tipo != 1   && rival && retador"
-      lines="full"
-      class="employeeItem animate__animated animate__fadeIn"
-    >
-      <ion-grid>
+            </ion-col>
+            <ion-col size="12" >
+   <ion-label color="dark"  >
+    <p    style="font-size: 16px;margin-left: 20px;">
+      {{"AMOUNT_PER_TEAM" | translate }} : {{detalleReservacion.Monto_Equipo
+        | colones }}
+     </p>
+   </ion-label>
+            </ion-col>
+          </ion-row>
+   
+       </ion-col>
+
+
+       <ion-col size="12" *ngIf="nuevaReservacion.Cod_Tipo != 3   &&  retador">
+ 
         <ion-row>
-          <ion-col size="3">
+          <ion-col size="6" style="display: flex;align-items: center; padding: 20px;gap:20px">
             <ion-avatar>
               <img
                 *ngIf="!retador.equipo.Avatar"
@@ -69,18 +184,42 @@
                 alt=""
               />
             </ion-avatar>
+
+            <ion-label color="dark" class="ion-text-uppercase">
+        <strong  
+        >{{retador.equipo.Abreviacion}}
+      </strong>
+      <p>
+        {{"CHALLENGER" | translate }}
+        </p>
+      </ion-label>
           </ion-col>
-          <ion-col
-            size="6"
-            style="display: flex; justify-content: center; align-items: center"
-            class="ion-text-uppercase"
-          >
-            <strong style="font-size: 14px"
-              >{{retador.equipo.Abreviacion}} vs
-              {{rival.equipo.Abreviacion}}</strong
-            >
+          <ion-col size="6"  *ngIf="nuevaReservacion.Cod_Tipo == 2 && !rival"  style="display: flex;align-items: center; padding: 20px;gap:20px"> 
+        
+            <ion-avatar>
+              <ion-skeleton-text [animated]="true" >
+       
+              </ion-skeleton-text>
+            
+            </ion-avatar>
+
+            <ion-label color="dark" class="ion-text-uppercase">
+        <strong  
+        > <ion-skeleton-text [animated]="true" style="width: 50px">
+       
+        </ion-skeleton-text>
+      </strong>
+      <p>
+        <ion-skeleton-text [animated]="true" style="width: 80px">
+       
+        </ion-skeleton-text>
+        </p>
+            </ion-label>
+
+
           </ion-col>
-          <ion-col size="3">
+
+          <ion-col size="6" *ngIf="nuevaReservacion.Cod_Tipo == 2 && rival"  style="display: flex;align-items: center; padding: 20px;gap:20px">
             <ion-avatar>
               <img
                 *ngIf="!rival.equipo.Avatar"
@@ -95,97 +234,41 @@
                 alt=""
               />
             </ion-avatar>
+
+       <ion-label color="dark" class="ion-text-uppercase">
+        <strong  >
+          {{rival.equipo.Abreviacion}}
+        </strong>
+        <p>
+
+          {{"RIVAL" | translate }}
+          </p>
+       </ion-label>
           </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
-    <ion-grid class="ion-margin">
-      <ion-row>
-        <ion-col size="12">
-          <ion-label>
-            <span *ngIf="nuevaReservacion.Cod_Tipo == 1 ">
-              {{"INDIVIDUAL_RESERVATION" | translate }}
-            </span>
-            <span *ngIf="nuevaReservacion.Cod_Tipo == 2 ">
-              {{"OPEN_RESERVATION" | translate }}
-            </span>
-            <span *ngIf="nuevaReservacion.Cod_Tipo == 3 ">
-              {{"GROUP_RESERVATION" | translate }}
-            </span>
+     
 
-            <p
-              class="ion-text-wrap"
-              style="margin-top: 0.5rem"
-              *ngIf="nuevaReservacion.Cod_Tipo == 1 "
-            >
-              {{"RESERVATION_FOR_ONE_PERSON" | translate }}
-            </p>
-            <p
-              class="ion-text-wrap"
-              style="margin-top: 0.5rem"
-              *ngIf="nuevaReservacion.Cod_Tipo == 2 "
-            >
-              {{"OPEN_RESERVATION_FOR_OTHER_TEAMS_TO_JOIN" | translate }}
-            </p>
-            <p
-              class="ion-text-wrap"
-              style="margin-top: 0.5rem"
-              *ngIf="nuevaReservacion.Cod_Tipo == 3 "
-            >
-              {{"CHALLENGE_OTHER_TEAMS" | translate }}
-            </p>
-          </ion-label>
-        </ion-col>
-        <ion-col size="12">
-          {{"DATE" | translate }} : {{nuevaReservacion.Fecha | date
-          :'fullDate'}}
-        </ion-col>
-        <ion-col size="12">
-          {{"START_TIME" | translate }} : {{ nuevaReservacion.Hora_Inicio |
-          date:'h:mm a'}}
-        </ion-col>
-        <ion-col size="12">
-          {{"END_TIME" | translate }} : {{ nuevaReservacion.Hora_Fin| date:'h:mm
-          a'}}
-        </ion-col>
-        <ion-col size="12">
-          {{"TOTAL_HOURS" | translate }} x
-          <strong>{{detalleReservacion.Total_Horas}}</strong>
-        </ion-col>
-        <ion-col size="12">
-          {{"TOTAL" | translate }} : {{detalleReservacion.Monto_Total | colones
-          }}
-        </ion-col>
-        <ion-col size="12">
-          {{"AMOUNT_PER_TEAM" | translate }} : {{detalleReservacion.Monto_Equipo
-          | colones }}
-        </ion-col>
-        <ion-col size="12" *ngIf="pago.length == 0 && pagoPendiente || pago.length > 0 && pagoPendiente" >
-
-          {{"PENDING_PAYMENTS" | translate }}
-          <ion-item
-       
-        >
-        <ion-label class="ion-text-capitalize"><strong>{{rival.equipo.Nombre}}</strong></ion-label>
-
-        <ion-fab-button size="small"  slot="end" [color]="pago.length == 0  ?   'danger' ||  pago[0].Cod_Equipo == rival.equipo.Cod_Equipo  : 'success' ">
-          <ion-icon [name]="pago.length == 0 ? 'close-outline' ||  pago[0].Cod_Equipo == rival.equipo.Cod_Equipo  : 'checkmark-outline'"></ion-icon>
-        </ion-fab-button>
-        </ion-item>
-
-        <ion-item
-        lines="none"
-        >
-      
-          <ion-label class="ion-text-capitalize"><strong>{{retador.equipo.Nombre}}</strong></ion-label>
-   
-        <ion-fab-button size="small" slot="end" [color]="pago.length == 0  ||  pago.length == 1    ?  'danger' : 'success' ">
-          <ion-icon [name]="pago.length == 1   ? 'close-outline' : 'checkmark-outline'"></ion-icon>
-        </ion-fab-button>
-        </ion-item>
-        </ion-col>
-        <ion-col
-          size="12"
+          <ion-col size="12">
+            <h3 color="dark">
+           {{"AMOUNT_TO_PAY" | translate  }}
+            </h3>
+          </ion-col>
+          <ion-col size="12">
+    <ion-label color="dark">
+      <span class="total">
+        {{detalleReservacion.Monto_Total | colones }} 
+      </span>
+      {{detalleReservacion.Total_Horas}}/h
+    </ion-label>
+          </ion-col>
+          <ion-col size="12"  *ngIf="nuevaReservacion.Cod_Tipo != 1" >
+ <ion-label color="dark"  >
+  <p    style="font-size: 16px;margin-left: 20px;">
+    {{"AMOUNT_PER_TEAM" | translate }} : {{detalleReservacion.Monto_Equipo
+      | colones }}
+   </p>
+ </ion-label>
+          </ion-col>
+          <ion-col   size="12"
           *ngIf="nuevaReservacion.Cod_Tipo == 1 || efectuarPago "
         >
           <app-payment
@@ -197,20 +280,26 @@
             [monto]="total"
           ></app-payment>
         </ion-col>
+        </ion-row>
+ 
+     </ion-col>
 
-        <ion-col
-          size="12"
-          *ngIf="nuevaReservacion.Cod_Tipo != 1 && !efectuarPago"
-        >
-          <app-button
-            (click)="enviarReto()"
-            class="ion-margin"
-            label="{{ 'COMPLETE_RESERVATION' | translate }} "
-          ></app-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-list>
+
+
+
+       <ion-col size="12" *ngIf="nuevaReservacion.Cod_Tipo != 1 && !efectuarPago" class="ion-text-center">
+        <ion-button
+        style="height: 45px;text-transform: capitalize;margin-top: 30px;font-size: 18px;"
+        shape="round"
+        (click)="enviarReto()">
+        {{ 'COMPLETE_RESERVATION' | translate }}
+      </ion-button>
+       </ion-col>
+    
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+  </div>
 </ion-content>
-
-<ion-footer> </ion-footer>
+ 

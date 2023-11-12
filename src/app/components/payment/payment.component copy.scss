@@ -26,29 +26,3 @@ input[type="number"]:focus {
  #card-element {
     margin-top: 16px;
  }
-
- .stripe-card {
-  background: #ffffff;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 2px 10px 0 rgba(0,0,0,0.1);
-  height: 40px;
-  font-size: 20px;
-}
-
-.total {
-  margin-left: 20px;
-  font-size: 20px;
-  font-weight: bold;
-  color: #280A50;
-
-}
-h3 {
-  text-transform: lowercase;
-  font-size: 18px;
-  color: #000;
-  margin-left: 22px;
-}
-h3::first-letter {
-  text-transform: uppercase;
-}

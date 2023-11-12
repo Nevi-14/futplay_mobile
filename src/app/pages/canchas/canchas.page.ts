@@ -100,7 +100,7 @@ export class CanchasPage {
     return this.canchasService.disponibilidadCancha(cancha);
   }
   regresar() {
-    this.modalCtrl.dismiss();
+    this.router.navigate(['/futplay/gestion-retos']);
   }
   horarioCancha(cancha: PerfilCancha) {
     return this.canchasService.horarioCancha(cancha);

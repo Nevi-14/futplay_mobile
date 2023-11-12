@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -8,6 +8,8 @@ import { GestionRetosPageRoutingModule } from './gestion-retos-routing.module';
 
 import { GestionRetosPage } from './gestion-retos.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { ComponentsModule } from 'src/app/components/components.module';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -15,8 +17,11 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     IonicModule,
     GestionRetosPageRoutingModule,
-    TranslateModule
+    TranslateModule,
+    ComponentsModule,
+    PipesModule
   ],
-  declarations: [GestionRetosPage]
+  declarations: [GestionRetosPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class GestionRetosPageModule {}

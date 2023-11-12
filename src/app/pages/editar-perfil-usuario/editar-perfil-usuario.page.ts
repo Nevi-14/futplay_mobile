@@ -141,7 +141,7 @@ export class EditarPerfilUsuarioPage implements OnInit {
     public alertCtrl: AlertController
   ) {}
 
-  ngOnInit() {
+  ngOnInit() {console.log(this.usuario);
     this.posicionesService.posiciones = [];
     this.posicionesService.syncPosicionesToPromise().then((resp) => {
       this.showPosicion = true;
@@ -181,6 +181,7 @@ export class EditarPerfilUsuarioPage implements OnInit {
 
   updateUser(fRegistroEquipo: NgForm) {
     let usuario = fRegistroEquipo.value;
+    console.log(usuario);
     this.usuario.Nombre = usuario.Nombre;
     this.usuario.Primer_Apellido = usuario.Primer_Apellido;
     this.usuario.Apodo = usuario.Apodo;

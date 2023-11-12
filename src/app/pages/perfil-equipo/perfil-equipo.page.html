@@ -1,4 +1,6 @@
-<ion-content *ngIf="equiposService.equipo && equiposService.equipo.equipo">
+
+<app-secondary-header></app-secondary-header>
+<ion-toolbar>
   <ion-button
     class="menu"
     size="large"
@@ -17,7 +19,7 @@
     </strong>
   </ion-button>
   <ion-button
-    *ngIf="usuariosService.usuarioActual.Cod_Usuario == equiposService.equipo.equipo.Cod_Usuario"
+    *ngIf="equiposService.equipo && usuariosService.usuarioActual.Cod_Usuario == equiposService.equipo.equipo.Cod_Usuario"
     (click)="gestionarPerfil()"
     class="profile"
     size="large"
@@ -34,6 +36,9 @@
       ></ion-icon>
     </strong>
   </ion-button>
+</ion-toolbar>
+<ion-content *ngIf="equiposService.equipo && equiposService.equipo.equipo">
+ 
   <ion-avatar class="profile-image">
     <img
       *ngIf="!equiposService.equipo.equipo.Avatar  && equiposService.equipo.equipo.Foto != 'No Pic'"

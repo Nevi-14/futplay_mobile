@@ -285,6 +285,26 @@
   "CONFIRMED_CHALLENGES":"Desafios Confirmados",
   "SENT_CHALLENGES":"Desafios Enviados",
   "RECEIVED_CHALLENGES":"Desafios Recebidos",
-  "AVAILABLE_CHALLENGES":"Desafios Disponíveis"
+  "AVAILABLE_CHALLENGES":"Desafios Disponíveis",
+  "JOIN_GAME":"Juntar-se ao Jogo",
+"SELECT_DATE": "Selecionar Data",
+"SELECT_SHECULE": "Selecionar Horário",
+"YOUR_TEAM": "Seu Time",
+"YOUR_TEAM_DESCRIPTION": "Adicione o time com o qual você vai jogar",
+"TYPE_OF_SOCCER_GAME": "Tipo de Jogo",
+"RIVAL_DESCRIPTION": "Adicione um time rival e jogue contra ele",
+"OPEN_RESERVATION_DESCRIPTION": "Jogue contra um time aleatório",
+"RESERVATION_DESCRIPTION" : "Jogue apenas com o seu time",
+"CONTUNUE": "Continuar",
+"SELECT_START_TIME": "Selecionar Hora de Início",
+"SELECT_END_TIME": "Selecionar Hora de Término",
+"SELECT_YOUR_TEAM": "Selecionar Seu Time",
+"SELECT_CHALLENGER_TEAM": "Selecionar Time Desafiante",
+"SELECT_RIVAL_TEAM": "Selecionar Time Rival",
+"TOTAL_AMOUNT": "Valor Total",
+"AMOUNT_TO_PAY": "Valor a Pagar",
+"AMOUNT_TO_PAY_TODAY": "Valor a Pagar Hoje",
+"SEE_ALL": "Ver Todas",
+"SOCCER_FIELDS_DESCRIPTION": "Explore a variedade de campos"
   }
   

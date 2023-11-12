@@ -1,41 +1,47 @@
+
+
+<app-secondary-header></app-secondary-header>
+<ion-toolbar>
+  <ion-button
+  class="notification"
+  size="large"
+  (click)="solicitudes()"
+  fill="clear"
+  color="dark"
+>
+  <strong>
+    <ion-icon
+      size="large"
+      class="menu"
+      size="large"
+      slot="icon-only"
+      name="notifications-outline"
+    ></ion-icon>
+  </strong>
+  <ion-badge class="badge" color="primary" mode="ios"
+    >{{solicitudesService.solicitudesJugadoresArray.length}}</ion-badge
+  >
+</ion-button>
+<ion-button
+  (click)="onOpenMenu()"
+  style="position: fixed; top: 0rem; right: 0rem"
+  size="large"
+  fill="clear"
+  color="dark"
+>
+  <strong>
+    <ion-icon
+      size="large"
+      class="menu"
+      size="large"
+      slot="icon-only"
+      name="settings-outline"
+    ></ion-icon>
+  </strong>
+</ion-button>
+</ion-toolbar>
 <ion-content class="ion-padding" *ngIf="usuariosService.usuarioActual">
-  <ion-button
-    class="notification"
-    size="large"
-    (click)="solicitudes()"
-    fill="clear"
-    color="dark"
-  >
-    <strong>
-      <ion-icon
-        size="large"
-        class="menu"
-        size="large"
-        slot="icon-only"
-        name="notifications-outline"
-      ></ion-icon>
-    </strong>
-    <ion-badge class="badge" color="primary" mode="ios"
-      >{{solicitudesService.solicitudesJugadoresArray.length}}</ion-badge
-    >
-  </ion-button>
-  <ion-button
-    (click)="onOpenMenu()"
-    style="position: fixed; top: 0rem; right: 0rem"
-    size="large"
-    fill="clear"
-    color="dark"
-  >
-    <strong>
-      <ion-icon
-        size="large"
-        class="menu"
-        size="large"
-        slot="icon-only"
-        name="settings-outline"
-      ></ion-icon>
-    </strong>
-  </ion-button>
+   
 
   <ion-avatar>
     <img

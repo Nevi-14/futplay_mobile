@@ -4,26 +4,21 @@
  
    
       <ion-col size="12">
-        <ion-item  class="ion-item">
-          <ion-label>{{ 'FUTPLAY_CODE' | translate }}</ion-label>
+        <ion-item >
+          <ion-label><strong>{{ 'FUTPLAY_CODE' | translate }}</strong></ion-label>
           <ion-input name="code" type="text"   placeholder="" [(ngModel)]="code" placeholder="xxx xxx">
           </ion-input>
         </ion-item>
       </ion-col>
-      <ion-col size="12">
-        <h3 color="dark">
-          {{ 'AMOUNT_TO_PAY_TODAY' | translate }}
-        </h3>
-      </ion-col>
-      <ion-col size="12">
-<ion-label color="dark">
-  <span class="total">
-    {{monto | colones }} 
-  </span>
-</ion-label>
+      <ion-col size="12" >
+        <ion-item  lines="none">
+          <ion-label  ><strong>{{ 'AMOUNT' | translate }}</strong></ion-label>
+          <ion-input [readonly]="true" name="amount" type="text"  placeholder="" ngModel="{{monto | colones }}" >
+          </ion-input>
+        </ion-item>
       </ion-col>
       <ion-col size="12" class="ion-padding">
-        <div id="card-element" class="stripe-card"></div>
+        <div id="card-element"></div>
       </ion-col>
       <ion-col size="12" class="ion-text-center">
         <ion-button 
