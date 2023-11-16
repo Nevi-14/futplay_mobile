@@ -1,68 +1,97 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-button slot="start" (click)="regresar()" fill="clear">
-      <ion-icon size="large" name="close-outline"></ion-icon>
+
+
+<ion-header  mode="md"  class="ion-no-border" >
+ 
+  <ion-toolbar    >
+    <div style="height: 40px;"></div>
+    <ion-button (click)="regresar()" size="small" slot="start" style="margin-top: 40px;"     fill="clear" >
+      <ion-icon name="chevron-back-outline"></ion-icon>
     </ion-button>
-    <ion-title>{{"TEAMS" | translate }}</ion-title>
-  </ion-toolbar>
+    <ion-item class="custom-item" lines="none">
+   
+      <ion-icon slot="start"   name="search"></ion-icon>
+ 
+
+    <ion-input class="input" (ionInput)="onSearchChange($event)"  type="text"  placeholder="{{'SEARCH' | translate}}"  debounce="250"></ion-input>
+
+
+
+      <ion-button slot="end" size="small" (click)="filtroUbicacion()"   class="filter"    fill="clear"    >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <mask id="mask0_2900_1114" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+          <rect width="20" height="20" fill="#D9D9D9"/>
+          </mask>
+          <g mask="url(#mask0_2900_1114)">
+          <path d="M14.4251 16.5024C13.6793 16.5024 13.049 16.245 12.534 15.73C12.0191 15.2151 11.7616 14.5848 11.7616 13.839C11.7616 13.0932 12.0191 12.4629 12.534 11.9479C13.049 11.433 13.6793 11.1756 14.4251 11.1756C15.1708 11.1756 15.8012 11.433 16.3161 11.9479C16.831 12.4629 17.0885 13.0932 17.0885 13.839C17.0885 14.5848 16.831 15.2151 16.3161 15.73C15.8012 16.245 15.1708 16.5024 14.4251 16.5024ZM14.4268 15.4191C14.8637 15.4191 15.236 15.2647 15.5436 14.9559C15.8513 14.647 16.0052 14.2742 16.0052 13.8373C16.0052 13.4004 15.8508 13.0281 15.5419 12.7204C15.2331 12.4127 14.8602 12.2589 14.4233 12.2589C13.9864 12.2589 13.6142 12.4133 13.3065 12.7221C12.9988 13.0309 12.8449 13.4038 12.8449 13.8407C12.8449 14.2776 12.9993 14.6499 13.3082 14.9576C13.617 15.2653 13.9899 15.4191 14.4268 15.4191ZM3.92188 14.3806V13.2973H10.1014V14.3806H3.92188ZM5.58531 8.82297C4.83956 8.82297 4.20922 8.5655 3.69429 8.05057C3.17935 7.53564 2.92188 6.90529 2.92188 6.15953C2.92188 5.41377 3.17935 4.78342 3.69429 4.26849C4.20922 3.75356 4.83956 3.49609 5.58531 3.49609C6.33108 3.49609 6.96142 3.75356 7.47635 4.26849C7.99128 4.78342 8.24875 5.41377 8.24875 6.15953C8.24875 6.90529 7.99128 7.53564 7.47635 8.05057C6.96142 8.5655 6.33108 8.82297 5.58531 8.82297ZM5.58704 7.73966C6.02393 7.73966 6.39622 7.58524 6.70392 7.27641C7.01161 6.96757 7.16546 6.59471 7.16546 6.15782C7.16546 5.72092 7.01104 5.34862 6.70221 5.04093C6.39336 4.73323 6.02049 4.57939 5.5836 4.57939C5.14672 4.57939 4.77442 4.73381 4.46673 5.04266C4.15903 5.35149 4.00519 5.72435 4.00519 6.16124C4.00519 6.59813 4.1596 6.97042 4.46844 7.27811C4.77728 7.58581 5.15015 7.73966 5.58704 7.73966ZM9.90902 6.70118V5.61788H16.0885V6.70118H9.90902Z" fill="#B7B7B7"/>
+          </g>
+          </svg>
+          
+      </ion-button>
+    
+     
+          </ion-item>
+      </ion-toolbar>
+   
+      <ion-toolbar mode="md">
+        <ion-title>{{"TEAMS" | translate }}</ion-title>
+      </ion-toolbar>
 </ion-header>
-<ion-toolbar>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="10">
-        <ion-searchbar
-          (ionInput)="onSearchChange($event)"
-          mode="ios"
-          placeholder="{{'SEARCH_TEAM' | translate }}"
-          inputmode="text"
-          debounce="250"
-        ></ion-searchbar>
-      </ion-col>
-      <ion-col size="2">
-        <ion-buttons>
-          <ion-button (click)="filtroUbicacion()">
-            <ion-icon
-              class="futplay-color"
-              size="large"
-              name="options-outline"
-            ></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-col>
+
+
+
+
+ 
+ 
+<ion-content class="ion-padding">
+ 
+  <ion-grid  *ngIf="equiposService.equipos.length == 0" class="table">
+               
+    <ion-row      class="table-team"  >
+       <ion-col size="1" class="center-text" style="display: flex;">
+          <span> 0 &#176;</span> 
+       </ion-col>
+       <ion-col size="1">
+          <ion-icon name="contact"></ion-icon>
+       </ion-col>
+   
+       <ion-col size="10" class="flex-container">
+        <ion-avatar>
+          <img src="assets/logo.png" alt="">
+        </ion-avatar>
+      
+         <ion-label class="team-name"> {{"NO_RECORDS_FOUND" | translate }}</ion-label>
+       </ion-col>
+ 
     </ion-row>
+
+
+
+
   </ion-grid>
-</ion-toolbar>
-<ion-content fullscreen>
+
+  
+
+
  
 
 
-  <ion-item   *ngIf="equiposService.equipos.length == 0"lines="none"
-  class="animate__animated animate__fadeIn">
-  <span>
-    <ion-avatar>
-      <img src="assets/logo.png" alt="">
-    </ion-avatar>
-  
-   
-    <div>
-      <h2>{{"FUTPLAY_MESSAGE" | translate }} </h2>
-      <p>{{"NO_RECORDS_FOUND" | translate }}</p>
-    </div>
-  </span>
-
-  </ion-item>
-
 
   <ion-list *ngIf="!rival">
-    <ion-item
-      (click)="retornarEquipo(equipo)"
-      lines="full"
-      class="custom-item animate__animated animate__fadeIn"
-      *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'nombre'"
-    >
-  
-        <ion-avatar slot="start">
-          <img
+
+
+    <ion-grid class="table">
+               
+      <ion-row     (click)="retornarEquipo(equipo)" class="table-team" *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'nombre' ; let i = index; ">
+         <ion-col size="1" class="center-text" style="display: flex;">
+            <span> {{i+1}} &#176;</span> 
+         </ion-col>
+         <ion-col size="1">
+            <ion-icon name="contact"></ion-icon>
+         </ion-col>
+     
+         <ion-col size="7" class="flex-container">
+           <ion-avatar>
+            <img
             *ngIf="!equipo.equipo.Avatar"
             src="{{url+equipo.equipo.Foto}}"
             onerror="this.src='assets/img/icon/FP.svg'"
@@ -74,95 +103,112 @@
             onerror="this.src='assets/img/icon/FP.svg'"
             alt=""
           />
-        </ion-avatar>
+            </ion-avatar>
+           <ion-label class="team-name"> {{equipo.nombre}}
 
-        <ion-label>
-          {{'TEAM' | translate }} : {{equipo.nombre}}
-          <p>
-            {{'LOCATION' | translate }} : {{equipo.pais}}, {{equipo.estado}} 
-          </p>
-          <p>
-            {{'SCORE' | translate }} : {{equipo.equipo.Puntaje_Actual ?
-            equipo.equipo.Puntaje_Actual : 0}}
-          </p>
+
+            <p class="stars">
+              <ng-template
+                ngFor
+                let-hero
+                [ngForOf]="filledStars(equipo.equipo.Estrellas)"
+                let-i="index"
+                let-odd="odd"
+              >
+                <ion-icon color="warning" name="star"></ion-icon>
+              </ng-template>
+              <ng-template
+                ngFor
+                let-hero
+                [ngForOf]="emptyStars(equipo.equipo.Estrellas)"
+                let-i="index"
+                let-odd="odd"
+              >
+                <ion-icon color="warning" name="star-outline"></ion-icon>
+              </ng-template>
+            </p>
+
+           </ion-label>
+         </ion-col>
+         
+         <ion-col size="3" class="table-points center-text ">
+           <p> {{equipo.equipo.Puntaje_Actual}} pts</p>
+         </ion-col>
+         
+      </ion-row>
   
-          <p class="stars">
-            <ng-template
-              ngFor
-              let-hero
-              [ngForOf]="filledStars(equipo.equipo.Estrellas)"
-              let-i="index"
-              let-odd="odd"
-            >
-              <ion-icon color="warning" name="star"></ion-icon>
-            </ng-template>
-            <ng-template
-              ngFor
-              let-hero
-              [ngForOf]="emptyStars(equipo.equipo.Estrellas)"
-              let-i="index"
-              let-odd="odd"
-            >
-              <ion-icon color="warning" name="star-outline"></ion-icon>
-            </ng-template>
-          </p>
-        </ion-label>
-     
-    </ion-item>
+  
+  
+  
+    </ion-grid>
+
+    
+ 
   </ion-list>
   <ion-list *ngIf="rival">
-    <ion-item
-      (click)="retornarEquipo(equipo)"
-      lines="full"
-      class="custom-item animate__animated animate__fadeIn"
-      *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'nombre'"
-    >
-      <ion-avatar slot="start">
-        <img
-          *ngIf="!equipo.equipo.Avatar"
-          src="{{url+equipo.equipo.Foto}}"
-          onerror="this.src='assets/img/icon/FP.svg'"
-          alt=""
-        />
-        <img
-          *ngIf="equipo.equipo.Avatar"
-          src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}"
-          onerror="this.src='assets/img/icon/FP.svg'"
-          alt=""
-        />
-      </ion-avatar>
+    <ion-grid class="table">
+               
+      <ion-row     (click)="retornarEquipo(equipo)" class="table-team" *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'nombre' ; let i = index; ">
+         <ion-col size="1" class="center-text" style="display: flex;">
+            <span> {{i+1}} &#176;</span> 
+         </ion-col>
+         <ion-col size="1">
+            <ion-icon name="contact"></ion-icon>
+         </ion-col>
+     
+         <ion-col size="8" class="flex-container">
+           <ion-avatar>
+            <img
+            *ngIf="!equipo.equipo.Avatar"
+            src="{{url+equipo.equipo.Foto}}"
+            onerror="this.src='assets/img/icon/FP.svg'"
+            alt=""
+          />
+          <img  
+            *ngIf="equipo.equipo.Avatar"
+            src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}"
+            onerror="this.src='assets/img/icon/FP.svg'"
+            alt=""
+          />
+            </ion-avatar>
+           <ion-label class="team-name"> {{equipo.nombre}}
 
-      <ion-label>
-        {{'TEAM' | translate }} : {{equipo.nombre}}
-        <p>
-          {{'LOCATION' | translate }} : {{equipo.pais}}, {{equipo.estado}} 
-        </p>
-        <p>
-          {{'SCORE' | translate }} : {{equipo.equipo.Puntaje_Actual ?
-          equipo.equipo.Puntaje_Actual : 0}}
-        </p>
+            <p class="stars">
+              <ng-template
+                ngFor
+                let-hero
+                [ngForOf]="filledStars(equipo.equipo.Estrellas)"
+                let-i="index"
+                let-odd="odd"
+              >
+                <ion-icon color="warning" name="star"></ion-icon>
+              </ng-template>
+              <ng-template
+                ngFor
+                let-hero
+                [ngForOf]="emptyStars(equipo.equipo.Estrellas)"
+                let-i="index"
+                let-odd="odd"
+              >
+                <ion-icon color="warning" name="star-outline"></ion-icon>
+              </ng-template>
+            </p>
 
-        <p class="stars">
-          <ng-template
-            ngFor
-            let-hero
-            [ngForOf]="filledStars(equipo.equipo.Estrellas)"
-            let-i="index"
-            let-odd="odd"
-          >
-            <ion-icon color="warning" name="star"></ion-icon>
-          </ng-template>
-          <ng-template
-            ngFor
-            let-hero
-            [ngForOf]="emptyStars(equipo.equipo.Estrellas)"
-            let-i="index"
-            let-odd="odd"
-          >
-            <ion-icon color="warning" name="star-outline"></ion-icon>
-          </ng-template>
-        </p>
-      </ion-label>
-    </ion-item>
+           </ion-label>
+
+           
+         </ion-col>
+         
+         <ion-col size="2" class="table-points center-text">
+            {{equipo.equipo.Puntaje_Actual}} pts
+         </ion-col>
+        
+      </ion-row>
+  
+  
+  
+  
+    </ion-grid>
+  
   </ion-list>
 </ion-content>

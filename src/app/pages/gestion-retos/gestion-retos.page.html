@@ -50,7 +50,7 @@
   <ion-list class="ion-padding">
     <ion-toolbar mode="md" >
       <ion-title>{{"YOUR_RESERVATIONS" | translate }}</ion-title>
-      <ion-button (click)="todaslasReservaciones()" class="ion-text-capitalize"   fill="clear"  slot="end">
+      <ion-button  (click)="ListaCanchas()" class="ion-text-capitalize"   fill="clear"  slot="end">
         {{"SEE_ALL" | translate }}
       </ion-button>
     </ion-toolbar>
@@ -66,7 +66,7 @@
   
    
     <swiper-slide *ngFor="let reservacion of reservaciones">
-      <ion-grid (click)="detalleReto(reservacion)"  >
+      <ion-grid (click)="retoConfirmado(reservacion)"  >
         <ion-row>
           <ion-col size="12">
             
@@ -91,7 +91,7 @@
   </swiper-container>
   
   
-  <ion-toolbar  >
+  <ion-toolbar mode="md" >
     <ion-title>{{"SOCCER_FIELDS" | translate }}</ion-title>
   </ion-toolbar>
   <swiper-container class="mySwiper" space-between="30" slides-per-view="auto" showsPagination="false">

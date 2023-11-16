@@ -47,7 +47,9 @@ h3,h2 {
   font-size: 16px;
   text-transform: capitalize;
 }
- 
+ion-content{
+  line-height: 1.2;
+ }
 .btn-circle{
     --border-radius: 50%!important;
     height: 30px;

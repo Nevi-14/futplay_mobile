@@ -28,6 +28,7 @@ export class CanchaDetallePage implements OnInit {
   ngOnInit() {
     console.log(this.cancha, 'cancha');
     this.canchasService.cancha = this.cancha;
+    this.cancha.horario.sort((a, b) => a.Cod_Dia - b.Cod_Dia);
     this.canchasService.dia = this.diaSemana(new Date().getDay());
   }
 

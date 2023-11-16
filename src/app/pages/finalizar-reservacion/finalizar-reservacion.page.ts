@@ -27,7 +27,7 @@ export class FinalizarReservacionPage {
   @Input() detalleReservacion: DetalleReservaciones;
   @Input() rival: PerfilEquipos;
   @Input() retador: PerfilEquipos;
-  @Input() efectuarPago: boolean;
+  @Input()efectuarPago: boolean;
   pagoPendiente = false;
   total = 0;
   url = environment.archivosURL;
@@ -62,6 +62,11 @@ export class FinalizarReservacionPage {
     let pago = await this.confirmacionPagosService.getConfirmacionPagoToPromise(
       this.nuevaReservacion.Cod_Reservacion
     );
+ 
+    // if (pago.length == 0 || pago.length == 1) {
+    //   this.efectuarPago  = true;
+   
+    // }
     console.log(
       this.nuevaReservacion,
       this.detalleReservacion,

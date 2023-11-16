@@ -14,6 +14,10 @@ import { GenerarReservacionPage } from '../generar-reservacion/generar-reservaci
 import { CanchaDetallePage } from '../cancha-detalle/cancha-detalle.page';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { HistorialRetosPage } from '../historial-retos/historial-retos.page';
+import { InicioPartidoPage } from '../inicio-partido/inicio-partido.page';
+import { PartidoService } from 'src/app/services/partido.service';
+import { EquiposService } from 'src/app/services/equipos.service';
+import { FinalizarReservacionPage } from '../finalizar-reservacion/finalizar-reservacion.page';
 @Component({
   selector: 'app-gestion-retos',
   templateUrl: './gestion-retos.page.html',
@@ -24,6 +28,7 @@ export class GestionRetosPage implements OnInit {
   url = environment.archivosURL;
   textoBuscar = '';
   canchas:PerfilCancha[] = [];
+  isModalOpen: boolean = false;
   constructor(
     public router: Router, 
     public reservacionesService:ReservacionesService, 
@@ -33,6 +38,8 @@ export class GestionRetosPage implements OnInit {
     public canchasService:CanchasService,
     public translateService:TranslateService,
     public actionSheetCtrl:ActionSheetController,
+    public partidosService:PartidoService,
+    public equiposService:EquiposService
    
     
     ) {}
@@ -69,7 +76,20 @@ export class GestionRetosPage implements OnInit {
   filtroUbicacion(){
     this.alertasService.message('FUTPLAY', 'Not Availabe yet')
   }
-
+  async iniciarPartido(reto: PerfilReservaciones) {
+    console.log(reto);
+    let partido = await this.partidosService.syncGetPartidoReservacion(
+      reto.reservacion.Cod_Reservacion
+    );
+    if (partido.length == 0) {
+      this.alertasService.message(
+        'FUTPLAY',
+        this.translateService.instant('SOMETHING_WENT_WRONG')
+      );
+    } else {
+      this.partidoActual(reto);
+    }
+  }
   async detalleReto(reto:PerfilReservaciones) {
 
   
@@ -86,8 +106,62 @@ export class GestionRetosPage implements OnInit {
     let {data} = await modal.onDidDismiss();
      
   
+}  async finalizarReservacionConfirmada(reto: PerfilReservaciones) {
+  let cancha = await this.canchasService.syncGetPerfilCanchaToPromise(
+    reto.cancha.Cod_Cancha
+  );
+  let rival = await this.equiposService.syncGetPerfilEquipoToPromise(
+    reto.rival.Cod_Equipo
+  );
+  let retador = await this.equiposService.syncGetPerfilEquipoToPromise(
+    reto.retador.Cod_Equipo
+  );
+  if (!this.isModalOpen) {
+    this.isModalOpen = true;
+    const modal = await this.modalCtrl.create({
+      component: FinalizarReservacionPage,
+      cssClass: 'my-custom-modal',
+      mode: 'md',
+      componentProps: {
+        cancha: cancha[0],
+        nuevaReservacion: reto.reservacion,
+        detalleReservacion: reto.detalle,
+        rival: rival[0],
+        retador: retador[0],
+        efectuarPago: true,
+      },
+    });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    this.isModalOpen = false;
+ 
+  }
 }
 
+async retoConfirmado(reto: PerfilReservaciones) {
+  if (reto.reservacion.Cod_Estado == 7) {
+    return this.finalizarReservacionConfirmada(reto);
+  }
+  this.iniciarPartido(reto);
+}
+async partidoActual(reto: PerfilReservaciones) {
+  let partido = await this.partidosService.syncGetPartidoReservacion(
+    reto.reservacion.Cod_Reservacion
+  );
+  const modal = await this.modalCtrl.create({
+    component: InicioPartidoPage,
+    cssClass: 'my-custom-class',
+    componentProps: {
+      reto: reto,
+      partido: partido,
+    },
+    id: 'inicio-partido',
+  });
+
+  await modal.present();
+  let { data } = await modal.onDidDismiss();
+ 
+}
 async todaslasReservaciones() {
   const modal = await this.modalCtrl.create({
     component: HistorialRetosPage,

@@ -1,70 +1,274 @@
  
-ion-header{
-   
-  ion-toolbar{
-    --background:#5a55ca;
-    color: #fff;
-    ion-button ion-icon {
-        color: #fff;
-    }
-}
-}.custom-bottom ion-icon{
-  color: #5a55ca!important;
- 
-}
- .futplay-color{
-  color: rgba(37,13,76,255); 
- }
- .futplay-dark{
-  color: #000; 
- }
- 
-ion-avatar{
-  height: 5rem; width: 5rem;
-}
-  ion-buttons {
-    align-self: start;
-  }
-  .ion-button {
-    --background: #5a55ca;
-    --background-focused: #6f6bbb;
-    --background-activated: #6f6bbb;
-    --padding-top: 1rem;
-    --padding-bottom: 1rem;
-    --padding-start: 0.75rem;
-    --padding-end: 0.75rem;
-    color: #fff;
-    margin-right: 0.5rem;
-}span{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 5px;
-h2,p{
-  margin: 0 0 0 20px;
-  padding: 0;
-}
-}
-.label  {
- 
-  z-index: 1;
-
-  background-color: var(--ion-color-dark);
-  padding: 9px;
-  border-radius: 15px;
-  color: white;
-  box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12);
-}
-
-.ion-avatar{
-  height: 2rem;
-  width: 2rem;
-}
-ion-fab-button{
-  --background:#5a55ca;
-  color: #fff;
-}
 
 .stars {
-  display:block; margin-top: 0.5rem;margin-left: 1rem;
+  display:block;margin-left: 1rem;margin-top: 0.5rem;
 }
+
+
+
+ 
+.table{
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.table-team{
+  margin-bottom: 20px;
+  height: 80px;
+  background-color: rgb(199, 199, 199, 0.16);
+  color: black;
+  font-weight: 500;
+  text-align: center;
+  span{
+      color: var(--ion-color-secondary);
+  }
+}
+
+.table-points{
+
+position: relative;  color: white;
+  background-color: var(--ion-color-secondary);
+  clip-path: polygon(0 0, 150% 0, 100% 100%);
+  p{
+    position: absolute;
+    top: -10px;
+    right: 5px;
+  }
+}
+
+#logo{
+  height: 200px;
+  width: 30%;
+}
+
+#tournaments-title{
+  font-size: 48px;
+  margin-top: 10px;
+  @media (max-width: 900px) {
+      font-size: 32px;
+  }
+}
+
+#first-img{
+  position: absolute;
+  margin-top: 3%;
+}
+
+#second-img{
+  position: absolute;
+  margin-top: 8%;
+  margin-left: 38%;
+  ion-img::part(image) {
+      width: 80%;
+  }
+}
+
+#standings{
+  margin: 0px;
+  padding: 50px;
+  background-color: white;
+  color: var(--ion-color-primary);
+}
+
+#standings-text{
+  width: 50%;
+  h5{
+      letter-spacing: -1px;
+      width: 150%;
+  }
+  @media (max-width: 900px) {
+      h5{
+          width: 100%;
+          text-align: center;
+      }
+      width: 100%;
+  }
+}
+
+#winners-header{
+  float: inline-end;
+  font-size: 24px;
+  @media (max-width: 900px) {
+      float: none;
+      text-align: center;
+  }
+}
+
+#tournament-left{
+  margin-top: 25%;
+}
+
+#last-tournament{
+  padding-top: 10%;
+}
+
+.team-name{
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ion-color-secondary);
+  @media (max-width: 900px) {
+      font-size: 16px;
+  
+}
+}
+@media (max-width: 900px) {
+  ion-avatar{
+      width: 60px;
+      height: 60px;
+  }
+}
+
+.flex-container{
+  display: flex;
+  justify-content: left;
+  gap: 20px;
+  align-items: center;
+}
+
+
+
+
+.custom-item {
+  position: absolute;
+ // top: 5px;
+  left: -10px;
+  --background: rgb(255, 255, 255, 0.1);
+  background-color: rgb(255, 255, 255, 0.1);
+  position: relative;
+  border-radius: 100px;
+  border: 1px solid #B7B7B7;
+  transition: all 0.2s;
+  // margin: 0 auto;
+  // margin-bottom: 16px;
+  // margin-top: 10px;
+  width: 341px;
+  color: #B7B7B7;
+  min-height: 0;
+  height: 45px;
+  ion-input,
+  ion-select {
+    min-height: 0;
+    height: 45px;
+  }
+  ion-icon{
+    font-size: 24px;
+    color: #B7B7B7;
+  }
+  }
+.custom-item:active {
+  border: 1px solid #000;
+  color: #fff;
+}
+.custom-item:focus-within {
+  outline: none;
+  box-shadow: 0 0 0 1px #B7B7B7;
+}
+ 
+.box-container{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  ion-label {
+    width: 90%;
+    font-size: 20px;
+    margin: 0 auto;
+    text-align: center!important;
+    display: flex;
+    justify-content: center;
+  }
+}
+.ion-button {
+  --background: rgb(205, 205, 205, 0.5);
+ // width: 140px;
+  height: 40px;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+
+.no-data-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.no-data-image {
+  width: 100px;
+  height: auto;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+}
+ 
+ 
+ion-segment ion-label{
+  margin: 0;
+}
+.badge-box{
+  position: relative;
+width: 100px;
+}
+.badge{
+  background-color: #5a55ca!important;
+  color: #fff;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -18px;
+  right: -15px;
+  z-index: 1000;
+  
+}
+ion-title {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+}
+ 
+ 
+.button-inner{
+  padding: 0;
+
+}
+.float-right{
+  float: right;
+  margin-right: 10px;
+}
+
+ion-grid {
+  margin-bottom: 16px;
+}
+ 
+.selected{
+  font-weight: 700;
+}
+ion-segment-button {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 18px;
+  text-transform: capitalize;
+  --color-checked: #000;
+  padding: 0;
+  margin: 0;
+ button{
+  height: 20px;
+ }
+} 
+
