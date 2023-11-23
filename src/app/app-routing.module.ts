@@ -5,7 +5,7 @@ import { AutoLoginGuard } from './guards/auto-login.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'inicio-sesion',
+    redirectTo: 'futplay',
     pathMatch: 'full',
   },
   {
@@ -14,8 +14,9 @@ const routes: Routes = [
       import('./pages/inicio-sesion/inicio-sesion.module').then(
         (m) => m.InicioSesionPageModule
       ),
-    canLoad: [AutoLoginGuard],
+    
   },
+ 
   {
     path: 'registro',
     loadChildren: () =>

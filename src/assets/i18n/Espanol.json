@@ -57,7 +57,7 @@
     "TRANSFERS":"Transferencias",
     "TEAM_STATISTICS":"Estadisticas Equipo",
     "LIST_OF_PLAYERS":"Lista de jugadores",
-    "MY_TEAMS":"Mis Equipo",
+    "MY_TEAMS":"Mis Equipos",
     "JOIN_TEAM":"Unirse A Un Equipo",
     "SEARCH_FOR_TEAM":"Buscar Un Equipo",
     "CREATE_TEAM":"Crear Equipo",
@@ -304,8 +304,15 @@
 "AMOUNT_TO_PAY":"Monto a Pagar",
 "AMOUNT_TO_PAY_TODAY":"Monto a Pagar Hoy",
 "SEE_ALL":"Ver Todas",
-"SOCCER_FIELDS_DESCRIPTION":"Explora la variedad de canchas"
- 
+"SOCCER_FIELDS_DESCRIPTION":"Explora la variedad de canchas",
+ "PICK_UP_YOUR_TEAM":"Selecciona tu equipo",
+ "PICK_UP_YOUR_RIVAL_TEAM":"Selecciona a tu equipo rival",
+ "LEAGUE_TABLE":"Tabla de Posiciones",
+ "RESERVE":"Reservar",
+ "PAYMENT_FROM_THE_OTHER_TEAM_IS_REQUIRED":"Se requiere el pago del otro equipo",
+ "AVAILABLE_TOURNAMENTS":"Torneos Disponibles",
+ "RANKING":"Ranking",
+ "TOURMAMENT_NEWS":"Noticias del Torneo"
  
  
 

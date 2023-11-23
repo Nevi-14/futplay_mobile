@@ -368,8 +368,8 @@ export class UsuariosService {
             this.usuarioActual = resp;
             this.storageService.set('usuario', this.usuarioActual);
             let usuario = await this.storageService.get('usuario');
-            this.alertasService.pagina = 'reservaciones';
-            this.route.navigateByUrl('/futplay/reservaciones', {
+            this.alertasService.segment = 'torneos';
+            this.route.navigateByUrl('/futplay/torneos', {
               replaceUrl: true,
             });
           } else {

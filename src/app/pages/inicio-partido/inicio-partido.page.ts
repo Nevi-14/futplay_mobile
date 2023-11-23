@@ -13,6 +13,7 @@ import { PerfilJugador } from 'src/app/models/perfilJugador';
 import { TranslateService } from '@ngx-translate/core';
 import { ReservacionesService } from 'src/app/services/reservaciones.service';
 import { environment } from 'src/environments/environment';
+import { PerfilCancha } from 'src/app/models/perfilCancha';
 @Component({
   selector: 'app-inicio-partido',
   templateUrl: './inicio-partido.page.html',
@@ -21,6 +22,7 @@ import { environment } from 'src/environments/environment';
 export class InicioPartidoPage implements OnInit {
   @Input() reto: PerfilReservaciones;
   @Input() partido: partidos[];
+  @Input() cancha: PerfilCancha;
   retador: boolean = null;
   rival: boolean = null;
   jugadoresPermitidosRetador: PerfilJugador[] = [];
@@ -37,7 +39,7 @@ export class InicioPartidoPage implements OnInit {
     public jugadoresService: JugadoresService,
     private translateService: TranslateService,
     public reservacionesService: ReservacionesService
-  ) {}
+  ) { }
 
   funcionRetador() {
     this.retador = true;
@@ -203,16 +205,32 @@ export class InicioPartidoPage implements OnInit {
           text: 'OK',
           role: 'confirm',
           handler: () => {
+
             this.partidosService
               .syncPutFinalizarPartido(
                 this.retador ? this.partido[0] : this.partido[1]
               )
               .then((resp: any) => {
                 this.partido = resp.partido;
-                this.regresar();
-                if (this.partido[0].Cod_Equipo != this.partido[1].Cod_Equipo) {
-                  this.evaluacionModal();
-                }
+                  let cod_Equipo = this.retador ? this.partido[0].Cod_Equipo : this.partido[1].Cod_Equipo;
+            let puntos  = {
+              "Cod_Equipo": cod_Equipo ,
+              "Cod_Reservacion": this.partido[0].Cod_Reservacion,
+              "Cod_Cancha": this.reto.reservacion.Cod_Cancha,
+              "Cod_Retador": this.reto.retador.Cod_Equipo,
+              "Goles_Retador":cod_Equipo== this.partido[0].Cod_Equipo ? this.partido[0].Goles_Retador : this.partido[1].Goles_Retador,
+              "Cod_Rival": this.reto.rival.Cod_Equipo,
+              "Goles_Rival":cod_Equipo != this.partido[0].Cod_Equipo ? this.partido[1].Goles_Rival : this.partido[0].Goles_Rival,
+            }
+console.log(puntos);
+            this.partidosService.syncPostPuntajeToPromise(puntos).then((resp:any)=>{
+
+              this.regresar();
+              if (this.partido[0].Cod_Equipo != this.partido[1].Cod_Equipo) {
+                this.evaluacionModal();
+              }
+            })
+                
               });
           },
         },
@@ -249,19 +267,7 @@ export class InicioPartidoPage implements OnInit {
       return;
     }
 
-    if (
-      this.partido[0].Goles_Retador != this.partido[1].Goles_Retador ||
-      this.partido[0].Goles_Rival != this.partido[1].Goles_Rival
-    ) {
-      this.alertasService.message(
-        'FUTPLAY',
-        this.translateService.instant(
-          'SCORE_NOT_EQUAL'
-        )
-      );
-
-      return;
-    }
+ 
 
     this.partidosService
       .syncGetPartidoReservacion(this.reto.reservacion.Cod_Reservacion)

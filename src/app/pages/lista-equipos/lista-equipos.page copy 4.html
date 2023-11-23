@@ -1,4 +1,5 @@
- 
+
+
 <ion-header  mode="md"  class="ion-no-border" >
  
   <ion-toolbar    >
@@ -9,7 +10,12 @@
     <ion-item class="custom-item" lines="none">
    
       <ion-icon slot="start"   name="search"></ion-icon>
-      <ion-input class="input" (ionInput)="onSearchChange($event)"  type="text"  placeholder="{{'SEARCH' | translate}}"  debounce="250"></ion-input>
+ 
+
+    <ion-input class="input" (ionInput)="onSearchChange($event)"  type="text"  placeholder="{{'SEARCH' | translate}}"  debounce="250"></ion-input>
+
+
+
       <ion-button slot="end" size="small" (click)="filtroUbicacion()"   class="filter"    fill="clear"    >
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <mask id="mask0_2900_1114" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
@@ -27,27 +33,35 @@
       </ion-toolbar>
    
       <ion-toolbar mode="md">
-        <ion-title *ngIf="!rival">{{"PICK_UP_YOUR_TEAM" | translate }}</ion-title>
-        <ion-title *ngIf="rival">{{"PICK_UP_YOUR_RIVAL_TEAM" | translate }}</ion-title>
+        <ion-title>{{"TEAMS" | translate }}</ion-title>
       </ion-toolbar>
 </ion-header>
+
+
+
+
  
  
 <ion-content class="ion-padding">
  
-  <ion-grid  *ngIf="equipos.length == 0" class="table">
+  <ion-grid  *ngIf="equiposService.equipos.length == 0" class="table">
                
     <ion-row      class="table-team"  >
- 
- 
-       <ion-col size="12" class="flex-container">
+       <ion-col size="1" class="center-text" style="display: flex;">
+          <span> 0 &#176;</span> 
+       </ion-col>
+       <ion-col size="1">
+          <ion-icon name="contact"></ion-icon>
+       </ion-col>
+   
+       <ion-col size="10" class="flex-container">
         <ion-avatar>
           <img src="assets/logo.png" alt="">
         </ion-avatar>
       
          <ion-label class="team-name"> {{"NO_RECORDS_FOUND" | translate }}</ion-label>
        </ion-col>
-       
+ 
     </ion-row>
 
 
@@ -57,14 +71,21 @@
 
   
 
+
  
-  <ion-list  >
+
+
+
+  <ion-list *ngIf="!rival">
+
+
     <ion-grid class="table">
                
-      <ion-row     (click)="retornarEquipo(equipo)" class="table-team" *ngFor="let equipo of equipos | filtro : textoBuscar:'nombre' ; let i = index; ">
-      
+      <ion-row     (click)="retornarEquipo(equipo)" class="table-team" *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'nombre' ; let i = index; ">
      
-         <ion-col size="12" class="flex-container">
+   
+     
+         <ion-col size="9" class="flex-container">
            <ion-avatar>
             <img
             *ngIf="!equipo.equipo.Avatar"
@@ -79,7 +100,74 @@
             alt=""
           />
             </ion-avatar>
-           <ion-label class="team-name"> {{equipo.nombre}}
+           <ion-label class="team-name"> {{equipo.equipo.Cod_Equipo}} {{equipo.nombre}}
+
+
+            <p class="stars">
+              <ng-template
+                ngFor
+                let-hero
+                [ngForOf]="filledStars(equipo.equipo.Estrellas)"
+                let-i="index"
+                let-odd="odd"
+              >
+                <ion-icon color="warning" name="star"></ion-icon>
+              </ng-template>
+              <ng-template
+                ngFor
+                let-hero
+                [ngForOf]="emptyStars(equipo.equipo.Estrellas)"
+                let-i="index"
+                let-odd="odd"
+              >
+                <ion-icon color="warning" name="star-outline"></ion-icon>
+              </ng-template>
+            </p>
+
+           </ion-label>
+         </ion-col>
+         
+         <ion-col size="3" class="table-points center-text ">
+           <p> {{i+1}}</p>
+         </ion-col>
+         
+      </ion-row>
+  
+  
+  
+  
+    </ion-grid>
+
+    
+ 
+  </ion-list>
+  <ion-list *ngIf="rival">
+    <ion-grid class="table">
+               
+      <ion-row     (click)="retornarEquipo(equipo)" class="table-team" *ngFor="let equipo of equiposService.equipos | filtro : textoBuscar:'nombre' ; let i = index; ">
+         <ion-col size="1" class="center-text" style="display: flex;">
+            <span> {{i+1}} &#176;</span> 
+         </ion-col>
+         <ion-col size="1">
+            <ion-icon name="contact"></ion-icon>
+         </ion-col>
+     
+         <ion-col size="8" class="flex-container">
+           <ion-avatar>
+            <img
+            *ngIf="!equipo.equipo.Avatar"
+            src="{{url+equipo.equipo.Foto}}"
+            onerror="this.src='assets/img/icon/FP.svg'"
+            alt=""
+          />
+          <img  
+            *ngIf="equipo.equipo.Avatar"
+            src="assets/soccer-shields-svg/{{equipo.equipo.Foto}}"
+            onerror="this.src='assets/img/icon/FP.svg'"
+            alt=""
+          />
+            </ion-avatar>
+           <ion-label class="team-name">  {{equipo.equipo.Cod_Equipo}} {{equipo.nombre}}
 
             <p class="stars">
               <ng-template
@@ -104,12 +192,12 @@
 
            </ion-label>
 
-           <div   class="table-points ">
-            <ion-label>{{getOrdinal(i+1)}}</ion-label>
-           </div>
+           
          </ion-col>
          
-        
+         <ion-col size="2" class="table-points center-text">
+            {{equipo.equipo.Puntaje_Actual}} pts
+         </ion-col>
         
       </ion-row>
   

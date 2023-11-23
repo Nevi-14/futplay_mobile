@@ -37,6 +37,22 @@ export class PartidoService {
     return this.http.put(URL, partido, options);
   }
 
+  private syncPostPuntaje(puntaje: any) {
+    let URL = this.getURL(environment.agregarMarcadorURL);
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    };
+    return this.http.post(URL, puntaje, options);
+  }
+
+  syncPostPuntajeToPromise(puntaje: any) {
+    return this.syncPostPuntaje(puntaje).toPromise();
+  } 
+   
   private putPartido(partido: partidos) {
     let URL = this.getURL(environment.putPartidoURL);
     URL = URL + partido.Cod_Reservacion;

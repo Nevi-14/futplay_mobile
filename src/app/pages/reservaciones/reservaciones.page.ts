@@ -52,44 +52,49 @@ export class ReservacionesPage {
     this.textoBuscar = $event.detail.value;
   }
   async cargarReservaciones($event: any) {
-    this.alertasService.presentaLoading(
+  await   this.alertasService.presentaLoading(
       this.translateService.instant('LOADING')
     );
     switch ($event.detail.value) {
       case 'AVAILABLE':
         this.reservaciones =
           await this.reservacionesService.syncGetReservacionesAbiertasToPromise();
+          await  this.alertasService.loadingDissmiss();
         break;
       case 'CONFIRMED':
         this.reservaciones =
           await this.reservacionesService.syncgGtReservacionesConfirmadas(
             this.usuariosService.usuarioActual.Cod_Usuario
           );
+          await  this.alertasService.loadingDissmiss();
         break;
       case 'RECEIVED':
         this.reservaciones =
           await this.reservacionesService.syncgGtReservacionesRecibidas(
             this.usuariosService.usuarioActual.Cod_Usuario
           );
+          await  this.alertasService.loadingDissmiss();
         break;
       case 'SENT':
         this.reservaciones =
           await this.reservacionesService.syncgGtReservacionesEnviadas(
             this.usuariosService.usuarioActual.Cod_Usuario
           );
+          await  this.alertasService.loadingDissmiss();
         break;
       case 'HISTORY':
         this.reservaciones =
           await this.reservacionesService.syncgGtReservacionesHistorial(
             this.usuariosService.usuarioActual.Cod_Usuario
           );
+          await  this.alertasService.loadingDissmiss();
         break;
     }
     this.recibidos =
     await this.reservacionesService.syncgGtReservacionesRecibidas(
       this.usuariosService.usuarioActual.Cod_Usuario
     );
-    this.alertasService.loadingDissmiss();
+ 
   }
 
   async iniciarPartido(reto: PerfilReservaciones) {
@@ -148,12 +153,15 @@ export class ReservacionesPage {
     let partido = await this.partidosService.syncGetPartidoReservacion(
       reto.reservacion.Cod_Reservacion
     );
+    let cancha = await this.canchasService.syncGetPerfilCanchaToPromise(reto.cancha.Cod_Cancha);
+ 
     const modal = await this.modalCtrl.create({
       component: InicioPartidoPage,
       cssClass: 'my-custom-class',
       componentProps: {
         reto: reto,
         partido: partido,
+        cancha: cancha[0]
       },
       id: 'inicio-partido',
     });

@@ -1,19 +1,68 @@
- 
-
-
- 
-ion-toolbar {
+ion-card {
+  font-size: 16px;
+  margin: 1rem;
+  height: 250px;
+  --background: #3d1a6a;
+  color: #fff;
   position: relative;
-  ion-icon{
-    font-size: 30px;
-    color: #B7B7B7;
-  }
-  ion-title {
-    margin-left: 5px;
-    margin-top: 20px;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transform: rotate(30deg);
+    pointer-events: none;
+    z-index: 9999;
+    animation: shine 2s infinite;
   }
 }
 
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+#promotion-tournament{
+  height: 250px;
+  img {
+    height:250px;
+    object-fit: cover;
+  }
+}
+.custom-item-img{
+    img {
+      height: 5rem;
+            width: 5rem;
+            border-radius: 10px;
+            border: 2px solid #e7edfb;
+            object-fit:cover;
+        }
+        
+  }
+  .subtitle{
+    color: #5a55ca;
+    margin-left: 1rem;
+  }
+  h3{
+    color: #5a55ca;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: left;
+  margin-left: 1rem;
+   
+  }
+  
+  
 
 .stars {
   display:block;margin-top: 0.5rem;
@@ -123,7 +172,7 @@ text-align: left;
   border-radius: 100px;
   border: 1px solid #B7B7B7;
   transition: all 0.2s;
-  width: 100%;
+  width: 341px;
   color: #B7B7B7;
   min-height: 0;
   height: 45px;

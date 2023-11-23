@@ -25,7 +25,6 @@ export class ListaEquiposPage {
   textoBuscar = '';
   url = environment.archivosURL;
   @ViewChild(IonContent, { static: false }) content: IonContent;
-  equipos = [];
   constructor(
     public modalCtrl: ModalController,
     public equiposService: EquiposService,
@@ -36,19 +35,21 @@ export class ListaEquiposPage {
   ) {}
 
   ionViewWillEnter() {
-    this.alertasService.presentaLoading(
-      this.translateService.instant('LOADING')
-    );
     if (this.rival) {
- 
+      this.alertasService.presentaLoading(
+        this.translateService.instant('LOADING')
+      );
       this.equiposService
         .syncListaEquiposToPromise(
           this.usuariosService.usuarioActual.Cod_Usuario
         )
         .then(
           (resp) => {
-            this.equipos = resp.slice(0);
+            this.equiposService.equipos = resp.slice(0);
+            console.log(this.equiposService.equipos);
             this.alertasService.loadingDissmiss();
+            this.cd.markForCheck();
+            this.cd.detectChanges();
           },
           (error) => {
             this.alertasService.loadingDissmiss();
@@ -61,13 +62,20 @@ export class ListaEquiposPage {
 
         
     } else {
-  
+      this.alertasService.presentaLoading(
+        this.translateService.instant('LOADING')
+      );
       this.equiposService
         .syncMisEquiposToPromise(this.usuariosService.usuarioActual.Cod_Usuario)
         .then(
           (resp) => {
-            this.equipos = resp.slice(0);
+            this.equiposService.equipos = resp.slice(0);
+            console.log(this.equiposService.equipos);
             this.alertasService.loadingDissmiss();
+            this.cd.markForCheck();
+            this.cd.detectChanges();
+            this.cd.markForCheck();
+            this.cd.detectChanges();
           },
           (error) => {
             this.alertasService.loadingDissmiss();
@@ -79,26 +87,7 @@ export class ListaEquiposPage {
         );
     }
   }
-  getOrdinal(number) {
-    if (typeof number !== 'number') {
-        return 'Please provide a valid number.';
-    }
 
-    if (number % 100 >= 11 && number % 100 <= 13) {
-        return number + 'th';
-    }
-
-    switch (number % 10) {
-        case 1:
-            return number + 'st';
-        case 2:
-            return number + 'nd';
-        case 3:
-            return number + 'rd';
-        default:
-            return number + 'th';
-    }
-}
   onSearchChange(event) {
     this.textoBuscar = event.detail.value;
   }

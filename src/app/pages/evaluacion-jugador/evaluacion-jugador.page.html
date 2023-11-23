@@ -1,22 +1,20 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
+<ion-header mode="ios" class="ion-header">
+  <ion-toolbar mode="md">
     <ion-button slot="start" (click)="regresar()" fill="clear">
       <ion-icon size="large" name="close-outline"></ion-icon>
     </ion-button>
     <ion-title> {{ 'TEAM_EVALUATION' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-toolbar mode="ios">
-  <ion-title>{{ titulo | translate }}</ion-title>
-</ion-toolbar>
-<ion-toolbar
-  mode="ios"
-  class="ion-padding"
+ 
+<ion-header mode="ios"  >
+  <ion-toolbar style="padding-top: 10px;padding-bottom: 10px;"
+  mode="md"
   *ngIf="equipo.Cod_Equipo != reto.rival.Cod_Equipo"
 >
-  <h4 slot="start">{{"RIVAL" | translate }} {{reto.rival.Abreviacion}}</h4>
+  <ion-title slot="start">{{"RIVAL" | translate }} {{reto.rival.Abreviacion}}</ion-title>
 
-  <ion-avatar slot="end">
+  <ion-avatar slot="end" style="margin-right: 20px;">
     <img
       *ngIf="!reto.rival.Avatar"
       src="{{url+reto.rival.Foto}}"
@@ -31,16 +29,19 @@
     />
   </ion-avatar>
 </ion-toolbar>
-<ion-toolbar
-  mode="ios"
-  class="ion-padding"
+</ion-header>
+
+<ion-header mode="ios"  >
+  <ion-toolbar
+  style="padding-top: 10px;padding-bottom: 10px;"
+  mode="md"
   *ngIf="equipo.Cod_Equipo != reto.retador.Cod_Equipo"
 >
-  <h4 slot="start">
+  <ion-title slot="start">
     {{"CHALLENGER" | translate }} {{reto.retador.Abreviacion}}
-  </h4>
+  </ion-title>
 
-  <ion-avatar slot="end">
+  <ion-avatar slot="end" style="margin-right: 20px;">
     <img
       *ngIf="!reto.retador.Avatar"
       src="{{url+reto.retador.Foto}}"
@@ -55,7 +56,12 @@
     />
   </ion-avatar>
 </ion-toolbar>
-
+</ion-header>
+<ion-header mode="ios"  >
+  <ion-toolbar mode="md">
+    <ion-title >{{ titulo | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content fullscreen>
   <ion-list>
     <ion-radio-group *ngIf="!next" (ionChange)="agregarJDP($event)">

@@ -307,6 +307,14 @@
 "AMOUNT_TO_PAY": "Amount to Pay",
 "AMOUNT_TO_PAY_TODAY": "Amount to Pay Today",
 "SEE_ALL": "See All",
-"SOCCER_FIELDS_DESCRIPTION": "Explore the variety of fields"
+"SOCCER_FIELDS_DESCRIPTION": "Explore the variety of fields",
+"PICK_UP_YOUR_TEAM": "Pick up your team",
+"PICK_UP_YOUR_RIVAL_TEAM": "Pick up your rival team",
+"LEAGUE_TABLE": "League Table",
+"RESERVE": "Reserve",
+"PAYMENT_FROM_THE_OTHER_TEAM_IS_REQUIRED": "Payment from the other team is required",
+"AVAILABLE_TOURNAMENTS": "Available Tournaments",
+"RANKING": "Ranking",
+"TOURMAMENT_NEWS": "Tournament News"
   
 }

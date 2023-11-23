@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanLoad, Router } from '@angular/router';
+import { CanLoad, Router, UrlTree } from '@angular/router';
 import { UsuariosService } from '../services/usuarios.service';
 import { AuthenticationService } from '../services/autenticacion.service';
 import { StorageService } from '../services/storage-service';
@@ -35,7 +35,17 @@ export class AutoLoginGuard implements CanLoad {
     this.storageService.set('usuario', usuarioDB)
  
       this.usuariosService.usuarioActual = usuarioDB;
+  }else {
+
+    return this.router.navigateByUrl('/inicio-sesion', { replaceUrl: true });
+  
   }
+  let urlTree: UrlTree= this.router.parseUrl(this.router.url);
+  // Obtén el primer segmento de la URL
+  let segment = urlTree.root.children['primary'].segments[1].path;
+  // Establece el segmento en el servicio de alertas
+  this.alertasService.segment = 'torneos';
+ 
         if(this.usuariosService.usuarioActual && this.usuariosService.usuarioActual.Idioma){
           if(this.usuariosService.usuarioActual.Idioma == 'US'){
             this.usuariosService.idioma = 'US';
@@ -48,12 +58,14 @@ export class AutoLoginGuard implements CanLoad {
           this.usuariosService.idioma = 'US';
           this.usuariosService.file = 'Ingles';
         }
+        
         this.translateService.setDefaultLang(this.usuariosService.file);
         if (this.usuariosService.usuarioActual) {
-          this.alertasService.pagina = 'reservaciones'
-       
-          return this.router.navigateByUrl('/futplay/reservaciones', { replaceUrl: true });
-        }
+      
+         
+    
+          return this.router.navigateByUrl('/futplay/torneos', { replaceUrl: true });
+        } 
       });
 
     }

@@ -1,5 +1,5 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
+<ion-header mode="ios" class="ion-header ion-no-border">
+  <ion-toolbar mode="md">
     <ion-button slot="start" (click)="regresar()" fill="clear">
       <ion-icon size="large" name="close-outline"></ion-icon>
     </ion-button>
@@ -7,28 +7,30 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-toolbar mode="ios" class="ion-padding">
-  <h4 slot="start">{{equipo.Nombre}}</h4>
-  <ion-avatar slot="end">
-    <img
-      *ngIf="!equipo.Avatar"
-      src="{{url+equipo.Foto}}"
-      onerror="this.src='assets/img/icon/FP.svg'"
-      alt=""
-    />
-    <img
-      *ngIf="equipo.Avatar"
-      src="assets/soccer-shields-svg/{{equipo.Foto}}"
-      onerror="this.src='assets/img/icon/FP.svg'"
-      alt=""
-    />
-  </ion-avatar>
-</ion-toolbar>
+ <ion-header mode="ios"  >
+  <ion-toolbar mode="md" style="padding-top: 10px;padding-bottom: 10px;" >
+    <ion-title slot="start">{{equipo.Nombre}}</ion-title>
+    <ion-avatar slot="end" style="margin-right: 20px;">
+      <img
+        *ngIf="!equipo.Avatar"
+        src="{{url+equipo.Foto}}"
+        onerror="this.src='assets/img/icon/FP.svg'"
+        alt=""
+      />
+      <img
+        *ngIf="equipo.Avatar"
+        src="assets/soccer-shields-svg/{{equipo.Foto}}"
+        onerror="this.src='assets/img/icon/FP.svg'"
+        alt=""
+      />
+    </ion-avatar>
+  </ion-toolbar>
+ </ion-header>
 <ion-content fullscreen>
   <ion-radio-group (ionChange)="durezaEquipo($event)">
     <ion-list>
       <ion-item lines="full" *ngFor="let item of dureza">
-        <ion-avatar slot="start" class="ion-margin">
+        <ion-avatar style="height: 3rem;width: 3rem;" slot="start" class="ion-margin">
           <img src="assets/emojis/{{item.image}}" />
         </ion-avatar>
         <ion-label>{{item.titulo}}</ion-label>

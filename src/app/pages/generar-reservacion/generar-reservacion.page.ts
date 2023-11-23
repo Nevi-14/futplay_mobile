@@ -52,12 +52,12 @@ export class GenerarReservacionPage {
   rival: PerfilEquipos;
   retador: PerfilEquipos;
   validarReservacion: boolean = false;
-  retoAbierto = true;
+  retoAbierto = false;
   retoIndividual = false;
   nuevaReservacion: Reservaciones = {
     Cod_Reservacion: null,
     Cod_Cancha: null,
-    Cod_Tipo: 2,
+    Cod_Tipo: 3,
     Cod_Usuario: this.usuariosService.usuarioActual.Cod_Usuario,
     Reservacion_Externa: false,
     Titulo: '',
@@ -102,7 +102,36 @@ export class GenerarReservacionPage {
   isModalOpen: boolean = false;
   fecha: string = new Date(format(new Date(), 'yyy/MM/dd')).toISOString();
   fechaMinima = new Date(format(new Date(), 'yyy/MM/dd')).toISOString();
+
+
+  // new
+
+
+  hoursArray: string[] = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'];
+  selectedHour: string;
+
+
   showPicker = false;
+  customPickerOptions: any = {
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+      },
+      {
+        text: 'Done',
+      },
+    ],
+    columns: [
+      {
+        name: 'hours',
+        options: this.hoursArray.map(hour => ({ text: hour, value: hour })),
+      },
+    ],
+  };
+
+
+  
   constructor(
     public modalCtrl: ModalController,
     public usuariosService: UsuariosService,
@@ -117,8 +146,18 @@ export class GenerarReservacionPage {
     public equiposService: EquiposService,
     public alertCtrl: AlertController,
     private pickerCtrl: PickerController
-  ) {}
+  ) {
 
+
+
+    
+  }
+ 
+ 
+  onTimeChange(event: CustomEvent) {
+    // Handle time change event if needed
+    console.log('Selected time:', event.detail.value);
+  }
   resetearHoras() {
     this.nuevaReservacion.Hora_Inicio = null;
     this.nuevaReservacion.Hora_Fin = null;
@@ -155,7 +194,7 @@ export class GenerarReservacionPage {
     this.nuevaReservacion = {
       Cod_Reservacion: null,
       Cod_Cancha: null,
-      Cod_Tipo: 2,
+      Cod_Tipo: 3,
       Cod_Usuario: this.usuariosService.usuarioActual.Cod_Usuario,
       Reservacion_Externa: false,
       Titulo: '',
@@ -278,6 +317,8 @@ export class GenerarReservacionPage {
   }
 
   async openPicker(index: number) {
+
+    if(index  == 2 && this.nuevaReservacion.Hora_Inicio == null) return this.alertasService.message('FUTPLAY', this.translateService.instant('SELECT_START_TIME'))
     if (
       this.nuevaReservacion.Fecha ==
         new Date(format(new Date(), 'yyy/MM/dd')).toISOString() &&
@@ -394,6 +435,9 @@ export class GenerarReservacionPage {
 
     if(this.nuevaReservacion.Hora_Inicio == null){
       return this.alertasService.message('FUTPLAY', this.translateService.instant('SELECT_START_TIME'))
+    }
+    if(this.nuevaReservacion.Hora_Fin == null){
+      return this.alertasService.message('FUTPLAY', this.translateService.instant('SELECT_END_TIME'))
     }
     if(this.nuevaReservacion.Hora_Fin == null){
       return this.alertasService.message('FUTPLAY', this.translateService.instant('SELECT_YOUR_TEAM'))

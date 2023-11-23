@@ -32,12 +32,15 @@ export class AlertasService {
       });
     });
   }
-
-  async loadingDissmiss() {
+  async   loadingDissmiss(){
     this.isLoading = false;
-    this.checkAndCloseLoader();
-    setTimeout(() => this.checkAndCloseLoader(), 1000);
+    let topLoader = await this.loadingCtrl.getTop();
+    while (topLoader) {
+      if (!(await topLoader.dismiss()))  this.loadingDissmiss();
+      topLoader = await this.loadingCtrl.getTop();
+    }
   }
+  
 
   async closeLoader() {
     this.checkAndCloseLoader();

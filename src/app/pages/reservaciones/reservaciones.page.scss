@@ -79,6 +79,7 @@ ion-segment-button{
 .badge-box{
   position: relative;
 width: 100px;
+ 
 }
 .badge{
   background-color: #5a55ca!important;
@@ -90,7 +91,7 @@ width: 100px;
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: -16px;
+  top: -5px;
   right: -15px;
   z-index: 1000;
   

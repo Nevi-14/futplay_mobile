@@ -57,26 +57,135 @@
         <ion-grid>
           <ion-row>
             <ion-col size="12">
-         <h3><strong>{{"SCHEDULE" | translate }}</strong></h3>
+         <h3><strong>{{"SELECT_DATE" | translate }}</strong></h3>
             </ion-col>
-            <ion-col size="12">
-              <ion-item *ngIf="cancha.horario && cancha.horario.length > 0">
-                <ion-label class="ion-text-wrap">{{ formatearHorarios(cancha.horario) }}</ion-label>
-              </ion-item>
+            <ion-col size="12" style="padding: 0;">
+              <ion-datetime
+                class="datetime-full-width"
+                (ionChange)="cambiarFecha($event)"
+                [min]="fechaMinima"
+                presentation="date"
+                [(ngModel)]="fecha"
+              ></ion-datetime>
             </ion-col>
-            <ion-col size="12">
-              
-              <h3><strong>{{"LOCATION" | translate }}</strong></h3>
 
-            </ion-col>
             <ion-col size="12">
-              <ion-label> {{cancha.pais}}, {{cancha.estado}}</ion-label>
-            </ion-col>
-    <ion-col size="12">
-      <ion-card>
-        <app-mapa [lngLat]="[cancha.longitud, cancha.latitud]"></app-mapa>
-      </ion-card>
-    </ion-col>
+              <h3><strong>{{"SELECT_SHECULE" | translate }}</strong></h3>
+                 </ion-col>
+<ion-col size="12"  >
+ <ion-item lines="full">
+<div style="display: flex;align-items: center; padding-bottom: 20px;">
+  <ion-button class="custom-button" (click)="openPicker(1)" fill="outline">
+    <span *ngIf="!nuevaReservacion.Hora_Inicio">
+      00:00:00
+    </span>
+    {{ nuevaReservacion.Hora_Inicio | date:'h:mm a'}}
+  </ion-button>
+<ion-label color="dark" style="margin-left: 10px;margin-right: 10px;font-size: 20px;">-</ion-label>
+  <ion-button  class="custom-button" style="height: 40px;border-radius: 12px;" (click)="openPicker(2)"  fill="outline"   >
+    <span *ngIf="!nuevaReservacion.Hora_Fin">
+      00:00:00
+       </span>
+    {{ nuevaReservacion.Hora_Fin | date:'h:mm a'}}
+  </ion-button>
+
+</div>
+ </ion-item>
+
+ <ion-item>
+ 
+  <ion-datetime
+    presentation="time"
+    [(ngModel)]="selectedHour"
+    (ionChange)="onTimeChange($event)"
+    [pickerOptions]="customPickerOptions"
+  ></ion-datetime>
+
+ </ion-item>
+ <ion-item lines="full"  >
+  <ion-label  ><strong>{{"YOUR_TEAM" | translate }}</strong>
+  <p *ngIf="!retador">{{"YOUR_TEAM_DESCRIPTION" | translate }}</p>
+  <p class="ion-text-capitalize" *ngIf="retador">{{retador.equipo.Nombre}}</p>
+  </ion-label>
+  <ion-fab-button *ngIf="!retador" slot="end" (click)="agregarRetador()"  size="small">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+
+  <ion-avatar  (click)="agregarRetador()"  *ngIf="retador" slot="end">
+    <img
+      *ngIf="!retador.equipo.Avatar"
+      src="{{url+retador.equipo.Foto}}"
+      onerror="this.src='assets/img/icon/FP.svg'"
+      alt=""
+    />
+    <img
+      *ngIf="retador.equipo.Avatar"
+      src="assets/soccer-shields-svg/{{retador.equipo.Foto}}"
+      onerror="this.src='assets/img/icon/FP.svg'"
+      alt=""
+    />
+  </ion-avatar>
+</ion-item>
+
+<ion-item lines="full">
+  <ion-label  ><strong>{{"TYPE_OF_SOCCER_GAME" | translate }}</strong></ion-label>
+</ion-item>
+
+<ion-item lines="full"   >
+  <ion-label  ><strong>{{"RIVAL" | translate }}</strong>
+ 
+  <p *ngIf="!rival">{{"RIVAL_DESCRIPTION" | translate }}</p>
+  <p class="ion-text-capitalize" *ngIf="rival">{{rival.equipo.Nombre}}</p>
+  </ion-label>
+  <ion-fab-button   *ngIf="!rival" slot="end" (click)="agregarRival()"  size="small">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+
+  <ion-avatar  (click)="agregarRival()"  *ngIf="rival" slot="end">
+    <img
+      *ngIf="!rival.equipo.Avatar"
+      src="{{url+rival.equipo.Foto}}"
+      onerror="this.src='assets/img/icon/FP.svg'"
+      alt=""
+    />
+    <img
+      *ngIf="rival.equipo.Avatar"
+      src="assets/soccer-shields-svg/{{rival.equipo.Foto}}"
+      onerror="this.src='assets/img/icon/FP.svg'"
+      alt=""
+    />
+  </ion-avatar>
+
+
+
+</ion-item>
+
+ 
+<ion-item lines="full"   >
+  <ion-label  ><strong>{{"OPEN_RESERVATION" | translate }}</strong>
+  <p>{{"OPEN_RESERVATION_DESCRIPTION" | translate }}</p>
+  </ion-label>
+<ion-toggle (ionChange)="retoAbiertoChange($event)"  [(ngModel)]="retoAbierto" mode="ios" slot="end"></ion-toggle>
+</ion-item>
+
+
+<ion-item lines="full"   >
+  <ion-label  ><strong>{{"RESERVATION" | translate }}</strong>
+  <p>{{"RESERVATION_DESCRIPTION" | translate }}</p>
+  </ion-label>
+<ion-toggle  (ionChange)="retoIndividualChange($event)"  [(ngModel)]="retoIndividual"  mode="ios" slot="end"></ion-toggle>
+</ion-item>
+<ion-item lines="full" style="padding-right: 10px;">
+  <ion-label  >{{"PRICE" | translate }}
+    <h2 style="text-transform: lowercase;font-weight: bold;font-size: 18px;">{{cancha.cancha.Precio_Hora | colones}} /h</h2>
+  </ion-label>
+<ion-button    (click)="finalizarReservacion()" style="height: 40px;width: 141px;font-size: 18px;text-transform: capitalize;"  slot="end" shape="round">
+  {{"CONTINUE" | translate }} 
+</ion-button>
+</ion-item>
+
+</ion-col>
+
        
      
           </ion-row>
@@ -85,16 +194,3 @@
     </div>
   </div>
 </ion-content>
-
-<ion-footer mode="ios">
-  <ion-toolbar mode="md" class="ion-padding">
-    <ion-label  >{{"PRICE" | translate }}
-      <h5 style="text-transform: lowercase;font-weight: bold;font-size: 18px;">{{cancha.cancha.Precio_Hora | colones}} /h</h5>
-    </ion-label>
-  <ion-button    (click)="canchaReservacion(cancha)" style="height: 40px;width: 141px;font-size: 18px;text-transform: capitalize;"  slot="end" shape="round">
-    {{"RESERVE" | translate }} 
-  </ion-button>
-
- 
-  </ion-toolbar>
-</ion-footer>

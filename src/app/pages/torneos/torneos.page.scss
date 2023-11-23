@@ -1,13 +1,50 @@
- 
-ion-card{
+ion-card {
   font-size: 16px;
-  margin: 1rem;
-    height: 150px;
-    --background:#3d1a6a;
-    color: #fff;
+ 
+  --background: #3d1a6a;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.1), transparent, rgba(255, 255, 255, 0.1));
+    transform: rotate(0deg);
+    pointer-events: none;
+    z-index: 1;
+    animation: shimmer 2s linear infinite;
+  }
+}
+.swiper-wrapper {
+  width: min-content !important;
+} 
+swiper-slide{
+  height: 300px;
+  z-index: 2;
+ 
+}
+.full-size {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+   
+}
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 
+ 
 .custom-item-img{
     img {
       height: 5rem;
@@ -32,30 +69,242 @@ ion-card{
    
   }
   
-  .custom-item {
   
-    --border-radius: 10px;
-    --padding-start: 1rem;
-    --padding-end: 1rem;
-    padding: 0.5rem;
-    
-    ion-label {
-      font-size: 14px!important;
-    
-        padding-left: 1.2rem;
-    
-        h2 {
-    
-            font-weight: 600;
-            letter-spacing: -0.02rem;
-        }
-    
-        p {
-    
-            letter-spacing: -0.03rem;
-        }
-    }
-    
-    
-    
-    }
+
+.stars {
+  display:block;margin-top: 0.5rem;
+}
+
+
+
+ 
+.table{
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.table-team{
+  position: relative;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  height: 80px;
+  background-color: rgb(199, 199, 199, 0.16);
+  color: black;
+  font-weight: 500;
+  text-align: center;
+  span{
+      color: var(--ion-color-secondary);
+  }
+}
+
+.table-points {
+  position: absolute;
+  top: -5px;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  color: white;
+  background-color: transparent;
+  z-index: 1;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--ion-color-secondary);
+    clip-path: polygon(0 0, 150% 0, 100% 100%);
+    border-radius: 10px;
+    z-index: -1;
+  }
+  ion-label {
+    position: absolute;
+    top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+#logo{
+  height: 200px;
+  width: 30%;
+}
+
+#tournaments-title{
+  font-size: 48px;
+  margin-top: 10px;
+  @media (max-width: 900px) {
+      font-size: 32px;
+  }
+}
+
+.team-name{
+  
+  padding-left: 20px;
+text-align: left;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ion-color-secondary);
+  @media (max-width: 900px) {
+      font-size: 16px;
+  
+}
+}
+@media (max-width: 900px) {
+  ion-avatar{
+      width: 60px;
+      height: 60px;
+  }
+}
+
+.flex-container{
+  position: relative;
+  padding-left: 20px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.custom-item {
+  position: absolute;
+  left: -10px;
+  --background: rgb(255, 255, 255, 0.1);
+  background-color: rgb(255, 255, 255, 0.1);
+  position: relative;
+  border-radius: 100px;
+  border: 1px solid #B7B7B7;
+  transition: all 0.2s;
+  width: 341px;
+  color: #B7B7B7;
+  min-height: 0;
+  height: 45px;
+  ion-input,
+  ion-select {
+    min-height: 0;
+    height: 45px;
+  }
+  ion-icon{
+    font-size: 24px;
+    color: #B7B7B7;
+  }
+  }
+.custom-item:active {
+  border: 1px solid #000;
+  color: #fff;
+}
+.custom-item:focus-within {
+  outline: none;
+  box-shadow: 0 0 0 1px #B7B7B7;
+}
+ 
+.box-container{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  ion-label {
+    width: 90%;
+    font-size: 20px;
+    margin: 0 auto;
+    text-align: center!important;
+    display: flex;
+    justify-content: center;
+  }
+}
+.ion-button {
+  --background: rgb(205, 205, 205, 0.5);
+ // width: 140px;
+  height: 40px;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+
+.no-data-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.no-data-image {
+  width: 100px;
+  height: auto;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+}
+ 
+ 
+ion-segment ion-label{
+  margin: 0;
+}
+.badge-box{
+  position: relative;
+width: 100px;
+}
+.badge{
+  background-color: #5a55ca!important;
+  color: #fff;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -18px;
+  right: -15px;
+  z-index: 1000;
+  
+}
+ion-title {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+ // color: #5a55ca;
+}
+ 
+ 
+.button-inner{
+  padding: 0;
+
+}
+.float-right{
+  float: right;
+  margin-right: 10px;
+}
+
+ion-grid {
+  margin-bottom: 16px;
+}
+ 
+.selected{
+  font-weight: 700;
+}
+ion-segment-button {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 18px;
+  text-transform: capitalize;
+  --color-checked: #000;
+  padding: 0;
+  margin: 0;
+ button{
+  height: 20px;
+ }
+} 
+

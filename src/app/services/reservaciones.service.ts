@@ -145,6 +145,7 @@ export class ReservacionesService {
   private getReservacionesConfirmadas(Cod_Usuario) {
     let URL = this.getURL(environment.getReservacionesConfirmadassURL);
     URL = URL + Cod_Usuario;
+    console.log(URL, 'URL')
 
     return this.http.get<PerfilReservaciones[]>(URL);
   }

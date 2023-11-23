@@ -59,6 +59,10 @@ export class PaymentComponent implements OnInit {
     this.card = this.elements.create('card');
     let doc = document.getElementById('card-element');
     this.card.mount(doc);
+    let pago =  await this.confirmacionPagosService.getConfirmacionPagoToPromise(this.nuevaReservacion.Cod_Reservacion);
+    if(pago.length == 1){
+       this.alertasService.message('FUTPLAY',this.translateService.instant('PAYMENT_FROM_THE_OTHER_TEAM_IS_REQUIRED'));
+    }
   }
 
   async verificarUsuario(equipo:PerfilEquipos, verificarJugador?:boolean){
@@ -72,7 +76,6 @@ export class PaymentComponent implements OnInit {
   }
   async onSubmit() {
     if (this.code) {
-      console.log('this.code', this.code  )
       this.codigosDescuentosService.getDescuentoToPromise(this.code).then(
         (resp) => {
           if (resp.length == 0) {
@@ -278,7 +281,8 @@ this.insertarPagosIndividuales(id)
 
 
 let pago =  await this.confirmacionPagosService.getConfirmacionPagoToPromise(this.nuevaReservacion.Cod_Reservacion);
-  if(this.verificarUsuario(this.rival, true) && pago.length == 0 ){
+ 
+  if(pago.length == 0 ){
 
     this.nuevaReservacion.Cod_Estado = 7;
     this.detalleReservacion.Cod_Estado = 7;
@@ -298,7 +302,7 @@ let pago =  await this.confirmacionPagosService.getConfirmacionPagoToPromise(thi
         )
       );
     });
-  }else if(this.verificarUsuario(this.retador, true ) && pago.length > 0){
+  }else if(pago.length == 1){
         this.nuevaReservacion.Cod_Estado = 4;
       this.detalleReservacion.Cod_Estado = 4;
       await this.gestionReservacionesService.syncPutReservacione(this.nuevaReservacion);

@@ -3,7 +3,7 @@
 
 <ion-header mode="md"  class="ion-no-border">
   <app-header></app-header>
-  <ion-toolbar>
+  <ion-toolbar   mode="md">
     <ion-item class="custom-item" lines="none">
       <ion-icon   name="search"></ion-icon>
       <ion-input (ionInput)="onSearchChange($event)"  type="text"  placeholder="{{'SEARCH' | translate}}"  debounce="250"></ion-input>
@@ -37,27 +37,27 @@
       </ion-button>
     </ion-item>
   </ion-toolbar>
-  <ion-toolbar>
-    <ion-segment (ionChange)="cargarReservaciones($event)" scrollable mode="md" [(ngModel)]="segment">
-      <ion-segment-button [ngClass]="{'selected': segment == 'AVAILABLE' ? true :  false  }" value="AVAILABLE">
-        <ion-label>{{"AVAILABLE" | translate }}</ion-label>
-      </ion-segment-button>
-      <ion-segment-button  [ngClass]="{'selected': segment == 'CONFIRMED' ? true :  false  }"  value="CONFIRMED">
-        <ion-label>{{"CONFIRMED" | translate }}</ion-label>
-      </ion-segment-button>
-      <ion-segment-button  [ngClass]="{'selected': segment == 'RECEIVED' ? true :  false  }"   value="RECEIVED">
-        <span class="badge-box">
-          <ion-label>{{"RECEIVED" | translate }}</ion-label>
-          <span class="badge"> {{recibidos.length}} </span>
-        </span>
-      </ion-segment-button>
+<ion-toolbar mode="md">
+  <ion-segment    (ionChange)="cargarReservaciones($event)" scrollable mode="md" [(ngModel)]="segment">
+    <ion-segment-button [ngClass]="{'selected': segment == 'AVAILABLE' ? true :  false  }" value="AVAILABLE">
+      <ion-label>{{"AVAILABLE" | translate }}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button  [ngClass]="{'selected': segment == 'CONFIRMED' ? true :  false  }"  value="CONFIRMED">
+      <ion-label>{{"CONFIRMED" | translate }}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button  [ngClass]="{'selected': segment == 'RECEIVED' ? true :  false  }"   value="RECEIVED">
+      <span class="badge-box">
+        <ion-label>{{"RECEIVED" | translate }}</ion-label>
+        <span class="badge"> {{recibidos.length}} </span>
+      </span>
+    </ion-segment-button>
 
-      <ion-segment-button [ngClass]="{'selected': segment == 'SENT' ? true :  false  }"   value="SENT">
-        <ion-label>{{"SENT" | translate }}</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
-  <ion-toolbar>
+    <ion-segment-button [ngClass]="{'selected': segment == 'SENT' ? true :  false  }"   value="SENT">
+      <ion-label>{{"SENT" | translate }}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+  <ion-toolbar mode="md">
     <ion-title>
       <span *ngIf="segment == 'AVAILABLE'">{{ "AVAILABLE_CHALLENGES" | translate }}</span>
       <span *ngIf="segment == 'CONFIRMED'">{{ "CONFIRMED_CHALLENGES" | translate }}</span>
@@ -71,7 +71,7 @@
   <div class="no-data-container" *ngIf="reservaciones.length == 0">
     <img src="assets/logo.png" alt="No data" class="no-data-image">
     <div class="ion-text-center">
-      <h3  >{{"FUTPLAY_MESSAGE" | translate }}</h3>
+   
       <p>{{"NO_RECORDS_FOUND" | translate }}</p>
     </div>
   </div>

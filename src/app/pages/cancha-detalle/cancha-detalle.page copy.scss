@@ -1,0 +1,33 @@
+ 
+ion-header{
+   
+  ion-toolbar{
+    --background:#5a55ca;
+    color: #fff;
+    ion-icon{
+        color: #fff;
+    }
+}
+}
+ 
+swiper-container {
+  width: 100%;
+  height: 250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+swiper-slide {
+  background-size: cover;
+  background-position: center;
+}
+
+ 
+ 
+
+swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}

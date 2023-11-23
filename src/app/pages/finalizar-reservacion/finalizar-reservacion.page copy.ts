@@ -59,6 +59,22 @@ export class FinalizarReservacionPage {
 
   async ionViewWillEnter() {
     this.pagoPendiente = this.nuevaReservacion.Cod_Estado == 7 ? true : false;
+
+    // let pago = await this.confirmacionPagosService.getConfirmacionPagoToPromise(
+    //   this.nuevaReservacion.Cod_Reservacion
+    // );
+ 
+    // // if (pago.length == 0 || pago.length == 1) {
+    // //   this.efectuarPago  = true;
+   
+    // // }
+    // console.log(
+    //   this.nuevaReservacion,
+    //   this.detalleReservacion,
+    //   this.rival,
+    //   this.retador,
+    //   this.cancha
+   //);
     this.detalleReservacion.Cod_Retador = this.retador.equipo.Cod_Equipo;
     if (this.rival) {
       this.detalleReservacion.Cod_Rival = this.rival.equipo.Cod_Equipo;

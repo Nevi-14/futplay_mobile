@@ -23,7 +23,7 @@ import { FinalizarReservacionPage } from '../finalizar-reservacion/finalizar-res
   templateUrl: './gestion-retos.page.html',
   styleUrls: ['./gestion-retos.page.scss'],
 })
-export class GestionRetosPage implements OnInit {
+export class GestionRetosPage  {
   reservaciones: PerfilReservaciones[] = [];
   url = environment.archivosURL;
   textoBuscar = '';
@@ -44,7 +44,7 @@ export class GestionRetosPage implements OnInit {
     
     ) {}
   
- async  ngOnInit() {
+ async  ionViewWillEnter() {
   if(!this.usuariosService.usuarioActual) return;
     this.reservaciones = await this.reservacionesService.syncgGtReservacionesConfirmadas(this.usuariosService.usuarioActual.Cod_Usuario);
     this.canchasService.syncListaCanchasToPromise().then(
@@ -55,7 +55,7 @@ export class GestionRetosPage implements OnInit {
       (error) => {
         this.alertasService.message(
           'FUTPLAY',
-          this.translateService.instant('ALL_FIELDS_REQUIRED')
+          this.translateService.instant('SOMETHING_WENT_WRONG')
         );
       }
     );
@@ -139,24 +139,30 @@ export class GestionRetosPage implements OnInit {
 }
 
 async retoConfirmado(reto: PerfilReservaciones) {
+
   if (reto.reservacion.Cod_Estado == 7) {
     return this.finalizarReservacionConfirmada(reto);
   }
   this.iniciarPartido(reto);
 }
 async partidoActual(reto: PerfilReservaciones) {
+  this.alertasService.presentaLoading('LOADING');
   let partido = await this.partidosService.syncGetPartidoReservacion(
     reto.reservacion.Cod_Reservacion
   );
+  let cancha = await this.canchasService.syncGetPerfilCanchaToPromise(reto.cancha.Cod_Cancha);
+ 
   const modal = await this.modalCtrl.create({
     component: InicioPartidoPage,
     cssClass: 'my-custom-class',
     componentProps: {
       reto: reto,
       partido: partido,
+      cancha: cancha[0],
     },
     id: 'inicio-partido',
   });
+  this.alertasService.loadingDissmiss();
 
   await modal.present();
   let { data } = await modal.onDidDismiss();

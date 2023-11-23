@@ -70,7 +70,7 @@ export const environment = {
   putHorarioCanchaURL:'put/horario/cancha/',
   putCanchaEstadoURL:'put/estado/cancha/',
   deleteReservacionesURL:'delete/reservacion/',
-  
+  agregarMarcadorURL:'post/agregar/marcador',
 
   getFiltroEquiposURL:'get/filtro/equipos/',
   getFiltroCanchasURL:'get/filtro/canchas/',
